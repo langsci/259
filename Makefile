@@ -10,7 +10,7 @@ all: pod cover
 complete: index main.pdf
 
 index:  main.snd
- 
+
 main.pdf: main.aux
 	xelatex main 
 
@@ -35,7 +35,7 @@ main.snd: FORCE
 	makeindex -o main.lnd main.ldx
 	makeindex -o main.snd main.sdx 
 	xelatex main 
- 
+
 
 #create a png of the cover
 cover: FORCE
@@ -51,18 +51,18 @@ googlebooks_interior.pdf: complete
 	pdftk main.pdf cat 1 output googlebooks_frontcover.pdf 
 
 openreview: openreview.pdf
-	
+
 
 openreview.pdf: main.pdf
 	pdftk main.pdf multistamp orstamp.pdf output openreview.pdf 
 
 proofreading: proofreading.pdf
-	
+
 
 proofreading.pdf: main.pdf
 	pdftk main.pdf multistamp prstamp.pdf output proofreading.pdf 
 
-	
+
 paperhive: 
 	git branch gh-pages
 	git checkout gh-pages
@@ -72,23 +72,23 @@ paperhive:
 	git checkout master 
 	echo "langsci.github.io/BOOKID"
 	firefox https://paperhive.org/documents/new
-	
+
 
 blurb: blurb.html blurb.tex biosketch.tex biosketch.html
 
 
 blurb.tex: blurb.md
 	pandoc -f markdown -t latex blurb.md>blurb.tex
-	
+
 blurb.html: blurb.md
 	pandoc -f markdown -t html blurb.md>blurb.html
-	
+
 biosketch.tex: blurb.md
 	pandoc -f markdown -t latex biosketch.md>biosketch.tex
-	
+
 biosketch.html: blurb.md
 	pandoc -f markdown -t html biosketch.md>biosketch.html
-	
+
 #housekeeping	
 clean:
 	rm -f *.bak *~ *.backup *.tmp \
@@ -106,6 +106,6 @@ realclean: clean
 
 chapterlist:
 	grep chapter main.toc|sed "s/.*numberline {[0-9]\+}\(.*\).newline.*/\\1/"
- 
+
 
 FORCE:
