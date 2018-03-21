@@ -1,6 +1,16 @@
 \ProvidesFile{sp-authoryear-comp.cbx}
 
-\ExecuteBibliographyOptions{labeldate,uniquename,uniquelist,autocite=inline}
+% For backward compatibility: choose labeldate or labeldateparts depending on the biblatex version
+\@ifpackagelater{biblatex}{2016/09/09}
+{%
+  \ExecuteBibliographyOptions{labeldateparts} % as of biblatex 3.5 (2016/09/10)
+}
+{%
+  \ExecuteBibliographyOptions{labeldate}
+}%
+
+\ExecuteBibliographyOptions{uniquename=minfull,uniquelist=minyear,autocite=inline}
+
 % disabled sortcites option, since it was sorting by name, instead of
 % year, and we often want to keep citations in the order chosen by the
 % author
@@ -14,11 +24,20 @@
     {\iffieldundef{prenote}
        {}
        {\global\undef\cbx@lasthash
-	\global\undef\cbx@lastyear}}}
+        \global\undef\cbx@lastyear}}}
 
 \newbibmacro*{cite:reinit}{%
   \global\undef\cbx@lasthash
   \global\undef\cbx@lastyear}
+
+\newbibmacro*{labelyearrepeat}{%
+  \ifthenelse{\iffieldequals{labelyear}{\cbx@lastyear}\AND
+              \(\value{multicitecount}=0\OR\iffieldundef{postnote}\)}
+    {\setunit{\addcomma}%
+     \usebibmacro{cite:extrayear}}
+    {\setunit{\compcitedelim}%
+     \usebibmacro{cite:labelyear+extrayear}%
+     \savefield{labelyear}{\cbx@lastyear}}}
 
 \newbibmacro*{cite}{% Based on cite bib macro from authoryear-comp.cbx
   \iffieldundef{shorthand}
@@ -30,13 +49,7 @@
           \usebibmacro{cite:labelyear+extrayear}}%
           \usebibmacro{cite:reinit}}
        {\iffieldequals{namehash}{\cbx@lasthash}
-          {\ifthenelse{\iffieldequals{labelyear}{\cbx@lastyear}\AND
-                       \(\value{multicitecount}=0\OR\iffieldundef{postnote}\)}
-             {\setunit{\addcomma}%
-              \usebibmacro{cite:extrayear}}
-             {\setunit{\compcitedelim}%
-              \usebibmacro{cite:labelyear+extrayear}%
-              \savefield{labelyear}{\cbx@lastyear}}}
+          {\usebibmacro{labelyearrepeat}}
           {\printtext[bibhyperref]{% Include labelname in hyperlink
              \DeclareFieldAlias{bibhyperref}{default}% Prevent nested hyperlinks
              \printnames{labelname}%
@@ -54,13 +67,7 @@
        {\usebibmacro{cite:label}%
         \usebibmacro{cite:reinit}}
        {\iffieldequals{namehash}{\cbx@lasthash}
-          {\ifthenelse{\iffieldequals{labelyear}{\cbx@lastyear}\AND
-                       \(\value{multicitecount}=0\OR\iffieldundef{postnote}\)}
-             {\setunit{\addcomma}%
-              \usebibmacro{cite:extrayear}}
-             {\setunit{\compcitedelim}%
-              \usebibmacro{cite:labelyear+extrayear}%
-              \savefield{labelyear}{\cbx@lastyear}}}
+          {\usebibmacro{labelyearrepeat}}
           {\usebibmacro{cite:labelyear+extrayear}%
            \savefield{namehash}{\cbx@lasthash}%
            \savefield{labelyear}{\cbx@lastyear}}}}
@@ -68,16 +75,10 @@
      \usebibmacro{cite:reinit}}%
   \setunit{\multicitedelim}}
 
-\renewbibmacro*{textcite}{% Based on textcite bib macro from authoryear-comp.cbx
+\newbibmacro*{textcite}{% Based on textcite bib macro from authoryear-comp.cbx
   \iffieldequals{namehash}{\cbx@lasthash}
     {\iffieldundef{shorthand}
-       {\ifthenelse{\iffieldequals{labelyear}{\cbx@lastyear}\AND
-                    \(\value{multicitecount}=0\OR\iffieldundef{postnote}\)}
-          {\setunit{\addcomma}%
-           \usebibmacro{cite:extrayear}}
-          {\setunit{\compcitedelim}%
-           \usebibmacro{cite:labelyear+extrayear}%
-           \savefield{labelyear}{\cbx@lastyear}}}
+       {\usebibmacro{labelyearrepeat}}
        {\setunit{\compcitedelim}%
         \usebibmacro{cite:shorthand}%
         \global\undef\cbx@lastyear}}
@@ -102,6 +103,59 @@
        {\printtext[bibhyperref]{% Include labelname in hyperlink
           \DeclareFieldAlias{bibhyperref}{default}% Prevent nested hyperlinks
           \printnames{labelname}%
+          \setunit{%
+            \global\booltrue{cbx:parens}%
+            \addspace\bibopenparen}%
+          \ifnumequal{\value{citecount}}{1}
+            {\usebibmacro{prenote}}
+            {}%
+          \iffieldundef{shorthand}
+            {\iffieldundef{labelyear}
+               {\usebibmacro{cite:label}}
+               {\usebibmacro{cite:labelyear+extrayear}}%
+             \savefield{labelyear}{\cbx@lastyear}}
+            {\usebibmacro{cite:shorthand}%
+             \global\undef\cbx@lastyear}%
+          \ifthenelse{\iffieldundef{postnote}\AND
+                      \(\value{multicitetotal}=0\AND\value{citetotal}=1\)}
+            {\bibcloseparen% Include closing parenthesis in hyperlink
+             \global\boolfalse{cbx:parens}}
+            {}}%
+          \savefield{namehash}{\cbx@lasthash}}}%
+  \setunit{%
+    \ifbool{cbx:parens}
+      {\bibcloseparen\global\boolfalse{cbx:parens}}
+      {}%
+    \multicitedelim}}
+
+\newbibmacro*{posscite}{% Based on textcite bib macro above
+  \iffieldequals{namehash}{\cbx@lasthash}
+    {\iffieldundef{shorthand}
+       {\usebibmacro{labelyearrepeat}}
+       {\setunit{\compcitedelim}%
+        \usebibmacro{cite:shorthand}%
+        \global\undef\cbx@lastyear}}
+    {\ifnameundef{labelname}
+       {\printtext[bibhyperref]{% Include labelname in hyperlink
+          \DeclareFieldAlias{bibhyperref}{default}% Prevent nested hyperlinks
+          \iffieldundef{shorthand}
+            {\usebibmacro{cite:label}%
+             \setunit{%
+               \global\booltrue{cbx:parens}%
+               \addspace\bibopenparen}%
+             \ifnumequal{\value{citecount}}{1}
+               {\usebibmacro{prenote}}
+               {}%
+             \usebibmacro{cite:labelyear+extrayear}}
+            {\usebibmacro{cite:shorthand}}%
+          \ifthenelse{\iffieldundef{postnote}\AND
+                      \(\value{multicitetotal}=0\AND\value{citetotal}=1\)}
+            {\bibcloseparen% Include closing parenthesis in hyperlink
+             \global\boolfalse{cbx:parens}}
+            {}}}
+       {\printtext[bibhyperref]{% Include labelname in hyperlink
+          \DeclareFieldAlias{bibhyperref}{default}% Prevent nested hyperlinks
+          \printnames{labelname}'s%
           \setunit{%
             \global\booltrue{cbx:parens}%
             \addspace\bibopenparen}%
@@ -153,12 +207,12 @@
     {\setunit{}%
      \printtext{%
        \ifbool{cbx:parens}
-	 {\bibcloseparen\global\boolfalse{cbx:parens}}
-	 {}}}
+         {\bibcloseparen\global\boolfalse{cbx:parens}}
+         {}}}
     {\setunit{%
        \ifbool{cbx:parens}
-	 {\bibcloseparen\global\boolfalse{cbx:parens}}
-	 {}%
+         {\bibcloseparen\global\boolfalse{cbx:parens}}
+         {}%
        \multicitedelim}}}
 
 \DeclareCiteCommand{\cite}
@@ -232,7 +286,7 @@
                                      {\setunit{\multicitedelim}}
 \DeclareMultiCiteCommand{\textcites}{\textcite}{}
 
-\renewcommand*{\nameyeardelim}{\addspace} 
+\renewcommand*{\nameyeardelim}{\addspace}
 
 \let\citealt\cite
 \let\citet\textcite
@@ -241,7 +295,15 @@
 \newcommand{\pgcitealt}[2]{\cite{#1}:~#2}
 \newcommand{\pgcitet}[2]{\citeauthor{#1} (\citeyear{#1}:~#2)}
 \newcommand{\pgposscitet}[2]{\citeauthor{#1}'s (\citeyear{#1}:~#2)}
+\newcommand{\seccitealt}[2]{\cite{#1}:~$\S$#2}
+\newcommand{\seccitep}[2]{(\cite{#1}:~$\S$#2)}
+\newcommand{\seccitet}[2]{\citeauthor{#1} (\citeyear{#1}:~$\S$#2)}
+\newcommand{\secposscitet}[2]{\citeauthor{#1}'s (\citeyear{#1}:~$\S$#2)}
 \let\citep\parencite
+
+\renewcommand*{\postnotedelim}{\addcolon\space}
+\DeclareFieldFormat{postnote}{#1}
+\DeclareFieldFormat{multipostnote}{#1}
 
 \DeclareCiteCommand{\citeauthor}
   {\boolfalse{citetracker}%
@@ -258,22 +320,29 @@
   {\boolfalse{citetracker}%
    \boolfalse{pagetracker}%
    \usebibmacro{prenote}}
-  {\printfield[bibhyperref]{year}}
+  {\printtext[bibhyperref]{\iffieldundef{year}{\printfield{labelyear}}{\printfield{year}}\printfield{extrayear}}}
   {\multicitedelim}
   {\usebibmacro{postnote}}
-  
+
 \DeclareCiteCommand{\citeyearpar}[\mkbibparens]
   {\boolfalse{citetracker}%
    \boolfalse{pagetracker}%
    \usebibmacro{prenote}}
-  {\printfield[bibhyperref]{year}}
+  {\printtext[bibhyperref]{\iffieldundef{year}{\printfield{labelyear}}{\printfield{year}}\printfield{extrayear}}}
   {\multicitedelim}
   {\usebibmacro{postnote}}
 
 \DeclareCiteCommand{\posscitet}
+  {\usebibmacro{cite:init}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{posscite}}
+  {}
+  {\usebibmacro{textcite:postnote}}
+
+\DeclareCiteCommand{\posscitealt}
   {\boolfalse{citetracker}%
    \boolfalse{pagetracker}}
-  {\printtext[bibhyperref]{\printnames{labelname}'s \printfield[parens]{year}}}
+  {\printtext[bibhyperref]{\printnames{labelname}'s \iffieldundef{year}{\printfield{labelyear}}{\printfield{year}}\printfield{extrayear}}}
   {}
   {}
 
@@ -283,7 +352,7 @@
   {\printtext[bibhyperref]{\printnames{labelname}'s}}
   {}
   {}
-  
+
 \renewcommand*{\multicitedelim}{\addcomma\space}
 
  \endinput

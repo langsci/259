@@ -11,6 +11,22 @@ complete: index main.pdf
 
 index:  main.snd
 
+
+*.pdf: $(SOURCE)
+	xelatex -no-pdf $* 
+	biber $*
+	sed -i.backup s/.*\\emph.*// $*.adx #remove titles which biblatex puts into the name index
+	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' $*.sdx # ordering of references to footnotes
+	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' $*.adx
+	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' $*.ldx
+# 	python3 fixindex.py
+# 	mv mainmod.adx $*.adx
+	makeindex -o $*.and $*.adx
+	makeindex -o $*.lnd $*.ldx
+	makeindex -o $*.snd $*.sdx 
+	xelatex $*
+
+
 main.pdf: main.aux
 	xelatex main 
 
@@ -25,10 +41,10 @@ main.bbl:  $(SOURCE) localbibliography.bib
 
 main.snd: FORCE
 	touch main.adx main.sdx main.ldx
-	sed -i s/.*\\emph.*// main.adx #remove titles which biblatex puts into the name index
-	sed -i 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.sdx # ordering of references to footnotes
-	sed -i 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.adx
-	sed -i 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.ldx
+	sed -i.backup s/.*\\emph.*// main.adx #remove titles which biblatex puts into the name index
+	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.sdx # ordering of references to footnotes
+	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.adx
+	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.ldx
 # 	python3 fixindex.py
 # 	mv mainmod.adx main.adx
 	makeindex -o main.and main.adx

@@ -214,33 +214,26 @@
 % Note: The 2nd Argument of the \ulp command is filled in by experience - if you are not familiar with the command, you should experiment a bit. Usually, five tildes are enough, but be sure to check the outcome. 
 % \ule is meant to be the last word in a phrase that is underlined. Therefore, \ule does not have an extra length.
 \usepackage[normalem]{ulem} 
+\usepackage{calc}
+\newlength{\fulllength}
 \newcommand{\ulp}[2]{%#1: stuff to underline, #2: extra length to skip the whitespace between to components
   \settowidth{\LSPTmp}{#1}%
   % several boxes are need to assure that words with ascending and descending letters are underlined at the same 
   % level, leading to the impression of a continuous stroke
   \parbox[t]{\LSPTmp}{ %restrict first box to the length of first argument
-      \settowidth{\LSPTmp}{#1#2} %inner box is larger than outerbox, so underlining will extend beyond length of outer box
+      \settowidth{\fulllength}{\parbox{\LSPTmp}{~}\parbox{#2mm}{~}} %inner box is larger than outerbox, so underlining will extend beyond length of outer box
       %             align parbox to bottom
       %              |           mbox to prevent hyphenation
-      \uline{\parbox[b]{\LSPTmp}{\mbox{#1#2}}}
+      \uline{\parbox[b]{\fulllength}{\mbox{#1}}}
     }
 }
 
 \newcommand{\ule}[1]{%#1: stuff to underline, no extra length
-  \ulp{#1}{}
+  \ulp{#1}{0}
   }
   
   
 
-\usepackage{newfile}  
-\newoutputstream{colorfigures}
-\openoutputfile{\jobname.clr}{colorfigures}
-\addtostream{colorfigures}{Note the offset incurred by the frontmatter!}
-\newenvironment{colorfigure}{\begin{figure}\addtostream{colorfigures}{\thepage}}{\end{figure}} 
-
-\AtEndDocument{
- \closeoutputstream{colorfigures}
-}
 
 \newcommand{\longrule}{\rule{1em}{.3pt}}
 \usepackage{colortbl} 
@@ -299,3 +292,34 @@
 \newcommand{\rephrase}[2]{{\color{yellow!30!black}#2}\todo{replaced `#1'}}
 
 \newcommand{\missref}[2][]{\todo[#1]{missing reference #2}}
+
+\newenvironment{indentquote}[1]%
+  {\list{}{\leftmargin=#1\rightmargin=0pt}\item[]}%
+  {\endlist}
+  
+  
+\newcommand{\phonrule}[3]{#1 $\to$ #2 / #3}
+\newcommand{\featurebox}[1]{$\left[\begin{tabular}{>{\scshape}c}#1\end{tabular}\right]$}
+
+
+\definecolor{RED}{cmyk}{0.05,1,0.8,0}
+
+%connect two elements with lines
+\newcommand{\connect}[2]{%
+  \tikz[overlay,remember picture]{%
+    \draw[-,thick] (#1) -- (#2) node   {};  %
+  }
+} 
+
+\newcommand{\examplesroman}{
+  \let\eachwordone=\upshape
+  \exfont{\upshape}
+}
+\newcommand{\examplesitalics}{
+  \let\eachwordone=\itshape
+  \exfont{\itshape}
+}
+
+\newenvironment{modquote}[1][6mm]% slightly less indented quote for hyphenation issues
+  {\list{}{\leftmargin=#1\rightmargin=0mm}\item[]}%
+  {\endlist}

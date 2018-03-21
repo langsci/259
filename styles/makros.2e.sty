@@ -1,0 +1,476 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%   $RCSfile: makros.2e.sty,v $
+%%  $Revision: 1.2 $
+%%      $Date: 2004/04/25 09:42:35 $
+%%     Author: Stefan Mueller (DFKI)
+%%    Purpose: 
+%%   Language: LaTeX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% $Log: makros.2e.sty,v $
+%% Revision 1.2  2004/04/25 09:42:35  stefan
+%% erste version
+%%
+%% Revision 1.1  2003/11/26 10:40:50  stefan
+%% *** empty log message ***
+%%
+%% Revision 1.1  2000/04/25 07:54:36  stefan
+%% Initial revision
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Version 15.6.98
+\NeedsTeXFormat{LaTeX2e}
+
+%\RequirePackage{merkmalstruktur}
+
+
+% equation Umgebung, die auf \\ reagiert
+
+\newcounter{uebung}
+\newcommand{\teq}[1]{
+\tiny
+\begin{equation}
+   \begin{array}{lll}
+      #1
+   \end{array}
+\end{equation}
+\normalsize
+}
+
+
+\newcommand{\eq}[1]{\begin{equation}\arraycolsep0pt\begin{array}{lll}#1\end{array}\end{equation}}
+
+%\renewcommand{\theequation}{(\arabic{equation})}
+
+%\newenvironment{example}{\begin{examples}\item}{\end{examples}
+
+%\usepackage{removefr}
+ 
+%% \makeatletter  % <<< weglassen, wenn in .sty-File!
+%\@removefromreset{labelenumi}{chapter}
+%% \makeatother   % <<< weglassen, wenn in .sty-File!
+
+\newcommand{\enumue}[1]{
+        { \renewcommand{\labelenumi}
+                     {\refstepcounter{uebung}\arabic{uebung}.}
+\begin{enumerate}
+#1
+\end{enumerate}
+        }
+}
+
+
+
+\def\two@digits#1{\ifnum#1<10 0\fi\number#1}
+
+\newlength{\mytemplength}
+\newcommand{\fneq}[1]%
+    {\refstepcounter{fnenums}%
+     \refstepcounter{fnx}%
+     \@beginparpenalty\predisplaypenalty
+     \@endparpenalty\postdisplaypenalty
+     \setlength{\topsep}{5pt}
+     \trivlist \item[]
+         \hskip\mathindent%
+         \parbox{11cm}{$#1$}
+         \hfill\displaywidth\linewidth\hbox{(\roman{fnenums})}%
+     \endtrivlist}
+
+
+
+
+%% % aus gb4
+%% \newif\if@noftnote\@noftnotetrue
+%% \newif\if@xrec\@xrecfalse
+%% \@definecounter{fnx}
+
+%% %%%% adapted from latex.tex to get examples in footnotes right
+%% \long\def\@footnotetext#1{%
+%%     \@noftnotefalse\setcounter{fnx}{0}%
+%%     \insert\footins{\reset@font\footnotesize
+%%     \interlinepenalty\interfootnotelinepenalty
+%%     \splittopskip\footnotesep
+%%     \splitmaxdepth \dp\strutbox \floatingpenalty \@MM
+%%     \hsize\columnwidth \@parboxrestore
+%%    \edef\@currentlabel{\csname p@footnote\endcsname\@thefnmark}\@makefntext
+%%     {\rule{\z@}{\footnotesep}\ignorespaces
+%%       #1\strut}}\@noftnotetrue}
+%% % ende aus gb4
+
+\newif\ifshowindex \showindexfalse
+
+%% \newcommand{\ia}[1]{\if@noftnote%
+%% \index{autind}{#1}%
+%% \else%
+%% \index{autind}{#1|fn{\thefootnote}}%
+%% \fi%
+%% }
+%% \newcommand{\iaf}[1]{\index{autind}{#1|fn{\thefootnote}}}
+
+%% \newcommand{\iaright}[1]{\if@noftnote%
+%% \index{autind}{#1|uu}%
+%% \else%
+%% \index{autind}{#1|fnuu{\thefootnote}}%
+%% \fi%
+%% }
+%% \newcommand{\iafright}[1]{\index{autind}{#1|fn{\thefootnote}}}
+
+%% \newcommand{\iawrong}[1]{\if@noftnote%
+%% \index{autind}{#1|uu}%
+%% \else%
+%% \index{autind}{#1|fnuu{\thefootnote}}%
+%% \fi%
+%% }
+%% \newcommand{\iafwrong}[1]{\index{autind}{#1|fn{\thefootnote}}}
+
+
+%% \newcommand{\iadata}[1]{\if@noftnote%
+%% \index{autind}{#1}%
+%% \else%
+%% \index{autind}{#1|fn{\thefootnote}}%
+%% \fi%
+%% }
+%% \newcommand{\iafdata}[1]{\index{autind}{#1|fn{\thefootnote}}}
+
+
+%% \newcommand{\is}[1]{\if@noftnote%
+%% \index{subind}{#1}%
+%% \else%
+%% \index{subind}{#1|fn{\thefootnote}}%
+%% \fi%
+%% }
+%% \newcommand{\isf}[1]{\index{subind}{#1|fn{\thefootnote}}}
+
+
+%% \newcommand{\isfeat}[1]{\if@noftnote%
+%% \index{subind}{feature!{\sc #1}}%
+%% \else%
+%% \index{subind}{feature!{\sc #1}|fn{\thefootnote}}%
+%% \fi%
+%% }
+%% \newcommand{\istype}[1]{\if@noftnote%
+%% \index{subind}{type!{\it #1}}%
+%% \else%
+%% \index{subind}{type!{\it #1}|fn{\thefootnote}}%
+%% \fi%
+%% }
+
+%% \newcommand{\iw}[1]{%
+%% \if@noftnote%
+%% \index{wordind}{#1}%
+%% \else%
+%% \index{wordind}{#1|fn{\thefootnote}}%
+%% \fi%
+%% }
+%% \newcommand{\iwf}[1]{\index{wordind}{#1|fn{\thefootnote}}}
+
+%% \newcommand{\il}[1]{%
+%% \if@noftnote%
+%% \index{subind}{#1}%
+%% \else%
+%% \index{subind}{#1|fn{\thefootnote}}%
+%% \fi%
+%% }
+
+% \newcommand{\il}[1]{%
+% \if@noftnote%
+% \index{langind}{#1}%
+% \else%
+% \index{langind}{#1|fn{\thefootnote}}%
+% \fi%
+% }
+
+\newcommand{\feat}[1]{\textsc{#1}\isfeat{#1}}
+
+\newcommand{\sub}[1]{\(_{\mbox{\scriptsize\textrm{#1}}}\)}
+\newcommand{\ssub}[1]{\(_{\mbox{\tiny\textrm{#1}}}\)}
+
+
+
+%-----------------------------------------------------
+
+% aus rotating.sty statt rotcaption 90
+\def\turncaption{\refstepcounter\@captype\@dblarg{\@turncaption\@captype}}
+\long\def\@turncaption#1[#2]#3{%
+\addcontentsline{\csname ext@#1\endcsname}{#1}{%
+ \protect\numberline{\csname the#1\endcsname}{\ignorespaces #2}}%
+  \par
+  \begingroup
+    \@parboxrestore
+    \normalsize
+    \@maketurncaption{\csname fnum@#1\endcsname}{#3}%
+  \endgroup}
+\long\def\@maketurncaption#1#2{%
+ \setbox\@tempboxa\hbox{#1: #2}%
+ \ifdim \wd\@tempboxa > .8\vsize
+    \rotatebox{180}{%
+    \begin{minipage}{.8\textheight}#1: #2\end{minipage}%
+    }\par
+ \else%
+    \rotatebox{180}{\box\@tempboxa}%
+ \fi
+ \hspace{12pt}%
+}
+
+%-------------------------------------------------
+
+
+\newlength{\MyTempLength}
+
+\newcommand{\fromto}[2]{(#1)\,--\,(#2)}
+\newcommand{\fromtobreak}[2]{(#1)\,--\discretionary{}{}{\,}(#2)}
+
+\newcommand{\cosmas}{\textsc{cosmas}\is{Cosmas@\textsc{cosmas}}\xspace}
+%\newcommand{\negra}{{\sf\sl negra}\is{Negra@{\sf\sl negra}}\xspace}
+\newcommand{\negra}{\textsc{negra}\is{Negra@\textsc{negra}}\xspace}
+\newcommand{\Verbmobil}{\textsf{Verb}\-{\sffamily\slshape mobil}\is{Verbmobil@{\sffamily Verb}{\sffamily\slshape mobil}}\xspace}
+\newcommand{\verbmobil}{\Verbmobil}
+\newcommand{\whiteboard}{Whiteboard\is{Whiteboard}\xspace}
+
+
+%\newgray{hell}{.85}
+%\newcommand{\clash}[1]{\psframebox[linecolor=hell,fillcolor=hell,fillstyle=solid]{#1}}
+
+%und verwendet haben wir's z.B. folgendermaﬂen:
+%
+%\begin{avm}
+%\[p & \<\phonfont{wird}\>\\
+%  s & \[l\|c\|v\|comps & 
+%            \<\@{5},\clash{\@{1'}\[lex & \minus\],\@{6}}\>
+%      \]\\
+%  a & \<\@{6}\[lex & \plus\\
+%               l\|c\|v\|comps & \<\@{1'}\>
+%             \]
+%      \>
+%\]
+%\end{avm}
+
+
+%--------------------------------------
+% LaTeX companion
+
+\usepackage{calc}
+\newcounter{hours}\newcounter{minutes}
+\newcommand{\printtime}{%
+\setcounter{hours}{\time/60}%
+\setcounter{minutes}{\time-\value{hours}*60}%
+\thehours:\theminutes}
+
+
+
+
+
+\newcommand{\lalinebreak}{\linebreak}
+
+\newcommand{\ger}{\selectlanguage{german}}
+\newcommand{\us}{\selectlanguage{USenglish}}
+
+\def\docheck{
+\begin{draft}
+{\bf check}
+\end{draft}
+}
+
+
+%\usepackage[hyphens]{url}
+%This conflicts with hyperref.
+%\usepackage[T1]{url}
+%\urlstyle{same}
+
+% needs recent url.sty
+% see Chris Mannings post on the HPSG list regarding the tilde and copy & paste
+%\def\UrlTildeSpecial{\do\~{\mbox{\texttt{\~}}}}
+%\def\UrlSpecials{\do\_{\_}}
+%\def\UrlSpecials{\do\%{}}
+
+%\newcommand{\clearemptydoublepage}{\newpage{\pagestyle{empty}\cleardoublepage}}
+
+%
+\newlength{\quotewidth}
+\newcommand{\quotespace}{\settowidth{\quotewidth}{"`}\hspace{\quotewidth}}
+
+\newlength{\singlequotewidth}
+\newcommand{\singlequotespace}{\settowidth{\singlequotewidth}{`}\hspace{\singlequotewidth}}
+
+
+% footnotes in Mathmode
+\newcommand{\mfootnote}[1]{\footnotemark\footnotetext{#1}}
+
+
+\newcommand{\field}[2]{$\underbrace{\mbox{\rule[-0.5ex]{0cm}{2.5ex}#1}}_{\mbox{#2}}$}
+
+
+
+\def\smfootnote#1{%
+  {\discretionary{}{}{}\-\}%
+  \footnote{#1}}
+}
+
+
+\newcommand{\pref}[1]{(\ref{#1})}
+\newcommand{\pmex}[1]{(\mex{#1})}
+\newcommand{\pmexa}[1]{(\mex{#1}a)}
+\newcommand{\pmexb}[1]{(\mex{#1}b)}
+
+\usepackage{varioref,ifthen}
+
+\iflanguage{german}{%
+% die Standardversionen sind ein biﬂchen doof ...
+\def\reftextfaceafter{auf der \reftextvario{gegen\"uberliegenden}{n\"achsten} Seite}%
+\def\reftextfacebefore{auf der \reftextvario{gegen\"uberliegenden}{vorigen} Seite}%
+\def\reftextafter{auf der \reftextvario{n\"achsten}{folgenden} Seite}%
+\def\reftextbefore{auf der vorigen Seite}%
+\def\reftextcurrent{auf dieser Seite}%
+\def\reftextfaraway#1{auf Seite~\pageref{#1}}%
+\def\reftextpagerange#1#2{auf den Seiten~\pageref{#1}--\pageref{#2}}%
+\def\reftextlabelrange#1#2{\ref{#1} bis~\ref{#2}}%
+}{}
+
+% zeigen \dieabbildungfiguresref{abb-avm-frau}{abb-avm-mann}
+% -> zeigen Abbildung 1.5 auf Seite 77 und Abbildung 1.6 auf Seite 78
+%    Abbildungen 1.5 und 1.6
+\newcommand\dieabbildungfiguresref[2]{%
+ \vrefpagenum\firstnum{#1}%
+ \vrefpagenum\secondnum{#2}%
+\ifthenelse{\equal\firstnum\secondnum}%
+{die Abbildungen~\ref{#1} und~\ref{#2} \vpageref[]{#1}}%
+{Abbildung~\ref{#1}\vpageref[]{#1} und Abbildung~\ref{#2} \vpageref{#2}}}
+
+\newcommand\denabbildungenfiguresref[2]{%
+ \vrefpagenum\firstnum{#1}%
+ \vrefpagenum\secondnum{#2}%
+\ifthenelse{\equal\firstnum\secondnum}%
+{den Abbildungen~\ref{#1} und~\ref{#2} \vpageref[]{#1}}%
+{den Abbildungen~\ref{#1} und~\ref{#2}}}
+
+\newcommand\thefiguresref[2]{%
+ \vrefpagenum\firstnum{#1}%
+ \vrefpagenum\secondnum{#2}%
+\ifthenelse{\equal\firstnum\secondnum}%
+{the Figures~\ref{#1} and~\ref{#2}\vpageref[]{#1}}%
+{the Figures~\ref{#1} and~\ref{#2}}}
+
+\newcommand\figuresref[2]{%
+ \vrefpagenum\firstnum{#1}%
+ \vrefpagenum\secondnum{#2}%
+\ifthenelse{\equal\firstnum\secondnum}%
+{\iflanguage{german}{%
+die Abbildungen~\ref{#1} und~\ref{#2} \vpageref[]{#1}%
+}% end German
+{s~\ref{#1} and~\ref{#2} \vpageref[]{#1}}}%
+{\iflanguage{german}{%
+Abbildung~\ref{#1}\vpageref[]{#1} und Abbildung~\ref{#2} \vpageref{#2}%
+}% end German
+{%
+~\ref{#1}\vpageref[]{#1} and Figure~\ref{#2} \vpageref{#2}}}%
+}
+
+
+\newcommand\pagerefonlyifdifferent[2]{%
+\vrefpagenum\firstnum{#1}%
+\vrefpagenum\secondnum{#2}%
+\ifthenelse{\equal\firstnum\secondnum}%
+{}
+{\vpageref{#2}}}
+
+
+
+\newcommand\figuretwoonsamepagesref[2]{%
+ \vrefpagenum\firstnum{#1}%
+ \vrefpagenum\secondnum{#2}%
+\ifthenelse{\equal\firstnum\secondnum}%
+%{ on the same page as Figure~\ref{#1}}%
+{}%
+{ on page~\vpageref{#2}}%
+}
+\renewcommand{\reftextcurrent}{}
+
+
+
+\newcommand{\ie}{i.\,e.\@\xspace}
+
+\newcommand{\longpage}{\enlargethispage{\baselineskip}}
+
+
+
+
+\newcommand{\relation}[1]{\textit{#1}\ensuremath{'}}
+
+% http://semantics-online.org/geek/2003/11/how_to_get_doi_into_a_latex_bibliography
+%
+%\providecommand{\doi}[1]{\href{http://dx.doi.org/#1}{doi:#1}}
+
+\newcommand{\mydoi}[1]{\textsc{doi}: \href{http://dx.doi.org/#1}{\nolinkurl{#1}}}
+
+
+%\Requirepackage{abbrev}
+
+
+% LFG arrows taken from Mary Dalrymple's macros
+\def \ups {\mbox{$\uparrow_{\sigma}$}}
+\def \downs {\mbox{$\downarrow_{\sigma}$}}
+\def \up {\hbox {$\uparrow$\kern .2em}}
+\def \down {\hbox {$\downarrow$\kern 0em}}
+
+\newdimen\mothernodedimen
+\def \phraserule #1#2{\setbox1\hbox{#1}%
+                      \ifdim \wd1 >2em \mothernodedimen=\wd1 %
+                      \else \mothernodedimen=2em \fi%
+   \leavevmode\hbox{\makebox[\mothernodedimen][l]{\box1}{$\to$}\hspace{.6em}#2}}
+
+\def \rulenode #1{\begin{tabular}[t]{c}#1\end{tabular}}
+
+
+\newcommand{\qeq}{$=_q$\xspace}
+
+% noexpand is needed to be able to use \trace in forest trees with translations 
+% the following definition is better
+%\newcommand{\trace}{\noexpand\raisebox{0.2ex}{\noexpand\_}\noexpand\rule{0cm}{0.7em}}
+
+
+% http://tex.stackexchange.com/questions/207259/passing-a-command-as-an-argument
+\newcommand\drawtrace{\raisebox{0.2ex}{\_}\rule{0cm}{0.7em}}
+
+\newcommand\trace{\usebox\tracebox}
+\newsavebox\tracebox
+\AtBeginDocument{
+  \savebox\tracebox{\drawtrace}
+}
+
+
+
+\newcommand{\mturn}[1]{\begin{turn}{90}#1\end{turn}}
+
+
+\newcommand{\impl}{$\Rightarrow$}
+
+% used in figures to align things like SPR and COMPS
+\newcommand{\feattab}[1]{[\begin{tabular}[t]{@{}l@{}}#1]\end{tabular}}
+
+% conflicts with maltese.sty
+%\let\mc=\multicolumn
+
+
+% mex considered evil. We need explicit references to examples for XML conversion, but mex does not provide them
+% The following allows for a quick reference to following or preceeding examples (\mex{1}) or
+% (\mex{0}) but also (\mex{-1})
+
+% Can and should be done in Matthias's script
+
+
+% This is in article-ex
+
+% taken from covington.sty (check)
+%% \newcounter{lsptempcnt}
+%% % 
+%% \newcommand{\mex}[1]{\setcounter{lsptempcnt}{\value{equation}}%
+%% \addtocounter{lsptempcnt}{#1}%
+%% \arabic{lsptempcnt}}%
+
+
+
+\RequirePackage{etoolbox}
+
+% to be able to use this in glosses in forest trees
+\robustify\textsc
+\robustify\textit
