@@ -1,18 +1,99 @@
 \documentclass[output=paper]{langsci/langscibook} 
-\author{Dick Hudson\affiliation{?}}
+\author{Dick Hudson\affiliation{London}}
 \title{HPSG and Dependency Grammar}
 
 % \chapterDOI{} %will be filled in at production
 
-\epigram{Change epigram in chapters/03.tex or remove it there }
-\abstract{Change the  abstract in chapters/03.tex \lipsum[3]}
+%\epigram{Change epigram in chapters/03.tex or remove it there }
+%\abstract{Change the  abstract in chapters/03.tex \lipsum[3]}
 \maketitle
 
 \begin{document}
 
-\section{Introduction} 
-Duis pulvinar lacus id gravida ornare. Phasellus eu mauris sed tortor maximus condimentum ultrices in leo. Donec non erat nec nulla ullamcorper ornare sed id ex. Integer risus mauris, aliquet vel aliquam sed, feugiat quis nisi. Suspendisse quis nunc a turpis porttitor mollis. In luctus nulla id nunc dapibus, id rhoncus lorem pretium. Nunc eget fringilla velit, semper commodo diam. Suspendisse odio odio, euismod ac ornare sed, tincidunt ac arcu. Pellentesque vitae fringilla orci. Donec faucibus metus dui, nec iaculis purus pellentesque sit amet. Sed fermentum lorem non augue cursus, eu accumsan risus ullamcorper. Suspendisse rhoncus magna vitae enim pellentesque, eget porttitor quam finibus. Nunc ultricies turpis at quam vehicula, at tempus justo molestie. Proin convallis augue ut turpis cursus rhoncus. Donec sed convallis justo. Sed sed massa pharetra ex aliquet eleifend. 
-\isi{finality} 
+\section{Two centuries of syntactic theory}
+
+In the early 19th century, European grammar was still dominated by the Latin grammar of Priscian
+which focused on individual words, their morphosyntactic properties and their relations (controlled
+especially by government and agreement); grammars and grammatical theory were mainly focused on
+school pedagogy, where the dominant model was the parsing of individual words. But these ideas, and
+especially government, defined ‘dependency’ relations holding most words together. The exception was
+the relation between the verb and its subject, which was still described in terms of the dominant
+classical logic based on the subject-predicate split. Putting these two traditions together,
+grammarians produced a mixed theory of sentence structure and a number of diagramming systems to
+represent such structures – most famously, the diagramming system invented in the USA by \citet{RK1877a} (and still taught in the 21st century in some American schools). This is also the theory
+that Bloomfield brought back to the USA from Germany, and which he developed into Immediate
+Constituent analysis (which later turned into phrase-structure analysis); as in the earlier theory,
+the subject and predicate were equal, in contrast with other ‘endocentric’ constructions. Bloomfield
+combined this mixed theory with Wundt’s theory of cognition, with the sentence as the ‘whole’ which
+defines its parts (and the word no longer in prime position), which allowed a consistent geometry,
+but phrase-structure trees did not appear till the middle of the 20th century.  Meanwhile, however,
+both Humboldt and Grimm had suggested that the verb was the sole head of the sentence, with the
+subject as one of its dependents, and by the 1860s and 1870s, grammarians in Hungary, Russia and
+Germany (apparently working independently) were arguing for this view, half a century before it was
+formalised by Tesniere and named ‘dependency analysis’. The first ‘stemma’ diagram appeared (in
+Hungary) in 1873.  Another 19th-century reaction against classical logic was the logical tradition
+started (in Germany) by Frege, who may have learned to draw stemmas at school; this tradition gave
+rise (in Poland) to categorial grammar, which some (including Chomsky) see as a version of
+dependency analysis.  One outcome of this history was the present-day geographical split between
+American phrase structure (PS) and European dependency structure (DS).  Variations on the dependency
+theme Unsurprisingly, therefore, dependency theory has had more impact on Europeans than on
+Americans. The general idea of word-word dependencies was built into a number of different
+theoretical packages which combined it with other ideas, notably multiple levels (the Russian
+Mel’cuk) and information structure (the Czechs Sgall and Hajicova). However, dependency structure
+has also been popular internationally in natural-language processing (represented perhaps most
+notably by the Stanford Parser).  ‘Plain-vanilla’ versions of DS and PS are very similar and are
+weakly equivalent, but as with phrase structure, such theories need to be supplemented, giving rise
+to theories in which structures are much richer. One such theory is Word Grammar (WG), which is
+probably closer to HPSG than any of the other DS theories. In WG, a word is allowed to depend on
+more than one other word (like re-entrance in HPSG) and dependencies are combined with extra
+mechanisms for coordination and for word order. This theory will be the main point of comparison
+with HPSG in the rest of the chapter.
+
+
+\section{Signs, constructions and levels}
+
+The contrast between PS and DS is orthogonal to choices about the number of levels (syntax,
+morphology, etc) and how they are related, but of course these choices are essential for any
+theoretical package. As in PS theories, different DS theories assume different answers, but Word
+Grammar takes a rather conservative position in which syntax is distinct both from morphology and
+from semantics. This view is hard to reconcile with the claim that language consists of
+‘constructions’ or ‘signs’, both of which assume a direct link between ‘form’ and ‘meaning’. In this
+view, units of phonological ‘form’ are only indirectly linked to units of meaning.  Approaches which
+evoke ‘signs’ or ‘constructions’ can also be challenged for their conservative assumptions about
+plain-vanilla surface PS. Arguably, DS is a better basis for capturing the fine detail of
+idiosyncratic constructions since these always involve individual lexical items linked by
+dependencies, and typically focus on just one dependent of a given lexeme rather than on entire
+multi-dependent phrases.  Networks WG takes the whole of language (not just the lexicon) to be a
+gigantic network, which is a step further than HPSG (where PS rules are outside the network); the
+network is also not assumed to be a DAG because mutual dependency is allowed.  One of the
+characteristics of network analyses is the central role of relation types (i.e. HPSG
+attributes). According to WG, but not HPSG, these types form a typed hierarchy which parallels the
+typed hierarchy of non-relational ‘entities’ such as words, phonemes and so on; and in both
+hierarchies, properties are inherited by (a special formalisation of) default inheritance. One of
+the consequences of this treatment of relations is that, just like entities, they can freely be
+created and learned as required, so there is no need to assume a universal hard-wired reservoir of
+relations. This is particularly helpful in DS, where dependencies are typed but different languages
+require different classifications and distinctions.  Word order Another similarity between WG and
+HPSG is in the treatment of word order. In both theories, dominance (i.e. daughterhood in HPSG and
+dependency in WG) is separated from linear precedence. In WG, a word’s position is treated as one of
+the word’s property’s linked to a second property (‘landmark’), the word from which it takes its
+position; the word’s landmark is normally the word on which it depends, but exceptions are allowed
+in cases such as extraction and pied piping. The landmark relation allows a treatment of pied piping
+which avoids the feature-percolation of HPSG.
+
+\section{Words, nodes and semantic phrases}
+
+The final topic is the Achille’s heel of DS: the completely flat structures where a word has two or
+more dependents. This is problematic in DS (but not, of course, in HPSG) in examples such as typical
+French house, meaning ‘typical for a French house’, because there is no syntactic node that could
+carry the meaning ‘French house’. Current WG provides a solution which moves WG in the direction of
+PS by distinguishing types from tokens, and then distinguishing ‘sub-tokens’ of tokens. In this
+analysis, the token house is distinct not only from the type HOUSE, but also from the sub-token
+house’ which is modified by the dependent French, which in turn is distinct from house’’ modified by
+typical. Sub-tokens are very similar in function to the phrases of HPSG but arguably not quite
+equivalent.
+
+
 
  
 \section*{Abbreviations}

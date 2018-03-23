@@ -11,6 +11,9 @@ complete: index main.pdf
 
 index:  main.snd
 
+stable.pdf: main.pdf
+	cp main.pdf stable.pdf
+
 
 *.pdf: $(SOURCE)
 	xelatex -no-pdf $* 
@@ -27,8 +30,8 @@ index:  main.snd
 	xelatex $*
 
 
-main.pdf: main.aux
-	xelatex main 
+#main.pdf: main.aux
+#	xelatex main 
 
 main.aux: $(SOURCE)
 	xelatex -no-pdf main 
