@@ -1425,6 +1425,7 @@ Storage and cataloguing done by FU Berlin \\[3ex]
 	url=false,
 	eprint=false,
         useprefix=true,
+        autolang=hyphen,
 	backend=\lsBiblatexBackend,
 	indexing=cite,
 	\iflsCollection\else
