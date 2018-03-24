@@ -13,19 +13,19 @@ index:  main.snd
 
 
 
-*.pdf: $(SOURCE)
-	xelatex -no-pdf $* 
-	biber $*
-	sed -i.backup s/.*\\emph.*// $*.adx #remove titles which biblatex puts into the name index
-	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' $*.sdx # ordering of references to footnotes
-	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' $*.adx
-	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' $*.ldx
+main.pdf: $(SOURCE)
+	xelatex -no-pdf main
+	biber main
+	sed -i.backup s/.*\\emph.*// main.adx #remove titles which biblatex puts into the name index
+	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.sdx # ordering of references to footnotes
+	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.adx
+	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.ldx
 # 	python3 fixindex.py
 # 	mv mainmod.adx $*.adx
-	makeindex -o $*.and $*.adx
-	makeindex -o $*.lnd $*.ldx
-	makeindex -o $*.snd $*.sdx 
-	xelatex $*
+	makeindex -o main.and main.adx
+	makeindex -o main.lnd main.ldx
+	makeindex -o main.snd main.sdx 
+	xelatex main
 
 stable.pdf: main.pdf
 	cp main.pdf stable.pdf
@@ -38,7 +38,7 @@ main.aux: $(SOURCE)
 	xelatex -no-pdf main 
 
 #create only the book
-main.bbl:  $(SOURCE) localbibliography.bib  
+main.bbl:  $(SOURCE) localbibliography.bib  $(wildcard Bibliographies/*.bib)
 	xelatex -no-pdf main 
 	biber main
 
