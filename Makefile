@@ -11,8 +11,6 @@ complete: index main.pdf
 
 index:  main.snd
 
-stable.pdf: main.pdf
-	cp main.pdf stable.pdf
 
 
 *.pdf: $(SOURCE)
@@ -28,6 +26,9 @@ stable.pdf: main.pdf
 	makeindex -o $*.lnd $*.ldx
 	makeindex -o $*.snd $*.sdx 
 	xelatex $*
+
+stable.pdf: main.pdf
+	cp main.pdf stable.pdf
 
 
 #main.pdf: main.aux
