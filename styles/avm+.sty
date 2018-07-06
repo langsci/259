@@ -1,24 +1,19 @@
-%% avm.sty - a style file for attribute-value matrices
-%% Copyright 1992, 1993, 2006, 2013 Christopher Manning (manning@cs.stanford.edu)
+% $Id: avm+.sty,v 1.1 2005/06/16 15:42:13 dm Exp $
 %
-% v 1.00 mar 29, 1992
-% v 1.01 dec 6, 1993
-% v 1.02 jan 5, 2006
-% v 1.03 dec 8, 2013
+% The file has two parts:
 %
-% This work may be distributed and/or modified under the
-% conditions of the LaTeX Project Public License, either version 1.3
-% of this license or (at your option) any later version.
-% The latest version of this license is in
-%   http://www.latex-project.org/lppl.txt
-% and version 1.3 or later is part of all distributions of LaTeX
-% version 2005/12/01 or later.
+% a) The original style avm.sty by Chris Manning, 
+%    with a couple of small modifications to support font selection
+%    and change layout slightly
+% b) Some additional commands for font selection by Detmar Meurers
+
+% =======================================================================
+% avm.sty  --  for attribute-value matrices -- mar 29, 1992; rev. dec 6, 1993
+% (c) 1992 christopher manning (manning@csli.stanford.edu) -- see avm.doc.tex
 %
-% This work has the LPPL maintenance status `maintained'.
-% 
-% The Current Maintainer of this work is Christopher Manning.
-%
-% This work consists of the files avm.sty, avm-doc.tex, avm-test.tex.
+% Only small modifications by Detmar Meurers, dm@ling.osu.edu
+% (marked by wdm) to save space before and after | in paths
+% and select appropriate fonts
 
 \newif\ifavmactive\newif\ifavmsorted\newif\ifavmlabeled
 \newif\ifavmcenter\newif\ifavmbottom
@@ -28,11 +23,11 @@
 \newbox\avmboxone\newbox\avmboxthree
 
 \def\avmoptions#1{\avmactivefalse\avmsortedfalse\avmlabeledfalse
-	\avmcenterfalse\avmbottomfalse
-	\avmbottomrightfalse\avmtopleftfalse\avmtoprightfalse
-	\def\more{#1}\ifx\more\empty\else\avmjoptions#1,\@nil\fi}
+   \avmcenterfalse\avmbottomfalse
+   \avmbottomrightfalse\avmtopleftfalse\avmtoprightfalse
+   \def\more{#1}\ifx\more\empty\else\avmjoptions#1,\@nil\fi}
 \def\avmjoptions#1,#2\@nil{\def\more{#2}\csname avm#1true\endcsname
-	\ifx\more\empty\else\avmjoptions#2\@nil\fi}
+   \ifx\more\empty\else\avmjoptions#2\@nil\fi}
 
 
 \def\avmfont#1{\def\avmjfont{#1}}
@@ -55,19 +50,19 @@
 
 
 \def\avmjprolog#1{$\mskip-\thinmuskip
-	\left#1\hskip\avmjbskip\vcenter\bgroup\vskip\avmjvskip
-	\ialign\bgroup\avmjfont
-	\strut ##\unskip\hfil
-	&&\hskip\avmjhskip\avmjvalfont ##\unskip\hfil\cr}
+   \left#1\hskip\avmjbskip\vcenter\bgroup\vskip\avmjvskip
+   \ialign\bgroup\avmjfont
+   \strut ##\unskip\hfil
+   &&\hskip\avmjhskip\avmjvalfont ##\unskip\hfil\cr}
 \def\avmjpostlog#1{\crcr\egroup\vskip\avmjvskip\egroup
-	\hskip\avmjbskip\right#1\mskip-\thinmuskip$\ignorespaces}
+   \hskip\avmjbskip\right#1\mskip-\thinmuskip$\ignorespaces}
 
 
 \def\avmjcatcode{\let\lparen=(\let\rparen=)\catcode`\[=13\catcode`\]=13
-	\catcode`\<=13\catcode`\@=13\catcode`\(=13\catcode`\)=13
-	\catcode`\>=13\catcode`\|=13}
+   \catcode`\<=13\catcode`\@=13\catcode`\(=13\catcode`\)=13
+   \catcode`\>=13\catcode`\|=13}
 
-{\avmjcatcode	% new group: redefine above catcodes as active
+{\avmjcatcode  % new group: redefine above catcodes as active
 
 \gdef\specialavm{\avmjcatcode
 \def({\avmjprolog\lparen}% 
@@ -76,7 +71,7 @@
 \def>{\avmjpostlog\rangle}%
 \ifavmsorted
 \def[##1{\setbox\avmboxthree=\hbox{\avmjsortfont##1\/}\setbox2=\hbox
-	\bgroup\avmjprolog\lbrack}%
+   \bgroup\avmjprolog\lbrack}%
 \def]{\avmjpostlog\rbrack\egroup\avmjsort}%
 \else\ifavmlabeled
 \def[##1{\def\more{##1}\setbox2=\hbox\bgroup\avmjprolog[}%
@@ -87,14 +82,12 @@
 \fi\fi
 %
 \def\<{$\langle$}\def\>{$\rangle$}%
-\def\({\lparen}
-\def\){\rparen}%
-\def\[{\lbrack}
-\def\]{\rbrack}%
-\def|{$\,\vert\,$}%
+\def\({\lparen}\def\){\rparen}%
+\def\[{\lbrack}\def\]{\rbrack}%
+\def|{$\vert$}% wdm, July 1999, modified to save space before and after |
 \def@##1{\avmbox{##1}}%
-}	% end defn of \specialavm
-}	% restore active catcodes
+}  % end defn of \specialavm
+}  % restore active catcodes
 
 
 \long\def\avm{\begingroup
@@ -107,7 +100,7 @@
 %
 \ifavmsorted
 \def\[##1{\setbox\avmboxthree=\hbox{\avmjsortfont##1\/}\setbox
-	2=\hbox\bgroup\avmjprolog[}%
+   2=\hbox\bgroup\avmjprolog[}%
 \def\]{\avmjpostlog]\egroup\avmjsort}%
 \else\ifavmlabeled
 \def\[##1{\def\more{##1}\setbox2=\hbox\bgroup\avmjprolog[}%
@@ -117,77 +110,79 @@
 \def\]{\avmjpostlog]}%
 \fi\fi
 %
-\def\|{$\,\vert\,$}%
+\def\|{$\vert$}% wdm, July 1999, modified to save space before and after |
 \def\@##1{\avmbox{##1}}%
-\fi	% end not active
+\fi   % end not active
 %
 \ifx\LaTeX\undefined\def\\{\cr}% running under TeX
 \else \ifx\@tabularcr\relax
-\def\\{\@arraycr}% fix for the Mainz array package
+\def\\{\@arraycr} % fix for the Mainz array package
 \else
 \def\\{\@tabularcr}% Leverage off LaTeX's \\*[dimen] options
 \fi
 \fi
 \def\!{\node}%
 \long\def\avmjsort{\dimen2=\ht2\advance\dimen2 by -.25\baselineskip
-	\global\dimen\avmdimen=\wd\avmboxthree
-	\ifavmtopleft \raise\dimen2\llap{\box\avmboxthree}\box2%
-	\else\ifavmtopright \box2\raise\dimen2\box\avmboxthree
-	\else\ifavmbottomright \box2\lower\dimen2\box\avmboxthree
-	\else \lower\dimen2\llap{\box\avmboxthree}\box2%
-	\fi\fi\fi}%
+   \global\dimen\avmdimen=\wd\avmboxthree
+   \ifavmtopleft \raise\dimen2\llap{\box\avmboxthree}\box2%
+   \else\ifavmtopright \box2\raise\dimen2\box\avmboxthree%
+   \else\ifavmbottomright \box2\lower\dimen2\box\avmboxthree%
+   \else \lower\dimen2\llap{\box\avmboxthree}\box2%
+   \fi\fi\fi}%
 \long\def\sort##1##2{\setbox2=\hbox{##2}\setbox
-	\avmboxthree=\hbox{\avmjsortfont##1\/}\dimen2=\ht2%
-	\advance\dimen2 by -.25\baselineskip
-	\ifavmtopleft \raise\dimen2\box\avmboxthree\box2%
-	\else\ifavmtopright \box2\raise\dimen2\box\avmboxthree%
-	\else\ifavmbottomright \box2\lower\dimen2\box\avmboxthree%
-	\else \lower\dimen2\box\avmboxthree\box2%
-	\fi\fi\fi}%
+   \avmboxthree=\hbox{\avmjsortfont##1\/}\dimen2=\ht2
+   \advance\dimen2 by -.25\baselineskip
+   \ifavmtopleft \raise\dimen2\box\avmboxthree\box2%
+   \else\ifavmtopright \box2\raise\dimen2\box\avmboxthree%
+   \else\ifavmbottomright \box2\lower\dimen2\box\avmboxthree%
+   \else \lower\dimen2\box\avmboxthree\box2%
+   \fi\fi\fi}%
 \long\def\osort##1##2{\setbox2=\hbox{##2}\setbox
-	\avmboxthree=\hbox{\avmjsortfont ##1\/}\avmjsort}%
-\def\asort##1{\avmspan{\avmjsortfont ##1}\\}%
+   \avmboxthree=\hbox{\avmjsortfont ##1\/}\avmjsort}%
 \def\avml{\avmjprolog.}%
 \def\avmr{\avmjpostlog.}%
 \def\avmb##1{\node{##1}{\lbrack\;\rbrack}}%
 \def\avmd##1{\node{##1}{---}}%
 \def\q##1{\ifx ##1\{$\lbrace$\else
-	\ifx ##1\}$\rbrace$\else
-	\ifx ##1<$\langle$\else
-	\ifx ##1>$\rangle$\fi \fi \fi \fi}%
+   \ifx ##1\}$\rbrace$\else
+   \ifx ##1<$\langle$\else
+   \ifx ##1>$\rangle$\fi \fi \fi \fi}%
 \def\{{\avmjprolog\lbrace}%
 \def\}{\avmjpostlog\rbrace}%
 \def\;{\hskip\avmjhskip}%
-\def\avmspan##1{\multispan2\strut ##1\expandafter\hfil}%
+% wdm, revised to ensure proper font is selected
+% (needed for embedded avms)
+\def\avmspan##1{\multispan2\avmjfont\strut ##1\expandafter\hfil}%
+% original:
+%\def\avmspan##1{\multispan2\strut ##1\expandafter\hfil}%
 \avmjfont
 \openup\avmjvskip
 \setbox\avmboxone=\hbox\bgroup\ignorespaces
-}	% end defn of \avm
+}  % end defn of \avm
 
 
 \def\endavm{\egroup\ifvmode\leavevmode\fi % this if is useful!
-	\ifavmsorted\null\hskip\dimen\avmdimen\fi
-	\ifavmcenter
-		\box\avmboxone
-	\else \ifavmbottom
-		\lower.575\baselineskip\hbox{\vbox{\box\avmboxone\null}}%
-	\else
+   \ifavmsorted\null\hskip\dimen\avmdimen\fi
+   \ifavmcenter
+      \box\avmboxone
+   \else \ifavmbottom
+      \lower.575\baselineskip\hbox{\vbox{\box\avmboxone\null}}%
+   \else
 % the next bit is ripped off from Emma's \evnup in lingmacros.sty
-		\dimen2=\ht\avmboxone\advance\dimen2 by -.725\baselineskip
-		\lower\dimen2\box\avmboxone
+      \dimen2=\ht\avmboxone\advance\dimen2 by -.725\baselineskip
+      \lower\dimen2\box\avmboxone
 \fi \fi \endgroup}
 
 
 % based on TeXbook exercise 21.3
 \def\avmbox#1{\setbox2=\hbox{$\scriptstyle #1$}\lower.2ex\vbox{\hrule
-	\hbox{\vrule\kern1.25pt 
-	\vbox{\kern1.25pt\box2\kern1.25pt}\kern1.25pt\vrule}\hrule}}
+   \hbox{\vrule\kern1.25pt 
+   \vbox{\kern1.25pt\box2\kern1.25pt}\kern1.25pt\vrule}\hrule}}
 
-
-
-
-% ---------------------------------------------------------------------------------
-% avm+.sty additions:
+%--------------------------------------------------------------------------
+% avm+.sty additions by Detmar Meurers dm@sfs.nphil.uni-tuebingen.de
+%
+% The additional commands make font selection simpler.
 
 % setting options for the avm.sty
 % Standard:
@@ -209,15 +204,21 @@
           \hbox{\vrule\kern1.25pt
           \vbox{\kern1.25pt\box2\kern1.25pt}\kern1.25pt\vrule}\hrule}}
 
+% general shape for phonologies (not yet the size!):
+\newcommand{\phonshape}[0]{\itshape}
+% command to typeset phonology shapes in text
+\newcommand{\textphon}[1]{{\phonshape#1}}
+
 % Huge fonts
 \newcommand{\HugeAvmFonts}{%
 \avmfont{\Large\scshape}%
 \avmvalfont{\Large\itshape}%
 \avmsortfont{\large\itshape}%
 \avmtagfont{\large\upshape}%
+\def\bigfont{\huge}%
 \def\relfont{\Large\slshape}%
 \def\macrofont{\Large\slshape}%
-\def\phonfont{\large\itshape}%
+\def\phonfont{\large\phonshape}%
 \def\plus{\ensuremath{+}}%
 \def\minus{\ensuremath{-}}%
 }
@@ -228,9 +229,10 @@
 \avmvalfont{\large\itshape}%
 \avmsortfont{\normalsize\itshape}%
 \avmtagfont{\normalsize\upshape}%
+\def\bigfont{\Large}%
 \def\relfont{\large\slshape}%
 \def\macrofont{\large\slshape}%
-\def\phonfont{\normalsize\itshape}%
+\def\phonfont{\normalsize\phonshape}%
 \def\plus{\ensuremath{+}}%
 \def\minus{\ensuremath{-}}%
 }
@@ -241,9 +243,10 @@
 \avmvalfont{\normalsize\itshape}%
 \avmsortfont{\small\itshape}%
 \avmtagfont{\small\upshape}%
+\def\bigfont{\large}%
 \def\relfont{\normalsize\slshape}%
 \def\macrofont{\normalsize\slshape}%
-\def\phonfont{\small\itshape}%
+\def\phonfont{\small\phonshape}%
 \def\plus{\ensuremath{+}}%
 \def\minus{\ensuremath{-}}%
 }
@@ -254,9 +257,10 @@
 \avmvalfont{\small\itshape}%
 \avmsortfont{\footnotesize\itshape}%
 \avmtagfont{\footnotesize\upshape}%
+\def\bigfont{\normalsize}%
 \def\relfont{\small\slshape}%
 \def\macrofont{\small\slshape}%
-\def\phonfont{\footnotesize\itshape}%
+\def\phonfont{\footnotesize\phonshape}%
 \def\plus{\ensuremath{+}}%
 \def\minus{\ensuremath{-}}%
 }
@@ -267,9 +271,11 @@
 \avmvalfont{\footnotesize\itshape}%
 \avmsortfont{\scriptsize\itshape}%
 \avmtagfont{\scriptsize\upshape}%
+\def\bigfont{\small}%
 \def\relfont{\footnotesize\slshape}%
 \def\macrofont{\footnotesize\slshape}%
-\def\phonfont{\scriptsize\itshape}%
+%\def\phonfont{\scriptsize\phonshape}%
+\def\phonfont{\footnotesize\phonshape}%
 \def\plus{\ensuremath{+}}%
 \def\minus{\ensuremath{-}}%
 }
@@ -281,9 +287,10 @@
 \avmvalfont{\scriptsize\itshape}%
 \avmsortfont{\tiny\itshape}%
 \avmtagfont{\tiny\upshape}%
+\def\bigfont{\footnotesize}%
 \def\relfont{\scriptsize\slshape}%
 \def\macrofont{\scriptsize\slshape}%
-\def\phonfont{\tiny\upshape}%
+\def\phonfont{\tiny\phonshape}%
 \def\plus{\ensuremath{+}}%
 \def\minus{\ensuremath{-}}%
 }
@@ -295,9 +302,10 @@
 \avmvalfont{\tiny\itshape}%
 \avmsortfont{\tiny\itshape}%
 \avmtagfont{\tiny\upshape}%
+\def\bigfont{\scriptsize}%
 \def\relfont{\tiny\slshape}%
 \def\macrofont{\tiny\slshape}%
-\def\phonfont{\tiny\upshape}%
+\def\phonfont{\tiny\phonshape}%
 \def\plus{\ensuremath{+}}%
 \def\minus{\ensuremath{-}}%
 }
@@ -313,7 +321,7 @@
 \newcommand{\tp}[1]{\avmspan{\tpv{#1}}}
 
 % command to fontify phonologie lists
-\newcommand{\phonlist}[1]{{\ensuremath{<}\phonfont #1 \ensuremath{>}}}
+\newcommand{\phonlist}[1]{{\phonfont\ensuremath{<\hspace{-.1em}}#1\ensuremath{>}}}
 
 % and an abbreviation:
 \let\phonl\phonlist
@@ -322,13 +330,23 @@
 \newcommand{\rel}[1]{{\relfont #1}}
 
 % command to fontify types in ordinary text
-\newcommand{\typ}[1]{{\itshape #1\/}}
+\newcommand{\typ}[1]{\textit{#1}}
+
+% command to fontify attributes in ordinary text
+\newcommand{\attrib}[1]{\textsc{#1}}
 
  %- boxed integers in ordinary text
 \newcommand{\idx}[1]{\avmbox{#1}}
 
 % command to fontify relations in text
 \newcommand{\textrel}[1]{\textsl{#1}}
+
+% Support for mentioning simple feature-value pair avms in text: 
+\newcommand{\featspec}[2]{{\small\smallAvmFonts\avmoptions{center}%
+    \raisebox{.19ex}[0cm][0cm]{\begin{avm}\[#1 & #2\]\end{avm}}}}
+
+\newcommand{\featplus}[1]{\featspec{#1}{\plus}}
+\newcommand{\featminus}[1]{\featspec{#1}{\minus}}
 
 % some relation operators:
 \newcommand{\append}[0]{\ensuremath{\oplus\hspace{.24em}}}
@@ -363,6 +381,8 @@
 % This is useful when an avm needs to occur inside a math environment
 % e.g. when one wants to make huge (< etc around several avms
 \newenvironment{boxavm}{\begin{tabular}{@{}l@{}}\begin{avm}}{\end{avm}\end{tabular}}
+% same with top alignment:
+\newenvironment{boxavmt}{\begin{tabular}[t]{@{}l@{}}\begin{avm}}{\end{avm}\end{tabular}}
 
 % make avms in footnotes tiny
 \let\beforeAvmFootnote\footnote
@@ -370,3 +390,8 @@
 \smallAvmFonts%
 \beforeAvmFootnote{#1}%
 \endgroup}
+
+%For LFG: ordinary AVM fonts but no italics for values:
+\newcommand{\regAvmFontsLFG}{%
+\regAvmFonts%
+\avmvalfont{\footnotesize\scshape}}
