@@ -32,6 +32,8 @@
 \tikzset{deparrow/.style={-Latex}}%,blue}}
 
 
+% load this externally since it has to be loaded with full path
+
 % does not work with forest v1.05 did not check later versions
 \usepackage[external,linguistics]{forest}
 \tikzset{external/up to date check=simple}
@@ -47,11 +49,13 @@
 % specification for all trees, "default preamble" appends to existing specification.
 % The version with apostrophe replaces it.
 \forestset{default preamble'={
-    for tree={align=center,parent anchor=south, child anchor=north,base=bottom},
-    before drawing tree={
-      sort by=y,
-      for min={tree}{baseline}
-    }
+    for tree={align=center,parent anchor=south, child anchor=north,anchor=north,base=bottom},
+% This would align trees to the baseline. We do not want this for TAG
+% where several trees have to be aligned with respect to their center.
+%    before drawing tree={
+%      sort by=y,
+%      for min={tree}{baseline}
+%    }
   }}
 
 
