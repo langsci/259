@@ -245,7 +245,8 @@ Chapter~\ref{chap-case} on case assignment, and Chapter~\ref{chap-binding} on Bi
 the approach proposed above and in \citew{Mueller2003a,MuellerHPSGHandbook,MuellerCoreGram}, the valence lists are
 ordered but the schema allows for combination with any element of the list. For valence
 representation and the order of elements in valence lists see
-Chapter~\ref{chap-argumentstr}.\todostefan{maybe cite \citet{AMM2013a}}
+Chapter~\ref{chap-argumentstr}.
+%\todostefan{maybe cite \citet{AMM2013a}}
 %) as the underlying representation and determinant of basic order
 
 
@@ -379,7 +380,7 @@ is to use implicational constraints that assign meaning with respect to actual c
 (see Section~\ref{sec-mixed-approaches}) and a third way is to do everything lexically. The only option for
 Minimalism is the lexical one. This means that Minimalism has to either assume as many lexical items
 for auxiliaries as there are types in HPSG or to assume empty heads that contribute the meaning that
-is contributed by the phrasal schemata in HPSG \citep{Borsley2006a,BM2018Minimalism}.\todostefan{pages} The latter proposal is generally assumed in
+is contributed by the phrasal schemata in HPSG \parencites[Section~5]{Borsley2006a}{BM2018Minimalism}. The latter proposal is generally assumed in
 Cartographic approaches \citep{Rizzi97a-u}. Since there is a fixed configuration of functional projections
 that contribute semantics, one could term these Rizzi-style analyses \emph{Crypto-Constructional}.
 
@@ -676,6 +677,7 @@ analysis that inserts all domain objects of objects into the domain of the mothe
 subsection I want to look at an intermediate case, so-called \emph{partial compaction}.
 
 \subsection{Partial compaction (extraposition)}
+\label{sec-partial-compaction}
 
 \citet{KP95a} developed an analysis of extraposition that is a mix of the strategies discussed in
 the two subsections: most of one NP object is inserted into the domain of the mother as a single object, only those
@@ -798,12 +800,127 @@ and hence can account for both (\ref{ex-waehlern-geschichten-erzaehlt}) and
 \subsubsection{Surface order, clause types, fields within fields, and empty elements}
 \label{sec-surface-order}
 
+\citet{Kathol2001a} develops an analysis of German that uses constituent order domains and determines the
+clause types on the basis of the order of elements in such domains. He suggests the topological
+fields \type{1}, \type{2}, \type{3}, and \type{4}, which correspond to the traditional
+\isi{topological field}s \emph{Vorfeld} `prefield', \emph{linke Satzklammer} `left sentence
+bracket', \emph{Mittelfeld} `middle field', \emph{rechte Satzklammer} `right sentence
+bracket'. Domain objects may assigned to these fields and they are then ordered by linearization
+constraints stating that objects assigned to \type{1} have to precede objects of type \type{2},
+type \type{3}, and type \type{4}. Objects of type \type{2} have to precede type \type{3}, and type
+\type{4} and so on. For the \vf and the left sentence he stipulates uniqueness constraints saying
+that at most one constituent may be of this type. This can be stated in a nice way by using
+the linearization constraints in (\mex{1}):
+\eal
+\ex \type{1} < \type{1}
+\ex \type{2} < \type{2}
+\zl
+This trick was first suggested by \citet[\page 55, Fn.\,3]{GKPS85a} in the framework of \isi{GPSG} and it works
+since if there were two objects of type \type{1} than each one would be required to precede the
+other one resulting in a violation of the linearization constraint. So in order to avoid such
+constraint violation there must not be more than one \type{1}.
+
+\citet[]{Kathol2001a} assumes the following definition for V2 clauses:
+\ea
+\type{V2-clause} \impl
+\ms{
+S[\type{fin}]\\
+dom & \liste{ [1], \ms{ 2\\V[\type{fin}] }, \ldots }
+}
+\z
+This says that the constituent order domain starts with one element assigned to field \type{1}
+followed by another domain object assigned to field \type{2}. While this is in accordance with
+general wisdom about German, which is a V2 language, there are problems for entirely surface-based
+theories: German allows for multiple constituents in front of the finite verb. (\mex{1}) shows some
+examples:
+\eal
+\label{ex-mult-front}
+\ex
+\gll {}[Zum zweiten Mal] [die Weltmeisterschaft] errang Clark 1965 \ldots\\
+	   \spacebr{}to.the second time \spacebr{}the world.championship won Clark 1965 {}\\
+\footnote{
+        \citep*[\page 162]{Benes71}
+      }\label{bsp-zum-zweiten-mal-die-Weltmeisterschaft}
+\glt `Clark won the world championship for the second time in 1965.'
+\ex
+\label{ex-dem-saft-eine-kraeftige-farbe}
+\gll [Dem Saft] [eine kräftige Farbe] geben Blutorangen.\footnotemark\\
+     \spacebr{}the.\DAT{} juice \spacebr{}a.\ACC{}   strong   color give blood.oranges\\
+\footnotetext{
+\citet{BC2010a} found this example in the \emph{Deutsches Referenzkorpus} (DeReKo), hosted at Institut
+für Deutsche Sprache, Mannheim: \url{http://www.ids-mannheim.de/kl/projekte/korpora}
+}
+\glt `Blood oranges give the juice a strong color.'
+
+\zl
+\citet{Mueller2003b} extensively documents this phenomenon. The categories that can appear
+before the finite verb are almost unrestricted. Even subjects can be fronted together with other
+material (\citealp[\page 72]{BC2010a}; \citealp[\page 371]{Bildhauer2011a}). The empirical side of
+these apparent multiple frontings was further examined in the Collective Research Center 632,
+Project A6 and the claim that only constituents depending on the same verb can be fronted together
+\parencites{Fanselow93a}[\page 1634]{Hoberg97a} was confirmed \citep[Chapter~3]{MuellerGS}. A further insight is that
+the linearization properties of the fronted material (NPs, PPs, adverbs, adjectives) correspond to the linearization properties they
+would have in the \mf. The example in (\mex{1}) are even more interesting. It shows that there can
+be a right sentence bracket (the particle \emph{los}) and an extraposed constituent (something
+following the particle: \emph{damit}) before the finite verb (\emph{geht} `goes'):
+\ea
+\label{ex-los-damit-zwei} 
+\glll \emph{Los} damit \emph{geht} es schon am 15. April.\footnotemark\\
+      off there.with goes it PRT on 15. April\\
+      \type{4}   \type{5} \type{2} \type{3} \type{3} {} \type{3} {}\\
+\footnotetext{
+        taz, 01.03.2002, p.\,8.
+    }
+\glt `The whole thing starts on the 15th April.'
+\z
+In Kathol's system, \emph{los} would be of type \type{4} and \emph{damit} would have to be of type
+\type{5} (an additional type for extraposed items). Without any modification of the general system,
+we would get a \type{4} and a \type{5} ordered before a \type{2} (a right sentence bracket and a
+postfield preceding the left sentence bracket), something that is ruled out by Kathol's linearization constraints. 
+
+\citet{Mueller2002b}, still working in a domain-based framework, developed an analysis assuming an
+empty verbal head to explain the fact that the fronted constituents have to depend on the same verb
+and that there is a separate topological area that is independent of the remaining clause. So,
+\emph{los} and \emph{damit} are domain objects within a larger domain object placed in the
+prefield. \citet{Wetta2011a} suggests an analysis in which two or more constituents are compacted
+into one domain object, so \emph{los} and \emph{damit} would form one object that is inserted into
+the domain containing the finite verb. However, this begs the question what kind of object it is
+that is formed. Section~\ref{sec-partial-compaction} dealt with partial compaction of NPs. Some of
+the elements from an NP domain were liberated and other elements were fused into a new object that
+had the same category as the object containing all material, namely NP. But the situation with examples like
+(\ref{ex-mult-front}) and (\mex{0}) is quite different. We have a particle and a pronominal adverb in (\mex{0}) and various
+other combinations of categories in the examples collected by \citet{Mueller2003b} and
+\citet{Bildhauer2011a}. It would not make sense to claim that the fronted object is a particle or a
+pronominal adverb. Note that it is neither an option to leave the category of the fronted object
+unspecified since HPSG comes with the assumption that models of linguistic objects are total, that
+is, maximally specific (\citealp{King99a-u}, see also Chapter~\ref{chap-formal-background}). Leaving the
+category and valence properties of the item in the prefield unspecified would make such sentences
+infinitely many times ambiguous. Of course Wetta could state that the newly created object is a
+verbal projection but this would just be stating the effect of the empty verbal head within a
+relational constraint, which I consider less principled than stating the empty element.
+
+However, the empty verbal head that I stated as part of a linearization grammar in 2002 comes as a stipulation since its
+only purpose in the grammar of German was to account for apparent multiple
+frontings. \citet{Mueller2005d,MuellerGS} drops the linearization approach and assumes head-movement
+instead. The empty head that is used for accounting for the verb position in German can also be used
+to account for apparent multiple frontings. The analysis is sketched in (\mex{1}):
+\ea
+\label{ex-zum-zweiten-anal-zwei}%
+\gll {}[\sub{VP} [Zum zweiten Mal] [die Weltmeisterschaft] \_\sub{V} ]$_i$ errang$_j$ Clark 1965 \_$_i$ \_$_j$.\\
+      {}         \spacebr{}to.the second time \spacebr{}the world.championship {} {} won Clark 1965\\
+\z 
+The details cannot be explained here but the analysis treats apparent multiple frontings parallel to
+partial verb phrase frontings. A lexical rule is used for multiple frontings which is a special case
+of the head-movement rule that was discussed in Section~\ref{sec-head-movement}. So apparent
+multiple frontings are analyzed with means that are available to the grammar anyway. This analysis
+allows to keep the insight that German is a V2 language and it also gets the same-clause constraint
+and the linearization of elements right. See \citew{Mueller2005c,Mueller2005d,MuellerGS} for details.
+
+
+
 %% \subsection{Other usages of constiuent order domains}
-
 %% reference to Chapter~\ref{chap-coordination} on coordination and Chapter~\ref{chap-ellipsis} on ellipsis.
-
-\todostefan{comparison with Dependency Grammar (Chapter~\ref{chap-dg})?}
-
+%\todostefan{comparison with Dependency Grammar (Chapter~\ref{chap-dg})?}
 
 The paper so far discussed the tools that have been suggested in HPSG to account for constituent
 order: flat vs.\ binary branching structures, linearization domains, head-movement via \dsl. I
