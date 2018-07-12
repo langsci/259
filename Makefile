@@ -30,6 +30,12 @@ main.pdf: $(SOURCE)
 stable.pdf: main.pdf
 	cp main.pdf stable.pdf
 
+# Stefan's chapter on order
+order.pdf: stable.pdf
+	pdftk stable.pdf cat 35-65 output order.pdf
+
+sm-public: order.pdf
+	scp order.pdf hpsg.hu-berlin.de:public_html/Pub/constituent-order-hpsg.pdf
 
 #main.pdf: main.aux
 #	xelatex main 
