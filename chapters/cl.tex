@@ -33,15 +33,11 @@ From the inception of HPSG in the joint work of Ivan Sag, Geoff Pullum, Tom Waso
 
 \subsection{Theoretical considerations}
 
+There are several properties of HPSG as a theory that make it well-suited to computational implementation. First, the theory is kept separate from the formalism: the formalism is expressive enough to encode a wide variety of possible theories. While some theoretical work does argue for or against the necessity of particular formal devices (e.g.\ the shuffle operator \cite{FIXME-Reape}), much of it proceeds within shared assumptions about the formalism. This is in contrast to work in the context of the Minimalist Program \cite{Chomsky93b-u}, where theoretical results are typically couched in terms of modifications to the formlism itself. From a computational point of view, the benefit of differentiating between theory and formalism is that it means that the formalism is relatively stable. That in turns enables the development and maintenance of software systems that target the formalism, for parsing, generation, and grammar exploration (see \S\ref{sec:history} below for some examples).\footnote{There are implementations of Minimalism, notably \cite{FIXME-Stabler} and \cite{FIXME-Indianadiss}. However, doing an implementation requires fixing the formalism, and so these are unlikely to be useful for testing theoretical ideas as the theory moves on.}
 
-Relevant properties of HPSG that facilitate all of this  % First draft: Emily
+A second important property of HPSG that supports a strong connection between theoretical and computational work is an interest in both so-called `core' and so-called `peripheral' phenomena. Most implemented grammars are built with the goal of handling naturally occurring text.\footnote{Though it is possible to do implementation work strictly against testsuites of sentences constructed specifically to focus on phenomena of interest.} This means that they will need to handle a wide variety of linguistic phenomena not always treated in theoretical syntactic work \cite{FIXME-Baldwin-et-al-Beauty}. A syntactic framework that excludes research on `peripheral' phenomena as uninteresting provides less support for implementational work than does one, like HPSG or Construction Grammar \cite{FIXME}, that values such topics.
 
-    \begin{itemize}
-    \item Stable formalism
-    \item Differentiating formalism from theory
-    \item Interest in core as well as periphery
-    \item Type hierarchy (maintainability)
-    \end{itemize}
+Finally, the type hierarchy characteristic of HPSG lends itself well to developing broad-coverage grammars which are maintainable over time \cite{FIXME-find-cite?}. The use of the type hierarchy to manage complexity at scale comes out of the work of Dan Flickinger \cite{Flickinger87} an others at HP labs in the project where HPSG was originally developed. The core idea is that any given constraint is (ideally) expressed only once on types which serve as supertypes to all entities that bear that constraint.\footnot{Originally this only applied to lexical entries in Flickinger's work. Now it also applies phrase structure rules, lexical rules, and types below the level of the sign which are used in the definition of all of these.} Such constraints might represent broad generalizations that apply to many entities or relatively narrow, indiosyncratic properties. By isolating any given constraint on one type (as opposed to repeating it in mutiple places), we build grammars that are easier to update and adapt in light of new data that require refinements to constraints. Having a single locus for each constraint also makes the types a very useful target for documentation \cite{FIXME:LTDB} and grammar exploration \cite{FIXME:typediff}. 
 
 
 \subsection{Practical considerations}
@@ -56,6 +52,7 @@ Tractability / pratical considerations  % First draft: Guy
     \end{itemize}
 
 \subsection{A brief history of HPSG grammar engineering}
+\label{sec:history}
 
 History: PAGE, VerbMobil, ?? % First draft: Emily
 
