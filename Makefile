@@ -36,7 +36,7 @@ order.pdf: stable.pdf
 
 # Stefan's chapter on cxg
 cxg.pdf: stable.pdf
-	pdftk stable.pdf cat 221-248 output cxg.pdf
+	pdftk stable.pdf cat 221-252 output cxg.pdf
 
 
 sm-public: order.pdf cxg.pdf
