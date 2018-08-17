@@ -34,8 +34,14 @@ stable.pdf: main.pdf
 order.pdf: stable.pdf
 	pdftk stable.pdf cat 35-65 output order.pdf
 
-sm-public: order.pdf
+# Stefan's chapter on cxg
+cxg.pdf: stable.pdf
+	pdftk stable.pdf cat 221-248 output cxg.pdf
+
+
+sm-public: order.pdf cxg.pdf
 	scp order.pdf hpsg.hu-berlin.de:public_html/Pub/constituent-order-hpsg.pdf
+	scp cxg.pdf hpsg.hu-berlin.de:public_html/Pub/cxg.pdf
 
 #main.pdf: main.aux
 #	xelatex main 
