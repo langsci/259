@@ -45,7 +45,9 @@ These developments led a few linguists to begin questioning the central role tra
 \end{quote}
 
 \noindent
-The framework that emerged became known as Generalized Phrase Structure Grammar; a good account of its development is Ted Briscoe's interview of Gazdar in November 2000. \footnote{\tt https://nlp.fi.muni.cz/~xjakub/briscoe-gazdar/}
+The framework that emerged became known as Generalized Phrase Structure Grammar; a good account of
+its development is Ted Briscoe's interview of Gazdar in November
+2000. \footnote{\url{https://nlp.fi.muni.cz/~xjakub/briscoe-gazdar/}, 2018-08-21}
 
 GPSG developed in response to several criticisms leveled against transformational grammar. First, TG was highly underformalized, to the extent that it was unclear what its claims---and the empirical consequences of those claims---amounted to; CFG, by comparison, was a simple and explicit mathematical formalism. Second, given the TG architecture of a context-free base together with a set of transformations, the claimed necessity of tranformations was standardly justified on the basis of arguments that CFGs were insufficiently expressive to serve as a general foundation for NL grammar; but Gazdar and Pullum showed all such arguments presented up to that point in time to be logically flawed or else based on false empirical claims. And third, closely related to the previous point, they showed that transformational grammarians had been insufficiently resourceful in exploiting what expressive power CFGs {\em did} possess; for example, coordinate constructions and unbounded dependency constructions had long served as prime examplars of the need for transformations, but Gazdar was able to show that both kinds of constructions, as well as interactions between them, did in fact yield to straightforward analysis within the framework of CFG.
  
@@ -102,9 +104,10 @@ Setting aside implementation details, early HPSG can be characterized by the fol
 So, for example, the metarule STM1 was used in GPSG to convert a PSR into another PSR one of whose daughters is [+NULL] (informally speaking, a `trace'), and feature cooccurence restrictions (FCR) guaranteed that such daughters would bear a SLASH value, and that this SLASH value would also appear on the mother. Unfortunately, the finite closure definition described above does not preclude the possibility of derived PSRs whose mother carries multiple, in fact unboundedly many
 SLASH values (e.g. NP/NP, (NP/NP)/NP, etc.). And this in turn leads to an infinite set of PSRs, outside the realm of CF-ness.  Of course, one could rein in this excess power by imposing another FCR that disallows categories of the form (X/Y)/Z; but then there is no way to analyze sentences containing a constituent with two undischarged unbounded dependencies, such as the VP complement of {\em easy} in the following example:
 
-\begin{quote}
-{\em Violins this finely crafted, even the most challenging sonatas are easy to [play \_ on \_]} 
-\end{quote}
+\ea
+\label{ex-violins}
+Violins this finely crafted, even the most challenging sonatas are easy to [play \_ on \_]
+\z
 
 \noindent
 GPSG avoided this problem by not analyzing such examples. In HPSG, by contrast, such examples were analyzed straightforwardly by replacing GPSG's category-valued SLASH feature with one whose values were lists (or sets) of categories. This approach still gave rise to an infinite set of rules, but since maintaining context-freeness was no longer at stake, this was not seen as problematic. The infinitude of rules in HPSG arose not through a violation of finite closure (since there were no longer any metarules at all), but because each of the handful of schematic PSRs (see below) could be directly instantiated in an infinite number of ways, given that the presence of list-valued
@@ -176,25 +179,22 @@ The value of a binding feature on the mother is the union of the values of that 
 \end{quote}
 
 \noindent
-For example, the doubly-gapped VP in the violins-and-sonatas example is analyzed roughly  as follows in HPSG:
-
-\begin{center}
-\begin{footnotesize}
-\leaf{\em{play}}
-\branch{1}{V[SUBCAT <PP,NP,NP>]}
-\leaf{\em{t}}
-\branch{1}{NP[SLASH <NP>]}
-\leaf{\em{on}}
-\branch{1}{P[SUBCAT <NP>]}
-\leaf{\em{t}}
-\branch{1}{NP[SLASH <NP>]}
-\branch{2}{PP[SLASH <NP>]}
-\branch{3}{V[SUBCAT <NP>,SLASH <NP,NP>]}
-\qobitree
-\end{footnotesize}
-\end{center}
-
-\noindent
+For example, the doubly-gapped VP in the violins-and-sonatas example is analyzed in HPSG roughly  as
+is shown in Figure~\ref{fig-play-on}
+\begin{figure}
+\centerfit{%
+\begin{forest}
+sm edges
+[{V[SUBCAT <NP>,SLASH <NP,NP>]}
+  [{V[SUBCAT <PP,NP,NP>]} [play]]
+  [{NP[SLASH <NP>]} [t]]
+  [{PP[SLASH <NP>]}
+    [{P[SUBCAT <NP>]} [on]]
+    [{NP[SLASH <NP>]} [t]]]]
+\end{forest}
+}
+\caption{\label{fig-play-on}\emph{play on} as part of \emph{Violins this finely crafted, even the most challenging sonatas are easy to play on.}}
+\end{figure}
 and essentially the same way in Lambek-style CG:
 
 \begin{center}
@@ -225,9 +225,18 @@ Before the end of Verbmobil funding in 2000, the LinGO project had already begun
 
 \section{Research and Teaching Networks}
 
-The first international conference on HPSG was held in 1993 in Columbus, Ohio, in conjunction with the Linguistic Society of America's Summer Institute.  The conference has been convened every year since then with the exception of 1995, with locations in Europe, Asia, and North America.  Two of these annual meetings have been held jointly with the annual Lexical Functional Grammar conference, in 2000 in Berkeley and in 2016 in Warsaw.  Proceedings of these conferences since 2000 are available on-line from CSLI Publications. \footnote{\tt http://web.stanford.edu/group/cslipublications/cslipublications/HPSG}  Since 2012, HPSG researchers in Europe have also held a regional workshop almost every year either in Frankfurt or in Paris, to foster informal discussion of current work in HPSG.  These follow in the footsteps of European HPSG workshops starting with one on German grammar, held in Saarbr{\"u}cken in 1991, and including others in Edinburgh and Copenhagen in 1994, and in T{\"u}bingen in 1995.
+The first international conference on HPSG was held in 1993 in Columbus, Ohio, in conjunction with
+the Linguistic Society of America's Summer Institute.  The conference has been convened every year
+since then with the exception of 1995, with locations in Europe, Asia, and North America.  Two of
+these annual meetings have been held jointly with the annual Lexical Functional Grammar conference,
+in 2000 in Berkeley and in 2016 in Warsaw.  Proceedings of these conferences since 2000 are
+available on-line from CSLI
+Publications. \footnote{\url{http://web.stanford.edu/group/cslipublications/cslipublications/HPSG}, 2018-08-21.}  Since 2012, HPSG researchers in Europe have also held a regional workshop almost every year either in Frankfurt or in Paris, to foster informal discussion of current work in HPSG.  These follow in the footsteps of European HPSG workshops starting with one on German grammar, held in Saarbr{\"u}cken in 1991, and including others in Edinburgh and Copenhagen in 1994, and in T{\"u}bingen in 1995.
 
-In 1994, the HPSG mailing list was initiated, \footnote{Links to its archives can be found at {\tt https://hpsg.hu-berlin.de/HPSG/MailingList}.} and from 1996 to 1998, the electronic newsletter, the HPSG Gazette, was distributed, \footnote{\tt http://www.sfs.uni-tuebingen.de/~gazette} with its function then taken over by the HPSG mailing list.
+In 1994, the HPSG mailing list was initiated, \footnote{Links to its archives can be found at
+  \url{https://hpsg.hu-berlin.de/HPSG/MailingList}.} and from 1996 to 1998, the electronic
+newsletter, the HPSG Gazette, was
+distributed, \footnote{\url{http://www.sfs.uni-tuebingen.de/~gazette}, 2018-08-21.} with its function then taken over by the HPSG mailing list.
 
 Courses introducing HPSG to students became part of the curriculum during the late 1980's and early 1990's at universities in Osaka, Paris, Saarbr{\"u}cken, Seoul, and T{\"u}bingen, along with Stanford and OSU.  Summer courses and workshops on HPSG have also been offered since the early 1990's at the LSA Summer Institute in the U.S., including a course by Sag and Pollard on binding and control in 1991 in Santa Cruz, and at the European Summer School in Logic, Language and Information (ESSLLI), including a workshop in Prague in 1996 on Romance (along with two HPSG-related student papers at the first-ever ESSLLI student session), and courses in 1998 in Saarbr{\"u}cken on Germanic syntax, on grammar engineering, and on unification-based formalisms.
     
@@ -240,7 +249,15 @@ By this time, grammars in HPSG were being implemented in university research gro
 
 Relatively early broad-coverage grammar implementations in HPSG, in addition to the English Resource Grammar at Stanford \citep{erg}, included one for German at the DFKI \citep{MK2000a} and one for Japanese (Jacy: \citet{Siegel2000a}), all used in the Verbmobil machine translation project; a separate German grammar \citep{Babel}; a Dutch grammar in Groningen \citep{BvNM2001a-u}; and a separate Japanese grammar in Tokyo \citep{MNT2005a-u}.  Moderately large HPSG grammars were also developed during this period for Korean \citep{KY2003a-u} and Polish \citep{myk:etal:02}.  
 
-In 1999, research groups at the DFKI, Stanford, and Tokyo set up a consortium called DELPH-IN (Initiative for Deep Linguistic Processing in HPSG), to foster broader development of both grammars and platform components, described in \citet{OFTU2002a-ed}.  Over the next two decades, substantial DELPH-IN grammars were developed for Norwegian, Porguguese, and Spanish, along with moderate-coverage grammars for Bulgarian, Greek, Hausa, Hebrew, Indonesian, Mandarin Chinese, Thai, and Wambaya, all described at {\tt http://delph-in.net}.  Several of these grammars are based on the Grammar Matrix \citep{BFO2002a-u}, a starter kit generalized from the ERG and Jacy for rapid prototyping of HPSG grammars, along with a much larger set of coursework grammars. \footnote{\tt http://moin.delph-in.net/MatrixTop} Moderate-coverage grammars developed in the TRALE system include Mandarin Chinese \citep{ML2013a}, Georgian \citep{Abzianidze2011a-u}, Persian \citep{MG2010a}, and Spanish \citep{Machicao-y-Priemer2015a}.
+In 1999, research groups at the DFKI, Stanford, and Tokyo set up a consortium called DELPH-IN
+(Initiative for Deep Linguistic Processing in HPSG), to foster broader development of both grammars
+and platform components, described in \citet{OFTU2002a-ed}.  Over the next two decades, substantial
+DELPH-IN grammars were developed for Norwegian, Porguguese, and Spanish, along with
+moderate-coverage grammars for Bulgarian, Greek, Hausa, Hebrew, Indonesian, Mandarin Chinese, Thai,
+and Wambaya, all described at \url{http://delph-in.net}.  Several of these grammars are based on the
+Grammar Matrix \citep{BFO2002a-u}, a starter kit generalized from the ERG and Jacy for rapid
+prototyping of HPSG grammars, along with a much larger set of coursework
+grammars. \footnote{\url{http://moin.delph-in.net/MatrixTop}, 2018-08-21.} Moderate-coverage grammars developed in the TRALE system include Mandarin Chinese \citep{ML2013a}, Georgian \citep{Abzianidze2011a-u}, Persian \citep{MG2010a}, and Spanish \citep{Machicao-y-Priemer2015a}.
 
 These grammars and systems have been used in a wide variety of applications, primarily as vehicles for research in computational linguistics, but also for some commercial software products.  Research applications already mentioned include database query (HP Labs) and machine translation (Verbmobil and LOGON), with additional applications developed for use in anthology search \citep{Sch:Kie:Spu:11}, grammar tutoring in Norwegian \citep{Hellanetal:13}, ontology acquisition \citep{Herb:Cope:06}, virtual robot control \citep{packard2014uw}, visual question answering \citep{DBLP:journals/corr/KuhnleC17}, and logic instruction \citep{Flickinger:17}, among many others.  Commercial applications include ecommerce customer email response (for YY Software), and grammar correction in education (for Redbird Advanced Learning, now part of McGraw-Hill Education: \citet{Suppesetal:12}).
 

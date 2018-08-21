@@ -16,6 +16,7 @@ index:  main.snd
 main.pdf: $(SOURCE)
 	xelatex -no-pdf main
 	biber main
+	xelatex -no-pdf main
 	sed -i.backup s/.*\\emph.*// main.adx #remove titles which biblatex puts into the name index
 	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.sdx # ordering of references to footnotes
 	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.adx
