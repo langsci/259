@@ -33,11 +33,11 @@ stable.pdf: main.pdf
 
 # Stefan's chapter on order
 order.pdf: stable.pdf
-	pdftk stable.pdf cat 113-143 output order.pdf
+	pdftk stable.pdf cat 161-191 output order.pdf
 
 # Stefan's chapter on cxg
 cxg.pdf: stable.pdf
-	pdftk stable.pdf cat 261-292 output cxg.pdf
+	pdftk stable.pdf cat 309-340 output cxg.pdf
 
 
 sm-public: order.pdf cxg.pdf
