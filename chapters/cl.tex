@@ -7,9 +7,6 @@
 
 % \chapterDOI{} %will be filled in at production
 
-%\epigram{Change epigram in chapters/03.tex or remove it there }
-% GE: not sure what this means.  There is no 03.tex.
-
 \abstract{%
 	We discuss the relevance of HPSG for computational linguistics.
 	% TODO
@@ -28,9 +25,15 @@
 
 % First draft: Emily
 
-From the inception of HPSG in the joint work of Ivan Sag, Geoff Pullum, Tom Wasow, Mark Gawron, Carl Pollard and Dan Flickinger at HP Labs in the 1980s \cite{FIXME-CLobit-or-other}, there has been a close integration between theoretical and computational work. In this chapter, we give an overview of computational work in HPSG, starting with the infrastructure that supports it (both theoretical and practical) in \S\ref{sec:infrastructure}. Next we describe several existing large-scale projects which build HPSG or HPSG-inspired grammars (\S\ref{sec:resources}) and the deployment of such grammars in applications including both those within linguistic research and otherwise (\S\ref{sec:deployment}).  Finally, we turn to lessons for linguistics gleaned from broad-coverage grammar development.
+From the inception of HPSG in the 1980s,
+there has been a close integration between theoretical and computational work
+\citep{FIXME-CLobit-or-other}.
+% at HP Labs
+% in the joint work of Ivan Sag, Geoff Pullum, Tom Wasow, Mark Gawron, Carl Pollard and Dan Flickinger
+% GE: I think this list of authors is too long for a first sentence.  Their names would be in a citation?
+In this chapter, we give an overview of computational work in HPSG, starting with the infrastructure that supports it (both theoretical and practical) in \S\ref{sec:infrastructure}. Next we describe several existing large-scale projects which build HPSG or HPSG-inspired grammars (\S\ref{sec:resources}) and the deployment of such grammars in applications including both those within linguistic research and otherwise (\S\ref{sec:deployment}).  Finally, we turn to linguistic insights gleaned from broad-coverage grammar development.
 
-% EMB 2018-07-26 That seems like a relatively weak intro, but putting it in as aplace-holder for now. 
+% EMB 2018-07-26 That seems like a relatively weak intro, but putting it in as a place-holder for now. 
 
 % EMB 2018-07-26 Also, I wonder if ``lessons for linguistics'' might not come across as condescending...
 % GE 2018-07-31 Yes, maybe best to reword that somehow... ``Linguistic insights''?
@@ -43,11 +46,11 @@ From the inception of HPSG in the joint work of Ivan Sag, Geoff Pullum, Tom Waso
 \subsection{Theoretical considerations}
 \label{sec:theoretical}
 
-There are several properties of HPSG as a theory that make it well-suited to computational implementation. First, the theory is kept separate from the formalism: the formalism is expressive enough to encode a wide variety of possible theories. While some theoretical work does argue for or against the necessity of particular formal devices (e.g.\ the shuffle operator \cite{FIXME-Reape}), much of it proceeds within shared assumptions about the formalism. This is in contrast to work in the context of the Minimalist Program \cite{Chomsky93b-u}, where theoretical results are typically couched in terms of modifications to the formalism itself. From a computational point of view, the benefit of differentiating between theory and formalism is that it means that the formalism is relatively stable. That in turns enables the development and maintenance of software systems that target the formalism, for parsing, generation, and grammar exploration (see \S\ref{sec:history} below for some examples).\footnote{There are implementations of Minimalism, notably \cite{FIXME-Stabler} and \cite{FIXME-Indianadiss}. However, doing an implementation requires fixing the formalism, and so these are unlikely to be useful for testing theoretical ideas as the theory moves on.}
+There are several properties of HPSG as a theory that make it well-suited to computational implementation. First, the theory is kept separate from the formalism: the formalism is expressive enough to encode a wide variety of possible theories. While some theoretical work does argue for or against the necessity of particular formal devices (e.g.\ the shuffle operator \citep{FIXME-Reape}), much of it proceeds within shared assumptions about the formalism. This is in contrast to work in the context of the Minimalist Program \citep{Chomsky93b-u}, where theoretical results are typically couched in terms of modifications to the formalism itself. From a computational point of view, the benefit of differentiating between theory and formalism is that it means that the formalism is relatively stable. That in turns enables the development and maintenance of software systems that target the formalism, for parsing, generation, and grammar exploration (see \S\ref{sec:history} below for some examples).\footnote{There are implementations of Minimalism, notably \citet{FIXME-Stabler} and \citet{FIXME-Indianadiss}. However, writing an implementation requires fixing the formalism, and so these are unlikely to be useful for testing theoretical ideas as the theory moves on.}
 
-A second important property of HPSG that supports a strong connection between theoretical and computational work is an interest in both so-called `core' and so-called `peripheral' phenomena. Most implemented grammars are built with the goal of handling naturally occurring text.\footnote{Though it is possible to do implementation work strictly against testsuites of sentences constructed specifically to focus on phenomena of interest.} This means that they will need to handle a wide variety of linguistic phenomena not always treated in theoretical syntactic work \cite{FIXME-Baldwin-et-al-Beauty}. A syntactic framework that excludes research on `peripheral' phenomena as uninteresting provides less support for implementational work than does one, like HPSG or Construction Grammar \cite{FIXME}, that values such topics.
+A second important property of HPSG that supports a strong connection between theoretical and computational work is an interest in both so-called `core' and so-called `peripheral' phenomena. Most implemented grammars are built with the goal of handling naturally occurring text.\footnote{Though it is possible to do implementation work strictly against testsuites of sentences constructed specifically to focus on phenomena of interest.} This means that they will need to handle a wide variety of linguistic phenomena not always treated in theoretical syntactic work \citep{FIXME-Baldwin-et-al-Beauty}. A syntactic framework that excludes research on `peripheral' phenomena as uninteresting provides less support for implementational work than does one, like HPSG or Construction Grammar \citep{FIXME}, that values such topics.
 
-Finally, the type hierarchy characteristic of HPSG lends itself well to developing broad-coverage grammars which are maintainable over time \cite{FIXME-find-cite?}. The use of the type hierarchy to manage complexity at scale comes out of the work of Dan Flickinger \cite{Flickinger87} and others at HP labs in the project where HPSG was originally developed. The core idea is that any given constraint is (ideally) expressed only once on types which serve as supertypes to all entities that bear that constraint.\footnote{Originally this only applied to lexical entries in Flickinger's work. Now it also applies phrase structure rules, lexical rules, and types below the level of the sign which are used in the definition of all of these.} Such constraints might represent broad generalizations that apply to many entities or relatively narrow, indiosyncratic properties. By isolating any given constraint on one type (as opposed to repeating it in mutiple places), we build grammars that are easier to update and adapt in light of new data that require refinements to constraints. Having a single locus for each constraint also makes the types a very useful target for documentation \cite{FIXME:LTDB} and grammar exploration \cite{FIXME:typediff}. 
+Finally, the type hierarchy characteristic of HPSG lends itself well to developing broad-coverage grammars which are maintainable over time \citep{FIXME-find-cite?}. The use of the type hierarchy to manage complexity at scale comes out of the work of \citet{Flickinger87} and others at HP labs in the project where HPSG was originally developed. The core idea is that any given constraint is (ideally) expressed only once on types which serve as supertypes to all entities that bear that constraint.\footnote{Originally this only applied to lexical entries in Flickinger's work. Now it also applies phrase structure rules, lexical rules, and types below the level of the sign which are used in the definition of all of these.} Such constraints might represent broad generalizations that apply to many entities or relatively narrow, indiosyncratic properties. By isolating any given constraint on one type (as opposed to repeating it in mutiple places), we build grammars that are easier to update and adapt in light of new data that require refinements to constraints. Having a single locus for each constraint also makes the types a very useful target for documentation \citep{FIXME:LTDB} and grammar exploration \citep{FIXME:typediff}. 
 
 
 \subsection{Practical considerations}
@@ -63,14 +66,14 @@ as we will discuss in~\S\ref{sec:deployment}.
 \subsubsection{Computational complexity}
 
 One way to measure how easy or difficult it is to use a syntactic theory
-is to consider the \textbf{computational complexity} of parsing and generation algorithms.
+is to consider the \textit{computational complexity} of parsing and generation algorithms.
 For example, we can consider how much computational time
 a parsing algorithm needs to process a particular sentence.
 For longer sentences, we would expect the amount of time to increase,
 but the more complex the algorithm,
 the more quickly the amount of time increases.
 If we consider sentences containing $n$~tokens,
-we could find the average amount of time taken,
+we can find the average amount of time taken,
 or the longest amount of time.
 We can then increase~$n$, and see how the amount of time changes,
 both in the average case, and in the worst case.
@@ -79,21 +82,20 @@ At first sight, analysing computational complexity
 would seem to paint HPSG in a bad light,
 because the formalism allows us to write grammars
 with any possible computational complexity
-(the formalism can be called \textbf{Turing-complete}).
+(the formalism can be called \textit{Turing-complete}).
 However, as discussed in the previous section,
 there is a clear distinction between theory and formalism.
-Although the feature-structure formalism does not allow efficient algorithms in the general case,
-a particular theory (or a particular grammar) might well do.
-
-%TODO discuss:
-% - CFG backbone without recursive unary rules -> worst-case exponential time
-% - grammar writers adapting to complexity
-% - Delph-in grammars in practice have better average-case complexity than might be expected
+Although the feature-structure formalism does not allow efficient algorithms
+that could cope with any possible grammar,
+a particular theory (or a particular grammar) might well allow efficient algorithms.
 
 The difference between theory and formalism
 becomes clear when comparing HPSG to other computationally-friendly frameworks,
-such as Combinatory Categorial Grammar (CCG; \citealp{FIXME-Steedman-and-Baldridge}),
-or Tree Adjoining Grammar (TAG; \citealp{FIXME-Joshi}).
+such as Combinatory Categorial Grammar (CCG),\footnote{%
+	For an introduction, see: \citealp{steedman2011ccg}.
+	See also Kubota 2018, this volume. %TODO cite
+}
+or Tree Adjoining Grammar (TAG; \citealp{FIXME-Joshi}). % TODO historical note on influences between frameworks?
 The formalisms of CCG and TAG inherently limit computational complexity:
 for both of them, as the sentence length~$n$ increases,
 worst-case parsing time increases proportional to~$n^6$.
@@ -104,6 +106,11 @@ Building this kind of constraint into the formalism itself
 highlights a different way of thinking from HPSG.
 As discussed above, separating formalism from theory
 means that the formalism is stable, even as the theory develops.
+
+%TODO discuss:
+% - CFG backbone without recursive unary rules -> worst-case exponential time
+% - grammar writers adapting to complexity
+% - Delph-in grammars in practice have better average-case complexity than might be expected
 
 
 
@@ -116,19 +123,19 @@ For an ambiguous sentence,
 a grammar gives multiple valid parses.
 In practical applications, considering all possible parses can be infeasible,
 and we may want to automatically disambiguate each sentence.
-This can be done by \textbf{ranking} the parses,
+This can be done by \textit{ranking} the parses,
 so that the application only uses the most highly-ranked parse,
 or the top~$N$ parses.
 
 Parse ranking is not usually determined by the grammar itself,
 because of the difficulty of manually writing disambiguation rules.
 Typically, a statistical system is used.
-First, a corpus is \textbf{treebanked}:
+First, a corpus is \textit{treebanked}:
 for each sentence in the corpus,
 an annotator (often the grammar writer) chooses the best parse,
 out of all parses produced by the grammar.
-The set of all parses for a sentence is often referred to as the \textbf{parse forest},
-and the selected best parse is often referred to as the \textbf{gold standard}.
+The set of all parses for a sentence is often referred to as the \textit{parse forest},
+and the selected best parse is often referred to as the \textit{gold standard}.
 Given the gold parses for the whole corpus, a statistical system is trained
 to predict the gold parse from a parse forest.
 
@@ -136,6 +143,31 @@ In practical applications, a grammar is rarely used alone,
 but rather in combination with a statistical parser (or statistical generator) trained on a treebank.
 
 %TODO references...
+
+Because of the large number of possible parses,
+it can be helpful to \textit{prune} the search space:
+rather than ranking the full set of parses,
+we can restrict attention to a smaller set of parses,
+which hopefully includes the correct parse.
+By carefully choosing how to restrict our attention,
+we can drastically reduce processing time without hurting performance.
+
+Ubertagging.
+
+
+\subsubsection{Semantic dependencies}
+
+In practical applications of HPSG grammars,
+the full derivation trees and the full feature structures are often seen as unwieldy,
+containing far more information than necessary for the task at hand.
+It is often desirable to extract a concise semantic representation.
+
+Semantic dependency graphs.
+Popular and easy to work with.
+DMRS, EDS, DM.
+
+(See also Hudson, 2018, this volume...)
+
 
 
 \subsection{A brief history of HPSG grammar engineering}
@@ -195,29 +227,76 @@ Current platforms:
 \section{Deployment of HPSG resources}
 \label{sec:deployment}
 
-% First draft: ...
+\subsection{Language documentation and linguistic hypothesis testing}
 
-\begin{itemize}
- \item Language documentation/linguistic hypothesis testing
-    \begin{itemize}
-    \item CoreGram % Guy
-    \item Grammar Matrix % Emily
-    \item AGGREGATION % Emily
-    \end{itemize}
- \item DELPH-IN:
-    \begin{itemize}
-    \item DELPH-IN Applications: Things we do using DELPH-IN grammars directly % Guy
-    \item Derived resources: Redwoods-style treebanks % Emily
-    \item Training data for Deep Learning % Guy
-    \end{itemize}
- \item Alpino % Guy
-    \begin{itemize}
-    \item ??
-    \end{itemize}
- \item Other?
- \end{itemize}
+Deployment for linguistic goals.
 
-\section{Lessons for Linguistics}
+% King (2016) ``Theoretical linguistics and grammar engineering as mutually constraining disciplines''
+% http://web.stanford.edu/group/cslipublications/cslipublications/HPSG/2016/headlex2016-king.pdf
+
+\subsubsection{CoreGram}
+% Guy
+
+\subsubsection{Grammar Matrix}
+% Emily
+
+\subsubsection{AGGREGATION}
+% Emily
+
+\subsubsection{Derived resources: Redwoods-style treebanks}
+%Emily
+
+
+\subsection{Downstream applications}
+%Guy
+
+Deployment for other tasks.
+Large number of applications.
+Focus on several important applications below.
+See also \url{http://moin.delph-in.net/DelphinApplications}.
+
+
+\subsubsection{Language teaching}
+
+Redbird (McGraw-Hill)
+
+RASP and Cambridge Assessment
+
+
+\subsubsection{NLP tasks}
+
+Information extraction
+
+Summarisation
+
+Machine translation
+
+
+
+\subsubsection{Data for machine learning}
+
+Unlike the previous sections,
+not providing analyses, but providing data.
+Not used at test time, only at training time.
+
+Training deep learning systems
+-- semantic parsing
+-- skip over HPSG, go straight to semantic representations
+
+Evaluation of deep learning systems
+-- ShapeWorld
+-- use a grammar to produce annotations
+
+
+\subsection{Other?}
+
+Alpino?
+
+Enju?
+
+
+
+\section{Linguistic Insights}
 \begin{itemize}
     \item Ambiguity % Guy
     \item Long-tail phenomena (raising and control?) % Emily
