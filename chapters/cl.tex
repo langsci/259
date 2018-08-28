@@ -8,7 +8,8 @@
 % \chapterDOI{} %will be filled in at production
 
 \abstract{%
-	We discuss the relevance of HPSG for computational linguistics.
+	We discuss the relevance of HPSG for computational linguistics,
+	and the relevance of computational linguistics for HPSG.
 	% TODO
 }
 
@@ -27,11 +28,12 @@
 
 From the inception of HPSG in the 1980s,
 there has been a close integration between theoretical and computational work
-\citep{FIXME-CLobit-or-other}.
+(see Flickinger, Pollard, and Wasow, 2018, Chapter~\ref{chap-evolution} of this volume).
+%\citep{FIXME-CLobit-or-other}.
 % at HP Labs
 % in the joint work of Ivan Sag, Geoff Pullum, Tom Wasow, Mark Gawron, Carl Pollard and Dan Flickinger
 % GE: I think this list of authors is too long for a first sentence.  Their names would be in a citation?
-In this chapter, we give an overview of computational work in HPSG, starting with the infrastructure that supports it (both theoretical and practical) in \S\ref{sec:infrastructure}. Next we describe several existing large-scale projects which build HPSG or HPSG-inspired grammars (\S\ref{sec:resources}) and the deployment of such grammars in applications including both those within linguistic research and otherwise (\S\ref{sec:deployment}).  Finally, we turn to linguistic insights gleaned from broad-coverage grammar development.
+In this chapter, we give an overview of computational work in HPSG, starting with the infrastructure that supports it (both theoretical and practical) in \S\ref{cl:infrastructure}. Next we describe several existing large-scale projects which build HPSG or HPSG-inspired grammars (\S\ref{cl:resources}) and the deployment of such grammars in applications including both those within linguistic research and otherwise (\S\ref{cl:deployment}).  Finally, we turn to linguistic insights gleaned from broad-coverage grammar development.
 
 % EMB 2018-07-26 That seems like a relatively weak intro, but putting it in as a place-holder for now. 
 
@@ -39,14 +41,14 @@ In this chapter, we give an overview of computational work in HPSG, starting wit
 % GE 2018-07-31 Yes, maybe best to reword that somehow... ``Linguistic insights''?
 
 \section{Infrastructure}
-\label{sec:infrastructure}
+\label{cl:infrastructure}
 
 % First draft: By subsection
 
 \subsection{Theoretical considerations}
-\label{sec:theoretical}
+\label{cl:theoretical}
 
-There are several properties of HPSG as a theory that make it well-suited to computational implementation. First, the theory is kept separate from the formalism: the formalism is expressive enough to encode a wide variety of possible theories. While some theoretical work does argue for or against the necessity of particular formal devices (e.g.\ the shuffle operator \citep{FIXME-Reape}), much of it proceeds within shared assumptions about the formalism. This is in contrast to work in the context of the Minimalist Program \citep{Chomsky93b-u}, where theoretical results are typically couched in terms of modifications to the formalism itself. From a computational point of view, the benefit of differentiating between theory and formalism is that it means that the formalism is relatively stable. That in turns enables the development and maintenance of software systems that target the formalism, for parsing, generation, and grammar exploration (see \S\ref{sec:history} below for some examples).\footnote{There are implementations of Minimalism, notably \citet{FIXME-Stabler} and \citet{FIXME-Indianadiss}. However, writing an implementation requires fixing the formalism, and so these are unlikely to be useful for testing theoretical ideas as the theory moves on.}
+There are several properties of HPSG as a theory that make it well-suited to computational implementation. First, the theory is kept separate from the formalism: the formalism is expressive enough to encode a wide variety of possible theories. While some theoretical work does argue for or against the necessity of particular formal devices (e.g.\ the shuffle operator \citep{FIXME-Reape}), much of it proceeds within shared assumptions about the formalism. This is in contrast to work in the context of the Minimalist Program \citep{Chomsky93b-u}, where theoretical results are typically couched in terms of modifications to the formalism itself. From a computational point of view, the benefit of differentiating between theory and formalism is that it means that the formalism is relatively stable. That in turns enables the development and maintenance of software systems that target the formalism, for parsing, generation, and grammar exploration (see \S\ref{cl:history} below for some examples).\footnote{There are implementations of Minimalism, notably \citet{FIXME-Stabler} and \citet{FIXME-Indianadiss}. However, writing an implementation requires fixing the formalism, and so these are unlikely to be useful for testing theoretical ideas as the theory moves on.}
 
 A second important property of HPSG that supports a strong connection between theoretical and computational work is an interest in both so-called `core' and so-called `peripheral' phenomena. Most implemented grammars are built with the goal of handling naturally occurring text.\footnote{Though it is possible to do implementation work strictly against testsuites of sentences constructed specifically to focus on phenomena of interest.} This means that they will need to handle a wide variety of linguistic phenomena not always treated in theoretical syntactic work \citep{FIXME-Baldwin-et-al-Beauty}. A syntactic framework that excludes research on `peripheral' phenomena as uninteresting provides less support for implementational work than does one, like HPSG or Construction Grammar \citep{FIXME}, that values such topics.
 
@@ -54,16 +56,18 @@ Finally, the type hierarchy characteristic of HPSG lends itself well to developi
 
 
 \subsection{Practical considerations}
-\label{sec:practical}
+\label{cl:prac}
 
 The formalism of HPSG allows practical implementations,
 since feature structures are well-defined data structures.
 Furthermore, because HPSG is defined to be bi-directional,
 an implemented grammar can be used for both parsing and generation.
-This allows HPSG grammars to be used in a range of NLP applications,
-as we will discuss in~\S\ref{sec:deployment}.
+In this section, we discuss how HPSG allows tractable algorithms,
+which enables HPSG grammars to be used in a range of NLP applications,
+as we will see in~\S\ref{cl:deployment}.
 
 \subsubsection{Computational complexity}
+\label{cl:prac:comp}
 
 One way to measure how easy or difficult it is to use a syntactic theory
 is to consider the \textit{computational complexity} of parsing and generation algorithms.
@@ -93,9 +97,10 @@ The difference between theory and formalism
 becomes clear when comparing HPSG to other computationally-friendly frameworks,
 such as Combinatory Categorial Grammar (CCG),\footnote{%
 	For an introduction, see: \citealp{steedman2011ccg}.
-	See also Kubota 2018, this volume. %TODO cite
+	See also Kubota 2018, Chapter~\ref{chap-cg} of this volume.
 }
-or Tree Adjoining Grammar (TAG; \citealp{FIXME-Joshi}). % TODO historical note on influences between frameworks?
+or Tree Adjoining Grammar (TAG; \citealp{FIXME-Joshi}).
+% TODO historical note on influences between frameworks?  Summarise mentions in Flickinger et al.'s chapter...
 The formalisms of CCG and TAG inherently limit computational complexity:
 for both of them, as the sentence length~$n$ increases,
 worst-case parsing time increases proportional to~$n^6$.
@@ -103,9 +108,10 @@ This is a deliberate feature of these formalisms,
 which aim to be just expressive enough to capture human language,
 and not any more expressive.
 Building this kind of constraint into the formalism itself
-highlights a different way of thinking from HPSG.
+highlights a different school of thought from HPSG.
 As discussed above, separating formalism from theory
 means that the formalism is stable, even as the theory develops.
+%TODO CoreGram explicitly not worrying about tractability.
 
 %TODO discuss:
 % - CFG backbone without recursive unary rules -> worst-case exponential time
@@ -116,6 +122,7 @@ means that the formalism is stable, even as the theory develops.
 
 
 \subsubsection{Parse ranking}
+\label{cl:prac:rank}
 
 % GE: not sure if this should be here or go in a later section
 
@@ -156,6 +163,7 @@ Ubertagging.
 
 
 \subsubsection{Semantic dependencies}
+\label{cl:prac:dep}
 
 In practical applications of HPSG grammars,
 the full derivation trees and the full feature structures are often seen as unwieldy,
@@ -166,12 +174,12 @@ Semantic dependency graphs.
 Popular and easy to work with.
 DMRS, EDS, DM.
 
-(See also Hudson, 2018, this volume...)
+(See also Hudson, 2018, Chapter~\ref{chap-dg} of this volume)
 
 
 
 \subsection{A brief history of HPSG grammar engineering}
-\label{sec:history}
+\label{cl:history}
 
 History: PAGE, VerbMobil, ?? % First draft: Emily
 
@@ -184,7 +192,7 @@ Current platforms:
 
 
 \section{Development of HPSG resources}
-\label{sec:resources}
+\label{cl:resources}
 
 % First draft: DELPH-IN, Emily / non-DELPH-IN, Guy
 
@@ -225,7 +233,7 @@ Current platforms:
 %% all are available from http://www.let.rug.nl/vannoord/papers/
 
 \section{Deployment of HPSG resources}
-\label{sec:deployment}
+\label{cl:deployment}
 
 \subsection{Language documentation and linguistic hypothesis testing}
 
