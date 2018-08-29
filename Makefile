@@ -31,13 +31,35 @@ main.pdf: $(SOURCE)
 stable.pdf: main.pdf
 	cp main.pdf stable.pdf
 
+
+# 
+lexicon.pdf: stable.pdf
+	pdftk stable.pdf cat 49-88 output lexicon.pdf
+
+
+evolution.pdf: stable.pdf
+	pdftk stable.pdf cat 19-46 output evolution.pdf
+
 # Stefan's chapter on order
 order.pdf: stable.pdf
 	pdftk stable.pdf cat 161-191 output order.pdf
 
+agreement.pdf: agreement.pdf
+	pdftk stable.pdf cat 93-115 output agreement.pdf
+
+arg-st.pdf: arg-st.pdf
+	pdftk stable.pdf cat 145-184 output arg-st.pdf
+
+case.pdf: stable.pdf
+	pdftk stable.pdf cat 117-143 output case.pdf
+
+
+processing.pdf: stable.pdf
+	pdftk stable.pdf cat 261-281 output processing.pdf
+
 # Stefan's chapter on cxg
 cxg.pdf: stable.pdf
-	pdftk stable.pdf cat 309-340 output cxg.pdf
+	pdftk stable.pdf cat 337-368 output cxg.pdf
 
 
 sm-public: order.pdf cxg.pdf
