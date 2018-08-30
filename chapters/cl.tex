@@ -28,12 +28,19 @@
 
 From the inception of HPSG in the 1980s,
 there has been a close integration between theoretical and computational work
-(see Flickinger, Pollard, and Wasow, 2018, Chapter~\ref{chap-evolution} of this volume).
+\crossrefchapterp[for an overview, see]{evolution}.
 %\citep{FIXME-CLobit-or-other}.
-% at HP Labs
-% in the joint work of Ivan Sag, Geoff Pullum, Tom Wasow, Mark Gawron, Carl Pollard and Dan Flickinger
-% GE: I think this list of authors is too long for a first sentence.  Their names would be in a citation?
-In this chapter, we give an overview of computational work in HPSG, starting with the infrastructure that supports it (both theoretical and practical) in \S\ref{cl:infrastructure}. Next we describe several existing large-scale projects which build HPSG or HPSG-inspired grammars (\S\ref{cl:resources}) and the deployment of such grammars in applications including both those within linguistic research and otherwise (\S\ref{cl:deployment}).  Finally, we turn to linguistic insights gleaned from broad-coverage grammar development.
+% at HP Labs in the joint work of Ivan Sag, Geoff Pullum, Tom Wasow, Mark Gawron, Carl Pollard and Dan Flickinger
+% GE: I think this list of authors is too long for a first sentence.  Do we need to do more than refer to the other chapter?
+\citep{chapters/evolution}.
+In this chapter, we discuss computational work in HPSG,
+starting with the infrastructure that supports it (both theoretical and practical) in Section~\ref{cl:infrastructure}.
+Next we describe several existing large-scale projects which build HPSG or HPSG-inspired grammars
+(see Section~\ref{cl:resources})
+and the deployment of such grammars in applications including both those within linguistic research and otherwise
+(see Section~\ref{cl:deployment}).
+Finally, we turn to linguistic insights gleaned from broad-coverage grammar development
+(see Section~\ref{cl:insight}).
 
 % EMB 2018-07-26 That seems like a relatively weak intro, but putting it in as a place-holder for now. 
 
@@ -48,7 +55,7 @@ In this chapter, we give an overview of computational work in HPSG, starting wit
 \subsection{Theoretical considerations}
 \label{cl:theoretical}
 
-There are several properties of HPSG as a theory that make it well-suited to computational implementation. First, the theory is kept separate from the formalism: the formalism is expressive enough to encode a wide variety of possible theories. While some theoretical work does argue for or against the necessity of particular formal devices (e.g.\ the shuffle operator \citep{FIXME-Reape}), much of it proceeds within shared assumptions about the formalism. This is in contrast to work in the context of the Minimalist Program \citep{Chomsky93b-u}, where theoretical results are typically couched in terms of modifications to the formalism itself. From a computational point of view, the benefit of differentiating between theory and formalism is that it means that the formalism is relatively stable. That in turns enables the development and maintenance of software systems that target the formalism, for parsing, generation, and grammar exploration (see \S\ref{cl:history} below for some examples).\footnote{There are implementations of Minimalism, notably \citet{FIXME-Stabler} and \citet{FIXME-Indianadiss}. However, writing an implementation requires fixing the formalism, and so these are unlikely to be useful for testing theoretical ideas as the theory moves on.}
+There are several properties of HPSG as a theory that make it well-suited to computational implementation. First, the theory is kept separate from the formalism: the formalism is expressive enough to encode a wide variety of possible theories. While some theoretical work does argue for or against the necessity of particular formal devices (e.g.\ the shuffle operator \citep{FIXME-Reape}), much of it proceeds within shared assumptions about the formalism. This is in contrast to work in the context of the Minimalist Program \citep{Chomsky93b-u}, where theoretical results are typically couched in terms of modifications to the formalism itself. From a computational point of view, the benefit of differentiating between theory and formalism is that it means that the formalism is relatively stable. That in turns enables the development and maintenance of software systems that target the formalism, for parsing, generation, and grammar exploration (see Section~\ref{cl:history} below for some examples).\footnote{There are implementations of Minimalism, notably \citet{FIXME-Stabler} and \citet{FIXME-Indianadiss}. However, writing an implementation requires fixing the formalism, and so these are unlikely to be useful for testing theoretical ideas as the theory moves on.}
 
 A second important property of HPSG that supports a strong connection between theoretical and computational work is an interest in both so-called `core' and so-called `peripheral' phenomena. Most implemented grammars are built with the goal of handling naturally occurring text.\footnote{Though it is possible to do implementation work strictly against testsuites of sentences constructed specifically to focus on phenomena of interest.} This means that they will need to handle a wide variety of linguistic phenomena not always treated in theoretical syntactic work \citep{FIXME-Baldwin-et-al-Beauty}. A syntactic framework that excludes research on `peripheral' phenomena as uninteresting provides less support for implementational work than does one, like HPSG or Construction Grammar \citep{FIXME}, that values such topics.
 
@@ -64,7 +71,7 @@ Furthermore, because HPSG is defined to be bi-directional,
 an implemented grammar can be used for both parsing and generation.
 In this section, we discuss how HPSG allows tractable algorithms,
 which enables HPSG grammars to be used in a range of NLP applications,
-as we will see in~\S\ref{cl:deployment}.
+as we will see in Section~\ref{cl:deployment}.
 
 \subsubsection{Computational complexity}
 \label{cl:prac:comp}
@@ -74,49 +81,75 @@ is to consider the \textit{computational complexity} of parsing and generation a
 For example, we can consider how much computational time
 a parsing algorithm needs to process a particular sentence.
 For longer sentences, we would expect the amount of time to increase,
-but the more complex the algorithm,
+but the more complex the algorithm is,
 the more quickly the amount of time increases.
 If we consider sentences containing $n$~tokens,
 we can find the average amount of time taken,
-or the longest amount of time.
+or the longest amount of time taken.
 We can then increase~$n$, and see how the amount of time changes,
 both in the average case, and in the worst case.
 
 At first sight, analysing computational complexity
 would seem to paint HPSG in a bad light,
 because the formalism allows us to write grammars
-with any possible computational complexity
-(the formalism can be called \textit{Turing-complete}).
+which can be arbitrarily complex;
+this means that the formalism can be called \textit{Turing-complete}
+\citep[Section~3.4]{Johnson88}.
 However, as discussed in the previous section,
 there is a clear distinction between theory and formalism.
-Although the feature-structure formalism does not allow efficient algorithms
-that could cope with any possible grammar,
+Although the feature-structure formalism rules out the possibility of efficient algorithms
+that could cope with any possible feature-structure grammar,
 a particular theory (or a particular grammar) might well allow efficient algorithms.
 
 The difference between theory and formalism
 becomes clear when comparing HPSG to other computationally-friendly frameworks,
 such as Combinatory Categorial Grammar (CCG),\footnote{%
-	For an introduction, see: \citealp{steedman2011ccg}.
-	See also Kubota 2018, Chapter~\ref{chap-cg} of this volume.
+	For an introduction, see \citet{steedman2011ccg}.
+	For a comparison with HPSG, see \crossrefchaptert{cg}.
 }
-or Tree Adjoining Grammar (TAG; \citealp{FIXME-Joshi}).
-% TODO historical note on influences between frameworks?  Summarise mentions in Flickinger et al.'s chapter...
+or Tree Adjoining Grammar \citep[TAG;][]{Joshi87a-u,SAJ88a-u}).
 The formalisms of CCG and TAG inherently limit computational complexity:
 for both of them, as the sentence length~$n$ increases,
-worst-case parsing time increases proportional to~$n^6$.
+worst-case parsing time is proportional to~$n^6$ \citep{Kasamietal1989}.
 This is a deliberate feature of these formalisms,
 which aim to be just expressive enough to capture human language,
 and not any more expressive.
 Building this kind of constraint into the formalism itself
 highlights a different school of thought from HPSG.
-As discussed above, separating formalism from theory
+Indeed, \citet{MuellerCoreGram} explicitly argues
+in favour of developing linguistic analyses first,
+and improving processing efficiency second.
+As discussed above in Section~\ref{cl:theoretical},
+separating the formalism from the theory
 means that the formalism is stable, even as the theory develops.
-%TODO CoreGram explicitly not worrying about tractability.
 
-%TODO discuss:
-% - CFG backbone without recursive unary rules -> worst-case exponential time
-% - grammar writers adapting to complexity
-% - Delph-in grammars in practice have better average-case complexity than might be expected
+It would beyond the scope of this chapter
+to give a full review of parsing algorithms,
+but it is instructive to give an example.
+For grammars that have a context-free backbone
+(we can express every derivation as a phrase-structure tree
+plus constraints between mother and daughter nodes),
+it is possible to adapt the standard chart-parsing algorithm for context-free grammars.
+The basic idea is to parse ``bottom-up'' through the tree,
+starting by finding analyses for each token in the input,
+and then finding analyses for increasingly longer sequences of tokens,
+until we reach the entire sentence.
+The resulting algorithm is more computationally complex than for a context-free grammar,
+because we are dealing with feature structures, rather than nonterminal symbols.
+While a context-free grammar allows a finite number of nonterminals,
+a feature-structure grammar may allow a infinite number of possible feature structures.
+For an HPSG grammar without recursive unary rules,
+this algorithm has a worst-case complexity of exponential time.
+This is less complex than for an arbitrary grammar
+(which means that this class of grammars is \textit{not} Turing-complete),
+but more complex than for CCG or TAG.
+However, when parsing real corpora,
+it turns out that the average-case complexity is much better than we might expect.
+On the one hand, grammatical constructions do not generally combine in the worst-case way,
+and on the other hand, when there are multiple possible analyses for a particular construction,
+a grammar writer may end up choosing the analysis that is more efficient for a particular parsing algorithm.
+% TODO citations -- maybe look at evolution.tex, {Implementations and Applications of HPSG}
+% GE: Maybe this last paragraph is too terse?
 
 
 
@@ -128,15 +161,37 @@ means that the formalism is stable, even as the theory develops.
 
 For an ambiguous sentence,
 a grammar gives multiple valid parses.
+This is widely known, with attachment ambiguities and coordination ambiguities
+being particularly well-known examples.
+However, people are naturally very good at resolving ambiguity,
+which means most ambiguity is not apparent, even to linguists.
+It is only with the development of large-scale grammars that the sheer scale of ambiguity has become clear.
+For example, \rref{cl:ex:ambig-simple}~might seem unambiguous,
+but there is a second reading, where \textit{my favourite} is the topicalized object of \textit{speak},
+which would mean that town criers generally speak the speaker's favourite thing (perhaps a language) clearly.
+There a third, even more implausible reading, where \textit{my favourite town} is the topicalized object.
+Such implausible readings don't easily come to mind,
+but with increasingly long sentences, such ambiguities stack up very quickly.
+For~\rref{cl:ex:ambig-many}, the first line of a newspaper article,\footnote{%
+	\url{https://www.theguardian.com/science/2018/aug/22/offspring-of-neanderthal-and-denisovan-identified-for-first-time}
+}
+the 1214 version of the English Resource Grammar \citep{Flickinger2000a,Flickinger2011a-u}
+gives TODO readings.
+\begin{exe}
+\ex\label{cl:ex:ambig-simple}
+My favourite town criers speak clearly.
+\ex\label{cl:ex:ambig-many}
+A small piece of bone found in a cave in Siberia has been identified as the remnant of a child whose mother was a Neanderthal and father was a Denisovan, a mysterious human ancestor that lived in the region.
+\end{exe}
+
 In practical applications, considering all possible parses can be infeasible,
 and we may want to automatically disambiguate each sentence.
 This can be done by \textit{ranking} the parses,
 so that the application only uses the most highly-ranked parse,
 or the top~$N$ parses.
-
 Parse ranking is not usually determined by the grammar itself,
 because of the difficulty of manually writing disambiguation rules.
-Typically, a statistical system is used.
+Typically, a statistical system is used \citep{OFTM2004a-u-platte}.
 First, a corpus is \textit{treebanked}:
 for each sentence in the corpus,
 an annotator (often the grammar writer) chooses the best parse,
@@ -144,10 +199,19 @@ out of all parses produced by the grammar.
 The set of all parses for a sentence is often referred to as the \textit{parse forest},
 and the selected best parse is often referred to as the \textit{gold standard}.
 Given the gold parses for the whole corpus, a statistical system is trained
-to predict the gold parse from a parse forest.
-
-In practical applications, a grammar is rarely used alone,
-but rather in combination with a statistical parser (or statistical generator) trained on a treebank.
+to predict the gold parse from a parse forest,
+based on many features\footnote{%
+	In the machine learning sense of ``feature'',
+	not the feature-structure sense.
+}
+of the parse.
+From the example in~\rref{cl:ex:ambig-simple},
+we can see how a number of a different features all influence the preferred interpretation:
+the likelihood of a construction (such as topicalization),
+the likelihood of a valence frame (such as transitive \textit{speak}),
+the likelihood of a collocation (such as \textit{town crier}),
+the likelihood of a semantic relation (such as speaking a town),
+and so on.
 
 %TODO references...
 
@@ -158,7 +222,7 @@ we can restrict attention to a smaller set of parses,
 which hopefully includes the correct parse.
 By carefully choosing how to restrict our attention,
 we can drastically reduce processing time without hurting performance.
-
+%TODO expand
 Ubertagging.
 
 
@@ -174,7 +238,7 @@ Semantic dependency graphs.
 Popular and easy to work with.
 DMRS, EDS, DM.
 
-(See also Hudson, 2018, Chapter~\ref{chap-dg} of this volume)
+See also \crossrefchaptert{dg}.
 
 
 
@@ -305,6 +369,8 @@ Enju?
 
 
 \section{Linguistic Insights}
+\label{cl:insight}
+
 \begin{itemize}
     \item Ambiguity % Guy
     \item Long-tail phenomena (raising and control?) % Emily
