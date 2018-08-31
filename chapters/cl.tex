@@ -70,8 +70,9 @@ since feature structures are well-defined data structures.
 Furthermore, because HPSG is defined to be bi-directional,
 an implemented grammar can be used for both parsing and generation.
 In this section, we discuss how HPSG allows tractable algorithms,
-which enables HPSG grammars to be used in a range of NLP applications,
-as we will see in Section~\ref{cl:deployment}.
+which enables linguists to empirically test hypotheses,
+and which also enables HPSG grammars to be used in a range of applications,
+as we will see in Sections~\ref{cl:lang-doc} and~\ref{cl:downstream}, respectively.
 
 \subsubsection{Computational complexity}
 \label{cl:prac:comp}
@@ -141,7 +142,7 @@ a feature-structure grammar may allow a infinite number of possible feature stru
 For an HPSG grammar without recursive unary rules,
 this algorithm has a worst-case complexity of exponential time.
 This is less complex than for an arbitrary grammar
-(which means that this class of grammars is \textit{not} Turing-complete),
+(which means that this class of grammars is \emph{not} Turing-complete),
 but more complex than for CCG or TAG.
 However, when parsing real corpora,
 it turns out that the average-case complexity is much better than we might expect.
@@ -251,16 +252,52 @@ while also improving parsing accuracy.
 \subsubsection{Semantic dependencies}
 \label{cl:prac:dep}
 
+%TODO diagrams
+% - feature-structure MRS
+% - nice MRS
+% - DMRS
+% - DM
+% ``the cherry tree blossomed''
+
+\begin{figure}
+\centering
+...
+\caption{Comparison of MRS, DMRS, and DM.}
+\label{cl:fig:dep}
+\end{figure}
+
 In practical applications of HPSG grammars,
-the full derivation trees and the full feature structures are often seen as unwieldy,
+the full derivation trees and the full feature structures are often unwieldy,
 containing far more information than necessary for the task at hand.
-It is often desirable to extract a concise semantic representation.
+It is therefore often desirable to extract a concise semantic representation.
+%TODO check the Semantics chapter once it's written
 
-Semantic dependency graphs.
-Popular and easy to work with.
-DMRS, EDS, DM.
-
-See also \crossrefchaptert{dg}.
+In computational linguistics,
+a popular approach to semantics is to represent the meaning of a sentence as a \textit{dependency graph},
+as this enables the use of graph-based algorithms.\footnote{%
+	In this section, we are concerned with \emph{semantic} dependencies.
+	For \emph{syntactic} dependencies, see \crossrefchaptert{dg}.
+}
+Several types of dependency graph have been proposed
+based on Minimal Recursion Semantics \citep[MRS;][]{CFPS2005a},
+with varying levels of simplification.
+The most expressive is Dependency Minimal Recursion Semantics \citep[DMRS;][]{copestake2009dmrs},
+which is fully interconvertible with MRS.\footnote{%
+	More precisely, there is a one-to-one correspondence between DMRS and MRS structures,
+	if every predicate as a unique \textit{intrinsic variable}.
+	As observed by \citet{oepen2006eds}, this allows a variable-free semantic representation,
+	by replacing each reference to a variable with a reference to the corresponding predicate.
+}
+In contrast, Elementary Dependency Structures \citep[EDS;][]{oepen2006eds}
+lose some scope information,
+which, for many applications, is less important than predicate-argument structure.
+Finally, Delph-in MRS Dependencies \citep[DM;][]{ivanova2012dm}
+express predicate-argument structure purely in terms of the surface tokens,
+without introducing any abstract predicates.
+A comparison of MRS, DMRS, and DM is given in Figure~\ref{cl:fig:dep}.
+The existence of such dependency graphs
+has made it easier to use HPSG grammars in a number of practical tasks,
+as we will see in Section~\ref{cl:downstream}.
 
 
 
@@ -268,6 +305,9 @@ See also \crossrefchaptert{dg}.
 \label{cl:history}
 
 History: PAGE, VerbMobil, ?? % First draft: Emily
+
+% GE: no need to repeat what Flickinger et al. cover in their chapter
+% but probably a good idea to contrast grammar engineering and linguistic theorizing
 
 Current platforms:
     \begin{itemize}
@@ -294,7 +334,6 @@ Current platforms:
    \begin{itemize}
      \item Alpino
      \item Enju
-     \item RASP
    \end{itemize}
 \end{itemize}
 
@@ -322,6 +361,7 @@ Current platforms:
 \label{cl:deployment}
 
 \subsection{Language documentation and linguistic hypothesis testing}
+\label{cl:lang-doc}
 
 Deployment for linguistic goals.
 
@@ -342,6 +382,7 @@ Deployment for linguistic goals.
 
 
 \subsection{Downstream applications}
+\label{cl:downstream}
 %Guy
 
 Deployment for other tasks.
@@ -353,8 +394,6 @@ See also \url{http://moin.delph-in.net/DelphinApplications}.
 \subsubsection{Language teaching}
 
 Redbird (McGraw-Hill)
-
-RASP and Cambridge Assessment
 
 
 \subsubsection{NLP tasks}
