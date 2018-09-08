@@ -59,10 +59,11 @@ processing.pdf: stable.pdf
 
 # Stefan's chapter on cxg
 cxg.pdf: stable.pdf
-	pdftk stable.pdf cat 337-368 output cxg.pdf
+	pdftk stable.pdf cat 333-364 output cxg.pdf
 
 
-sm-public: order.pdf cxg.pdf
+#sm-public: order.pdf cxg.pdf
+sm-public: 
 	scp order.pdf hpsg.hu-berlin.de:public_html/Pub/constituent-order-hpsg.pdf
 	scp cxg.pdf hpsg.hu-berlin.de:public_html/Pub/hpsg-cxg.pdf
 
