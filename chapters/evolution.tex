@@ -7,16 +7,14 @@
 }
 % \chapterDOI{} %will be filled in at production
 
-\epigram{Change epigram in chapters/01.tex or remove it there }
-\abstract{Change the  abstract in chapters/02.tex \lipsum[4]}
+%\epigram{Change epigram in chapters/01.tex or remove it there }
+\abstract{HPSG was developed to express insights from theoretical linguistics in a precise formalism that was computationally tractable.  It drew ideas from a wide variety of traditions in linguistics, logic, and computer science.  Its chief architects were Carl Pollard and Ivan Sag, and its most direct precursors were Generalized Phrase Structure Grammar and Head Grammar.  The theory has been applied in the construction of computational systems for the analysis of a variety of languages; a few of these systems have been used in practical applications.  This chapter sketches the history of the development and application of the theory.}
 \maketitle
 
 \begin{document}
 
 \label{chap-evolution}
 
-\abstract
-{HPSG was developed to express insights from theoretical linguistics in a precise formalism that was computationally tractable.  It drew ideas from a wide variety of traditions in linguistics, logic, and computer science.  Its chief architects were Carl Pollard and Ivan Sag, and its most direct precursors were Generalized Phrase Structure Grammar and Head Grammar.  The theory has been applied in the construction of computational systems for the analysis of a variety of languages; a few of these systems have been used in practical applications.  This chapter sketches the history of the development and application of the theory.}
 
 \section*{Introduction} 
 
@@ -40,7 +38,7 @@ Consider eliminating the transformational component of a generative grammar.
 \end{quote}
 
 \noindent
-The framework that emerged became known as \isi{Generalized Phrase Structure Grammar}; a good account of its development is Ted Briscoe's interview of Gazdar in November 2000.\footnote{\tt https://nlp.fi.muni.cz/~xjakub/briscoe-gazdar/}
+The framework that emerged became known as \isi{Generalized Phrase Structure Grammar}; a good account of its development is Ted Briscoe's interview of Gazdar in November 2000.\footnote{\url{https://nlp.fi.muni.cz/~xjakub/briscoe-gazdar/}}
 
 GPSG developed in response to several criticisms leveled against transformational grammar. First, TG was highly underformalized, to the extent that it was unclear what its claims---and the empirical consequences of those claims---amounted to; CFG, by comparison, was a simple and explicit mathematical formalism. Second, given the TG architecture of a context-free base together with a set of transformations, the claimed necessity of transformations was standardly justified on the basis of arguments that CFGs were insufficiently expressive to serve as a general foundation for NL grammar; but \citet{PG82a-u-kopiert-original-pdf} showed all such arguments presented up to that time to be logically flawed or else based on false empirical claims. And third, closely related to the previous point, they showed that transformational grammarians had been insufficiently resourceful in exploiting what expressive power CFGs {\em did} possess; for example, \isi{coordinate constructions} and \isi{unbounded dependency constructions} had long served as prime exemplars of the need for transformations, but \citet{Gazdar81} was able to show that both kinds of constructions, as well as interactions between them, did in fact yield straightforward analysis within the framework of a CFG.
  
@@ -79,7 +77,7 @@ The HP NLP project lasted until the early 1990s.  By then, a fairly large and ro
 
 \section{The emergence of HPSG}
 
-A few important features of GPSG that were later carried over into HPSG are worth mentioning here. First, GPSG borrowed from Montague the idea that each phrase structure rule was to be paired with a semantic rule providing a recipe for computing the meaning of the mother from the meanings of its daughters \citep[p. 156]{Gazdar81}; this design feature was shared with contemporaneous forms of Categorial Grammar (CG) being studied by such linguists as Emmon Bach \citep{Bach79a,Bach80a} and David Dowty \citep{Dowty82a-u,Dowty82b}.  Second, the specific inventory of features employed in GPSG for making fine-grained categorial distinctions (such as case, agreement, verb inflectional form, and the like), was largely preserved, though the technical implementation of morphosyntactic features in HPSG was somewhat different. And third, the SLASH feature, which originated in \citegen{Gazdar81} derived categories (e.g. S/NP), and which was used to keep track of \isi{unbounded dependencies}, was generalized in HPSG to allow for multiple unbounded dependencies (as in the notorious violins-and-sonatas example in (1) below). As will be discussed, this SLASH feature bears a superficial---and misleading---resemblance to the Categorial Grammar connectives written as `/' and `\textbackslash'. On the other hand, a centrally important architectural feature of GPSG absent from HPSG (and from HG) was the device of \isi{metarules}, higher-order rules used to generate the full set of context-free phrase structure rules (PSRs) from an initial inventory of basic PSRs. Among the metarules were ones used to introduce non-null SLASH values and propagate them upward through trees to a position where they were discharged by combination with a matching constituent called a \isi{filler} (analogous to a {\em wh}-moved expression in TG).
+A few important features of GPSG that were later carried over into HPSG are worth mentioning here. First, GPSG borrowed from Montague the idea that each phrase structure rule was to be paired with a semantic rule providing a recipe for computing the meaning of the mother from the meanings of its daughters \citep[p. 156]{Gazdar81}; this design feature was shared with contemporaneous forms of Categorial Grammar (CG) being studied by such linguists as Emmon Bach \citep{Bach79a,Bach80a} and David Dowty \citep{Dowty82a-u,Dowty82b}.  Second, the specific inventory of features employed in GPSG for making fine-grained categorial distinctions (such as case, agreement, verb inflectional form, and the like), was largely preserved, though the technical implementation of morphosyntactic features in HPSG was somewhat different. And third, the SLASH feature, which originated in \citegen{Gazdar81} derived categories (e.g. S/NP), and which was used to keep track of \isi{unbounded dependencies}, was generalized in HPSG to allow for multiple unbounded dependencies (as in the notorious violins-and-sonatas example in (\ref{ex-violins}) below). As will be discussed, this SLASH feature bears a superficial---and misleading---resemblance to the Categorial Grammar connectives written as `/' and `\textbackslash'. On the other hand, a centrally important architectural feature of GPSG absent from HPSG (and from HG) was the device of \isi{metarules}, higher-order rules used to generate the full set of context-free phrase structure rules (PSRs) from an initial inventory of basic PSRs. Among the metarules were ones used to introduce non-null SLASH values and propagate them upward through trees to a position where they were discharged by combination with a matching constituent called a \isi{filler} (analogous to a {\em wh}-moved expression in TG).
 
 A note is in order about the sometimes confusing use of the names {\em Head Grammar (HG)} and {\em HPSG}. Strictly speaking, HG was a specific subtype of generalized CFG developed in Pollard's dissertation work, but the term {\em HG} did not appear in academic linguistic publications with the exception of the \citet{PollardSag1983} WCCFL paper, which introduced the distinction between head features and binding features (the latter were incorporated into GPSG under the name {\em foot features}). In the summer of 1982, Pollard had started working part time on the HP NL project; and the term {\em HPSG} was first employed (by Pullum) in reference to an extensive reworking by Pollard and Paulson of the then-current HP GPSG implementation, incorporating some of the main features of Pollard's dissertation work in progress, carried out over the summer of 1983, while much of the HP NLP team (including Pullum and Sag) was away at the LSA Institute in Los Angeles.  The implication of the name change was that whatever this new system was, it was no longer GPSG.
 
@@ -97,10 +95,10 @@ Setting aside implementation details, early HPSG can be characterized by the fol
 So, for example, the metarule STM1 was used in GPSG to convert a PSR into another PSR one of whose daughters is [+NULL] (informally speaking, a `trace'), and \isi{feature cooccurrence restrictions} (FCRs) guaranteed that such daughters would bear a SLASH value, and that this SLASH value would also appear on the mother. Unfortunately, the \isi{finite closure} definition described above does not preclude the possibility of derived PSRs whose mother carries multiple, in fact unboundedly many
 SLASH values (e.g. NP/NP, (NP/NP)/NP, etc.). And this in turn leads to an infinite set of PSRs, outside the realm of CF-ness (see \citet{Ristad86}).  Of course, one could rein in this excess power by imposing another FCR that disallows categories of the form (X/Y)/Z; but then there is no way to analyze sentences containing a constituent with two undischarged unbounded dependencies, such as the VP complement of {\em easy} in the following example:
 
-\begin{quote}
-\ex. {\em Violins this finely crafted, even the most challenging sonatas are easy to [play \_ on \_].}
-
-\end{quote}
+\ea
+\label{ex-violins}
+Violins this finely crafted, even the most challenging sonatas are easy to [play \_ on \_].
+\z
 
 \noindent
 GPSG avoided this problem by not analyzing such examples. In HPSG \citep{Pollard85a-u}, by contrast, such examples were analyzed straightforwardly by replacing GPSG's category-valued SLASH feature with one whose values were lists (or sets) of categories. This approach still gave rise to an infinite set of rules, but since maintaining context-freeness was no longer at stake, this was not seen as problematic. The infinitude of rules in HPSG arose not through a violation of finite closure (since there were no longer any metarules at all), but because each of the handful of schematic PSRs (see below) could be directly instantiated in an infinite number of ways, given that the presence of list-valued
@@ -112,11 +110,12 @@ features gave rise to an infinite set of categories.\\
 \noindent
 {\bf CG-like treatment of subcategorization}. In GPSG, subcategorization was treated by an integer-valued feature called SUBCAT that in effect indexed each lexical item with the rule that introduced and provided its subcategorization frame; e.g. {\em weep} was listed in the lexicon with SUBCAT value 1 while {\em devour} was listed with SUBCAT value 2, and then PSRs of roughly the form in (2)
 
-\ex.
+\begin{center}
 \begin{tabular}{l}
           VP $\rightarrow$ V[SUBCAT 1] \\
           VP $\rightarrow$ V[SUBCAT 2] NP
 \end{tabular}
+\end{center}
 
 \noindent
 guaranteed that lexical heads would have the right kinds of complements.  In HPSG, by contrast, the SUBCAT feature directly characterized the grammatical arguments selected by a head (not just the complements, but the subject too) as a list of categories, so that e.g.~{\em weep} was listed as V[SUBCAT <NP>] but {\em devour} as V[SUBCAT <NP,NP>] (where the first occurrence of NP refers to the object and the second to the subject). This treatment of argument selection was inspired by Categorial Grammar, where the same verbs would have been categorized as NP{\textbackslash}S and (NP{\textbackslash}S)/NP respectively;\footnote{We adhere to the Lambek convention for functor categories, so that expressions seeking to combine with an A on the left to form a B are written `A{\textbackslash}B' (not `B{\textbackslash}A').} the main differences are that (i) the CG treatment also encodes the directionality of the argument relative to the head, and (ii) in HPSG, all the arguments appear on one list, while in CG they are `picked up' one at a time, with as many
@@ -130,11 +129,12 @@ ordering of the categories on the SUBCAT list was related not just to CG, but al
 {\bf List- (or set-) valued SLASH feature}. The list-valued SLASH was introduced in \citet{Pollard85a-u} to handle multiple unbounded dependencies, instead of the GPSG category-valued SLASH (which in turn originated as the {\em derived categories} of  \citet{Gazdar81}, e.g.~S/NP). In spite of the notational similarity, though, the PSG SLASH is not an analog of the CG slashes / and \textbackslash (though HPSG's SUBCAT is, as
 explained above). In fact, HPSG's SLASH has no analog in the kinds of CGs being developed by Montague semanticists such as \citet{Bach79a,Bach80a} and \citet{Dowty82a-u} in the late 1970s and early 1980s, which followed the CGs of \citet{Bar-Hillel54-u-kopiert} in having only rules for eliminating (or canceling) slashes as in (3):
 
-\ex.
+\begin{center}
 \begin{tabular}{ccc}
 A A{\textbackslash}B  & &     B/A A \\ \cline{1-1} \cline{3-3}
 B & & B 
 \end{tabular}
+\end{center}
 
 \noindent
 To find an analog to HPSG's SLASH in CG, we have to turn to the kinds of CGs invented by \citet{Lambek1958}, which unfortunately were not yet well-known to linguists (though that would soon change starting with Lambek's appearance at the 1985 Categorial Grammar conference in Tucson). What sets apart grammars 
@@ -142,23 +142,24 @@ of this kind (and their elaborations by \citet{Moortgat89a-u}, \citet{OBW88a-ed}
 
 In the Gentzen style of natural deduction (see \citet{Pollard:2013}), hypothesized categories are written to the left of the symbol |- (turnstile), so that the two slash elimination rules above take the following form (where $\Gamma$ and $\Delta$ are  lists of categories, and comma represents list concatenation as in (4):
 
-\ex.
+\begin{center}
 \begin{tabular}{ccc}
 $\Gamma$ $\vdash$ A \ \ $\Delta$ $\vdash$ A{\textbackslash}B  & &     $\Gamma$ $\vdash$ B/A \ \ $\Delta$ $\vdash$ A \\ \cline{1-1} \cline{3-3}
 $\Gamma$,$\Delta$ $\vdash$ B & & $\Gamma$,$\Delta$ $\vdash$ B 
 \end{tabular}
+\end{center}
 
 \noindent
 These rules propagate hypotheses (analogous to linguists' traces) downward through the proof tree (downward because logicians' trees are
 upside down with the conclusion (`root') at the bottom). In HPSG notation, these same rules can be written as one rule (since SUBCAT is
 nondirectional) in (5):
 
-\ex.
+\begin{center}
 \begin{tabular}{c}
 B[SUBCAT <..., A>,SLASH $\Gamma$] \ \ A[SLASH $\Delta$] \\ \cline{1-1}
 B[SUBCAT <...>][SLASH $\Gamma$,$\Delta$]
 \end{tabular}
-
+\end{center}
 
 This in turn is a special case of an HPSG principle first known as the Binding Inheritance Principle (BIP) and later as the Nonlocal Feature Principle (binding features included SLASH as well as the features QUE
 and REL used for tracking undischarged interrogative and relative pronouns). The original statement of the BIP \citep{Pollard:1986} treated SLASH as set- rather than list-valued):
@@ -168,25 +169,22 @@ The value of a binding feature on the mother is the union of the values of that 
 \end{quote}
 
 \noindent
-For example, the doubly-gapped VP in the violins-and-sonatas example in (1) is analyzed roughly as follows in HPSG:
-
-\begin{center}
-\begin{footnotesize}
-\leaf{\em{play}}
-\branch{1}{\sc{v[subcat <pp,np,np>]}}
-\leaf{\em{t}}
-\branch{1}{\sc{np[slash <np>]}}
-\leaf{\em{on}}
-\branch{1}{\sc{p[subcat <np>]}}
-\leaf{\em{t}}
-\branch{1}{\sc{np[slash <np>]}}
-\branch{2}{\sc{pp[slash <np>]}}
-\branch{3}{\sc{v[subcat <np>,slash <np,np>]}}
-\qobitree
-\end{footnotesize}
-\end{center}
-
-\noindent
+For example, the doubly-gapped VP in the violins-and-sonatas example in (\ref{ex-violins}) is analyzed in HPSG roughly  as
+is shown in Figure~\ref{fig-play-on}
+\begin{figure}
+\centerfit{%
+\begin{forest}
+sm edges
+[{V[SUBCAT <NP>,SLASH <NP,NP>]}
+  [{V[SUBCAT <PP,NP,NP>]} [play]]
+  [{NP[SLASH <NP>]} [t]]
+  [{PP[SLASH <NP>]}
+    [{P[SUBCAT <NP>]} [on]]
+    [{NP[SLASH <NP>]} [t]]]]
+\end{forest}
+}
+\caption{\label{fig-play-on}\emph{play on} as part of \emph{Violins this finely crafted, even the most challenging sonatas are easy to play on.}}
+\end{figure}
 and essentially the same way in Lambek-style CG:
 
 \begin{center}
@@ -217,9 +215,9 @@ Before the end of Verbmobil funding in 2000, the LinGO project had already begun
 
 \section{Research and Teaching Networks}
 
-The first international conference on HPSG was held in 1993 in Columbus, Ohio, in conjunction with the Linguistic Society of America's Summer Institute.  The conference has been convened every year since then, with locations in Europe, Asia, and North America.  Two of these annual meetings have been held jointly with the annual Lexical Functional Grammar conference, in 2000 in Berkeley and in 2016 in Warsaw.  Proceedings of these conferences since 2000 are available on-line from CSLI Publications.\footnote{\tt http://csli-publications.stanford.edu/HPSG/}  Since 2003, HPSG researchers in Europe have frequently held a regional workshop in Bremen, Berlin, Frankfurt, or Paris, to foster informal discussion of current work in HPSG.  These follow in the footsteps of European HPSG workshops starting with one on German grammar, held in Saarbr{\"u}cken in 1991, and including others in Edinburgh and Copenhagen in 1994, and in T{\"u}bingen in 1995.
+The first international conference on HPSG was held in 1993 in Columbus, Ohio, in conjunction with the Linguistic Society of America's Summer Institute.  The conference has been convened every year since then, with locations in Europe, Asia, and North America.  Two of these annual meetings have been held jointly with the annual Lexical Functional Grammar conference, in 2000 in Berkeley and in 2016 in Warsaw.  Proceedings of these conferences since 2000 are available on-line from CSLI Publications.\footnote{\url{http://csli-publications.stanford.edu/HPSG/}}  Since 2003, HPSG researchers in Europe have frequently held a regional workshop in Bremen, Berlin, Frankfurt, or Paris, to foster informal discussion of current work in HPSG.  These follow in the footsteps of European HPSG workshops starting with one on German grammar, held in Saarbr{\"u}cken in 1991, and including others in Edinburgh and Copenhagen in 1994, and in T{\"u}bingen in 1995.
 
-In 1994, the HPSG mailing list was initiated,\footnote{Its archives can be found at {\tt https://hpsg.hu-berlin.de/HPSG/MailingList}.} and from 1996 to 1998, the electronic newsletter, the HPSG Gazette,\footnote{\tt http://www.sfs.uni-tuebingen.de/\string~gazette} was distributed through the list, with its function then taken over by the HPSG mailing list.
+In 1994, the HPSG mailing list was initiated,\footnote{Its archives can be found at \url{https://hpsg.hu-berlin.de/HPSG/MailingList}.} and from 1996 to 1998, the electronic newsletter, the HPSG Gazette,\footnote{\url{http://www.sfs.uni-tuebingen.de/~gazette}} was distributed through the list, with its function then taken over by the HPSG mailing list.
 
 Courses introducing HPSG to students became part of the curriculum during the late 1980s and early 1990s at universities in Osaka, Paris, Saarbr{\"u}cken, Seoul, and T{\"u}bingen, along with Stanford and OSU.  Additional courses came to be offered in Bochum, Bremen, Carnegie-Mellon, G{\"o}ttingen, Heidelberg, Jena, and Potsdam.  Summer courses and workshops on HPSG have also been offered since the early 1990s at the LSA Summer Institute in the U.S., including a course by Sag and Pollard on binding and control in 1991 in Santa Cruz, and at the European Summer School in Logic, Language and Information (ESSLLI), including a course by Pollard in Saarbr{\"u}cken in 1991 on HPSG, a workshop in Prague in 1996 on Romance (along with two HPSG-related student papers at the first-ever ESSLLI student session), and courses in 1998 in Saarbr{\"u}cken on Germanic syntax, grammar engineering, and unification-based formalisms, in 2001 on HPSG syntax, in 2003 on linearization grammars, and more since.  Also in 2001, a Scandinavian summer school on constraint-based grammar was held in Trondheim.
 
@@ -234,7 +232,7 @@ By this time, grammars in HPSG were being implemented in university research gro
 
 Relatively early broad-coverage grammar implementations in HPSG, in addition to the \isi{English Resource Grammar} at Stanford \citep{erg}, included one for \ili{German} at the DFKI \citep{MK2000a} and one for \ili{Japanese} (Jacy: \citet{Siegel2000a}), all used in the Verbmobil machine translation project; a separate German grammar \citep{Babel,Mueller99a}; a \ili{Dutch} grammar in Groningen \citep*{BvNM2001a-u}; and a separate Japanese grammar in Tokyo \citep{MNT2005a-u}.  Moderately large HPSG grammars were also developed during this period for \ili{Korean} \citep{KY2003a-u} and \ili{Polish} \citep*{myk:etal:02}.  
 
-In 1999, research groups at the DFKI, Stanford, and Tokyo set up a consortium called DELPH-IN (Initiative for Deep Linguistic Processing in HPSG), to foster broader development of both grammars and platform components, described in \citet*{OFTU2002a-ed}.  Over the next two decades, substantial DELPH-IN grammars were developed for \ili{Norwegian}, \ili{Portuguese}, and \ili{Spanish}, along with moderate-coverage grammars for \ili{Bulgarian}, \ili{Greek}, \ili{Hausa}, \ili{Hebrew}, \ili{Indonesian}, \ili{Mandarin Chinese}, \ili{Thai}, and \ili{Wambaya}, all described at {\tt http://delph-in.net}.  Several of these grammars are based on the \isi{Grammar Matrix} \citep*{BFO2002a-u}, a starter kit generalized from the ERG and Jacy for rapid prototyping of HPSG grammars, along with a much larger set of coursework grammars.\footnote{\tt http://moin.delph-in.net/MatrixTop} 
+In 1999, research groups at the DFKI, Stanford, and Tokyo set up a consortium called DELPH-IN (Initiative for Deep Linguistic Processing in HPSG), to foster broader development of both grammars and platform components, described in \citet*{OFTU2002a-ed}.  Over the next two decades, substantial DELPH-IN grammars were developed for \ili{Norwegian}, \ili{Portuguese}, and \ili{Spanish}, along with moderate-coverage grammars for \ili{Bulgarian}, \ili{Greek}, \ili{Hausa}, \ili{Hebrew}, \ili{Indonesian}, \ili{Mandarin Chinese}, \ili{Thai}, and \ili{Wambaya}, all described at \url{http://delph-in.net}.  Several of these grammars are based on the \isi{Grammar Matrix} \citep*{BFO2002a-u}, a starter kit generalized from the ERG and Jacy for rapid prototyping of HPSG grammars, along with a much larger set of coursework grammars.\footnote{\url{http://moin.delph-in.net/MatrixTop}} 
 
 Broad-coverage grammars developed in the \isi{TRALE} system \citep{MPR2002a-u,Penn2004a-u} include \ili{German} \citep{MuellerLehrbuch1}, \ili{Danish} \citep{MOeDanish-language}, and \ili{Persian} \citep{MuellerPersian}. Other TRALE grammars include
 \ili{Mandarin Chinese} \citep{ML2013a}, \ili{Georgian} \citep{Abzianidze2011a-u}, \ili{Maltese} \citep{MuellerMalteseSketch}, \ili{Spanish} \citep{Machicao-y-Priemer2015a}, and \ili{Yiddish} \citep{MOe2011a}. Development of grammars in TRALE is supported by the \isi{Grammix} system \citep{MuellerGrammix}; \citet{MuellerCoreGram} provides a summary of this family of grammar implementations.
