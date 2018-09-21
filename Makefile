@@ -32,6 +32,15 @@ stable.pdf: main.pdf
 	cp main.pdf stable.pdf
 
 
+chop: FORCE 
+	egrep -o "\{[0-9]+\}\{chapter\*\.[0-9]+\}" main.toc| egrep -o "[0-9]+\}\{chapter"|egrep -o "[0-9]+" > cuts.txt
+	egrep -o "\{chapter\}\{Indexes\}\{[0-9]+\}\{section\*\.[0-9]+\}" main.toc| egrep -o ".*\."|egrep -o "[0-9]+" >> cuts.txt
+	bash chopchapters.sh 13
+# does not work on mac	
+#	bash chopchapters.sh `grep "mainmatter starts" main.log|egrep -o "[0-9]*"`
+
+
+
 # 
 lexicon.pdf: stable.pdf
 	pdftk stable.pdf cat 49-88 output lexicon.pdf
@@ -53,9 +62,15 @@ arg-st.pdf: arg-st.pdf
 case.pdf: stable.pdf
 	pdftk stable.pdf cat 117-143 output case.pdf
 
+islands.pdf: stable.pdf
+	pdftk stable.pdf cat 231-279 output islands.pdf
+
 
 processing.pdf: stable.pdf
 	pdftk stable.pdf cat 261-281 output processing.pdf
+
+gesture.pdf: stable.pdf
+	pdftk stable.pdf cat 345-369 output gesture.pdf
 
 # Stefan's chapter on cxg
 cxg.pdf: stable.pdf
