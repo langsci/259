@@ -33,7 +33,7 @@ stable.pdf: main.pdf
 
 
 chop: FORCE 
-	egrep -o "\{[0-9]+\}\{chapter\*\.[0-9]+\}" main.toc| egrep -o "[0-9]+\}\{chapter"|egrep -o "[0-9]+" > cuts.txt
+	egrep -v "\{part\}" main.toc | egrep -o "\{[0-9]+\}\{chapter\*\.[0-9]+\}" |  egrep -o "[0-9]+\}\{chapter"|egrep -o "[0-9]+" > cuts.txt
 	egrep -o "\{chapter\}\{Indexes\}\{[0-9]+\}\{section\*\.[0-9]+\}" main.toc| egrep -o ".*\."|egrep -o "[0-9]+" >> cuts.txt
 	bash chopchapters.sh 13
 # does not work on mac	
@@ -169,7 +169,8 @@ clean:
 	*.glg *.glo *.gls *.wrd *.wdv *.xdv *.mw *.clr \
 	*.run.xml \
 	chapters/*aux chapters/*~ chapters/*.bak chapters/*.backup\
-	langsci/*/*aux langsci/*/*~ langsci/*/*.bak langsci/*/*.backup
+	langsci/*/*aux langsci/*/*~ langsci/*/*.bak langsci/*/*.backup \
+	chapter-pdfs/* cuts.txt
 
 
 realclean: clean
