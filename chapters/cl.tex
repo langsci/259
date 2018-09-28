@@ -143,7 +143,7 @@ The basic idea is to parse ``bottom-up'' through the tree,
 starting by finding analyses for each token in the input,
 and then finding analyses for increasingly longer sequences of tokens,
 until we reach the entire sentence.
-The resulting algorithm is more computationally complex than for a context-free grammar,
+The resulting algorithm is more computationally complex than for a context-free grammar
 because we are dealing with feature structures, rather than nonterminal symbols.
 While a context-free grammar allows a finite number of nonterminals,
 a feature-structure grammar may allow a infinite number of possible feature structures.
@@ -160,7 +160,7 @@ with multiple possible analyses for a particular construction,
 they may opt for the analysis that is more efficient for a particular parsing algorithm.
 % TODO citations -- maybe look at evolution.tex, {Implementations and Applications of HPSG}
 % GE: Maybe this last paragraph is too terse?
-
+% EMB 2018-09-28: Yes, a little terse --- I think maybe starting with how the derivations are like and unlike CFG derivations and then going to `bottom-up' chart parsing (with citations!) would help. Also, the discussion of complexity has too many contrasts: infinite, but not Turing-complete, but not even that bad when parsing real corpora. It would also be good to point to some numbers for ``parsing real corpora'' ... Dan or Stephan or maybe Bec should have published some, I think.
 
 
 
@@ -185,6 +185,9 @@ For~\rref{cl:ex:ambig-many}, the first line of a newspaper article,\footnote{%
 }
 the 1214 version of the English Resource Grammar \citep{Flickinger2000a,Flickinger2011a-u}
 gives TODO readings.
+
+% EMB 2018-09-28 We should have the 2018 version to play with soon :)
+
 \begin{exe}
 \ex\label{cl:ex:ambig-simple}
 My favorite town criers speak clearly.
@@ -194,9 +197,9 @@ as the remnant of a child whose mother was a Neanderthal and father was a Deniso
 a mysterious human ancestor that lived in the region.
 \end{exe}
 
-In practical applications, considering all possible parses can be infeasible,
-and we may want to automatically disambiguate each sentence.
-This can be done by \textit{ranking} the parses,
+% EMB 2018-09-28 Editing a bit through here:
+Where exploring ambiguity can be interesting for a linguist, typical practical applications require just one parse per input sentence and specifically the parse the best reflects the intended meaning, or only the top few parses (in case the one put forward as `best' might be wrong).
+Thus what is required is a \textit{ranking} of the parses,
 so that the application only uses the most highly-ranked parse,
 or the top~$N$ parses.
 Parse ranking is not usually determined by the grammar itself,
@@ -224,6 +227,69 @@ the likelihood of a semantic relation (such as speaking a town),
 and so on.
 %TODO briefly explain MaxEnt parse ranking?
 %TODO references...
+% EMB 2018-09-28 For DELPH-IN/Redwoods treebanking: 
+
+%% @inproceedings{Tou:Man:Oep:02,
+%%   author = {Kristina Toutanova and Chris Manning and Stephan Oepen},
+%%   title = {Parse Ranking for a Rich {HPSG} Grammar},
+%%   booktitle = {Proceedings of The First Workshop on Treebanks and
+%%                 Linguistic Theories (TLT2002)},
+%%   address = {Sozopol, Bulgaria},
+%%   year = 2002
+%% }
+
+%% @article{Tou:Man:Fli:Oep:05,
+%%   title={Stochastic {HPSG} Parse Disambiguation using the {R}edwoods Corpus},
+%%   author={Toutanova, Kristina and Manning, Christopher D. and Flickinger, Dan and Oepen, Stephan},
+%%   journal={Research on Language \& Computation},
+%%   volume={3},
+%%   number={1},
+%%   pages={83--105},
+%%   year={2005},
+%%   publisher={Springer}
+%% }
+
+%% @article{Oep:Fli:98,
+%%   author = {Stephan Oepen and Daniel P. Flickinger},
+%%   title = {Towards Systematic Grammar Profiling.
+%%            {T}est Suite Technology Ten Years After},
+%%   editor = {Robert Gaizauskas},
+%%   journal = {Journal of Computer Speech and Language},
+%%   volume = {12 (4) (Special Issue on Evaluation)},
+%%   year = 1998,
+%%   pages = {411$\,$--$\,$436}
+%% }
+
+%% @Inbook{Fli:Oep:Ben:17,
+%%   author="Flickinger, Dan and Oepen, Stephan and Bender, Emily M.",
+%%   editor="Ide, Nancy and Pustejovsky, James",
+%%   title="Sustainable Development and Refinement of Complex Linguistic Annotations at Scale",
+%%   bookTitle="Handbook of Linguistic Annotation",
+%%   year="2017",
+%%   publisher="Springer Netherlands",
+%%   address="Dordrecht",
+%%   pages="353--377",
+%%   isbn="978-94-024-0881-2",
+%%   doi="10.1007/978-94-024-0881-2_14",
+%%   url="http://dx.doi.org/10.1007/978-94-024-0881-2_14"
+%% }
+
+%% % And for the idea  of discrimimants in treebanking:
+
+%% @inproceedings{Carter:97,
+%%   author = {David Carter},
+%%   title = {The {T}ree{B}anker.
+%%            {A} Tool for Supervised Training of Parsed Corpora},
+%%   editors = {Dominique Estival and Alberto Lavelli 
+%%              and Klaus Netter and Fabio Pianesi},
+%%   booktitle = ENVGRAM:97,
+%%   address = {Madrid, Spain},
+%%   pages = {9--15},
+%%   year = 1997
+%% }
+
+
+
 
 Because of the large number of possible parses,
 it can be helpful to \textit{prune} the search space:
@@ -238,11 +304,8 @@ One method, called \textit{supertagging},\footnote{%
 	from a relatively small set of part-of-speech tags.
 	Supertagging is ``super'', in that it predicts detailed lexical entries, rather than simple tags.
 }
-exploits the fact that HPSG is a lexicalized theory.
-Rather than considering all possible lexical entries for each token
-(which leads to high levels of ambiguity),
-supertagging aims to choose the correct lexical entry for each token,
-based on the surrounding context.
+exploits the fact that HPSG is a lexicalized theory: Choosing the correct lexical entry brings in rich information that can be exploited to rule out many possible parses.
+Thus if the correct lexical entry can be chosen prior to parsing (e.g.\ on the basis of the prior and following words), the range of possible analyses the parser must consider is drastically reduced.
 Although there is a chance that the supertagger will predict the wrong lexical entry,
 using a supertagger can often improve parsing accuracy,
 by ruling out parses that the parse-ranking model might incorrectly rank too high.
@@ -256,6 +319,7 @@ which jointly predicts both a segmentation of the input and supertags for those 
 \citeauthor{dridan2013ubertag} manages to increase parsing speed by a factor of four,
 while also improving parsing accuracy.
 
+% EMB 2018-09-28 Doesn't Bec also bring in the lexical rules? Maybe that's too much detail for here.
 
 \subsubsection{Semantic dependencies}
 \label{cl:prac:dep}
