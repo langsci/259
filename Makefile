@@ -1,5 +1,5 @@
 # specify thh main file and all the files that you are including
-SOURCE=  main.tex $(wildcard local*.tex) $(wildcard chapters/*.tex) \
+SOURCE=  main.tex $(wildcard local*.tex) $(wildcard chapters/*.tex) $(wildcard Bibliographies/*.bib) \
 langsci/langscibook.cls
 
 # specify your main target here:
@@ -32,6 +32,18 @@ stable.pdf: main.pdf
 	cp main.pdf stable.pdf
 
 
+chop: stable.pdf 
+	egrep -v "\{part\}" main.toc | egrep -o "\{[0-9]+\}\{chapter\*\.[0-9]+\}" |  egrep -o "[0-9]+\}\{chapter"|egrep -o "[0-9]+" > cuts.txt
+	egrep -o "\{chapter\}\{Indexes\}\{[0-9]+\}\{section\*\.[0-9]+\}" main.toc| egrep -o ".*\."|egrep -o "[0-9]+" >> cuts.txt
+	bash chopchapters.sh 13
+# does not work on mac	
+#	bash chopchapters.sh `grep "mainmatter starts" main.log|egrep -o "[0-9]*"`
+
+commit-stable: chop
+	git commit -m "automatic creation of stable.pdf and chapters" stable.pdf chapter-pdfs/
+	git push -u origin
+
+
 # 
 lexicon.pdf: stable.pdf
 	pdftk stable.pdf cat 49-88 output lexicon.pdf
@@ -53,9 +65,15 @@ arg-st.pdf: arg-st.pdf
 case.pdf: stable.pdf
 	pdftk stable.pdf cat 117-143 output case.pdf
 
+islands.pdf: stable.pdf
+	pdftk stable.pdf cat 231-279 output islands.pdf
+
 
 processing.pdf: stable.pdf
 	pdftk stable.pdf cat 261-281 output processing.pdf
+
+gesture.pdf: stable.pdf
+	pdftk stable.pdf cat 345-369 output gesture.pdf
 
 # Stefan's chapter on cxg
 cxg.pdf: stable.pdf
@@ -154,7 +172,8 @@ clean:
 	*.glg *.glo *.gls *.wrd *.wdv *.xdv *.mw *.clr \
 	*.run.xml \
 	chapters/*aux chapters/*~ chapters/*.bak chapters/*.backup\
-	langsci/*/*aux langsci/*/*~ langsci/*/*.bak langsci/*/*.backup
+	langsci/*/*aux langsci/*/*~ langsci/*/*.bak langsci/*/*.backup \
+	chapter-pdfs/* cuts.txt
 
 
 realclean: clean
