@@ -53,7 +53,7 @@ evolution.pdf: stable.pdf
 	pdftk stable.pdf cat 19-46 output evolution.pdf
 
 # Stefan's chapter on order
-order.pdf: stable.pdf
+order.pdf: chop
 	pdftk stable.pdf cat 161-191 output order.pdf
 
 agreement.pdf: agreement.pdf
@@ -81,9 +81,9 @@ cxg.pdf: stable.pdf
 
 
 #sm-public: order.pdf cxg.pdf
-sm-public: 
-	scp order.pdf hpsg.hu-berlin.de:public_html/Pub/constituent-order-hpsg.pdf
-	scp cxg.pdf hpsg.hu-berlin.de:public_html/Pub/hpsg-cxg.pdf
+sm-public: chop
+	scp chapter-pdfs/10.pdf hpsg.hu-berlin.de:public_html/Pub/constituent-order-hpsg.pdf
+	scp chapter-pdfs/37.pdf hpsg.hu-berlin.de:public_html/Pub/hpsg-cxg.pdf
 
 #main.pdf: main.aux
 #	xelatex main 
