@@ -16,8 +16,12 @@
 
 \section{Introduction} 
 
+\inlinetodostefan{
+The chapter might strike readers as a bit German-centric. This is probably okay as long as you make
+it clear at the outset. (And I suppose a discussion of V2 is not just relevant to German or even
+Germanic.)}
 This chapter deals with constituent order with a focus on local order variants. English is the
-language that is treated most thoroughly in theoretical linguistics but it is also the most boring
+language that is treated most thoroughly in theoretical linguistics but it is probably also the most boring
 language as far as the possibilities of reordering constituents is concerned: the order of subject
 verb and object is fixed in sentences like (\mex{1}):
 \ea
@@ -29,8 +33,8 @@ non-local construction that is not the topic of this chapter but is treated in \
 Bagels, Kim likes.
 \z
 This chapter deals with scrambling (the local reordering of arguments) and with alternative
-placements of heads (called head movement in some theories). Examples of the former are the
-sentences in (\mex{1}) and an example of the latter is given in (\mex{2}):
+placements of heads (called \emph{head movement} in some theories). Examples of the former are the
+subordinate clauses in (\mex{1}) and an example of the latter is given in (\mex{2}):
 \eal
 \label{ex-permutation-mf}
 \ex 
@@ -61,10 +65,10 @@ sentences in (\mex{1}) and an example of the latter is given in (\mex{2}):
 notion of unmarked order), five other argument orders are possible in sentences with three-place verbs.
 
 (\mex{0}) shows that the verb is placed in initial position in questions in German. This contrasts
-with the verb final order in (\mex{-1}a). This alternation of verb placement is usually treated as
+with the verb final order in the subordinate clause in (\mex{-1}a). This alternation of verb placement is usually treated as
 head movement in the transformational literature (\citealp{Bach62a}; \citealp*[\page34]{Bierwisch63};
 \citealp{Reis74a}; \citealp[Chapter~1]{Thiersch78a}). Declarative main clauses in German are V2
-clauses and the respective fronting is usually treated as a non-local dependency (see
+clauses and the respective fronting of the preverbal constituent is usually treated as a non-local dependency (see
 \crossrefchapterw{udc}). Hence, these sentences will not be handled here.
 
 The following sections deal with the theoretical options within the HPSG framework for dealing with
@@ -72,8 +76,8 @@ these phenomena. I first discuss the separation of grammar rules in the immediat
 a linear precedence component in Section~\ref{sec-id-lp} and then flat vs.\ binary branching
 structures (Section~\ref{sec-binary-flat}). While flat structures allow verbs to be ordered finally
 or initially, this is not the case for binary branching structures. Proposals with binary branching
-structures are usually paired with so-called head-movement approaches. These are explained in Section~\ref{sec-head-movement}.
-Section~\ref{sec-domains} introduces an extension to
+structures are usually paired with HPSG's analogue of what is head-movement in transformational
+theories. These are explained in Section~\ref{sec-head-movement}. Section~\ref{sec-domains} introduces an extension to
 standard HPSG developed by \citet{Reape94a}: constituent order domains. Such constituent
 order domains allow for discontinuous constituents and have been used to account for languages like Warlipri\il{Warlpiri}
 \citep{DS99a}. Section~\ref{sec-free-without-domains} shows how such languages can be analyzed without admitting discontinuous constituents.
@@ -88,7 +92,7 @@ daughters in a local tree were taken over from GPSG \citep*{GKPS85a}. In GPSG a 
 grammar a phrase structure rule like (\mex{1}) states that the NP[nom], NP[dat] and NP[acc] have to
 appear in exactly this order, this is not the case in GPSG and HPSG:
 \ea
-S $\to$ NP[nom], NP[dat], NP[acc], V
+S $\to$ NP[nom] NP[dat] NP[acc] V
 \z
 The HPSG schemata corresponding to the phrase structure rule in (\mex{0}) do not express information
 about ordering. Instead there are separate linearization rules. A schema like (\mex{0}) licenses 24 
@@ -132,13 +136,31 @@ This is also true for the relative order of dative and accusative object in (\me
 constraints regarding linearization hold across rules. By factoring these constraints out, the
 generalizations can be captured.
 
+Furthermore, generalizations about constituent structure can be captured. For example, the two
+phrase structure rules in (\mex{1}) would be needed for head-initial and head-final languages, respectively:
+\eal
+\ex VP $\to$ V NP NP
+\ex VP $\to$ NP NP V
+\zl
+In an ID/LP framework only one rule is needed. The linearization of the head is factored out of the
+rules. Similarly, HPSG has just one schema for Head-Adjunct structures although languages like
+English allow adjuncts to precede or follow the head they modify. The schema does not say anything
+about the order of the daughters. This is taken care of by two LP rules saying that adjuncts marked
+as pre-modifiers have to preceede their head while those that are marked as post-modifiers follow it.
+
 
 \section{Flat and binary branching structures}
 \label{sec-binary-flat}
 
 The previous section discussed LP rules and used flat phrase structure rules for illustration. The
 corresponding flat structures are also used in HPSG. Schema~\ref{schema-hc-flat} shows a Head-Complement schema that
-combines a head with all the complements selected via the \compsl.
+combines a head with all the complements selected via the \compsl.\footnote{
+  \citet[\page 4]{GSag2000a-u} assume a list called \dtrs for all daughters including the head
+  daughter. It is useful to be able to refer to specific non-head daughters without having to know a
+  position in a list. For example in head-adjunct structures the adjunct is the selector. So I keep
+  \dtrs for a list of ordered daughters and \textsc{head-dtr} and \textsc{non-head-dtrs} for
+  material that is not necessarily ordered.%
+}
 \begin{schema}[Head-Complement Schema]
 \label{schema-hc-flat}
 \type{head-complement-phrase} \impl\\*
@@ -150,9 +172,13 @@ non-head-dtrs & \upshape synsem2sign(\ibox{1})\\
 }
 \end{schema}
 \verb+synsem2sign+ is a \isi{relational constraint} mapping \type{synsem} objects as they are contained in
-the \compsl onto objects of type \type{sign} as they are contained in daughters \citep{ps2}.\todostefan{page}\footnote{
+the \compsl onto objects of type \type{sign} as they are contained in daughters (see \citealt[\page
+  34]{GSag2000a-u} for a similar proposal).\footnote{
   In Sign-Based Construction Grammar the objects in valence lists are of the same type as the
-  daughters. A relational constraint would not be needed in this variant of the HPSG theory.
+  daughters. A relational constraint would not be needed in this variant of the HPSG
+  theory. Theories working with a binary branching Head-Complement Schema as Schema~\ref{hcs-binary} on
+  page~\pageref{hcs-binary} would not need the relational constraint either since the \type{synsem} object in
+  the \compsl can be shared with the \synsemv of the element in the list of non-head daughters directly.
 }
 How this schema can be used to analyze VPs like the one in (\mex{1}) is shown in Figure~\ref{fig-gave-Sandy-a-book}.
 \ea
@@ -172,8 +198,8 @@ sm edges
 Researchers working on English usually assume a flat structure but assuming binary
 branching structures would be possible as well, as is clear from analyses in Categorial Grammar,
 where binary combinatory rules are assumed \citep{Ajdukiewicz35a-u,Steedman2000a-u}. For languages
-like German it is usually assumed that structures are binary branching (but see \citew[\page 156]{Reape94a} and
-\citew[\page 51]{BvN98}). The reason for this is that
+like German it is usually assumed that structures are binary branching (but see \citealt[\page 156]{Reape94a} and
+\citealt[\page 51]{BvN98}). The reason for this is that
 adverbials can be placed anywhere between the arguments as the following example from \citet[\page
   145]{Uszkoreit87a} shows:
 \ea
@@ -185,9 +211,39 @@ greasy cast.iron.disks unnoticed in the pocket put\\
 unnoticed, put ten greasy cast iron disks slowly into the
 apprentice's pocket.'
 \z
-A straightforward analysis of adjunct placement in German and Dutch is to assume that adjuncts can attach to any verbal projection. 
+A straightforward analysis of adjunct placement in German and Dutch is to assume that adjuncts can
+attach to any verbal projection. For example, Figure~\ref{fig-adjunct-placement-german} shows the
+analysis of (\mex{1}):
+\ea
+\gll weil deshalb jemand gestern der Frau schnell das Buch gab\\
+     because therefore somebody yesteray the woman quickly the book gave\\%\german
+\glt `because somebody quickly gave the woman the book yesterday'
+\z
+\begin{figure}
+\begin{forest}
+sm edges
+[V
+       [Adv [deshalb;therefore]]
+       [V
+         [NP [jemand;somebody]]
+         [V
+           [Adv [gestern;yesterday]]
+           [V
+              [NP [der Frau;the woman,roof]]
+              [V
+                [Adj [schnell;quickly]]
+                [V
+                  [NP [das Buch;the book,roof]]
+                  [V [gab;gave]]]]]]]]
+\end{forest}
+\caption{Analysis of [\emph{weil}] \emph{deshalb jemand gestern der Frau schnell das Buch gab}
+  `because somebody quickly gave the woman the book yesterday' with binary branching structures}\label{fig-adjunct-placement-german}
+\end{figure}
+The adverbials \emph{deshalb} `therefore', \emph{gestern} `yesterday' and \emph{schnell} `quickly'
+may attach to any verbal projection. For example, \emph{gestern} could also be placed at the other
+adjunct positions in the clause. 
 
-Binary branching structures with attachment of adjuncts to any verbal projection also accounts for recursion and hence the
+Binary branching structures with attachment of adjuncts to any verbal projection also account for recursion and hence the
 fact that arbitrarily many adjuncts can attach to a verbal projection.
 %any constituent can be combined with the verb to the exclusion of any other argument \citep{Mueller2003b,MuellerLehrbuch1}\todostefan{page}:
 %% \eal
@@ -228,10 +284,11 @@ daughter is split into three lists: a beginning \iboxb{1}, a list containing \ib
 \iboxb{2}. \ibox{3} is identified with the \synsemv of the non-head daughter. All other elements of
 the \compsl of the head daughter are concatenated and the result of this concatenation (\ibox{1}
 $\oplus$ \ibox{2}) is the \compsl of the mother node. This schema is very general. It works for
-languages that allow for scrambling since it allows to take an arbitrary element out of the \compsl
+languages that allow for scrambling since it allows an arbitrary element to be taken out of the \compsl
 of the head daughter and realize it in a local tree. The schema can also be ``parametrized\is{parameter}'' to account
 for languages with fixed word order. For head final languages with fixed order \ibox{2} would be the
-empty list and for head-initial languages with fixed order (\eg English) \ibox{1} would be the empty list.
+empty list (= combination with the last element in the list) and for head-initial languages with
+fixed order (\eg English) \ibox{1} would be the empty list (= combination with the first element in the list).
 
 The alternative to using relational constraints as in Schema~\ref{hcs-binary} is to use sets rather
 than lists for the representation of valence information
@@ -261,7 +318,8 @@ representation and the order of elements in valence lists see \crossrefchapterw{
 The Germanic languages signal the clause type by verb position. All Germanic languages with the
 exception of English are V2 languages: the finite verb is in second position in declarative main
 clauses. The same holds for questions with \emph{wh} phrases. Yes/no questions are formed by putting
-the verb in initial position. English is a so-called \emph{residual V2 language}. While declarative
+the verb in initial position. English is a so-called \emph{residual V2 language}, that is, there are
+some constructions that are parallel to what is known from V2 languages. For example, while declarative
 clauses are in base order (SVO), questions follow the pattern that is known from other Germanic
 languages.
 \ea
@@ -271,19 +329,24 @@ Analyses assuming flat structures (or flat linearization domains, see Section~\r
 usually treat alternative orders of verbs in Germanic languages as linearization variants
 \citep{Reape94a,Kathol2001a,Mueller95c,Mueller2003a,TBjerre2006a}, but this is not necessarily so as
 Bouma and van Noord's analysis of Dutch clauses show \citep[\page 62, 71]{BvN98}. The alternative to
-verb placement as linearization is something that is similar to verb-movement in Government \&
-Binding: a trace takes the position of the verb in its canonical position and the verb is realized
-in initial or second position. The following subsection deals with such approaches in more
+verb placement as linearization is something that is similar to verb movement in Government \&
+Binding: an empty element takes the position of the verb in its canonical position and the verb is realized
+in initial or -- in case something is realized before the finite verb -- in second position. The following subsection deals with such approaches in more
 detail. Subsection~\ref{sec-aux-inversion-phrasal} deals with a constructional approach.
 
 \subsection{Head movement approaches}
 
-\citet{Borsley89} showed that in addition to the analysis of auxiliary inversion in English that was
+Building on work by \citet{Jacobson87} in the framework of Categorial Grammar\indexcg, \citet{Borsley89} showed that in addition to the analysis of auxiliary inversion in English that was
 suggested in GPSG \citep{GKPS85a} an analysis that is similar to the movement-based analysis in GB
 is possible in HPSG as well. The technique that is used in the analysis is basically the same that
-was developed by \citet{Gazdar81} for the treatment of nonlocal dependencies in GPSG. A trace is
+was developed by \citet{Gazdar81} for the treatment of nonlocal dependencies in GPSG. An empty category is
 assumed and the information about the missing element is passed up the tree until it is bound off at
-an appropriate place (that is by the fronted verb). The analysis of (\mex{1}) is shown in Figure~\ref{fig-did-kim-get-the-job-hm}.
+an appropriate place (that is by the fronted verb). Note that the heading of this section contains
+the term \emph{head movement} and I talk about traces, but it is not the case that something is
+actually moved. There is no underlying structure with a verb that is transformed into one with the
+verb fronted and a remaining trace in the original position of the verb. Instead, the empty element
+is a normal element in the lexicon and can function as the verb in the respective position.
+The analysis of (\mex{1}) is shown in Figure~\ref{fig-did-kim-get-the-job-hm}.
 \ea
 Did Kim get the job?
 \z
@@ -305,16 +368,17 @@ sm edges
                           \comps \sliste{ \ibox{4} } } [\trace]]
       [\ibox{4} VP [get the job, roof]]]]]
 \end{forest}
-\caption{\label{fig-did-kim-get-the-job-hm}Analysis of English auxiliary constructions as head-movement following \citep{Borsley89}}
+\caption{\label{fig-did-kim-get-the-job-hm}Analysis of English auxiliary constructions as head"=movement following \citep{Borsley89}}
 \end{figure}
 A special variant of the auxiliary selects a full clause in which an auxiliary is missing. The fact
 that the auxiliary is missing is represented as the value of \dsl. The value of \dsl is a
-\type{synsem} object, that is something that contains syntactic and semantic information (\ibox{2}
+\type{local} object, that is something that contains syntactic and semantic information (\ibox{2}
 in Figure~\ref{fig-did-kim-get-the-job-hm}). \dsl is a head feature and hence available everywhere
 along a projection path (see \crossrefchaptert{properties} for the Head Feature
-Principle).\todostefan{check reference to Chapter~\ref{chap-properties}.} The trace for
+Principle).\todostefan{check reference to Chapter~\ref{chap-properties}.} The empty element for
 head movement is rather simple:
 \ea
+empty element for head movement:\\*
 \ms[word]{
 phon & \eliste\\
 synsem|loc & \ibox{1} \ms{ cat|head|dsl \ibox{1}\\
@@ -324,7 +388,26 @@ synsem|loc & \ibox{1} \ms{ cat|head|dsl \ibox{1}\\
 It states that there is an empty element that has the local requirements that correspond to its
 \dslv. For cases of verb movement it says: I am a verb that is missing itself. The fronted auxiliary
 is licensed by a lexical rule that maps a non-fronted auxiliary onto one that selects a complete
-clause from which the input auxiliary is missing.
+clause from which the input auxiliary is missing. 
+%% The special lexical item that is needed for the
+%% analysis of (\mex{-1}) is given in (\mex{1}):
+%% \ea
+%% \catv of the lexical item used for auxiliary inversion:\\
+%% \ms{
+%% head & \ms[verb]{
+%%         vform & fin\\
+%%         dsl   & none\\
+%%         }\\
+%% comps & \liste{ \ms{ cat \ms{ head & \ms[verb]{ dsl & \ms{ head & \ms[verb]{ vform & fin\\
+%%                                                                              aux   & +\\
+%%                                                                            }\\
+%%                                                          }\\
+%%                                                }\\
+%%                               spr & \eliste\\
+%%                               comps & \eliste\\
+%%                               } } }\\
+%% }
+%% \z
 
 Such head-movement analyses are assumed by most
 researchers working on \ili{German} (\citealp*[Section~4.7]{KW91a}; \citealp{Oliva92a}; \citealp*{Netter92};   
@@ -356,7 +439,11 @@ sm edges
 \caption{\label{fig-did-kim-get-the-job}Analysis of English auxiliary constructions according to \citep{Sag2018a}}
 \end{figure}
 The tree in Figure~\ref{fig-did-kim-get-the-job} is licensed by a schema combining a head with its
-subject \iboxb{1} and its VP complement \iboxb{2} in one go. As is common in HPSG since 1995
+subject \iboxb{1} and its VP complement \iboxb{2} in one go.\footnote{
+  An alternative is to assume a separate valence feature for the subject (\feat{subj}) and assume a
+  schema that combines the head with the element in the \subjl and the elements in the \compsl
+  \citep[\page 36]{GSag2001a-u}.%
+} As is common in HPSG since 1995
 \citep{Sag97a} phrasal schemata are organized 
 in type hierarchies and the general schema for auxiliary initial constructions has the type
 \type{aux-initial-cxt}. \citet{Fillmore99a} and \citet{Sag2018a} argue that there are various usages
@@ -372,14 +459,20 @@ interrogatives like (\mex{1}a) and another subtype \type{auxinitial-excl-cl} for
 much simpler Merge-based analysis in Minimalism. Minimalism assumes just one very general schema for
 combination (External Merge is basically equivalent to our Schema~\ref{hcs-binary} above, see
 \citew{MuellerUnifying}), so this rule for combining linguistic objects is very simple, but this
-does not help in any way when considering the facts: there are at least three different meanings
-associated with auxiliary initial clauses and these have to be captured somewhere in a grammar. One
+does not help in any way when considering the facts: there are at least five different meanings
+associated with auxiliary initial clauses (polar interrogative, blesses/curses, negative imperative,
+exclamatives, conditionals) and these have to be captured somewhere in a grammar. One
 way is to state them in a type hierarchy as is done in some HPSG analyses and in SBCG, another way
 is to use implicational constraints that assign meaning with respect to actual configurations
 (see Section~\ref{sec-mixed-approaches}) and a third way is to do everything lexically. The only option for
 Minimalism is the lexical one. This means that Minimalism has to either assume as many lexical items
 for auxiliaries as there are types in HPSG or to assume empty heads that contribute the meaning that
-is contributed by the phrasal schemata in HPSG \parencites[Section~5]{Borsley2006a}{BM2018Minimalism}. The latter proposal is generally assumed in
+is contributed by the phrasal schemata in HPSG
+\parencites[Section~5]{Borsley2006a}{BM2018Minimalism}. 
+% Bob: I think they would assume a variety of different C-elements attracting the auxiliary: an
+% interrogative C, an exclamative C, etc.
+% Stefan: Adger has different C heads.
+The latter proposal is generally assumed in
 Cartographic approaches \citep{Rizzi97a-u}. Since there is a fixed configuration of functional projections
 that contribute semantics, one could term these Rizzi-style analyses \emph{Crypto-Constructional}.
 
@@ -390,14 +483,14 @@ The situation with respect to clause types is similar in German. Verb first sent
 questions (\mex{1}a), imperatives (\mex{1}b), conditional clauses (\mex{1}c), and declarative
 sentences with topic drop (\mex{1}d). 
 \eal
-\ex 
+\ex\label{ex-kommt-peter-question}
 \gll Kommt Peter?\\
      comes Peter\\\german
 \glt `Does Peter come?'
 \ex 
 \gll Komm!\\
      come\\
-\ex 
+\ex\label{ex-kommt-peter-conditional}
 \gll Kommt Peter, komme ich nicht.\\
      comes Peter  come  I not\\
 \glt `If Peter comes, I won't come.'
@@ -426,8 +519,8 @@ together with verb movement (I assumed linearization domains (see Section~\ref{s
 years and then switched to the head-movement approach \citep{Mueller2005c,Mueller2005d,MuellerGS}). 
 
 As was explained above, the head movement approaches are based on lexical rules or unary
-projections. These license new linguistic objects that could contribute the respective semantics. As
-\citet{Borsley2006a} pointed out, this would mean that one needs seven versions of fronted verbs to
+projections. These license new linguistic objects that could contribute the respective semantics. In
+analogy to what \citet{Borsley2006a} has discussed with respect to extraction structures, this would mean that one needs seven versions of fronted verbs to
 handle the seven cases in (\mex{-1} and (\mex{0}), which would correspond to the seven phrasal types
 that would have to be stipulated in phrasal approaches. But there is a way out of this: one can
 assume one lexical item with underspecified semantics. HPSG makes it possible to use implicational
@@ -482,23 +575,33 @@ lexical item \citep{MuellerSatztypen}. This is shown with the example of a quest
 \end{figure}
 The implication says: when the configuration has the form that there is a question pronoun in the
 left daughter, the output of the lexical rule gets question semantics. Since HPSG represents all
-linguistic information in the same AVM, such implicational constraints can refer to intonation as well.
+linguistic information in the same AVM, such implicational constraints can refer to intonation as
+well and hence, implications for establishing the right semantics for V1 questions (\ref{ex-kommt-peter-question}) vs.\ V1
+conditionals (\ref{ex-kommt-peter-conditional}) can be formulated.
 
 Note that in Constructional HPSG as layed out by \citew{Sag97a} implicational constraints can refer
 to the structure of a complete utterance. Hence items with a complex internal structure can be seen
 as contributing a certain meaning. This is ruled out by design in Sign"=Based Construction Grammar,
 where linguistic objects of type \type{phrase} do not have daughters.
+\inlinetodostefan{%
+Bob: Can't you do everything with constructions in SBCG that you could do with phrases in standard
+HPSG? I think you need to say more if you want to make this point.
+}
 
 
 \section{Constituent order domains}
 \label{sec-domains}
 
 There\is{order domain|(} is an interesting extension to standard HPSG that opens up possibilities for analyses that are
-quite different from what is done otherwise in theoretical linguistics: Mike Reape
+quite different from what is done otherwise in theoretical linguistics: 
+\inlinetodostefan{
+Bob: Dowty?
+}
+Mike Reape
 \citeyearpar{Reape91,Reape92a,Reape94a} working on German suggested formal tools that allow for the modeling of
 discontinuous constituents. His original motivation was to account for scrambling of arguments in
-verbal complexes but this analysis was superseeded by Hinrichs and Nakazawa's analysis
-\citep{HN89a,HN94a} since pureley linearization-based approaches are unable to account for \isi{agreement}
+verbal complexes but this analysis was superseded by Hinrichs and Nakazawa's analysis
+\citep{HN89a,HN94a} since purely linearization-based approaches are unable to account for \isi{agreement}
 and the so-called remote passive\is{passive!remote} (\citealp[Section~5.1, Section~5.2]{Kathol98b};
 \citealp[Chapter~21.1]{Mueller99a}). Nevertheless, his work was taken up by others and was used for analyzing German
 \citep{KP95a,Kathol2000a,Mueller95c,Babel,Mueller2004b,Wetta2011a,Wetta2014a-u}. As will be
@@ -632,12 +735,16 @@ the NP \emph{Kurdu-jarra-rlu wita-jarra-rlu} `child small' may appear discontinu
 the same case:
 \ea
 \label{ex-warlpiri}
-\gll Kurdu-jarra-rlu  ka-pala                 maliki     wajili-pi-nyi        wita-jarra-rlu.\\
+\gll Kurdu-jarra-rlu  ka-pala                 maliki     wajili.pi-nyi        wita-jarra-rlu.\\
 % S91:257 
      child-\DU-\ERG{} \PRS-3\DU.\textsc{subj} dog.\ABS{} chase-\textsc{npast} small-\DU-\ERG\\\jambox{(Warlpiri)}\todostefan{Mistake in glossing. Should \emph{pi-nyi} be \emph{pi.nyi}?}
 \glt `Two small children are chasing the dog.' or\\
      `Two children are chasing the dog and they are small.'
-\z  
+\z
+% Doug Ball:  
+%% -- I really got into exploring the Warlpiri example in (21) [I wonder where this example originally appeared -- probably either in Jane Simpson's 1983 dissertation or in work by Ken Hale], and here's what I found: It appears that others (like Mary Dalrymple in her 2001 book on LFG) have given the verb of this sentence as wajilipi-nyi 'chase-NPST', treating the -pi- as part of the stem. In my own investigations, including looking at the Online Warlpiri Dictionary (http://ausil.org/Dictionary/Warlpiri/lexicon/index.htm), it appears that this word is a kind of compound: wajili meaning something like 'fast' or 'quickly' and pi- being a root associated with a light verb of contact, which one might be inclined to translate as 'hit' or 'hunt'. The suffix -nyi is clearly the NONPAST ending (for this kind of verb). So either wajilipi-nyi 'chase-NPST' or wajili-pi-nyi 'fast-hunt-NPST' would work, but I don't think ...pinyi is a recognized Warlpiri morphological unit. 
+%
+% Simpson, 1991 calls the pi VR verb root.
 \citet{DS99a} developed an analysis for this that simply liberates domain elements and inserts them
 into the next higher domain. (\mex{1}) shows how this is formalized:
 \ea
@@ -677,6 +784,7 @@ and \ibox{3}) to the domain of the mother. The second element in this domain has
 We have seen so far an analysis that inserts complete objects into the domain of the mother, an
 analysis that inserts all domain objects of objects into the domain of the mother and in the next
 subsection I want to look at an intermediate case, so-called \emph{partial compaction}.
+\inlinetodostefan{Bob: explain compaction. You also don’t explain liberation, which is probably necessary.}
 
 \subsection{Partial compaction (extraposition)}
 \label{sec-partial-compaction}
@@ -684,7 +792,16 @@ subsection I want to look at an intermediate case, so-called \emph{partial compa
 \citet{KP95a} developed an analysis of extraposition that is a mix of the strategies discussed in
 the two subsections: most of one NP object is inserted into the domain of the mother as a single object, only those
 parts that are extraposed are liberated and inserted as individual domain objects into the domain of
-the mother. Kathol \& Pollard's analysis of (\mex{1}) is given in Figure~\ref{fig-extraposition-via-domain-union}.
+the mother.\footnote{
+  This analysis of extraposition is not the only option available in HPSG. I explain it here since
+  it shows the flexibility of the domain approach. The more common analysis of extraposition is one
+  that is parallel to the \slasch-based approach to extraction that is explained in
+  \crossrefchaptert{udc}. Since constraints regarding locality differ for fronting to the left and
+  extraposition to the right a different feature is used (\feat{extra}). See \citew{Keller95b} and \citew{Mueller99a} for discussion. More recent approaches assume the
+  projection of semantic indices \citep{Kiss2005a} to be able to solve puzzles like \citegen{Link84a-u} hydra sentences and even more
+  recent proposals mix index projection and \extra projection \citep{Crysmann2013a}.
+}
+Kathol \& Pollard's analysis of (\mex{1}) is given in Figure~\ref{fig-extraposition-via-domain-union}.
 \ea
 \gll  einen Hund füttern, der Hunger hat\\
       a dog feed that hunger has\\\german
@@ -742,6 +859,9 @@ and a list containing the remaining objects, in the example \sliste{ \ibox{3} }.
 the new object \sliste{ \ibox{2} }, a list containing the remaining objects \sliste{ \ibox{3} } are
 shuffled with the domain list of the head \ibox{4}. Since the relative clause is in the same domain
 as the verb, it can be serialized to the right of the verb.
+
+%% \inlinetodostefan{
+%% Bob: I think there should probably be some sort of reference to other approaches to extraposition of phenomena of various kinds, e.g. Kay and Sag (2012) (Kay, P. \& I. A. Sag (2012), Cleaning up the big mess: Discontinuous dependencies and complex determiners, in Boas and Sag (eds.), Sign-Based Construction Grammar, Stanford: CSLI Publications, 229-256.).}
 
 \subsection{Problems with order domains}
 
@@ -915,7 +1035,7 @@ The details cannot be explained here but the analysis treats apparent multiple f
 partial verb phrase frontings. A lexical rule is used for multiple frontings which is a special case
 of the head-movement rule that was discussed in Section~\ref{sec-head-movement}. So apparent
 multiple frontings are analyzed with means that are available to the grammar anyway. This analysis
-allows to keep the insight that German is a V2 language and it also gets the same-clause constraint
+allows us to keep the insight that German is a V2 language and it also gets the same-clause constraint
 and the linearization of elements right. See \citew{Mueller2005c,Mueller2005d,MuellerGS} for details.
 
 
@@ -938,10 +1058,13 @@ languages like the Australian free constituent order languages can be handled wi
 \label{sec-free-without-domains}
 
 \citet{Bender2008a} discusses the Australian language Wambaya\il{Wambaya} and shows how phenomena parallel to
-those treated by \citet{DS99a} can be handled without discontinuous constituents.\il{Warlpiri|(} The trick is that
-all arguments of a head are projected to higher nodes even when they are combined with the head,
-that is, arguments are not canceled off from valence lists. See also \citew{Meurers99b,Prze99} and
-\citew{Mueller2008a} for earlier non-cancellation approaches. The example (\ref{ex-warlpiri}) from
+those treated by \citet{DS99a} can be handled without discontinuous constituents.\il{Warlpiri|(}
+Bender assumes that all arguments of a head are projected to higher nodes even when they are
+combined with the head, that is, arguments are not canceled off from valence lists. See also \citew{Meurers99b,Prze99} and
+\citew{Mueller2008a} for earlier non-cancellation approaches.\footnote{
+\citew{Higginbotham85a} and \citew{Winkler97a} make similar suggestions with regard to the
+representation of theta roles.%
+} The example (\ref{ex-warlpiri}) from
 Section~\ref{sec-absolutely-free} can be recast with continuous constituents as is shown in
 Figure~\ref{fig-warlpiri-non-cancellation}. 
 \begin{figure}
@@ -994,7 +1117,7 @@ discontinuous constituents.
 %\section*{Abbreviations}
 \section*{Acknowledgements}
 
-I thank Bob Borsley for comments.
+I thank Bob Borsley and Doug Ball for very detailed and very useful comments.
 
 {\sloppy
 \printbibliography[heading=subbibliography,notkeyword=this] 
