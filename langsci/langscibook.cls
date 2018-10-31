@@ -1876,7 +1876,7 @@ width=.8\textwidth
 \settocstylefeature[-1]{pagenumberbox}{\csname @gobble\endcsname}	% parts without page number
 \settocstylefeature[-1]{leaders}{\hfill}							% parts without dots#
 
-\usepackage{chngcntr}
+\@ifundefined{counterwithin}{\usepackage{chngcntr}}{} 
 \counterwithout{figure}{chapter}
 \counterwithout{table}{chapter}
 
