@@ -282,22 +282,35 @@ There also belong investigations into iconic features of \ili{American Sign Lang
 \section{Gestures in HPSG}
 \label{sec:gestures-hpsg}
 
+Integrating a gesture's (pointing) contribution to speech was initiated in computer science.
+%
+Coincidentially, these early works used typed feature structure description akin to HPSG grammars.
+%
+Though linguistically limited, the crucial invention has been a \emph{multimodal chart parser}, \is{multimodal chart parser} that is, an extension of chart parsing that allows to process input on two modalities (namely speech and gesture).
+%
+Such approaches are reviewed in Section~\ref{sec:precursors}.
+%
+Afterwards, a more elaborate gesture representation format is introduced that allows to encode the observable form side of a gesture in terms of kinematically derived attribute-value structures (Section~\ref{sec:repr-gest-with}).
+%
+Following the basic semiotic distinction between deictic (or indicating or pointing) gestures and iconic (or representational or imagistic) gestures, the analysis of both classes of gestures is exemplified in Sections~\ref{sec:pointing-gestures} and \ref{sec:iconic-gestures}, respectively.
+
+
+
+
 \subsection{Precursors} 
 \label{sec:precursors}
 
-Using typed feature structures in order to represent the form and meaning of gestures goes back to computer science approaches to human-computer interaction (HCI). % \citep[cf.][]{Luecking:Pfeiffer:2012}.
+Using typed feature structure descriptions in order to represent the form and meaning of gestures goes back to computer science approaches to human-computer interaction (HCI). % \citep[cf.][]{Luecking:Pfeiffer:2012}.
 %
-The \textit{QuickSet} system \citep{Cohen:et:al:1997} allows users to operate on a map and move objects or create barb wires (the project was funded by a grant from the US army) by giving verbal commands and manually indicating coordinates.
+The \textit{QuickSet} system \is{QuickSet system} \citep{Cohen:et:al:1997} allows users to operate on a map and move objects or create barb wires (the project was funded by a grant from the US army) by giving verbal commands and manually indicating coordinates.
 %
 The system processes voice and pen (gesture) input by assigning signals from both media representations in the form of attribute-value matrices (AVMs) \citep{Johnston:1998,Johnston:et:al:1997}.
-%
-% The common representation format is a precondition for implementing multimodal integration of speech and gestures in terms of unification \citep[cf.][]{Luecking:Rieser:Staudacher:2006:a}.
 %
 For instance, \textit{QuickSet} will move a vehicle to a certain location on the map when asked to \emph{Move this}[\Pointing] \emph{motorbike to here}[\Pointing], where \enquote*{\Pointing} represents an occurrence of touch gesture (i.e., pen input). 
 
 
 \is{multimodal chart parser|(}
-Since a linguistic unification-based grammar rests on a conventional, \enquote{unimodal} parser, \citet{Johnston:1998} and \citet{Johnston:et:al:1997} developed a \emph{multimodal chart parser}, which are still a topic of computational linguistics \citep{Alahverdzhieva:Flickinger:Lascarides:2012} (see also \textit{Computational linguistics and Language Engineering}, this volume).
+Since a linguistic unification-based grammar rests on a conventional, \enquote{unimodal} parser, \citet{Johnston:1998} and \citet{Johnston:et:al:1997} developed a \emph{multimodal chart parser}, which are still a topic of computational linguistics \citep{Alahverdzhieva:Flickinger:Lascarides:2012} (see also \crossrefchaptert{cl}).
 %
 A multimodal chart parser consists of two or more layers and allows for layer-crossing charts.
 %
@@ -330,7 +343,7 @@ The multimodal NP \emph{this}[\Pointing] \emph{motorbike}, for instance, is proc
 \end{tikzpicture}
 \z
 
-A multimodal chart or \emph{multichart} is defined in terms of sets of identifiers from both layers.
+A multimodal chart or \emph{multichart} \is{multichart} is defined in terms of sets of identifiers from both layers.
 %
 Possible multicharts from (\ref{ex:multimodal-chart-parser}) include the following ones:
 %
@@ -363,36 +376,36 @@ The basic rule for integrating spatial gestures with speech commands is the \emp
     time : & \@3\] \\
     rhs : & \[dtr1 : & \[cat : & \textit{located\_command} \\
 	modality : & \@6 \\
-    content : & \@1[location \@5] \\
+    content : & \@1\textup{[}location \@5\textup{]} \\
     time : & \@7\] \\
     dtr2 : & \[cat : & \textit{spatial\_gesture} \\
     content : & \@5 \\
     modality :& \@9 \\
     time :& \@{10}\]\] \\
-    constraints : & \{overlap(\@7,\@{10}) $\lor$ follow(\@7,\@{10},4) \\
+    constraints : & \{overlap(\@7,\@{10}) $\lor$ follow(\@7,\@{10},\texttt{4}s) \\
     total-time(\@7,\@{10},\@3) \\ 
     assign-modality(\@6,\@9,\@2)\}\]
 \end{avm}
 \z
 
-The AVM in (\ref{ex:basic-integration-scheme}) implements a mother-daughter structure along the lines of a context free grammar rule, where a left-hand side (\textit{lhs}) expands to a right-hand side (\textit{rhs}).
+The AVM in (\ref{ex:basic-integration-scheme}) implements a mother-daughter structure along the lines of a context free grammar rule, where a left-hand side (\textsc{lhs}) expands to a right-hand side (\textsc{rhs}).
 %
-The right-hand  side consists of two constituents (daughters \textit{dtr1} and \textit{dtr2}), a verbal expression (\textit{located\_command}) and a gesture.
+The right-hand side consists of two constituents (daughters \textsc{dtr1} and \textsc{dtr2}), a verbal expression (\textit{located\_command}) \istype{located\_command} and a gesture.
 %
-The semantic integration between both modalities is achieved in terms of feature-structure sharing, see tag \avmbox{5}: 
+The semantic integration between both modalities is achieved in terms of \isi{structure sharing}, see tag \avmbox{5}: 
 %
 the spatial gesture provides the location coordinate for the verbal command. 
 
-The bimodal integration is constrained by a set of restrictions, mainly regulating the temporal relationship between speech and gesture (see tags \avmbox{7} and \avmbox{10} in the \enquote*{constraints} field): 
+The \isi{bimodal integration} is constrained by a set of restrictions, mainly regulating the \isi{temporal relationship} between speech and gesture (see tags \avmbox{7} and \avmbox{10} in the \textsc{constraints} set): 
 %
-the gesture may overlap with its affiliated word in time, or follow it in at most four seconds.
+the gesture may overlap with its affiliated \is{affilate} word in time, or follow it in at most four seconds.
 
 
 An integration scheme akin to that displayed in (\ref{ex:basic-integration-scheme}) also underlies current grammar-oriented approaches to deictic and iconic gestures (see Sections~\ref{sec:pointing-gestures} and \ref{sec:iconic-gestures} below).
 
 
 
-\subsection{Representing Gestures with AVMs}
+\subsection{Representing gestures with AVMs}
 \label{sec:repr-gest-with}
 
 \is{gesture representation|(}
