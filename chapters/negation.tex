@@ -177,50 +177,46 @@ structure organized around functional projections.
 For example, in \citet{Pollock:89}'s proposal, all verbs in French
 move to a higher structural position, whereas this is possible in
 English only for the auxiliaries \emph{have} and \emph{be}, as
-shown in (\ref{8}):
+shown in figure \ref{fig:1}.
 
-\eal\label{8}
-\ex French:
-  \xytree{\small
-    & \xynode[-1,1]{TP}
-    \\
-    \xynode{Tns} & & \xynode[-1,1]{NegP}
-    \\
-    & \xynode{pas} & & \xynode[-1,1]{Neg$'$}
-    \\
-    & & \xynode[0]{Neg} & & \xynode[-1,1]{AgrP}
-    \\
-    & & \xynode{ne} & \xynode[0]{Agr} & & \xynode[-1,1]{VP}
-    \\
-    & & & \xynode{t}
-    \xyconnect[.>][^3pc](L,D){-4,-3}
-    & \xynode[0]{V} & & \xynode{...}
-    \\
-    & & & & \xynode{all verbs}
-    \xyconnect[.>][^2pc](D,D){-1,-1}
-  }
-
-\ex English:
- \xytree{\small
-    & \xynode[-1,1]{TP}
-    \\
-    \xynode{Tns} & & \xynode[-1,1]{NegP}
-    \\
-    & \xynode[0]{Neg} & & \xynode[-1,1]{AgrP}
-    \\
-    & \xynode{not} & \xynode[0]{Agr} & & \xynode[-1,1]{VP}
-    \\
-    & & \xynode{t}
-    \xyconnect[.>][^2.5pc](L,D){-3,-2}
-    & \xynode[0]{V} & & \xynode{...}
-    \\
-    & & & \xynode{have/be}
-    \xyconnect[.>][^2pc](D,D){-1,-1}
-  }
-\zl
-
-
-
+\begin{figure}[h!]
+	\begin{subfigure}[b]{0.48\textwidth}
+		\begin{forest}
+			[TP
+				[Tns,name=Tns]
+				[NegP
+					[pas]
+				[Neg$'$
+					[Neg [ne]]
+					[AgrP
+						[Agr [t,name=t]]
+						[VP
+							[V[all verbs,name=verbs]]
+							[\dots]]]]]]
+			\draw[->,dotted] (verbs) to[out=south west,in=south] (t);
+			\draw[->,dotted] (t) to[out=west,in=south] (Tns);
+		\end{forest}
+		\caption{French}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.48\textwidth}
+		\begin{forest}
+			[TP
+				[Tns,name=Tns]
+				[NegP
+					[Neg[not]]
+					[AgrP
+						[Agr[t,name=t]]
+						[VP
+						[V[have/be,name=have]]
+						[\dots]]]]]
+			\draw[->,dotted] (have) [out=south west,in=south] to (t);
+			\draw[->,dotted] (t) [out=west,in=south] to (Tns);
+		\end{forest}
+		\caption{English}
+	\end{subfigure}
+	\caption{}\label{fig:1}
+\end{figure}
 
 \noindent 
 Why does V-movement happen when it does? This question
@@ -357,38 +353,48 @@ construction-based HPSG, we could take this as an inflectional
 construction.  The negative marker, as we have seen in Turkish and Japanese, is realized as a suffix
 attached to the verb root. The resulting combination is not
 a word-level entity but a verb stem to which an aspectual or tense marker can be attached. We could thus take such a morphological process as an inflectional
-one. For instance, the following could be a morphological
-construction in Turkish:\footnote{See
+one. For instance, figure \ref{fig:2} could be a morphological
+construction in Turkish.\footnote{See
 \citet{Sag:12} and \citet{Hilpert:16} for a construction-based approach to
 inflectional as well as derivational processes.}
 
 
 
 %\newpage
-\ea
-Negative-Infl Construction ($\uparrow${\it infl-cxt}) \\
-\xytree[2]{\small
- &&&\xynode[0]{
-\begin{avm}
- \[{\it v-neg-stem}\\
-   \FORM\ \q<{\bf F}\sub{{\sc neg}}(X)\q> \\
-   \SYN\ \|\HEAD\  \|\POSP\ {\it verb}\\
-   \SEM\ \[\FRAMES\ \<\[{\it neg-fr}\\
-                       \ARGa\ \@1\]\>\]\]
-\end{avm}}\\
- &&&\xynode{
-\begin{avm}
-  \[{\it v-lxm}\\
-   \FORM\ \q<X\q>\\
-    \SYN\ \|\HEAD\  \|\POSP\ {\it verb}\\
-     \SEM\ \[\FRAMES\ \q<\@1\q>\]\]
-\end{avm}
-}}
-\z
+\begin{figure}[h!]
+	\centering	
+	%\vspace{-.5cm}	
+	\begin{forest}
+		[
+		\begin{avm}
+			\[\tpv{v-neg-stem}\\
+			form  \< \textbf{F}\textsubscript{NEG} (X)\>\\
+			%%
+			syn|head|pos  \tpv{verb}\\
+			%%
+			sem \[frames \< \[\tpv{neg-fr}\\
+			arg \@{1} \] \>
+			\]
+			\]	
+		\end{avm}
+		%%%%%%
+		[
+		\begin{avm}
+			\[ \tpv{v-lxm}\\
+			form  \< X \>\\
+			syn|head|pos  \tpv{verb}\\
+			sem \[frames  \<\@{1} \> \] 
+			\]
+		\end{avm}
+		]
+		]
+	\end{forest}
+	\caption{Negative-Infl Construction ($\uparrow$\emph{infl-cxt})}\label{fig:2}
+\end{figure}	
+
 
 %
-This inflectional construction ($\uparrow${\it infl-cxt}) allows us to generate a Turkish inflection construct like {\it ser-me} `like-\NEG' (in
-(\ref{1a})) from the v-lexeme {\it ser-} with the change in the root's meaning into a sentential negation. The morphological function F\sub{{\sc neg}} could ensure that the vowel of the negative morpheme {\it me} is subject to phonological changes depending on its environment. If it is followed by a consonant-initial morpheme, it undergoes vowel harmony with the vowel in the preceding syllable (e.g., {\it yika-n-ma-di} `wash-\REFL-\NEG-\PST'). If it is followed by a vowel-initial morpheme, its vowel drops (gel-m-iyor `come-\NEG-\PROG') (see \citet{kelepir}).\footnote{As
+This inflectional construction ($\uparrow${\it infl-cxt}) allows us to generate a Turkish inflection construct like {\it ser-me} `like-\NEG' (in (\ref{1a})) from the v-lexeme {\it ser-} with the change in the root's meaning into a sentential negation. The morphological function F\sub{{\sc neg}} could ensure that the vowel of the negative morpheme {\it me} is subject to phonological changes depending on its environment. If it is followed by a consonant-initial morpheme, it undergoes vowel harmony with the vowel in the preceding syllable (e.g., {\it yika-n-ma-di} `wash-\REFL-\NEG-\PST'). If it is followed by a vowel-initial morpheme, its vowel drops (gel-m-iyor `come-\NEG-\PROG') (see \citet{kelepir}).\footnote{As
  for a way of capturing the ordering of suffixes within this kind of system,
  see \citet{Kim:16}.}
 
@@ -517,24 +523,51 @@ are two possible analyses.  One is to assume that the negative auxiliary
 takes
 a VP complement and the other is to claim that it forms a verb complex
 with the preceding main verb, as
-represented in (\ref{15a}) and (\ref{15b}), respectively (\citep{Kim:16}).
+represented in figures \ref{fig:3a} and \ref{fig:3b}, respectively (\citep{Kim:16}).
 
-\eal
-\ex \label{15a}\xytree[3.5]{\small  &             &\xynode[-1,1]{VP} \\
-             & \xynode[-1,1]{VP}  &                &\xynode[0]{V[\AUX\ +]}\\
-\xynode{...} &  &\xynode{V[\VFORM\ {\it ci}]}&\xynode{\bt anh-ta\\ `\NEG-\DECL' \et}
-}
+\begin{figure}[h!]
+	\begin{subfigure}[b]{0.48\textwidth}
+		\begin{forest}
+%		sm edges
+			[VP
+				[VP
+					[ \dots\ ] 
+					[V {[\textsc{vform} \textit{ci}]}
+%					\begin{avm} \[vform \tpv{ci}\]\end{avm}
+					]
+					]
+				[V {[\textsc{aux $+$}]}
+%				 \begin{avm} \[ aux +\] \end{avm}
+					[anh-ta\\ \textsc{neg-decl}]
+				]
+			]	
+		\end{forest}
+	\caption{}\label{fig:3a}
+		\end{subfigure}	
+\hfill
+	\begin{subfigure}[b]{0.48\textwidth}
+		\begin{forest}
+%		sm edges
+			[VP, s sep=1cm
+				[ \dots\ ]
+				[V
+					[V {[\textsc{vform} \textit{ci}]}
+%					\begin{avm} \[vform \tpv{ci}\]\end{avm}
+						[\dots]]
+					[V {[\textsc{aux $+$}]}
+%					\begin{avm} \[ aux +\] \end{avm}
+						[anh-ta\\ \textsc{neg-decl}]]]]
+		\end{forest}
+	\caption{}\label{fig:3b}	
+		\end{subfigure}
+	\caption{}
+\end{figure}
 
-\ex \label{15b}\xytree[3.5]{\small             &\xynode[-1,1]{VP}\\
-  \xynode{...}  &                      &\xynode[-1,1]{V} \\
-                 &\xynode[0]{V[\VFORM\ {\it ci}]}&&\xynode[0]{V[\AUX\ +]}\\
-        &\xynode{...}&  &\xynode{\bt anh-ta\\ `\NEG-\DECL' \et}}
-\zl
 
 
 \noindent The distributional properties of
  the negative auxiliary in the language, however, support
- the complex predicate structure (\ref{15b}) in which the negative auxiliary verb
+ the complex predicate structure (cf.\ figure \ref{fig:3b}) in which the negative auxiliary verb
 forms a syntactic/semantic unit with the preceding main verb.
 For instance, no adverbial expression, including
 a parenthetical adverb, can intervene between
@@ -554,15 +587,15 @@ complex always occurs together:
 
 \eal\ex \gll Kim-i hakkyo-eyse pelsse tolawa-ss-ni? \\
 Kim-{\sc nom} school-{\sc src} already return-{\sc pst}-{\sc que} \\
-`Did Kim return from school already?'
+\trans`Did Kim return from school already?'
 
 \ex \gll ka-ci-to anh-ass-e \\
 go-{\sc conn}-{\sc del} {\sc notp}-{\sc pst}-{\sc decl} \\
-`(He) didn't even go.'
+\trans`(He) didn't even go.'
 
-\ex[*] {ka-ci-to. `go-{\sc conn}-{\sc del}'}
+\ex[*] {ka-ci-to. go-{\sc conn}-{\sc del}}
 
-\ex[*] {anh-ass-e `{\sc neg}-{\sc pst}-{\sc decl}}
+\ex[*] {anh-ass-e {\sc neg}-{\sc pst}-{\sc decl}}
 \end{xlist} \end{exe}
 %
 Neither the main verb nor the auxiliary verb alone can serve
@@ -592,8 +625,8 @@ the following construction:
 \hd-lite:\\
 \begin{myavm}\small
 \[{\it hd-lex-cxt }\\
-\COMPS\  {\it L}\]    $\Rightarrow$ \@1\[\LEX\  +\\
-                                  \COMPS\  {\it L}\], H\[%\AUX\ \; +\\
+\COMPS\  {\it L}\]    $\Rightarrow$ \@1 \[\LEX\  +\\
+                                  \COMPS\  {\it L}\], H \[%\AUX\ \; +\\
                                            \COMPS\  \q<\@1\q>\]
 \end{myavm}
 \z
@@ -608,37 +641,43 @@ constraint thus induces the effect of argument composition at syntax,
 as illustrated by the following example:\footnote{The V$'$ is just a
 notational variant to indicate that it is a syntactic complex predicate.}
 
+\begin{figure}[h!]
+	\begin{forest}
+		[V$'$\\
+		\begin{avm}
+			\[\tp{hd-lex-cxt}\\
+			head & \@{3}\\
+			lex & $+$\\
+			comps & \<\@{2}NP\>\]
+		\end{avm}, l sep*=3
+			[\ibox{1}V\\
+%			\begin{avm}\@{1}V\end{avm}\\
+			\begin{avm}
+				\[head
+				\[vform & ci\\
+				lex & $+$\\
+				comps & \<\@{2}NP\>\]\] 
+			\end{avm}, edge label={node[midway,left,outer sep=1.5mm,]{Lexical Arg.}}
+%		, edge label={node[midway,left]{{\small Lexical Arg.}\hspace{25mm}}}
+				[ilk-ci\\read-\textsc{conn},tier=word]]
+			[V\\
+			\begin{avm}
+				\[head & \@{3}\\
+				comps & \<\@{1}V\>\]
+			\end{avm}, edge label={node[midway,right,outer sep=1.5mm,]{H}}
+%		, edge label={node[midway,right]{\hspace{5mm}{\small H}}}
+					[anh-ass-ta\\ \textsc{neg-pst-decl},tier=word]]]
+	\end{forest}
+\caption{}
+\end{figure}
 
 
-\begin{exe}
-\ex \small\evnup{\xytree[3.7]{ & \xynode{\begin{myavm}\avml \hfil V$'$\\
-          \[\textit{hd-lex-cxt }\\
-          \HEAD\   \@3\\
-          {\LITE\  +}\\
-          \COMPS\  \q<{\@2NP}\q>\]
-           \avmr \end{myavm}}
-      \xyconnect{1,-1}"_{Lexical Arg.}"\xyconnect{1,1}"^{H}" \\
-      \xynode[0]{\begin{myavm}\avml \hfil {\@1V}\\
-          \[\HEAD\ \[\VFORM\  \textit{ci}\\
-          {\LITE\  +}\\
-           \COMPS\  \q<{\@2NP}\q>\]\]\avmr \end{myavm}} & &
-      \xynode[0]{\begin{myavm}
-          \avml \hfil V\\
-          \[\HEAD\  \@3\\
-           %\SUBJ\ \; \q<\@2NP\q>\\
-          \COMPS\; \q<{\@1V}\q>%\\
-          %\ARG-ST\ \; \q<\@2, \@1\q>
-          \]\avmr \end{myavm}} \\
-      \xynode{\bt ilk-ci \\ read-\conn \et} & \xynode{} & \xynode{\bt anh-ass-ta \\ \NEG-\PST-\DECL \et}}}
-\end{exe}
-
-
-\noindent The auxiliary verb \emph{anh-ass-ta} `\NEG-\PST-\DECL' combines with the matrix verb {\it ilk-ci} `read-\conn,'
+\noindent The auxiliary verb \emph{anh-ass-ta} `\NEG-\PST-\DECL\' combines with the matrix verb {\it ilk-ci} `read-\conn',
 forming a well-formed head-lex construct.\footnote{The negative auxiliary
 verb selects two arguments, a subject and a main verb. See \citet{Kim:16} for
 a detailed analysis.}
 Note that the resulting construction inherits the
-\COMPS\ value from that of the lexical complement {\it ilk-ci} `read-\conn,' through the operation of argument composition.
+\COMPS\ value from that of the lexical complement {\it ilk-ci} `read-\conn' through the operation of argument composition.
 It is the \hd-lite\ that licenses
 the combination of an auxiliary verb with its main verb, while
 inheriting the main verb's complement value as argument composition. The present system thus allows the argument composition at the syntax level, rather than
@@ -676,66 +715,58 @@ apple-{\sc acc} eat-{\sc conn} wish-{\sc conn} do-{\sc conn} become-{\sc conn} {
   license all these examples. The following is
   a simplified structure for (\ref{20c}):
 
-
-\begin{exe}
-\ex \small\evnup{\xytree[3.8]{ & &
-      \xynode[-1,2]{\begin{myavm}
-          \avml \hfil VP\\[-1ex]
-          \avmr
-        \end{myavm}}
-      \\
-     & \xytrinode[0]{\begin{myavm}\@2NP\end{myavm}}  & & &
-      \xynode[-1,1]{\begin{myavm}
-          \avml \hfil V$'$ \\[-1ex]
-          \[ \HEAD\  \textit{verb}\\
-          %\SUBJ\  \q<\@1\q> \\
-          {\COMPS\  \q<\@2\q>}
-          \]\avmr\end{myavm}}
-      \\
-     & \xynode{\bt sakwa-lul\\ apple-\acc \et}  & &
-      \xynode[-1,1]{\begin{myavm}
-          \avml \hfil \@5V$'$\\[-1ex]
-          \[\VFORM\  \textit{ci}\\
-            {\COMPS\  \q<\@2\q>}
-          \]\avmr\end{myavm}} & &
-      \xynode[0]{\begin{myavm}
-          \avml \hfil V \\[-1ex]
-          \[%\SUBJ\  \q<\@1\q>\\
-            \COMPS\  \q<\@5\q>
-          \]\avmr\end{myavm}}
-      \\
-      & & \xynode[-1,1]{\begin{myavm}
-          \avml \hfil \@3V$'$\\[-1ex]
-          \[%\SUBJ\  \q<\@1\q>\\
-            \VFORM\  \textit{ae}\\
-            {\COMPS\ \q<\@2\q>}
-          \]\avmr\end{myavm}} & &
-      \xynode[0]{\begin{myavm}
-          \avml \hfil V\\[-1ex]
-          \[%\SUBJ\  \q<\@1\q>\\
-          \VFORM\  \textit{ci}\\
-            \COMPS\  \q<\@3\q>
-          \] \avmr\end{myavm}}
-      & \xynode{\bt anh-ass-ta \\ \NEG-\pst-\decl \et}
-      \\
-      & \xynode[0]{\begin{myavm}
-          \avml \hfil \@7V\\[-1ex]
-          \[\VFORM\  \textit{ko}\\
-          {\COMPS\  \q<\@2\q>}
-          \]\avmr\end{myavm}}
-      & & \xynode[0]{\begin{myavm}
-          \avml \hfil V\\[-1ex]
-          \[\VFORM\  \textit{ae}\\
-          \COMPS\  \q<\@7\q>
-          \]\avmr\end{myavm}} &
-      \xynode{\bt ha-ci\\ do-\conn \et} \\
-      & \xynode{\bt mek-ko \\ eat-\conn \et} & & \xynode{\bc siph-e \\ wish-\conn \et}}}
-\end{exe}
-
+\begin{figure}[h!]
+	\begin{forest}
+		sm edges
+		[VP
+			[\ibox{2}NP
+%			\begin{avm}\@{2}NP\end{avm}
+				[sakwa-lul;apple-\textsc{acc},roof]]
+			[V$'$\\
+			\begin{avm}
+				\[head & verb\\
+				comps & \<\@{2}\>\]
+			\end{avm}
+				[\ibox{5}V$'$\\
+				\begin{avm}
+					\[vform & ci\\
+					comps & \<\@{2}\>\]
+				\end{avm}
+						[\ibox{3}V$'$\\
+						\begin{avm}
+							\[vform & ae\\
+							comps & \<\@{2}\>\]
+						\end{avm}
+							[\ibox{7}V\\
+							\begin{avm}
+								\[vform & ko\\
+								comps & \<\@{2}\>\]
+							\end{avm}
+								[mek-ko;eat-\textsc{conn}]]
+							[V\\
+							\begin{avm}
+								\[vform & ae\\
+								comps & \<\@{7}\>\]
+							\end{avm}
+								[siph-e;wish-\textsc{conn}]]]
+						[V\\
+						\begin{avm}
+							\[vform & ci\\
+							comps & \<\@{3}\>\]
+						\end{avm}
+							[ha-ci;do-\textsc{conn}]]]
+					[V\\
+					\begin{avm}
+						\[comps & \<\@{5}\>\]
+					\end{avm}
+						[anh-ass-ta;\textsc{neg-pst-decl}]]]]
+	\end{forest}
+\caption{}
+\end{figure}
 %
 %
-The bottom structure indicates that the auxiliary verb {\it siph-e} `wish-\conn' forms a
-\hd-lite\ through the combination with the main verb {\it mek-ko} `eat-\conn'.
+The bottom structure indicates that the auxiliary verb {\it siph-e} wish-\conn forms a
+\hd-lite\ through the combination with the main verb {\it mek-ko} eat-\conn.
 This resulting complex predicate, which
 is still a \LEX\ expression, inherits the main verb's \COMPS\ value
 as well as the {\textit{ae}} \VFORM\ head feature from the auxiliary.\footnote{Instead,
@@ -751,7 +782,7 @@ yielding a final complex predicate that can combine with the object. Each combin
 forms a well-formed complex predicate, licensed by the lexical projection
 of each auxiliary verb and the \hd-lite.
 
-The present analysis has taken the negative auxiliary {\it ahn-ta} `\NEG-\DECL'
+The present analysis has taken the negative auxiliary {\it ahn-ta} \NEG-\DECL
 to select the main verb and form a verb complex with it.
 This verb complex treatment has been supported from
 constituent tests including
@@ -1092,8 +1123,8 @@ the lexical entry for {\it not}.}
 \begin{avm} \avml
  %{\it not}/{\it ne-pas} \\
  \[\FORM\ \q<{\it not}/{\it ne-pas}\q>\\
-\SYN\|\HEAD\[\POSP\ \  {\it adv}\\
-               \MOD\  \ \ \q<VP[{\it nonfin}]:\@2\q>\]\\
+\SYN\|\HEAD\ \[\POSP\ \  {\it adv}\\
+               \MOD\  \ \ \q<VP [{\it nonfin}]:\@2\q>\]\\
   \SEM\ \[\FRAMES\ \<\[{\it neg-fr}\\
                        \ARGa\ \@2\]\>\]
   \]\avmr\end{avm}
@@ -1350,18 +1381,26 @@ the combination of a finite auxiliary verb with the sentential
 negation \emph{not} is licensed by the \hd-lite\ (similar to the one
 in Korean), which licenses
 the combination of two lexical expressions such as verb and particle (e.g., \emph{figure out, give up}, etc), as well (see \citet{KM}). The construction, along with the assumption that the sentential negator \emph{not}
-bears the \LEX\ feature, projects a structure like the following:
+bears the \LEX\ feature, projects a structure like in figure \ref{fig:6}.
 
-\ea
-\xytree[4]{\small
-    &    & \xynode[-1,1]{VP}
-    \\
-    &\xynode[-1,1]{\begin{avm}\avml \hfil V$'$\\
-    \[{\it hd-lex-cxt}\\
-      \AUX\ +\]\avmr\end{avm}}&                 &\xytrinode{\begin{avm} VP\end{avm}}\\
-\xynode[0]{V}&   &\xynode[0]{\begin{avm}Adv[\NEG\ +]\end{avm}}       &\xynode{leave  town}\\
-      \xynode{could}& &\xynode{not}}
-\z
+\begin{figure}[h!]
+	\begin{forest}
+		sm edges
+		[VP, s sep=1cm
+			[V$'$\\
+			\begin{avm}
+				\[\tp{hd-lex-cxt}\\
+				aux & $+$\]
+			\end{avm}
+				[V
+					[could]]
+				[Adv{[\textsc{neg} $+$]}
+				[not]]]
+			[VP
+				[leave town,roof]]]
+	\end{forest}
+\caption{}\label{fig:6}
+\end{figure}
 
 %
 Just as a particle combines with the preceding main verb, forming a
@@ -1386,29 +1425,29 @@ Since the sentential negator is not a modifier of
 the following VP-type expression,
 we take it to be selected by a finite auxiliary verb, as a main verb selects a particle.
 This means a finite auxiliary verb ({\it fin-aux}) can be projected into a corresponding
-\NEG-introducing auxiliary verb ({\it neg-fin-aux}), as in (\ref{neg-rule}):
+\NEG-introducing auxiliary verb ({\it neg-fin-aux}), as in figure \ref{fig:7}.
 %
 %What this implies is that the sentential negator \emph{not}, just like particles,
 %bears the feature \LEX, so that it can be selected by a finite auxiliary verb:
 
-\ea\label{neg-rule} Negative Auxiliary Construction ($\uparrow${\it post-infl-cxt}): \\ \small\evnup{
-\xytree[2]{
- &&&\xynode[0]{ \begin{avm}
- \[{\it neg-fin-aux}\\
-\SYN\[\HEAD\[\AUX &+\\
-        \VFORM\ &\type{fin}\\
-        \NEG\ &+
-        \]\]\\
-\ARG-ST\ \<\@1XP, Adv\[\LEX\ +\\
-                     \NEG\ +\], \@2XP\>\]\end{avm}}\\
-&&&\xynode{\begin{avm}
-\[{\it fin-aux}\\
-\SYN\[\HEAD\[\AUX &+\\
-        \VFORM\ &\type{fin}\]\]\\
-\ARG-ST\ \q<\@1XP, \@2XP\q>\] \end{avm}}}}
-
-\z
-
+\begin{figure}[h!]
+	\begin{forest}
+		[\begin{avm}
+			\[\tp{neg-fin-aux}\\
+			syn & \[head & \[aux & $+$\\
+			vform & fin\\
+			neg & $+$\]\]\\
+			arg-st & \<\@{1}XP{,} $\textnormal{Adv}$ \[lex & $+$\\neg & $+$\]{,} \@{2}XP\>\]
+		\end{avm}
+			[\begin{avm}
+				\[\tp{fin-aux}\\
+				syn & \[head & \[aux & $+$\\
+				neg & $+$\]\]\\
+				arg-st & \<\@{1}XP{,} \@{2}XP\>\]
+			\end{avm}]]
+	\end{forest}
+\caption{Negative Auxiliary Construction ($\uparrow${\it post-infl-cxt})}\label{fig:7}
+\end{figure}
 %
 This is a post-inflection construction that allows for words to
 be derived from other words. We can take this mother-daughter relation as a kind of derivation whose input is a finite auxiliary verb (daughter)
@@ -1419,35 +1458,46 @@ as the feature \LEX.
 %%What we can observe here is the addition of a \NEG\ element in the \ARG-ST.
 %
 %
-The output construction then licenses the following structure for
-sentential negation:
+The output construction then licenses the structure in figure \ref{fig:8} for
+sentential negation.
 %This construction rule licenses a lexical head to combine with an expression (like particles)
 %bearing the feature LEX, forming another lexical expression.
 
+\begin{figure}[h!]
+	\begin{forest}
+		sm edges
+		[VP\\
+		\begin{avm}
+			\[vform & fin\\
+			aux & $+$\\
+			comps & \<~~\>\]
+		\end{avm}, s sep=1cm
+			[V\\
+			\begin{avm}
+				\[\tp{hd-lex-cxt}\\
+				vform & fin\\
+				aux & $+$\\
+				comps & \<\@{3}VP\>\]
+			\end{avm}
+				[V\\
+				\begin{avm}
+					\[vform & fin\\
+					aux & $+$\\
+					comps & \<\@{2}{[\textsc{neg} $+$]}{,} \@{3}VP\>\]
+				\end{avm}
+					[could]]
+				[\ibox{2}Adv
+%				\begin{avm}\@{2}$\textnormal{Adv}$\end{avm}
+					[not]]]
+			[\ibox{3}VP
+%			\begin{avm}\@{3}VP\end{avm}
+				[leave town,roof]]]
+		\end{forest}
+\caption{}\label{fig:8}
+\end{figure}
 
-\ea
- \xytree[3.5]{\small
-    &    & \xynode[-1,1]{\begin{avm}\avml \hfil VP\\ \[\VFORM\ \type{fin}\\
-                                               \AUX\ $+$\\
-                            \COMPS\ \q< \; \; \q>\]\avmr
-                    \end{avm}}    \\
-    &\xynode[-1,1]{\begin{avm}\avml \hfil V\\
-        \[{\it hd-lex-cxt}\\
-        \VFORM\ \type{fin}\\
-        \AUX\ $+$\\
-        \COMPS\ \q<\@3VP\q>\]\avmr
-      \end{avm}}&                 &\xytrinode{\begin{avm} \@3VP\end{avm}}\\
-\xynode[0]{\begin{avm}\avml \hfil V\\
-        \[\VFORM\ \type{fin}\\
-          \AUX\ $+$\\
-          \COMPS\ \q<\@2[\NEG\ $+$], \@3VP\q>\]\avmr
-      \end{avm}}&   &\xynode[0]{\begin{avm} \@2Adv \end{avm}}       &\xynode{leave town}\\
-      \xynode{could}& &\xynode{not}}
-\z
-
-
-\medskip
-\noindent As shown here, the negative finite auxiliary verb
+\medskip %%%%%%%%%% ist das schlechtes Typesetting(besonders wenn der Baum an dieser Stelle feht!!)?
+\noindent As shown here, the negative finite auxiliary verb %%% mit there ersetzen?
 \type{could} selects two complements, the negator \emph{not} and the
 VP \emph{leave town}. The finite auxiliary then first combines with
 the negator, forming a well-formed head-lex construct. This construct
@@ -1478,19 +1528,25 @@ host a VP ellipsis.  The VP ellipsis after \emph{not} is
 possible, given that any VP complement can be unexpressed, leaving
 the sentential complement intact:
 
-\ea \xytree[3]{\small
-       &\xynode[-1,1]{\begin{avm}\avml \hfil V$'$\avmr \end{avm}}\\
-              \xynode[0]{\begin{avm}
-              \avml \hfil V\\
-\[\HEAD\|\AUX\ \ \ +\\
-  \VAL\[\SPR\ \q<\@1\q>\\
-  \COMPS\ {\q<\@2Adv[\NEG\ +]\q>}\]\\
-  \ARG-ST\  \q<\@1, \@2, VP[\type{bse}]\q> \]\avmr\end{avm}}&  &\xynode[0]{\begin{avm}
-  \avml \hfil \@2Adv\\
-  \[\NEG\ +\] \avmr\end{avm}}
-  \\
- \xynode{could}  & & \xynode{not}}
-\z
+\begin{figure}[h!]
+	\begin{forest}
+		sm edges
+		[V$'$
+			[V\\
+			\begin{avm}
+				\[head|aux & $+$\\
+				val & \[spr & \<\@{1}\>\\
+					comps & \<\@{2}$\textnormal{Adv}${[neg $+$]}\>\]\\
+				arg-st & \<\@{1}{,} \@{2}{,} VP{[\tpv{bse}]}\>\]
+				\end{avm}
+					[could]]
+			[\ibox{2}Adv\\
+%			\begin{avm}\@{2}$\textnormal{Adv}$\end{avm}\\
+				\begin{avm}\[neg & $+$\]\end{avm}
+					[not]]]
+	\end{forest}
+\caption{}
+\end{figure}
 %
 As represented here, the auxiliary verb \emph{could} forms a
 well-formed head"=complement construct with \emph{not} while its
@@ -1503,13 +1559,18 @@ of the following VP.  However, an adverb like \emph{never} is only
 licensed as a modifier of VP. Thus if the VP were elided, we would have the hypothetical
 structure like the following:
 
-\ea
-\xytree[2]{\small
-                      &\xynode[-1,1]{VP}\\
-  \xynode[0]{V[\AUX\ +]}&  &\xynode[0]{*VP}\\
-  \xynode{could}&          &\xynode[0]{\begin{avm}Adv[\MOD\  \q<VP\q>]\end{avm}}\\
-                    &       &\xynode{never}}
-\z
+\begin{figure}[h!]
+	\begin{forest}
+		sm edges
+		[VP
+			[V{[\textsc{aux $+$}]}
+				[could]]
+			[*VP
+				[Adv{[\textsc{mod} $\langle$VP$\rangle$]}
+					[never]]]]
+	\end{forest}
+\caption{}
+\end{figure}
 
 Here, the adverb \emph{never} modifies a VP through the feature MOD,
 which guarantees that the adverb requires the head VP that it
@@ -1574,30 +1635,28 @@ complements has been independently proposed by \citet{Miller92d-u} and
 previous work, I also assume that the modifier \emph{pas} can
 be converted to a syntactic complement of a
 finite verb for French via the lexical rule given
-in (\ref{neg-rule2}).\footnote{Following \citet{Miller92d-u}, I take \emph{ne} to
+in figure \ref{fig:11}.\footnote{Following \citet{Miller92d-u}, I take \emph{ne} to
 be an inflectional affix which can be optionally realized
 in the output of the lexical rule in Modern French.}
 
-\ea
-\label{neg-rule2} Negative Verb Construction in French ($\uparrow${\it post-infl-cxt}):\\
-\xytree[2]{\small
- &&&\xynode[0]{ \begin{avm}
- \[{\it neg-fin-v}\\
- \FORM\ \q<({\it ne}) + \@2\q> \\
- \SYN\[\HEAD\[%\AUX &+\\
-        \VFORM\ &\type{fin}\\
-        \NEG\ &+
-        \]\]\\
-\ARG-ST\ \q<\@1XP\q> \  $\oplus$ \ \<Adv\ssub{I}\> \ $\oplus$ \ {\it L}\]\end{avm}}\\
-&&&\xynode{\begin{avm}
-\[{\it fin-v}\\
- \FORM\ \q<\@2\q>\\
-\SYN\|\HEAD\|\VFORM\ \type{fin}\\
-\ARG-ST\ \q<\@1XP\q> \ $\oplus$ \ {\it L}\] \end{avm}}}
-\z
-
-
-
+\begin{figure}[h!]
+	\begin{forest}
+		[\begin{avm}
+			\[\tp{neg-fin-v}\\
+			form & \<(\tpv{ne})\ $+$ \@{2}\>\\
+			syn & \[head & \[vform & fin\\
+			neg & $+$\]\]\\
+			arg-st & \<\@{1}XP\>\ $\oplus$ \<$\textnormal{Adv}_\textnormal{I}$\>\ $\oplus$ L \]
+		\end{avm}
+			[\begin{avm}
+				\[\tpv{fin-v}\\
+				form & \<\@{2}\>\\
+				syn|head|vform & fin\\
+				arg-st &  \<\@{1}XP\>\ $\oplus$ L\]
+			\end{avm}]]
+	\end{forest}
+\caption{Negative Verb Construction in French ($\uparrow${\it post-infl-cxt})}\label{fig:11}
+\end{figure}
 
 % \VAL\|\COMPS\ \q<\[\LEX\ +\\
 %                   \NEG\ +\], \@1XP\q>\]\]
@@ -1620,48 +1679,59 @@ One direct consequence of adopting this construction-based approach
 is that it systematically expands the set of basic lexical entries.
 For example, the construction maps lexical entries like
 \emph{aime} into its negative counterpart \emph{(n')aime}, as shown
-in:
+in figure \ref{fig:12}.
 
-\ea
-Post-Inflection of \emph{(n')aime}: \\
-\xytree[2]{\small
-&&&\xynode[0]{ \begin{avm}
- \[{\it neg-fin-v}\\
- \FORM\ \q<(n')aime\q>\\
- \SYN\[\HEAD\[%\AUX &+\\
-        \VFORM\ &\type{fin}\\
-        \NEG\ &+
-        \]\]\\
-\ARG-ST\ \<\@1NP, Adv\ssub{I}\[\LEX\ +\\
-                                   \NEG\ +\], \@2NP\>\]\end{avm}}\\
-&&&\xynode{\begin{avm}
-\[{\it fin-v}\\
- \FORM\ \q<aime\q>\\
-\SYN\|\HEAD\|\VFORM\ \type{fin}\\
-\ARG-ST\ \q<\@1NP, \@2NP\q>\] \end{avm}}}
-\z
+\begin{figure}[h!]
+	\begin{forest}
+		[\begin{avm}
+			\[\tp{neg-fin-v}\\
+			form & \<$\textnormal{(n')aime}$\>\\
+			syn & \[head & \[vform & fin\\
+			neg & $+$\]\]\\
+			arg-st & \< \@{1}NP{,} $\textnormal{Adv}_\textnormal{I}$ \[lex & $+$\\
+				neg & $+$\]{,} \@{2}NP\>\]
+		\end{avm}
+			[\begin{avm}
+				\[\tpv{fin-v}\\
+				form & \<$\textnormal{aime}$\>\\
+				syn|head|vform & fin\\
+				arg-st & \< \@{1}NP{,} \@{2}NP\>\]
+			\end{avm}]]
+	\end{forest}
+\caption{Post-Inflection of \emph{(n')aime}}\label{fig:12}
+\end{figure}
 
 
 \noindent
 This output verb {\it neg-fin-v} then allows the negator \emph{pas} to function
-as the complement of the verb \emph{naime}, as represented in (\ref{55}).
+as the complement of the verb \emph{naime}, as represented in figure \ref{fig:13}.
 
-\ea\label{55}
-\small\evnup{\xytree[3.9]{\small
-         & \xynode[-1,1,2]{\begin{avm} \avml \hfil VP\\
-\[\HEAD\|\VFORM\ \type{fin}\\
-  \SUBJ \q<\@1NP\q>\\
-  \COMPS \q< \; \q>\] \avmr \end{avm}}\\
-\xynode[0]{\begin{avm} \avml \hfil V\\
-\[{\it neg-fin-v}\\
- \HEAD\|\VFORM\ \type{fin}\\
-  \SUBJ \q<\@1NP\q>\\
-  \COMPS \q<\@2Adv\ssub{I}, \@3NP\q>\\
-\ARG-ST\ \<\@1NP, \@2Adv\ssub{I}, \@3NP\> \] \avmr \end{avm}}
- && \xynode[0]{\begin{avm}\@2Adv\ssub{I}\end{avm}} &\xynode[0]{\begin{avm}\@3NP\end{avm}}\\
-     \xynode{n'aime}   &                & \xynode{pas} & \xynode{Stacy}}}
-\z
-
+\begin{figure}[h!]
+	\begin{forest}
+		sm edges
+		[VP\\
+		\begin{avm}
+			\[head|form & fin\\
+			subj & \< \@{1}NP\>\\
+			comps & \<~~\> \]
+		\end{avm}
+			[V\\
+			\begin{avm}
+				\[\tpv{neg-fin-v}\\
+				head|vform & fin\\
+				subj & \< \@{1}NP\>\\
+				comps & \< \@{2}$\textnormal{Adv}_\textnormal{I}${,} \@{3}NP\>\]
+			\end{avm}
+				[n'aime]]
+			[\ibox{2}Adv\textsubscript{I}
+%			\begin{avm}\@{2}$\textnormal{Adv}_\textnormal{I}$\end{avm}
+				[pas]]
+			[\ibox{3}NP
+%			\begin{avm}\@{3}NP\end{avm}
+				[Stacy]]]
+	\end{forest}
+\caption{}\label{fig:13}	
+\end{figure}
 
 
 
@@ -1926,7 +1996,7 @@ the following lexical specifications:
 Lexical specifications for \emph{non}: \\
 \begin{avm}
 \[\FORM\ \q<non\q>\\
-  \SYN\[\HEAD\|\POSP\ {\it clitic}\\
+  \SYN\ \[\HEAD\|\POSP\ {\it clitic}\\
         \SEL\ \<\[\HEAD\|\POSP\ {\it verb}\\
                  \FRAMES\ \q<\@1\q>\]\>\]\\
   \SEM\ \[\FRAMES\ \<\[{\it neg-fr}\\
@@ -1986,8 +2056,8 @@ whose lexical entry is given in (\ref{67}):
 \ea\label{67} Lexical specifications for the word \emph{legge}:\\
 \begin{avm}
 \[\FORM\ \q<legge\q>\\
-  \SYN\[\HEAD\|\POSP\ {\it verb}\\
-        \VAL\[\SUBJ\ \q<\@1NP\q>\\
+  \SYN\ \[\HEAD\|\POSP\ {\it verb}\\
+        \VAL\ \[\SUBJ\ \q<\@1NP\q>\\
               \COMPS\ \q<\@2NP\q>\]\]\\
   \ARG-ST\ \q<\@1NP, \@2NP\q>\\
   \SEM\ \[\FRAMES\ \<\[{\it legge-fr}\]\>\]
@@ -1997,27 +2067,40 @@ whose lexical entry is given in (\ref{67}):
 %
 
 This lexical construction will license the following structure, interacting
-with the {\sc head-functor construction}:
+with the {\sc head-functor construction} (cf. figure \ref{fig:14}).
 
-\ea
-\xytree[5.5]{\small
-    &    & \xynode[-1,1]{\begin{avm}\avml \hfil VP\\ \[
-    \VFORM\ \type{fin}\\
-                             \COMPS\ \q< \; \; \q>\]\avmr
-                    \end{avm}}    \\
-    &\xynode[-1,1]{\begin{avm}\avml \hfil V$'$\\
-        \[{\it hd-fucntor-cxt}\\
-        \VFORM\ \type{fin}\\
-        \COMPS\ \q<\@2NP\q>\]\avmr
-      \end{avm}}&                 &\xytrinode{\begin{avm} \@2NP\end{avm}}\\
-\xynode[0]{\begin{avm}\avml \hfil V\\
-        \[\SEL\ \q<\@1V\q> \]\avmr
-      \end{avm}}&   &\xynode[0]{\begin{avm} \avml \hfil \@1V\\
-        \[\VFORM\ \type{fin}\\
-          \COMPS\ \q<\@2NP\q>\]\avmr
-    \end{avm}}       &\xynode{articoli di sintassi}\\
-      \xynode{non}& &\xynode{legge}}
-\z
+\begin{figure}[h!]
+	\begin{forest}
+		sm edges
+		[VP\\
+		\begin{avm}
+			\[vform & fin\\
+			comps & \<~~\>\]
+		\end{avm}, s sep=1cm
+			[V$'$\\
+			\begin{avm}
+				\[\tp{hd-functor-cxt}\\
+				vform & fin\\
+				comps & \< \@{2}NP\>\]
+			\end{avm}
+				[V\\
+				\begin{avm}
+					\[sel & \< \@{1}V\>\]
+				\end{avm}
+					[non]]
+				[\ibox{1}V\\
+%				\begin{avm}\@{1}V\end{avm}\\
+				\begin{avm}
+					\[vform & fin\\
+				 	comps & \< \@{2}NP\>\]
+				 \end{avm}
+			 		[legge]]]
+			 [\ibox{2}NP
+%			 \begin{avm}\@{2}NP\end{avm}
+			 	[articoli di sintassi,roof]]]
+	\end{forest}
+\caption{}\label{fig:14}
+\end{figure}
 
 %
 \noindent
