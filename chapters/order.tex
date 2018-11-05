@@ -20,14 +20,14 @@
 The chapter might strike readers as a bit German-centric. This is probably okay as long as you make
 it clear at the outset. (And I suppose a discussion of V2 is not just relevant to German or even
 Germanic.)}
-This chapter deals with constituent order with a focus on local order variants. English is the
-language that is treated most thoroughly in theoretical linguistics but it is probably also the most boring
-language as far as the possibilities of reordering constituents is concerned: the order of subject
-verb and object is fixed in sentences like (\mex{1}):
+This chapter deals with constituent order, with a focus on local order variants. English is the
+language that is treated most thoroughly in theoretical linguistics but is probably also a rather uninteresting
+language as far as the possibilities of reordering constituents is concerned: the order of subject,
+verb, and object is fixed in sentences like (\mex{1}):
 \ea
 Kim likes bagels.
 \z
-Of course there is the possibility to front the object as in (\mex{1}) but this is a special,
+Of course, there is the possibility to front the object as in (\mex{1}) but this is a special,
 non-local construction that is not the topic of this chapter but is treated in \crossrefchapterw{udc}.
 \ea
 Bagels, Kim likes.
@@ -65,17 +65,32 @@ subordinate clauses in (\mex{1}) and an example of the latter is given in (\mex{
 notion of unmarked order), five other argument orders are possible in sentences with three-place verbs.
 
 (\mex{0}) shows that the verb is placed in initial position in questions in German. This contrasts
-with the verb final order in the subordinate clause in (\mex{-1}a). This alternation of verb placement is usually treated as
+with the verb final order in the subordinate clause in (\mex{-1}a), which has the same order as far
+as the arguments are concerned. This alternation of verb placement is usually treated as
 head movement in the transformational literature (\citealp{Bach62a}; \citealp*[\page34]{Bierwisch63};
 \citealp{Reis74a}; \citealp[Chapter~1]{Thiersch78a}). Declarative main clauses in German are V2
 clauses and the respective fronting of the preverbal constituent is usually treated as a non-local dependency (see
-\crossrefchapterw{udc}). Hence, these sentences will not be handled here.
+\crossrefchapterw{udc}). Hence, V2 sentences will not be handled here.
 
 The following sections deal with the theoretical options within the HPSG framework for dealing with
-these phenomena. I first discuss the separation of grammar rules in the immediate dominance part and
+these phenomena. I first discuss the separation of grammar rules into an immediate dominance part and
 a linear precedence component in Section~\ref{sec-id-lp} and then flat vs.\ binary branching
-structures (Section~\ref{sec-binary-flat}). While flat structures allow verbs to be ordered finally
-or initially, this is not the case for binary branching structures. Proposals with binary branching
+structures (Section~\ref{sec-binary-flat}). While flat structures allow verbs to be ordered clause-finally
+or clause-initially, this is not the case for binary branching structures, since only sisters can be
+ordered. So, for (\mex{-1}a) one would get the bracketing in (\mex{1}a). If \emph{das Buch} `the
+book' and \emph{gibt} `gives' are ordered in a different order, (\mex{1}b) results.
+\eal
+\ex[]{ 
+\gll {}[weil]          [der Mann [der Frau [das Buch gibt]]]\\
+     \spacebr{}because \spacebr{}the.\NOM{} man \spacebr{}the.\DAT{} woman \spacebr{}the.\ACC{} book gives\\
+}
+\ex[*]{
+\gll {}[weil]          [der Mann [der Frau [gibt das Buch]]]\\
+     \spacebr{}because \spacebr{}the.\NOM{} man \spacebr{}the.\DAT{} woman \spacebr{}gives
+     the.\ACC{} book\\
+}
+\zl
+Hence, local reordering is not sufficient to get clause-initial verb order and therefore, proposals with binary branching
 structures are usually paired with HPSG's analogue of what is head-movement in transformational
 theories. These are explained in Section~\ref{sec-head-movement}. Section~\ref{sec-domains} introduces an extension to
 standard HPSG developed by \citet{Reape94a}: constituent order domains. Such constituent
@@ -86,7 +101,7 @@ order domains allow for discontinuous constituents and have been used to account
 \section{ID/LP format}
 \label{sec-id-lp}
 
-HPSG was developed out of \isi{GPSG} and \isi{Categorial Grammar}. The ideas concerning linearization of
+HPSG was developed out of Generalized Phrase Structure Grammar\indexgpsg (GPSG) and \isi{Categorial Grammar}. The ideas concerning linearization of
 daughters in a local tree were taken over from GPSG \citep*{GKPS85a}. In GPSG a separation between
 \isi{immediate dominance} and \isi{linear precedence} is assumed. So, while in classical phrase structure
 grammar a phrase structure rule like (\mex{1}) states that the NP[nom], NP[dat] and NP[acc] have to
@@ -95,11 +110,11 @@ appear in exactly this order, this is not the case in GPSG and HPSG:
 S $\to$ NP[nom] NP[dat] NP[acc] V
 \z
 The HPSG schemata corresponding to the phrase structure rule in (\mex{0}) do not express information
-about ordering. Instead there are separate linearization rules. A schema like (\mex{0}) licenses 24 
+about ordering. Instead, there are separate linear precedence (LP) rules\is{Linear Precedence Rule}. A schema like (\mex{0}) licenses 24 
 different orders: the six permutations of the three arguments that were shown in
 (\ref{ex-permutation-mf}) and all possible placements of the verb (to the right of NP[acc], between
 NP[dat] and NP[acc], between NP[nom] and NP[dat], to the left of NP[nom]). Orders like NP[nom],
-NP[dat], V, NP[acc] are not attested in German and hence these linearizations have to be filtered
+NP[dat], V, NP[acc] are not attested in German and hence these orderings have to be filtered
 out. This is done by linearization rules, which can refer to features or to the function of a
 daughter in a schema. (\mex{1}) shows some examples of linearization rules:
 
@@ -112,24 +127,24 @@ The first rule says that all constituents have to precede a V in the local tree.
 says that all constituents have to precede a V that has the \textsc{initial} value $-$. One option
 to analyze German would be the one that was suggested by \citet{Uszkoreit87a} within the framework
 of \isi{GPSG}: one could allow for two linearization variants of finite verbs. So in addition to the
-\textsc{ini}$-$ variant there could be a \textsc{ini}$+$ variant and this variant would be
+\textsc{ini}$-$ variant of verbs there could be a \textsc{ini}$+$ variant and this variant would be
 linearized initially. The LP rule in (\mex{0}c) is more general than (\mex{0}b) in that it does not
 mention the part of speech but instead refers to the function of the constituent. The rule says that
 a head that has the \textsc{ini} value $-$ has to be linearized to the right of all other elements
 in the local tree.
 
-This treatment of constraint on linearization has an advantage that was already pointed out by
+This treatment of constraints on linearization has an advantage that was already pointed out by
 researchers working in GPSG: it captures the generalizations regarding linearization. For instance
 the order of verbs and their arguments is the same in embedded sentences in German independent of
 the finiteness of the verb:
 \eal
 \ex 
 \gll dass er dem Mann das Buch gab\\
-     that he the man the book gave\\
+     that he.\nom{} the.\dat{} man the.\acc{} book gave\\
 \glt `that he gave the man the book'
 \ex
 \gll dass er versucht, [dem Mann das Buch zu geben]\\
-     that he tried     \spacebr{}the man the book to give\\
+     that he.\nom{} tried     \spacebr{}the.\dat{} man the.\acc{} book to give\\
 \glt `that he tried to give the man the book'
 \zl
 This is also true for the relative order of dative and accusative object in (\mex{0}). The
@@ -195,7 +210,7 @@ sm edges
 \caption{\label{fig-gave-Sandy-a-book}Analysis of the VP \emph{gave Sandy a book} with a flat structure}
 \end{figure}
 
-Researchers working on English usually assume a flat structure but assuming binary
+Researchers working on English usually assume a flat structure \parencite{ps2}[\page 479]{Sag97}{GSag2000a-u} but assuming binary
 branching structures would be possible as well, as is clear from analyses in Categorial Grammar,
 where binary combinatory rules are assumed \citep{Ajdukiewicz35a-u,Steedman2000a-u}. For languages
 like German it is usually assumed that structures are binary branching (but see \citealt[\page 156]{Reape94a} and
@@ -442,7 +457,7 @@ The tree in Figure~\ref{fig-did-kim-get-the-job} is licensed by a schema combini
 subject \iboxb{1} and its VP complement \iboxb{2} in one go.\footnote{
   An alternative is to assume a separate valence feature for the subject (\feat{subj}) and assume a
   schema that combines the head with the element in the \subjl and the elements in the \compsl
-  \citep[\page 36]{GSag2001a-u}.%
+  \citep[\page 36]{GSag2000a-u}.%
 } As is common in HPSG since 1995
 \citep{Sag97a} phrasal schemata are organized 
 in type hierarchies and the general schema for auxiliary initial constructions has the type
