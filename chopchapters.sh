@@ -1,11 +1,17 @@
-i=0 
-o=$1
+chapternumber=0 
+offset=$1
+offset=$(($offset-1))
 old=1
-for l in `cat cuts.txt`
+prefix="0"
+for pagenumber in `cat cuts.txt`
 do 
-new=$(($l+o))
-echo $i $old-$(($new-1))
-pdftk main.pdf cat $old-$(($new-1)) output $i.pdf 
+new=$(($pagenumber+offset))
+if [ $chapternumber -eq 10 ]; then
+  prefix=""
+fi
+echo $prefix$chapternumber $old-$(($new-1))
+
+pdftk main.pdf cat $old-$(($new-1)) output chapter-pdfs/$prefix$chapternumber.pdf 
 old=$new
-i=$(($i+1))
+chapternumber=$(($chapternumber+1))
 done

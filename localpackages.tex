@@ -7,20 +7,34 @@
 \usepackage{multicol}
 \usepackage{lipsum}
 
+
 \usepackage{./langsci/styles/langsci-optional} 
 \usepackage{./langsci/styles/langsci-lgr}
+%\usepackage{./styles/forest/forest}
 \usepackage{./langsci/styles/langsci-forest-setup}
 \usepackage{morewrites}
 
 \usepackage{tikz-cd}
 
+\usepackage{./styles/tikz-grid}
+
+%\usepackage{pgfplots} % for data/theory figure in minimalism.tex
+% fix some issue with Mod https://tex.stackexchange.com/a/330076
+\makeatletter
+\let\pgfmathModX=\pgfmathMod@
+\usepackage{pgfplots}%
+\let\pgfmathMod@=\pgfmathModX
+\makeatother
+
 \usepackage{subcaption}
 
 % Stefan Müller's styles
-\usepackage{./styles/merkmalstruktur,german,./styles/makros.2e,./styles/abbrev,./styles/my-xspace,./styles/article-ex,
+\usepackage{./styles/merkmalstruktur,german,./styles/makros.2e,./styles/my-xspace,./styles/article-ex,
 ./styles/eng-date}
 
 \selectlanguage{USenglish}
+
+\usepackage{./styles/abbrev}
 
 \usepackage{./langsci/styles/jambox}
 
@@ -73,6 +87,59 @@
 
 \usepackage{shadow}
 
+
+
+
+\usepackage[english]{isodate} % Andy Lücking
+\usepackage[autostyle]{csquotes} % Andy
+
+%\defaultfontfeatures{
+%    Path = /usr/local/texlive/2017/texmf-dist/fonts/opentype/public/fontawesome/ }
+
+%% https://tex.stackexchange.com/a/316948/18561
+%\defaultfontfeatures{Extension = .otf}% adds .otf to end of path when font loaded without ext parameter e.g. \newfontfamily{\FA}{FontAwesome} > \newfontfamily{\FA}{FontAwesome.otf}
+%\usepackage{fontawesome} % Andy Lücking
+\usepackage{pifont} % Andy Lücking -> hand
+
+\usetikzlibrary{decorations.pathreplacing} % Andy Lücking
+\usetikzlibrary{matrix} % Andy 
+\usetikzlibrary{positioning} % Andy
+\usepackage{tikz-3dplot} % Andy
+
+% pragmatics
+\usepackage{eqparbox} % Andy
+\usepackage{enumitem} % Andy
+
+
+% Manfred's packages
+
+%\usepackage{shadow}
+
+\usepackage{tabularx}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}} % linksbündig mit Breitenangabe
+
+
+% Jong-Bok
+
+%\usepackage{xytree}
+
+\newcommand{\xytree}[2][dummy]{Let's do the tree!}
+
+% seems evil, get rid of it
+% defines \ex is incompatible with gb4e
+%\usepackage{lingmacros}
+
+% taken from lingmacros:
+\makeatletter
+% \evnup is used to line up the enumsentence number and an entry along
+% the top.  It can take an argument to improve lining up.
+\def\evnup{\@ifnextchar[{\@evnup}{\@evnup[0pt]}}
+
+\def\@evnup[#1]#2{\setbox1=\hbox{#2}%
+\dimen1=\ht1 \advance\dimen1 by -.5\baselineskip%
+\advance\dimen1 by -#1%
+\leavevmode\lower\dimen1\box1}
+\makeatother
 
 
 

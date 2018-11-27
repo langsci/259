@@ -21,15 +21,17 @@
 \newcommand{\english}{\jambox{(\ili{English})}}
 \newcommand{\german}{\jambox{(\ili{German})}}
 \newcommand{\yiddish}{\jambox{(\ili{Yiddish})}}
+\newcommand{\welsh}{\jambox{(\ili{Welsh})}}
 
 % Cite and cross-reference other chapters
-\newcommand{\crossrefchaptert}[1]{\citet*{chapters/#1}, Chapter~\ref{chap-#1} of this volume} 
+\newcommand{\crossrefchaptert}[2][]{\citet*[#1]{chapters/#2}, Chapter~\ref{chap-#2} of this volume} 
 \newcommand{\crossrefchapterp}[2][]{(\citealp*[#1][]{chapters/#2}, Chapter~\ref{chap-#2} of this volume)}
 % example of optional argument:
 % \crossrefchapterp[for something, see:]{name}
 % gives: (for something, see: Author 2018, Chapter~X of this volume)
 
 \let\crossrefchapterw\crossrefchaptert
+
 
 
 % Davis Koenig
@@ -258,3 +260,405 @@ $}}
 \newcommand{\spcs}[0]{\hspace{-1pt}\underline{\hspace{6pt}}\,\,}
 \newcommand{\bad}[1]{\leavevmode\llap{#1}}
 \newcommand{\COMMENT}[1]{}
+
+
+% Andy Lücking gesture.tex
+\newcommand{\Pointing}{\ding{43}}
+% Giotto: "Meeting of Joachim and Anne at the Golden Gate" - 1305-10 
+\definecolor{GoldenGate1}{rgb}{.13,.09,.13} % Dress of woman in black
+\definecolor{GoldenGate2}{rgb}{.94,.94,.91} % Bridge
+\definecolor{GoldenGate3}{rgb}{.06,.09,.22} % Blue sky
+\definecolor{GoldenGate4}{rgb}{.94,.91,.87} % Dress of woman with shawl
+\definecolor{GoldenGate5}{rgb}{.52,.26,.26} % Joachim's robe
+\definecolor{GoldenGate6}{rgb}{.65,.35,.16} % Anne's robe
+\definecolor{GoldenGate7}{rgb}{.91,.84,.42} % Joachim's halo
+
+\makeatletter
+\newcommand{\@Depth}{1} % x-dimension, to front
+\newcommand{\@Height}{1} % z-dimension, up
+\newcommand{\@Width}{1} % y-dimension, rightwards
+%\GGS{<x-start>}{<y-start>}{<z-top>}{<z-bottom>}{<Farbe>}{<x-width>}{<y-depth>}{<opacity>}
+\newcommand{\GGS}[9][]{%
+\coordinate (O) at (#2-1,#3-1,#5);
+\coordinate (A) at (#2-1,#3-1+#7,#5);
+\coordinate (B) at (#2-1,#3-1+#7,#4);
+\coordinate (C) at (#2-1,#3-1,#4);
+\coordinate (D) at (#2-1+#8,#3-1,#5);
+\coordinate (E) at (#2-1+#8,#3-1+#7,#5);
+\coordinate (F) at (#2-1+#8,#3-1+#7,#4);
+\coordinate (G) at (#2-1+#8,#3-1,#4);
+\draw[draw=black, fill=#6, fill opacity=#9] (D) -- (E) -- (F) -- (G) -- cycle;% Front
+\draw[draw=black, fill=#6, fill opacity=#9] (C) -- (B) -- (F) -- (G) -- cycle;% Top
+\draw[draw=black, fill=#6, fill opacity=#9] (A) -- (B) -- (F) -- (E) -- cycle;% Right
+}
+\makeatother
+
+
+% pragmatics
+\newcommand{\speaking}[1]{\eqparbox{name}{\textsc{\lowercase{#1}\space}}}
+\newcommand{\name}[1]{\eqparbox{name}{\textsc{\lowercase{#1}}}}
+\newcommand{\HPSGTTR}{HPSG$_{\text{TTR}}$\xspace}
+
+\newcommand{\ttrtype}[1]{\textit{#1}}
+% \newcommand{\avmel}{\q<\quad\q>} %% shortcut for empty lists in AVM
+\newcommand{\ttrmerge}{\ensuremath{\wedge_{\textit{merge}}}}
+\newcommand{\Cat}[2][0.1pt]{%
+  \begin{scope}[y=#1,x=#1,yscale=-1, inner sep=0pt, outer sep=0pt]
+   \path[fill=#2,line join=miter,line cap=butt,even odd rule,line width=0.8pt]
+  (151.3490,307.2045) -- (264.3490,307.2045) .. controls (264.3490,291.1410) and (263.2021,287.9545) .. (236.5990,287.9545) .. controls (240.8490,275.2045) and (258.1242,244.3581) .. (267.7240,244.3581) .. controls (276.2171,244.3581) and (286.3490,244.8259) .. (286.3490,264.2045) .. controls (286.3490,286.2045) and (323.3717,321.6755) .. (332.3490,307.2045) .. controls (345.7277,285.6390) and (309.3490,292.2151) .. (309.3490,240.2046) .. controls (309.3490,169.0514) and (350.8742,179.1807) .. (350.8742,139.2046) .. controls (350.8742,119.2045) and (345.3490,116.5037) .. (345.3490,102.2045) .. controls (345.3490,83.3070) and (361.9972,84.4036) .. (358.7581,68.7349) .. controls (356.5206,57.9117) and (354.7696,49.2320) .. (353.4652,36.1439) .. controls (352.5396,26.8573) and (352.2445,16.9594) .. (342.5985,17.3574) .. controls (331.2650,17.8250) and (326.9655,37.7742) .. (309.3490,39.2045) .. controls (291.7685,40.6320) and (276.7783,24.2380) .. (269.9740,26.5795) .. controls (263.2271,28.9013) and (265.3490,47.2045) .. (269.3490,60.2045) .. controls (275.6359,80.6368) and (289.3490,107.2045) .. (264.3490,111.2045) .. controls (239.3490,115.2045) and (196.3490,119.2045) .. (165.3490,160.2046) .. controls (134.3490,201.2046) and (135.4934,249.3212) .. (123.3490,264.2045) .. controls (82.5907,314.1553) and (40.8239,293.6463) .. (40.8239,335.2045) .. controls (40.8239,353.8102) and (72.3490,367.2045) .. (77.3490,361.2045) .. controls (82.3490,355.2045) and (34.8638,337.3259) .. (87.9955,316.2045) .. controls (133.3871,298.1601) and   (137.4391,294.4766) .. (151.3490,307.2045) -- cycle;
+\end{scope}%
+}
+
+
+% KdK
+\newcommand{\smiley}{:)}
+
+\renewbibmacro*{index:name}[5]{%
+  \usebibmacro{index:entry}{#1}
+    {\iffieldundef{usera}{}{\thefield{usera}\actualoperator}\mkbibindexname{#2}{#3}{#4}{#5}}}
+
+% \newcommand{\noop}[1]{}
+
+% chngcntr.sty otherwise gives error that these are already defined
+%\let\counterwithin\relax
+%\let\counterwithout\relax
+
+% the space of a left bracket for glossings
+\newcommand{\LB}{\hspaceThis{[}}
+
+\newcommand{\LF}{\mbox{$[\![$}}
+
+\newcommand{\RF}{\mbox{$]\!]_F$}}
+
+\newcommand{\RT}{\mbox{$]\!]_T$}}
+
+
+
+
+
+% Manfred's
+
+\newcommand{\kommentar}[1]{}
+
+\newcommand{\bsp}[1]{\emph{#1}}
+\newcommand{\bspT}[2]{\bsp{#1} `#2'}
+\newcommand{\bspTL}[3]{\bsp{#1} (lit.: #2) `#3'}
+
+\newcommand{\noidi}{§}
+
+\newcommand{\refer}[1]{(\ref{#1})}
+
+%\newcommand{\avmtype}[1]{\multicolumn{2}{l}{\type{#1}}}
+\newcommand{\attr}[1]{\textsc{#1}}
+
+\newcommand{\srdefault}{\mbox{\begin{tabular}{c}{\large <}\\[-1.5ex]$\sqcap$\end{tabular}}}
+
+%% \newcommand{\myappcolumn}[2]{
+%% \begin{minipage}[t]{#1}#2\end{minipage}
+%% }
+
+%% \newcommand{\appc}[1]{\myappcolumn{3.7cm}{#1}}
+
+
+% Jong-Bok
+
+
+% clean that up and do not use \def (killing other stuff defined before)
+%\if 0
+\def\DEL{\textsc{del}}
+\def\del{\textsc{del}}
+
+\def\conn{\textsc{conn}}
+\def\CONN{\textsc{conn}}
+\def\CONJ{\textsc{conj}}
+\def\LITE{\textsc{lex}}
+\def\lite{\textsc{lex}}
+\def\HON{\textsc{hon}}
+
+\def\CAUS{\textsc{caus}}
+\def\PASS{\textsc{pass}}
+\def\NPST{\textsc{npst}}
+\def\COND{\textsc{cond}}
+
+
+
+\def\hd-lite{\textsc{head-lex construction}}
+\def\NFORM{\textsc{nform}}
+
+\def\RELS{\textsc{rels}}
+\def\TENSE{\textsc{tense}}
+
+
+%\def\ARG{\textsc{arg}}
+\def\ARGs{\textsc{arg0}}
+\def\ARGa{\textsc{arg}}
+\def\ARGb{\textsc{arg2}}
+\def\TPC{\textsc{top}}
+\def\PROG{\textsc{prog}}
+
+\def\pst{\textsc{pst}}
+\def\PAST{\textsc{pst}}
+\def\DAT{\textsc{dat}}
+\def\CONJ{\textsc{conj}}
+\def\nominal{\textsc{nominal}}
+\def\NOMINAL{\textsc{nominal}}
+\def\VAL{\textsc{val}}
+\def\val{\textsc{val}}
+\def\MODE{\textsc{mode}}
+\def\RESTR{\textsc{restr}}
+\def\SIT{\textsc{sit}}
+\def\ARG{\textsc{arg}}
+\def\RELN{\textsc{rel}}
+\def\REL{\textsc{rel}}
+\def\RELS{\textsc{rels}}
+\def\arg-st{\textsc{arg-st}}
+\def\xdel{\textsc{xdel}}
+\def\zdel{\textsc{zdel}}
+\def\sug{\textsc{sug}}
+\def\IMP{\textsc{imp}}
+\def\conn{\textsc{conn}}
+\def\CONJ{\textsc{conj}}
+\def\HON{\textsc{hon}}
+\def\BN{\textsc{bn}}
+\def\bn{\textsc{bn}}
+\def\pres{\textsc{pres}}
+\def\PRES{\textsc{pres}}
+\def\prs{\textsc{pres}}
+\def\PRS{\textsc{pres}}
+\def\agt{\textsc{agt}}
+\def\DEL{\textsc{del}}
+\def\PRED{\textsc{pred}}
+\def\AGENT{\textsc{agent}}
+\def\THEME{\textsc{theme}}
+\def\AUX{\textsc{aux}}
+\def\THEME{\textsc{theme}}
+\def\PL{\textsc{pl}}
+\def\SRC{\textsc{src}}
+\def\src{\textsc{src}}
+\def\FORM{\textsc{form}}
+\def\form{\textsc{form}}
+\def\GCASE{\textsc{gcase}}
+\def\gcase{\textsc{gcase}}
+\def\SCASE{\textsc{scase}}
+\def\PHON{\textsc{phon}}
+\def\SS{\textsc{ss}}
+\def\SYN{\textsc{syn}}
+\def\LOC{\textsc{loc}}
+\def\MOD{\textsc{mod}}
+\def\INV{\textsc{inv}}
+\def\L{\textsc{l}}
+\def\CASE{\textsc{case}}
+\def\SPR{\textsc{spr}}
+\def\COMPS{\textsc{comps}}
+%\def\comps{\textsc{comps}}
+\def\SEM{\textsc{sem}}
+\def\CONT{\textsc{cont}}
+\def\SUBCAT{\textsc{subcat}}
+\def\CAT{\textsc{cat}}
+\def\C{\textsc{c}}
+\def\SUBJ{\textsc{subj}}
+\def\subj{\textsc{subj}}
+\def\SLASH{\textsc{slash}}
+\def\LOCAL{\textsc{local}}
+\def\ARG-ST{\textsc{arg-st}}
+\def\AGR{\textsc{agr}}
+\def\PER{\textsc{per}}
+\def\NUM{\textsc{num}}
+\def\IND{\textsc{ind}}
+\def\VFORM{\textsc{vform}}
+\def\PFORM{\textsc{pform}}
+\def\decl{\textsc{decl}}
+\def\loc{\textsc{loc   }}
+% \def\   {\textsc{  }}
+
+\def\NEG{\textsc{neg}}
+\def\FRAMES{\textsc{frames}}
+\def\REFL{\textsc{refl}}
+
+\def\MKG{\textsc{mkg}}
+
+\def\BN{\textsc{bn}}
+\def\HD{\textsc{hd}}
+\def\NP{\textsc{np}}
+\def\PF{\textsc{pf}}
+\def\PL{\textsc{pl}}
+\def\PP{\textsc{pp}}
+\def\SS{\textsc{ss}}
+\def\VF{\textsc{vf}}
+\def\VP{\textsc{vp}}
+\def\bn{\textsc{bn}}
+\def\cl{\textsc{cl}}
+\def\pl{\textsc{pl}}
+\def\Wh{\ital{Wh}}
+\def\ng{\textsc{neg}}
+\def\wh{\ital{wh}}
+\def\ACC{\textsc{acc}}
+\def\AGR{\textsc{agr}}
+\def\AGT{\textsc{agt}}
+\def\ARC{\textsc{arc}}
+\def\ARG{\textsc{arg}}
+\def\ARP{\textsc{arc}}
+\def\AUX{\textsc{aux}}
+\def\CAT{\textsc{cat}}
+\def\COP{\textsc{cop}}
+\def\DAT{\textsc{dat}}
+\def\DEF{\textsc{def}}
+\def\DEL{\textsc{del}}
+\def\DOM{\textsc{dom}}
+\def\DTR{\textsc{dtr}}
+\def\FUT{\textsc{fut}}
+\def\GAP{\textsc{gap}}
+\def\GEN{\textsc{gen}}
+\def\HON{\textsc{hon}}
+\def\IMP{\textsc{imp}}
+\def\IND{\textsc{ind}}
+\def\INV{\textsc{inv}}
+\def\LEX{\textsc{lex}}
+\def\Lex{\textsc{lex}}
+\def\LOC{\textsc{loc}}
+\def\MOD{\textsc{mod}}
+\def\MRK{{\nr MRK}}
+\def\NEG{\textsc{neg}}
+\def\NEW{\textsc{new}}
+\def\NOM{\textsc{nom}}
+\def\NUM{\textsc{num}}
+\def\PER{\textsc{per}}
+\def\PST{\textsc{pst}}
+\def\QUE{\textsc{que}}
+\def\REL{\textsc{rel}}
+\def\SEL{\textsc{sel}}
+\def\SEM{\textsc{sem}}
+\def\SIT{\textsc{arg0}}
+\def\SPR{\textsc{spr}}
+\def\SRC{\textsc{src}}
+\def\SUG{\textsc{sug}}
+\def\SYN{\textsc{syn}}
+\def\TPC{\textsc{top}}
+\def\VAL{\textsc{val}}
+\def\acc{\textsc{acc}}
+\def\agt{\textsc{agt}}
+\def\cop{\textsc{cop}}
+\def\dat{\textsc{dat}}
+\def\foc{\textsc{focus}}
+\def\FOC{\textsc{focus}}
+\def\fut{\textsc{fut}}
+\def\hon{\textsc{hon}}
+\def\imp{\textsc{imp}}
+\def\kes{\textsc{kes}}
+\def\lex{\textsc{lex}}
+\def\loc{\textsc{loc}}
+\def\mrk{{\nr MRK}}
+\def\nom{\textsc{nom}}
+\def\num{\textsc{num}}
+\def\plu{\textsc{plu}}
+\def\pne{\textsc{pne}}
+\def\pst{\textsc{pst}}
+\def\pur{\textsc{pur}}
+\def\que{\textsc{que}}
+\def\src{\textsc{src}}
+\def\sug{\textsc{sug}}
+\def\tpc{\textsc{top}}
+\def\utt{\textsc{utt}}
+\def\val{\textsc{val}}
+\def\LITE{\textsc{lex}}
+\def\PAST{\textsc{pst}}
+\def\POSP{\textsc{pos}}
+\def\PRS{\textsc{pres}}
+\def\mod{\textsc{mod}}%
+\def\newuse{{`kes'}}
+\def\posp{\textsc{pos}}
+\def\prs{\textsc{pres}}
+\def\psp{{\it en\/}}
+\def\skes{\textsc{kes}}
+\def\CASE{\textsc{case}}
+\def\CASE{\textsc{case}}
+\def\COMP{\textsc{comp}}
+\def\CONJ{\textsc{conj}}
+\def\CONN{\textsc{conn}}
+\def\CONT{\textsc{cont}}
+\def\DECL{\textsc{decl}}
+\def\FOCUS{\textsc{focus}}
+\def\FORM{\textsc{form}}
+\def\FREL{\textsc{frel}}
+\def\GOAL{\textsc{goal}}
+\def\HEAD{\textsc{head}}
+\def\INDEX{\textsc{ind}}
+\def\INST{\textsc{inst}}
+\def\MODE{\textsc{mode}}
+\def\MOOD{\textsc{mood}}
+\def\NMLZ{\textsc{nmlz}}
+\def\PHON{\textsc{phon}}
+\def\PRED{\textsc{pred}}
+%\def\PRES{\textsc{pres}}
+\def\PROM{\textsc{prom}}
+\def\RELN{\textsc{pred}}
+\def\RELS{\textsc{rels}}
+\def\STEM{\textsc{stem}}
+\def\SUBJ{\textsc{subj}}
+\def\XARG{\textsc{xarg}}
+\def\bse{{\it bse\/}}
+\def\case{\textsc{case}}
+\def\caus{\textsc{caus}}
+\def\comp{\textsc{comp}}
+\def\conj{\textsc{conj}}
+\def\conn{\textsc{conn}}
+\def\decl{\textsc{decl}}
+\def\fin{{\it fin\/}}
+\def\form{\textsc{form}}
+\def\gend{\textsc{gend}}
+\def\inf{{\it inf\/}}
+\def\mood{\textsc{mood}}
+\def\nmlz{\textsc{nmlz}}
+\def\pass{\textsc{pass}}
+\def\past{\textsc{past}}
+\def\perf{\textsc{perf}}
+\def\pln{{\it pln\/}}
+\def\pred{\textsc{pred}}
+
+
+%\def\pres{\textsc{pres}}
+\def\proc{\textsc{proc}}
+\def\nonfin{{\it nonfin\/}}
+\def\AGENT{\textsc{agent}}
+\def\CFORM{\textsc{cform}}
+%\def\COMPS{\textsc{comps}}
+\def\COORD{\textsc{coord}}
+\def\COUNT{\textsc{count}}
+\def\EXTRA{\textsc{extra}}
+\def\GCASE{\textsc{gcase}}
+\def\GIVEN{\textsc{given}}
+\def\LOCAL{\textsc{local}}
+\def\NFORM{\textsc{nform}}
+\def\PFORM{\textsc{pform}}
+\def\SCASE{\textsc{scase}}
+\def\SLASH{\textsc{slash}}
+\def\SLASH{\textsc{slash}}
+\def\THEME{\textsc{theme}}
+\def\TOPIC{\textsc{topic}}
+\def\VFORM{\textsc{vform}}
+\def\cause{\textsc{cause}}
+%\def\comps{\textsc{comps}}
+\def\gcase{\textsc{gcase}}
+\def\itkes{{\it kes\/}}
+\def\pass{{\it pass\/}}
+\def\vform{\textsc{vform}}
+\def\CCONT{\textsc{c-cont}}
+\def\GN{\textsc{given-new}}
+\def\INFO{\textsc{info-st}}
+\def\ARG-ST{\textsc{arg-st}}
+\def\SUBCAT{\textsc{subcat}}
+\def\SYNSEM{\textsc{synsem}}
+\def\VERBAL{\textsc{verbal}}
+\def\arg-st{\textsc{arg-st}}
+\def\plain{{\it plain}\/}
+\def\propos{\textsc{propos}}
+\def\ADVERBIAL{\textsc{advl}}
+\def\HIGHLIGHT{\textsc{prom}}
+\def\NOMINAL{\textsc{nominal}}
+
+\newenvironment{myavm}{\begingroup\avmvskip{.1ex}
+  \selectfont\begin{avm}}%
+{\end{avm}\endgroup\medskip}
+\def\pfix{\vspace{-5pt}}
+
+%\fi
