@@ -109,7 +109,7 @@ At first sight, analysing computational complexity
 would seem to paint HPSG in a bad light,
 because the formalism allows us to write grammars
 which can be arbitrarily complex;
-this means that the formalism can be called \textit{Turing-complete}
+in technical terminology, the formalism is \textit{Turing-complete}
 % EMB 2018-09-28 ``can be called'' is a bit odd here. Either it is or it isn't right?
 \citep[Section~3.4]{Johnson88}.
 However, as discussed in the previous section,
@@ -142,8 +142,9 @@ means that the formalism is stable, even as the theory develops.
 
 % EMB 2018-09-28 Say something here about particular analytical choices that constrain the processing complexity? (The bit about the fact that the lists that we read from tend to be limited in length.)
 % EMB 2018-09-28 Maybe also cite Flickinger 2000 (`On building a more efficient grammar using types') and Copestake et al work on improving generator efficiency.
+% TODO
 
-It would beyond the scope of this chapter
+It would be beyond the scope of this chapter
 to give a full review of parsing algorithms,
 but it is instructive to give an example.
 For grammars that have a context-free backbone
@@ -154,7 +155,7 @@ The basic idea is to parse ``bottom-up'' through the tree,
 starting by finding analyses for each token in the input,
 and then finding analyses for increasingly longer sequences of tokens,
 until we reach the entire sentence.
-The resulting algorithm is more computationally complex than for a context-free grammar
+The resulting algorithm is more computationally complex than for a context-free grammar,
 because we are dealing with feature structures, rather than nonterminal symbols.
 While a context-free grammar allows a finite number of nonterminals,
 a feature-structure grammar may allow a infinite number of possible feature structures.
@@ -171,7 +172,15 @@ with multiple possible analyses for a particular construction,
 they may opt for the analysis that is more efficient for a particular parsing algorithm.
 % TODO citations -- maybe look at evolution.tex, {Implementations and Applications of HPSG}
 % GE: Maybe this last paragraph is too terse?
-% EMB 2018-09-28: Yes, a little terse --- I think maybe starting with how the derivations are like and unlike CFG derivations and then going to `bottom-up' chart parsing (with citations!) would help. Also, the discussion of complexity has too many contrasts: infinite, but not Turing-complete, but not even that bad when parsing real corpora. It would also be good to point to some numbers for ``parsing real corpora'' ... Dan or Stephan or maybe Bec should have published some, I think.
+% EMB 2018-09-28: Yes, a little terse
+% --- I think maybe starting with how the derivations are like and unlike CFG derivations
+% and then going to `bottom-up' chart parsing (with citations!) would help.
+% Also, the discussion of complexity has too many contrasts:
+% infinite, but not Turing-complete, but not even that bad when parsing real corpora.
+% It would also be good to point to some numbers for ``parsing real corpora''
+% ... Dan or Stephan or maybe Bec should have published some, I think.
+% TODO
+
 
 
 
@@ -186,6 +195,8 @@ However, people are naturally very good at resolving ambiguity,
 which means most ambiguity is not apparent, even to linguists.
 It is only with the development of large-scale grammars that the sheer scale of ambiguity has become clear.
 % EMB 2018-10-03 What's rref?
+% GE 2018-11-27 an example in brackets (from localcommands.tex)
+% (normally, I'd prefer \cref from cleveref, but we don't seem to be using that for this handbook)
 For example, \rref{cl:ex:ambig-simple}~might seem unambiguous,
 but there is a second reading, where \textit{my favorite} is the topicalized object of \textit{speak},
 which would mean that town criers generally speak the speaker's favorite thing (perhaps a language) clearly.
@@ -195,7 +206,7 @@ but with increasingly long sentences, such ambiguities stack up very quickly.
 For~\rref{cl:ex:ambig-many}, the first line of a newspaper article,\footnote{%
 	\url{https://www.theguardian.com/science/2018/aug/22/offspring-of-neanderthal-and-denisovan-identified-for-first-time}
 }
-the 1214 version of the English Resource Grammar \citep{Flickinger2000a,Flickinger2011a-u}
+the 2018 version of the English Resource Grammar \citep{Flickinger2000a,Flickinger2011a-u}
 gives TODO readings.
 
 % EMB 2018-09-28 We should have the 2018 version to play with soon :)
@@ -210,9 +221,13 @@ a mysterious human ancestor that lived in the region.
 \end{exe}
 
 % EMB 2018-09-28 Editing a bit through here:
-Where exploring ambiguity can be interesting for a linguist, typical practical applications require just one parse per input sentence and specifically the parse the best reflects the intended meaning, or only the top few parses (in case the one put forward as `best' might be wrong).
-Thus what is required is a \textit{ranking} of the parses,
-so that the application only uses the most highly-ranked parse,
+% GE thanks!
+While exploring ambiguity can be interesting for a linguist,
+typical practical applications require just one parse per input sentence
+and specifically the parse the best reflects the intended meaning
+(or only the top few parses, in case the one put forward as `best' might be wrong).
+Thus, what is required is a \textit{ranking} of the parses,
+so that the application can only use the most highly-ranked parse,
 or the top~$N$ parses.
 Parse ranking is not usually determined by the grammar itself,
 because of the difficulty of manually writing disambiguation rules.
@@ -316,8 +331,12 @@ One method, called \textit{supertagging},\footnote{%
 	from a relatively small set of part-of-speech tags.
 	Supertagging is ``super'', in that it predicts detailed lexical entries, rather than simple tags.
 }
-exploits the fact that HPSG is a lexicalized theory: Choosing the correct lexical entry brings in rich information that can be exploited to rule out many possible parses.
-Thus if the correct lexical entry can be chosen prior to parsing (e.g.\ on the basis of the prior and following words), the range of possible analyses the parser must consider is drastically reduced.
+exploits the fact that HPSG is a lexicalized theory:
+choosing the correct lexical entry brings in rich information
+that can be exploited to rule out many possible parses.
+Thus if the correct lexical entry can be chosen prior to parsing
+(e.g.\ on the basis of the prior and following words),
+the range of possible analyses the parser must consider is drastically reduced.
 Although there is a chance that the supertagger will predict the wrong lexical entry,
 using a supertagger can often improve parsing accuracy,
 by ruling out parses that the parse-ranking model might incorrectly rank too high.
@@ -381,8 +400,103 @@ as we will discuss in Section~\ref{cl:downstream}.
 
 \begin{figure}
 \centering
-...
-\caption{Comparison of MRS, DMRS, and DM.}
+\begin{subfigure}{\textwidth}
+	\centering
+	\begin{avm}
+	[\asort{mrs}
+		hook & [\asort{hook}
+			ltop & @1 \\
+			index & @2 ] \\
+		rels & \Bigg\langle\, % Manual < for easier linebreak
+			[\asort{relation}
+				pred & \_the\_q \\
+				lbl & @3 \\
+				arg0 & @4 \\
+				rstr & @5 \\
+				body & @6 ],
+			[\asort{relation}
+				pred & compound \\
+				lbl & @7 \\
+				arg0 & @8 \\
+				arg1 & @4 \\
+				arg2 & @9 ],
+			[\asort{relation}
+				pred & udef\_q \\
+				lbl & @{10} \\
+				arg0 & @9 \\
+				rstr & @{11} \\
+				body & @{12} ],
+\\ & \hphantom{\Bigg\langle}\,  % line break for long list
+			[\asort{relation}
+				pred & \_cherry\_n\_1 \\
+				lbl & @{13} \\
+				arg0 & @9 ],
+			[\asort{relation}
+				pred & \_tree\_n\_of \\
+				lbl & @7 \\
+				arg0 & @4 ],
+			[\asort{relation}
+				pred & \_blossom\_v\_1 \\
+				lbl & @1 \\
+				arg0 & @2 \\
+				arg1 & @4 ] \;\Bigg\rangle \\
+		hcons & \Bigg\langle\,
+			[\asort{qeq}
+				harg & @5 \\
+				larg & @7 ],
+			[\asort{qeq}
+				harg & @{11} \\
+				larg & @9 ] \;\Bigg\rangle ]
+	\end{avm}
+	\caption{MRS as a feature structure}
+\end{subfigure}
+\begin{subfigure}{\textwidth}
+	\centering
+	\begin{align*}
+		\textsc{ltop} &: l_5 \\
+		\textsc{index} &: e_1
+	\end{align*}
+	\vspace*{-\belowdisplayskip}
+	\vspace*{-\abovedisplayskip}
+	\begin{align*}
+		l_1 &: \textit{\_the\_q}(x_1,h_1,h_2),\; h_1 \,\textsc{qeq}\, l_4 \\
+		l_2 &: \textit{udef\_q}(x_2,h_3,h_4),\; h_3 \,\textsc{qeq}\, l_3 \\
+		l_3 &: \textit{\_cherry\_n\_1}(x_2) \\
+		l_4 &: \textit{\_tree\_n\_of}(x_1), \textit{compound}(e_2,x_1,x_2) \\
+		l_5 &: \textit{\_blossom\_v\_1}(e_1,x_1)
+	\end{align*}
+	\caption{MRS, abstractly}
+\end{subfigure}
+\begin{subfigure}{\textwidth}
+	\centering
+	\begin{tikzpicture}[node distance=12mm and 20mm, inner sep=2mm, thick]
+		\node (ch) {\it \_cherry\_n\_1};
+		\node[right=of ch] (cm) {\it compound};
+		\node[right=of cm] (tr) {\it \_tree\_n\_of};
+		\node[right=of tr] (b) {\it \_blossom\_v\_1};
+		\node[above=of ch] (u) {\it udef\_q};
+		\node[above=of tr] (th) {\it \_the\_q};
+		\draw[->] (cm) -- (ch) node[midway, above, xshift=1mm] {\textsc{arg2/neq}};
+		\draw[->] (cm) -- (tr) node[midway, above, xshift=-1mm] {\textsc{arg1/eq}};
+		\draw[->] (b) -- (tr) node[midway, above, xshift=1mm] {\textsc{arg1/neq}};
+		\draw[->] (u) -- (ch) node[midway, right, yshift=1mm] {\textsc{rstr/qeq}};
+		\draw[->] (th) -- (tr) node[midway, right, yshift=1mm] {\textsc{rstr/qeq}};
+	\end{tikzpicture}
+	\caption{DMRS}
+\end{subfigure}
+\begin{subfigure}{\textwidth}
+	\centering
+	...
+	\caption{DM}
+\end{subfigure}
+\caption{%
+	Comparison of MRS, DMRS, and DM,
+	for the sentence ``the cherry tree blossomed''.
+	For simplicity, we have omitted some details, including
+	features such as number and tense,
+	individual constraints (ICONS),
+	and the use of difference lists.
+}
 \label{cl:fig:dep}
 \end{figure}
 
