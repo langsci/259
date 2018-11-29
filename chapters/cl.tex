@@ -241,7 +241,7 @@ and the selected best parse is often referred to as the \textit{gold standard}.
 Given the gold parses for the whole corpus, a statistical system is trained
 to predict the gold parse from a parse forest,
 based on many features\footnote{%
-	In the machine learning sense of ``feature'',
+	In the machine-learning sense of ``feature'',
 	not the feature-structure sense.
 }
 of the parse.
@@ -448,54 +448,87 @@ as we will discuss in Section~\ref{cl:downstream}.
 				harg & @{11} \\
 				larg & @9 ] \;\Bigg\rangle ]
 	\end{avm}
-	\caption{MRS as a feature structure}
+	\caption{MRS, as a feature structure.}
 \end{subfigure}
 \begin{subfigure}{\textwidth}
 	\centering
-	\begin{align*}
-		\textsc{ltop} &: l_5 \\
-		\textsc{index} &: e_1
-	\end{align*}
-	\vspace*{-\belowdisplayskip}
-	\vspace*{-\abovedisplayskip}
-	\begin{align*}
-		l_1 &: \textit{\_the\_q}(x_1,h_1,h_2),\; h_1 \,\textsc{qeq}\, l_4 \\
-		l_2 &: \textit{udef\_q}(x_2,h_3,h_4),\; h_3 \,\textsc{qeq}\, l_3 \\
-		l_3 &: \textit{\_cherry\_n\_1}(x_2) \\
-		l_4 &: \textit{\_tree\_n\_of}(x_1), \textit{compound}(e_2,x_1,x_2) \\
-		l_5 &: \textit{\_blossom\_v\_1}(e_1,x_1)
-	\end{align*}
-	\caption{MRS, abstractly}
+	\setlength{\abovedisplayskip}{1ex}
+	\setlength{\belowdisplayskip}{1ex}
+	\begin{gather*}
+		\textsc{index} : e_1 \\
+		\begin{aligned}
+			l_1 &: \textit{\_the\_q}(x_1,h_1,h_2),\; h_1 \,\textsc{qeq}\, l_4 \\
+			l_2 &: \textit{udef\_q}(x_2,h_3,h_4),\; h_3 \,\textsc{qeq}\, l_3 \\
+			l_3 &: \textit{\_cherry\_n\_1}(x_2) \\
+			l_4 &: \textit{\_tree\_n\_of}(x_1), \textit{compound}(e_2,x_1,x_2) \\
+			\textsc{ltop}\quad l_5 &: \textit{\_blossom\_v\_1}(e_1,x_1)
+		\end{aligned}
+	\end{gather*}
+	\caption{MRS, abstractly.}
 \end{subfigure}
+\caption{%
+	Minimal Recursion Semantics (MRS)
+	representation for the sentence ``the cherry tree blossomed'',
+	as produced by the English Resource Grammar (ERG).
+	For simplicity, we have omitted some details, including
+	features such as number and tense,
+	individual constraints (ICONS),
+	and the use of difference lists.
+}
+\label{cl:fig:mrs}
+\end{figure}
+
+\begin{figure}
+\centering
 \begin{subfigure}{\textwidth}
 	\centering
-	\begin{tikzpicture}[node distance=12mm and 20mm, inner sep=2mm, thick]
+	\begin{tikzpicture}[node distance=8mm and 12mm, inner sep=2mm, thick]
 		\node (ch) {\it \_cherry\_n\_1};
 		\node[right=of ch] (cm) {\it compound};
 		\node[right=of cm] (tr) {\it \_tree\_n\_of};
 		\node[right=of tr] (b) {\it \_blossom\_v\_1};
 		\node[above=of ch] (u) {\it udef\_q};
 		\node[above=of tr] (th) {\it \_the\_q};
-		\draw[->] (cm) -- (ch) node[midway, above, xshift=1mm] {\textsc{arg2/neq}};
-		\draw[->] (cm) -- (tr) node[midway, above, xshift=-1mm] {\textsc{arg1/eq}};
-		\draw[->] (b) -- (tr) node[midway, above, xshift=1mm] {\textsc{arg1/neq}};
+		\draw[->] (cm) -- (ch) node[midway, above] {\textsc{arg2/neq}};
+		\draw[->] (cm) -- (tr) node[midway, above] {\textsc{arg1/eq}};
+		\draw[->] (b) -- (tr) node[midway, above] {\textsc{arg1/neq}};
 		\draw[->] (u) -- (ch) node[midway, right, yshift=1mm] {\textsc{rstr/qeq}};
 		\draw[->] (th) -- (tr) node[midway, right, yshift=1mm] {\textsc{rstr/qeq}};
-	\end{tikzpicture}
-	\caption{DMRS}
+		\node[anchor=north, align=center, inner sep=0pt] at (b.south) {\textsc{ltop}\\\textsc{index}};
+	\end{tikzpicture}%
+	\vspace*{2mm}%
+	\caption{
+		Dependency Minimal Recursion Semantics (DMRS)
+		is as expressive as MRS.
+		Predicates are represented as nodes,
+		while semantic roles and scopal constraints are represented as links.
+	}
 \end{subfigure}
 \begin{subfigure}{\textwidth}
 	\centering
-	...
-	\caption{DM}
+	\vspace*{3mm}
+	\begin{tikzpicture}[node distance=15mm, inner sep=2mm, thick]
+		\node (th) {\it the};
+		\node[right=of th] (ch) {\it cherry};
+		\node[right=of ch] (tr) {\it tree};
+		\node[right=of tr] (b) {\it blossomed};
+		\draw[->] (ch) -- (tr) node[midway, above] {\textsc{compound}};
+		\draw[->] (b) -- (tr) node[midway, above] {\textsc{arg1}};
+		\draw[->] (th) to[out=90, in=90, looseness=.4] node[midway, above, inner sep=1mm] {\textsc{bv}} (tr);
+		\node[anchor=north, inner sep=0pt] at (b.south) {\textsc{top}};
+	\end{tikzpicture}
+	\vspace*{2mm}
+	\caption{
+		DELPH-IN MRS Dependencies (DM)
+		are a simplified version of MRS.
+		Nodes are the tokens in the sentence (rather than abstract predicates),
+		and some scopal information is dropped.
+	}
 \end{subfigure}
 \caption{%
-	Comparison of MRS, DMRS, and DM,
-	for the sentence ``the cherry tree blossomed''.
-	For simplicity, we have omitted some details, including
-	features such as number and tense,
-	individual constraints (ICONS),
-	and the use of difference lists.
+	MRS-based dependency graphs for the sentence
+	``the cherry tree blossomed'',
+	based on the MRS given in Figure~\ref{cl:fig:mrs}.
 }
 \label{cl:fig:dep}
 \end{figure}
