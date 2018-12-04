@@ -1,3 +1,4 @@
+
 % !BIB TS-program = biber
 % !TeX TS-program = xelatexmk
 
@@ -761,29 +762,29 @@ grammatical specification will consist thus in stating each such sequence of
 operations in terms of the grammar description formalism. 
 
 If the nominal {\it n} is a short-distance
-reflexive, its semantic  representation is updated with \textbf{A'}, where \textbf{A'}
+reflexive, its semantic  representation is updated with \textbf{A$'$}, where \textbf{A$'$}
 contains the reference  markers of the \mbox{o"=commanders} of {\it n} in \textbf{A}. 
 
 If {\it n} is a
-long-distance  reflexive, its semantic representation includes \textbf{Z'}, such that \textbf{Z'}
+long-distance  reflexive, its semantic representation includes \textbf{Z$'$}, such that \textbf{Z$'$}
 contains the \mbox{o"=commanders} of {\it n} in \textbf{Z}. 
 
 If {\it n} is a pronoun, its semantics 
 should include the list of its non-local \linebreak o"=commanders,
 that is the list
-\textbf{B}=\textbf{U}$\backslash$(\textbf{A'}$\cup$[r-mark$_{n}$])
+\textbf{B}=\textbf{U}$\backslash$(\textbf{A$'$}$\cup$[r-mark$_{n}$])
 is encoded into its semantic representation, where r-mark$_{n}$ is the reference marker
 of {\it n}.
 
 Finally if {\it n} 
 is a non-pronoun, its updated semantics keeps a copy of 
-list \linebreak \textbf{C}=\textbf{U}$\backslash$(\textbf{Z'}$\cup$[r-mark$_{n}$]),
+list \linebreak \textbf{C}=\textbf{U}$\backslash$(\textbf{Z$'$}$\cup$[r-mark$_{n}$]),
 which contains the non-o"=commanders of {\it n}.
 
 
 \subsection{Binding principles and other constraints for anaphor resolution}
 
-These lists \textbf{A'}, \textbf{Z'}, \textbf{B} and \textbf{C} collect
+These lists \textbf{A$'$}, \textbf{Z$'$}, \textbf{B} and \textbf{C} collect
 the reference markers that are antecedent candidates
 at the light only of the relevant binding constraints, which are
 relative positioning filters in the process of anaphor resolution.%
@@ -870,7 +871,7 @@ are available at each node of the parsed tree via copying or via list appending
 the next Sections), a process of constant time complexity. 
 
 At worst, the operations involved at each
-leaf node of the tree to obtain one of the sets \textbf{A'}, \textbf{Z'}, \textbf{B} or \textbf{C} are:
+leaf node of the tree to obtain one of the sets \textbf{A$'$}, \textbf{Z$'$}, \textbf{B} or \textbf{C} are:
 list copying and list appending operations, performed in constant time; extraction
 of the predecessors of an element in a list, which is of linear complexity;
 or at most one list complementation, which can be
@@ -951,47 +952,48 @@ correspond to the lists \textbf{A}, \textbf{Z} and \textbf{U} above. Subfeature 
 is a fourth, auxiliary list encoding the contribution of the local 
 context to the global, non local context, as explained in the next subsections.%
 %
-\footnote{For the sake of readability, the working example in (\ref{pronfeat}) displays only 
+\footnote{For the benefit of readability, the working example in (\ref{pronfeat}) displays only 
 the more relevant features for the point at stake. The {\sc nonloc} value has 
 this detailed definition in \citep{polsag:hpsg94}:
 
 
-\bigskip
 
-\avmoptions{sorted}
+\avmoptions{center}
 \avmfont{\sc}
-\avmvalfont{\it}
+%\avmvalfont{\it}
 \avmsortfont{\it}
+\begin{center}
 \begin{avm}
-\[{nonloc} to-bind & nonloc1 \\
-						     inherited & nonloc1 \]
+\[to-bind & nonloc1 \\
+	inherited & nonloc1 \]
 \end{avm}
 \avmoptions{}
+\end{center}
 
-\bigskip
 
 And these are the details of the extension we are using, where the information above
-is coded now as a \emph{udc} object, which 
-keeps record of the relevant non local information for accounting
-to \emph{u(nbounded) d(ependency) c(onstructions)}:
+is coded now as a \emph{u(nbounded) d(ependency) c(onstructions)} object:
 
-\bigskip
+%\bigskip
 
-\avmoptions{sorted}
+%\avmoptions{sorted}
+\avmoptions{center}
 \avmfont{\sc}
 \avmvalfont{\it}
 \avmsortfont{\it}
+\begin{center}
 \begin{avm}
-\[{nonloc}udc & \[{udc} to-bind & nonloc1 \\
+\[ udc & \[ to-bind & nonloc1 \\
 						                  inherited & nonloc1 \]\\
-										bind & \[{bind} list-a & list(refm) \\
+										bind & \[ list-a & list(refm) \\
 																										list-z & list(refm) \\
 																										list-u & list(refm) \\
 																										list-lu & list(refm) \] \]
 \end{avm}
 \avmoptions{}
+\end{center}
 
-\bigskip
+%\bigskip
 
 Given this extension, HPSG principles constraining {\sc nonloc}
 feature structure, or part of it, should be fine-tuned with adjusted
@@ -1113,7 +1115,7 @@ corresponding binding principles and return the realised
 anaphoric potential of anaphors according to the surrounding context,
 coded in their semantic representation under the form
 of a list in the {\sc antec} value. Such 
-lists --- \textbf{A'}, \textbf{C} or \textbf{Z'}, respectively --- are obtained 
+lists --- \textbf{A$'$}, \textbf{C} or \textbf{Z$'$}, respectively --- are obtained 
 by these relational constraints along the lines
 discussed in Section \ref{semanticPatterns}.
 
@@ -1347,8 +1349,8 @@ the {\sc r-mark}
 values of the  subcategorised arguments of {\it p} specified in its
 {\sc arg-s} value. Moreover, the reference markers appear in the {\sc list-a} 
 value under the same partial order as the order of the corresponding \emph{synsem} 
-in {\sc arg-s}. This is ensured by the following constraints on the lexical 
-entries of predicators:
+in {\sc arg-s}. This is ensured by the following constraints on the {\sc synsem} values
+of the lexical entries of predicators:
 
  \begin{samepage}
 \begin{exe}
@@ -1360,7 +1362,7 @@ entries of predicators:
 \avmvalfont{\it}
 \begin{avm}
 \hfill
-\sort{{\it synsem}}{[loc|cont|arg-s <$\cdots$,
+{[loc|cont|arg-s <$\cdots$,
 																																							 [loc|cont|anaph|r-mark & @i],$\cdots$>\\
 	]}
 \end{avm}
@@ -1368,13 +1370,13 @@ entries of predicators:
 $\longrightarrow$
 \begin{avm}
 \hfill
-\sort{{\it synsem}}{[nonloc|bind|list-a <$\cdots$, @i,$\cdots$>]}
+{[nonloc|bind|list-a <$\cdots$, @i,$\cdots$>]}
 \end{avm}
 \end{flushright}
 
 \begin{avm}
 \hfill
-\sort{{\it synsem}}{[loc|cont|arg-s <$\cdots$, [loc|cont|anaph|r-mark & @k],\\
+{[loc|cont|arg-s <$\cdots$, [loc|cont|anaph|r-mark & @k],\\
 																																								$\cdots$,
 																																						[loc|cont|anaph|r-mark @l],$\cdots$>
 	]}
@@ -1383,7 +1385,7 @@ $\longrightarrow$
 $\longrightarrow$
 \begin{avm}
 \hfill
-\sort{{\it synsem}}{[nonloc|bind|list-a <$\cdots$, @k,$\cdots$, @l,$\cdots$>]}
+{[nonloc|bind|list-a <$\cdots$, @k,$\cdots$, @l,$\cdots$>]}
 \end{avm}
 \avmoptions{}
 \\
@@ -1391,6 +1393,7 @@ $\longrightarrow$
 \end{flushright}
 \end{samepage}
 
+\vspace{.3cm}
 In case a subcategorised argument is quantificational, 
 it contributes also with its {\sc var} value to the make up of
 {\sc list-a}:\footnote{
@@ -1407,20 +1410,20 @@ in the next Sections.}
 \avmvalfont{\it}
 \begin{avm}
 \hfill
-\sort{{\it synsem}}{[loc|cont|arg-s <$\cdots$,
+{[loc|cont|arg-s <$\cdots$,
 																																							 [loc|cont|anaph [r-mark & @r\\var &
 @v]],$\cdots$>]}
 \end{avm}
 \begin{flushright}
 $\longrightarrow$
 \begin{avm}
-\sort{{\it synsem}}{[nonloc|bind|list-a <$\cdots$, @v, @r,$\cdots$>]}
+{[nonloc|bind|list-a <$\cdots$, @v, @r,$\cdots$>]}
 \end{avm}
 \end{flushright}
 \avmoptions{}
 
 
-
+\vspace{.3cm}
 Finally, BDP-Clause III ensures that {\sc list-z} is properly
 constrained:
 
@@ -1638,8 +1641,9 @@ introduces the plural marker that satisfies the corresponding
 semantic conditions.\footnote{
 \citep[p.310]{kamp:drt93}.}
 
+
 In order to incorporate such an account of e"=type anaphora
-into Underspecified DRT,\footnote{
+into UDRT,\footnote{
 \citep{frank:sem95}.} 
 the reference marker standing for the plurality
 satisfying the semantic condition obtained with  
@@ -1651,6 +1655,8 @@ lexical  entry for \emph{every}, for instance, results thus as follows, where
 is the marker obtained
 via 
 \mbox{$\Sigma$-abstraction}:
+
+
 %\footnote{
 %Section \ref{reverse} below presents further discussion on 
 %the capacity of quantificational NPs to act as antecedents
@@ -1658,10 +1664,10 @@ via
 %}
 % 
 
-
+\begin{samepage}
 \begin{exe}
-
 \ex
+\end{exe}
 
 \avmfont{\sc}
 \avmvalfont{\it}
@@ -1688,7 +1694,8 @@ via
 
 
 
-
+\vspace{-7mm}
+\hspace{7mm}
 \begin{avm}
 
 \[loc\|cont & \[ ls & \box\lmax\\
@@ -1715,11 +1722,11 @@ via
 																										list-lu & \<\@2, \@1\> \]  \]
 
 \end{avm}
-\end{exe}
+
+\end{samepage}
 
 
-
-
+\vspace{5mm}
 \textbf{Contribution by the context} Let us look now at how the representation of the context
 is encoded in each~NP.
 
@@ -1849,6 +1856,7 @@ This approach also provides a convenient interface for anaphoric links
 of different semantic types ---  exemplified below --- to be handled
 and specified by reference processing systems:
 
+\begin{samepage}
 \begin{exe}
 \ex
 
@@ -1871,6 +1879,8 @@ and specified by reference processing systems:
 
 \end{xlist}
 \end{exe}
+
+\end{samepage}
 
 \is{coreference}
 \is{plit antecedent}
@@ -2309,16 +2319,31 @@ with respect to the empirical generalisations in
 their procedural phrasing and non-exemption safeguards,
 they instantiate a square of logical oppositions:
 
-\is{square of opposition}
+
+
+%\begin{exe}
+%\ex
+%\label{bindingSquareOpposition}
+%\end{exe}
+%\vspace{-11mm}
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=18pc]{figures/bindingSquareOpposition.pdf}
+%%\caption{Partial grammatical representation of \emph{Every student said he likes himself}.}
+%\end{center}
+%\end{figure}
+
+
 \begin{exe}
 \ex
 \label{bindingSquareOpposition}
 \end{exe}
 \vspace{-7mm}
- \centerline{\includegraphics[width=18pc]{figures/bindingSquareOpposition.pdf}}
+\centerline{\includegraphics[width=18pc]{figures/bindingSquareOpposition.pdf}}
 
 \is{square of opposition}
 \is{square of duality}
+
 
 Like in the Aristotelian square of opposition, depicted in (\ref{patternSquareOpposition}), there are two pairs of \emph{contradictory} constraints, which are formed
 by the two diagonals, (Principles A, B) and (C, Z). One pair of \emph{contrary}
@@ -2331,13 +2356,26 @@ but not vice-versa) are obtained by the vertical edges, (A, Z) and (C,
 B).
 
 
+%\begin{exe}
+%\ex
+%\label{patternSquareOpposition}
+%\end{exe}
+%\vspace{-11mm}
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=14pc]{figures/patternSquareOpposition.pdf}
+%\end{center}
+%\end{figure}
+
+
+\begin{samepage}
 \begin{exe}
 \ex
 \label{patternSquareOpposition}
 \end{exe}
 \vspace{-10mm}
-\centerline{\includegraphics[width=13pc]{figures/patternSquareOpposition.pdf}}
-
+\centerline{\includegraphics[width=14pc]{figures/patternSquareOpposition.pdf}}
+\end{samepage}
 
 
 The empirical
@@ -2349,6 +2387,19 @@ about the quantificational nature of these expressions.
 \is{square of duality}
 \is{quantification}
 \is{quantifier}
+
+%\begin{exe}
+%\ex
+%\label{patternSquareDuality}
+%\end{exe}
+%\vspace{-11mm}
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=12pc]{figures/patternSquareDuality.pdf}
+%\end{center}
+%\end{figure}
+
+
 \begin{exe}
 \ex
 \label{patternSquareDuality}
@@ -2357,7 +2408,7 @@ about the quantificational nature of these expressions.
 \centerline{\includegraphics[width=12pc]{figures/patternSquareDuality.pdf}}
 
 
-
+%\vspace{-5mm}
 It is of note that 
 the classical square of oppositions in (\ref{patternSquareOpposition})
 is different and logically independent from
@@ -2367,14 +2418,27 @@ expressions \emph{every N}, \emph{no N},
 other natural languages, providing the classical example of an instantiation
 of the latter:
 
+
+%\begin{exe}
+%\ex
+%\end{exe}
+%\vspace{-11mm}
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=15pc]{figures/classicalSquareDuality.pdf}
+%\end{center}
+%\end{figure}
+
+
+
 \begin{exe}
 \ex
 \end{exe}
 \vspace{-7mm}
-\centerline{\hspace{0 mm}\includegraphics[width=14pc]{figures/classicalSquareDuality.pdf}}
+\centerline{\hspace{0 mm}\includegraphics[width=15pc]{figures/classicalSquareDuality.pdf}}
 
 
-
+%\vspace{-5mm}
 The difference lies in the fact that inner negation, outer
 negation and duality (concomitant inner and outer negation) are third order concepts, while compatibility, contrariness and
 implication are second order concepts. As a consequence, it is possible
@@ -2513,3 +2577,4 @@ Research Infrastructure  for  the Science  and  Technology of Language (\mbox{PO
 \printbibliography[heading=subbibliography,notkeyword=this]
 }
 \end{document}
+
