@@ -164,11 +164,14 @@ This is less complex than for an arbitrary grammar
 (which means that this class of grammars is \emph{not} Turing-complete),
 but more complex than for CCG or TAG.
 However, when parsing real corpora,
-it turns out that the average-case complexity is much better than we might expect.
+it turns out that the average-case complexity is much better than we might expect \citep{Carroll94}.
 On the one hand, grammatical constructions do not generally combine in the worst-case way,
 and on the other hand, when a grammar writer is confronted
 with multiple possible analyses for a particular construction,
 they may opt for the analysis that is more efficient for a particular parsing algorithm.
+\citet{OF98} describe the use of test-suites for profiling
+the time efficiency of a grammar and parsing algorithm,
+when running on a representative sample of text.
 % TODO citations -- maybe look at evolution.tex, {Implementations and Applications of HPSG}
 % GE: Maybe this last paragraph is too terse?
 % EMB 2018-09-28: Yes, a little terse
@@ -201,14 +204,13 @@ but there is a second reading, where \textit{my favorite} is the topicalized obj
 which would mean that town criers generally speak the speaker's favorite thing (perhaps a language) clearly.
 There is also a third, even more implausible reading, where \textit{my favorite town} is the topicalized object.
 Such implausible readings don't easily come to mind,
-but with increasingly long sentences, such ambiguities stack up very quickly.
+and in fact, the 2018 version of the English Resource Grammar \citep{Flickinger2000a,Flickinger2011a-u}
+gives a total of 21 readings for this sentence.
+With increasingly long sentences, such ambiguities stack up very quickly.
 For~\rref{cl:ex:ambig-many}, the first line of a newspaper article,\footnote{%
 	\url{https://www.theguardian.com/science/2018/aug/22/offspring-of-neanderthal-and-denisovan-identified-for-first-time}
 }
-the 2018 version of the English Resource Grammar \citep{Flickinger2000a,Flickinger2011a-u}
-gives TODO readings.
-
-% EMB 2018-09-28 We should have the 2018 version to play with soon :)
+the ERG gives 35,094 readings.
 
 \begin{exe}
 \ex\label{cl:ex:ambig-simple}
@@ -228,9 +230,10 @@ and specifically the parse the best reflects the intended meaning
 Thus, what is required is a \textit{ranking} of the parses,
 so that the application can only use the most highly-ranked parse,
 or the top~$N$ parses.
+
 Parse ranking is not usually determined by the grammar itself,
 because of the difficulty of manually writing disambiguation rules.
-Typically, a statistical system is used \citep{OFTM2004a-u-platte}.
+Typically, a statistical system is used \citep{Tou:Man:Shi:Fli:Oep:02,Tou:Man:Fli:Oep:05}.
 First, a corpus is \textit{treebanked}:
 for each sentence in the corpus,
 an annotator (often the grammar writer) chooses the best parse,
@@ -254,68 +257,7 @@ and so on.
 %TODO briefly explain MaxEnt parse ranking?
 %TODO references...
 % EMB 2018-09-28 For DELPH-IN/Redwoods treebanking: 
-
-%% @inproceedings{Tou:Man:Oep:02,
-%%   author = {Kristina Toutanova and Chris Manning and Stephan Oepen},
-%%   title = {Parse Ranking for a Rich {HPSG} Grammar},
-%%   booktitle = {Proceedings of The First Workshop on Treebanks and
-%%                 Linguistic Theories (TLT2002)},
-%%   address = {Sozopol, Bulgaria},
-%%   year = 2002
-%% }
-
-%% @article{Tou:Man:Fli:Oep:05,
-%%   title={Stochastic {HPSG} Parse Disambiguation using the {R}edwoods Corpus},
-%%   author={Toutanova, Kristina and Manning, Christopher D. and Flickinger, Dan and Oepen, Stephan},
-%%   journal={Research on Language \& Computation},
-%%   volume={3},
-%%   number={1},
-%%   pages={83--105},
-%%   year={2005},
-%%   publisher={Springer}
-%% }
-
-%% @article{Oep:Fli:98,
-%%   author = {Stephan Oepen and Daniel P. Flickinger},
-%%   title = {Towards Systematic Grammar Profiling.
-%%            {T}est Suite Technology Ten Years After},
-%%   editor = {Robert Gaizauskas},
-%%   journal = {Journal of Computer Speech and Language},
-%%   volume = {12 (4) (Special Issue on Evaluation)},
-%%   year = 1998,
-%%   pages = {411$\,$--$\,$436}
-%% }
-
-%% @Inbook{Fli:Oep:Ben:17,
-%%   author="Flickinger, Dan and Oepen, Stephan and Bender, Emily M.",
-%%   editor="Ide, Nancy and Pustejovsky, James",
-%%   title="Sustainable Development and Refinement of Complex Linguistic Annotations at Scale",
-%%   bookTitle="Handbook of Linguistic Annotation",
-%%   year="2017",
-%%   publisher="Springer Netherlands",
-%%   address="Dordrecht",
-%%   pages="353--377",
-%%   isbn="978-94-024-0881-2",
-%%   doi="10.1007/978-94-024-0881-2_14",
-%%   url="http://dx.doi.org/10.1007/978-94-024-0881-2_14"
-%% }
-
-%% % And for the idea  of discrimimants in treebanking:
-
-%% @inproceedings{Carter:97,
-%%   author = {David Carter},
-%%   title = {The {T}ree{B}anker.
-%%            {A} Tool for Supervised Training of Parsed Corpora},
-%%   editors = {Dominique Estival and Alberto Lavelli 
-%%              and Klaus Netter and Fabio Pianesi},
-%%   booktitle = ENVGRAM:97,
-%%   address = {Madrid, Spain},
-%%   pages = {9--15},
-%%   year = 1997
-%% }
-
-
-
+% GE thanks!
 
 Because of the large number of possible parses,
 it can be helpful to \textit{prune} the search space:
@@ -350,6 +292,21 @@ which jointly predicts both a segmentation of the input and supertags for those 
 while also improving parsing accuracy.
 
 % EMB 2018-09-28 Doesn't Bec also bring in the lexical rules? Maybe that's too much detail for here.
+
+Finally, in order to train these statistical systems,
+we need to first annotate a treebank.
+When there are many parses for a sentence,
+it can be time-consuming to select the best parse.
+To efficiently use an annotator's time,
+it can be helpful to use \textit{discriminants},
+properties which hold for some parses but not for others \citep{Carter:97}.
+For example, discriminants might include
+whether to analyse an ambiguous token as a noun or a verb,
+or where to attach a prepositional phrase.
+This approach to treebanking also means that
+annotations can be re-used when the grammar is updated
+\citep{OFTM2004a-u-platte,Fli:Oep:Ben:17}.
+
 
 \subsubsection{Semantic dependencies}
 \label{cl:prac:dep}
