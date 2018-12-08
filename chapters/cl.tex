@@ -305,7 +305,7 @@ whether to analyse an ambiguous token as a noun or a verb,
 or where to attach a prepositional phrase.
 This approach to treebanking also means that
 annotations can be re-used when the grammar is updated
-\citep{OFTM2004a-u-platte,Fli:Oep:Ben:17}.
+\citep{OFTM2004a-u,Fli:Oep:Ben:17}.
 
 
 \subsubsection{Semantic dependencies}
@@ -336,11 +336,12 @@ which is fully interconvertible with MRS.\footnote{%
 In contrast, Elementary Dependency Structures \citep[EDS;][]{oepen2006eds}
 lose some scope information,
 which, for many applications, is less important than predicate-argument structure.
-Finally, DELPH-IN MRS Dependencies \citep[DM;][]{ivanova2012dm}
+Finally, \textsc{Delph-in} MRS Dependencies \citep[DM;][]{ivanova2012dm}
 express predicate-argument structure purely in terms of the surface tokens,
 without introducing any abstract predicates.
 A comparison of MRS, DMRS, and DM is given in Figures \ref{cl:fig:mrs} and~\ref{cl:fig:dep}.
-The existence of such dependency graphs
+The existence of such dependency graph formalisms,
+as well as software packages to manipulate such graphs \citep{copestake2016pydmrs},
 has made it easier to use HPSG grammars in a number of practical tasks,
 as we will discuss in Section~\ref{cl:downstream}.
 
@@ -466,7 +467,7 @@ as we will discuss in Section~\ref{cl:downstream}.
 	\end{tikzpicture}
 	\vspace*{2mm}
 	\caption{
-		DELPH-IN MRS Dependencies (DM)
+		\textsc{Delph-in} MRS Dependencies (DM)
 		are a simplified version of MRS.
 		Nodes are the tokens in the sentence (rather than abstract predicates),
 		and some scopal information is dropped.
@@ -504,7 +505,7 @@ Current platforms:
 
 \begin{itemize}
  \item  CoreGram
- \item  DELPH-IN consortium
+ \item  \textsc{Delph-in} consortium
     \begin{itemize}
     \item ERG
     \item Other large-ish grammars
@@ -565,40 +566,89 @@ Deployment for linguistic goals.
 \label{cl:downstream}
 %Guy
 
-Deployment for other tasks.
-Large number of applications.
-Focus on several important applications below.
-See also \url{http://moin.delph-in.net/DelphinApplications}.
+In this section, we discuss
+the use of HPSG grammars for practical tasks.
+There is a large number of applications,
+and we focus on several important applications here.
+Within the \textsc{Delph-in} community,
+a regularly updated list of applications is available online.\footnote{%
+	\url{http://moin.delph-in.net/DelphinApplications}
+}
 
 
-\subsubsection{Language teaching}
+\subsubsection{Education}
+\label{cl:downstream:edu}
 
-Redbird (McGraw-Hill)
+Precise syntatic analyses can be useful in language teaching,
+in order to automatically identify errors and give feedback to the student.
+In order to model common mistakes,
+a grammar can be extended with so-called ``mal-rules''.
+A mal-rule is like a normal rule, in that it licenses a construction,
+and can be treated the same during parsing
+-- however, given a parse,
+the presence of mal-rules indicates that the student needs to be given feedback
+\citep{Ben:Fli:Oep:04,flickinger2013error,morgadodacosta2016error}.
+A large scale system implementing this kind of computer-aided teaching has been developed
+by the Education Program for Gifted Youth at Stanford University,
+using the ERG \citep{suppes2014teach}.
+This system has reached tens of thousands of elementary and middle school children,
+and has been found to improve the school results of underachieving children.
+% Redbird (McGraw-Hill)
+
+Another way to use a precision grammar is to automatically produce teaching materials.
+Given a semantic representation,
+a grammar can generate one or more sentences.
+\citet{Flickinger:17} uses the ERG to produce practice exercises for a student learning first-order logic.
+For each exercise, the student is presented with a natural language sentence,
+and is supposed to write down the corresponding first-order logical form.
+By using a grammar, the system can produce syntactically varied questions,
+and automatically evaluate the student's answer.
 
 
 \subsubsection{NLP tasks}
+\label{cl:downstream:nlp}
 
-Information extraction
+HPSG grammars have been used in a range of tasks
+in Natural Language Processing (NLP).
 
-Summarisation
+Information extraction.
+\citet{schaefer2011acl}.
+\citet{reiplinger2012glossary}.
 
-Machine translation
+Summarization.
+\citet{fang2016summarise}
+
+Machine translation.
+Parse, transfer, generate.
+\citep{OVL2007a-u,bond2011deep}.
+\citet{goodman2018translate}.
+Statistical without transfer,
+\citet{horvat2017translate}.
+
+Distributional semantics.
+\citet{emerson2018functional}.
 
 
 
 \subsubsection{Data for machine learning}
+\label{cl:downstream:data}
 
-Unlike the previous sections,
-not providing analyses, but providing data.
-Not used at test time, only at training time.
+In section~\ref{cl:downstream:nlp},
+we described how HPSG grammars can be used to tackle a number of NLP tasks.
+Another use of HPSG grammars in NLP
+is to generate data, on which a statistical system can be trained.
 
 Training deep learning systems
 -- semantic parsing
--- skip over HPSG, go straight to semantic representations
+-- skip over HPSG, go straight to semantic representations.
+\citep{oepen2014semeval,oepen2015semeval}.
+\citet{buys2017parse}.
+\citet{chen2018parse}.
 
 Evaluation of deep learning systems
 -- ShapeWorld
--- use a grammar to produce annotations
+-- use a grammar to produce annotations.
+\citet{kuhnle2018shapeworld}.
 
 
 \subsection{Other?}
