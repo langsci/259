@@ -416,7 +416,8 @@ as we will discuss in Section~\ref{cl:downstream}.
 \end{subfigure}
 \caption{%
 	Minimal Recursion Semantics (MRS)
-	representation for the sentence ``the cherry tree blossomed'',
+	representation for the sentence \emph{The cherry tree blossomed},
+% EMB 2018-12-17 I approve of this example sentence!
 	as produced by the English Resource Grammar (ERG).
 	For simplicity, we have omitted some details, including
 	features such as number and tense,
@@ -475,7 +476,7 @@ as we will discuss in Section~\ref{cl:downstream}.
 \end{subfigure}
 \caption{%
 	MRS-based dependency graphs for the sentence
-	``the cherry tree blossomed'',
+	\emph{The cherry tree blossomed},
 	based on the MRS given in Figure~\ref{cl:fig:mrs}.
 }
 \label{cl:fig:dep}
@@ -501,22 +502,17 @@ Current platforms:
 \section{Development of HPSG resources}
 \label{cl:resources}
 
+In this section we describe various projects that have developed computational resources on the basis of or inspired by HPSG. As we'll discuss in Section~\ref{cl:deployment} below, such resources can be used both in linguistic hypothesis testing as well as in various practical applications. The intended purpose of the resources influences the form that they take. CoreGram (\S\ref{cl:coregram}) is primarily targeted as linguistic hypothesis testing, the Enju and Alpino parsers desdribed in Section~\ref{cl:enjualpino} primarily at practical applications, and the resource produced by the DELPH-IN Consortium (\S\ref{cl:delphin}) attempt to balance the two.
+
 % First draft: DELPH-IN, Emily / non-DELPH-IN, Guy
 
-\begin{itemize}
- \item  CoreGram
- \item  \textsc{Delph-in} consortium
-    \begin{itemize}
-    \item ERG
-    \item Other large-ish grammars
-    \item Grammar Matrix
-    \end{itemize}
- \item Systems inspired by HPSG:
-   \begin{itemize}
-     \item Alpino
-     \item Enju
-   \end{itemize}
-\end{itemize}
+\subsection{CoreGram}
+\label{cl:coregram}
+
+\subsection{HPSG-inspired broad-coverage parsing}
+\label{cl:enjualpino}
+
+% Alpino, Enju
 
 % Alpino cites from Gertjan:
 
@@ -537,6 +533,72 @@ Current platforms:
 %% Robert Malouf, Gertjan van Noord. Wide Coverage Parsing with Stochastic Attribute Value Grammars. In: IJCNLP-04 Workshop Beyond Shallow Analyses - Formalisms and statistical modeling for deep analyses. 
 
 %% all are available from http://www.let.rug.nl/vannoord/papers/
+
+\subsection{The DELPH-IN Consortium}
+\label{cl:delphin}
+
+The DELPH-IN\footnote{This acronym stands for Deep Linguistic
+  Resources in HPSG Initiative; see \url{www.delph-in.net}} Consortium
+was established in 2001 to facilitate the development of large-scale,
+linguisticaly motivated HPSG grammars for multiple languages in tandem
+with the software required for developing them and deploying them in
+pratical applications. At the time that DELPH-IN was founded, the
+English Resource Grammar
+\cite[ERG][]{Flickinger2000a,Flickinger2011a-u} had been under
+development already for 8 years and the Verbmobil project
+\cite{FIXMEVerbmobil} had also spurred the development of grammars for
+German \cite[GG;][]{FIXMEGG} and Japanese
+\cite[Jacy][]{Sie:Ben:Bon:16}. Project DeepThought
+\cite{FIXME-DeepThought} was exploring methodologies for combining
+deep and shallow processing in pratical applications across multiple
+languages. This inspired the development of the LinGO Grammar Matrix,
+which began as a core grammar, consisting of constraints hypothesized
+to be cross-linguistically useful, abstracted out of the ERG with
+reference to Jacy and GG \cite{Ben:Fli:Oep:02}. The goal of the
+Grammar Matrix is to serve as a starting point for the development of
+new grammars making it easy to reuse what has been learned in the
+development of existing grammars. In the years since, it has been
+extended to include `libraries' of analyses of cross-linguistically
+variable phenomena \cite[\eg][]{Drellishak:09,Bender-et-al:10}.
+
+DELPH-IN provides infrastructure (version control repositories,
+mailing lists, annual meetings) and an emphasis on open-source
+distribution of resources both of which support the collaboration of a
+global network of researchers working on interoperable
+components. These include repositories of linguistic knowledge, that
+is both grammars and meta-grammars (including the Matrix and CLIMB
+\cite{FIXME-Antske-diss}); processing engines that apply that
+knowledge for parsing and generation (discussed further below);
+software for supporting the development of grammar documentation
+(\eg\ \cite{FIXME-LTDB}), software for creating treebanks
+(\citeNP{FIXME-Redwoods,FIXME-FFTB}; see also \S\ref{cl:treebanks}
+below) and parse ranking models trained on them
+(\citeNP{FIXME-Redwoods}; see also \S\ref{cl:prac:rank} above), and
+software for robust processing, \ie\ using the knowledge encoded in
+the grammars to return analyses for sentences even if the grammar
+deems the ungrammatical
+\cite{FIXME-JigSaw,FIXME-CSAW,FIXME-Sun-neural-parsing,FIXME-Buys-neural-parsing}.
+
+A key accomplishment of the DELPH-IN Consortium is the standardization
+of a formalism for the declaration of grammars
+\cite{FIXME-Copestake-CLE}, a formalism for the semantic
+representations \cite{FIXME}, and file formats for the storage and
+interchannge of grammar outputs (\eg\ the forest that results from
+parsing a forest, as well as the results of treebanking
+\cite{FIXME-tsdb,FIXME-redwoods}).  These standards facilitate the
+development of multiple different parsing and generation engines which
+can all process the same grammars (including, so far, the LKB
+\cite{FIXME-LKB}, PET \cite{FIXME-Callmaier}, ACE
+\cite{FIXME-Packard}, and Agree \cite{FIXME-Glenn-thesis}), of
+multiple software systems for processing bulk grammar output (FIXME:
+incr tsdb, art, pyDelphin), and of multilingual downstream systems
+which can be adapted to additional languages by plugging in different
+grammars.
+
+
+
+Say something about balancing linguistic precision \& robustness.
+
 
 \section{Deployment of HPSG resources}
 \label{cl:deployment}
@@ -559,6 +621,7 @@ Deployment for linguistic goals.
 % Emily
 
 \subsubsection{Derived resources: Redwoods-style treebanks}
+\label{cl:treebanks}
 %Emily
 
 
