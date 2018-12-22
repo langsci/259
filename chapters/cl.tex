@@ -150,7 +150,7 @@ For grammars that have a context-free backbone
 (we can express every derivation as a phrase-structure tree
 plus constraints between mother and daughter nodes),
 it is possible to adapt the standard chart-parsing algorithm for context-free grammars.
-The basic idea is to parse ``bottom-up'' through the tree,
+The basic idea is to parse ``bottom-up'', % through the tree
 starting by finding analyses for each token in the input,
 and then finding analyses for increasingly longer sequences of tokens,
 until we reach the entire sentence.
@@ -189,10 +189,22 @@ when running on a representative sample of text.
 \subsubsection{Parse ranking}
 \label{cl:prac:rank}
 
-For an ambiguous sentence,
-a grammar gives multiple valid parses.
-This is widely known, with attachment ambiguities and coordination ambiguities
-being particularly well-known examples.
+Ambituity in modifier attachment, part of speech assignment, and the
+like are well-known in linguistics, such that examples like
+\rref{cl:ambig-telescope} are stock in trade:
+
+\begin{exe}
+\ex\label{cl:ambig-telescope} 
+\begin{xlist}
+\item I saw the kid with the telescope.
+\item Visiting relatives can be annoying.
+\end{xlist}
+\end{exe}
+
+\noindent
+A well-constructed grammar should be expected to return multiple
+parses for each ambiguous sentence.
+
 However, people are naturally very good at resolving ambiguity,
 which means most ambiguity is not apparent, even to linguists.
 It is only with the development of large-scale grammars that the sheer scale of ambiguity has become clear.
@@ -248,7 +260,7 @@ based on many features\footnote{%
 }
 of the parse.
 From the example in~\rref{cl:ex:ambig-simple},
-we can see how a number of a different features all influence the preferred interpretation:
+a number of a different features all influence the preferred interpretation:
 the likelihood of a construction (such as topicalization),
 the likelihood of a valence frame (such as transitive \textit{speak}),
 the likelihood of a collocation (such as \textit{town crier}),
@@ -264,7 +276,7 @@ it can be helpful to \textit{prune} the search space:
 rather than ranking the full set of parses,
 we can restrict attention to a smaller set of parses,
 which hopefully includes the correct parse.
-By carefully choosing how to restrict our attention,
+By carefully choosing how to restrict the parser's attention,
 we can drastically reduce processing time without hurting parsing accuracy.
 One method, called \textit{supertagging},\footnote{%
 	The name refers to \textit{part-of-speech tagging},
@@ -336,7 +348,7 @@ which is fully interconvertible with MRS.\footnote{%
 In contrast, Elementary Dependency Structures \citep[EDS;][]{oepen2006eds}
 lose some scope information,
 which, for many applications, is less important than predicate-argument structure.
-Finally, \textsc{Delph-in} MRS Dependencies \citep[DM;][]{ivanova2012dm}
+Finally, \delphin\ MRS Dependencies \citep[DM;][]{ivanova2012dm}
 express predicate-argument structure purely in terms of the surface tokens,
 without introducing any abstract predicates.
 A comparison of MRS, DMRS, and DM is given in Figures \ref{cl:fig:mrs} and~\ref{cl:fig:dep}.
@@ -468,7 +480,7 @@ as we will discuss in Section~\ref{cl:downstream}.
 	\end{tikzpicture}
 	\vspace*{2mm}
 	\caption{
-		\textsc{Delph-in} MRS Dependencies (DM)
+		\delphin\ MRS Dependencies (DM)
 		are a simplified version of MRS.
 		Nodes are the tokens in the sentence (rather than abstract predicates),
 		and some scopal information is dropped.
@@ -483,26 +495,29 @@ as we will discuss in Section~\ref{cl:downstream}.
 \end{figure}
 
 
-\subsection{A brief history of HPSG grammar engineering}
-\label{cl:history}
+%% \subsection{A brief history of HPSG grammar engineering}
+%% \label{cl:history}
 
-History: PAGE, VerbMobil, ?? % First draft: Emily
+%% History: PAGE, VerbMobil, ?? % First draft: Emily
 
-% GE: no need to repeat what Flickinger et al. cover in their chapter
-% but probably a good idea to contrast grammar engineering and linguistic theorizing
+%% % GE: no need to repeat what Flickinger et al. cover in their chapter
+%% % but probably a good idea to contrast grammar engineering and linguistic theorizing
 
-Current platforms:
-    \begin{itemize}
-    \item LKB/ACE/PET/Agree
-    \item Trale
-    \item Other
-    \end{itemize}
+%% % EMB 2018-12-21 Maybe everything we were going to put here is ending up
+%% % in the discussions below?
+
+%% Current platforms:
+%%     \begin{itemize}
+%%     \item LKB/ACE/PET/Agree
+%%     \item Trale
+%%     \item Other
+%%     \end{itemize}
 
 
 \section{Development of HPSG resources}
 \label{cl:resources}
 
-In this section we describe various projects that have developed computational resources on the basis of or inspired by HPSG. As we'll discuss in Section~\ref{cl:deployment} below, such resources can be used both in linguistic hypothesis testing as well as in various practical applications. The intended purpose of the resources influences the form that they take. CoreGram (\S\ref{cl:coregram}) is primarily targeted as linguistic hypothesis testing, the Enju and Alpino parsers desdribed in Section~\ref{cl:enjualpino} primarily at practical applications, and the resource produced by the DELPH-IN Consortium (\S\ref{cl:delphin}) attempt to balance the two.
+In this section we describe various projects that have developed computational resources on the basis of or inspired by HPSG. As we'll discuss in Section~\ref{cl:deployment} below, such resources can be used both in linguistic hypothesis testing as well as in various practical applications. The intended purpose of the resources influences the form that they take. CoreGram (\S\ref{cl:coregram}) is primarily targeted as linguistic hypothesis testing, the Enju and Alpino parsers desdribed in Section~\ref{cl:enjualpino} primarily at practical applications, and the resources produced by the \delphin\ Consortium (\S\ref{cl:delphin}) attempt to balance the two.
 
 % First draft: DELPH-IN, Emily / non-DELPH-IN, Guy
 
@@ -534,70 +549,98 @@ In this section we describe various projects that have developed computational r
 
 %% all are available from http://www.let.rug.nl/vannoord/papers/
 
-\subsection{The DELPH-IN Consortium}
+\subsection{The \delphin\ Consortium}
 \label{cl:delphin}
 
-The DELPH-IN\footnote{This acronym stands for Deep Linguistic
-  Resources in HPSG Initiative; see \url{www.delph-in.net}} Consortium
+The \delphin\footnote{This acronym stands for DEep Linguistic
+  Processing in HPSG INitiative; see \url{www.delph-in.net}} Consortium
 was established in 2001 to facilitate the development of large-scale,
 linguisticaly motivated HPSG grammars for multiple languages in tandem
 with the software required for developing them and deploying them in
-pratical applications. At the time that DELPH-IN was founded, the
+pratical applications. At the time that \delphin\ was founded, the
 English Resource Grammar
-\cite[ERG][]{Flickinger2000a,Flickinger2011a-u} had been under
+\citep[ERG;][]{Flickinger2000a,Flickinger2011a-u} had been under
 development already for 8 years and the Verbmobil project
-\cite{FIXMEVerbmobil} had also spurred the development of grammars for
-German \cite[GG;][]{FIXMEGG} and Japanese
-\cite[Jacy][]{Sie:Ben:Bon:16}. Project DeepThought
-\cite{FIXME-DeepThought} was exploring methodologies for combining
+\citep{Wahlster:00} had also spurred the development of grammars for
+German \citep[GG;][]{Mue:Kap:00,Crysmann2003b} and Japanese
+\citep[Jacy;][]{SBB2016a}. Project DeepThought
+\citep{Callmeier-etal:2004} was exploring methodologies for combining
 deep and shallow processing in pratical applications across multiple
-languages. This inspired the development of the LinGO Grammar Matrix,
-which began as a core grammar, consisting of constraints hypothesized
-to be cross-linguistically useful, abstracted out of the ERG with
-reference to Jacy and GG \cite{Ben:Fli:Oep:02}. The goal of the
-Grammar Matrix is to serve as a starting point for the development of
-new grammars making it easy to reuse what has been learned in the
+languages. This inspired the development of the LinGO Grammar Matrix
+\citep{BFO2002a-u}, which began as a core grammar, consisting of
+constraints hypothesized to be cross-linguistically useful, abstracted
+out of the ERG with reference to Jacy and GG. The goal of the Grammar
+Matrix is to serve as a starting point for the development of new
+grammars making it easy to reuse what has been learned in the
 development of existing grammars. In the years since, it has been
 extended to include `libraries' of analyses of cross-linguistically
-variable phenomena \cite[\eg][]{Drellishak:09,Bender-et-al:10}.
+variable phenomena
+\citep[\eg][]{Drellishak2009a-u,Ben:Dre:Fok:Pou:Sal:10}.
 
-DELPH-IN provides infrastructure (version control repositories,
+\delphin\ provides infrastructure (version control repositories,
 mailing lists, annual meetings) and an emphasis on open-source
-distribution of resources both of which support the collaboration of a
+distribution of resources. Both of these support the collaboration of a
 global network of researchers working on interoperable
 components. These include repositories of linguistic knowledge, that
-is both grammars and meta-grammars (including the Matrix and CLIMB
-\cite{FIXME-Antske-diss}); processing engines that apply that
+is, both grammars and meta-grammars (including the Matrix and CLIMB
+\citep{Fokkens:14}); processing engines that apply that
 knowledge for parsing and generation (discussed further below);
 software for supporting the development of grammar documentation
-(\eg\ \cite{FIXME-LTDB}), software for creating treebanks
-(\citeNP{FIXME-Redwoods,FIXME-FFTB}; see also \S\ref{cl:treebanks}
-below) and parse ranking models trained on them
-(\citeNP{FIXME-Redwoods}; see also \S\ref{cl:prac:rank} above), and
+\citep[\eg][]{Hashimoto-etal:07}, software for creating treebanks
+\citep[see also \S\ref{cl:treebanks} below]{OFTM2004a-u,Packard:15}, 
+and parse ranking models trained on them
+\citep[see also \S\ref{cl:prac:rank} above]{Tou:Man:Fli:Oep:05}, and
 software for robust processing, \ie\ using the knowledge encoded in
 the grammars to return analyses for sentences even if the grammar
 deems the ungrammatical
-\cite{FIXME-JigSaw,FIXME-CSAW,FIXME-Sun-neural-parsing,FIXME-Buys-neural-parsing}.
+\citep{jigsaw,buys2017parse,chen2018parse}.
 
-A key accomplishment of the DELPH-IN Consortium is the standardization
+
+A key accomplishment of the \delphin\ Consortium is the standardization
 of a formalism for the declaration of grammars
-\cite{FIXME-Copestake-CLE}, a formalism for the semantic
-representations \cite{FIXME}, and file formats for the storage and
-interchannge of grammar outputs (\eg\ the forest that results from
-parsing a forest, as well as the results of treebanking
-\cite{FIXME-tsdb,FIXME-redwoods}).  These standards facilitate the
-development of multiple different parsing and generation engines which
-can all process the same grammars (including, so far, the LKB
-\cite{FIXME-LKB}, PET \cite{FIXME-Callmaier}, ACE
-\cite{FIXME-Packard}, and Agree \cite{FIXME-Glenn-thesis}), of
-multiple software systems for processing bulk grammar output (FIXME:
-incr tsdb, art, pyDelphin), and of multilingual downstream systems
-which can be adapted to additional languages by plugging in different
-grammars.
+\citep{Copestake:02:CLE}, a formalism for the semantic representations
+\citep{FIXME}, and file formats for the storage and interchannge of
+grammar outputs (\eg\ the forest that results from parsing a forest,
+as well as the results of treebanking \citep{Oepen:01,OFTM2004a-u}).
+These standards facilitate the development of multiple different
+parsing and generation engines which can all process the same grammars
+(including, so far, the LKB \citep{Copestake2002a}, PET
+\citep{callmeier00},
+ACE,\footnote{\url{http://sweaglesw.org/linguistics/ace/}} and Agree
+\citep{Slayden2012a-u}), of multiple software systems for processing
+bulk grammar output \citep{Oepen:01,FIXME-art,FIXME-pyDelphin}, and of
+multilingual downstream systems which can be adapted to additional
+languages by plugging in different grammars.
 
+The \delphin\ community maintains research interests in both
+linguistics an practical applications. The focus on linguistics means
+that \delphin\ grammarians strive to create grammars which capture
+linguistic generalizations and model grammaticality. This, in turn,
+leads to grammars with lower ambiguity than one finds with
+treebank-trained grammars and, importantly, grammars which produce
+well-formed strings in generation. The focus on practical applications
+leads to several kinds of research goals: (1) robustness measures such
+as techniques for handling unknown words and extra-grammatical mark-up
+in text (\eg\ Wikipedia pages) and strategies for processing inputs
+that are ungrammatical (at least according to the grammar); (2)
+performance innovations, such as supertagging or ubertagging to speech
+up processing times and pre-processors that provide partial
+information about constituent boundaries to narrow the search space;
+(3) the integration of external components such as morphological
+analyzers, named entity recognizers; (4) parse and realization
+ranking; and (5) work towards making sure that the semantic
+representations can serve as a suitable interface for external
+components. 
+% EMB 2018-12-21 I can probably put in citations for all of those
+% things. Worth it, or too busy?
+From a linguistic point of view, these efforts
+are also valuable. First, the broader/more robust the coverage of
+a grammar is, the more linguistic phenomena it can be used to explore.
+Second, external constraints on the form of semantic representations provide
+useful guide points in the development of semantic analyses. 
+% EMB 2018-12-21 I don't have a cite for that one --- just personal
+% experience...
 
-
-Say something about balancing linguistic precision \& robustness.
 
 
 \section{Deployment of HPSG resources}
@@ -612,18 +655,89 @@ Deployment for linguistic goals.
 % http://web.stanford.edu/group/cslipublications/cslipublications/HPSG/2016/headlex2016-king.pdf
 
 \subsubsection{CoreGram}
+\label{cl:coregram}
 % Guy
 
 \subsubsection{Grammar Matrix}
 % Emily
 
+As noted in Section~\ref{cl:delphin}, the LinGO Grammar Matrix
+\cite{BFO2002a-u,Ben:Dre:Fok:Pou:Sal:10} was initially developed in
+the context of Project DeepThought with the goal of speeding up the
+development of \delphin-style grammars for additional languages. It
+consists of a shared core grammar and a series of `libraries' of
+analyses for cross-lingusitically variable phenomena. Both of these
+constitute linguistic hypotheses: The constraints in the constraints
+in the core grammar are hypothesized to be cross-linguistically
+useful. However, in the course of developing grammars based on the
+Matrix for specific languages, it is not uncommon to find reasons to
+refine the core grammar. The libraries, in turn, are intended to 
+cover the attested range of variation for the phenomena they model.
+Languages that are not covered by the analyses in the libraries provide
+evidence that they need to be extended to refined. 
+
+Grammar Matrix grammar development is less tightly coordinated than
+that of CoreGram (see \S\ref{cl:coregram}): in the typical use case,
+grammar developers start from the Grammar Matrix, but with their own
+independent copy of the Matrix core grammar. This impedes somewhat the
+ability of the Matrix to adapt to the needs of various languages
+(unless grammar developers report back to the Matrix developers).  On
+the other, hand the Matrix libraries represent an additional kind of
+linguistic hypothesis testing: each library on its own represents one
+linguistic phenomenon, but the libraries must be interoperable with
+each other. This is cross-linguistic analogue of how monolingual
+implemented grammars allow linguists to ensure that analyses of
+different phenomena are interoperable
+\citep{Mueller99a,Bender2008c-Short}: the Grammar Matrix customization
+system allows its developers to test cross-linguistic libraries of
+analyses for interactions with other phenomena
+\citep{BFO2011a-u,Bender:16}. Without computational
+support\,---\,\ie\ a computer keeping track of the constraints that
+make up each analysis, compiling them into specific grammars, and
+testing those grammars against test suites\,---\,this problem space
+would be too complex for exploration.
+
 \subsubsection{AGGREGATION}
 % Emily
+
+In many ways, the most urgent need for computational support for
+linguistic hypothesis testing is the description of endangered
+languages. Implemented grammars can be used to process transcribed but
+unglossed text in order to find relevant examples more quickly, both
+of phenomena that have already been analyzed and of phenomena that are
+as yet not well-understood.\footnote{This methodology of using an
+  implemented grammar as a sieve to sift the interesting examples out
+  of corpora is demonstrated for English by \cite{Baldwin-et-al-04}.}
+Furthemore, treebanks constructed from implemented grammars can be
+tremendously valuable additions to language documentation (see
+\S\ref{cl:treebanks} below). However, the process of building an
+implemented grammar is time-consuming, even with the start provided by
+a multilingual grammar engineering project like CoreGram or the
+Grammar Matrix.
+
+This is the motivation for the AGGREGATION project. AGGREGATION starts
+from two observations: (1) Descriptive linguists produce extremely
+rich annotations on data in the form of interlinear glossed text
+(IGT); and (2) the Grammar Matrix's libraries are accessed through a
+customization system which elicits a grammar specification in the form
+of a series of choices describing either high-level typological
+properties or specific constraints on lexical classes and lexical
+rules.  The goal of AGGREGATION is to automatically produce such
+grammar specifications on the basis of information encoded in IGT, to
+be used by the Grammar Matrix customization system to produce
+language-particular grammars.
+
+* Morphotactics
+* High-level properties (case system, word order)
+* End-to-end prototype for one language merging those all
 
 \subsubsection{Derived resources: Redwoods-style treebanks}
 \label{cl:treebanks}
 %Emily
 
+Treebank search
+
+Language documentation
 
 \subsection{Downstream applications}
 \label{cl:downstream}
@@ -633,7 +747,7 @@ In this section, we discuss
 the use of HPSG grammars for practical tasks.
 There is a large number of applications,
 and we focus on several important applications here.
-Within the \textsc{Delph-in} community,
+Within the \delphin\ community,
 a regularly updated list of applications is available online.\footnote{%
 	\url{http://moin.delph-in.net/DelphinApplications}
 }
@@ -720,6 +834,68 @@ Alpino?
 
 Enju?
 
+Babel
+
+% Notes from Stefan:
+%% I have a candidate for being listed under "other". In 93 I started to
+%% work on an HPSG implementation implemented in Prolog. The Babel system
+%% had the largest German grammar at the time and the processing system was
+%% the fastest. It was orders of magnitute better than what IBM had and
+%% people like Wahlster were impressed that one guy could do both grammar
+%% and system, something IBM spent one or more Millions on.
+
+%% These are the papers:
+
+%% @inproceedings{Babel,
+%%         Address = {London},
+%%         Author = {Stefan Müller},
+%%         Booktitle = {Proceedings of the {Fourth International Conference on the
+%% Practical Application of Prolog}},
+%%         Cited = {Kaufmann2009 Diss, Check: Ulrich Schmitz, 1997 [mit Elisabeth
+%% Cölfen/ Hermann Cölfen:] Linguistik im Internet. Das Buch zum Netz - mit
+%% CD-ROM. Opladen: Westdeutscher Verlag},
+%%         Date-Modified = {2017-06-18 09:15:51 +0000},
+%%         Opturl = {https://hpsg.hu-berlin.de/~stefan/Pub/babel.html},
+%%         Opturldate = today,
+%%         Pages = {263--277},
+%%         Title = {The {Babel-System}: {An} {HPSG} Fragment for {German}, a
+%% Parser, and a Dialogue Component},
+%%         Year = {1996}}
+
+%% @article{Mueller2004b,
+%%         Author = {Stefan Müller},
+%%         Cited = {KaySag2009, Bender2008: Wambaya, Michael W. Daniels and W.
+%% Detmar Meurers: GIDLP: A Grammar Format For Linearization-based HPSG,
+%% HPSG 2004},
+%%         Date-Modified = {2014-03-25 14:36:04 +0000},
+%%         Editor = {Walt Detmar Meurers and Shuly Wintner and Erhard W. Hinrichs},
+%%         Journal = {Research on Language and Computation, Special Issue on
+%% Linguistic Theory and Grammar Implementation},
+%%         Number = {2},
+%%         Opturl = {https://hpsg.hu-berlin.de/~stefan/Pub/discont.html},
+%%         Opturldate = today,
+%%         Pages = {209--257},
+%%         Title = {Continuous or Discontinuous Constituents? {A} Comparison
+%% between Syntactic Analyses for Constituent Order and Their Processing
+%% Systems},
+%%         Volume = {2},
+%%         Year = {2004}}
+
+%% The grammar and phenomena are documented in my thesis:
+
+%% @book{Mueller99a,
+%%         Address = {Tübingen},
+%%         Author = {Stefan Müller},
+%%         Date-Modified = {2015-02-15 11:49:36 +0000},
+%%         Number = {394},
+%%         Opturl = {https://hpsg.hu-berlin.de/~stefan/Pub/hpsg.html},
+%%         Opturldate = today,
+%%         Publisher = Niemeyer,
+%%         Series = {Linguistische Arbeiten},
+%%         Title = {{Deutsche Syntax deklarativ: {Head-Driven Phrase Structure
+%% Grammar} für das Deutsche}},
+%%         Verkauf = {Sommer 149, 31.12.99 181, 15.03.2010},
+%%         Year = {1999}}
 
 
 \section{Linguistic Insights}
