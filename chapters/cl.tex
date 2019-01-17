@@ -71,7 +71,7 @@ Finally, we turn to linguistic insights gleaned from broad-coverage grammar deve
 
 There are several properties of HPSG as a theory that make it well-suited to computational implementation. First, the theory is kept separate from the formalism: the formalism is expressive enough to encode a wide variety of possible theories. While some theoretical work does argue for or against the necessity of particular formal devices (e.g.\ the shuffle operator \citep{FIXME-Reape}), much of it proceeds within shared assumptions about the formalism. This is in contrast to work in the context of the Minimalist Program \citep{Chomsky93b-u}, where theoretical results are typically couched in terms of modifications to the formalism itself. From a computational point of view, the benefit of differentiating between theory and formalism is that it means that the formalism is relatively stable. That in turns enables the development and maintenance of software systems that target the formalism, for parsing, generation, and grammar exploration (see Section~\ref{cl:history} below for some examples).\footnote{There are implementations of Minimalism, notably \citet{FIXME-Stabler} and \citet{FIXME-Indianadiss}. However, writing an implementation requires fixing the formalism, and so these are unlikely to be useful for testing theoretical ideas as the theory moves on.}
 
-A second important property of HPSG that supports a strong connection between theoretical and computational work is an interest in both so-called `core' and so-called `peripheral' phenomena. Most implemented grammars are built with the goal of handling naturally occurring text.\footnote{It is possible, but less common, to do implementation work strictly against testsuites of sentences constructed specifically to focus on phenomena of interest.} This means that they will need to handle a wide variety of linguistic phenomena not always treated in theoretical syntactic work \citep{FIXME-Baldwin-et-al-Beauty}. A syntactic framework that excludes research on `peripheral' phenomena as uninteresting provides less support for implementational work than does one, like HPSG or Construction Grammar, that values such topics
+A second important property of HPSG that supports a strong connection between theoretical and computational work is an interest in both so-called `core' and so-called `peripheral' phenomena. Most implemented grammars are built with the goal of handling naturally occurring text.\footnote{It is possible, but less common, to do implementation work strictly against testsuites of sentences constructed specifically to focus on phenomena of interest.} This means that they will need to handle a wide variety of linguistic phenomena not always treated in theoretical syntactic work \citep{Baldwin-et-al-04,Baldwin-et-al-05}. A syntactic framework that excludes research on `peripheral' phenomena as uninteresting provides less support for implementational work than does one, like HPSG or Construction Grammar, that values such topics
 \crossrefchapterp[for a comparison of HPSG and Construction Grammar, see]{cxg}.
 
 Finally, the type hierarchy characteristic of HPSG lends itself well to developing broad-coverage grammars which are maintainable over time \citep{FIXME-find-cite?}. The use of the type hierarchy to manage complexity at scale comes out of the work of \citet{Flickinger87} and others at HP labs in the project where HPSG was originally developed. The core idea is that any given constraint is (ideally) expressed only once on types which serve as supertypes to all entities that bear that constraint.\footnote{Originally this only applied to lexical entries in Flickinger's work. Now it also applies phrase structure rules, lexical rules, and types below the level of the sign which are used in the definition of all of these.} Such constraints might represent broad generalizations that apply to many entities or relatively narrow, indiosyncratic properties. By isolating any given constraint on one type (as opposed to repeating it in mutiple places), we build grammars that are easier to update and adapt in light of new data that require refinements to constraints. Having a single locus for each constraint also makes the types a very useful target for documentation \citep{FIXME:LTDB} and grammar exploration \citep{FIXME:typediff}. 
@@ -189,9 +189,9 @@ when running on a representative sample of text.
 \subsubsection{Parse ranking}
 \label{cl:prac:rank}
 
-Ambituity in modifier attachment, part of speech assignment, and the
-like are well-known in linguistics, such that examples like
-\rref{cl:ambig-telescope} are stock in trade:
+Various kinds of ambiguity are well-known in linguistics
+(such as modifier attachment and part-of-speech assignment),
+to the point that examples like \rref{cl:ambig-telescope} are stock in trade:
 
 \begin{exe}
 \ex\label{cl:ambig-telescope} 
@@ -237,7 +237,7 @@ a mysterious human ancestor that lived in the region.
 % GE thanks!
 While exploring ambiguity can be interesting for a linguist,
 typical practical applications require just one parse per input sentence
-and specifically the parse the best reflects the intended meaning
+and specifically the parse that best reflects the intended meaning
 (or only the top few parses, in case the one put forward as `best' might be wrong).
 Thus, what is required is a \textit{ranking} of the parses,
 so that the application can only use the most highly-ranked parse,
@@ -553,7 +553,7 @@ In this section we describe various projects that have developed computational r
 \label{cl:delphin}
 
 The \delphin\footnote{This acronym stands for DEep Linguistic
-  Processing in HPSG INitiative; see \url{www.delph-in.net}} Consortium
+  Processing in \textsc{Hpsg} INitiative; see \url{www.delph-in.net}} Consortium
 was established in 2001 to facilitate the development of large-scale,
 linguisticaly motivated HPSG grammars for multiple languages in tandem
 with the software required for developing them and deploying them in
@@ -592,14 +592,15 @@ and parse ranking models trained on them
 \citep[see also \S\ref{cl:prac:rank} above]{Tou:Man:Fli:Oep:05}, and
 software for robust processing, \ie\ using the knowledge encoded in
 the grammars to return analyses for sentences even if the grammar
-deems the ungrammatical
+deems them ungrammatical
 \citep{jigsaw,buys2017parse,chen2018parse}.
 
 
 A key accomplishment of the \delphin\ Consortium is the standardization
 of a formalism for the declaration of grammars
 \citep{Copestake:02:CLE}, a formalism for the semantic representations
-\citep{FIXME}, and file formats for the storage and interchannge of
+\citep{CFPS2005a}, and file formats for the storage and interchange of
+% GE 2019-01-17 I presume CFPS2005a is a suitable reference?
 grammar outputs (\eg\ the forest that results from parsing a forest,
 as well as the results of treebanking \citep{Oepen:01,OFTM2004a-u}).
 These standards facilitate the development of multiple different
@@ -608,8 +609,12 @@ parsing and generation engines which can all process the same grammars
 \citep{callmeier00},
 ACE,\footnote{\url{http://sweaglesw.org/linguistics/ace/}} and Agree
 \citep{Slayden2012a-u}), of multiple software systems for processing
-bulk grammar output \citep{Oepen:01,FIXME-art,FIXME-pyDelphin}, and of
-multilingual downstream systems which can be adapted to additional
+bulk grammar output \citep{Oepen:01,FIXME-art,FIXME-PyDelphin},\footnote{%
+	\url{https://github.com/delph-in/pydelphin/}
+}
+% GE 2019-01-17 PyDelphin doesn't have an obvious citation...
+% maybe best to refer to systems by name?
+and of multilingual downstream systems which can be adapted to additional
 languages by plugging in different grammars.
 
 The \delphin\ community maintains research interests in both
@@ -707,7 +712,7 @@ unglossed text in order to find relevant examples more quickly, both
 of phenomena that have already been analyzed and of phenomena that are
 as yet not well-understood.\footnote{This methodology of using an
   implemented grammar as a sieve to sift the interesting examples out
-  of corpora is demonstrated for English by \cite{Baldwin-et-al-04}.}
+  of corpora is demonstrated for English by \cite{Baldwin-et-al-04,Baldwin-et-al-05}.}
 Furthemore, treebanks constructed from implemented grammars can be
 tremendously valuable additions to language documentation (see
 \S\ref{cl:treebanks} below). However, the process of building an
@@ -787,6 +792,11 @@ and automatically evaluate the student's answer.
 
 HPSG grammars have been used in a range of tasks
 in Natural Language Processing (NLP).
+
+\citet{oepen2017extrinsic} shared task,
+evaluating dependency representations for three downstream applications:
+biomedical event extraction, negation resolution, and fine-grained opinion analysis.
+Some systems use DM (Schuster et al.)...
 
 Information extraction.
 \citet{schaefer2011acl}.
