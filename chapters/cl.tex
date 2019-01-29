@@ -64,8 +64,6 @@ Finally, we turn to linguistic insights gleaned from broad-coverage grammar deve
 \section{Infrastructure}
 \label{cl:infrastructure}
 
-% First draft: By subsection
-
 \subsection{Theoretical considerations}
 \label{cl:theoretical}
 
@@ -163,6 +161,7 @@ this algorithm has a worst-case complexity of exponential time.
 This is less complex than for an arbitrary grammar
 (which means that this class of grammars is \emph{not} Turing-complete),
 but more complex than for CCG or TAG.
+
 However, when parsing real corpora,
 it turns out that the average-case complexity is much better than we might expect \citep{Carroll94}.
 On the one hand, grammatical constructions do not generally combine in the worst-case way,
@@ -172,8 +171,9 @@ they may opt for the analysis that is more efficient for a particular parsing al
 \citet{OF98} describe the use of test-suites for profiling
 the time efficiency of a grammar and parsing algorithm,
 when running on a representative sample of text.
+
 % TODO citations -- maybe look at evolution.tex, {Implementations and Applications of HPSG}
-% GE: Maybe this last paragraph is too terse?
+% GE: Maybe this last paragraph is too terse? [edit: now split into two]
 % EMB 2018-09-28: Yes, a little terse
 % --- I think maybe starting with how the derivations are like and unlike CFG derivations
 % and then going to `bottom-up' chart parsing (with citations!) would help.
@@ -302,6 +302,7 @@ where the grammar assigns a single lexical entry to multiple tokens,
 which jointly predicts both a segmentation of the input and supertags for those segments.
 \citeauthor{dridan2013ubertag} manages to increase parsing speed by a factor of four,
 while also improving parsing accuracy.
+% Pruning via chunking? Muszyńska http://aclweb.org/anthology/P16-3014
 
 % EMB 2018-09-28 Doesn't Bec also bring in the lexical rules? Maybe that's too much detail for here.
 
@@ -319,44 +320,13 @@ This approach to treebanking also means that
 annotations can be re-used when the grammar is updated
 \citep{OFTM2004a-u,Fli:Oep:Ben:17}.
 
+% Self-training?
+% e.g. for Alpino: 
+%% Gertjan van Noord. Self-trained Bilexical Preferences to Improve Disambiguation Accuracy. In: Harry Bunt, Paola Merlo and Joakim Nivre (editors), Trends in Parsing Technology. Dependency Parsing, Domain Adaptation, and Deep Parsing. Springer Verlag. pp 183-200. 2010.
+
 
 \subsubsection{Semantic dependencies}
 \label{cl:prac:dep}
-
-In practical applications of HPSG grammars,
-the full derivation trees and the full feature structures are often unwieldy,
-containing far more information than necessary for the task at hand.
-It is therefore often desirable to extract a concise semantic representation.
-%TODO check the Semantics chapter once it's written
-
-In computational linguistics,
-a popular approach to semantics is to represent the meaning of a sentence as a \textit{dependency graph},
-as this enables the use of graph-based algorithms.\footnote{%
-	In this section, we are concerned with \emph{semantic} dependencies.
-	For \emph{syntactic} dependencies, see \crossrefchaptert{dg}.
-}
-Several types of dependency graph have been proposed
-based on Minimal Recursion Semantics \citep[MRS;][]{CFPS2005a},
-with varying levels of simplification.
-The most expressive is Dependency Minimal Recursion Semantics \citep[DMRS;][]{copestake2009dmrs},
-which is fully interconvertible with MRS.\footnote{%
-	More precisely, there is a one-to-one correspondence between DMRS and MRS structures,
-	if every predicate as a unique \textit{intrinsic variable}.
-	As observed by \citet{oepen2006eds}, this allows a variable-free semantic representation,
-	by replacing each reference to a variable with a reference to the corresponding predicate.
-}
-In contrast, Elementary Dependency Structures \citep[EDS;][]{oepen2006eds}
-lose some scope information,
-which, for many applications, is less important than predicate-argument structure.
-Finally, \delphin\ MRS Dependencies \citep[DM;][]{ivanova2012dm}
-express predicate-argument structure purely in terms of the surface tokens,
-without introducing any abstract predicates.
-A comparison of MRS, DMRS, and DM is given in Figures \ref{cl:fig:mrs} and~\ref{cl:fig:dep}.
-The existence of such dependency graph formalisms,
-as well as software packages to manipulate such graphs \citep{copestake2016pydmrs},
-has made it easier to use HPSG grammars in a number of practical tasks,
-as we will discuss in Section~\ref{cl:downstream}.
-
 
 \begin{figure}
 \centering
@@ -406,7 +376,7 @@ as we will discuss in Section~\ref{cl:downstream}.
 				larg & @7 ],
 			[\asort{qeq}
 				harg & @{11} \\
-				larg & @9 ] \;\Bigg\rangle ]
+				larg & @{13} ] \;\Bigg\rangle ]
 	\end{avm}
 	\caption{MRS, as a feature structure.}
 \end{subfigure}
@@ -494,6 +464,44 @@ as we will discuss in Section~\ref{cl:downstream}.
 \label{cl:fig:dep}
 \end{figure}
 
+In practical applications of HPSG grammars,
+the full derivation trees and the full feature structures are often unwieldy,
+containing far more information than necessary for the task at hand.
+It is therefore often desirable to extract a concise semantic representation.
+%TODO check the Semantics chapter once it's written
+
+In computational linguistics,
+a popular approach to semantics is to represent the meaning of a sentence as a \textit{dependency graph},
+as this enables the use of graph-based algorithms.\footnote{%
+	In this section, we are concerned with \emph{semantic} dependencies.
+	For \emph{syntactic} dependencies, see \crossrefchaptert{dg}.
+}
+Several types of dependency graph have been proposed
+based on Minimal Recursion Semantics \citep[MRS;][]{CFPS2005a},
+with varying levels of simplification.
+The most expressive is Dependency Minimal Recursion Semantics \citep[DMRS;][]{copestake2009dmrs},
+which is fully interconvertible with MRS.\footnote{%
+	More precisely, there is a one-to-one correspondence between DMRS and MRS structures,
+	if every predicate as a unique \textit{intrinsic variable}.
+	As observed by \citet{oepen2006eds}, this allows a variable-free semantic representation,
+	by replacing each reference to a variable with a reference to the corresponding predicate.
+}
+In contrast, Elementary Dependency Structures \citep[EDS;][]{oepen2006eds}
+lose some scope information,
+which, for many applications, is less important than predicate-argument structure.
+Finally, \delphin\ MRS Dependencies \citep[DM;][]{ivanova2012dm}
+express predicate-argument structure purely in terms of the surface tokens,
+without introducing any abstract predicates.
+A comparison of MRS, DMRS, and DM is given in Figures \ref{cl:fig:mrs} and~\ref{cl:fig:dep}.
+The existence of such dependency graph formalisms,
+as well as software packages to manipulate such graphs \citep{copestake2016pydmrs},
+has made it easier to use HPSG grammars in a number of practical tasks,
+as we will discuss in Section~\ref{cl:downstream}.
+
+% Syntactic dependencies?  e.g. in Alpino?
+
+
+
 
 %% \subsection{A brief history of HPSG grammar engineering}
 %% \label{cl:history}
@@ -517,47 +525,62 @@ as we will discuss in Section~\ref{cl:downstream}.
 \section{Development of HPSG resources}
 \label{cl:resources}
 
-In this section we describe various projects that have developed computational resources on the basis of or inspired by HPSG. As we'll discuss in Section~\ref{cl:deployment} below, such resources can be used both in linguistic hypothesis testing as well as in various practical applications. The intended purpose of the resources influences the form that they take. CoreGram (\S\ref{cl:coregram}) is primarily targeted as linguistic hypothesis testing, the Enju and Alpino parsers desdribed in Section~\ref{cl:enjualpino} primarily at practical applications, and the resources produced by the \delphin\ Consortium (\S\ref{cl:delphin}) attempt to balance the two.
+In this section we describe various projects that have developed computational resources on the basis of or inspired by HPSG.
+As we'll discuss in Section~\ref{cl:deployment} below,
+such resources can be used both in linguistic hypothesis testing as well as in various practical applications.
+The intended purpose of the resources influences the form that they take.
+the CoreGram Project (section~\ref{cl:coregram}) primarily targets linguistic hypothesis testing,
+the Enju and Alpino parsers (section~\ref{cl:othergrammars}) primarily target practical applications,
+and the \delphin\ Consortium (section \ref{cl:delphin}) attempts to balance these two goals.
 
-% First draft: DELPH-IN, Emily / non-DELPH-IN, Guy
 
 \subsection{CoreGram}
 \label{cl:coregram}
 
-\subsection{HPSG-inspired broad-coverage parsing}
-\label{cl:enjualpino}
+The CoreGram\footnote{
+	\url{https://hpsg.hu-berlin.de/Projects/CoreGram.html}
+} Project
+aims to produce large-scale HPSG grammars,
+which share a common `core' grammar \citep{MuellerCoreGram}.
+% https://hpsg.hu-berlin.de/~stefan/Pub/coregram.pdf
+% https://hpsg.hu-berlin.de/~stefan/Pub/coregram-brief.pdf
+At the time of writing, large grammars have been produced for
+German \citep{},
+Danish \citep{},
+Persian \citep{},
+Maltese \citep{},
+and Mandarin \citep{}.
+Smaller grammars are also available for English, Yiddish, Spanish, French, and Hindi.
 
-% Alpino, Enju
+All grammars are implemented
+in the TRALE system \citep{MPR2002a-u,Penn2004a-u},
+which accommodates a wide range of technical devices proposed in the literature, including:
+phonologically empty elements,
+relational constraints,
+implications with complex antecedents,
+cyclic feature structures,
+and macros.
+It also allows an expressive morphological component.
 
-% Alpino cites from Gertjan:
+An important part of CoreGram is the sharing of grammatical constraints across grammars.
+Some general constraints hold for all grammars,
+while others hold for a subset of the grammars,
+and some only hold for a single grammar.
+\citet{MuellerCoreGram} describes this as a ``bottom-up approach with cheating''
+-- the aim is to analyse each language on its own terms (hence ``bottom-up''),
+but to re-use analyses from existing grammars, if possible (hence ``with cheating'').
 
-%% Gosse Bouma, Gertjan van Noord, Robert Malouf. Alpino: Wide Coverage Computational Analysis of Dutch. In: Computational Linguistics in the Netherlands CLIN 2000.
 
-%% Leonoor van der Beek, Gosse Bouma, Gertjan van Noord. Een brede computationele grammatica voor het Nederlands. Nederlandse Taalkunde, jaargang 7, 2002-4. [in Dutch]. 353--374. 
-
-%% Gertjan van Noord. At Last Parsing Is Now Operational. In: Piet Mertens, Cedrick Fairon, Anne Dister, Patrick Watrin (editors): TALN06. Verbum Ex Machina. Actes de la 13e conference sur le traitement automatique des langues naturelles. Page 20--42.
-
-%% Gertjan van Noord. Self-trained Bilexical Preferences to Improve Disambiguation Accuracy. In: Harry Bunt, Paola Merlo and Joakim Nivre (editors), Trends in Parsing Technology. Dependency Parsing, Domain Adaptation, and Deep Parsing. Springer Verlag. pp 183-200. 2010.
-
-%% Barbara Plank and Gertjan van Noord. Dutch Dependency Parser Performance Across Domains. In: Proceedings of the 20th Meeting of Computational Linguistics in the Netherlands. 
-
-%% Daniël de Kok and Barbara Plank and Gertjan van Noord. Reversible Stochastic Attribute-value Grammars. In: ACL 2011.
-
-%% Gertjan van Noord, Robert Malouf. Wide Coverage Parsing with Stochastic Attribute Value Grammars. Draft. Improved version of:
-
-%% Robert Malouf, Gertjan van Noord. Wide Coverage Parsing with Stochastic Attribute Value Grammars. In: IJCNLP-04 Workshop Beyond Shallow Analyses - Formalisms and statistical modeling for deep analyses. 
-
-%% all are available from http://www.let.rug.nl/vannoord/papers/
 
 \subsection{The \delphin\ Consortium}
 \label{cl:delphin}
 
-The \delphin\footnote{This acronym stands for DEep Linguistic
-  Processing in \textsc{Hpsg} INitiative; see \url{www.delph-in.net}} Consortium
+The \delphin\footnote{This stands for DEep Linguistic
+  Processing in \textsc{Hpsg} INitiative; see \url{http://www.delph-in.net}} Consortium
 was established in 2001 to facilitate the development of large-scale,
-linguisticaly motivated HPSG grammars for multiple languages in tandem
+linguistically motivated HPSG grammars for multiple languages in tandem
 with the software required for developing them and deploying them in
-pratical applications. At the time that \delphin\ was founded, the
+practical applications. At the time that \delphin\ was founded, the
 English Resource Grammar
 \citep[ERG;][]{Flickinger2000a,Flickinger2011a-u} had been under
 development already for 8 years and the Verbmobil project
@@ -587,14 +610,13 @@ is, both grammars and meta-grammars (including the Matrix and CLIMB
 knowledge for parsing and generation (discussed further below);
 software for supporting the development of grammar documentation
 \citep[\eg][]{Hashimoto-etal:07}, software for creating treebanks
-\citep[see also \S\ref{cl:treebanks} below]{OFTM2004a-u,Packard:15}, 
+\citep[see also section~\ref{cl:treebanks} below]{OFTM2004a-u,Packard:15}, 
 and parse ranking models trained on them
-\citep[see also \S\ref{cl:prac:rank} above]{Tou:Man:Fli:Oep:05}, and
+\citep[see also section~\ref{cl:prac:rank} above]{Tou:Man:Fli:Oep:05}, and
 software for robust processing, \ie\ using the knowledge encoded in
 the grammars to return analyses for sentences even if the grammar
 deems them ungrammatical
 \citep{jigsaw,buys2017parse,chen2018parse}.
-
 
 A key accomplishment of the \delphin\ Consortium is the standardization
 of a formalism for the declaration of grammars
@@ -618,7 +640,7 @@ and of multilingual downstream systems which can be adapted to additional
 languages by plugging in different grammars.
 
 The \delphin\ community maintains research interests in both
-linguistics an practical applications. The focus on linguistics means
+linguistics and practical applications. The focus on linguistics means
 that \delphin\ grammarians strive to create grammars which capture
 linguistic generalizations and model grammaticality. This, in turn,
 leads to grammars with lower ambiguity than one finds with
@@ -638,13 +660,72 @@ representations can serve as a suitable interface for external
 components. 
 % EMB 2018-12-21 I can probably put in citations for all of those
 % things. Worth it, or too busy?
-From a linguistic point of view, these efforts
-are also valuable. First, the broader/more robust the coverage of
-a grammar is, the more linguistic phenomena it can be used to explore.
+% GE 2019-01-29 Probably okay like this,
+% as long as those citations are discussed elsewhere in the chapter
+From a linguistic point of view, these efforts are also valuable.
+First, the broader the coverage of a grammar,
+the more linguistic phenomena it can be used to explore.
 Second, external constraints on the form of semantic representations provide
 useful guide points in the development of semantic analyses. 
 % EMB 2018-12-21 I don't have a cite for that one --- just personal
 % experience...
+
+
+\subsection{Other HPSG and HPSG-inspired broad-coverage grammars}
+\label{cl:othergrammars}
+
+\subsubsection{Alpino}
+\label{cl:other:alpino}
+
+Alpino\footnote{%
+	\url{http://www.let.rug.nl/vannoord/alp/Alpino/}
+}
+is a broad-coverage grammar of Dutch \citep{BvNM2001a-u,vannoord2005alpino,vannoord2006alpino}.
+% https://www.let.rug.nl/vannoord/papers/alpino.pdf
+% https://www.let.rug.nl/vannoord/papers/wcpsavg.pdf
+% http://talnarchives.atala.org/TALN/TALN-2006/taln-2006-invite-002.pdf
+
+Produces syntactic dependencies.
+Although these differ from the semantic dependencies discussed in section~\ref{cl:prac:dep},
+a common motivation is to make the representations easier to use in practical applications.
+
+The same statistical model is used in both parsing and generation \citep{dekok2011reversible}.
+
+
+
+\subsubsection{Enju}
+\label{cl:other:enju}
+
+Enju\footnote{%
+	\url{http://www.nactem.ac.uk/enju/}
+}
+is a broad-coverage grammar of English,
+semi-automatically acquired from the Penn Treebank \citep{MNT2005a-u}.
+% 2008 https://www.mitpressjournals.org/doi/pdf/10.1162/coli.2008.34.1.35
+
+%TODO http://www.nactem.ac.uk/enju/
+
+
+\subsubsection{Babel}
+\label{cl:other:babel}
+
+Babel is a broad-coverage grammar of German \citep{Babel,Mueller99a}.
+One interesting feature of this grammar is that
+it makes extensive use of discontinuous constituents \citep{Mueller2004b}.
+Although this makes the worst-case parsing complexity much worse,
+parsing speed doesn't seem to suffer in practice.
+This mirrors the findings of \citet{Carroll94},
+discussed in section~\ref{cl:prac:comp} above.
+
+% Notes from Stefan:
+%% I have a candidate for being listed under "other". In 93 I started to
+%% work on an HPSG implementation implemented in Prolog. The Babel system
+%% had the largest German grammar at the time and the processing system was
+%% the fastest. It was orders of magnitute better than what IBM had and
+%% people like Wahlster were impressed that one guy could do both grammar
+%% and system, something IBM spent one or more Millions on.
+
+
 
 
 
@@ -679,10 +760,10 @@ Matrix for specific languages, it is not uncommon to find reasons to
 refine the core grammar. The libraries, in turn, are intended to 
 cover the attested range of variation for the phenomena they model.
 Languages that are not covered by the analyses in the libraries provide
-evidence that they need to be extended to refined. 
+evidence that the libraries need to be extended or refined. 
 
 Grammar Matrix grammar development is less tightly coordinated than
-that of CoreGram (see \S\ref{cl:coregram}): in the typical use case,
+that of CoreGram (see section~\ref{cl:coregram}): in the typical use case,
 grammar developers start from the Grammar Matrix, but with their own
 independent copy of the Matrix core grammar. This impedes somewhat the
 ability of the Matrix to adapt to the needs of various languages
@@ -715,7 +796,7 @@ as yet not well-understood.\footnote{This methodology of using an
   of corpora is demonstrated for English by \cite{Baldwin-et-al-04,Baldwin-et-al-05}.}
 Furthemore, treebanks constructed from implemented grammars can be
 tremendously valuable additions to language documentation (see
-\S\ref{cl:treebanks} below). However, the process of building an
+section~\ref{cl:treebanks} below). However, the process of building an
 implemented grammar is time-consuming, even with the start provided by
 a multilingual grammar engineering project like CoreGram or the
 Grammar Matrix.
@@ -736,13 +817,20 @@ language-particular grammars.
 * High-level properties (case system, word order)
 * End-to-end prototype for one language merging those all
 
-\subsubsection{Derived resources: Redwoods-style treebanks}
+
+\subsubsection{Derived resources: Treebanks}
 \label{cl:treebanks}
 %Emily
+
+Redwoods-style treebanks
 
 Treebank search
 
 Language documentation
+
+Alpino Dependency Treebank \citep{vanderbeek2002alpino}.
+Universal Dependencies.
+
 
 \subsection{Downstream applications}
 \label{cl:downstream}
@@ -801,6 +889,14 @@ Some systems use DM (Schuster et al.)...
 Information extraction.
 \citet{schaefer2011acl}.
 \citet{reiplinger2012glossary}.
+\citet{miyao2008protein} Enju, protein-protein interaction.
+
+Some phenomena are particularly important, such as negation and speculation.
+\citet{packard2014neg} negation, general purpose.
+More specifically...
+\citet{velldal2012specneg} biomedical, negation and speculation.
+\citet{mackinlay2012biomed} biomedical event extraction, negation and speculation.
+\citet{zamaraeva2018pathology} scope of negation for pathology reports.
 
 Summarization.
 \citet{fang2016summarise}
@@ -814,6 +910,8 @@ Statistical without transfer,
 
 Distributional semantics.
 \citet{emerson2018functional}.
+
+%TODO check http://www.let.rug.nl/vannoord/papers/
 
 
 
@@ -838,74 +936,7 @@ Evaluation of deep learning systems
 \citet{kuhnle2018shapeworld}.
 
 
-\subsection{Other?}
 
-Alpino?
-
-Enju?
-
-Babel
-
-% Notes from Stefan:
-%% I have a candidate for being listed under "other". In 93 I started to
-%% work on an HPSG implementation implemented in Prolog. The Babel system
-%% had the largest German grammar at the time and the processing system was
-%% the fastest. It was orders of magnitute better than what IBM had and
-%% people like Wahlster were impressed that one guy could do both grammar
-%% and system, something IBM spent one or more Millions on.
-
-%% These are the papers:
-
-%% @inproceedings{Babel,
-%%         Address = {London},
-%%         Author = {Stefan Müller},
-%%         Booktitle = {Proceedings of the {Fourth International Conference on the
-%% Practical Application of Prolog}},
-%%         Cited = {Kaufmann2009 Diss, Check: Ulrich Schmitz, 1997 [mit Elisabeth
-%% Cölfen/ Hermann Cölfen:] Linguistik im Internet. Das Buch zum Netz - mit
-%% CD-ROM. Opladen: Westdeutscher Verlag},
-%%         Date-Modified = {2017-06-18 09:15:51 +0000},
-%%         Opturl = {https://hpsg.hu-berlin.de/~stefan/Pub/babel.html},
-%%         Opturldate = today,
-%%         Pages = {263--277},
-%%         Title = {The {Babel-System}: {An} {HPSG} Fragment for {German}, a
-%% Parser, and a Dialogue Component},
-%%         Year = {1996}}
-
-%% @article{Mueller2004b,
-%%         Author = {Stefan Müller},
-%%         Cited = {KaySag2009, Bender2008: Wambaya, Michael W. Daniels and W.
-%% Detmar Meurers: GIDLP: A Grammar Format For Linearization-based HPSG,
-%% HPSG 2004},
-%%         Date-Modified = {2014-03-25 14:36:04 +0000},
-%%         Editor = {Walt Detmar Meurers and Shuly Wintner and Erhard W. Hinrichs},
-%%         Journal = {Research on Language and Computation, Special Issue on
-%% Linguistic Theory and Grammar Implementation},
-%%         Number = {2},
-%%         Opturl = {https://hpsg.hu-berlin.de/~stefan/Pub/discont.html},
-%%         Opturldate = today,
-%%         Pages = {209--257},
-%%         Title = {Continuous or Discontinuous Constituents? {A} Comparison
-%% between Syntactic Analyses for Constituent Order and Their Processing
-%% Systems},
-%%         Volume = {2},
-%%         Year = {2004}}
-
-%% The grammar and phenomena are documented in my thesis:
-
-%% @book{Mueller99a,
-%%         Address = {Tübingen},
-%%         Author = {Stefan Müller},
-%%         Date-Modified = {2015-02-15 11:49:36 +0000},
-%%         Number = {394},
-%%         Opturl = {https://hpsg.hu-berlin.de/~stefan/Pub/hpsg.html},
-%%         Opturldate = today,
-%%         Publisher = Niemeyer,
-%%         Series = {Linguistische Arbeiten},
-%%         Title = {{Deutsche Syntax deklarativ: {Head-Driven Phrase Structure
-%% Grammar} für das Deutsche}},
-%%         Verkauf = {Sommer 149, 31.12.99 181, 15.03.2010},
-%%         Year = {1999}}
 
 
 \section{Linguistic Insights}
