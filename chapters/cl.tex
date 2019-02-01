@@ -72,7 +72,7 @@ There are several properties of HPSG as a theory that make it well-suited to com
 A second important property of HPSG that supports a strong connection between theoretical and computational work is an interest in both so-called `core' and so-called `peripheral' phenomena. Most implemented grammars are built with the goal of handling naturally occurring text.\footnote{It is possible, but less common, to do implementation work strictly against testsuites of sentences constructed specifically to focus on phenomena of interest.} This means that they will need to handle a wide variety of linguistic phenomena not always treated in theoretical syntactic work \citep{Baldwin-et-al-04,Baldwin-et-al-05}. A syntactic framework that excludes research on `peripheral' phenomena as uninteresting provides less support for implementational work than does one, like HPSG or Construction Grammar, that values such topics
 \crossrefchapterp[for a comparison of HPSG and Construction Grammar, see]{cxg}.
 
-Finally, the type hierarchy characteristic of HPSG lends itself well to developing broad-coverage grammars which are maintainable over time \citep{FIXME-find-cite?}. The use of the type hierarchy to manage complexity at scale comes out of the work of \citet{Flickinger87} and others at HP labs in the project where HPSG was originally developed. The core idea is that any given constraint is (ideally) expressed only once on types which serve as supertypes to all entities that bear that constraint.\footnote{Originally this only applied to lexical entries in Flickinger's work. Now it also applies phrase structure rules, lexical rules, and types below the level of the sign which are used in the definition of all of these.} Such constraints might represent broad generalizations that apply to many entities or relatively narrow, indiosyncratic properties. By isolating any given constraint on one type (as opposed to repeating it in mutiple places), we build grammars that are easier to update and adapt in light of new data that require refinements to constraints. Having a single locus for each constraint also makes the types a very useful target for documentation \citep{Hashimoto-etal:07} and grammar exploration \citep{Letcher:18}. 
+Finally, the type hierarchy characteristic of HPSG lends itself well to developing broad-coverage grammars which are maintainable over time (see \citealt{Syg:Win:11}). The use of the type hierarchy to manage complexity at scale comes out of the work of \citet{Flickinger87} and others at HP labs in the project where HPSG was originally developed. The core idea is that any given constraint is (ideally) expressed only once on types which serve as supertypes to all entities that bear that constraint.\footnote{Originally this only applied to lexical entries in Flickinger's work. Now it also applies phrase structure rules, lexical rules, and types below the level of the sign which are used in the definition of all of these.} Such constraints might represent broad generalizations that apply to many entities or relatively narrow, indiosyncratic properties. By isolating any given constraint on one type (as opposed to repeating it in mutiple places), we build grammars that are easier to update and adapt in light of new data that require refinements to constraints. Having a single locus for each constraint also makes the types a very useful target for documentation \citep{Hashimoto-etal:07} and grammar exploration \citep{Letcher:18}. 
 
 
 \subsection{Practical considerations}
@@ -529,13 +529,13 @@ In this section we describe various projects that have developed computational r
 As we'll discuss in Section~\ref{cl:deployment} below,
 such resources can be used both in linguistic hypothesis testing as well as in various practical applications.
 The intended purpose of the resources influences the form that they take.
-the CoreGram Project (section~\ref{cl:coregram}) primarily targets linguistic hypothesis testing,
+The CoreGram Project (section~\ref{cl:coregram:1}) primarily targets linguistic hypothesis testing,
 the Enju and Alpino parsers (section~\ref{cl:othergrammars}) primarily target practical applications,
 and the \delphin\ Consortium (section \ref{cl:delphin}) attempts to balance these two goals.
 
 
 \subsection{CoreGram}
-\label{cl:coregram}
+\label{cl:coregram:1}
 
 The CoreGram\footnote{
 	\url{https://hpsg.hu-berlin.de/Projects/CoreGram.html}
@@ -566,8 +566,7 @@ An important part of CoreGram is the sharing of grammatical constraints across g
 Some general constraints hold for all grammars,
 while others hold for a subset of the grammars,
 and some only hold for a single grammar.
-\citet{MuellerCoreGram} describes this as a ``bottom-up approach with cheating''
--- the aim is to analyse each language on its own terms (hence ``bottom-up''),
+\citet{MuellerCoreGram} describes this as a ``bottom-up approach with cheating''\,---\,the aim is to analyse each language on its own terms (hence ``bottom-up''),
 but to re-use analyses from existing grammars, if possible (hence ``with cheating'').
 
 
@@ -610,9 +609,9 @@ is, both grammars and meta-grammars (including the Matrix and CLIMB
 knowledge for parsing and generation (discussed further below);
 software for supporting the development of grammar documentation
 \citep[\eg][]{Hashimoto-etal:07}, software for creating treebanks
-\citep[see also section~\ref{cl:treebanks} below]{OFTM2004a-u,Packard:15}, 
+(\citealt{OFTM2004a-u,Packard:15}; see also section~\ref{cl:treebanks} below), 
 and parse ranking models trained on them
-\citep[see also section~\ref{cl:prac:rank} above]{Tou:Man:Fli:Oep:05}, and
+(\citealt{Tou:Man:Fli:Oep:05}; see also section~\ref{cl:prac:rank} above), and
 software for robust processing, \ie\ using the knowledge encoded in
 the grammars to return analyses for sentences even if the grammar
 deems them ungrammatical
@@ -631,9 +630,9 @@ parsing and generation engines which can all process the same grammars
 \citep{callmeier00},
 ACE,\footnote{\url{http://sweaglesw.org/linguistics/ace/}} and Agree
 \citep{Slayden2012a-u}), of multiple software systems for processing
-bulk grammar output \citep{Oepen:01,FIXME-art,FIXME-PyDelphin},\footnote{%
+bulk grammar output (\itsdb\ \citep{Oepen:01}, art\footnote{FIXME: Find URL}, PyDelphin\footnote{%
 	\url{https://github.com/delph-in/pydelphin/}
-}
+})
 % GE 2019-01-17 PyDelphin doesn't have an obvious citation...
 % maybe best to refer to systems by name?
 and of multilingual downstream systems which can be adapted to additional
@@ -650,11 +649,11 @@ leads to several kinds of research goals: (1) robustness measures such
 as techniques for handling unknown words and extra-grammatical mark-up
 in text (\eg\ Wikipedia pages) and strategies for processing inputs
 that are ungrammatical (at least according to the grammar); (2)
-performance innovations, such as supertagging or ubertagging to speech
+performance innovations, such as supertagging or ubertagging to speed
 up processing times and pre-processors that provide partial
 information about constituent boundaries to narrow the search space;
 (3) the integration of external components such as morphological
-analyzers, named entity recognizers; (4) parse and realization
+analyzers and named entity recognizers; (4) parse and realization
 ranking; and (5) work towards making sure that the semantic
 representations can serve as a suitable interface for external
 components. 
@@ -768,10 +767,10 @@ grammar developers start from the Grammar Matrix, but with their own
 independent copy of the Matrix core grammar. This impedes somewhat the
 ability of the Matrix to adapt to the needs of various languages
 (unless grammar developers report back to the Matrix developers).  On
-the other, hand the Matrix libraries represent an additional kind of
+the other hand, the Matrix libraries represent an additional kind of
 linguistic hypothesis testing: each library on its own represents one
 linguistic phenomenon, but the libraries must be interoperable with
-each other. This is cross-linguistic analogue of how monolingual
+each other. This is the cross-linguistic analogue of how monolingual
 implemented grammars allow linguists to ensure that analyses of
 different phenomena are interoperable
 \citep{Mueller99a,Bender2008c-Short}: the Grammar Matrix customization
@@ -793,7 +792,7 @@ unglossed text in order to find relevant examples more quickly, both
 of phenomena that have already been analyzed and of phenomena that are
 as yet not well-understood.\footnote{This methodology of using an
   implemented grammar as a sieve to sift the interesting examples out
-  of corpora is demonstrated for English by \cite{Baldwin-et-al-04,Baldwin-et-al-05}.}
+  of corpora is demonstrated for English by \cite{Baldwin-et-al-05}.}
 Furthemore, treebanks constructed from implemented grammars can be
 tremendously valuable additions to language documentation (see
 section~\ref{cl:treebanks} below). However, the process of building an
@@ -811,25 +810,76 @@ properties or specific constraints on lexical classes and lexical
 rules.  The goal of AGGREGATION is to automatically produce such
 grammar specifications on the basis of information encoded in IGT, to
 be used by the Grammar Matrix customization system to produce
-language-particular grammars.
+language-particular grammars. AGGREGATION uses different approaches
+for different linguistic subsystems. For example, it learns
+morphotactics by observing morpheme order in the training data, and
+the grouping affixes together into position classes based on measures
+of overlap of stems they attach to \citep{Wax:14,Zamaraeva:17}. For
+many kinds of syntactic information, it leverages syntactic structure
+projected from the translation line (English, easily parsed with
+current tools) through the gloss line (which facilitates aligning the
+language and translation lines) to the language line
+\citep{Xia:Lew:07,Georgi:16}. Using this projected information, the
+AGGREGATION system can detect case frames for verbs, word order
+patterns, etc.\ \citep{Ben:Goo:Cro:Xia:13,Zam:How:Ben:19}.
 
-* Morphotactics
-* High-level properties (case system, word order)
-* End-to-end prototype for one language merging those all
-
-
-\subsubsection{Derived resources: Treebanks}
+\subsubsection{Derived resources: Treebanks and Sembanks}
 \label{cl:treebanks}
 %Emily
 
-Redwoods-style treebanks
+A particularly valuable type of resource that can be derived from HPSG
+grammars are treebanks and sembanks. A treebank is a collection of
+text where each sentence is associated with a syntactic
+representation. A sembank has semantic representations (in some cases
+in addition to the syntactic ones). Treebanks and sembanks can be used
+for linguistic research, as the analyses allow for more detailed
+phenomenon-based searches \citep{FIXME-tgrep,FIXME-fangorn}. In the
+context of language documentation and description, searchable
+treebanks can also be a valuable addition, helping readers connect
+prose descriptions of linguistic phenomena to multiple examples in the
+corpus \citep{Ben:Gho:Bal:Dri:12}. In natural language processing,
+treebanks and sembanks are critical source material for training
+stochastic and neural parsers \citep{FIXME}.
 
-Treebank search
+Traditional treebanks are created by doing a certain amount of
+preprocessing on data, including possibly chunking or CFG parsing, and
+then hand-correcting the result \citep{FIXME-PTB,FIXME-AMR}. While this
+approach is a means to encode human insight about linguistic structure
+for later automatic processing, it is both inefficient and potentially
+error-prone. The Redwoods project addresses these limitations by
+producing grammar-driven treebanks \citep{OFTM2004a-u}. This is done by
+first parsing the corpus with the grammar. For each sentence that has
+at least one parse, the treebanking software stores a \emph{parse
+  forest} or collection of derivations representing the range of
+analyses found by the grammar. The parse forest is used to calculate
+\emph{discriminants} \ie\ properties true of some but not all trees in
+the parse forest \citep{Carter:97}. The manual annotation task, then,
+involves selecting among the discriminants. There are typically far
+fewer discriminants than trees and there are dependencies between
+discriminants so that annotation can be done by specifically choosing
+only a small minority of them per item. Furthermore, the task of
+choosing discriminants is much easier to do consistently than that of
+creating annotations at the level of detail that a grammar-produced
+representation can have \citep{Bender2015LayersOI}. Finally, the
+treebanking software stores not only the final tree that was selected,
+but also the decisions the annotator made about each
+discriminant. Thus when the grammar is updated to include for example
+a refinement to the semantic representations, the corpus can be
+reparsed and the decisions replayed, leaving only a small amount of
+further annotation work to be done to handle any additional ambguity
+introduced. The activity of treebanking in turn provides useful
+insight into grammatical analyses, including sources of spurious
+ambiguity and phenomena that are not yet properly handled and thus
+informs and spurs further grammar development.
+% EMB 2019-01-31: Some of this is covered above in parsing. We should
+% see what's really needed in both places and then streamline.
 
-Language documentation
+A downside to grammar-based treebanking is that only items for which the
+grammar finds a reaonsable parse can be included in the treebank. For many
+applications, this is not a drawback so long as there is sufficient and sufficiently varied sentences that do receive analyses. 
 
-Alpino Dependency Treebank \citep{vanderbeek2002alpino}.
-Universal Dependencies.
+* Alpino Dependency Treebank \citep{vanderbeek2002alpino}.
+* Universal Dependencies.
 
 
 \subsection{Downstream applications}
