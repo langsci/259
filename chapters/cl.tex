@@ -833,8 +833,7 @@ text where each sentence is associated with a syntactic
 representation. A sembank has semantic representations (in some cases
 in addition to the syntactic ones). Treebanks and sembanks can be used
 for linguistic research, as the analyses allow for more detailed
-phenomenon-based searches \citep{FIXME-tgrep,FIXME-fangorn}. In the
-context of language documentation and description, searchable
+structure-based searches for phenomena of interest \citep{Rohde:05,Gho:Bir:10,Kou:Oep:14}. In the context of language documentation and description, searchable
 treebanks can also be a valuable addition, helping readers connect
 prose descriptions of linguistic phenomena to multiple examples in the
 corpus \citep{Ben:Gho:Bal:Dri:12}. In natural language processing,
@@ -843,43 +842,55 @@ stochastic and neural parsers \citep{FIXME}.
 
 Traditional treebanks are created by doing a certain amount of
 preprocessing on data, including possibly chunking or CFG parsing, and
-then hand-correcting the result \citep{FIXME-PTB,FIXME-AMR}. While this
-approach is a means to encode human insight about linguistic structure
-for later automatic processing, it is both inefficient and potentially
-error-prone. The Redwoods project addresses these limitations by
-producing grammar-driven treebanks \citep{OFTM2004a-u}. This is done by
-first parsing the corpus with the grammar. For each sentence that has
-at least one parse, the treebanking software stores a \emph{parse
-  forest} or collection of derivations representing the range of
-analyses found by the grammar. The parse forest is used to calculate
-\emph{discriminants} \ie\ properties true of some but not all trees in
-the parse forest \citep{Carter:97}. The manual annotation task, then,
-involves selecting among the discriminants. There are typically far
-fewer discriminants than trees and there are dependencies between
-discriminants so that annotation can be done by specifically choosing
-only a small minority of them per item. Furthermore, the task of
-choosing discriminants is much easier to do consistently than that of
-creating annotations at the level of detail that a grammar-produced
-representation can have \citep{Bender2015LayersOI}. Finally, the
-treebanking software stores not only the final tree that was selected,
-but also the decisions the annotator made about each
-discriminant. Thus when the grammar is updated to include for example
-a refinement to the semantic representations, the corpus can be
-reparsed and the decisions replayed, leaving only a small amount of
-further annotation work to be done to handle any additional ambguity
-introduced. The activity of treebanking in turn provides useful
-insight into grammatical analyses, including sources of spurious
-ambiguity and phenomena that are not yet properly handled and thus
-informs and spurs further grammar development.
-% EMB 2019-01-31: Some of this is covered above in parsing. We should
-% see what's really needed in both places and then streamline.
+then hand-correcting the result \citep{Mar:San:Mar:93,Ban:Bon:Cai:13}.
+While this approach is a means to encode human insight about
+linguistic structure for later automatic processing, it is both
+inefficient and potentially error-prone. The Alpino project
+\citep{vanderbeek2002alpino} addresses this by first parsing the text
+with a broad-coverage HPSG-inspired grammar of Dutch and then having
+annotators select among the parses. The selection process is
+facilitated by allowing the annotators to mark potential lexical
+entries for words in the sentence at hand as correct, possibly
+correct, or wrong and to pre-mark some constituent boundaries. These
+constraints reduce the search space for the parser and consequently
+also the range of analyses the annotator has to consider before
+choosing one. A facility for adding one-off lexical entries to handle
+\eg\ misspellings helps increase grammar coverage.  Disambiguation is
+handled with the aid of \emph{discriminants} \ie\ properties true of
+some but not all trees in the parse forest \citep{Carter:97}. Finally,
+the annotators may further edit analyses deemed insufficient. Though
+the underlying grammar is based on HPSG, the treebank stores
+dependency representations instead.  The Alpino parser was similarly
+used to construct the Lassy treebanks of written Dutch
+\citep{van:bou:van:13}.  In more recent work, these dependency
+representations have been mapped to the Universal Dependencies (UD)
+annotation standards \citep{Niv:Mar:Gin:16} to produce a UD treebank
+for Dutch \citep{Bou:Van:17}.
 
-A downside to grammar-based treebanking is that only items for which the
-grammar finds a reaonsable parse can be included in the treebank. For many
-applications, this is not a drawback so long as there is sufficient and sufficiently varied sentences that do receive analyses. 
+The Redwoods project \citep{OFTM2004a-u} also produces grammar-driven
+treebanks, in this case for English and without any post-editing of
+analyses.\footnote{There are also Redwoods-style treebanks for other
+  languages, including the Hinoki Treebank of Japanese
+  \citep{bond:etal:2004} and the Tibdabo Treebank of Spanish
+  \citep{marimon:2015}}.  As with Alpino, this is done by first
+parsing the corpus with the grammar and calcuating the discriminants
+for each parse forest.  Finally, the treebanking software stores not
+only the final full HPSG analysis that was selected, but also the
+decisions the annotator made about each discriminant. Thus when the
+grammar is updated to include for example a refinement to the semantic
+representations, the corpus can be reparsed and the decisions
+replayed, leaving only a small amount of further annotation work to be
+done to handle any additional ambguity introduced. The activity of
+treebanking in turn provides useful insight into grammatical analyses,
+including sources of spurious ambiguity and phenomena that are not yet
+properly handled and thus informs and spurs further grammar
+development.  A downside to strictly grammar-based treebanking is that
+only items for which the grammar finds a reaonsable parse can be
+included in the treebank. For many applications, this is not a
+drawback so long as there is sufficient and sufficiently varied
+sentences that do receive analyses.
 
-* Alpino Dependency Treebank \citep{vanderbeek2002alpino}.
-* Universal Dependencies.
+
 
 
 \subsection{Downstream applications}
