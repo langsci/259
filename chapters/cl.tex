@@ -85,7 +85,7 @@ such as software for parsing, generation, and grammar exploration
 	and so these implementations are unlikely to be useful for testing theoretical ideas as the theory moves on.
 }
 
-A second important property of HPSG that supports a strong connection between theoretical and computational work is an interest in both so-called `core' and so-called `peripheral' phenomena. Most implemented grammars are built with the goal of handling naturally occurring text.\footnote{It is possible, but less common, to do implementation work strictly against testsuites of sentences constructed specifically to focus on phenomena of interest.} This means that they will need to handle a wide variety of linguistic phenomena not always treated in theoretical syntactic work \citep{Baldwin-et-al-04,Baldwin-et-al-05}. A syntactic framework that excludes research on `peripheral' phenomena as uninteresting provides less support for implementational work than does one, like HPSG or Construction Grammar, that values such topics
+A second important property of HPSG that supports a strong connection between theoretical and computational work is an interest in both so-called `core' and so-called `peripheral' phenomena. Most implemented grammars are built with the goal of handling naturally occurring text.\footnote{It is possible, but less common, to do implementation work strictly against test suites of sentences constructed specifically to focus on phenomena of interest.} This means that they will need to handle a wide variety of linguistic phenomena not always treated in theoretical syntactic work \citep{Baldwin-et-al-04,Baldwin-et-al-05}. A syntactic framework that excludes research on `peripheral' phenomena as uninteresting provides less support for implementational work than does one, like HPSG or Construction Grammar, that values such topics
 \crossrefchapterp[for a comparison of HPSG and Construction Grammar, see]{cxg}.
 
 Finally, the type hierarchy characteristic of HPSG lends itself well to developing broad-coverage grammars which are maintainable over time (see \citealt{Syg:Win:11}). The use of the type hierarchy to manage complexity at scale comes out of the work of \citet{Flickinger87} and others at HP labs in the project where HPSG was originally developed. The core idea is that any given constraint is (ideally) expressed only once on types which serve as supertypes to all entities that bear that constraint.\footnote{Originally this only applied to lexical entries in Flickinger's work. Now it also applies phrase structure rules, lexical rules, and types below the level of the sign which are used in the definition of all of these.} Such constraints might represent broad generalizations that apply to many entities or relatively narrow, indiosyncratic properties. By isolating any given constraint on one type (as opposed to repeating it in mutiple places), we build grammars that are easier to update and adapt in light of new data that require refinements to constraints. Having a single locus for each constraint also makes the types a very useful target for documentation \citep{Hashimoto-etal:07} and grammar exploration \citep{Letcher:18}. 
@@ -201,7 +201,7 @@ and on the other hand, when a grammar writer is confronted
 with multiple possible analyses for a particular construction,
 they may opt for the analysis that is more efficient for a particular parsing algorithm \citep{Flickinger2000a}.
 To measure the efficiency of grammars and parsing algorithms in practice,
-it can be helpful to use a \textit{testsuite} composed of a representative sample of sentences \citep{OF98}.
+it can be helpful to use a test suite composed of a representative sample of sentences \citep{OF98}.
 
 % GE: maybe look at evolution.tex, {Implementations and Applications of HPSG}
 % GE: Maybe this last paragraph is too terse?
@@ -562,8 +562,8 @@ In this section we describe various projects that have developed computational r
 As we'll discuss in Section~\ref{cl:deployment} below,
 such resources can be used both in linguistic hypothesis testing as well as in various practical applications.
 The intended purpose of the resources influences the form that they take.
-The CoreGram Project (section~\ref{cl:coregram}) primarily targets linguistic hypothesis testing,
-the Enju and Alpino parsers (section~\ref{cl:othergrammars}) primarily target practical applications,
+The CoreGram Project (Section~\ref{cl:coregram}) primarily targets linguistic hypothesis testing,
+the Enju and Alpino parsers (Section~\ref{cl:othergrammars}) primarily target practical applications,
 and the \delphin\ Consortium (section \ref{cl:delphin}) attempts to balance these two goals.
 
 
@@ -606,15 +606,24 @@ and some only hold for a single grammar.
 ``bottom-up approach with cheating''\,---\,the aim is
 to analyse each language on its own terms (hence ``bottom-up''),
 but to re-use analyses from existing grammars if possible (hence ``with cheating'').
+The use of a core set of constraints is motivated not just for practical reasons,
+but also for theoretical ones.
+By developing multiple grammars in parallel,
+analyses can be improved by cross-linguistic comparison.
+The constraints encoded in the core grammar
+can be seen as a hypothesis about the structure of human language,
+as we will discuss in Section~\ref{cl:lang-doc:coregram}.
 
-Not just practical, also theoretical:
-developing multiple grammars in parallel,
-improving analyses by cross-linguistic comparison.
-
-Testsuites with tsdb++,
-inspecting side effects.
-
-% TODO
+CoreGram grammar development aims to incrementally increase coverage of each language.
+To measure progress, grammars are evaluated against test suites,
+collections of sentences each annotated with a grammaticality judgment \citep{ONK97a,Mueller2004f}.
+This allows a grammarian to check for unexpected side effects when modifying a grammar,
+to avoid situations when implementing an analysis of one phenomenon
+would break the analysis of another phenomenon.
+This is particularly important when modifying a constraint that is used by several grammars.
+To help achieve these aims, grammar development is supported by a range of software tools,
+including the test suite tool \itsdb (\citealp{Oepen:01}; see also Section~\ref{cl:delphin}),
+and the graphical debugging tool Kahina \citep{DER2010a-u,DER2013a}.
 
 
 \subsection{The \delphin\ Consortium}
@@ -655,9 +664,9 @@ is, both grammars and meta-grammars (including the Matrix and CLIMB
 knowledge for parsing and generation (discussed further below);
 software for supporting the development of grammar documentation
 \citep[\eg][]{Hashimoto-etal:07}, software for creating treebanks
-(\citealt{OFTM2004a-u,Packard:15}; see also section~\ref{cl:lang-doc:treebanks} below), 
+(\citealt{OFTM2004a-u,Packard:15}; see also Section~\ref{cl:lang-doc:treebanks} below), 
 and parse ranking models trained on them
-(\citealt{Tou:Man:Fli:Oep:05}; see also section~\ref{cl:prac:rank} above), and
+(\citealt{Tou:Man:Fli:Oep:05}; see also Section~\ref{cl:prac:rank} above), and
 software for robust processing, \ie\ using the knowledge encoded in
 the grammars to return analyses for sentences even if the grammar
 deems them ungrammatical
@@ -728,17 +737,36 @@ useful guide points in the development of semantic analyses.
 Alpino\footnote{%
 	\url{http://www.let.rug.nl/vannoord/alp/Alpino/}
 }
-is a broad-coverage grammar of Dutch \citep{BvNM2001a-u,vannoord2005alpino,vannoord2006alpino}.
+is a broad-coverage grammar of Dutch
+\citep{BvNM2001a-u,vannoord2005alpino,vannoord2006alpino},
 % https://www.let.rug.nl/vannoord/papers/alpino.pdf
 % https://www.let.rug.nl/vannoord/papers/wcpsavg.pdf
 % http://talnarchives.atala.org/TALN/TALN-2006/taln-2006-invite-002.pdf
+The main motivation is practical: to provide coverage and accuracy
+comparable to state-of-the-art parsers for English.
+Nonetheless, it also includes theoretically interesting analyses,
+such as for cross-serial dependencies \citep{BvN98}.
+As well as using hand-written rules,
+lexical information (such as subcategorisation frames) has also been extracted from two existing lexicons,
+Celex \citep{baayen1995celex}
+and Parole \citep{kruyt1997parole}.
 
-Produces syntactic dependencies.
-Although these differ from the semantic dependencies discussed in section~\ref{cl:prac:dep},
+Alpino produces syntactic dependency graphs,
+following the annotation format of the Spoken Dutch Corpus \citep{oostdijk2000corpus}.
+These dependencies are constructed directly in the feature-structure formalism,
+exploiting the fact that a feature structure can be formalised as a directed acyclic graph.
+Each lexical entry encodes a partial dependency graph,
+and these graphs are composed through phrase structure rules
+to give a dependency graph for a whole sentence.
+
+Although these dependencies differ from the semantic dependencies discussed in Section~\ref{cl:prac:dep},
 a common motivation is to make the representations easier to use in practical applications.
-
-The same statistical model is used in both parsing and generation \citep{dekok2011reversible}.
-
+To harmonize with other computational work on dependency parsing,
+\citet{Bou:Van:17} have also producing a mapping from this format
+to Universal Dependencies \citep[UD;][]{Niv:Mar:Gin:16},
+as discussed in Section~\ref{cl:lang-doc:treebanks} below.
+Alpino uses a statistical model trained on a dependency treebank,
+and in fact the same statistical model can be used in both parsing and generation \citep{dekok2011reversible}.
 
 
 \subsubsection{Enju}
@@ -749,9 +777,22 @@ Enju\footnote{%
 }
 is a broad-coverage grammar of English,
 semi-automatically acquired from the Penn Treebank \citep{MNT2005a-u}.
-% 2008 https://www.mitpressjournals.org/doi/pdf/10.1162/coli.2008.34.1.35
+This approach aims to reduce the cost of writing a grammar
+by leveraging existing resources.
+The basic idea is that, by viewing Penn Treebank trees as partial specifications of HPSG derivations,
+it is possible to infer lexical entries.
 
-%TODO http://www.nactem.ac.uk/enju/
+\citeauthor{MNT2005a-u} converted the relatively flat trees in the Penn Treebank to binary-branching trees,
+and percolated head information through the trees.
+They also had to convert analyses for certain constructions,
+including subject-control verbs, auxiliary verbs, coordination, and extracted arguments.
+Each converted tree can then be combined with a small set of hand-written HPSG schemata,
+to induce a lexical entry for each words in the sentence.
+
+Development of Enju has focused on performance in practical applications,
+and the grammar is supported by an efficient parser \citep{tsuruoka2004enju,matsuzaki2007supertag},
+using a probabilistic model for feature structures \citep{MT2008a-u}.
+Enju has been used in a variety of NLP tasks, as will be discussed in Section~\ref{cl:downstream:nlp}.
 
 
 \subsubsection{Babel}
@@ -763,7 +804,7 @@ it makes extensive use of discontinuous constituents \citep{Mueller2004b}.
 Although this makes the worst-case parsing complexity much worse,
 parsing speed doesn't seem to suffer in practice.
 This mirrors the findings of \citet{Carroll94},
-discussed in section~\ref{cl:prac:comp} above.
+discussed in Section~\ref{cl:prac:comp} above.
 
 % Notes from Stefan:
 %% I have a candidate for being listed under "other". In 93 I started to
@@ -841,7 +882,7 @@ Languages that are not covered by the analyses in the libraries provide
 evidence that the libraries need to be extended or refined. 
 
 Grammar Matrix grammar development is less tightly coordinated than
-that of CoreGram (see section~\ref{cl:coregram}): in the typical use case,
+that of CoreGram (see Section~\ref{cl:coregram}): in the typical use case,
 grammar developers start from the Grammar Matrix, but with their own
 independent copy of the Matrix core grammar. This impedes somewhat the
 ability of the Matrix to adapt to the needs of various languages
@@ -858,7 +899,7 @@ analyses for interactions with other phenomena
 \citep{BFO2011a-u,Bender:16}. Without computational
 support\,---\,\ie\ a computer keeping track of the constraints that
 make up each analysis, compiling them into specific grammars, and
-testing those grammars against test suites\,---\,this problem space
+testing those grammars against testsuites\,---\,this problem space
 would be too complex for exploration.
 
 \subsubsection{AGGREGATION}
@@ -875,7 +916,7 @@ as yet not well-understood.\footnote{This methodology of using an
   of corpora is demonstrated for English by \cite{Baldwin-et-al-05}.}
 Furthemore, treebanks constructed from implemented grammars can be
 tremendously valuable additions to language documentation (see
-section~\ref{cl:lang-doc:treebanks} below). However, the process of building an
+Section~\ref{cl:lang-doc:treebanks} below). However, the process of building an
 implemented grammar is time-consuming, even with the start provided by
 a multilingual grammar engineering project like CoreGram or the
 Grammar Matrix.
@@ -968,11 +1009,21 @@ treebanking in turn provides useful insight into grammatical analyses,
 including sources of spurious ambiguity and phenomena that are not yet
 properly handled and thus informs and spurs further grammar
 development.  A downside to strictly grammar-based treebanking is that
-only items for which the grammar finds a reaonsable parse can be
+only items for which the grammar finds a reasonable parse can be
 included in the treebank. For many applications, this is not a
-drawback so long as there is sufficient and sufficiently varied
+drawback so long as there are sufficient and sufficiently varied
 sentences that do receive analyses.
 
+Finally, there are also automatically annotated treebanks.
+These are not as reliable as manually annotated treebanks,
+but they can be considerably larger.
+WikiWoods\footnote{\url{http://moin.delph-in.net/WikiWoods}}
+covers 55m sentences of English (900m tokens).
+It was produced by \citet{flickinger2010wikiwoods} and \citet{solberg2012wikiwoods}
+from the July 2008 dump of the full English Wikipedia,
+using the ERG and PET,
+with parse ranking trained on the manually treebanked subcorpus WeScience \citep{ytrestol2009wescience}.
+As with the Redwoods treebanks, WikiWoods is updated with each release of the ERG.
 
 
 
@@ -1071,13 +1122,14 @@ Statistical without transfer,
 %TODO check:
 % http://www.let.rug.nl/vannoord/papers/
 % http://heartofgold.dfki.de/Publications_Applications.html
+% http://www.nactem.ac.uk/enju/
 
 
 
 \subsubsection{Data for machine learning}
 \label{cl:downstream:data}
 
-In section~\ref{cl:downstream:nlp},
+In Section~\ref{cl:downstream:nlp},
 we described how HPSG grammars can be used to tackle a number of NLP tasks.
 Another use of HPSG grammars in NLP
 is to generate data, on which a statistical system can be trained.
