@@ -606,6 +606,8 @@ and some only hold for a single grammar.
 ``bottom-up approach with cheating''\,---\,the aim is
 to analyse each language on its own terms (hence ``bottom-up''),
 but to re-use analyses from existing grammars if possible (hence ``with cheating'').
+% on ``bottom-up'', cite Haspelmath, Dryer, Croft?
+% p43 of https://hpsg.hu-berlin.de/~stefan/Pub/coregram.pdf
 The use of a core set of constraints is motivated not just for practical reasons,
 but also for theoretical ones.
 By developing multiple grammars in parallel,
@@ -854,12 +856,25 @@ in LFG, see \citealt{BKNS99a-ed} and \citealt{King:16}.}
 \label{cl:lang-doc:coregram}
 % Guy
 
-Top-most constraint set: hypothesis about properties shared by all languages.
-Includes:
-connection between syntax and information structure,
-allows V2 but rules out V-penultimate.
+As described in Section~\ref{cl:coregram},
+the CoreGram project develops grammars for a diverse set of languages,
+and shares constraints across grammars.
+The top-most set of constraints can therefore be seen
+as a hypothesis about properties shared by all languages.
+Whenever the CoreGram project expands to cover a new language,
+it can be seen as a test of this hypothesis.
 
-% TODO
+For example, the top-most constraint set
+allows a language to have V2 word order
+(as exemplified by Germanic languages),
+but rules out verb-penultimate word order,
+as discussed by \citet{MuellerCoreGram}
+\crossrefchapterp[see also]{chap-order}.
+It also includes constraints for argument structure and linking
+\crossrefchapterp[see]{chap-arg-st},
+as well as for information structure
+\crossrefchapterp[see]{chap-information-structure}.
+
 
 
 \subsubsection{Grammar Matrix}
@@ -1090,34 +1105,85 @@ where the syntactic and semantic analyses provide useful features.
 \textit{Information retrieval} is the task of finding relevant documents for a given query.
 For example, \citet{schaefer2011acl} present a tool for searching the ACL Anthology, using the ERG.
 \textit{Information extraction} is the task of identifying useful facts in a collection of documents.
-\citet{reiplinger2012glossary} aim to identify definitions of technical concepts,
+For example, \citet{reiplinger2012glossary} aim to identify definitions of technical concepts,
 in order to automatically construct a glossary.
 They find that using the ERG reduces noise in the candidate definitions.
-\citet{miyao2008protein} Enju, protein-protein interaction.
+\citet{miyao2008protein} aim to identify protein-protein interactions in the biomedical literature, using Enju.
 
-Some phenomena are particularly important, such as negation and speculation.
-\citet{packard2014neg} negation, general purpose.
-More specifically...
-\citet{velldal2012specneg} biomedical, negation and speculation.
-\citet{mackinlay2012biomed} biomedical event extraction, negation and speculation.
-\citet{zamaraeva2018pathology} scope of negation for pathology reports.
+For these tasks, some linguistic phenomena are particularly important,
+such as negation and hedging
+(including adverbs like ``possibly'', modals like ``may'', and verbs of speculation like ``suggest'').
+When it comes to identifying facts asserted in a document,
+a clause that has been negated or hedged should be treated with caution.
+\citet{packard2014neg} propose a general-purpose method for finding the scope of negation in an MRS,
+evaluating on the *SEM 2012 Shared Task \citep{morante2012task}.
+They find that converting the output of the ERG with a relatively simple set of rules
+achieves high performance on this dataset,
+and combining this approach with a purely statistical system
+outperforms previous approaches.
+\citet{velldal2012specneg} consider negation and speculation in biomedical text,
+evaluating on the CoNLL 2010 Shared Task \citep{farkas2010task},
+where they outperform previous approaches.
+\citet{mackinlay2012biomed} also consider the biomedical domain,
+evaluating on the BioNLP 2009 Shared Task \citep{kim2009task},
+where they outperform previous approaches for negation, but not for speculation.
+Similarly, \citet{zamaraeva2018pathology} consider the scope of negation in medical reports,
+outperforming a system specifically designed for this task.
+A common finding from these studies
+is that a system using the output of the ERG
+tends to have high precision (items identified by the system tend to be correct)
+but low recall (items are often overlooked by the system).
+One reason for low recall is that the grammar does not cover all sentences in natural text.
+As we will see in Section~\ref{cl:downstream:data},
+recent work on parsing may help to close this coverage gap.
 
+Negation resolution is also included in \citet{oepen2017extrinsic}'s
+Shared Task on Extrinsic Parser Evaluation.
 As mentioned in Section~\ref{cl:prac:dep},
-semantic dependency graphs can provide a useful tool.
-\citet{oepen2017extrinsic} present a shared task,
-evaluating dependency representations for three downstream applications:
-biomedical event extraction, negation resolution, and fine-grained opinion analysis.
-Some systems use DM (Schuster et al.)...
+dependency graphs can provide a useful tool in NLP tasks,
+and this shared task aims to evaluate the use of dependency representations (both semantic and syntactic),
+for three downstream applications:
+biomedical information extraction, negation resolution, and fine-grained opinion analysis.
+Some participating teams use DM dependencies \citep{schuster2017dep,chen2017dep}.
+The results of this shared task suggest that,
+compared to other dependency representations,
+DM is particularly useful for negation resolution.
 
-Summarization.
-\citet{fang2016summarise}
+Another task where dependency graphs have been used is \textit{summarization}.
+Most existing work on this task focuses on so-called \textit{extractive summarization}:
+given an input document, a system forms a summary by extracting short sections of the input.
+This is in contrast to \textit{abstractive summarization},
+where a system generates new text based on the input document.
+Extractive summarization is limited, but widely used because it is easier to implement.
+\citet{fang2016summarise} show how a wide-coverage grammar like the ERG
+makes it possible to implement an abstractive summarizer with state-of-the-art performance.
+After parsing the input document into logical propositions,
+the summarizer prunes the set of propositions using a cognitively inspired model.
+A summary is then generated based on the pruned set of propositions.
+Because the summary is not directly extracted from the input document,
+it is possible to a generate a more concise summary.
 
-Machine translation.
-Parse, transfer, generate.
-\citep{OVL2007a-u,bond2011deep}.
-\citet{goodman2018translate}.
-Statistical without transfer,
-\citet{horvat2017translate}.
+Finally, no discussion of NLP tasks would be complete without including \textit{machine translation}.
+A more traditional grammar-based approach uses three grammars:
+a grammar for the source language,
+a grammar for the target language,
+and a \textit{transfer grammar}, which converts semantic representations for the source language
+to semantic representations for the target language \citep{OVL2007a-u,bond2011deep}.
+Translation proceeds in three steps:
+parse the source sentence, transfer the semantic representation, and generate a target sentence.
+The transfer grammar is needed both to find appropriate lexical items,
+and also to convert syntactic constructions
+when languages differ in how an idea might be expressed.
+The difficulty in writing a transfer grammar
+that is robust enough to deal with arbitrary input text
+means that statistical systems might be preferred.
+\citet{goodman2018translate} explores the use of statistical techniques
+within this paradigm of parsing, transferring, and generating.
+\citet{horvat2017translate} explores the use of statistical techniques,
+skipping out the transfer stage:
+a target-language sentence is generated directly
+from a semantic representation for the source language.
+%TODO expand?
 
 %TODO check:
 % http://www.let.rug.nl/vannoord/papers/
@@ -1137,7 +1203,9 @@ is to generate data, on which a statistical system can be trained.
 Training deep learning systems
 -- semantic parsing
 -- skip over HPSG, go straight to semantic representations.
+DM:
 \citep{oepen2014semeval,oepen2015semeval}.
+DMRS:
 \citet{buys2017parse} -- accuracy almost as good, much faster, full coverage.
 \citet{chen2018parse} -- accuracy on par.
 
