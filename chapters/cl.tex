@@ -1196,27 +1196,75 @@ from a semantic representation for the source language.
 \label{cl:downstream:data}
 
 In Section~\ref{cl:downstream:nlp},
-we described how HPSG grammars can be used to tackle a number of NLP tasks.
+we described how HPSG grammars can be directly incorporated into NLP systems.
 Another use of HPSG grammars in NLP
 is to generate data, on which a statistical system can be trained.
 
-Training deep learning systems
--- semantic parsing
--- skip over HPSG, go straight to semantic representations.
-DM:
-\citep{oepen2014semeval,oepen2015semeval}.
-DMRS:
-\citet{buys2017parse} -- accuracy almost as good, much faster, full coverage.
-\citet{chen2018parse} -- accuracy on par.
+For example, one limitation of using an HPSG grammar in an NLP system
+is that the grammar is unlikely to cover all sentences in the data \citep{Baldwin-et-al-05,flickinger2012deepbank}.
+One way to overcome this coverage gap
+is to train a statistical system to produce the same output as the grammar.
+The idea is that the trained system will be able to generalise to sentences that the grammar does not cover.
+\citet{oepen2014semeval} and \citet{oepen2015semeval}
+present shared tasks on semantic dependency parsing,
+including both DM dependencies and Enju predicate-argument structures.
+The best-performing systems in these shared tasks
+can produce dependency graphs almost as accurately as grammar-based parsers
+(for sentences where the grammar has coverage).
+Similarly, \citet{buys2017parse} develop a DMRS parser
+which performs almost as well as a grammar-based parser,
+but has full coverage, and can run 70 times faster.
 
-Evaluation of deep learning systems
--- ShapeWorld
--- use a grammar to produce annotations.
-\citet{kuhnle2018shapeworld}.
+In fact, in more recent work, the difference in performance has been effectively closed.
+\citet{chen2018parse} consider parsing to DMRS graphs,
+and actually achieve slightly higher accuracy with their system,
+compared to a grammar-based parser.
+Unlike the previous statistical approaches,
+\citeauthor{chen2018parse} do not just train on the desired dependency graphs,
+but also use information in the derivation tree.
+They suggest that using this information allows their system
+to learn compositional rules mirroring composition in the grammar,
+and thereby allows their system to generalise better.
+%TODO numbers in the above paragraphs?
 
-Distributional semantics.
-\citet{emerson2018functional}.
-Exploit semantic representations in a treebank.
+Another application of HPSG-derived dependency graphs
+is for \textit{distributional semantics}.
+Here, the aim is to learn the meanings of words from a corpus,
+exploiting the fact that the context of a word tells us something about its meaning.
+This is known as the \textit{distributional hypothesis},
+an idea with roots in American structuralism \citep{harris1954distribution}
+and British lexicology \citep{firth1951collocation,firth1957company}.
+Most work on distributional semantics learns a \textit{vector space model},
+where the meaning of each word is represented as a point in a high-dimensional vector space
+\citep[for an overview, see:][]{erk2012vector,clark2015vector}.
+However, \citet{emerson2018functional} argues that
+vector space models cannot capture various aspects of meaning,
+including logical structure, as well as phenomena like polysemy.
+Instead, \citeauthor{emerson2018functional} presents a distributional model
+which can learn truth-conditional semantics,
+using a parsed corpus like WikiWoods (see Section~\ref{cl:lang-doc:treebanks}).
+This approach relies on the semantic analyses given by a grammar,
+as well as the infrastructure to parse a large amount of text.
+
+Finally, there are also applications using grammars not to parse, but to generate.
+\citet{kuhnle2018shapeworld} consider the task of \textit{visual question answering},
+where a system is presented with an image and a question about the image,
+and must answer the question.
+This task requires language understanding, reference resolution, and grounded reasoning,
+in a way that is relatively well-defined.
+However, for many existing datasets, there are biases in the questions
+which mean that high performance can be achieved without true language understanding.
+%TODO references
+For this reason, there is increasing interest in artificial datasets,
+which are controlled to make sure that high performance requires true understanding.
+\citeauthor{kuhnle2018shapeworld} present ShapeWorld,
+a configurable system for generating artificial data.
+The system generates an abstract representation of a scene
+(coloured shapes in different configurations),
+and then generates an image and a caption based on this representation.
+The use of a broad-coverage grammar is crucial
+in allowing the system to be configurable
+and scale across a variety of syntactic constructions.
 
 
 
