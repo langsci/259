@@ -71,7 +71,7 @@ There are several properties of HPSG as a theory that make it well-suited to com
 First, the theory is kept separate from the formalism:
 the formalism is expressive enough to encode a wide variety of possible theories.
 While some theoretical work does argue for or against the necessity of particular formal devices
-(e.g.\ the shuffle operator \citep{Reape94a}),
+(\eg\ the shuffle operator \citep{Reape94a}),
 much of it proceeds within shared assumptions about the formalism.
 This is in contrast to work in the context of the Minimalist Program \citep{Chomsky93b-u},
 where theoretical results are typically couched in terms of modifications to the formalism itself.
@@ -85,10 +85,10 @@ such as software for parsing, generation, and grammar exploration
 	and so these implementations are unlikely to be useful for testing theoretical ideas as the theory moves on.
 }
 
-A second important property of HPSG that supports a strong connection between theoretical and computational work is an interest in both so-called `core' and so-called `peripheral' phenomena. Most implemented grammars are built with the goal of handling naturally occurring text.\footnote{It is possible, but less common, to do implementation work strictly against test suites of sentences constructed specifically to focus on phenomena of interest.} This means that they will need to handle a wide variety of linguistic phenomena not always treated in theoretical syntactic work \citep{Baldwin-et-al-04,Baldwin-et-al-05}. A syntactic framework that excludes research on `peripheral' phenomena as uninteresting provides less support for implementational work than does one, like HPSG or Construction Grammar, that values such topics
+A second important property of HPSG that supports a strong connection between theoretical and computational work is an interest in both so-called `core' and so-called `peripheral' phenomena. Most implemented grammars are built with the goal of handling naturally occurring text.\footnote{It is possible, but less common, to do implementation work strictly against test suites of sentences constructed specifically to focus on phenomena of interest.} This means that they will need to handle a wide variety of linguistic phenomena not always treated in theoretical syntactic work \citep{Baldwin-et-al-05}. A syntactic framework that excludes research on `peripheral' phenomena as uninteresting provides less support for implementational work than does one, like HPSG or Construction Grammar, that values such topics
 \crossrefchapterp[for a comparison of HPSG and Construction Grammar, see]{cxg}.
 
-Finally, the type hierarchy characteristic of HPSG lends itself well to developing broad-coverage grammars which are maintainable over time (see \citealt{Syg:Win:11}). The use of the type hierarchy to manage complexity at scale comes out of the work of \citet{Flickinger87} and others at HP labs in the project where HPSG was originally developed. The core idea is that any given constraint is (ideally) expressed only once on types which serve as supertypes to all entities that bear that constraint.\footnote{Originally this only applied to lexical entries in Flickinger's work. Now it also applies phrase structure rules, lexical rules, and types below the level of the sign which are used in the definition of all of these.} Such constraints might represent broad generalizations that apply to many entities or relatively narrow, indiosyncratic properties. By isolating any given constraint on one type (as opposed to repeating it in mutiple places), we build grammars that are easier to update and adapt in light of new data that require refinements to constraints. Having a single locus for each constraint also makes the types a very useful target for documentation \citep{Hashimoto-etal:07} and grammar exploration \citep{Letcher:18}. 
+Finally, the type hierarchy characteristic of HPSG lends itself well to developing broad-coverage grammars which are maintainable over time (see \citealt{Syg:Win:11}). The use of the type hierarchy to manage complexity at scale comes out of the work of \citet{Flickinger87} and others at HP labs in the project where HPSG was originally developed. The core idea is that any given constraint is (ideally) expressed only once on types which serve as supertypes to all entities that bear that constraint.\footnote{Originally this only applied to lexical entries in Flickinger's work. Now it also applies phrase structure rules, lexical rules, and types below the level of the sign which are used in the definition of all of these.} Such constraints might represent broad generalizations that apply to many entities or relatively narrow, idiosyncratic properties that apply to only a few. By isolating any given constraint on one type (as opposed to repeating it in mutiple places), we build grammars that are easier to update and adapt in light of new data that require refinements to constraints. Having a single locus for each constraint also makes the types a very useful target for documentation \citep{Hashimoto-etal:07} and grammar exploration \citep{Letcher:18}. 
 
 
 \subsection{Practical considerations}
@@ -96,6 +96,7 @@ Finally, the type hierarchy characteristic of HPSG lends itself well to developi
 
 The formalism of HPSG allows practical implementations,
 since feature structures are well-defined data structures.
+% EMB 2019-02-21 Is this not a tautology? That is, if something doesn't involve well-defined data structures, is it actually a formalism?
 Furthermore, because HPSG is defined to be bi-directional,
 an implemented grammar can be used for both parsing and generation.
 In this section, we discuss how HPSG allows tractable algorithms,
@@ -106,22 +107,23 @@ as we will see in Sections~\ref{cl:lang-doc} and~\ref{cl:downstream}, respective
 \subsubsection{Computational complexity}
 \label{cl:prac:comp}
 
-One way to measure how easy or difficult it is to use a syntactic theory in practical computational applications
-is to consider the \textit{computational complexity} of parsing and generation algorithms \citep{gazdar1985complexity}.
-For example, we can consider how much computational time
-a parsing algorithm needs to process a particular sentence.\footnote{%
-	In this section, we only consider parsing algorithms,
-	but a similar analysis can be done for generation
-	\citep[\eg][]{carroll1999generate}.
-}
-For longer sentences, we would expect the amount of time to increase,
-but the more complex the algorithm is,
-the more quickly the amount of time increases.
-If we consider sentences containing $n$~tokens,
-we can find the average amount of time taken,
-or the longest amount of time taken.
-We can then increase~$n$, and see how the amount of time changes,
-both in the average case, and in the worst case.
+One way to measure how easy or difficult it is to use a syntactic
+theory in practical computational applications is to consider the
+\textit{computational complexity} of parsing and generation algorithms
+\citep{gazdar1985complexity}.  For example, consider how much
+computational time a parsing algorithm needs to process a particular
+sentence.\footnote{% 
+In this section, we only consider parsing
+  algorithms, but a similar analysis can be done for generation
+  \citep[\eg][]{carroll1999generate}.  } Longer sentences should
+always take longer to process, but the more complex the algorithm is,
+the more quickly the amount of processing time increases.  Parsing
+complexity can thus be judged by considering sentences containing
+$n$~tokens, finding the average amount of time taken or the longest
+amount of time taken, and then increasing~$n$ and seeing how the
+amount of time changes, both in the average case and in the worst
+case.
+% EMB 2019-02-21 Edits just above to work around pedantic mathy `we'.
 
 At first sight, analysing computational complexity
 would seem to paint HPSG in a bad light,
@@ -134,17 +136,17 @@ in technical terminology, the formalism is \textit{Turing-complete}
 % ``Computational Complexity and Natural Language''
 However, as discussed in the previous section,
 there is a clear distinction between theory and formalism.
-Although the feature-structure formalism rules out the possibility of efficient algorithms
+Although the HPSG formalism rules out the possibility of efficient algorithms
 that could cope with any possible feature-structure grammar,
 a particular theory (or a particular grammar) might well allow efficient algorithms.
 
-The difference between theory and formalism
-becomes clear when comparing HPSG to other computationally-friendly frameworks,
+Keeping processing complexity manageable is handled differently
+in other computationally-friendly frameworks,
 such as Combinatory Categorial Grammar (CCG),\footnote{%
 	For an introduction, see \citet{steedman2011ccg}.
 	For a comparison with HPSG, see \crossrefchaptert{cg}.
 }
-or Tree Adjoining Grammar \citep[TAG;][]{Joshi87a-u,SAJ88a-u}).
+or Tree Adjoining Grammar \citep[TAG;][]{Joshi87a-u,SAJ88a-u}.
 The formalisms of CCG and TAG inherently limit computational complexity:
 for both of them, as the sentence length~$n$ increases,
 worst-case parsing time is proportional to~$n^6$ \citep{Kasamietal1989}.
@@ -171,13 +173,14 @@ It would be beyond the scope of this chapter
 to give a full review of parsing algorithms,
 but it is instructive to give an example.
 For grammars that have a context-free backbone
-(we can express every derivation as a phrase-structure tree
+(every derivation can be expressed as a phrase-structure tree
 plus constraints between mother and daughter nodes),
-it is possible to adapt the standard \textit{chart-parsing} algorithm for context-free grammars.
+it is possible to adapt the standard \textit{chart-parsing} algorithm \cite{kay:1973} for context-free grammars.
+% EMB 2019-02-21 We should have cite for chart-parsing. It looks like Kay 1973 is the originator of that idea, so putting that in for now.
 The basic idea is to parse ``bottom-up'',
 starting by finding analyses for each token in the input,
 and then finding analyses for increasingly longer sequences of tokens (called \textit{spans},
-until we reach the entire sentence.
+until the parser reaches the entire sentence.
 
 For a context-free grammar, there is a finite number of nonterminal symbols,
 and each span is analysed as a subset of the nonterminals.
@@ -189,12 +192,14 @@ However, if we can bound the number of possible feature structures as $C$,
 then the worst-case parsing time is proportional to $C^2 n^{\rho+1}$,
 where $\rho$ is the maximum number of children in a phrase-structure rule
 \citep[Section~3.2.3]{carroll1993parse}.
+% EMB 2019-02-21 But can we bound the number of possible feature structures?
+% What kind of grammar designs do that? (My guess: `restricting' out the semantic features in testing unification + the limited list length...?)
 This is less complex than for an arbitrary grammar
 (which means that this class of grammars is \emph{not} Turing-complete),
 but $C$ may nonetheless be very large.
 
 When parsing real corpora,
-it turns out that the average-case complexity is much better than we might expect \citep{Carroll94}.
+it turns out that the average-case complexity is much better than might be expected \citep{Carroll94}.
 % TODO url in bib? https://aclweb.org/anthology/P94-1040
 On the one hand, grammatical constructions do not generally combine in the worst-case way,
 and on the other hand, when a grammar writer is confronted
@@ -275,8 +280,16 @@ Thus, what is required is a \textit{ranking} of the parses,
 so that the application can only use the most highly-ranked parse,
 or the top~$N$ parses.
 
-Parse ranking is not usually determined by the grammar itself,
-because of the difficulty of manually writing disambiguation rules.
+Parse ranking is not usually determined by the grammar itself, because
+of the difficulty of manually writing disambiguation
+rules.\footnote{In fact, in earlier work, this task was undertaken by
+  hand. One of the authors (Bender) had the job of maintaining rule
+  weights in addition to developing the Jacy grammar \cite{SBB2016a}
+  at YY Technologies in 2001--2002. No systematic methodology for
+  determining appropriate weights was a available and the system was
+  both extremely brittle (sensitive to any changes in the grammar) and
+  next to impossible to maintain.}
+% EMB 2019-02-21 Added the above footnote. TMI or fun historical detail?
 Typically, a statistical system is used \citep{Tou:Man:Shi:Fli:Oep:02,Tou:Man:Fli:Oep:05}.
 First, a corpus is \textit{treebanked}:
 for each sentence in the corpus,
@@ -305,12 +318,15 @@ and so on.
 Because of the large number of possible parses,
 it can be helpful to \textit{prune} the search space:
 rather than ranking the full set of parses,
-we can restrict attention to a smaller set of parses,
-which hopefully includes the correct parse.
-By carefully choosing how to restrict the parser's attention,
-we can drastically reduce processing time without hurting parsing accuracy.
+restricting attention to a smaller set of parses 
+ can help the parser
+find the correct parse, provided
+that the algorithm for selecting the subset includes
+the correct parse in the subset sufficiently frequently.
+Carefully choosing how to restrict the parser's attention 
+can also drastically reduce processing time without hurting parsing accuracy.
 One method, called \textit{supertagging},\footnote{%
-	The name refers to \textit{part-of-speech tagging},
+	The term \textit{supertagging}, due to \citet{bangalore1999supertag},  refers to \textit{part-of-speech tagging},
 	which predicts a part-of-speech for each input token,
 	from a relatively small set of part-of-speech tags.
 	Supertagging is ``super'', in that it predicts detailed lexical entries,
@@ -320,7 +336,7 @@ exploits the fact that HPSG is a lexicalized theory:
 choosing the correct lexical entry brings in rich information
 that can be exploited to rule out many possible parses.
 Thus if the correct lexical entry can be chosen prior to parsing
-(e.g.\ on the basis of the prior and following words),
+(\eg\ on the basis of the prior and following words),
 the range of possible analyses the parser must consider is drastically reduced.
 Although there is a chance that the supertagger will predict the wrong lexical entry,
 using a supertagger can often improve parsing accuracy,
@@ -330,7 +346,7 @@ building on previous work for TAG \citep{bangalore1999supertag}
 and CCG \citep{clark2004supertag}.
 To allow multi-word expressions (such as \textit{by and large}),
 where the grammar assigns a single lexical entry to multiple tokens,
-\citet{dridan2013ubertag} has proposed an extension of supertagging, called \textit{ubertagging},
+\citet{dridan2013ubertag} proposes an extension of supertagging, called \textit{ubertagging},
 which jointly predicts both a segmentation of the input and supertags for those segments.
 \citeauthor{dridan2013ubertag} manages to increase parsing speed by a factor of four,
 while also improving parsing accuracy.
@@ -350,7 +366,7 @@ whether to analyse an ambiguous token as a noun or a verb,
 or where to attach a prepositional phrase.
 This approach to treebanking also means that
 annotations can be re-used when the grammar is updated
-\citep{OFTM2004a-u,Fli:Oep:Ben:17}.
+\citep{OFTM2004a-u,Fli:Oep:Ben:17}. For more on treebanking, see Section~\ref{cl:cl:lang-doc:treebanks}.
 
 % Self-training?
 % e.g. for Alpino: 
@@ -563,7 +579,8 @@ As we'll discuss in Section~\ref{cl:deployment} below,
 such resources can be used both in linguistic hypothesis testing as well as in various practical applications.
 The intended purpose of the resources influences the form that they take.
 The CoreGram Project (Section~\ref{cl:coregram}) primarily targets linguistic hypothesis testing,
-the Enju and Alpino parsers (Section~\ref{cl:othergrammars}) primarily target practical applications,
+the Enju, Alpino and Babel parsers (Section~\ref{cl:othergrammars}) primarily target practical applications,
+% EMB 2019-02-21 Added Babel to this list, but is that accurate?
 and the \delphin\ Consortium (section \ref{cl:delphin}) attempts to balance these two goals.
 
 
@@ -603,7 +620,7 @@ Some general constraints hold for all grammars,
 while others hold for a subset of the grammars,
 and some only hold for a single grammar.
 \citet{MuellerCoreGram} describes this as a
-``bottom-up approach with cheating''\,---\,the aim is
+``bottom-up approach with cheating'' (p.43)\,---\,the aim is
 to analyse each language on its own terms (hence ``bottom-up''),
 but to re-use analyses from existing grammars if possible (hence ``with cheating'').
 % on ``bottom-up'', cite Haspelmath, Dryer, Croft?
@@ -705,10 +722,14 @@ linguistic generalizations and model grammaticality. This, in turn,
 leads to grammars with lower ambiguity than one finds with
 treebank-trained grammars and, importantly, grammars which produce
 well-formed strings in generation. The focus on practical applications
-leads to several kinds of research goals: (1) robustness measures such
-as techniques for handling unknown words and extra-grammatical mark-up
-in text (\eg\ Wikipedia pages) and strategies for processing inputs
-that are ungrammatical (at least according to the grammar); (2)
+leads to several kinds of research goals: Practical applications
+require robust processing, which in turn requires methods for handling unknown words
+\citep[\eg][]{chartmapping}, methods for managing extra-grammatical mark-up in
+text (\eg\ Wikipedia pages) \citep[\eg][]{FOY2010a-u} and strategies
+for processing inputs that are ungrammatical, at least according to
+the grammar \citep[\eg][see also Section~\ref{cl:downstream:data}]{W11-2923}.
+% EMB 2019-02-21 Bookmark ... editing here.
+(2)
 performance innovations, such as supertagging or ubertagging to speed
 up processing times and pre-processors that provide partial
 information about constituent boundaries to narrow the search space;
