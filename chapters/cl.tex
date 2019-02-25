@@ -94,9 +94,8 @@ Finally, the type hierarchy characteristic of HPSG lends itself well to developi
 \subsection{Practical considerations}
 \label{cl:prac}
 
-The formalism of HPSG allows practical implementations,
-since feature structures are well-defined data structures.
-% EMB 2019-02-21 Is this not a tautology? That is, if something doesn't involve well-defined data structures, is it actually a formalism?
+HPSG allows practical implementations,
+because it uses a well-defined formalism.
 Furthermore, because HPSG is defined to be bi-directional,
 an implemented grammar can be used for both parsing and generation.
 In this section, we discuss how HPSG allows tractable algorithms,
@@ -107,23 +106,23 @@ as we will see in Sections~\ref{cl:lang-doc} and~\ref{cl:downstream}, respective
 \subsubsection{Computational complexity}
 \label{cl:prac:comp}
 
-One way to measure how easy or difficult it is to use a syntactic
-theory in practical computational applications is to consider the
-\textit{computational complexity} of parsing and generation algorithms
-\citep{gazdar1985complexity}.  For example, consider how much
-computational time a parsing algorithm needs to process a particular
-sentence.\footnote{% 
-In this section, we only consider parsing
+One way to measure how easy or difficult it is
+to use a syntactic theory in practical computational applications
+is to consider the \textit{computational complexity}
+of parsing and generation algorithms \citep{gazdar1985complexity}.
+For example, we can consider how much computational time
+a parsing algorithm needs to process a particular sentence.\footnote{% 
+  In this section, we only consider parsing
   algorithms, but a similar analysis can be done for generation
-  \citep[\eg][]{carroll1999generate}.  } Longer sentences should
-always take longer to process, but the more complex the algorithm is,
-the more quickly the amount of processing time increases.  Parsing
-complexity can thus be judged by considering sentences containing
-$n$~tokens, finding the average amount of time taken or the longest
-amount of time taken, and then increasing~$n$ and seeing how the
-amount of time changes, both in the average case and in the worst
-case.
+  \citep[\eg][]{carroll1999generate}.}
+Longer sentences should always take longer to process,
+but the more complex the algorithm is,
+the more quickly the amount of processing time increases.
+Parsing complexity can thus be measured by considering sentences containing $n$~tokens,
+finding the average amount of time taken or the longest amount of time taken,
+and then increasing~$n$ to see how the amount of time changes.
 % EMB 2019-02-21 Edits just above to work around pedantic mathy `we'.
+% GE 2019-02-25 (Reply via email).
 
 At first sight, analysing computational complexity
 would seem to paint HPSG in a bad light,
@@ -194,6 +193,14 @@ where $\rho$ is the maximum number of children in a phrase-structure rule
 \citep[Section~3.2.3]{carroll1993parse}.
 % EMB 2019-02-21 But can we bound the number of possible feature structures?
 % What kind of grammar designs do that? (My guess: `restricting' out the semantic features in testing unification + the limited list length...?)
+% GE 2019-02-25 John doesn't discuss it, but we can bound the number of structures
+% as a function of the input length (e.g. limited list length, as you say).
+% But we can actually go further, because what's important for the proof
+% is the number of structures with different syntactic behaviour
+% (e.g. we only care about the semantics when it affects the syntax,
+% which means we don't care about the whole list).
+% Are there are unbounded recursive feature structures, other than semantic lists?
+% If not, then assuming the semantic algebra, we get a large but finite $C$.
 This is less complex than for an arbitrary grammar
 (which means that this class of grammars is \emph{not} Turing-complete),
 but $C$ may nonetheless be very large.
@@ -286,10 +293,11 @@ rules.\footnote{In fact, in earlier work, this task was undertaken by
   hand. One of the authors (Bender) had the job of maintaining rule
   weights in addition to developing the Jacy grammar \cite{SBB2016a}
   at YY Technologies in 2001--2002. No systematic methodology for
-  determining appropriate weights was a available and the system was
+  determining appropriate weights was available and the system was
   both extremely brittle (sensitive to any changes in the grammar) and
   next to impossible to maintain.}
 % EMB 2019-02-21 Added the above footnote. TMI or fun historical detail?
+% GE 2019-02-25 fun historical detail! I didn't know if there was anything to cite.
 Typically, a statistical system is used \citep{Tou:Man:Shi:Fli:Oep:02,Tou:Man:Fli:Oep:05}.
 First, a corpus is \textit{treebanked}:
 for each sentence in the corpus,
@@ -318,15 +326,14 @@ and so on.
 Because of the large number of possible parses,
 it can be helpful to \textit{prune} the search space:
 rather than ranking the full set of parses,
-restricting attention to a smaller set of parses 
- can help the parser
-find the correct parse, provided
-that the algorithm for selecting the subset includes
-the correct parse in the subset sufficiently frequently.
+ranking is restricted to a smaller set of parses.
 Carefully choosing how to restrict the parser's attention 
-can also drastically reduce processing time without hurting parsing accuracy.
+can drastically reduce processing time without hurting parsing accuracy,
+as long as that the algorithm for selecting the subset
+includes the correct parse sufficiently frequently.
 One method, called \textit{supertagging},\footnote{%
-	The term \textit{supertagging}, due to \citet{bangalore1999supertag},  refers to \textit{part-of-speech tagging},
+	The term \textit{supertagging}, due to \citet{bangalore1999supertag},
+	refers to \textit{part-of-speech tagging},
 	which predicts a part-of-speech for each input token,
 	from a relatively small set of part-of-speech tags.
 	Supertagging is ``super'', in that it predicts detailed lexical entries,
@@ -478,8 +485,8 @@ annotations can be re-used when the grammar is updated
 	\vspace*{2mm}%
 	\caption{
 		A Dependency Minimal Recursion Semantics (DMRS)
-                representation that captures all of the information in the
-                MRS in Figure~\ref{cl:fig:mrs}.
+		representation that captures all of the information
+		in the MRS in Figure~\ref{cl:fig:mrs}.
 		Predicates are represented as nodes,
 		while semantic roles and scopal constraints are represented as links.
 	}
@@ -499,8 +506,8 @@ annotations can be re-used when the grammar is updated
 	\end{tikzpicture}
 	\vspace*{2mm}
 	\caption{
-		A \delphin\ MRS Dependencies (DM)
-                representation. This is a simplified version of MRS.
+		A \delphin\ MRS Dependencies (DM) representation.
+		This is a simplified version of MRS.
 		Nodes are the tokens in the sentence (rather than abstract predicates),
 		and some scopal information is dropped.
 	}
@@ -531,16 +538,21 @@ Several types of dependency graph have been proposed
 based on Minimal Recursion Semantics \citep[MRS;][]{CFPS2005a},
 with varying levels of simplification.
 \citet{oepen2006eds} observe that if every predicate has a unique
-\textit{intrinsic argument}, an MRS can be coverted to a variable-free
-semantic representation, by replacing each reference to a variable with a reference to the corresponding predicate. They present Elementary Dependency
-Structures (EDS), semantic graphs built this way which discard some scope information. (For many applications, scope information is less important than predicate-argument structure.) \citet{copestake2009dmrs} builds on this idea
+\textit{intrinsic argument}, an MRS can be converted to a variable-free semantic representation,
+by replacing each reference to a variable with a reference to the corresponding predicate.
+They present Elementary Dependency Structures (EDS),
+semantic graphs which maintain predicate-argument structure but discard some scope information.
+(For many applications, scope information is less important than predicate-argument structure.)
+\citet{copestake2009dmrs} builds on this idea
 to create a more expressive graph-based representation called
- Dependency Minimal Recursion Semantics (DMRS).
-DMRS is fully interconvertible with MRS in many cases.\footnote{%
-Specifically, for DMRS and MRS to be fully intercovertible, every variable
-must be the intrinsic argument of exactly one predication.
+Dependency Minimal Recursion Semantics (DMRS),
+which is fully interconvertible with MRS.\footnote{%
+	More precisely, for DMRS and MRS to be fully interconvertible,
+	every predicate (except for quantifiers) must have an intrinsic argument,
+	and every variable must be the intrinsic argument of exactly one predicate.
 } This expressivity is achieved by adding annotations on the edges to
-indicate scope information. Finally, \delphin\ MRS Dependencies \citep[DM;][]{ivanova2012dm}
+indicate scope information.
+Finally, \delphin\ MRS Dependencies \citep[DM;][]{ivanova2012dm}
 express predicate-argument structure purely in terms of the surface tokens,
 without introducing any abstract predicates.
 A comparison of MRS, DMRS, and DM is given in Figures \ref{cl:fig:mrs} and~\ref{cl:fig:dep}.
@@ -577,8 +589,9 @@ As we'll discuss in Section~\ref{cl:deployment} below,
 such resources can be used both in linguistic hypothesis testing as well as in various practical applications.
 The intended purpose of the resources influences the form that they take.
 The CoreGram Project (Section~\ref{cl:coregram}) primarily targets linguistic hypothesis testing,
-the Enju, Alpino and Babel parsers (Section~\ref{cl:othergrammars}) primarily target practical applications,
+the Alpino and Enju parsers (Section~\ref{cl:other:alpino} and \ref{cl:other:enju}) primarily target practical applications,
 % EMB 2019-02-21 Added Babel to this list, but is that accurate?
+% GE 2019-02-25 I don't think so.
 and the \delphin\ Consortium (section \ref{cl:delphin}) attempts to balance these two goals.
 
 
@@ -628,7 +641,10 @@ but also for theoretical ones.
 By developing multiple grammars in parallel,
 analyses can be improved by cross-linguistic comparison.
 The constraints encoded in the core grammar
-can be seen as an hypothesis about the structure of human language,
+can be seen as an hypothesis about the structure of human language.
+% GE 2019-02-25 aN hypothesis?
+% I definitely don't say that, but I'm happy to follow your spelling!
+% We currently also have ``a history'' and ``a high-dimensional vector'' elsewhere
 as we will discuss in Section~\ref{cl:lang-doc:coregram}.
 
 CoreGram grammar development aims to incrementally increase coverage of each language.
@@ -723,7 +739,7 @@ linguistic generalizations and model grammaticality. This, in turn,
 leads to grammars with lower ambiguity than one finds with
 treebank-trained grammars and, importantly, grammars which produce
 well-formed strings in generation. The focus on practical applications
-leads to several kinds of additional research goals: Practical applications
+leads to several kinds of additional research goals. Practical applications
 require robust processing, which in turn requires methods for handling 
 unknown words
 \citep[\eg][]{chartmapping}, methods for managing extra-grammatical mark-up in
@@ -735,6 +751,9 @@ up processing times.
 %and pre-processors that provide partial
 %information about constituent boundaries to narrow the search space.
 % EMB 2019-02-21 Took the above out because I can't find a DELPH-IN citation for it.
+% GE 2019-02-25 Ewa Muszyńska is working on this
+% I thought about mentioning this earlier in the chapter but have only left a comment so far
+% http://aclweb.org/anthology/P16-3014
 Working with real-world text (rather than curated testsuites designed
 for linguistic research only) requires 
 the integration of external components such as morphological
@@ -747,7 +766,7 @@ components \citep[\eg][]{flickinger2005sem}.
 % as long as those citations are discussed elsewhere in the chapter
 % EMB 2019-02-21 On my read-through, I decided they really should be there and
 % that I shouldn't try to cram that all into one sentence! So, fixed.
-These efforts are also valuable from a strictly linguistic point of view, \ie\ one not concerned with practicla applications.
+These efforts are also valuable from a strictly linguistic point of view, \ie\ one not concerned with practical applications.
 First, the broader the coverage of a grammar,
 the more linguistic phenomena it can be used to explore.
 Second, external constraints on the form of semantic representations provide
@@ -862,7 +881,7 @@ Then, in Section~\ref{cl:downstream}, we consider applications outside of lingui
 As decribed in \citealt{Mueller99a-Short,Bender2008c-Short} and \citealt{BFO2011a-u},
 grammar engineering, that is the building of grammars in software, is
 an essential technique for testing linguistic hypotheses at scale. By
-at scale, we mean both against large quantities of data and as
+`at scale', we mean both against large quantities of data and as
 integrated models of language that handle mulitple phenomena at
 once. In this section, we overview how this is done in the CoreGram
 and Grammar Matrix projects for cross-linguistic hypothesis testing,
@@ -1001,6 +1020,8 @@ structure-based searches for phenomena of interest \citep{Rohde:05,Gho:Bir:10,Ko
 % GE 2019-02-09 - TODO link to WeSearch?
 % http://wesearch.delph-in.net/deepbank/search.jsp
 % EMB 2019-02-21 Kou:Oep:14 is WeSearch isn't it? 
+% GE 2019-02-25 I meant the above url
+% could be useful if readers are likely to want to use it
 In the context of language documentation and description, searchable
 treebanks can also be a valuable addition, helping readers connect
 prose descriptions of linguistic phenomena to multiple examples in the
