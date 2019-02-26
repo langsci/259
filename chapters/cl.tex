@@ -110,12 +110,13 @@ One way to measure how easy or difficult it is
 to use a syntactic theory in practical computational applications
 is to consider the \textit{computational complexity}
 of parsing and generation algorithms \citep{gazdar1985complexity}.
-For example, we can consider how much computational time
+Computational complexity in this case includes both how much
+memory and how much computational time 
 a parsing algorithm needs to process a particular sentence.\footnote{% 
   In this section, we only consider parsing
   algorithms, but a similar analysis can be done for generation
   \citep[\eg][]{carroll1999generate}.}
-Longer sentences should always take longer to process,
+Considering parsing time, longer sentences should always take longer to process,
 but the more complex the algorithm is,
 the more quickly the amount of processing time increases.
 Parsing complexity can thus be measured by considering sentences containing $n$~tokens,
@@ -190,7 +191,11 @@ for example if it includes recursive unary rules.
 However, if we can bound the number of possible feature structures as $C$,
 then the worst-case parsing time is proportional to $C^2 n^{\rho+1}$,
 where $\rho$ is the maximum number of children in a phrase-structure rule
-\citep[Section~3.2.3]{carroll1993parse}.
+\citep[Section~3.2.3]{carroll1993parse}. 
+This is less complex than for an arbitrary grammar
+(which means that this class of grammars is \emph{not} Turing-complete),
+but $C$ may nonetheless be very large.
+
 % EMB 2019-02-21 But can we bound the number of possible feature structures?
 % What kind of grammar designs do that? (My guess: `restricting' out the semantic features in testing unification + the limited list length...?)
 % GE 2019-02-25 John doesn't discuss it, but we can bound the number of structures
@@ -201,9 +206,26 @@ where $\rho$ is the maximum number of children in a phrase-structure rule
 % which means we don't care about the whole list).
 % Are there are unbounded recursive feature structures, other than semantic lists?
 % If not, then assuming the semantic algebra, we get a large but finite $C$.
-This is less complex than for an arbitrary grammar
-(which means that this class of grammars is \emph{not} Turing-complete),
-but $C$ may nonetheless be very large.
+% EMB 2019-02-25 Okay -- I took a crack at it. Does the following sound 
+% correct to you?
+
+
+But is the number of possible feature structures bounded in
+implemented HPSG grammars? For \delphin\ grammars (see
+\S\ref{cl:delphin}), the answer is yes. The potential for
+unboundedness in the feature structures stems from two sources:
+recursion in feature paths (\eg\ the elements on the \textsc{comps}
+list themselves include the feature \textsc{comps}) and list-valued
+features. In practice, neither of these sources leads to an unbounded
+number of feature structures: On the one hand, selecting heads might
+place contraints on their complement's subjects (\eg\ in
+raising/control constructions), but no further than that. On the other
+hand, while lists that are potentially unbounded in length are used in
+the construction of semantic representations, these are never involved
+in constraining grammaticality. The lists that are are the valence
+lists, but in practical grammars these are never greater than length
+four or five.\footnote{In part, this is because \delphin\ does not
+adopt proposals like the \textsc{deps} list of \citet{BMS2001a-unlinked}.}
 
 When parsing real corpora,
 it turns out that the average-case complexity is much better than might be expected \citep{Carroll94}.
@@ -226,7 +248,7 @@ it can be helpful to use a test suite composed of a representative sample of sen
 % ... Dan or Stephan or maybe Bec should have published some, I think.
 % GE 2019-02-05 Updated and split into three paragraphs
 % TODO citation with numbers for parsing real corpora
-
+% EMB 2019-02-25 This would still be a nice to have, if we can get to it before the final version.
 
 
 
@@ -244,6 +266,10 @@ to the point that examples like \rref{cl:ambig-telescope} are stock in trade:
 \item Visiting relatives can be annoying.
 \end{xlist}
 \end{exe}
+% EMB 2019-02-25 Posted to facebook & twitter to try to find the original 
+% cites for these. So far, it looks like they go back to the early 1960s 
+% at least.
+
 
 \noindent
 A well-constructed grammar should be expected to return multiple
@@ -592,6 +618,7 @@ The CoreGram Project (Section~\ref{cl:coregram}) primarily targets linguistic hy
 the Alpino and Enju parsers (Section~\ref{cl:other:alpino} and \ref{cl:other:enju}) primarily target practical applications,
 % EMB 2019-02-21 Added Babel to this list, but is that accurate?
 % GE 2019-02-25 I don't think so.
+% EMB 2019-02-25 Hmm -- we should say something about Babel in this intro bit, though, since it gets a mention below. Do you have an idea of how to frame it?
 and the \delphin\ Consortium (section \ref{cl:delphin}) attempts to balance these two goals.
 
 
@@ -747,13 +774,16 @@ text such as in Wikipedia pages \citep[\eg][]{FOY2010a-u} and strategies
 for processing inputs that are ungrammatical, at least according to
 the grammar \citep[\eg][see also Section~\ref{cl:downstream:data}]{W11-2923}.
 Processing large quantities of text motivates performance innovations, such as supertagging or ubertagging \citep[\eg][see also Section~\ref{cl:prac:rank}]{matsuzaki2007supertag,dridan2013ubertag} to speed
-up processing times. 
+up processing times. Naturally occurring text can include very long 
+sentences which can run up against processing limits. Supertagging helps some here, too, but other strategies include \textit{sentence chunking}, or the task of breaking a long sentence into smaller ones without loss of meaning \cite{muszynska:2016:ACL-SRW}.
 %and pre-processors that provide partial
 %information about constituent boundaries to narrow the search space.
 % EMB 2019-02-21 Took the above out because I can't find a DELPH-IN citation for it.
 % GE 2019-02-25 Ewa Muszyńska is working on this
 % I thought about mentioning this earlier in the chapter but have only left a comment so far
 % http://aclweb.org/anthology/P16-3014
+% EMB 2019-02-25 Oh cool -- not actually what I was thinking of, but definitely
+% relevant here, so I've added it! 
 Working with real-world text (rather than curated testsuites designed
 for linguistic research only) requires 
 the integration of external components such as morphological
@@ -1016,12 +1046,13 @@ text where each sentence is associated with a syntactic
 representation. A sembank has semantic representations (in some cases
 in addition to the syntactic ones). Treebanks and sembanks can be used
 for linguistic research, as the analyses allow for more detailed
-structure-based searches for phenomena of interest \citep{Rohde:05,Gho:Bir:10,Kou:Oep:14}.
+structure-based searches for phenomena of interest \citep{Rohde:05,Gho:Bir:10,Kou:Oep:14}.\footnote{The WeSearch interface of \citet{Kou:Oep:14} can be accessed at \url{http://wesearch.delph-in.net/deepbank/search.jsp}}
 % GE 2019-02-09 - TODO link to WeSearch?
 % http://wesearch.delph-in.net/deepbank/search.jsp
 % EMB 2019-02-21 Kou:Oep:14 is WeSearch isn't it? 
 % GE 2019-02-25 I meant the above url
 % could be useful if readers are likely to want to use it
+% EMB 2019-02-25 I see -- added!
 In the context of language documentation and description, searchable
 treebanks can also be a valuable addition, helping readers connect
 prose descriptions of linguistic phenomena to multiple examples in the
@@ -1342,8 +1373,14 @@ consistent with probabilistic approaches in psycholinguistics.
 
 
 \subsection{Long-tail phenomena} % Emily
-One of the strengths of HPSG as a theoretical framework is that it allows for the analysis of both `core' and `peripheral' phenomena within a single, integrated model. When working with actual data and large scale gramamrs, it quickly becomes apparent just how long the long-trail of `peripheral' phenomena are. Furthermore, the sustained development of broad-coverage linguistic resources makes it possible to bring more and more low-frequency phenomena or low-frequency variations on relatively high-frequency phenomena into view. A case in point is the range of raising and control valence frames found in the ERG \cite{Flickinger2000a,Flickinger2011a-u}. As of the 2018 release, the ERG includes over 60 types for raising and control predicates, including verbs, adjectives, and nouns, many of which are not otherwise discussed in the syntactic literature.
-% EMB 2019-02-07 I think I should ask Dan if it's okay to include this, given that this is something he and I are working on together but haven't published.
+One of the strengths of HPSG as a theoretical framework is that it allows for the analysis of both `core' and `peripheral' phenomena within a single, integrated model. When working with actual data and large scale gramamrs, it quickly becomes apparent just how long the long-trail of `peripheral' phenomena are. Furthermore, the sustained development of broad-coverage linguistic resources makes it possible to bring more and more low-frequency phenomena or low-frequency variations on relatively high-frequency phenomena into view. A case in point is the range of raising and control valence frames found in the ERG \cite{Flickinger2000a,Flickinger2011a-u}. As of the 2018 release, the ERG includes over 60 types for raising and control predicates, including verbs, adjectives, and nouns, many of which are not otherwise discussed in the syntactic literature. These include such low-frequency types as the one for \textit{incumbent} which requires an explitive \textit{it} subject, an obligatory \textit{(up)on} PP subject, and an infinitival VP complement and establishes a control relation between the object of \textit{on} and the VP's missing subject:\footnote{Our thanks to Dan Flickinger for this example.}
+
+\begin{exe}
+\ex\label{cl:incumbent} 
+It is incumbent on you to speak plainly.
+\end{exe}
+
+
 
 
 %\subsection{Scaling up (thematic roles)} % Emily
