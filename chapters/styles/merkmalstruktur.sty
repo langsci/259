@@ -1,0 +1,208 @@
+% drs-Paket ist mit array inkompatibel
+% avm.sty ist mit array inkompatibel
+\usepackage{array}
+
+
+
+%\font\msrm=cmr6
+%\font\msit=cmr7
+%cmti7
+
+%\newcommand{\myverba}[1]{ \begin{verbatim} #1 
+%                          \end{verbatim} 
+%                        }
+
+% ibox in Merkmalstrukturen + 0.5ex, da sonst Ausrichtung nicht klappt
+%\newcommand{\ibox}[1]{\hspace{0.5ex}\mbox{\rule[-1.2ex]{0mm}{2.3ex}\fbox{{\tiny\textrm #1}}}\hspace{0.5ex}}
+
+%% \def\ibox#1{\mbox{}\setbox2=\hbox{$\scriptstyle #1$}\lower.2ex\vbox{\hrule
+%%         \hbox{\vrule\kern1.25pt 
+%%         \vbox{\kern1.25pt\box2\kern1.25pt}\kern1.25pt\vrule}\hrule}}
+
+% im Text ist zusaetzlicher Platz falsch
+%\newcommand{\iboxt}[1]{\raisebox{0.36ex}{\fbox{{\tiny\textrm{#1}}}}}
+
+
+\newcommand{\iboxt}[1]{{%
+  \setlength{\fboxsep}{1.25pt}%
+  \fbox{$\scriptstyle #1$}%
+}}
+
+
+\newcommand{\ibox}[1]{%
+%  \iboxt{#1}\,%       why this extra space???? 20.02.2018
+\iboxt{#1}%
+}
+
+% used in lists \sliste{ \iboxsp{1}, \ibox{2} }
+\newcommand{\iboxsp}[1]{%
+  \iboxt{#1}\,%
+}
+
+\newcommand{\iboxb}[1]{(\,\iboxt{#1}\,)}
+
+\newcommand{\sliste}[1]{%
+\mbox{%
+$\left\langle\mbox{\upshape\scshape #1}\right\rangle$}%
+}
+
+\newcommand{\spirit}[1]{%
+{\renewcommand{\arraystretch}{0}%
+\begin{tabular}[t]{@{}c@{}}%
+\ibox{#1}\\[-3.2mm]
+\large/\\%
+\end{tabular}}}
+
+
+\newcommand{\nliste}[1]{%
+$\left\langle\mbox{#1}\right\rangle$%
+}
+
+\let\semliste=\nliste
+
+\newcommand{\eliste}{%
+\mbox{%
+$\left\langle\right\rangle$}%
+}
+
+\newcommand{\oldliste}[1]{%
+\mbox{%
+$%
+\left\langle%
+%
+\tabcolsep2pt\begin{tabular}{>{\sc}l}#1\end{tabular}%
+\right\rangle%
+$%
+%\\[-1.5mm]
+}%
+}
+
+\newcommand{\liste}[1]{%
+\mbox{%
+$%
+\left\langle\begin{tabular}{@{}>{\upshape\scshape}l@{}}#1\end{tabular}\right\rangle%
+$%
+%\\[-1.5mm]
+}%
+}
+
+\newcommand{\phonliste}[1]{%
+\mbox{%
+$%
+%
+\left\langle \mbox{\normalfont\itshape#1} \right\rangle%
+$%
+%\\[-1.5mm]
+}%
+}
+
+\newcommand{\relliste}[1]{%
+\mbox{%
+$%
+%
+\left\langle \textrm{#1} \right\rangle%
+$%
+%\\[-1.5mm]
+}%
+}
+
+
+
+\newcommand{\menge}[1]{%
+\mbox{%
+$%
+\left\{%
+\ignorespaces#1%
+\right\}%
+$%
+%\\[-1.5mm]
+}%
+}
+
+
+%----------------- new -------------------
+
+
+%\setlength{\extrarowheight}{1pt}
+
+\newcommand{\ms}[2][]{%
+  \mbox{%
+    \delimiterfactor=1000 \delimitershortfall=0pt
+    \tabcolsep=0pt
+    $\left[%
+    \begin{tabular}{>{\upshape\scshape}l@{}>{\hspace*{5pt}\normalfont\itshape}l}
+    \if\relax\detokenize{#1}\relax\else
+    \multicolumn{2}{>{\normalfont\itshape}l}{#1}%
+    \\ 
+    \fi
+    #2%
+    \end{tabular}%
+    \right]$%
+  }%
+  \vspace{1mm}%
+}
+
+
+\newcommand{\onems}[2][]{%
+  \mbox{%
+    \delimiterfactor=1000 \delimitershortfall=0pt
+    \tabcolsep=0pt
+    $\left[%
+    \begin{tabular}{>{\upshape\scshape}l}
+    \if\relax\detokenize{#1}\relax\else
+    {\normalfont\itshape #1}%
+    \\ 
+    \fi
+    #2%
+    \end{tabular}%
+    \right]$%
+  }%
+  \vspace{1mm}%
+}
+
+
+
+
+
+% without italics and no types
+\def\lfgms#1{%
+\mbox{%
+\tabcolsep0pt\arraycolsep0pt%
+$%
+\left[%
+\begin{tabular}{@{}>{\scshape}l@{\hspace{5pt}}>{\small}l@{}}%
+#1%
+\end{tabular}%
+\rule{0mm}{5mm}%
+\right]%
+$%
+}%
+\vspace{1mm}%
+}
+
+
+
+\newlength{\MyetagLength}
+\settowidth{\MyetagLength}{{$\scriptstyle 1$}}
+
+\newcommand{\etag}{\ibox{\rule{0ex}{1.1ex}\hspace{\MyetagLength}}\xspace}
+
+%\newcommand{\tbox}[1]{{\tiny\fbox{#1}}}
+\let\tbox=\iboxt
+
+
+\newcommand{\type}[1]{{\normalfont\itshape #1\/}}
+
+
+
+\def\topms{\@ifnextchar[{\@topmswithtype}{\@topmswithouttype}}
+
+\def\@topmswithtype[#1]#2{%
+\adjustbox{valign=c}{%
+\xxtms[#1]{#2}%
+}}
+
+\def\@topmswithouttype#1{%
+\adjustbox{valign=c}{%
+\xxms{#1}%
+}}
