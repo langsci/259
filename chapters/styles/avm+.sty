@@ -1,0 +1,398 @@
+% $Id: avm+.sty,v 1.1 2005/06/16 15:42:13 dm Exp $
+%
+% The file has two parts:
+%
+% a) The original style avm.sty by Chris Manning, 
+%    with a couple of small modifications to support font selection
+%    and change layout slightly
+% b) Some additional commands for font selection by Detmar Meurers
+
+% =======================================================================
+% avm.sty  --  for attribute-value matrices -- mar 29, 1992; rev. dec 6, 1993
+% (c) 1992 christopher manning (manning@csli.stanford.edu) -- see avm.doc.tex
+%
+% Only small modifications by Detmar Meurers, dm@ling.osu.edu
+% (marked by wdm) to save space before and after | in paths
+% and select appropriate fonts
+
+\newif\ifavmactive\newif\ifavmsorted\newif\ifavmlabeled
+\newif\ifavmcenter\newif\ifavmbottom
+\newif\ifavmbottomright\newif\ifavmtopleft\newif\ifavmtopright
+
+\newdimen\avmdimen
+\newbox\avmboxone\newbox\avmboxthree
+
+\def\avmoptions#1{\avmactivefalse\avmsortedfalse\avmlabeledfalse
+   \avmcenterfalse\avmbottomfalse
+   \avmbottomrightfalse\avmtopleftfalse\avmtoprightfalse
+   \def\more{#1}\ifx\more\empty\else\avmjoptions#1,\@nil\fi}
+\def\avmjoptions#1,#2\@nil{\def\more{#2}\csname avm#1true\endcsname
+   \ifx\more\empty\else\avmjoptions#2\@nil\fi}
+
+
+\def\avmfont#1{\def\avmjfont{#1}}
+\def\avmjfont{}
+
+\def\avmvalfont#1{\def\avmjvalfont{#1}}
+\def\avmjvalfont{}
+
+\def\avmsortfont#1{\def\avmjsortfont{#1}}
+\def\avmjsortfont{}
+
+\def\avmhskip#1{\def\avmjhskip{#1}}
+\def\avmjhskip{1em}
+
+\def\avmbskip#1{\def\avmjbskip{#1}}
+\def\avmjbskip{0em}
+
+\def\avmvskip#1{\def\avmjvskip{#1}}
+\def\avmjvskip{0.385ex}%was .3875
+
+
+\def\avmjprolog#1{$\mskip-\thinmuskip
+   \left#1\hskip\avmjbskip\vcenter\bgroup\vskip\avmjvskip
+   \ialign\bgroup\avmjfont
+   \strut ##\unskip\hfil
+   &&\hskip\avmjhskip\avmjvalfont ##\unskip\hfil\cr}
+\def\avmjpostlog#1{\crcr\egroup\vskip\avmjvskip\egroup
+   \hskip\avmjbskip\right#1\mskip-\thinmuskip$\ignorespaces}
+
+
+\def\avmjcatcode{\let\lparen=(\let\rparen=)\catcode`\[=13\catcode`\]=13
+   \catcode`\<=13\catcode`\@=13\catcode`\(=13\catcode`\)=13
+   \catcode`\>=13\catcode`\|=13}
+
+{\avmjcatcode  % new group: redefine above catcodes as active
+
+\gdef\specialavm{\avmjcatcode
+\def({\avmjprolog\lparen}% 
+\def){\avmjpostlog\rparen}%
+\def<{\avmjprolog\langle}%
+\def>{\avmjpostlog\rangle}%
+\ifavmsorted
+\def[##1{\setbox\avmboxthree=\hbox{\avmjsortfont##1\/}\setbox2=\hbox
+   \bgroup\avmjprolog\lbrack}%
+\def]{\avmjpostlog\rbrack\egroup\avmjsort}%
+\else\ifavmlabeled
+\def[##1{\def\more{##1}\setbox2=\hbox\bgroup\avmjprolog[}%
+\def]{\avmjpostlog]\egroup\node{\more}{\box2}}%
+\else
+\def[{\avmjprolog\lbrack}%
+\def]{\avmjpostlog\rbrack}%
+\fi\fi
+%
+\def\<{$\langle$}\def\>{$\rangle$}%
+\def\({\lparen}\def\){\rparen}%
+\def\[{\lbrack}\def\]{\rbrack}%
+\def|{$\vert$}% wdm, July 1999, modified to save space before and after |
+\def@##1{\avmbox{##1}}%
+}  % end defn of \specialavm
+}  % restore active catcodes
+
+
+\long\def\avm{\begingroup
+\ifavmactive\specialavm
+\else
+\def\({\avmjprolog(}% 
+\def\){\avmjpostlog)}%
+\def\<{\avmjprolog\langle}%
+\def\>{\avmjpostlog\rangle}%
+%
+\ifavmsorted
+\def\[##1{\setbox\avmboxthree=\hbox{\avmjsortfont##1\/}\setbox
+   2=\hbox\bgroup\avmjprolog[}%
+\def\]{\avmjpostlog]\egroup\avmjsort}%
+\else\ifavmlabeled
+\def\[##1{\def\more{##1}\setbox2=\hbox\bgroup\avmjprolog[}%
+\def\]{\avmjpostlog]\egroup\node{\more}{\box2}}%
+\else
+\def\[{\avmjprolog[}%
+\def\]{\avmjpostlog]}%
+\fi\fi
+%
+\def\|{$\vert$}% wdm, July 1999, modified to save space before and after |
+\def\@##1{\avmbox{##1}}%
+\fi   % end not active
+%
+\ifx\LaTeX\undefined\def\\{\cr}% running under TeX
+\else \ifx\@tabularcr\relax
+\def\\{\@arraycr} % fix for the Mainz array package
+\else
+\def\\{\@tabularcr}% Leverage off LaTeX's \\*[dimen] options
+\fi
+\fi
+\def\!{\node}%
+\long\def\avmjsort{\dimen2=\ht2\advance\dimen2 by -.25\baselineskip
+   \global\dimen\avmdimen=\wd\avmboxthree
+   \ifavmtopleft \raise\dimen2\llap{\box\avmboxthree}\box2%
+   \else\ifavmtopright \box2\raise\dimen2\box\avmboxthree%
+   \else\ifavmbottomright \box2\lower\dimen2\box\avmboxthree%
+   \else \lower\dimen2\llap{\box\avmboxthree}\box2%
+   \fi\fi\fi}%
+\long\def\sort##1##2{\setbox2=\hbox{##2}\setbox
+   \avmboxthree=\hbox{\avmjsortfont##1\/}\dimen2=\ht2
+   \advance\dimen2 by -.25\baselineskip
+   \ifavmtopleft \raise\dimen2\box\avmboxthree\box2%
+   \else\ifavmtopright \box2\raise\dimen2\box\avmboxthree%
+   \else\ifavmbottomright \box2\lower\dimen2\box\avmboxthree%
+   \else \lower\dimen2\box\avmboxthree\box2%
+   \fi\fi\fi}%
+\long\def\osort##1##2{\setbox2=\hbox{##2}\setbox
+   \avmboxthree=\hbox{\avmjsortfont ##1\/}\avmjsort}%
+\def\asort##1{\avmspan{\avmjsortfont ##1}\\}%             taken over from avm.sty St. Mü. 12.07.2018
+\def\avml{\avmjprolog.}%
+\def\avmr{\avmjpostlog.}%
+\def\avmb##1{\node{##1}{\lbrack\;\rbrack}}%
+\def\avmd##1{\node{##1}{---}}%
+\def\q##1{\ifx ##1\{$\lbrace$\else
+   \ifx ##1\}$\rbrace$\else
+   \ifx ##1<$\langle$\else
+   \ifx ##1>$\rangle$\fi \fi \fi \fi}%
+\def\{{\avmjprolog\lbrace}%
+\def\}{\avmjpostlog\rbrace}%
+\def\;{\hskip\avmjhskip}%
+% wdm, revised to ensure proper font is selected
+% (needed for embedded avms)
+\def\avmspan##1{\multispan2\avmjfont\strut ##1\expandafter\hfil}%
+% original:
+%\def\avmspan##1{\multispan2\strut ##1\expandafter\hfil}%
+\avmjfont
+\openup\avmjvskip
+\setbox\avmboxone=\hbox\bgroup\ignorespaces
+}  % end defn of \avm
+
+
+\def\endavm{\egroup\ifvmode\leavevmode\fi % this if is useful!
+   \ifavmsorted\null\hskip\dimen\avmdimen\fi
+   \ifavmcenter
+      \box\avmboxone
+   \else \ifavmbottom
+      \lower.575\baselineskip\hbox{\vbox{\box\avmboxone\null}}%
+   \else
+% the next bit is ripped off from Emma's \evnup in lingmacros.sty
+      \dimen2=\ht\avmboxone\advance\dimen2 by -.725\baselineskip
+      \lower\dimen2\box\avmboxone
+\fi \fi \endgroup}
+
+
+% based on TeXbook exercise 21.3
+\def\avmbox#1{\setbox2=\hbox{$\scriptstyle #1$}\lower.2ex\vbox{\hrule
+   \hbox{\vrule\kern1.25pt 
+   \vbox{\kern1.25pt\box2\kern1.25pt}\kern1.25pt\vrule}\hrule}}
+
+%--------------------------------------------------------------------------
+% avm+.sty additions by Detmar Meurers dm@sfs.nphil.uni-tuebingen.de
+%
+% The additional commands make font selection simpler.
+
+% setting options for the avm.sty
+% Standard:
+%\avmvskip{0.385ex} % vertical space at begin/end and between rowns
+%\avmhskip{1em} % between columns
+%\avmbskip{0em} % between left and right borders
+
+\avmoptions{center,active}
+
+\avmvskip{0.1ex} % vertical space at begin/end and between rowns
+\avmhskip{.5em} % between columns
+
+% 1. make numbered boxes font dependent too:
+% 2. move tagbox down a bit (lower .4 instead of .2, i.e. so that the text 
+%    instead of the lower edge of box is in line with baseline of text
+\def\avmtagfont#1{\def\avmjtagfont{#1}}
+\def\avmjtagfont{}
+\def\avmbox#1{\setbox2=\hbox{\avmjtagfont #1}\lower.4ex\vbox{\hrule
+          \hbox{\vrule\kern1.25pt
+          \vbox{\kern1.25pt\box2\kern1.25pt}\kern1.25pt\vrule}\hrule}}
+
+% general shape for phonologies (not yet the size!):
+\newcommand{\phonshape}[0]{\itshape}
+% command to typeset phonology shapes in text
+\newcommand{\textphon}[1]{{\phonshape#1}}
+
+% Huge fonts
+\newcommand{\HugeAvmFonts}{%
+\avmfont{\normalfont\Large\scshape}%
+\avmvalfont{\normalfont\Large\itshape}%
+\avmsortfont{\normalfont\large\itshape}%
+\avmtagfont{\normalfont\large\upshape}%
+\def\bigfont{\huge}%
+\def\relfont{\Large\slshape}%
+\def\macrofont{\Large\slshape}%
+\def\phonfont{\large\phonshape}%
+\def\plus{\ensuremath{+}}%
+\def\minus{\ensuremath{-}}%
+}
+
+% huge fonts
+\newcommand{\hugeAvmFonts}{%
+\avmfont{\normalfont\large\scshape}%
+\avmvalfont{\normalfont\large\itshape}%
+\avmsortfont{\normalfont\normalsize\itshape}%
+\avmtagfont{\normalfont\normalsize\upshape}%
+\def\bigfont{\Large}%
+\def\relfont{\large\slshape}%
+\def\macrofont{\large\slshape}%
+\def\phonfont{\normalsize\phonshape}%
+\def\plus{\ensuremath{+}}%
+\def\minus{\ensuremath{-}}%
+}
+
+% Large fonts
+\newcommand{\LargeAvmFonts}{%
+\avmfont{\normalfont\normalsize\scshape}%
+\avmvalfont{\normalfont\normalsize\itshape}%
+\avmsortfont{\normalfont\small\itshape}%
+\avmtagfont{\normalfont\small\upshape}%
+\def\bigfont{\large}%
+\def\relfont{\normalsize\slshape}%
+\def\macrofont{\normalsize\slshape}%
+\def\phonfont{\small\phonshape}%
+\def\plus{\ensuremath{+}}%
+\def\minus{\ensuremath{-}}%
+}
+
+% large fonts
+\newcommand{\largeAvmFonts}{%
+\avmfont{\normalfont\small\scshape}%
+\avmvalfont{\normalfont\small\itshape}%
+\avmsortfont{\normalfont\footnotesize\itshape}%
+\avmtagfont{\normalfont\footnotesize\upshape}%
+\def\bigfont{\normalsize}%
+\def\relfont{\small\slshape}%
+\def\macrofont{\small\slshape}%
+\def\phonfont{\footnotesize\phonshape}%
+\def\plus{\ensuremath{+}}%
+\def\minus{\ensuremath{-}}%
+}
+
+% regular size fonts
+\newcommand{\regAvmFonts}{%
+\avmfont{\normalfont\footnotesize\scshape}%
+\avmvalfont{\normalfont\footnotesize\itshape}%
+\avmsortfont{\normalfont\scriptsize\itshape}%
+\avmtagfont{\normalfont\scriptsize\upshape}%
+\def\bigfont{\small}%
+\def\relfont{\footnotesize\slshape}%
+\def\macrofont{\footnotesize\slshape}%
+%\def\phonfont{\scriptsize\phonshape}%
+\def\phonfont{\footnotesize\phonshape}%
+\def\plus{\ensuremath{+}}%
+\def\minus{\ensuremath{-}}%
+}
+
+% smaller fonts
+\newcommand{\smallAvmFonts}{%
+\renewcommand{\vert}{\mid}%
+\avmfont{\normalfont\scriptsize\scshape}%
+\avmvalfont{\normalfont\scriptsize\itshape}%
+\avmsortfont{\normalfont\tiny\itshape}%
+\avmtagfont{\normalfont\tiny\upshape}%
+\def\bigfont{\footnotesize}%
+\def\relfont{\scriptsize\slshape}%
+\def\macrofont{\scriptsize\slshape}%
+\def\phonfont{\tiny\phonshape}%
+\def\plus{\ensuremath{+}}%
+\def\minus{\ensuremath{-}}%
+}
+
+% tiny fonts
+\newcommand{\tinyAvmFonts}{%
+\renewcommand{\vert}{\mid}%
+\avmfont{\normalfont\tiny\scshape}%
+\avmvalfont{\normalfont\tiny\itshape}%
+\avmsortfont{\normalfont\tiny\itshape}%
+\avmtagfont{\normalfont\tiny\upshape}%
+\def\bigfont{\scriptsize}%
+\def\relfont{\tiny\slshape}%
+\def\macrofont{\tiny\slshape}%
+\def\phonfont{\tiny\phonshape}%
+\def\plus{\ensuremath{+}}%
+\def\minus{\ensuremath{-}}%
+}
+
+% start out with regular size fonts
+\regAvmFonts
+
+
+% command to fontify the type values of an avm 
+\newcommand{\tpv}[1]{{\avmjvalfont #1}}
+
+% command to fontify the type of an avm and avmspan it
+\newcommand{\tp}[1]{\avmspan{\tpv{#1}}}
+
+% command to fontify phonologie lists
+\newcommand{\phonlist}[1]{{\phonfont\ensuremath{<\hspace{-.1em}}#1\ensuremath{>}}}
+
+% and an abbreviation:
+\let\phonl\phonlist
+
+% command to fontify relations in avms 
+\newcommand{\rel}[1]{{\relfont #1}}
+
+% command to fontify types in ordinary text
+\newcommand{\typ}[1]{\textit{#1}}
+
+% command to fontify attributes in ordinary text
+\newcommand{\attrib}[1]{\textsc{#1}}
+
+ %- boxed integers in ordinary text
+\newcommand{\idx}[1]{\avmbox{#1}}
+
+% command to fontify relations in text
+\newcommand{\textrel}[1]{\textsl{#1}}
+
+% Support for mentioning simple feature-value pair avms in text: 
+\newcommand{\featspec}[2]{{\small\smallAvmFonts\avmoptions{center}%
+    \raisebox{.19ex}[0cm][0cm]{\begin{avm}\[#1 & #2\]\end{avm}}}}
+
+\newcommand{\featplus}[1]{\featspec{#1}{\plus}}
+\newcommand{\featminus}[1]{\featspec{#1}{\minus}}
+
+% some relation operators:
+\newcommand{\append}[0]{\ensuremath{\oplus\hspace{.24em}}}
+\newcommand{\shuffle}[0]{\ensuremath{\bigcirc\hspace{.24em}}}
+
+% command to output rel-typing definition
+\newcommand{\reltyping}[0]{\mbox{$**\!>$}}
+
+% command to fontify relations in avms with conjunction and avmspan
+\newcommand{\relconj}[1]{\avmspan{\mbox{$\wedge$} {\upshape #1}}}
+
+
+% with parenthesis around the box (for reference in the text)
+\newcommand{\pidx}[1]{(\idx{#1})}
+
+\newcommand{\elst}[0]{\<\>}
+\newcommand{\Xlst}[2]{\<\avmjvalfont{#1} \|  \avmjvalfont{#2} \>}
+\newcommand{\XlstI}[1]{\<\avmjvalfont{#1}\>}
+\newcommand{\eset}[0]{\{\}}
+\newcommand{\set}[1]{\{\avmjvalfont{#1}\}}
+
+
+% Avm is just like the avm environment, but it makes it possible to
+% display an additional description (e.g. abbreviation) above the avm.
+% Useful in trees, for example:
+%                NP
+%           [Comps <>]
+
+\newenvironment{Avm}[1]{\begin{tabular}[t]{@{}c@{}}#1\\\begin{avm}}{\end{avm}\\\end{tabular}}
+
+% boxavm is an avm envirnoment wrapped within a tabular environment
+% This is useful when an avm needs to occur inside a math environment
+% e.g. when one wants to make huge (< etc around several avms
+\newenvironment{boxavm}{\begin{tabular}{@{}l@{}}\begin{avm}}{\end{avm}\end{tabular}}
+% same with top alignment:
+\newenvironment{boxavmt}{\begin{tabular}[t]{@{}l@{}}\begin{avm}}{\end{avm}\end{tabular}}
+
+% make avms in footnotes tiny
+\let\beforeAvmFootnote\footnote
+\renewcommand{\footnote}[1]{\begingroup%
+\smallAvmFonts%
+\beforeAvmFootnote{#1}%
+\endgroup}
+
+%For LFG: ordinary AVM fonts but no italics for values:
+\newcommand{\regAvmFontsLFG}{%
+\regAvmFonts%
+\avmvalfont{\footnotesize\scshape}}
