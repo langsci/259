@@ -803,3 +803,24 @@ $}}
 \newcommand{\term}[1]{\textsc{#1}}
 
 \newcommand{\citeposs}[1]{\citeauthor{#1}'s \citeyearpar{#1}}
+
+% for standalone compilations
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author 
+\makeatother
+\newcommand{\togglepaper}[1][0]{ 
+  \bibliography{../localbibliography}
+  \input{../localhyphenation}
+  \papernote{\scriptsize\normalfont
+    \theauthor.
+    \thetitle. 
+    To appear in: 
+    Stefan Müller et al.
+    HPSG Handbook
+    Berlin: Language Science Press. [preliminary page numbering]
+  }
+  \pagenumbering{roman}
+  \setcounter{chapter}{#1}
+  \addtocounter{chapter}{-1}
+}
