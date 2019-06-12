@@ -600,7 +600,7 @@ In the following, therefore, the HPSG\textsubscript{TTR}/KoS framework is introd
 %
 We should emphasize to the reader that at this point we leave the formal background of standard HPSG as documented in this book.
 %
-We want to point this out since the representations used subsequently look deceptively similar to attribute-value matrices (the risk of confusion is know from the essentially identical representations employed within unification- and constraint-based HPSG variants).
+We want to point this out since the representations used subsequently look deceptively similar to attribute-value matrices (the risk of confusion is known from the essentially identical representations employed within unification- and constraint-based HPSG variants).
 %
 We see this as a consequence of the dynamics of theories when their empirical domain is extended; at best, it adds to the formal and conceptual controversies and developments that take place in HPSG anyway, as briefly sketched in the beginning of this paragraph. 
 %
@@ -854,7 +854,7 @@ Using type constructors, various types can be build out of basic and complex (de
 In order to provide two (slightly simplified) examples of type constructors that will be useful later on, we just mention \emph{function types} \is{function type} and \emph{singleton types} \is{singleton type} here.
 
 \ea Function type \label{ex:function}
-\ea If $T_1$ and $T_1$ are types, then $(T_1 \rightarrow T_2)$ is a type, namely the type of functions that map $T_1$ to $T_2$.
+\ea If $T_1$ and $T_2$ are types, then $(T_1 \rightarrow T_2)$ is a type, namely the type of functions that map $T_1$ to $T_2$.
 \ex If a function $f$ is of type $(T_1 \rightarrow T_2)$ then $f$'s domain is $\{a \mid a : T_1\}$ and its range is included in $\{a \mid a : T_2\}$.
 \z
 \z 
@@ -1037,6 +1037,8 @@ A couple of basic conversational rules are defined in \citet[Chap.~4]{Ginzburg:2
 %
 \textit{IllocProp} abbreviates \enquote{Illocutionary Proposition}, \textit{IllocRel} \enquote{Illocutionary Relation}, \textit{poset} \enquote{Partially Ordered Set}, \textit{AbSemObj} \enquote{Abstract Semantic Object}, \textit{QSPEC} \enquote{Question-under-Discussion-Specific}.
 %
+With regard to the partially ordered QUD set we use \enquote{$\langle u, X\rangle$} to denote the upper bound $u$ for subset $X$.
+%
 For details, we have to refer the reader to \citet{Ginzburg:2012}; we believe the following list to convey at least a solid impression of how dialogue dynamics works in KoS, however.
 %
 \begin{itemize}
@@ -1071,7 +1073,7 @@ effects &:& \[qud=\<p?,pre.qud\> &:& poset(Question)\]
 \item Accept:\par\medskip
 \begin{avm}
 \[
-pre &:& \[spkr &:& Ind \\ addr &:& Ind \\ p &:& Prop \\ LatestMove=Assert(spkr,addr,p) &:& IllocProp \\ qud=\<p?,pre.qud\> &:& poset(Question)\] \\
+pre &:& \[spkr &:& Ind \\ addr &:& Ind \\ p &:& Prop \\ LatestMove=Assert(spkr,addr,p) &:& IllocProp \\ qud=\<p?,subqud\> &:& poset(Question)\] \\
 effects &:& \[spkr=pre.addr &:& Ind \\ addr=pre.sprk &:& Ind \\ LatestMove=Accept(spkr,addr,p) &:& IllocProp\]
 \]
 \end{avm}
@@ -1080,14 +1082,14 @@ effects &:& \[spkr=pre.addr &:& Ind \\ addr=pre.sprk &:& Ind \\ LatestMove=Accep
 \item
 \begin{avm}
 \[
-pre &:& \[q &:& Question \\ p &:& Prop \\ LatestMove=Accept(spkr,addr,p) &:& IllocProp \\ qud=\<q,pre.qud\> &:& poset(Question) \\ qbg &:& Qspecific(p,q) \] \\
+pre &:& \[q &:& Question \\ p &:& Prop \\ LatestMove=Accept(spkr,addr,p) &:& IllocProp \\ qud=\<q,subqud\> &:& poset(Question) \\ qbg &:& Qspecific(p,q) \] \\
 effects &:& \[facts=pre.facts $\cup$ \{p\} &:& Set(Prop) \\ qud=pre.qud $\setminus$ \{q\}\] 
 \]
 \end{avm}
 \item
 \begin{avm}
 \[
-pre &:& \[p &:& Prop \\ LatestMove=Accept(spkr,addr,p) &:& IllocProp \\ qud=\<p?,pre.qud\> &:& poset(Question) \] \\
+pre &:& \[p &:& Prop \\ LatestMove=Accept(spkr,addr,p) &:& IllocProp \\ qud=\<p?,subqud\> &:& poset(Question) \] \\
 effects &:& \[facts=pre.facts $\cup$ \{p\} &:& Set(Prop) \\ qud=pre.qud $\setminus$ \{p?\}\] 
 \]
 \end{avm}
@@ -1271,11 +1273,11 @@ In this use, \enquote{yes} has a propositional content $p$ that asserts the prop
 %
 That is, \enquote{yes} affirmatively resolves a given polar question.
 %
-Polar questions, in turn, are 0-ary propositional abstracts \citep[\page 231]{Ginzburg:2012}, that is, the polar question $p$? corresponding to a proposition $p$ is a function mapping an empty record to $p$: $([]).p$.
+Polar questions, in turn, are 0-ary propositional abstracts \citep[\page 231]{Ginzburg:2012}, that is, the polar question $p$? corresponding to a proposition $p$ is a function mapping an empty record to $p$: $\lambda r : [] . p$.
 %
 Thus, applying $p$? to an empty record $[]$ returns $p$, which is exactly what \enquote{yes} does.
 %
-The affirmative particle (used to answer a yea/no question) is a propositional lexeme which applies a polar question which is maximal in \textsc{qud} to an empty record \citep[cf.][\page 232]{Ginzburg:2012}:
+The affirmative particle (used to answer a yes/no question) is a propositional lexeme which applies a polar question which is maximal in \textsc{qud} to an empty record \citep[cf.][\page 232]{Ginzburg:2012}:
 %
 \ea
 \begin{avm}
