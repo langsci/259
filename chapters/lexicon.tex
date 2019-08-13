@@ -772,12 +772,11 @@ The intent is to preserve the behavior of non-default unification in cases where
 We now sketch how  YADU functions, using the example of English verb forms in  \citet{LascaridesandCopestake1999}.
 The pertinent linguistic facts here are as follows: English past and passive participles are always identical in form, (simple) past tense suffixes are usually the same as the corresponding participles', and the past tense suffix of most verbs is \word{-ed}.  The last two statements are defeasible, while the first is not.
 In YADU, each type is represented with a nondefeasible typed feature structure, plus a set of defeasible feature structures, each with an associated type.
-The type hierarchy in (\ref{def-verb-hier}) provides an example (here, the nondefeasible information comes first, and the set of defeasible structures follows the slash.\is{irregular morphology}
+The type hierarchy in Figure \ref{def-verb-hier} provides an example (here, the nondefeasible information comes first, and the set of defeasible structures follows the slash.\is{irregular morphology}
 
 % Lascarides \& Copestake figure 3 (p. 61) goes here
-\begin{exe}
-\ex\label{def-verb-hier}
-\begin{tikzpicture}[baseline, scale=.9 ]
+\begin{figure}
+\begin{tikzpicture}
 \tikzset{every tree node/.style={align=center,anchor=north}}
 \tikzset{level 1/.style={level distance=3.5cm}}
 \tikzset{level 2/.style={level distance=1.5cm}}
@@ -799,7 +798,8 @@ past & $\top$\]/\{\<\[past & +t\], \textit{\textup{pst-t-verb}}\>\}
 	]
 ]
 \end{tikzpicture}
-\end{exe}
+\caption{\label{def-verb-hier} A hierarchy of past-tense formation ``rules'' from \citet[61]{LascaridesandCopestake1999}}
+\end{figure}
 
 
 
@@ -873,11 +873,10 @@ arg-st & \<\@1, \ldots\>\]
 \end{tabular}
 \end{exe}
 
-Malouf then specifies default \attrib{head} values for the lexical classes \type{n} and \type{v} (see (\ref{v-def}) for the latter's definition). As gerunds have both properties of nominal and relational heads, they are subtypes of both, as shown in the multiple inheritance hierarchy in (\ref{ger-hier}). The \type{v} type, which concerns us here, has a default \attrib{head} value \type{verb}, as shown in (\ref{v-def}) in addition to the non-default, more general type \type{relational} it also includes (default information follows $/$).
+Malouf then specifies default \attrib{head} values for the lexical classes \type{n} and \type{v} (see (\ref{v-def}) for the latter's definition). As gerunds have both properties of nominal and relational heads, they are subtypes of both, as shown in the multiple inheritance hierarchy in Figure \ref{ger-hier}. The \type{v} type, which concerns us here, has a default \attrib{head} value \type{verb}, as shown in (\ref{v-def}) in addition to the non-default, more general type \type{relational} it also includes (default information follows $/$).
 
 
-\begin{exe}
-\ex\label{ger-hier}
+\begin{figure}[htbp!]
 \begin{forest}
 [{\type{head}}
 [{\type{func}}  [{\type{det}} ] [{\type{marker}} ] ]
@@ -891,7 +890,8 @@ Malouf then specifies default \attrib{head} values for the lexical classes \type
 ]
 \draw(R.south) -- (G.north);
 \end{forest}
-\end{exe}
+\caption{\label{ger-hier}A cross-cutting hierarchy of types of \type{head} according to \citet[65]{Malouf2000b}}
+\end{figure}
 
 
 \begin{exe}
@@ -1134,11 +1134,10 @@ Thus, if one partitions verb lexemes into transitive and intransitive and, ortho
 
 %JPK 6 Aug: I have added some stuff at the end of the previous paragraph to address some of Stefan's comments.
 
-(\ref{verb-hier2}) is a simplified  hierarchy of verb lexemes we use for strictly expository purposes, where the boxed labels in small caps \attrib{vform} and \attrib{arg-st} are mnemonic names of orthogonal dimensions of classification  of subcategories of verbs (and are not themselves labels of subcategories). Inheritance links to the predictable subtypes are dashed and their names grayed out; this indicates that these types can be inferred, and need not be declared explicitly as part of the grammar. A grammar of English would include statements to the effect that head information about verbs includes a classification of verbs into finite or base forms (of course, there would be more types of verb forms in a realistic grammar of English) as well a classification into intransitive and transitive verbs (again, a realistic grammar would include many more types).
+Figure \ref{verb-hier2} is a simplified  hierarchy of verb lexemes we use for strictly expository purposes, where the boxed labels in small caps \attrib{vform} and \attrib{arg-st} are mnemonic names of orthogonal dimensions of classification  of subcategories of verbs (and are not themselves labels of subcategories). Inheritance links to the predictable subtypes are dashed and their names grayed out; this indicates that these types can be inferred, and need not be declared explicitly as part of the grammar. A grammar of English would include statements to the effect that head information about verbs includes a classification of verbs into finite or base forms (of course, there would be more types of verb forms in a realistic grammar of English) as well a classification into intransitive and transitive verbs (again, a realistic grammar would include many more types).
 
 
-\begin{exe}
-	\ex\label{verb-hier2}
+\begin{figure}
 	\begin{forest}
        [{\type{verb}} 
       					[{\fbox{\attrib{vform}}}
@@ -1163,7 +1162,8 @@ Thus, if one partitions verb lexemes into transitive and intransitive and, ortho
       				\draw[style=dashed,gray] (B1.south)-- (C.north);
       				\draw[style=dashed,gray] (A1.south)-- (D.north);
 \end{forest}
-\end{exe}
+\caption{\label{verb-hier2}An example of on-line type construction}
+\end{figure}
 
 \citet{CrysmannandBonami2016} \is{inflectional morphology} have shown how this \word{online type construction}, where predictable combinations of types of orthogonal dimensions of classification are not reified in the grammar, is useful when modeling productive inflectional morphology. Consider, for example, exponents of morphosyntactic features whose shape remains constant, but whose position within a word's template (to speak informally here) varies. One case like this is the subject and object markers of Swahili, which can occur in multiple slots in the Swahili verb template \citep{Stump1993b,BonamiandCrysmann2016}. 
 % TD, 1 Aug: something missing here
@@ -1194,7 +1194,7 @@ For reasons of space we illustrate the usefulness of this dynamic approach to ty
 \end{exe}
 
 \begin{figure}\footnotesize 
-\begin{forest} baseline
+\begin{forest}
 for tree={inner sep=-1pt,l=50pt}
 [{\type{aller}}
   [{\fbox{\type{aller-entries}}}
