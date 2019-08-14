@@ -152,7 +152,7 @@ Since there are indefinitely many \attrib{synsem} values, on the assumption that
 But each of these fully instantiated entries for \word{expect} -- one for each clausal sentence that corresponds to the tree in Figure \ref{expect-b-tree} -- corresponds to a single abstract description, and it is this description that the lexicon contains. 
 %But each of these fully instantiated entries for \word{expect}, one for each clausal sentence that corresponds to the tree in (\ref{expect-b-tree}) corresponds to a single abstract description, and it is this description that the lexicon contains. 
 
-\begin{figure}
+\begin{figure}[htbp!]
 	\begin{forest}
 	[ [{\begin{avm}\[comps & \< \@1 \>\]\end{avm}} ] 
 	[{\begin{avm}\[synsem & \@1 \]\end{avm}} ] ]
@@ -348,7 +348,7 @@ All grammatical frameworks classify lexical entries to some extent, of course.
 Basic part of speech information is one obvious case.
 This high-level classification is present in HPSG, too, as part of the hierarchy of types of heads. That information is recorded in the value of the \attrib{head} feature. A simple hierarchy of types of heads is depicted in Figure \ref{pos-hier}.
 
-\begin{figure}
+\begin{figure}[htbp!]
 	\begin{forest}
 	[{\type{head}} [{\type{noun}} ] [{\type{verb}} ] [{\ldots} ] ]
 	\end{forest}
@@ -687,7 +687,7 @@ Here are two examples of the \word{zu} + infinitive passive, the first attributi
 Ackerman \& Webelhuth's account of German passives posits a multiple inheritance hierarchy of lexical types (note that these are all subtypes of a type \type{word}, not subtypes of values within it). A portion of their hierarchy of German passive types is shown in Figure \ref{fig:pass-hier}.
 
 
-\begin{figure}\footnotesize
+\begin{figure}[htbp!]\footnotesize
 	\begin{forest}
 		[{\type{univ-pas-bas-lci}}
 		[{\type{univ-do-pas-lci}}, name=D
@@ -771,20 +771,16 @@ In YADU, each type is represented with a nondefeasible typed feature structure, 
 The type hierarchy in Figure \ref{def-verb-hier} provides an example (here, the nondefeasible information comes first, and the set of defeasible structures follows the slash.\is{irregular morphology}
 
 % Lascarides \& Copestake figure 3 (p. 61) goes here
-\begin{figure}
-\begin{tikzpicture}
-\tikzset{every tree node/.style={align=center,anchor=north}}
-\tikzset{level 1/.style={level distance=3.5cm}}
-\tikzset{level 2/.style={level distance=1.5cm}}
-\Tree
-[.{\begin{avm}\[\asort{verb}
+\begin{figure}[htbp!]
+\begin{forest}
+[{\begin{avm}\[\asort{verb}
 past & $\top$ \\
 pastp & \@2\\
 passp & \@2
 \]/\{\<\[past & \@1 \\ pastp & \@1\], \textup{\textit{verb}}\>,
 \<\[past & \@1 \\ pastp & \@1\], \textup{\textit{verb}}\>\}
 \end{avm}} 
-	[.{\begin{avm}\[\asort{regverb}
+	[{\begin{avm}\[\asort{regverb}
 past & $\top$\]/\{\<\[past & +ed\], \textup{\textit{regverb}}\>\}
 \end{avm}} 
 		[ {\begin{avm}\[\asort{pst-tverb}
@@ -793,7 +789,7 @@ past & $\top$\]/\{\<\[past & +t\], \textit{\textup{pst-t-verb}}\>\}
 		]
 	]
 ]
-\end{tikzpicture}
+\end{forest}
 \caption{\label{def-verb-hier} A hierarchy of past-tense formation ``rules'' from \citet[61]{LascaridesandCopestake1999}}
 \end{figure}
 
@@ -1073,15 +1069,20 @@ In constrast, the alternatives to lexical rules described in the following secti
 In this section we briefly examine two alternatives to lexical rules, each involving underspecification. The types of members of the \attrib{arg-st} list might be underspecified so that a single lexical description can correspond to more than one subcategorization frame. Or the type of the entry itself may be underspecified, so that it subsumes multiple inflectional or derivational forms. In both cases, the intent is that sufficiently underspecified information covers multiple entries that would otherwise have to be specified and related by lexical rules. We begin with alternatives to the complement extraction and clitic lexical rules in (\ref{celr}) and (\ref{cl-lr}), proposed in \citew{Boumaetal2001} and \citew{MillerandSag1997}. 
 \is{ARG-ST} \is{valence}
 
-In both cases, the idea is to distinguish between ``canonical'' and ``non-canonical'' \is{canonical synsem} realizations of syntactic arguments, as shown in the hierarchy of \type{synsem} types in (\ref{synsem}). ``Canonical'' means local realization as a complement or subject/specifier, and ``non-canonical'' means realization as an affix or filler of an unbounded dependency. Linking constraints between semantic roles (values of argument positions) \is{linking} \is{argument realization} and syntactic arguments (members of \attrib{arg-st}) do not specify whether the realization is canonical or not; thus they retain their original form. Only canonical members of \attrib{arg-st} must be structure-shared with members of valence lists. The two constraints that determine the non-canonical realization of fillers are shown in (\ref{fillers}). (\ref{gap}) specifies what it means to be a \type{gap-ss}, namely that the argument is extracted (its local information is ``slashed'') whereras (\ref{wd-bouma}) prohibits any \type{gap-ss} member from being a member of the \attrib{comps} list (see \citealt[23]{Boumaetal2001}). As these two constraints are compatible with either a canonical or extracted object, there is no need for the lexical rule in (\ref{celr}). (\attrib{deps} in (\ref{wd-bouma}) is an attribute Bouma et al. introduce that includes not only syntactic arguments, the value of \attrib{arg-st}, but also some syntactic adjuncts.)
+In both cases, the idea is to distinguish between ``canonical'' and ``non-canonical'' \is{canonical synsem} realizations of syntactic arguments, as shown in the hierarchy of \type{synsem} types in Figure \ref{synsem}. ``Canonical'' means local realization as a complement or subject/specifier, and ``non-canonical'' means realization as an affix or filler of an unbounded dependency. Linking constraints between semantic roles (values of argument positions) \is{linking} \is{argument realization} and syntactic arguments (members of \attrib{arg-st}) do not specify whether the realization is canonical or not; thus they retain their original form. Only canonical members of \attrib{arg-st} must be structure-shared with members of valence lists. The two constraints that determine the non-canonical realization of fillers are shown in (\ref{fillers}). (\ref{gap}) specifies what it means to be a \type{gap-ss}, namely that the argument is extracted (its local information is ``slashed'') whereras (\ref{wd-bouma}) prohibits any \type{gap-ss} member from being a member of the \attrib{comps} list (see \citealt[23]{Boumaetal2001}). As these two constraints are compatible with either a canonical or extracted object, there is no need for the lexical rule in (\ref{celr}). (\attrib{deps} in (\ref{wd-bouma}) is an attribute Bouma et al. introduce that includes not only syntactic arguments, the value of \attrib{arg-st}, but also some syntactic adjuncts.)
 % TD, 1 Aug: Is this from Bouma, et al.?  If so we should indicate that more clearly in this paragraph (and the following examples).
 %JPK 5 Aug I now make that clear and give the page number. Added stuff about DEPs
 
-\begin{exe}
-	\ex\label{synsem} \Tree
-	[.{\type{synsem}} \type{canon-ss} [.{\type{non-canon-ss}} {\type{gap-ss}} 
-	{\type{aff-ss}} ] ]	
-\end{exe}
+\begin{figure}[htbp!]
+	\begin{forest}
+	[{\type{synsem}} [\type{canon-ss} ] [{\type{non-canon-ss}} 
+																		[{\type{gap-ss}} ]
+																		[{\type{aff-ss}}  ]
+									]
+	 ]	
+	\end{forest}
+\caption{\label{synsem} Types of \type{synsem}}
+\end{figure}
 
 \begin{exe}
 	\ex\label{fillers}
@@ -1133,7 +1134,7 @@ Thus, if one partitions verb lexemes into transitive and intransitive and, ortho
 Figure \ref{verb-hier2} is a simplified  hierarchy of verb lexemes we use for strictly expository purposes, where the boxed labels in small caps \attrib{vform} and \attrib{arg-st} are mnemonic names of orthogonal dimensions of classification  of subcategories of verbs (and are not themselves labels of subcategories). Inheritance links to the predictable subtypes are dashed and their names grayed out; this indicates that these types can be inferred, and need not be declared explicitly as part of the grammar. A grammar of English would include statements to the effect that head information about verbs includes a classification of verbs into finite or base forms (of course, there would be more types of verb forms in a realistic grammar of English) as well a classification into intransitive and transitive verbs (again, a realistic grammar would include many more types).
 
 
-\begin{figure}
+\begin{figure}[htbp!]
 	\begin{forest}
        [{\type{verb}} 
       					[{\fbox{\attrib{vform}}}
@@ -1189,7 +1190,7 @@ For reasons of space we illustrate the usefulness of this dynamic approach to ty
 	\end{xlist}	
 \end{exe}
 
-\begin{figure}\footnotesize 
+\begin{figure}[htbp!]\footnotesize 
 \begin{forest}
 for tree={inner sep=-1pt,l=50pt}
 [{\type{aller}}
