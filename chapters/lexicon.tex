@@ -149,15 +149,16 @@ To see the importance of the distinction between descriptions (stored entries) a
 HPSG's model of the dependency between heads and complements stipulates identity between the syntactic and semantic information of each complement (the value of the \attrib{synsem} attribute) and a member of the list of complements the head subcategorizes for. 
 %HPSG's model of the dependency between heads and complements involves identity between the syntactic and semantic information of each complement (the value of the \attrib{synsem} attribute) and a member of the list of complements the head subcategorizes for. 
 Since there are indefinitely many \attrib{synsem} values, on the assumption that there are indefinitely many clausal meanings (a point \citet[p. 8--9]{Jackendoff1990} emphasizes), there are, in principle, indefinitely many fully instantiated entries for the verb \word{see} subcategorizing for a clausal complement (as in (\ref{expect-b})). 
-But each of these fully instantiated entries for \word{expect} -- one for each clausal sentence that corresponds to the tree in (\ref{expect-b-tree}) -- corresponds to a single abstract description, and it is this description that the lexicon contains. 
+But each of these fully instantiated entries for \word{expect} -- one for each clausal sentence that corresponds to the tree in Figure \ref{expect-b-tree} -- corresponds to a single abstract description, and it is this description that the lexicon contains. 
 %But each of these fully instantiated entries for \word{expect}, one for each clausal sentence that corresponds to the tree in (\ref{expect-b-tree}) corresponds to a single abstract description, and it is this description that the lexicon contains. 
 
-\begin{exe}
-	\ex\label{expect-b-tree}
-	\Tree
-	[ {\begin{avm}\[comps & \< \@1 \>\]\end{avm}} 
-	{\begin{avm}\[synsem & \@1 \]\end{avm}} ]
-\end{exe}  
+\begin{figure}
+	\begin{forest}
+	[ [{\begin{avm}\[comps & \< \@1 \>\]\end{avm}} ] 
+	[{\begin{avm}\[synsem & \@1 \]\end{avm}} ] ]
+\end{forest}	
+\caption{\label{expect-b-tree} A head-complement phrase}
+\end{figure}  
 
 
 The formal status of lexical entries has engendered a fair amount of theoretical work and some debate.
@@ -345,15 +346,14 @@ These statements need not involve all of the information that's present in the e
 \is{inheritance|(}
 All grammatical frameworks classify lexical entries to some extent, of course.
 Basic part of speech information is one obvious case.
-This high-level classification is present in HPSG, too, as part of the hierarchy of types of heads. That information is recorded in the value of the \attrib{head} feature. A simple hierarchy of types of heads is depicted in (\ref{pos-hier}).
+This high-level classification is present in HPSG, too, as part of the hierarchy of types of heads. That information is recorded in the value of the \attrib{head} feature. A simple hierarchy of types of heads is depicted in Figure \ref{pos-hier}.
 
-\begin{exe}
-	\ex\label{pos-hier}
-	\begin{tikzpicture}[baseline]
-	\Tree
-	[.{\type{head}} {\type{noun}} {\type{verb}} {\ldots} ]
-	\end{tikzpicture}
-\end{exe}
+\begin{figure}
+	\begin{forest}
+	[{\type{head}} [{\type{noun}} ] [{\type{verb}} ] [{\ldots} ] ]
+	\end{forest}
+	\caption{\label{pos-hier}A hierarchy of types of \type{head}}
+\end{figure}
 
 Each of these types is a partial specification of a lexical entry's head properties. Typing of \attrib{head} information allows the ascription of appropriate properties to different classes of lexical entries. For example, case information is only relevant to nouns and adjectives, and whether a verb is an auxiliary or not is only relevant to verbs. 
 The subtypes of \type{head} in (\ref{pos-hier}) allow us to define additional specifications of of the properties appropriate for different parts of speech.
@@ -687,37 +687,33 @@ Here are two examples of the \word{zu} + infinitive passive, the first attributi
 Ackerman \& Webelhuth's account of German passives posits a multiple inheritance hierarchy of lexical types (note that these are all subtypes of a type \type{word}, not subtypes of values within it). A portion of their hierarchy of German passive types is shown in Figure \ref{fig:pass-hier}.
 
 
-\begin{figure}
-	\oneline{%
-		\begin{tikzpicture}[baseline, sibling distance=2pt, level distance=60pt]\footnotesize
-		\Tree
-		[.{\type{univ-pas-bas-lci}}
-		[.\node(D){\type{univ-do-pas-lci}} ;
-		[.\node(Z){\type{german-zuinf-pas-lci}} ;
-		[.{\type{german-pers-zuinf-pas-lci}} 
-		[.\node(PZ){\type{german-long-pers-neutral-zuinf-pas-lci}};
-		[.{\type{german-long-pers-zuinf-pas-lci}} ]
-		[.{\type{german-long-attr-zuinf-pas-lci}} ]
+\begin{figure}\footnotesize
+	\begin{forest}
+		[{\type{univ-pas-bas-lci}}
+		[{\type{univ-do-pas-lci}}, name=D
+		[{\type{german-zuinf-pas-lci}}, name=Z
+		[{\type{german-pers-zuinf-pas-lci}} 
+		[{\type{german-long-pers-neutral-zuinf-pas-lci}}, name=PZ
+		[{\type{german-long-pers-zuinf-pas-lci}} ]
+		[{\type{german-long-attr-zuinf-pas-lci}} ]
 		]		
 		]
 		]
 		]
-		[.\node(G){\type{german-pas-lci}};
-		\edge[draw=none]; {}
-		[.\node(L){\type{german-long-pas-lci}};
-		\edge[draw=none]; {} ]
-		{\type{german-io-pas-lci}}	
+		[{\type{german-pas-lci}}, name=G
+		[ , no edge ]
+		[{\type{german-long-pas-lci}}, name=L
+		[ , no edge ]  ]
+		[{\type{german-io-pas-lci}} ]	
 		]
-		\node[sibling distance=-150pt]{\type{univ-imp-pas-lci}} ;
-		{\ldots}
+		[ {\type{univ-imp-pas-lci}} ]
+		[ {\ldots} ]
 		]
 		\draw(G.south) -- (Z.north); 
 		\draw(L.south) -- (PZ.north);
-		\end{tikzpicture}
-	}
-	\caption{\label{fig:pass-hier}A portion of the hierarchy of passive lexical types according to \citealt[244]{AckermanandWebelhuth1998}}	
+	\end{forest}
+		\caption{\label{fig:pass-hier}A portion of the hierarchy of passive lexical types according to \citealt[244]{AckermanandWebelhuth1998}}	
 \end{figure}
-
 
 While all passives share the constraint that a logical subject is demoted, as stipulated on a general \type{univ-pas-bas-lci} passive type, the other requirements for each kind of passive are stated on various subtypes.
 The \word{zu}+infinitive passive, for instance, requires not only that \word{sein} is the auxiliary and that the main verb is infinitive, but that the semantics involves necessity or obligation.
