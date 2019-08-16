@@ -26,6 +26,7 @@
 % Cite and cross-reference other chapters
 \newcommand{\crossrefchaptert}[2][]{\citet*[#1]{chapters/#2}, Chapter~\ref{chap-#2} of this volume} 
 \newcommand{\crossrefchapterp}[2][]{(\citealp*[#1][]{chapters/#2}, Chapter~\ref{chap-#2} of this volume)}
+\newcommand{\crossrefchapteralt}[2][]{\citealt*[#1][]{chapters/#2}, Chapter~\ref{chap-#2} of this volume}
 % example of optional argument:
 % \crossrefchapterp[for something, see:]{name}
 % gives: (for something, see: Author 2018, Chapter~X of this volume)
@@ -300,7 +301,7 @@ $}}
 \newcommand{\HPSGTTR}{HPSG$_{\text{TTR}}$\xspace}
 
 \newcommand{\ttrtype}[1]{\textit{#1}}
-% \newcommand{\avmel}{\q<\quad\q>} %% shortcut for empty lists in AVM
+\newcommand{\avmel}{\q<\quad\q>} %% shortcut for empty lists in AVM
 \newcommand{\ttrmerge}{\ensuremath{\wedge_{\textit{merge}}}}
 \newcommand{\Cat}[2][0.1pt]{%
   \begin{scope}[y=#1,x=#1,yscale=-1, inner sep=0pt, outer sep=0pt]
@@ -435,8 +436,8 @@ $}}
 \def\PL{\textsc{pl}}
 \def\SRC{\textsc{src}}
 \def\src{\textsc{src}}
-\def\FORM{\textsc{form}}
-\def\form{\textsc{form}}
+\newcommand{\FORMjb}{\textsc{form}}
+\newcommand{\formjb}{\FORM}
 \def\GCASE{\textsc{gcase}}
 \def\gcase{\textsc{gcase}}
 \def\SCASE{\textsc{scase}}
@@ -457,7 +458,7 @@ $}}
 \def\CAT{\textsc{cat}}
 \def\C{\textsc{c}}
 \def\SUBJ{\textsc{subj}}
-\def\subj{\textsc{subj}}
+\def\subjjb{\textsc{subj}}
 \def\SLASH{\textsc{slash}}
 \def\LOCAL{\textsc{local}}
 \def\ARG-ST{\textsc{arg-st}}
@@ -578,7 +579,7 @@ $}}
 \def\CONT{\textsc{cont}}
 \def\DECL{\textsc{decl}}
 \def\FOCUS{\textsc{focus}}
-\def\FORM{\textsc{form}}
+%\def\FORM{\textsc{form}} duplicate
 \def\FREL{\textsc{frel}}
 \def\GOAL{\textsc{goal}}
 \def\HEAD{\textsc{head}}
@@ -604,7 +605,7 @@ $}}
 \def\conn{\textsc{conn}}
 \def\decl{\textsc{decl}}
 \def\fin{{\it fin\/}}
-\def\form{\textsc{form}}
+%\def\form{\textsc{form}}
 \def\gend{\textsc{gend}}
 \def\inf{{\it inf\/}}
 \def\mood{\textsc{mood}}
@@ -802,3 +803,59 @@ $}}
 \newcommand{\term}[1]{\textsc{#1}}
 
 \newcommand{\citeposs}[1]{\citeauthor{#1}'s \citeyearpar{#1}}
+
+% for standalone compilations
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author 
+\makeatother
+\newcommand{\togglepaper}[1][0]{ 
+  \bibliography{../Bibliographies/stmue,../localbibliography,
+../Bibliographies/phonology,
+../Bibliographies/case,
+../Bibliographies/evolution,
+../Bibliographies/agreement,
+../Bibliographies/lexicon,
+../Bibliographies/np,
+../Bibliographies/negation,
+../Bibliographies/argst,
+../Bibliographies/binding,
+../Bibliographies/complex-predicates,
+../Bibliographies/processing,
+../Bibliographies/wasow,
+../Bibliographies/cl,
+../Bibliographies/hudson,
+../Bibliographies/islands,
+../Bibliographies/diachronic,
+../Bibliographies/gesture,
+../Bibliographies/semantics,
+../Bibliographies/pragmatics,
+../Bibliographies/information-structure,
+../Bibliographies/idioms}
+  \input{../localhyphenation}
+  \papernote{\scriptsize\normalfont
+    \theauthor.
+    \thetitle. 
+    To appear in: 
+    Stefan Müller et al.
+    HPSG Handbook
+    Berlin: Language Science Press. [preliminary page numbering]
+  }
+  \pagenumbering{roman}
+  \setcounter{chapter}{#1}
+  \addtocounter{chapter}{-1}
+}
+
+% for bibliographies
+% biber/biblatex could use sortname field rather than messing around this way.
+\newcommand{\SortNoop}[1]{}
+
+
+% Doug Ball
+
+\newcommand{\elist}{\q<\ \ \q>}
+
+\newcommand{\esetDB}{\q\{\ \ \q\}}
+
+
+

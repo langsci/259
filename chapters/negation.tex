@@ -1,62 +1,121 @@
-\documentclass[output=paper]{langsci/langscibook}
+\documentclass[output=paper
+                ,modfonts
+                		,nonflat
+	        ,collection
+	        ,collectionchapter
+	        ,collectiontoclongg
+ 	        ,biblatex
+                ,babelshorthands
+                ,newtxmath
+                ,draftmode
+                ,colorlinks, citecolor=brown
+]{./langsci/langscibook}
 \author{Jong-Bok Kim\affiliation{Kyung Hee University, Seoul}}
 \title{Negation}
 
-% \chapterDOI{} %will be filled in at production
 
-\epigram{Change epigram in chapters/03.tex or remove it there }
-\abstract{Change the  abstract in chapters/03.tex \lipsum[3]}
-\maketitle
+%\usepackage{chrisbib}
+
+
+%move the following commands to the "local..." files of the master project when integrating this chapter
+%\usepackage{tabularx}
+%\usepackage{langsci-gb4e}
+%\usepackage{langsci-optional}
+%\usepackage{graphicx}
+%\usepackage[sectionbib]{natbib}
+%\usepackage{chrisbib}
+%\usepackage{avm}
+%\usepackage[backend=biber]{biblatex}
+%\usepackage[linguistics]{forest}
+
+
+%\usepackage{biblatex}
+%\addbibresource{negation-mine-bib}
+%\printbibliography
+%\bibliography{negation-mine-bib}
+
+
+\newcommand\LIGHT{{\sc light}}
+%\newcommand\NEG{{\sc neg}}
+%\newcommand\FUT{{\sc fut}}
+%\def\jbsub#1{\lower4pt\hbox{\small #1}}
+%\def\ssub#1{\lower4pt\hbox{\small #1}}
+%\newcommand\trace{\underbar{\ \ \ }\ }
+\newcommand\FORM{{\sc form}}
+\newcommand\hdlight{{\sc head-light construction}}
+\newcommand\POL{{\sc pol}}
+
+
+%\input{packages}
+
+\IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
+  \input{../localpackages}
+  \input{../localcommands}
+  \togglepaper[14]
+}{}
+
+
+\title{Negation}
+\abstract{Each language has a way to express (sentential) negation
+that reverses the truth value of a certain sentence, but employs
+language particular expressions as well as grammatical strategies. There are
+four main types of negative
+in expressing sentential negation: adverbial negative, morphological negative,
+auxiliary negative verb, and
+preverbal negative. This chapter discusses HPSG analyses for these four strategies
+in marking sentential negation.}
+
+
+%Each language has its own way of expressing
+%sentential negation (to reverse the truth value of a certain sentence)
+%with grammatical restrictions in its surface realizations.
+%This chapter aims to provide an investigation of morpho-syntactic aspects
+%of this negation in natural languages, encompassing both empirical and
+%theoretical issues  concerning negation as well as related phenomena
+%in question.\footnote{This chapter grows out of \citep{Kim:00,18}.}
 
 \begin{document}
-\label{chap-negation}
-
-%\if 0
+\maketitle
 
 {\avmoptions{center}
 
-\section{Modes of Expressing Negation}
-
-Each language has its own way of expressing negation
-with grammatical restrictions in its surface realizations.
-This
-chapter aims to provide an investigation of morpho-syntactic aspects
-of negation in natural languages, encompassing both empirical and
-theoretical issues  concerning negation as well as related phenomena
-in question.
+\section{Modes of expressing negation}
 
 %In a typological study of sentential negation,  Dahl (1979) has
 %identified three major ways of expressing negation in natural
 %%languages as a morphological category on verbs, as an auxiliary
 %verb, and as an adverb-like particle.
 
-There are four main ways of expressing negation in the
-languages: morphological negative,
-auxiliary negative verb, adverbial negative, and clitic-like negative (see \citet{Dahl:79}, \citet{Payne:85}, and \citet{Dryer:05}).
-Each of these types is illustrated in the following:
+There are four different types of negative markers
+in expressing negation in languages: morphological negative,
+auxiliary negative verb, adverbial negative, and clitic-like
+ preverbal negative \citep[see]{Dahl:79, Payne:85, Dryer:05}.
+Each of these types is illustrated in the following:\footnote{The abbreviations
+used here include ACC (accusative), CAUS (causative), COND (conditional), CONN (connective), COP (copula),  DECL (declarative), DEL (delimiter), FUT (future), GEN (genitive), HON (honorific), INF (infinitival), NEG (negative), NOM (nominative), NPST (nonpast), PASS (passive), PERF (perfective), PRES (present), PST (past),   PROG (progressive),  SG (singular), and so forth.}
 
 \eal
-\ex\label{1a} Turkish:\\
-\gll Ali  elmalar-i  ser-me-di-$\emptyset$. \\
+\ex\label{1a}
+\gll Ali  elmalar-i  ser-me-di-$\emptyset$. \hfill (Turkish) \\
 Ali apples-\textsc{acc}  like-\textsc{neg}-\textsc{pst}-\textsc{3sg} \\
 \glt `Ali didn't like apples.'
 
-\ex\label{1b} Korean:\\
-\gll sensayng-nim-i o-ci anh-usi-ess-ta \\
+\ex\label{1b}
+\gll sensayng-nim-i o-ci anh-usi-ess-ta.  \hfill (Korean) \\
 teacher-\textsc{hon}-\textsc{nom} come-\textsc{conn} \textsc{neg}-\textsc{hon}-\textsc{pst}-\textsc{decl} \\
 \glt `The teacher didn't come.'
 
-\ex \label{1c} French:\\
-\gll Dominique (n')\'{e}crivait pas de lettre.\\
+\ex \label{1c}
+\gll Dominique (n')\'{e}crivait pas de lettre. \hfill (French)\\
      Dominique wrote \textsc{neg} of letter \\
 \glt `Dominiquedid not write a letter.'
 
-\ex \label{1d} Italian:\\
-\gll Gianni non legge articoli di sintassi. \\
+\ex \label{1d} %Italian:\\
+\gll Gianni non legge articoli di sintassi. \hfil (Italian) \\
 Gianni \textsc{neg} reads articles of syntax \\
 \glt `Gianni doesn't read syntax articles.'
 \zl
-%
+
+\noindent
 As shown in (\ref{1a}), languages like Turkish
 have typical examples of morphological negatives where
 negation is expressed by an inflectional category realized on the
@@ -67,928 +126,110 @@ verb by affixation. Meantime, languages like Korean
  negation)  and a morphological negative (a short form negation)
  for sentential negation. See \citet{Kim:00,Kim:16} and references therein for detail.}
   The negative auxiliary
- verb here is marked with the basic verbal categories such as agreement, tense, aspect, and mood, while the lexical verb remains in an invariant, participle form. The third major way of expressing negation is to use an adverb-like
-particle. This type of negation, forming an independent word, is prevalent in English and French, as given in (\ref{1c}). In these languages, negative markers behave like adverbs in their ordering with respect to the verb. The fourth
-type is to introduce a clitic-like element in
+ verb here is marked with the basic verbal categories such as agreement, tense, aspect, and mood, while the lexical, main verb remains in an invariant, participle form. The third major way of expressing negation is to use an adverbial
+negative. This type of negation, forming an independent word, is prevalent in English and French, as given in (\ref{1c}). In these languages, negatives behave like adverbs in their ordering with respect to the verb. The fourth
+type is to introduce a preverbal negative in
 expressing sentential negation. The negative marker in Italian in (\ref{1d}), preceding a finite verb like other types of clitics in the language,
 belongs to this type.
 
-This chapter provides a construction-based HPSG analysis of these four main types of negation we find in natural languages  and and further answers the
-following three questions:
 
-\begin{itemize}
-\item What are the main ways of expressing sentential
-negation or negating a sentence or clause?
-
-\item What are the distributional possibilities of
-negative markers in
-relation to other main constituents of the sentence?
-
-\item What do the answers to these two questions imply for
-the theory of grammar?
-\end{itemize}
-
-\noindent
-This chapter addresses these questions, based on empirical data,
-theoretical issues, and analyses of negation.
-
-\section{Derivational Views}
-
-The derivational view has claimed that the positioning of all of the
+In analyzing these four main types of sentential negation, there have been two main strands: derivational vs. nonderivational views. The derivational view has claimed that the positioning of all of the
 four types of negatives is basically determined by the interaction of movement
 operations, a rather large set of functional projections including NegP,
-and their hierarchically fixed organization.
-
-%The most influential, representative work is Pollock (1989, 1994), which
-%notes
-
-English and French display systematic differences with respect
-to negation, adverb position, and subject-aux inversion, as illustrated
-in the following:
-% grammar have received considerable attention in the recent
-% syntactic literature. Central to this inquiry has been the
-% following set of contrasts:
-%
-
-
-\bigskip
-
-\noindent {\bf Position of Negation}:
-
-\eal\label{exe:1}
-\ex[*] {Kim likes not Lee.
-}
-\ex[] {Kim does not like Lee.
-}
-\zl
-
-\eal
-\ex{
-\gll Robin  n'aime    pas       Stacey. \\
-     Robin  (n')likes \textsc{neg} Stacey \\
-\glt `Robin does not like Stacey.'
-}
-\ex[*]{Robin ne pas aime Stacey.}
-\zl
-
-\noindent {\bf Position of Adverbs}:
-
-\eal
-\ex[*]{Kim kisses often Lee.}
-\ex[]{Kim often kisses Lee.}
-\zl
-
-\eal
-\ex[*]{Robin embrasse souvent Stacey.}
-\ex[]{Robin souvent embrasse Stacey.}
-\zl
-
-\noindent {\bf Subject-Verb Inversion in Questions}:\is{inversion}
-
-\eal
-\ex[*]{Likes he Sandy?}
-\ex[]{Does he like Sandy?}
-\zl
-
-
-\eal
-\ex[*]{Likes Lou Sandy?}
-\ex[]{Aime-t-il Sandy?}
-\zl
-
-
-
-
-The examples illustrate that in English, the negator \emph{not}
-and adverb \emph{often} need to precede a lexical verb, while in French,
-the corresponding negator \textit{pas} and adverb \textit{souvent} follow
-a lexical verb. In addition, only French allows main or lexical verb inversion. Drawing on the earlier insights of \citet{Emonds:78},
-\citet{Pollock:89,Pollock:94} and a number of subsequent researchers
+and their hierarchically fixed organization.\footnote{The term `negator' or `negative marker' is a cover term for any linguistic expression functioning as sentential negation.}
+In particular, to account for the
+fact that unlike English, only French allows main or lexical verb inversion
+as in (\ref{1c}), \citet{Pollock:89,Pollock:94} and a number of subsequent researchers
 have interpreted these contrasts as providing critical motivation for
 the process of head movement and the existence of functional
-categories such as MoodP, TP, AgrP, and NegP (see \citet{Belletti:90}, \citet{Zanuttini:91,Zanuttini:97,Zanuttini:01}, \citet{Chomsky:91,Chomsky:93,Chomsky:95}, \citet{Lasnik:95}, \citet{Haegeman:95,Haegeman:97}, \citet{Vikner97a-u}, \citet{Zeijlstra:15}, inter alia).
-It has been widely
-accepted that the variation between French and English illustrated
-here can be explained only in terms of the respective properties
-of verb movement and its interaction with a view of clause
+categories such as MoodP, TP, AgrP, and NegP \citep[see]{Belletti:90, Zanuttini:91, Zanuttini:97,Zanuttini:01, Chomsky:91,Chomsky:93,Chomsky:95, Lasnik:95, Haegeman:95,Haegeman:97, Vikner97a-u, Zeijlstra:15}.
+Within the derivational view, it has thus been widely
+accepted that the variation between French and English can be explained only in terms of the respective properties of verb movement and its interaction with a view of clause
 structure organized around functional projections.
-For example, in \citet{Pollock:89}'s proposal, all verbs in French
-move to a higher structural position, whereas this is possible in
-English only for the auxiliaries \emph{have} and \emph{be}, as
-shown in Figure~\ref{fig:1}.
 
-\begin{figure}
-	\begin{subfigure}[b]{0.48\textwidth}
-\centering
-		\begin{forest}
-			[TP
-				[Tns,name=Tns]
-				[NegP
-					[pas]
-				[Neg$'$
-					[Neg [ne]]
-					[AgrP
-						[Agr [t,name=t]]
-						[VP
-							[V[all verbs,name=verbs]]
-							[\dots]]]]]]
-			\draw[->,dotted] (verbs) to[out=south west,in=south] (t);
-			\draw[->,dotted] (t) to[out=west,in=south] (Tns);
-		\end{forest}
-		\caption{French}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[b]{0.48\textwidth}
-\centering
-		\begin{forest}
-			[TP
-				[Tns,name=Tns]
-				[NegP
-					[Neg[not]]
-					[AgrP
-						[Agr[t,name=t]]
-						[VP
-						[V[have/be,name=have]]
-						[\dots]]]]]
-			\draw[->,dotted] (have) [out=south west,in=south] to (t);
-			\draw[->,dotted] (t) [out=west,in=south] to (Tns);
-		\end{forest}
-		\caption{English}
-	\end{subfigure}
-	\caption{Derivational structures of English and French negative sentences}\label{fig:1}
-\end{figure}
-
-%Why does V-movement happen when it does?
-
-The analytical motivations for such V-movement have been looked
-for in diverse (and sometimes inconsistent) ways in
-the literature (see \citet{Pollock:89,Pollock:94,Pollock97a-u,Pollock:97b}, \citet{Vikner:94,Vikner97a-u}). In \citet{Pollock:89},
-it is the strength of the Agr feature that  determines V-movement: unlike
-French, English non-auxiliary verbs  cannot undergo V-movement because Agr in
-French is `transparent'  (or `strong') whereas Agr in English is `opaque' (or
-`weak'). The  richness of French verbal morphology is assumed to provide
-the  motivation for the strength of French Agr, in consequence of which the
-raised verb in French can transmit theta roles to its arguments through AGR,
-thus avoiding any violation of the theta criterion.  But the weakness of
-English Agr (assumed to follow from the paucity of English verbal
-morphology) is what blocks lexical verbs from assigning theta roles once
-they have moved to Tns. Hence movement of a theta-assigning verb in English
-would result in a violation of the theta criterion.
-
-The basic spirit of Pollock's analysis---that `morphology determines syntactic movement'---has
-remained essentially unchanged for the last decades though what triggers V-movement has varied
-considerably in subsequent work (see, among others, \citet{Zanuttini:01}, \citet{Bo:14},
-\citet{Zeijlstra:15}).  As far as we are aware, there is no agreed upon movement-based analysis of
-either the English or French systems. In fact, as \citet{Lasnik:00}) stresses, the Minimalist
-Program as articulated in \citet{Chomsky:93,Chomsky:95,Chomsky:00-mini-inq} not only fails to deal with the
-ungrammaticality of simple examples like \textit{*John left not} or \textit{*John not left}, it also
-provides no basis for explaining the French/English contrasts in adverb position discussed by
-\citet{Pollock:89} and \citet{Cinque:99} (e.g., \textit{embrasse souvent} vs.\ \textit{often
-  kisses}).\is{interpretable}
-
-
-The derivational view summarized here has focused on adverbial negatives
-in English and French. This view with movement operations in the
- hierarchy of functional projections has been extended to account for the other types of negation as well, which we will note in due course.
-
-\section{Nonderivational Views}
-%A Construction-based HPSG Analysis}
-
-%neg-supp-jb-2  goes here.
 
 Departing from the derivational view, the non-derivational, lexicalist view
-requires no uniform syntactic category (e.g., Neg or NegP) for the different types of negatives. The view allows negation to be realized in different grammatical categories, e.g., a morphological suffix, an auxiliary verb, or an adverbial expression. For instance, the negative {\it not} in English is taken to be an adverb as other negative expressions in English ({\it never, barely, hardly}). This view has been suggested by \citet{Jackendoff:72, Baker:91, Ernst:92, Kim:00}. In particular,
-\citet{KS:96, Kim:00, KS:02} develop analysis of sentential negation in English, French, Korean, and Italian within the framework of HPSG, showing that the postulation of Neg and its projection NegP creates more empirical and theoretical problems than it solves (see \citet{Newmeyer:2006} for this point).
-
-% Newmyer, Fredrick. 2006. ‘Negation and Modularity’. In Betty Birner and Gregory Ward (eds.), %Drawing the
-%Boundaries of Meaning: Neo-Gricean Studies in Pragmatics and Semantics in
-%Honor of Laurence R. Horn. Amsterdam: John Benjamins, pp. 247-268.
-
-In addition, there have been substantial work for negation within the framework HPSG, which
+requires no uniform syntactic category (e.g., Neg or NegP) for the different types of negatives. The view allows negation to be realized in different grammatical categories, e.g., a morphological suffix, an auxiliary verb, or an adverbial expression. For instance, the negative {\it not} in English is taken to be an adverb as other negative expressions in English (e.g., \textit{never, barely, hardly}). This view has been suggested by \citet{Jackendoff:72}, \citet{Baker:91}, \citet{Ernst:92}, \citet{AG:97}, \citet{Kim:00}, and \citet{Warner2000a-u}. In particular,
+\citet{KS:96}, \citet{AG:97}, \citet{Kim:00}, and \citet{KS:02} develop analysis of sentential negation in English, French, Korean, and Italian within the framework of HPSG, showing that the postulation of Neg and its projection NegP creates more empirical and theoretical problems than it solves (see \citet{Newmeyer:2006} for this point).
+%For the account of English negation, \citet{Warner2000a-u},
+%further developing the analyses of \citet{KS:96} and \citet{Kim:00},
+%characterizes negation within the English auxiliary system without the use of lexical rules, %explores inheritance hierarchies in interpreting the distributional possibilities of %negation in various environments. For instance, \citet{Warner2000a-u} classifies auxiliaries %into two subtypes with respect to negation and inversion, each of which is again %subclassified in terms of being negated and inverted.
+In addition, there have been substantial work for negation in other languages within the framework HPSG, which
 does not resort to the postulation of functional projections as well as movement operations to account for the various distributional possibilities
-of negation.  For the account of English negation, \citet{Warner2000a-u},
-further developing the analyses of \citet{KS:96, Kim:00},
-characterizes negation within the English auxiliary system without the use of lexical rules, explores inheritance hierarchies in interpreting the distributional possibilities of negation in various environments. For instance, \citet{Warner2000a-u} classifies auxiliaries into two subtypes with respect to negation and inversion, each of which is again subclassified in terms of being negated and inverted.
+of negation \citep[see]{PK:99, BJ:00, Prz:00, Kupsc:02, Swart:02, Borsley:05, Crysmann:10, Bender:13}.
 
-As for the research on the negation in other languages, \citet{PK:99} and \citet{Prz:00, Prz:01}
-discuss aspects of Polish negation which is realized as the prefix
-  {\it nie} to a verbal expression.
- \citet{Prz:00} focuses on non-local genitive of negation in Polish where the object argument is not accusative but genitive marked with the presence of negative as in \ref{genitive-1a}. The assignment of genitive case to the object is also effective in
-  the unbounded relation as shown in \ref{genitive-1b}:
+In what follows, we review the HPSG analyses of these four main types of negation,
+focusing on the distributional possibilities of these four types of negatives in
+relation to other main constituents of the sentence. When
+necessary, the chapter also discusses implications for
+the theory of grammar.\footnote{This chapter grows out of \citet{Kim:00,18}.} We
+start the HPSG analyses of adverbial negatives in English and French, which have been most extensively studied in transformational grammars.
+The chapter then moves to the discussion of morphological
+negatives, negative auxiliary verbs, and preverbal negatives. The chapter
+also reviews the HPSG analyses of phenomena like genitive negation and
+negative concord which are sensitive to the presence of negative expressions. The
+final section concludes this chapter.
 
-\eal
-\ex \label{genitive-1a}
-\gll Nie lubi\c{e} Marii/*Mari\c{e} \\
-     not like-1st.SG Mary-GEN/Mary-ACC\\
-\glt `I don't like Mary.'
-\ex \label{genitive-1b}
-\gll Mog\c{e} nie chcie\'{c} tego napisa\'{c} \\
-     may-1st.SG not want-INF this-GEN write-INF\\
-\glt `I may not want to write this.'
-\zl
-  %
-To account for this kind of phenomena, \citet{Prz:00} develops
-an HPSG-based analysis with the assumption that the combination of the
-negative marker with the verb stem introduces the feature NEG. This feature
-tightly interacts with the mechanism of argument composition and construction-based case assignment (or satisfaction).
 
-  \citet{BJ:00} offer an HPSG-based analysis of negation
-in Welsh. In Welsh, negation is formally in the preverbal position, as
-shown in \ref{NC-1a}. In addition, Welsh has negative concord where
-multiple expressions of negation agree to express a single semantic
-negation as in \ref{NC-1b}:
+%\iffalse{}
+\section{Adverbial Negative}
 
-\eal
-\ex \label{NC-1a}
-\gll Ni chaf sefyll yma \\
-     NEG can stand here\\
-\glt `I can't stand here.'
-\ex \label{NC-1b}
-\gll Ni soniodd neb am y digwyddiad \\
-     NEG mention.PAST.3SG noone about the event\\
-\glt `No one mentioned the event.'
-\zl
+\subsection{Two Key Factors}
 
-%
-With treating the negative particle to form a negative word
-with the following stem, \citet{BJ:00} offer a selectional
-analysis of negation. That is, the finite negative verb selects
-two complements (e.g., subject and object) while
-the nonfinite negative verb selects a VP.
 
-\citet{Borsley:06}, adopting \citegen{Kathol2000a} topological approach,
- provides a linear-based approach to capture the distributional possibilities of negation in Swedish, Italian,
-and Welsh.  In Italian, negation is realized in a preverbal position
-as shown in \ref{position-1a} while in Swedish negation is in a postverbal position,
-as given in \ref{position-1b}. The VSO language Welsh also has a preverbal negation but allows
-the multiple realizations of negation, as in \ref{position-1c} (data from \citet{Borsley:06})
-
-\eal
-\ex \label{position-1a}
-\gll Gianni non telefona a nessuno (Italian) \\
-     Gianni NEG telephones to noone\\
-\glt`Gianni does not call anyone.'
-\ex \label{position-1b}
-\gll Jag kysste henne inte (Swedish) \\
-     I kissed her not\\
-\glt `I didn't kiss her.'
-\ex \label{position-1c}
-\gll Dw i ddim wedi gweld neb (Welsh) \\
-     am I NEG PERF see nobody\\
-\glt `I haven't seen anybody.'
-\zl
-%
-%
- \citet{Borsley:06} introduces the notion of topological fields
- and assumes that a negative clause in these languages has a negative element (bearing the feature NEG) in the specified field.
-  Different from \citet{BJ:05} selectional
-  approach where a negative expression selects its own complement,
-  this linear-based approach  tries to offer a unified approach
-  to the distributional possibilities in three different languages.
-by assigning the negative expression in
-each language to a specified topological field.
-
-  \citet{CB:11} explore the interplay of sentential
-negation and word order in Basque. Basque has a morphological
-negative {\it ez} prefixed to a finite verb stem (data from \citet{CB:11}):
-
-\eal
-\ex
-\gll ez-ditu irakurri liburuak \\
-     NEG-3PLO.PRES.3SGS read.PERF book.ABS.PL\\
-\glt `has not read books'
-\zl
-
-%
-To differentiate such negative sentences from positive
-sentences where the
-positive auxiliary follows a main verb, they introduce the
-feature NEGATED as well as a verb complex structure (similar
-to the Head-LEX Construction).
-
- \citet{BK:12} discuss negation in Libyan Arabic.  The language
- has a bipartite realization of negation, the proclitic {\it ma-} and the enclitic \u{s}:
-
-\eal
-\ex
-\gll la-wlaad ma-m\u{s}uu-\u{s} li-l-madrsa \\
-     the-boys NEG-go.PST.3.PL-NEG to-the-school\\
-\glt `The boys didn't go to the school.'
-\zl
- %
- Borsley and Krer explores a morphology-based analysis with the introduction
- of the feature POL (polarity) to identify strong and weak negative
- words in the language.
-
- In addition to these work focusing on the distributional possiblities
- of negation, there have also been work on negative concord and scope possibilities of negation. \citet{Swart:02} investigates
- negative concord in French where multiple occurrences
-of phonologically negative constituents express a single negation:
-
-\eal
-\ex
-\gll Personne (n’)a  rien fait \\
-     Noone NE-has nothing done\\
-\glt `No one had done anything.'
-\zl
-
-With the semantic assumption that the contribution of negation in a concord context is semantically empty, they formulate an HPSG analysis for negativem concord. This analysis is adopted to account for negative concord in Welsh by \citet{BJ:05}. Meantime, \citet{Warner2000a-u} and  \citet{BL:13} explores an HPSG analysis with the mechanism of MRS (Minimal Recursion Semantics) to for the scopal interaction of negation with auxiliaries (modals) and quantifiers.
-
-
-
-
-\section{A Construction-based HPSG Analysis}
-
-Departing from the derivational view, the HPSG literature have offered
-a surface-oriented, lexicalist view in which the distributional possibilities of negatives
-are drawn from the interplay among the lexical properties of each negative marker and from the interaction of elementary, independently motivated
-morphosyntactic and valence properties of syntactic heads, and constructional properties (see \citet{Kim:00}, \citet{KS:02}, \citet{Crowgey:12}).
-
-
-
-
-
-\subsection{Morphological Negation}
-
-As noted earlier, languages like Turkish and Japanese employ morphological negation in which the negative marker behaves like a suffix. Consider
-Turkish and Japanese examples:
-% again:
-
-
-
-\eal
-\ex
-\gll Git-me-yece\~{g}-$\varnothing$-im \\
-     go-\NEG-\FUT-\COP-\textsc{1sg} \\
-\glt `(I) will not come.'
-\ex
-\gll kare-wa kinoo kuruma-de ko-na-katta. \\
-     he-\textsc{tpc} yesterday car-\textsc{inst} come-\textsc{neg}-\textsc{pst} \\
-\glt `He did not come by car yesterday.'
-\zl
-
-
-
-
-\noindent
-As the examples illustrate, the sentential negation of Turkish and Japanese employ
-morphological suffixes  \suffix{me} and \suffix{na},
-respectively.
-It is possible to state the ordering
-of these morphological negative markers in configurational
-terms with assigning an independent syntactic status to them.
-But it is too strong a claim to
-take the negative suffix \suffix{me} or \suffix{na}  to be an independent syntactic element,
-and to attribute its positional possibilities to syntactic constraints
-such as verb movement and other configurational notions (see \citet{kelepir} for
-Turkish and \citet{Kato:97,Kato:00} for Japanese).
-%Kelepir 2001
-%Japanese and Turkish show other clear examples of morphological negation.
-%
-In these languages, the negative affix acts just like
-other verbal inflections in numerous respects.
-%
-%\enumsentence{
-%\shortex{4}
-%
-%{T\"{u}rk-les-tir-il-me-mis-ler-den-siniz.}
-%{turk-become-CAUS-PASS-NEG-PSP-PLUR-ABL-COP}
-%{`You are of those who didn't have themselves Turkified.' (van
-%Schaaik 1994:39)}}
-%
-%\noindent
-%
-%
-The morphological status of
-these negative markers comes from their morphophonemic alternation.
-For example, the vowel of the Turkish negative suffix \suffix{me} shifts from open to closed when followed by the
-future suffix, as in \emph{gel-mi-yecke} `come-\NEG-\FUT'.  Their
-strictly fixed position also indicates their morphological
-constituenthood. Though these languages allow rather a free permutation of
-syntactic elements (scrambling), there exist strict ordering restrictions among
-verbal suffixes including the negative suffix, as can be seen from
-the following examples:
-
-\eal
-\ex
-\gll tabe-sase-na-i/*tabe-na-sase-i \\
-     eat-\textsc{caus}-\textsc{neg}-\textsc{npst} \\
-
-\ex
-\gll tabe-rare-na-katta/*tabe-na-rare-katta \\
-     eat-\textsc{pass}-\textsc{neg}-\textsc{pst} \\
-
-\ex
-\gll tabe-sase-rare-na-katta/*tabe-sase-na-rare-katta \\
-     eat-\textsc{caus}-\textsc{pass}-\textsc{neg}-\textsc{pst} \\
-\zl
-
-\noindent
-The ordering of the negative affix is a matter of morphology.
-If it were a syntactic concern, then
-the question would arise as to why
-there is an obvious contrast in the ordering principles
-of morphological and syntactic constituents, i.e., why the ordering
-rules of morphology are distinct from the ordering rules of syntax. The
-simplest explanation for this contrast is to accept
-the view that morphological constituents including the negative marker
-are formed in the lexical component and hence have no syntactic
-status (see \citet{Kim:00} for detailed discussion).
-
-This being noted, it is more reasonable to assume that the placement of a
-negative affix is regulated by morphological principles, i.e.\ by
-the properties of the morphological negative affix itself. In the
-construction-based HPSG, we could take this as an inflectional
-construction.  The negative marker, as we have seen in Turkish and Japanese, is realized as a suffix
-attached to the verb root. The resulting combination is not
-a word-level entity but a verb stem to which an aspectual or tense marker can be attached. We could thus take such a morphological process as an inflectional
-one. For instance, Figure~\ref{fig:2} could be a morphological
-construction in Turkish.\footnote{See \citet{Sag:12} and \citet{Hilpert:16} for a construction-based approach to
-inflectional as well as derivational processes.}
-
-
-
-%\newpage
-\begin{figure}
-	\centering	
-	%\vspace{-.5cm}	
-	\begin{forest}
-		[
-		\begin{avm}
-			\[\tpv{v-neg-stem}\\
-			form & \< \textbf{F}\textsubscript{NEG} (X)\>\\
-			%%
-			syn|head|pos & \tpv{verb}\\
-			%%
-			sem|frames & \< \[\tpv{neg-fr}\\
-			arg \@{1} \] \>
-			\]	
-		\end{avm}
-		%%%%%%
-		[
-		\begin{avm}
-			\[ \tpv{v-lxm}\\
-			form & \< X \>\\
-			syn|head|pos & verb\\
-			sem|frames & \<\@{1} \>
-			\]
-		\end{avm}
-		]
-		]
-	\end{forest}
-	\caption{Negative-Infl Construction ($\uparrow$\emph{infl-cxt})}\label{fig:2}
-\end{figure}	
-
-This inflectional construction ($\uparrow$\type{infl-cxt}) allows us to generate a Turkish inflection construct like \textit{ser-me} `like-\NEG' (in (\ref{1a})) from the v-lexeme \textit{ser-} with the change in the root's meaning into a sentential negation. The morphological function F\sub{\textsc{neg}} could ensure that the vowel of the negative affix \textit{me} is subject to phonological changes depending on its environment. If it is followed by a consonant-initial morpheme, it undergoes vowel harmony with the vowel in the preceding syllable (e.g., \textit{yika-n-ma-di} `wash-\REFL-\NEG-\PST'). If it is followed by a vowel-initial morpheme, its vowel drops (gel-m-iyor `come-\NEG-\PROG') (see \citet{kelepir}).\footnote{As
- for a way of capturing the ordering of suffixes within this kind of system,
- see \citet{Kim:16}.}
-
-
-The construction-based analysis sketched here
-  has been built upon the
-thesis that autonomous (i.e.\ non-syntactic) principles govern the
-distribution of morphological elements \citet{BM:95}.
-The position of the morphological negation is simply
-defined in relation to
-the verb stem it attaches to. There are no syntactic operations such
-as head-movement or multiple functional projections in forming
-a verb with the negative marker.
-
-
-
-\subsection{Negative Auxiliary Verb}
-
-Another way of expressing sentential negation, as noted earlier, is to employ
-a negative auxiliary
-verb. Some head-final languages like Korean and Hindi employ
-negative auxiliary verbs. Consider a Korean example:
-
-%\footnote{But in some SOV
-%languages, the position of the negative auxiliary is preverbal.
-%Consider Hindi examples from Mohanan 1995.
-%
-%\enumsentence[i]{
-%\shortex{4}
-%{anil & kitaab\~{e} & nah\~{\i}\~{\i} & becegaa.}
-%{Anil-N &  book-N-PL(M) & not & sell-FU.M}
-%{`Anil will not sell the books.'}}
-%}
-
-
-
-\ea
-\gll John-un ku chayk-ul ilk-ci anh-ass-ta. \\
-     John-\textsc{tpc} that book-\textsc{acc} read-\textsc{conn} \textsc{neg}-\textsc{pst}-\textsc{decl}  \\
-\glt `John did not read the book.'
-\z
-
-\noindent
-The negative auxiliary in head-final languages
-typically appears
-clause-finally, following the invariant form of the lexical verb.
-In head-initial SVO languages, however, the negative auxiliary
-almost invariably occurs immediately before the lexical verb
-(see \citet{Payne:85}). Finnish exhibits this property \citep{Mitchell:91}:
-
-\ea
-\gll Min\"{a} e-n puhu-isi. \\
-     I-\textsc{nom} \textsc{neg}-\textsc{1sg} speak-\textsc{cond} \\
-\glt `I would not speak.'
-\z
-
-
-\noindent
-These negative auxiliaries have syntactic status: they can be
-inflected, above all. Like other verbs, they can be marked
-with verbal inflections such as agreement, tense, and mood.
-
-In dealing with auxiliary negative constructions,
-most of the derivational approaches have
-followed Pollock's and Chomsky's analyses in factoring out grammatical
-information (such as tense, agreement, and mood) carried by lexical items into various different phrase-structure nodes (see, among others, \citet{Hagstrom:97,Hagstrom:02}, \citet{Han:07} for Korean and \citet{Vasishth:00} for Hindi).
-%
-%PAUL HAGSTROM
-%Journal of East Asian Linguistics 11, 211?242, 2002.
-%? 2002 Kluwer Academic Publishers. Printed in the Netherlands.
-%IMPLICATIONS OF CHILD ERRORS FOR THE
-%SYNTAX OF NEGATION IN KOREAN
-%Journal of East Asian Linguistics 11, 211?242, 2002.
-%? 2002 Kluwer Academic Publishers. Printed in the Netherlands.
-%JOURNAL ARTICLE
-%V-Raising and Grammar Competition in : Evidence from Negation and %Quantifier Scope
-%Chung-hye Han, Jeffrey Lidz and Julien Musolino
-%
-This derivational view has
-been appealing, in that the configurational structure for English-type
-languages could be applied even for languages with different types
-of negation. However, issues arise how to address the grammatical
-properties of auxiliary negative which are quite different from those
-of morphological or adverbial negatives (see ???).
-%
-%
-%could explain
-%different types of negation.   However,
-%questions arise with respect to how the
-%
-%
-%issues arise from the fact that it misses the basic properties
-%of this type of negation which, for example, differentiate it from
-%morphological negation (i.e., double negation, lexical
-%idiosyncrasies, phonological restriction, etc).
-
-%
-%\footnote{See \citet{Nino:94} for arguments against a derivational analysis
-%for Finnish negative auxiliary such as that of \citet{Mitchell:91}.}
-
-
-In the construction-based HPSG analysis, the
-negative auxiliary is taken to be an independent lexical
-verb whose grammatical (syntactic) information is not distributed
-over different phrase structure nodes, but incorporated into
-its precise lexical specifications.
-%
-%
-%and an independently
-%motivated construction for other types of auxiliary verbs.
-The Korean negative auxiliary displays all the key properties of auxiliary verbs in the language. For instance, the typical auxiliary verbs as
-well as the negative auxiliary all require the preceding lexical verb to be marked with a specific verb form (\vform), as illustrated
-in the following:
-
-
-
-
-
-\eal
-\ex\label{14a}
-\gll ilk-ko/*ci siph-ta. \\
-     read-\textsc{conn} would.like-\textsc{decl} \\
-\glt `(I) would like to read.'
-
-\ex\label{14b}
-\gll ilk-ci anh-ass-ta. \\
-     read-\textsc{conn} not-\textsc{pst}-\textsc{decl} \\
-\glt `(I) did not read.'
-\zl
-
-
-The auxiliary verb \textit{siph-} in (\ref{14a}) requires the
-\textit{-ko} marked lexical verb while the negative auxiliary
- verb \textit{anh-} in (\ref{14b}) asks for the \textit{-ci} marked lexical verb.
-
-
-
-
-In terms of syntactic structure, there
-are at least possible analyses.  One is to assume that the negative auxiliary takes a VP complement and the other is to claim that it forms a verb complex with the preceding lexical verb, as represented in Figures~\ref{fig:3a} and~\ref{fig:3b}, respectively (\citep{Kim:16}).\footnote{Another possibility is to assume that the
-auxiliary verb are in the sisterhood relationship with the following
-lexical verb and its putative complement(s). For this option, see ???}
-
-\begin{figure}
-	\begin{subfigure}[b]{0.48\textwidth}
-\centering
-		\begin{forest}
-%		sm edges
-			[VP
-				[VP
-					[ \dots\ ]
-					[V {[\textsc{vform} \type{ci}]}
-					]
-					]
-				[V {[\textsc{aux $+$}]}
-					[anh-ta\\ \textsc{neg-decl}]
-				]
-			]	
-		\end{forest}
-	\caption{VP-structure}\label{fig:3a}
-		\end{subfigure}	
-\hfill
-	\begin{subfigure}[b]{0.48\textwidth}
-\centering
-		\begin{forest}
-%		sm edges
-			[VP, s sep=1cm
-				[ \dots\ ]
-				[V
-					[V {[\textsc{vform} \type{ci}]}
-						[\dots]]
-					[V {[\textsc{aux $+$}]}
-						[anh-ta\\ \textsc{neg-decl}]]]]
-		\end{forest}
-	\caption{Verb-complex structure}\label{fig:3b}	
-		\end{subfigure}
-	\caption{Two possible structures with the auxiliary negative}
-\end{figure}
-
-The distributional properties of the negative auxiliary in the language, however, support
- the complex predicate structure (cf.\ Figure~\ref{fig:3b}) in which the negative auxiliary verb
-forms a syntactic/semantic unit with the preceding lexical verb.
-For instance, no adverbial expression, including
-a parenthetical adverb, can intervene between
-the main and auxiliary verb, as illustrated by the
-following Korean example:
-
-\ea
-\gll Mimi-nun (yehathun) tosi-lul (yehathun) ttena-ci (*yehathun) anh-ass-ta. \\
-     Mimi-\textsc{tpc} anyway city-\textsc{acc} anyway leave-\textsc{conn} anyway \textsc{neg}-\textsc{pst}-\textsc{decl} \\
-\glt `Anyway, Mimi didn't leave the city.'
-\z
-%
-Further, in an elliptical construction, a verb
-complex always occurs together:
-
-
-
-\eal\ex \gll Kim-i hakkyo-eyse pelsse tolawa-ss-ni? \\
-Kim-\textsc{nom} school-\textsc{src} already return-\textsc{pst}-\textsc{que} \\
-\trans`Did Kim return from school already?'
-
-\ex \gll ka-ci-to anh-ass-e \\
-go-\textsc{conn}-\textsc{del} \textsc{notp}-\textsc{pst}-\textsc{decl} \\
-\trans`(He) didn't even go.'
-
-\ex[*] {ka-ci-to. go-\textsc{conn}-\textsc{del}}
-
-\ex[*] {anh-ass-e \textsc{neg}-\textsc{pst}-\textsc{decl}}
-\end{xlist} \end{exe}
-%
-Neither the lexical  verb nor the auxiliary verb alone can serve
-as the fragment answer to the polar question. The two verbs
-must occur together.
-
-These constituent tests
-indicate that the negative auxiliary forms
-a syntactic unit with a preceding lexical  verb in Korean.
-Following \citet{Bratt:96}, \citet{Chung:98}, and \citet{Kim:16},
-we then could assume that
-an auxiliary verb forms a complex predicate, licensed by
-the following construction:
-%
-%
-%What this implies is that in addition to the Subject-Predicate
-%and Head-Complement Constructions, Korean employs
-%another construction rule that allows the combination of two lexical-level
-%expressions, as stated in the following:%\is{hd-lex-cxt@\textsl{hd-lex-cxt}}
-
-
-
-
-
-\ea
-\label{hd-lex-cxt}
-\hdlite:\\
-\begin{myavm}\small
-\[\type{hd-lex-cxt }\\
-\COMPS\  \textit{L}\]    $\rightarrow$ \@1 \[\LEX\  +\\
-                                  \COMPS\  \textit{L}\], H \[%\AUX\ \; +\\
-                                           \COMPS\  \q<\@1\q>\]
-\end{myavm}
-\z
-
-
-\noindent   This construction rule means that a lexical head
-expression combines with its lexical (\lite) complement. When this combination happens,
-there is a kind of argument composition: the \COMPS\  value (\textit{L}) of this
-lexical complement is passed up to the resulting mother.
-The constructional constraint thus induces the effect of argument composition at syntax,
-as illustrated by the following example:\footnote{The V$'$ is just a
-notational variant to indicate that it is a syntactic complex predicate.}
-
-\begin{figure}
-	\begin{forest}
-		[V$'$\\
-		\begin{avm}
-			\[\tp{hd-lex-cxt}\\
-			head & \@{3}\\
-			lex & $+$\\
-			comps & \<\@{2}\,NP\>\]
-		\end{avm}, l sep*=3
-			[\ibox{1}\,V\\
-			\begin{avm}
-				\[head
-				\[vform & ci\\
-				lex & $+$\\
-				comps & \<\@{2}\,NP\>\]\]
-			\end{avm}, edge label={node[midway,left,outer sep=1.5mm,]{Lexical Arg.}}
-				[ilk-ci\\read-\textsc{conn},tier=word]]
-			[V\\
-			\begin{avm}
-				\[head & \@{3}\\
-				comps & \<\@{1}\,V\>\]
-			\end{avm}, edge label={node[midway,right,outer sep=1.5mm,]{H}}
-					[anh-ass-ta\\ \textsc{neg-pst-decl},tier=word]]]
-	\end{forest}
-\caption{An instance (construct) of the \hdlite}
-\end{figure}
-%
-The auxiliary verb \emph{anh-ass-ta} `\NEG-\PST-\DECL' combines with the matrix verb \textit{ilk-ci} `read-\conn',
-forming a well-formed head-lex construct.\footnote{The negative auxiliary
-verb selects two arguments, a subject and a lexical  verb. See \citet{Kim:16} for
-a detailed analysis.}
-Note that the resulting construction metaphorically inherits the
-\COMPS\ value from that of the lexical complement \textit{ilk-ci} `read-\conn' in accordance with the structure-sharing
-emposed on by the \hdlite\
-in (\ref{hd-lex-cxt}). That is, the \hdlite\ licenses
-the combination of an auxiliary verb with its lexical verb, while
-inheriting the lexical  verb's complement value as argument composition.
-The present system thus allows the argument composition at the syntax level, rather than in the lexicon.\footnote{??? With respect
-to the argument composition, we could it happens at the lexical
-level. Bender and Adam}
-
-One important property of the auxiliary construction is that there is no limit for auxiliary verbs to
-occur in sequence as long as each combination observes
-the morphosyntactic constraint on the preceding expression. Consider
-the following:
-
-
-
-\eal\ex \gll sakwa-lul mek-ci anh-ta. \\
-apple-\textsc{acc} eat-\textsc{conn} \textsc{neg}-\textsc{decl} \\
-\trans`do not eat the apple'
-
-\ex \gll sakwa-lul mek-ko siph-ci anh-ta. \\
-apple-\textsc{acc} eat-\textsc{conn} wish-\textsc{conn} \textsc{neg}-\textsc{decl} \\
-\trans`would not like to eat the apple'
-
-\ex \label{20c} \gll sakwa-lul mek-ko siph-e ha-ci anh-ta. \\
-apple-\textsc{acc} eat-\textsc{conn} wish-\textsc{conn} do-\textsc{conn} \textsc{neg}-\textsc{decl} \\
-\trans`do not like to eat the apple'
-
-\ex \gll sakwa-lul mek-ko siph-e ha-key toy-ci anh-ta. \\
-apple-\textsc{acc} eat-\textsc{conn} wish-\textsc{conn} do-\textsc{conn} become-\textsc{conn} \textsc{neg}-\textsc{decl} \\
-\trans`do not become to like to eat the apple.'
-\end{xlist} \end{exe}
-%
-  As seen from each of these examples, we can add one more auxiliary verb to the
-  existing construction, with an appropriate
-  connective marker on the preceding one. Theoretically, there is no upper limit to the possible number  of auxiliary
-  verbs we can add.
-
-  Within the present complex-predicate analysis with
-  the supposition of \hdlite\ in the language, we could
-  license all these examples. Figure~\ref{fig-apple-eat-wish-do} is
-  a simplified structure for (\ref{20c}).
-
-%
-\begin{figure}
-	\begin{forest}
-		sm edges
-		[VP
-			[\ibox{2}\,NP
-				[sakwa-lul;apple-\textsc{acc},roof]]
-			[V$'$\\
-			\begin{avm}
-				\[head & verb\\
-				comps & \<\@{2}\>\]
-			\end{avm}
-				[\ibox{5}\,V$'$\\
-				\begin{avm}
-					\[vform & ci\\
-					comps & \<\@{2}\>\]
-				\end{avm}
-						[\ibox{3}\,V$'$\\
-						\begin{avm}
-							\[vform & ae\\
-							comps & \<\@{2}\>\]
-						\end{avm}
-							[\ibox{7}\,V\\
-							\begin{avm}
-								\[vform & ko\\
-								comps & \<\@{2}\>\]
-							\end{avm}
-								[mek-ko;eat-\textsc{conn}]]
-							[V\\
-							\begin{avm}
-								\[vform & ae\\
-								comps & \<\@{7}\>\]
-							\end{avm}
-								[siph-e;wish-\textsc{conn}]]]
-						[V\\
-						\begin{avm}
-							\[vform & ci\\
-							comps & \<\@{3}\>\]
-						\end{avm}
-							[ha-ci;do-\textsc{conn}]]]
-					[V\\
-					\begin{avm}
-						\[comps & \<\@{5}\>\]
-					\end{avm}
-						[anh-ass-ta;\textsc{neg-decl}]]]]
-	\end{forest}
-\caption{Partial structure of (\ref{20c})}\label{fig-apple-eat-wish-do}
-\end{figure}
-%
-%
-The bottom structure indicates that the auxiliary verb \textit{siph-e} wish-\conn\ forms a
-\hdlite\ through the combination with the lexical  verb \textit{mek-ko} eat-\conn.
-This resulting complex predicate, which
-is still a \LEX\ expression, inherits the lexical  verb's \COMPS\ value
-as well as the \textit{ae} \VFORM\ head feature from the auxiliary.\footnote{Instead,
-we can adopt the feature \textsc{light} to a lexical expression, as suggested for
-the French Auxiliary Construction by \citet{AG:97}.} Meanwhile,
-the auxiliary verb \textit{ha-ci} also requires a \LITE\  level
-expression with the \VFORM\ value {\textit{ae}}, combining
-with the preceding complex predicate in a legitimate way.
-This combination, forming a \hdlite, again inherits  the \COMPS\
-value. The final negative
-auxiliary then combines this resulting complex predicate,
-yielding a final complex predicate that can combine with the object. Each combination thus
-forms a well-formed complex predicate, licensed by the lexical projection
-of each auxiliary verb and the \hdlite.\footnote{
-As hinted here, the present system does not allow the final negative
-auxiliary \emph{anh-ta} `\NEG-\decl' to combine with the preceding auxiliary \emph{ha-ci} `do-\conn' at first. This is because the resulting verb-complex \emph{ha-ci anh-ta} `do-\conn \NEG-\decl' then cannot have the information that its preceding verbal expression (\emph{siph-e}) must have the specified form value, which is coming from the following auxiliary verb \emph{ha-ci}.
-See Kim (2016) for details.}
-
-The present analysis has taken the negative auxiliary \textit{ahn-ta} \NEG-\DECL
-to select the lexical  verb and form a verb complex with it.
-This verb complex treatment has been supported from
-constituent tests including
- adverb intervention and elliptical constructions. Further, the analysis,
-exploiting the mechanism of argument composition,
-allows us to capture the properties of this negative
-auxiliary.
-%, and provides a simple and straightforward explanation for
-%phenomena such as aspect selection.
-The conclusion we can draw from here is that the
- distribution of a negative auxiliary verb is determined by
-independent constructional constraints
-that regulate the placement of other
-similar verbs.
-
-
-
-\subsection{Adverbial Negation}
-
-\subsubsection{Two Key Factors}
-
-The third main type of negation is
-the adverbial negative marker which most of the Indo-European
-languages employ. There are two main factors
+The most extensively studied type of negation is adverbial negative, which
+we find in English and French.
+There are two main factors
 that determine the position of an adverbial negative: finiteness of
 the verb and its intrinsic properties, namely, whether it is an auxiliary
-or lexical  verb (see \citet{Kim:00}, \citet{KS:02}).\footnote{German also
-employs an adverbial negative \emph{nicht}, which behaves quite
+or lexical  verb \citep[see]{Kim:00, KS:02}.\footnote{German also
+employs an adverbial negative \textit{nicht}, which behaves quite
 differently from the negative in English and French. See \citet{MuellerGT-Eng1}
 for a detailed review of the previous, theoretical analyses of German negation.}
 
-%\subsubsection{Finiteness vs.\ Non-finiteness}
+%\jbsubsubsection{Finiteness vs.\ Non-finiteness}
 
 The first crucial factor that affects  the position of adverbial
 negatives in English and French concerns the finiteness of the lexical  verb.
-French shows us how the finiteness of a verb influences the
-surface position of the negative marker \textit{pas}.
+English shows us how the finiteness of a verb influences the
+surface position of the adverbial negaitve \textit{not}:
 
-
-
-\eal\ex[]{
-\gll Robin  n'aime  pas  Stacey. \\
-     Robin  (n')likes  \textsc{neg} Stacey \\
-\trans`Robin does not like Stacey.'
+\begin{exe}
+\ex\label{eng-fin-neg} \begin{xlist}
+\ex[]{
+Kim does not like Lee.
 }
 \ex[*]{
-Robin ne pas aime Stacey.
+Kim not likes Lee.
+}
+\ex[*]{Kim likes not Lee.
 }
 \zl
 
+
+\begin{exe}
+\ex\label{fr-fin-neg} \begin{xlist}
+\ex[]{
+Kim is believed [not [to like Mary]].
+}
+\ex[*]{
+Kim is believed to [like not Mary].
+}
+\zl
+%
+\noindent As seen from the data above, the negation \textit{not} precedes an infinitive verb, but cannot follow
+a finite lexical  verb  \citep[see]{Baker:89,Baker:91,Ernst:92}.
+French is not exceptional in this respect. The finiteness also affects the distributional possibilities of the French negative {\it pas} \citep[see]{AG:97, KS:02, Zeijlstra:07}:
+
+\eal\ex[]{
+\gll Robin  n'aime  pas  Stacy. \\
+     Robin  (n')likes  \textsc{neg} Stacy \\
+\trans`Robin does not like Stacy.'
+}
+\ex[*]{
+Robin ne pas aime Stacy.
+}
+\zl
 
 \eal\ex[]{
 \gll Ne  pas  parler   Fran\c{c}ais  est  un  grand d\'{e}savantage  en ce cas. \\
@@ -1005,56 +246,6 @@ The negator \textit{pas} cannot precede the finite verb
 but must follow it. But its placement with respect to
 the nonfinite verb is the reverse image. The negator \textit{pas}
 should precede the infinitive verb.
-English is not exceptional in this respect \citep{Baker:89,Baker:91,Ernst:92}.
-The negation \textit{not} precedes an infinitive verb, but cannot follow
-a finite lexical  verb.\footnote{A similar contrast between finiteness and
-nonfiniteness can be observed in the Scandinavian language like Norwegian \citep[see][]{Platzack:86,HP:88,Vikner:94,Vikner97a-u}.}
-
-\eal\ex[]{
-\gll Jon  skj\o nte   aldri  dette sp\o rsm\.{a}let. \\
-Jon  understood  never this question \\
-\trans `John never understood this question.'
-}
-\ex[]{
-\gll Han  hadde  foresatt  seg  aldri  a sla  hunden. \\
-He   had  decided  himself  never  to beat  the.dog \\
-\trans `He had decided himself never to beat the dog.'
-}
-\zl
-
-\begin{exe}
-\ex\label{eng-fin-neg} \begin{xlist}
-\ex[]{
-Kim does not like Lee.
-}
-\ex[*]{
-Kim not likes Lee.
-}
-\ex[*]{Kim likes not Lee.
-}
-\zl
-
-\pfix
-\pfix\pfix
-
-\begin{exe}
-\ex\label{fr-fin-neg} \begin{xlist}
-\ex[]{
-Kim is believed [not [to like Mary]].
-}
-\ex[*]{
-Kim is believed to [like not Mary].
-}
-\zl
-
-
-
-%
-%
-%
-%
-%
-%\subsubsection{An Intrinsic Property of the Verb}
 
 The second important factor that determines the position of adverbial
 negatives concerns the presence of an auxiliary or lexical  verb.
@@ -1107,21 +298,8 @@ auxiliary verb in French, though the acceptability of the
 ordering in (\ref{28b}) and (\ref{29b}) is restricted to certain conservative
 varieties.
 
-
-
-%But only the postverbal position is possible for \textit{pas} when the verb is the %finite form.
-%
-%\eenumsentence{
-%\item\shortexnt{1}
-%{Jean n'a pas une voiture.}
-%{`John does not have a car.'}
-%\item
-%{\bad Jean ne pas a une voiture.}}
-
-
-In capturing the distributional behavior of such negatives
-in English and French, as we have noted earlier,
-the derivational view (exemplified by \citet{Pollock:89} and \citet{Chomsky:91})
+In capturing the distributional behavior of such adverbial negatives
+in English and French, as noted earlier, the derivational view (exemplified by \citet{Pollock:89} and \citet{Chomsky:91})
 has relied on the notion of verb
 movement and functional projections.  The most appealing aspect of this
 view (initially at least) is that it can provide an analysis of the
@@ -1133,34 +311,46 @@ all French verbs undergo the same process, the derivational
 view could explain why the French negator \textit{pas} follows
 a finite verb, unlike the English negator.  In order for this system to succeed,
 nontrivial complications are required in the basic components of the
-grammar, e.g rather questionable subtheories.
+grammar, e.g rather questionable subtheories (see \citet{Kim:00} and \citet{KS:02}
+for detailed discussion).
+
+Meantime, the nonderivational, lexicalist analyses of HPSG
+license all surface structures by the system of phrase types
+and constraints.  That is, the position of
+adverbial negatives is taken to be determined not by
+the respective properties of verb movement, but by their lexical
+properties, the morphosyntactic (finiteness) features of the verbal head,
+and independently motivated Linear Precedence (LP) constraints, as
+we will see in the following discussion.
+
+\iffalse{
 For example, the introduction of Pollock's theta and quantification
 theories has been necessary to account for the obligatory verb
-movement.\footnote{His theta theory says only nonthematic verbs move
-up to the higher functional position, whereas his quantification
-theory says [$+$fin] is an operator that must bind a variable.}
+movement.
+%\footnote{His theta theory says only nonthematic verbs move
+%up to the higher functional position, whereas his quantification
+%theory says [$+$fin] is an operator that must bind a variable.}
 However, when these subtheories interact with each other,
-they bring about a `desperate' situation, as \citet[398]{Pollock:89} himself concedes: his quantification theory forces
+they bring about a `desperate' situation, as \citet{Pollock:89} himself concedes: his quantification theory forces
 all lexical  verbs in English to undergo verb movement, but his
 theory blocks this. This contradictory outcome has forced him to adopt
 an otherwise unmotivated mechanism, a dummy
-nonlexical counterpart of \textit{do} in English (which \citet{Chomsky:89} tries
+nonlexical counterpart of \textit{do} in English (which \citep{Chomsky:89} tries
 to avoid by adopting the notion of LF re-raising).
 Leaving the plausibility of this mechanism aside,  as
 discussed by \citet{Kim:00} and \citet{KS:02},
 a derivational analysis such as that of \citet{Pollock:89}
 fails to allow for all the distributional possibilities of
 English and French negators as well as adverb positioning in
-various environments
+various environments.
 
-\iffalse{
 In capturing the interaction with auxiliary verbs, derivational analyses have chosen the direction of generating
 auxiliaries and lexical  verbs in different positions. For example,
 \citet{Pollock:89}'s system for English auxiliaries posits
 various different positions for different verbs: lexical
 verbs and \textit{have} and \textit{be} under V within the VP,
 \textit{do} under Agr, modals such as \textit{will, may}, and \textit{can}
-under T.\footnote{See \citet{Ouhalla:91}'s system in which
+under T.\footnote{See \citep{Ouhalla:91}'s system in which
 all auxiliaries are generated under the head of AspP.} But for French,
 all verbs, whether
 auxiliary or lexical  verbs, are generated under V.
@@ -1170,15 +360,12 @@ verbs and lexical  verbs. Leaving aside the question of why the two
 typologically related languages have such different ways of generating
 verbs including auxiliaries, Pollock's system has suffered
 from problems in capturing the distribution of \textit{not} and
-\textit{pas} in \emph{have}/\emph{avoir} and modal constructions.}\fi
+\textit{pas} in \textit{have}/\textit{avoir} and modal constructions.}
+\fi
 %as well as the properties of \textit{have/avoir}.
 %This has led the system to introduce rather weakly motivated
 %and questionable assumptions, e.g.\ an exotic structure for the main
 %verb usage of \textit{have/avoir}
-
-
-
-
 %\footnote{This
 %distinction has been required
 %in Pollock's theory since [+fin] tense requires verb
@@ -1189,25 +376,13 @@ from problems in capturing the distribution of \textit{not} and
 %movement. See Pollock (1989:391--395) for further details
 %}.
 
-\subsubsection{Constituent Negation in English and French}
-
-
-The construction-based, lexicalist analysis we offer here also recognizes
-the fact that finiteness plays a crucial role in
-determining the distributional possibilities of negative
-adverbs. Its main explanatory resource
-has basically come from the proper lexical specification of these negative
-adverbs. The lexical specification that \emph{pas} and
-\emph{not} both modify nonfinite VPs has sufficed to predict their
-occurrences in nonfinite clauses.
-
-
+\subsection{Constituent Negation}
 
 When English \textit{not} negates an embedded constituent, it behaves
 much like the negative adverb \textit{never}. The similarity between {\it
 not} and \textit{never} is particularly clear in nonfinite verbal
 constructions (participle, infinitival and bare verb phrases), as
-illustrated in (\ref{30}) and (\ref{31}) (\citet{Klima:64}, \citet{Baker:89,Baker:91}).
+illustrated in (\ref{30}) and (\ref{31}) \citep{Klima:64, Baker:89,Baker:91}.
 
 \eal\label{30}
 \ex[]{
@@ -1237,8 +412,6 @@ Duty made them [not [miss the weekly meeting]].
 French \textit{ne-pas} is no different in this regard.  \textit{Ne-pas} and
 certain other adverbs precede an infinitival VP:
 
-
-
 \eal
 \ex[]{
 \gll
@@ -1253,66 +426,78 @@ regularly        to.paint    one's   house    is    a   necessity \\
 }
 \zl
 
-
-To account for these properties, we regard \textit{not} and \textit{ne-pas} not as
-heads of their own functional projection, but rather as adverbs that modify
+To account for these properties, \citet{Kim:00} and \citet{KS:02} regard \textit{not} and \textit{ne-pas} not as heads of their own functional projection, but rather as adverbs that modify
 nonfinite VPs. The lexical entries for \textit{ne-pas} and \textit{not} include the
 information shown in (\ref{c-neg}).\footnote{Here we assume that both languages
 distinguish between \textit{fin(ite)} and \textit{nonfin(ite)} verb forms, but that
 certain differences exist regarding lower levels of organization. For example,
-\type{prp} (\type{present participle}) is a subtype of \type{fin} in French,
-whereas it is a subtype of \type{nonfin} in English.
+\textit{prp} (\textit{present participle}) is a subtype of \textit{fin} in French,
+whereas it is a subtype of \textit{nonfin} in English.}
 
-%In \ex{1}, VP[\type{nonfin}]:\lower4pt\hbox{\begin{avm}\@2\end{avm}}
+%In \ex{1}, VP[\textit{nonfin}]:\lower4pt\hbox{\begin{avm}\@2\end{avm}}
 %abbreviates a nonfinite VP whose CONTENT value is
 %\lower4pt\hbox{\begin{avm}\@2\end{avm}}.  Similar abbreviations are
 %used throughout.
-For ease of exposition, we will not treat cases where the negation modifies
-something other than VP, e.g.\ adverbs (\textit{not surprisingly}), NPs (\textit{not many students}), or PPs (\textit{not in a million years}). Our analysis can accommodate such cases by generalizing the \textsc{mod} specification in the lexical entry for \textit{not}. In addition, we need to
-have a construction-based account for the pattern `not X but Y' (as
-similar to `both X and Y' or `neither X nor Y') in which
-\emph{not} must cooccur with the particular coordinator \emph{but} (e.g., *\emph{Kim likes not beer}. vs.\ {\it Kim likes not beer but wine.})}
+% For ease of exposition, we will not treat cases where the negation modifies
+%something other than VP, e.g.\ adverbs (\textit{not surprisingly}), NPs (\textit{not many %students}), or PPs (\textit{not in a million years}). Our analysis can accommodate such %cases by generalizing the \textsc{mod} specification in the lexical entry for \textit{not}. %In addition, we need to
+%have a construction-based account for the pattern `not X but Y' (as
+%similar to `both X and Y' or `neither X nor Y') in which
+%\textit{not} must cooccur with the particular coordinator \textit{but} (e.g., *\textit{Kim likes %not beer}. vs.\ {\it Kim likes not beer but wine.})}
 %
+
+%\iffalse{}
 \ea
 \label{c-neg}
 \begin{avm} \avml
  %\textit{not}/\textit{ne-pas} \\
- \[\FORM\ \q<\normalfont\textit{not}/\textit{ne-pas}\q>\\
-\SYN\|\HEAD\ \[\POSP\ \type{adv}\\
-               \MOD\ \q<VP [\type{nonfin}]: \@2\q>\]\\
-  \SEM\ \[\FRAMES\ \<\[\type{neg-fr}\\
-                       \ARGa\ \@2\]\>\]
+ \[\FORMjb\ \; \q<\normalfont\textit{not}/\textit{ne-pas}\q>\\
+\SYN|\HEAD\ \;  \[\type{adv}\\
+               \MOD\ \; \<VP[\type{nonfin}]: \@2\>\]\\
+  \SEM\ \; \[\RESTR\ \<\[\PRED\ \; \ \ \type{neg-rel}\\
+                        {\sc arg1}  \; \@2\]\>\]
   \]\avmr\end{avm}
 \z
-
+%\fi
 
 
 \noindent %[JB: begins] CONT is added
-The lexical entry in (\ref{c-neg}) specifies that
+The lexical information in (\ref{c-neg}) specifies that
 \textit{not} and \textit{ne-pas} modifies a nonfinite VP and that this
 modified VP serves as the semantic argument of the negation.
 %[JB: ends]
 This simple lexical specification correctly describes the
-distributional similarities between English \emph{not} and French
-\emph{ne-pas}: neither element can separate an infinitival verb
-from its complements.\footnote{The exception to this
-generalization, namely cases where \textit{pas} follows an auxiliary
-infinitive (\textit{n'avoir pas d'argent}), is discussed in section
-5.2 below.} And both \emph{ne-pas} and \emph{not}, like other
-adverbs of this type, precede the VPs that they modify:
+distributional similarities between English \textit{not} and French
+\textit{ne-pas}, licensing the structure in Figure~\ref{not-vp-mod}.
 
-\eal
-\ex[]{
-\gll
-[Ne           pas  \ssub{VP[\type{inf}]}[parler  fran\c{c}ais]]  est  un grand d\'{e}savantage  en ce cas. \\
-\spacebr{}ne  not  \hspaceThis{\ssub{VP[\type{inf}]}[}to.speak French  is  a great disadvantage  in this case \\
-} \label{34a}
-\ex[*]{
-Ne  parler  pas  fran\c{c}ais  est  un  grand d\'{e}savantage en ce cas.
-} \label{34b}
-\zl
-
-
+\begin{figure}
+	\begin{forest}
+		sm edges
+		[VP
+			[V\\
+			\begin{avm}
+				\[head\[\type{adv}\\
+                        mod \; \<\@{3} VP\>\]\]
+				\end{avm}
+					[not/ne-pas]]
+			[\ibox{3}\,VP\\
+\begin{avm}
+\[vform \type{nonfin}\]\end{avm}
+					[\ldots]]]
+	\end{forest}
+\caption{Structure of constituent negation}\label{not-vp-mod}
+\end{figure}
+%\fi
+\noindent
+This structure implies that with the LP (linear precedence) rule
+specificying a modifier precedes the head modifies,
+both \textit{ne-pas} and \textit{not}, like other
+adverbs of this type, precede the VPs that they modify while
+not separating an infinitival verb
+from its complements, as observed in the following data:
+%\footnote{The exception to this
+%generalization, namely cases where \textit{pas} follows an auxiliary
+%infinitive (\textit{n'avoir pas d'argent}), is discussed in section
+%5.2 below.}
 
 \eal
 \ex[] {
@@ -1323,6 +508,17 @@ Ne  parler  pas  fran\c{c}ais  est  un  grand d\'{e}savantage en ce cas.
 } \label{35b}
 \zl
 
+\eal
+\ex[]{
+\gll
+[Ne           pas  \jbssub{VP[\textit{inf}]}[parler  fran\c{c}ais]]  est  un grand d\'{e}savantage  en ce cas. \\
+\spacebr{}ne  not  {\jbssub{VP[\textit{inf}]}[}to.speak French  is  a great disadvantage  in this case \\
+} \label{34a}
+\ex[*]{
+[Ne  parler  pas  fran\c{c}ais]  est  un  grand d\'{e}savantage en ce cas.
+} \label{34b}
+\zl
+
 
 
 %\item{\bad Lee likes not Kim.}}
@@ -1331,13 +527,16 @@ Ne  parler  pas  fran\c{c}ais  est  un  grand d\'{e}savantage en ce cas.
 %\item{Lee is believed [not $_{VP[inf]}$[to like Kim]].}
 %\item{\bad Lee is believed to $_{VP[inf]}$[like not Kim].}}
 
-\noindent Independent principles guarantee that modifiers of this
-kind precede the elements they modify, thus ensuring the
-grammaticality of (\ref{34a}) and (\ref{35a}), where \textit{ne-pas} and \textit{not} are used as VP[\type{nonfin}] modifiers.
-(\ref{34b}) and (\ref{35b}) are ungrammatical, since
+\noindent
+Interacting with the LP constraint, the lexical specification
+in (\ref{c-neg}) ensures that the constituent negation
+precede the VP it modifies. This predicts the
+grammaticality of (\ref{35a}) and (\ref{34a}), where \textit{ne-pas} and \textit{not} are used as VP[\textit{nonfin}] modifiers.
+(\ref{35b}) and (\ref{34b}) are ungrammatical, since
 the modifier fails to appear in the required position---i.e.\
 before all elements of the nonfinite VP.
 
+\iffalse{}
 The lexical properties of \textit{not} thus ensures that it cannot
 modify a finite VP, as shown  in (\ref{36}), but it can modify any
 nonfinite VP:
@@ -1345,30 +544,27 @@ nonfinite VP:
 
 \eal\label{36}
 \ex[*]{
-Pat [not \ssub{VP[fin]}[left]].
+Pat [not \jbssub{VP[fin]}[left]].
 }
 \ex[*]{
-Pat certainly [not \ssub{VP[fin]}[talked to me]].
+Pat certainly [not \jbssub{VP[fin]}[talked to me]].
 }
 \ex[*]{
-Pat [not \ssub{VP[fin]}[always agreed with me]].
+Pat [not \jbssub{VP[fin]}[always agreed with me]].
 }
 \zl
-
-
-
 %\eenumsentence{
 %\item{I saw Pat acting rude and [not $_{VP[prp]}$[saying hello]].}
-%\item{I asked him to [not $_{VP[\type{bse}]}$[leave the bar]].}
-%\item{Their having [not $_{VP[\type{psp}]}$[told the truth]] was upsetting.}}
+%\item{I asked him to [not $_{VP[\textit{bse}]}$[leave the bar]].}
+%\item{Their having [not $_{VP[\textit{psp}]}$[told the truth]] was upsetting.}}
 
 \noindent And much the same is true for French, as the
 following contrast illustrates:
 
 \eal
 \ex[*]{
-\gll Robin  [(ne) pas \ssub{VP[\type{fin}]}[aime  Stacey]]. \\
-Robin  [(ne) not \hspaceThis{\ssub{VP[\type{fin}]}[}likes Stacey] \\
+\gll Robin  [(ne) pas \jbssub{VP[\textit{fin}]}[aime  Stacy]]. \\
+Robin  [(ne) not {\jbssub{VP[\textit{fin}]}[}likes Stacy] \\
 }
 \ex[]{
 Il veut [ne pas publier dans ce journal]. \\
@@ -1387,19 +583,26 @@ instead, what is specified is a lexical selection property. There is no a
 priori reason, as far as we are aware, to prefer one kind of stipulation over
 the other. It should be noted, however, that our proposal only makes reference
 to selectional properties that are utilized elsewhere in the grammar.
+\fi
 
 
-\subsubsection{Sentential Negation in English}
+The HPSG analyses sketched here have thus recognized
+the fact that finiteness plays a crucial role in
+determining the distributional possibilities of negative
+adverbs. Its main explanatory resource
+has basically come from the proper lexical specification of these negative
+adverbs. The lexical specification that \textit{pas} and
+\textit{not} both modify nonfinite VPs has sufficed to predict their
+occurrences in nonfinite clauses.
 
 
-As just
-illustrated, the analysis of \emph{not} and \emph{ne-pas} as nonfinite VP modifiers provides a straightforward explanation for much of their distribution. We may simply assume that French and English have essentially the
-same modifier-head construction and that \textit{not} and \textit{ne-pas} have
-near-identical lexical entries. With respect to negation in finite clauses,
-however, there are important difference between English and French.
 
-It is a general fact of French that \emph{pas} must follow the finite verb, in
-which case the verb optionally bears negative morphology (\textit{ne}-marking):
+\subsection{Sentential Negation}
+
+%As just
+%illustrated, the analysis of \textit{not} and \textit{ne-pas} as nonfinite VP modifiers %provides a straightforward explanation for much of their distribution.
+With respect to negation in finite clauses, there are important difference between English and French.
+As we have noted earlier, it is a general fact of French that \textit{pas} must follow a finite verb, in which case the verb optionally bears negative morphology (\textit{ne}-marking):
 
 \eal
 \ex[]{
@@ -1409,10 +612,9 @@ Dominique (n')aime pas Alex.
 Dominique pas aime Alex.
 }
 \zl
-
 \noindent
-In English, \textit{not} must follow the finite verb, which
-must in addition be an auxiliary verb:
+In English, \textit{not} must follow a finite
+auxiliary verb, not a lexial (or main) verb:
 
 \eal
 \ex[]{
@@ -1428,8 +630,10 @@ In contrast to the distribution of \textit{not}
  in nonfinite clauses as constituent negation, its distribution
  in finite clauses concerns sentential
  negation.
- The need to distinguish the two types of negation comes from scope
-possibilities in an example like (\ref{not-two}) \citep{Klima:64},\citep{Baker:89}, and \citep{Warner2000a-u}.
+  The need to distinguish the two types of negation can be found from scope
+possibilities in an example like (\ref{not-two}) \citep[see]{Klima:64, Baker:89, Warner2000a-u}.\footnote{\citet{Warner2000a-u} and \citet{BL:13}
+discuss scopal interactions of negation with auxiliaries (modals) and quantifiers
+within the system of Minimal Recursion Semantics (MRS).}
 
 \ea[]{\label{not-two} The president could not approve the bill.
 }
@@ -1449,7 +653,7 @@ It would not be possible for the president to approve the bill.
 \zl
 %
 The first interpretation is constituent negation; the second is
-sentential negation. As noted, sentential \emph{not} may not modify a finite
+sentential negation. As noted, sentential \textit{not} may not modify a finite
 VP, different from the adverb \textit{never}:
 
 
@@ -1464,8 +668,8 @@ Lee will never/not leave.
 \zl
 %
 The contrast in these two sentences
-shows one clear difference between \emph{never}
-and \emph{not}. The negator \emph{not} cannot
+shows one clear difference between \textit{never}
+and \textit{not}. The negator \textit{not} cannot
 precede a finite VP though it can freely occur
 as a nonfinite VP modifier.
 %, a
@@ -1480,9 +684,9 @@ as a nonfinite VP modifier.
 %\item \bad John [not [could
 %leave town]].}
 
-Another distributional difference between \emph{never} and \emph{not} is found in
+Another distributional difference between \textit{never} and \textit{not} is found in
 the VP ellipsis construction.  Observe the following
-contrast:
+contrast \citep{KS:02}:
 
 \eal
 \label{vpe-not-ex}\ex[]{
@@ -1495,74 +699,20 @@ Mary sang a song, but Lee could never \trace.
 Mary sang a song, but Lee could not \trace.
 }
 \zl
-
-
 %
-The data here indicate that \emph{not} behaves differently from
-adverbs like \emph{never} in finite contexts, even though the two
-behave alike in nonfinite contexts. The adverb \emph{never} is a true
-diagnostic of a VP-modifier, and we use contrasts between \emph{never} and \emph{not} to reason about what the properties of
-the negator \emph{not} must be.
+\noindent The data here indicate that \textit{not} behaves differently from
+adverbs like \textit{never} in finite contexts, even though the two
+behave alike in nonfinite contexts. The adverb \textit{never} is a true
+diagnostic of a VP-modifier, and we use contrasts between \textit{never} and \textit{not} to reason about what the properties of
+the negator \textit{not} must be.
 
 %\iffalse{
 
 We saw the lexical representation for constituent negation
-\emph{not} in (\ref{c-neg}) above.
- Sentential \emph{not} typically appears linearly in the
-same position -- following a finite auxiliary verb -- but shows
-different syntactic properties (while
- constituent negation need not follow an auxiliary
- as in \emph{Not eating gluten is dumb}).
- As a way
- to deal with the sentential negation in English,
-  we follow \citet{Bresnan:01} and \citet{KM} in assuming that the sentential negation forms a unit with the preceding
-finite auxiliary verb.  This can be supported from
-the fact that English sentential negation requires the proximity of
-a finite auxiliary or modal auxiliary on its left and that it can function as synthetic negation as \emph{n't}.
-%That is, the auxiliary and the negator \emph{not} are fused into a single %lexical
-%expression through contraction, as in \emph{won't, can't},
-%and so forth.
-\footnote{\citet{ZP:83} note that the contracted
-negative \emph{n't} more closely
-resembles word inflection than it does a `clitic' or `weak' word of
-the kind that often occurs in highly entrenched word sequences
-(e.g., \emph{Gimme}!). For example, as Zwicky and Pullum observe,
-\emph{won't} is not the fused form one would predict based on
-the pronunciation of the word \emph{will}, and such idiosyncrasies are far more characteristic of inflectional endings than clitic words.}
-%
-
- With this assumption, the
-present analysis, in particular, assumes that the combination of a finite auxiliary verb with the sentential
-negation \emph{not} is licensed by the \hdlite\ (similar to the one in Korean), which licenses
-the combination of two lexical expressions such as verb and particle (e.g., \emph{figure out, give
-  up}, etc), as well (see \citet{KM}). The construction, along with the assumption that the
-sentential negator \emph{not} bears the \LEX\ feature, projects a structure like in Figure~\ref{fig:6}.
-
-\begin{figure}
-	\begin{forest}
-		sm edges
-		[VP, s sep=1cm
-			[V$'$\\
-			\begin{avm}
-				\[\tp{hd-lex-cxt}\\
-				aux & $+$\]
-			\end{avm}
-				[V
-					[could]]
-				[Adv {[\textsc{neg} $+$]}
-				[not]]]
-			[VP
-				[approve the bill,roof]]]
-	\end{forest}
-\caption{Structure of English sentential negation}\label{fig:6}
-\end{figure}
-
-%
-Just as a particle combines with the preceding lexical  verb, forming a
-head-lex structure,  expressions like
-the negator \emph{not}, \emph{too, so} and \emph{indeed} combine with a
-preceding auxiliary verb:
-
+\textit{not} in (\ref{c-neg}) above. Unlike the
+constituent negator, the sentential negator \textit{not} typically
+ follows a finite auxiliary verb. In this respect,
+   \textit{too, so} and \textit{indeed} also behave alike:
 \eal
 \ex[]{ Kim will not read it.
 }
@@ -1571,169 +721,132 @@ Kim will too/so/indeed read it.
 }
 \zl
 %
-Expressions like \emph{too} and \emph{so} are used to
+These expressions are used to
 reaffirm the truth of the sentence in question and
-follow a finite auxiliary verb.  We assume that the negator and these reaffirming expressions form
-a unit with the finite auxiliary, resulting in a lexical-level construction.
-Since the sentential negator is not a modifier of
-the following VP-type expression,
-we take it to be selected by a finite auxiliary verb, as a lexical  verb selects a particle.
-This means a finite auxiliary verb (\type{fin-aux}) can be projected into a corresponding
-\NEG-introducing auxiliary verb (\type{neg-fin-aux}), as in Figure~\ref{fig:7}.
-%
-%What this implies is that the sentential negator \emph{not}, just like particles,
-%bears the feature \LEX, so that it can be selected by a finite auxiliary verb:
+follow a finite auxiliary verb.  This implies
+that the sentential {\it not} in English
+form a group of adverbs that combine with a
+preceding auxiliary verb \citep[see]{Kim:00}.
+%The negator and these reaffirming expressions form
+%a unit with the finite auxiliary, resulting in a lexical-level construction
+ %, but shows
+%different syntactic properties (while
+% constituent negation need not follow an auxiliary
+% as in \textit{Not eating gluten is dumb}).
 
-\begin{figure}
-	\begin{forest}
-		[\begin{avm}
-			\[\tp{neg-fin-aux}\\
-			syn|head & \[aux & $+$\\
-			vform & fin\\
-			neg & $+$\]\\
-			arg-st & \<\@{1}\,XP{,} $\textnormal{Adv}$ \[lex & $+$\\neg & $+$\]{,} \@{2}\,XP\>\]
+With the observation of such properties, the HPSG analyses of \citet{AG:97},
+\citet{Kim:00}, and \citet{Warner2000a-u}
+have taken this group of adverbs (Adv\jbsub{{\sc i}}) including the sentential negation {\it not} to function as the complement of a finite auxiliary verb via the following lexical rule:
+
+\ea
+\textsc{negative adverb-complement lexical rule}:\\
+			\begin{avm}
+				\[\type{fin-aux}\\
+				syn \; \[head \; \ \[aux \; $+$\\
+                               vform \; \type{fin}\]\\
+				     val|comps  \; \textit{L}\]\]
+			\end{avm}
+\ \  $\mapsto$\  \
+	\begin{avm}
+			\[\type{neg-fin-aux}\\
+			syn \ \; \[head \ \;  \[aux \; $+$\\
+                             vform \; \type{fin}\\
+	            		     neg \; $+$\]\\
+				     val|comps \ \; \<Adv\jbsub{{\sc i}}\> \; \ $\oplus$ \; \ \textit{L}\]\]
 		\end{avm}
-			[\begin{avm}
-				\[\tp{fin-aux}\\
-				syn|head & \[aux & $+$\\
-				neg & $+$\]\\
-				arg-st & \<\@{1}\,XP{,} \@{2}\,XP\>\]
-			\end{avm}]]
-	\end{forest}
-\caption{Negative Auxiliary Construction ($\uparrow$\type{post-infl-cxt})}\label{fig:7}
-\end{figure}
+\z
 %
-This is a post-inflection construction that allows for words to
-be derived from other words. We can take this mother-daughter relation as a kind of derivation whose input is a finite auxiliary verb (daughter)
-and whose output is a neg-finite auxiliary (\type{fin-aux} $\rightarrow$ \type{neg-fin-aux}). That is, the finite auxiliary verb selecting just a
-complement XP can be projected into a \NEG\ finite auxiliary that selects the negator
-as its additional lexical complement that bears the feature \NEG\ as well
-as the feature \LEX.
-%%What we can observe here is the addition of a \NEG\ element in the \ARG-ST.
-%
-%
-The output construction then licenses the structure in Figure~\ref{fig:8} for
-sentential negation.
-%This construction rule licenses a lexical head to combine with an expression (like particles)
-%bearing the feature LEX, forming another lexical expression.
+This lexical rule specifies that when the input is a finite auxiliary verb,
+the output is a neg-finite auxiliary (\textit{fin-aux} $\rightarrow$ \textit{neg-fin-aux})
+that selects Adv\jbsub{{\sc i}} as an additional complement. This then would
+license a structure like in Figure~\ref{fig:6}.
 
+
+%\iffalse{}
 \begin{figure}
 	\begin{forest}
 		sm edges
 		[VP\\
 		\begin{avm}
-			\[vform & fin\\
-			aux & $+$\\
-			comps & \<~~\>\]
-		\end{avm}, s sep=1cm
+			\[head|vform \; \type{fin}\\
+			subj \; \< \@{1}\,NP\>\\
+			comps \; \<~~\> \]
+		\end{avm}, l sep*=1.5
 			[V\\
 			\begin{avm}
-				\[\tp{hd-lex-cxt}\\
-				vform & fin\\
-				aux & $+$\\
-				comps & \<\@{3}\,VP\>\]
+				\[\type{neg-fin-v}\\
+				head\[aux \; +\\
+                      vform \; \type{fin}\]\\
+				subj \; \< \@{1}\,NP\>\\
+				comps \; \< \@{2}\,$\textnormal{Adv}_\textnormal{I}${,} \@{3}\,VP\>\\
+%				arg-st \; \< \@{1}\,NP{,} \@{2}\,$\textnormal{Adv}_\textnormal{I}${,} %\@{3}\,VP\>
+\]
 			\end{avm}
-				[V\\
-				\begin{avm}
-					\[vform & fin\\
-					aux & $+$\\
-					comps & \<\@{2}\,{[\textsc{neg} $+$]}{,} \@{3}\,VP\>\]
-				\end{avm}
-					[could]]
-				[\ibox{2}\,Adv
-					[not]]]
-			[\ibox{3}\,VP
-				[approve the bill,roof]]]
-		\end{forest}
-
-\caption{Detailed structure of English sentential negation}\label{fig:8}
+				[could]]
+			[\avmbox{2}\,Adv\textsubscript{I}
+				[not]]
+			[\avmbox{3}\,NP
+				[approve the bill]]]
+	\end{forest}
+\caption{Structure of sentential negation}\label{fig:6}
 \end{figure}
-%
-As shown in Figure~\ref{fig:8}, the negative finite auxiliary verb \type{could} selects two complements, the negator
-\emph{not} and the VP \emph{approve the bill}. The finite auxiliary then first combines with the negator,
-forming a well-formed head-lex construct. This construct then can combine with a VP complement,
-forming a Head"=Complement construct.
 
-By treating \emph{not} as both a modifier (constituent negation)
-and a lexical complement (sentential negation), we can
-account for
-the scope differences in (\ref{not-two}) as well as double
-negation examples like the following:
+%\fi
+As shown in Figure~\ref{fig:6}, the negative finite auxiliary verb \textit{could} selects two complements, the negator
+\textit{not} and the VP \textit{approve the bill}. The finite auxiliary then
+combines with these two complements, forming a well-formed Head-Complement construct.
+By treating \textit{not} as both a modifier (constituent negation)
+and a lexical complement (sentential negation), we thus can
+account for the scope differences in (\ref{not-two}) with the
+following two possible structures:
 
 \eal
+\label{two-int}
 \ex[]{
-You [must not] simply [not [work]].
+The president could [not [approve the bill]].
 }
-
 \ex[]{
-He [may not] just [not [have been working]].
+The president [could] [not] [approve the bill].
 }
 \zl
 %
-In these examples, the first negator {\it not} is a sengential negation
-forming a head-lex construct, while the second one is modifying
-the following VP, forming a head-mod construct.\footnote{The
-present analysis has an issue with dealing with examples like
-the following:
-
-\eal
-\ex They will obviously not have time to change.
-\ex You are usually not thinking about the right problem.
-\zl
-%
-The sentential negation {\it not} in such examples has a wide scope reading,
-as seen from the possible tag question:
-
-\eal
-\ex They will obviously not have time to change, will/??won't they?
-\ex You are usually not thinking about the right problem, are/??aren't you?.
-\zl
-%
-The sentential negation with a wide scope reading can be separated
-by a variety of intermediate constituents (see \citet{Warner2000a-u}):
-
-\eal
-\ex They should, though, I suggest, not expect me to grant it immediately, should they?
-\ex They could, frankly, however, not have anticipated the problems that
-would arise, could they?
-\zl
-%
-To account for such data, we need to allow a mechanism ....???
-}
-
-
+In (\ref{two-int}a), \textit{not} functions as a modifier to
+the base VP, while  in (\ref{two-int}b) whose partial structure is
+given in Figure~\ref{fig:6}, it is a sentential
+negation that functions as the complement of the finite auxiliary
+with a wide scope reading.
 
 The present analysis can also offer us
 a simple way to account for various other phenomena
 including VP ellipsis we discussed in (\ref{vpe-not-ex}). The point
-was that unlike \emph{never}, the sentential negation can
-host a VP ellipsis.  The VP ellipsis after \emph{not} is
+was that unlike \textit{never}, the sentential negation can
+host a VP ellipsis.  The VP ellipsis after \textit{not} is
 possible, given that any VP complement of an auxiliary
-verb can be unexpressed, as 
-specified by the construction in Figure~\ref{vpe-cxt}:
+verb can be unexpressed, as
+specified by the following lexical rule \citep{kim:00}:
+
+
+\ea
+\label{vpe-cxt}
+\textsc{predicate ellipsis lexical rule}:\\
+\begin{avm}
+\[\type{aux-v-lxm}\\
+ arg-st \;  \< \@1XP, \@2YP \>\]
+			\end{avm}
+\ \  $\mapsto$\  \
+\begin{avm}	
+\[\type{aux-ellipsis-wd}\\
+      comps \;  \<  \; \; \>\\
+      arg-st \; \< \@1XP, \@2YP\[\type{pro}\]\>\]
+		\end{avm}
+\z
 %
 %
-%
-\begin{figure}
-	\begin{forest}
-		[{\begin{avm}
-			\[\tp{aux-ellipsis-wd}\\
-                          arg-st & \< \@1XP, \@2YP\[\tp{pro}\]\>\]
-		\end{avm}}
-			[{\begin{avm}
-				\[\tp{aux-v-lxm}\\
-				arg-st & \< \@1XP, \@2YP \>\]
-			\end{avm}} ]]
-	\end{forest}
-\caption{Aux-Ellipsis Construction}\label{vpe-cxt}
-\end{figure}
-%
-%
-%
-What the construction in (\ref{vpe-cxt}) tells us is that an auxiliary verb selecting two arguments
+What the rule in (\ref{vpe-cxt}) tells us is that an auxiliary verb selecting two arguments
 can be projected into an elided auxiliary verb whose second argument
 is realized as a small {\it pro}. Note that this argument is not mapped
-onto the syntactic grammatical function \COMPS. This construction would license Figure~\ref{figure-could-not}:
+onto the syntactic grammatical function \COMPS. This then would license
+the structure in Figure~\ref{could-not}:
 %
 %following structure:
 %, leaving
@@ -1742,36 +855,34 @@ onto the syntactic grammatical function \COMPS. This construction would license 
 %
 %
 %\todostefan{rephrase, reference to figure}
-%
+%\iffalse{}
 \begin{figure}
 	\begin{forest}
 		sm edges
-		[V$'$
+		[VP
 			[V\\
 			\begin{avm}
-				\[head|aux & $+$\\
-				val & \[spr & \<\@{1}\>\\
-					comps & \<\@{2}\,$\textnormal{Adv}${[neg $+$]}\>\]\\
-				arg-st & \<\@{1}{,} \@{2}{,} VP{[\tpv{bse}]}\>\]
+				\[head|aux \; $+$\\
+				val \; \[subj \; \<\@{1}\>\\
+					comps \; \<\@{2}\,$\textnormal{Adv}\jbsub{\textsc{i}}$\>\]\\
+				arg-st \; \<\@{1}{,} \@{2}{,} VP{[\textit{bse}]}\>\]
 				\end{avm}
 					[could]]
-			[\ibox{2}\,Adv\\
-				\begin{avm}\[neg & $+$\]\end{avm}
+			[\ibox{2}\,Adv\jbsub{\textsc{i}}\\
 					[not]]]
 	\end{forest}
-\caption{A licensed VPE structure}
-\end{figure}\label{figure-could-not}
-%
-As represented in Figure~\ref{figure-could-not}, the auxiliary verb \emph{could} forms a well-formed head"=complement construct with \emph{not} while its
-VP[\emph{bse}] is unrealized (see \citet{Kim:00}, \citet{KS:08} for
-detail.).
+\caption{A licensed VPE structure}\label{could-not}
+\end{figure}
+%\fi
 
-The sentential negator \emph{not} can `survive' VPE because it can be
+As represented in Figure~\ref{could-not}, the auxiliary verb \textit{could} forms a well-formed head"=complement construct with \textit{not} while its
+VP[\textit{bse}] is unrealized (see \citet{Kim:00, KS:08} for
+detail). The sentential negator \textit{not} can `survive' VPE because it can be
 licensed in the syntax as the complement of an auxiliary, independent
-of the following VP.  However, an adverb like \emph{never} is only
+of the following VP.  However, an adverb like \textit{never} is only
 licensed as a modifier of VP. Thus if the VP were elided, we would have the hypothetical
 structure like the one in Figure~\ref{fig-could-never}:
-
+%\iffalse{}
 \begin{figure}
 	\begin{forest}
 		sm edges
@@ -1784,188 +895,91 @@ structure like the one in Figure~\ref{fig-could-never}:
 	\end{forest}
 \caption{Ill-formed structure of the Head-Mod Construction}\label{fig-could-never}
 \end{figure}
-%
-In Figure~\ref{fig-could-never}, the adverb \emph{never} modifies a VP through the feature MOD,
+%\fi
+In Figure~\ref{fig-could-never}, the adverb \textit{never} modifies a VP through the feature MOD,
 which guarantees that the adverb requires the head VP that it
 modifies. In an ellipsis structure, the absence of such a VP means
 that there is no VP for the adverb to modify.  In other words, there
 is no rule licensing such a combination -- predicting the
-ungrammaticality of *\emph{has never}\is{adverb},  as opposed to \emph{has not}.
+ungrammaticality of *\textit{has never}\is{adverb},  as opposed to \textit{has not}.
 
 
-\subsubsection{Sentential Negation in French}
-
-
-My analysis in which the negator \emph{not} and \emph{pas} are taken
-to modify a nonfinite VP and select it through the head feature
-MOD, provides us with a clean and simple way of accounting for
-their distribution in infinitive clauses. But at stake is
-their placement in finite clauses:
+The HPSG analysis just sketched here can be easily extended to French negation, whose
+data we repeat here.
 
 \eal
-\ex[]{
-Lee does not like Kim.
-}
-\ex[*]{
-Lee not likes Kim.
-}
-\ex[*]{
-Lee likes not Kim.
-}
+\ex[*]
+{
+\gll Robin  ne pas aime  Stacy. \\
+Robin  ne  \textsc{neg}  likes  Stacy \\
+\glt {`Robin does not like Stacy.'}\label{pas-good-a}}
+ \ex[ ]
+ {
+ \gll Robin  (n')aime  pas  Stacy. \\
+Robin  likes  \textsc{neg}  Stacy \\
+\glt{`Robin does not like Stacy.'}\label{pas-good-b}}
 \zl
-
-\eal
-\ex[*]{
-\gll Robin  ne [pas \ssub{VP[\type{fin}]}[aime  Stacey]]. \\
-Robin  ne  \textsc{neg}  \hspace{35pt}likes  Stacey \\
-}
-\ex[]{
-\gll Robin  (n')aime  pas  Stacey. \\
-Robin  likes  \textsc{neg}  Stacey \\
-}
-\zl
-
-
 
 \noindent
-Unlike the English negator \emph{not}, \emph{pas} must follow the
+Unlike the English negator \textit{not}, \textit{pas} must follow the
 finite verb. Such a distributional contrast has motivated verb
-movement analyses \citep[see][]{Pollock:89,Zanuttini:01}.
-%.  As noted previously, the derivational view addresses this
-%variation on the basis of verb movement and the notion of functional
-%projections (see section 4.2.4 for further discussion of derivational
-%analyses such as that of Pollock (1989)).
-
-By contrast, the present analysis is cast
+movement analyses \citep[see]{Pollock:89,Zanuttini:01}.
+By contrast, the present HPSG analysis is cast
 in terms of a lexical rule that maps a finite verb into a verb
-with a certain adverb like \emph{pas} as an additional complement, as
-I did for English \emph{not}.  The idea of converting modifiers into
+with a certain adverb like \textit{pas} as an additional complement.
+ The idea of converting modifiers in French into
 complements has been independently proposed by \citet{Miller92d-u} and
 \citet{AG:94} for French adverbs including
-\emph{pas} also.  Building upon this
-previous work, I also assume that the modifier \emph{pas} can
-be converted to a syntactic complement of a
-finite verb for French via the lexical rule given
-in Figure~\ref{fig:11}.\footnote{Following \citet{Miller92d-u}, I take \emph{ne} to
+\textit{pas}.  Building upon this
+previous work, \citet{AG:97} and \citet{Kim:00}
+allow the adverb \textit{pas} to function
+as a syntactic complement of a finite verb in French.\footnote{Following \citet{AG:94}, we could assume \textit{ne} to
 be an inflectional affix which can be optionally realized
 in the output of the lexical rule in Modern French.}
+This output verb \textit{neg-fin-v} then allows the negator \textit{pas} to function
+as the complement of the verb \textit{n'aime}, as represented in Figure~\ref{pas-st}.
 
-\begin{figure}
-	\begin{forest}
-		[\begin{avm}
-			\[\tp{neg-fin-v}\\
-			form & \<(\tpv{ne})\ $+$ \@{2} \>\\
-			syn|head & \[vform & fin\\
-			neg & $+$\]\\
-			arg-st & \<\@{1}\,XP\>\ $\oplus$ \<$\textnormal{Adv}_\textnormal{I}$\>\ $\oplus$ L \]
-		\end{avm}
-			[\begin{avm}
-				\[\tpv{fin-v}\\
-				form & \<\@{2}\>\\
-				syn|head|vform & fin\\
-				arg-st &  \<\@{1}\,XP\>\ $\oplus$ L\]
-			\end{avm}]]
-	\end{forest}
-\caption{Negative Verb Construction in French ($\uparrow$\type{post-infl-cxt})}\label{fig:11}
-\end{figure}
-
-% \VAL\|\COMPS\ \q<\[\LEX\ +\\
-%                   \NEG\ +\], \@1XP\q>\]\]
-%\end{avm}} \medskip
-%
-%
-%\noindent
-The post-inflection construction allows us
-to build a negative verb from a finite verb in French.
-That is, a finite verb can give rise to a negative finite
-verb that selects an Adv\ssub{I}
-adverb including \emph{pas} as the second
-argument.
-Adv\ssub{I} includes only a small subset of French negative adverbs such
-as \emph{pas}, \emph{plus} `no more', \emph{jamais} `never', and
-\emph{point} `not'. This derivational construction has a semantic effect: the
-negative verb taking \emph{pas} as an additional argument takes the meaning of
-the input verb (\ibox{2}) as its argument.
-
-One direct consequence of adopting this construction-based approach
-is that it systematically expands the set of basic lexical entries.
-For example, the construction maps lexical entries like
-\emph{aime} into its negative counterpart \emph{(n')aime}, as shown
-in Figure~\ref{fig:12}.
-
-\begin{figure}
-	\begin{forest}
-		[\begin{avm}
-			\[\tp{neg-fin-v}\\
-			form & \<$\textnormal{(n')aime}$\>\\
-			syn|head & \[vform & fin\\
-			neg & $+$\]\\
-			arg-st & \< \@{1}\,NP{,} $\textnormal{Adv}_\textnormal{I}$ \[lex & $+$\\
-				neg & $+$\]{,} \@{2}\,NP\>\]
-		\end{avm}
-			[\begin{avm}
-				\[\tpv{fin-v}\\
-				form & \<$\textnormal{aime}$\>\\
-				syn|head|vform & fin\\
-				arg-st & \< \@{1}\,NP{,} \@{2}\,NP\>\]
-			\end{avm}]]
-	\end{forest}
-\caption{Post-Inflection of \emph{(n')aime}}\label{fig:12}
-\end{figure}
-
-This output verb \type{neg-fin-v} then allows the negator \emph{pas} to function
-as the complement of the verb \emph{n'aime}, as represented in Figure~\ref{fig:13}.
-
+%\iffalse{}
 \begin{figure}
 	\begin{forest}
 		sm edges
 		[VP\\
 		\begin{avm}
-			\[head|form & fin\\
-			subj & \< \@{1}\,NP\>\\
-			comps & \<~~\> \]
+			\[head|form \; \type{fin}\\
+			subj \; \< \@{1}\,NP\>\\
+			comps \; \<~~\> \]
 		\end{avm}, l sep*=1.5
 			[V\\
 			\begin{avm}
-				\[\tpv{neg-fin-v}\\
-				head|vform & fin\\
-				subj & \< \@{1}\,NP\>\\
-				comps & \< \@{2}\,$\textnormal{Adv}_\textnormal{I}${,} \@{3}\,NP\>\\
-				arg-st & \< \@{1}\,NP{,} \@{2}\,$\textnormal{Adv}_\textnormal{I}${,} \@{3}\,NP\>\]
+				\[\type{neg-fin-v}\\
+				head|vform \; \type{fin}\\
+				subj \; \< \@{1}\,NP\>\\
+				comps \; \< \@{2}\,$\textnormal{Adv}_\textnormal{I}${,} \@{3}\,NP\>\\
+				%arg-st \; \< \@{1}\,NP{,} \@{2}\,$\textnormal{Adv}_\textnormal{I}${,} %\@{3}\,NP\>
+\]
 			\end{avm}
 				[n'aime]]
-			[\ibox{2}\,Adv\textsubscript{I}
+			[\avmbox{2}\,Adv\textsubscript{I}
 				[pas]]
-			[\ibox{3}\,NP
+			[\avmbox{3}\,NP
 				[Stacy]]]
 	\end{forest}
-\caption{Add caption}\label{fig:13}	
+\caption{Partial structure of (\ref{pas-good-b})}\label{pas-st}
 \end{figure}
-
-
+%\fi
 
 %\noindent
-The analysis also explains the position of \emph{pas} in
-finite clauses:
-
-\eal
-\ex[*]{
-Jean  ne [pas \ssub{VP[\type{fin}]}[aime  Jan]].
-} \label{56a}
-\ex[]{
-Jean \ssub{VP[\type{fin}]}[\ssub{V[\type{fin}]}[(n')aime] \ssub{Adv}[pas] \ssub{NP}[Jan]].
-}
-\zl
-
-\noindent
-The placement of \emph{pas} in (\ref{56a}) is unacceptable since
-\emph{pas} here is used not as a nonfinite VP modifier, but as
+The analysis also explains the position of \textit{pas} in
+finite clauses. The placement of \textit{pas} before a finite verb
+in (\ref{pas-good-a})
+ is unacceptable since
+\textit{pas} here is used not as a nonfinite VP modifier, but as
 a finite VP modifier. But due to the
 present analysis which allows \textit{pas}-type negative adverbs
 to function as the complement of a finite verb,
-\emph{pas} can function as
+\textit{pas} in (\ref{pas-good-b}) can function as
 the sister of the finite verb
-\emph{aime}.
+\textit{aime}.
 %\footnote{Of course, this
 %word ordering
 %conforms to the independent LP rule that a lexical head precedes
@@ -1974,7 +988,7 @@ the sister of the finite verb
 Given that the conditional, imperative, and subjunctive,
 and even present participle verb forms in French are finite, the
 construction
-analysis also predicts that \emph{pas} cannot precede any of these verb
+analysis also predicts that \textit{pas} cannot precede any of these verb
 forms:
 
 
@@ -2010,43 +1024,23 @@ Il est important que vous ne pas r\'{e}pondiez.
 
 \eal
 \ex[]{
-Ne parlant pas Fran\c{c}ais, Stacey avait des difficult\'{e}s. \\
-`Not speaking French,  Stacey had difficulties.'
+Ne parlant pas Fran\c{c}ais, Stacy avait des difficult\'{e}s. \\
+`Not speaking French,  Stacy had difficulties.'
 }
 \ex[*]{
-Ne pas parlant Fran\c{c}ais, Stacey avait des difficult\'{e}s.
+Ne pas parlant Fran\c{c}ais, Stacy avait des difficult\'{e}s.
 }
 \zl
 
-
-Another important consequence of the present construction-based analysis
-is that it allows us to reduce the differences between
+Note that this analysis allows us to reduce the differences between
 French and English negation to be a matter of lexical properties.
-The negators \emph{not} and \emph{pas} are identical in that they both are
-VP[\type{nonfin}] modifying adverbs. But they are different with respect to
-which verbs can select them as complements.
-A comparison between the French Negative Construction and
-the English  Negative Construction shows that \emph{not} can be the
-complement of a finite auxiliary verb, whereas \emph{pas} can be the
+The negators \textit{not} and \textit{pas} are identical in that they both are
+VP[\textit{nonfin}] modifying adverbs. But they are different with respect to
+which verbs can select them as complements:  \textit{not} can be the
+complement of a finite auxiliary verb, whereas \textit{pas} can be the
 complement of any finite verb.  So the only difference
 is the morphosyntactic value [\AUX\ $+$] and this induces
-the difference in positioning the negators.
-
-This surface-oriented approach is in a sense similar to
-Pollock's viewpoint that the verb's finiteness plays a
-crucial role in the distribution of adverbs and negation. But
-there is one fundamental difference. I claim that it is not the interaction
-of verb movement and his subtheories  such as the theta theory
-and `quantification theory'  but the morphosyntactic value (\VFORM\
-value) of the verb and lexical rules that affect the position of
-adverbs including \emph{pas} and \emph{not}. All surface structures are directly
-generated by a system of phrase types
-and constraints. The conclusion we can draw from these observations
-is that the position of adverbial negatives is determined not by
-the respective
-properties of verb movement, but by their lexical
-properties, the morphosyntactic (finiteness) features of the verbal head,
-and independently motivated Linear Precedence constraints.
+the difference in positioning the negators in English and French.
 
 
 
@@ -2058,11 +1052,11 @@ and independently motivated Linear Precedence constraints.
 %Interacting with the notion of conversion, this elementary
 %morphosyntactic feature has been able to capture the
 %effects of the verb's intrinsic property in determining
-%the positioning of the negative markers \emph{pas} and \emph{not}.
+%the positioning of the negative markers \textit{pas} and \textit{not}.
 
 
 
-%The key fact is that the English negative adverb \emph{not} leads a double life: one as a
+%The key fact is that the English negative adverb \textit{not} leads a double life: one as a
 %nonfinite VP modifier, marking constituent negation, and the other
 %as a complement of a finite auxiliary verb, marking sentential
 %negation.\is{nonfinite}\is{negation} Constituent negation
@@ -2070,307 +1064,1044 @@ and independently motivated Linear Precedence constraints.
 %constituent to its right, and negates exactly that constituent (see Kim and Sag 2002, Kim and Sells %2008):
 
 %
-%The English negative adverb \emph{not} leads a double life: one as a
+%The English negative adverb \textit{not} leads a double life: one as a
 %nonfinite VP modifier, marking constituent negation, and the other
 %as a complement of a finite auxiliary verb, marking sentential
 %negation.\is{VP!nonfinite}\is{negation} Constituent negation
 %is the name for a construction in which negation combines with some
 %constituent to its right, and negates exactly that constituent.
 
+\section{Morphological Negative}
 
-
-\subsection{Clitic-like Negative Verb}
-
-As we have seen,  the negative markers \emph{non} and \emph{no} are
-the main way of expressing negation in Italian and Spanish.
-These negative markers always precede the lexical  verb, whether finite or
-non-finite, as can be observed from the repeated Italian
-examples:\footnote{Languages like Welsh also employ a clitic-like
-negative. See \citet{BJ:00} for detailed discussion
-of Welsh negation.}
-
-
+As noted earlier, languages like Turkish and Japanese employ morphological negation in which the negative marker behaves like a suffix. Consider
+Turkish and Japanese examples in the following:
+% again:
 
 \eal
-\ex[]{
-\gll
-Gianni non legge articoli di sintassi. \\
-Gianni   \textsc{neg}   reads  articles  of  syntax \\
-\trans`Gianni doesn't read syntax articles.'
-}
+\ex
+\label{turkish-jap}
+\gll Git-me-yece\~{g}-$\varnothing$-im \\
+     go-{\sc neg-fut-cop}-\textsc{1sg} \\
+\glt `(I) will not come.'
+\ex
+\gll kare-wa kinoo kuruma-de ko-na-katta. \\
+     he-\textsc{top} yesterday car-\textsc{inst} come-\textsc{neg}-\textsc{pst} \\
+\glt `He did not come by car yesterday.'
+\zl
+
+\noindent
+As the examples illustrate, the sentential negation of Turkish and Japanese employ
+morphological suffixes \textit{-me} and \textit{-na},
+respectively.
+It is possible to state the ordering
+of these morphological negative markers in configurational
+terms with assigning an independent syntactic status to them.
+But it is too strong a claim to
+take the negative suffix \textit{-me} or \textit{-na}  to be an independent syntactic element,
+and to attribute its positional possibilities to syntactic constraints
+such as verb movement and other configurational notions (see \citet{kelepir} for
+Turkish and \citet{Kato:97,Kato:00} for Japanese).
+%Kelepir 2001
+%Japanese and Turkish show other clear examples of morphological negation.
+%
+In these languages, the negative affix acts just like
+other verbal inflections in numerous respects.
+%
+%\enumsentence{
+%\shortex{4}
+%
+%{T\"{u}rk-les-tir-il-me-mis-ler-den-siniz.}
+%{turk-become-CAUS-PASS-NEG-PSP-PLUR-ABL-COP}
+%{`You are of those who didn't have themselves Turkified.' (van
+%Schaaik 1994:39)}}
+%
+%\noindent
+%
+%
+The morphological status of
+these negative markers comes from their morphophonemic alternation.
+For example, the vowel of the Turkish negative suffix \textit{-me} shifts from open to closed when followed by the
+future suffix, as in \textit{gel-mi-yecke} `come-\NEG-\FUT'.  Their
+strictly fixed position also indicates their morphological
+constituenthood. Though these languages allow rather a free permutation of
+syntactic elements (scrambling), there exist strict ordering restrictions among
+verbal suffixes including the negative suffix, as can be seen from
+the following examples:
+
+\eal
+\ex
+\gll tabe-sase-na-i/*tabe-na-sase-i \\
+     eat-\textsc{caus}-\textsc{neg}-\textsc{npst} \\
+
+\ex
+\gll tabe-rare-na-katta/*tabe-na-rare-katta \\
+     eat-\textsc{pass}-\textsc{neg}-\textsc{pst} \\
+
+\ex
+\gll tabe-sase-rare-na-katta/*tabe-sase-na-rare-katta \\
+     eat-\textsc{caus}-\textsc{pass}-\textsc{neg}-\textsc{pst} \\
+\zl
+
+\noindent
+The ordering of the negative affix is a matter of morphology.
+If it were a syntactic concern, then
+the question would arise as to why
+there is an obvious contrast in the ordering principles
+of morphological and syntactic constituents, i.e., why the ordering
+rules of morphology are distinct from the ordering rules of syntax. The
+simplest explanation for this contrast is to accept
+the view that morphological constituents including the negative marker
+are formed in the lexical component and hence have no syntactic
+status (see \citet{Kim:00} for detailed discussion).
+
+This being noted, it is more reasonable to assume that the placement of a
+negative affix is regulated by morphological principles, i.e.\ by
+the properties of the morphological negative affix itself.
+\citet{PK:99} and \citet{Prz:00, Prz:01}
+discuss aspects of Polish negation which is realized as the prefix
+  {\it nie} to a verbal expression.
+ \citet{Prz:00} focuses on non-local genitive of negation in Polish where the object argument is not accusative but genitive marked with the presence of negative marker as in (\ref{genitive-1a}). The assignment of genitive case to the object is also effective in
+  the unbounded relation as shown in (\ref{genitive-1b}):
+
+\eal
+\ex \label{genitive-1a}
+\gll Nie lubi\c{e} Marii/*Mari\c{e}. \\
+     not like-1st.{\sc sg} Mary-{\sc gen}/Mary-{\sc acc}\\
+\glt `I don't like Mary.'
+\ex \label{genitive-1b}
+\gll Mog\c{e} nie chcie\'{c} tego napisa\'{c}. \\
+     may-1st.{\sc sg} not want-{\sc inf} this-{\sc gen} write-{\sc inf}\\
+\glt `I may not want to write this.'
+\zl
+  %
+To account for this kind of phenomena, \citet{Prz:00} develops
+an HPSG-based analysis with the assumption that the combination of the
+negative morpheme with the verb stem introduces the feature {\sc neg}. This feature
+tightly interacts with the mechanism of argument composition and construction-based case assignment (or satisfaction).
+
+The process of adding a negative morpheme to a lexeme can be modelled
+straightforwardly by a lexical rule given in the following \citep[see]{Kim:00,Crowgey:12}:
+
+\ea
+\textsc{negative word formation lexical rule}:\\
+\begin{avm}
+\small
+\[\type{v-lxm}\\
+  \FORM\ \; \q<\@1\q>\\
+  \SEM\ \;  \@2\]  \ \  $\mapsto$\  \ \  \[\type{neg-v-lxm}\\
+              \FORM\ \;  \q<\bf{F}\jbsub{{\type{neg}}}(\@1)\q>\\
+                                     \SYN\|\HEAD\|\POL\ \;  \type{neg}\\
+                                    \SEM\ \;  \[\RESTR \;  \<\[\PRED\ \ \;  \ \type{neg-rel}\\
+                                            {\sc arg1}\;  \ \ \@2\]\>\]\]
+\end{avm}
+\z
+%
+As shown here, any verb lexeme can be turned into a verb with the negative
+morpheme attached. The language particular rule will ensure an appropriate
+negative morpheme to be attached to the lexeme. For instance, the
+suffix {\it -ma} for Turkish
+and {\it -na} for Japanese will be attached to the verb lexeme, generating
+the verb forms in (\ref{turkish-jap}).
+
+
+
+This morphological analysis can be extended to the negation of languages
+like Libyan Arabic, as discussed in \citet{BK:12}.  The language
+ has a bipartite realization of negation, the proclitic {\it ma-} and the enclitic -\u{s}:
+
+%\eal
+\ea
+\gll la-wlaad ma-m\u{s}uu-\u{s} li-l-madrsa. \\
+     the-boys {\sc neg}-go.{\sc pst}.3.{\sc pl}-{\sc neg} to-the-school\\
+\glt `The boys didn't go to the school.'
+\z
+ %
+ As did \citet{BK:12}, we could take these clitics as affixes and generate
+ a negative word as following:\footnote{The formulation given in
+ \citet{BK:12} is slightly different from the one given here, but both
+ have the same effects.}
+
+ \ea
+\begin{avm}
+\small
+\[%\type{v-lxm}\\
+  \FORM\ \q<\normalfont{m\u{s}uu}\q>\\
+  \SEM\| \@2\]  \ \  $\mapsto$\  \ \  \[\FORM\ \q<\normalfont{ma-m\u{s}uu-\u{s}}\q>\\
+                                     \SYN\|\HEAD\|\POL\ \type{neg}\\
+                                    \SEM\ \[\RESTR\<\[\PRED\ \ \ \type{neg-rel}\\
+                                            {\sc arg1} \ \ \@2\]\>\]\]
+\end{avm}
+\z
+ The only thing we need to define here is the function
+ {\bf F}\jbsub{{\type{neg}}}
+ in the language that allows the attachment of the prefix
+ \textit{ma-} and the suffix \textit{\u{s}} to the verb
+ stem {\it m\u{s}uu}.\footnote{\citet{BK:12} note that
+ the suffix \textit{\u{s}} is not realized when a negative clause
+ includes an n-word or an NPI (negative polarity item). See
+ \citet{BK:12} for further details.}
+ %
+ %
+ %
+ % explores a morphology-based analysis with the introduction
+ % of the feature \textsc{pol} (polarity) to identify strong and weak negative
+ % words in the language.
+
+\iffalse{
+In the
+construction-based HPSG, we could take this as an inflectional
+construction.  The negative marker, as we have seen in Turkish and Japanese, is realized as a suffix
+attached to the verb root. The resulting combination is not
+a word-level entity but a verb stem to which an aspectual or tense marker can be attached. We could thus take such a morphological process as an inflectional
+one. For instance, Figure~\ref{fig:2} could be a morphological
+construction in Turkish.\footnote{See \citet{Sag:12} and \citet{Hilpert:16} for a construction-based approach to
+inflectional as well as derivational processes.}
+
+
+\iffalse{}
+\begin{figure}
+	\centering	
+	%\vspace{-.5cm}	
+	\begin{forest}
+		[
+		\begin{avm}
+			\[\textit{v-neg-stem}\\
+			form & \< \textbf{F}\textsubscript{NEG} (X)\>\\
+			%%
+			syn|head|pos & \tpv{verb}\\
+			%%
+			sem|frames & \< \[\tpv{neg-fr}\\
+			arg \@{1} \] \>
+			\]	
+		\end{avm}
+		%%%%%%
+		[
+		\begin{avm}
+			\[ \tpv{v-lxm}\\
+			form & \< X \>\\
+			syn|head|pos & verb\\
+			sem|frames & \<\@{1} \>
+			\]
+		\end{avm}
+		]
+		]
+	\end{forest}
+	\caption{Negative-Infl Construction ($\uparrow$\textit{infl-cxt})}\label{fig:2}
+\end{figure}	
+\fi
+
+This inflectional construction ($\uparrow$\textit{infl-cxt}) allows us to generate a Turkish inflection construct like \textit{ser-me} `like-\NEG' (in (\ref{1a})) from the v-lexeme \textit{ser-} with the change in the root's meaning into a sentential negation. The morphological function \textit{F}\jbsub{\textsc{neg}} could ensure that the vowel of the negative affix \textit{me} is subject to phonological changes depending on its environment. If it is followed by a consonant-initial morpheme, it undergoes vowel harmony with the vowel in the preceding syllable (e.g., \textit{yika-n-ma-di} `wash-\REFL-\NEG-\PST'). If it is followed by a vowel-initial morpheme, its vowel drops (gel-m-iyor `come-\NEG-\PROG')  \citep[see]{kelepir}.\footnote{As
+ for a way of capturing the ordering of suffixes within this kind of system,
+ see \citet{Kim:16}.}
+}\fi
+
+The lexicalist HPSG analyses sketched here
+ have been built upon the
+thesis that autonomous (i.e.\ non-syntactic) principles govern the
+distribution of morphological elements \citep{BM:95}.
+The position of the morphological negation is simply
+defined in relation to
+the verb stem it attaches to. There are no syntactic operations such
+as head-movement or multiple functional projections in forming
+a verb with the negative marker.\footnote{The lexical-rule based
+approached here can be extended to a construction-based HPSG
+approach or a constructionist approach. See
+\citet{Sag:12} and \citet{Hilpert:16} for a construction-based
+approach to morphological processes.}
+
+
+
+\section{Negative Auxiliary Verb}
+
+Another way of expressing sentential negation, as noted earlier, is to employ
+a negative auxiliary
+verb. Some head-final languages like Korean and Hindi employ
+negative auxiliary verbs. Consider a Korean example:
+
+\ea
+\gll John-un ku chayk-ul ilk-ci anh-ass-ta. \\
+     John-\textsc{top} that book-\textsc{acc} read-\textsc{conn} \textsc{neg}-\textsc{pst}-\textsc{decl}  \\
+\glt `John did not read the book.'
+\z
+%
+%\ex
+%\gll anil  kitaab\~{e}  nah\~{\i}\~{\i}  becegaa.\\
+%     Anil-{\sc nom} book-{\sc pl}  not sell-{\sc fu}
+%\glt `Anil will not sell the books.'
+%\zl
+%
+\noindent
+The negative auxiliary in head-final languages like Korean
+typically appears
+clause-finally, following the invariant form of the lexical verb.
+In head-initial SVO languages, however, the negative auxiliary
+almost invariably occurs immediately before the lexical verb
+\citep{Payne:85}. Finnish also exhibits this property \citep{Mitchell:91}:
+
+\ea
+\gll Min\"{a} e-n puhu-isi. \\
+     I.\textsc{nom} \textsc{neg}-\textsc{1sg} speak-\textsc{cond} \\
+\glt `I would not speak.'
+\z
+
+\noindent
+These negative auxiliaries have syntactic status: they can be
+inflected, above all. Like other verbs, they can be marked
+with verbal inflections such as agreement, tense, and mood.
+
+In dealing with auxiliary negative constructions,
+most of the derivational approaches have
+followed Pollock's and Chomsky's analyses in factoring out grammatical
+information (such as tense, agreement, and mood) carried by lexical items into various different phrase-structure nodes (see, among others, \citet{Hagstrom:02}, and \citet{Han:07} for Korean and \citet{Vasishth:00} for Hindi).
+This derivational view has
+been appealing, in that the configurational structure for English-type
+languages could be applied even for languages with different types
+of negation. However, issues arise how to address the grammatical
+properties of auxiliary negative which are quite different from the
+other negative forms.
+%
+%
+%could explain
+%different types of negation.   However,
+%questions arise with respect to how the
+%
+%
+%issues arise from the fact that it misses the basic properties
+%of this type of negation which, for example, differentiate it from
+%morphological negation (i.e., double negation, lexical
+%idiosyncrasies, phonological restriction, etc).
+
+%
+%\footnote{See \citep{Nino:94} for arguments against a derivational analysis
+%for Finnish negative auxiliary such as that of \citep{Mitchell:91}.}
+
+
+%
+%and an independently
+%motivated construction for other types of auxiliary verbs.
+The Korean negative auxiliary displays all the key properties of auxiliary verbs in the language. For instance, the typical auxiliary verbs as
+well as the negative auxiliary all require the preceding lexical verb to be marked with a specific verb form (\vform), as illustrated
+in the following:
+
+\eal
+\ex\label{14a}
+\gll ilk-ko/*ci siph-ta. \\
+     read-\textsc{conn}/\textsc{conn} would.like-\textsc{decl} \\
+\glt `(I) would like to read.'
+
+\ex\label{14b}
+\gll ilk-ci anh-ass-ta. \\
+     read-\textsc{conn} not-\textsc{pst}-\textsc{decl} \\
+\glt `(I) did not read.'
+\zl
+\noindent
+The auxiliary verb \textit{siph-} in (\ref{14a}) requires the
+\textit{-ko} marked lexical verb while the negative auxiliary
+ verb \textit{anh-} in (\ref{14b}) asks for the \textit{-ci} marked lexical verb.
+
+In terms of syntactic structure, there
+are at least possible analyses.  One is to assume that the negative auxiliary takes a VP complement and the other is to claim that it forms a verb complex with the preceding lexical verb, as represented in Figures~\ref{fig:3a} and~\ref{fig:3b}, respectively
+\citep{Chung98a-u, Kim:16}.
+%\footnote{Another possibility is to assume that the
+%auxiliary verb are in the sisterhood relationship with the following
+%lexical verb and its putative complement(s). For this option, see ???}
+%
+%\iffalse{}
+\begin{figure}
+	\begin{subfigure}[b]{0.48\textwidth}
+\centering
+		\begin{forest}
+%		sm edges
+			[VP
+				[VP
+					[ \dots\ ]
+					[V {[\textsc{vform} \textit{ci}]}
+					]
+					]
+				[V {[\textsc{aux $+$}]}
+					[anh-ta\\ \textsc{neg-decl}]
+				]
+			]	
+		\end{forest}
+	\caption{VP-structure}\label{fig:3a}
+		\end{subfigure}	
+\hfill
+	\begin{subfigure}[b]{0.48\textwidth}
+\centering
+		\begin{forest}
+%		sm edges
+			[VP, s sep=1cm
+				[ \dots\ ]
+				[V
+					[V {[\textsc{vform} \textit{ci}]}
+						[\dots]]
+					[V {[\textsc{aux $+$}]}
+						[anh-ta\\ \textsc{neg-decl}]]]]
+		\end{forest}
+	\caption{Verb-complex structure}\label{fig:3b}	
+		\end{subfigure}
+	\caption{Two possible structures with the negative auxiliary}
+\end{figure}
+%\fi
+
+%\noindent
+The distributional properties of the negative auxiliary in the language, however, support
+ a complex predicate structure (cf.\ Figure~\ref{fig:3b}) in which the negative auxiliary verb
+forms a syntactic/semantic unit with the preceding lexical verb.
+For instance, no adverbial expression, including
+a parenthetical adverb, can intervene between
+the main and auxiliary verb, as illustrated by the
+following Korean example:
+
+\ea
+\gll Mimi-nun (yehathun) tosi-lul (yehathun) ttena-ci (*yehathun) anh-ass-ta. \\
+     Mimi-\textsc{top} anyway city-\textsc{acc} anyway leave-\textsc{conn} anyway \textsc{neg}-\textsc{pst}-\textsc{decl} \\
+\glt `Anyway, Mimi didn't leave the city.'
+\z
+%
+Further, in an elliptical construction, the elements of a verb complex
+ always occur together. Neither the lexical  verb nor the auxiliary verb alone can serve
+as the fragment answer to the polar question. The two verbs
+must occur together.
+
+\eal
+\label{fragment}
+\ex
+\gll Kim-i hakkyo-eyse pelsse tolawa-ss-ni? \\
+Kim-\textsc{nom} school-\textsc{src} already return-\textsc{pst}-\textsc{que} \\
+\trans`Did Kim return from school already?'
+
+\ex \gll ka-ci-to anh-ass-e.\\
+go-\textsc{conn}-\textsc{del} \textsc{notp}-\textsc{pst}-\textsc{decl} \\
+\trans`(He) didn't even go.'
+
+\ex[*] {ka-ci-to. go-\textsc{conn}-\textsc{del}}
+
+\ex[*] {anh-ass-e \textsc{neg}-\textsc{pst}-\textsc{decl}}
+\end{xlist} \end{exe}
+
+% \end{xlist}
+%\end{exe}
+%
+%
+%\ex[*] \gll ka-ci-to.\\
+%   go-\textsc{conn}-\textsc{del}\\
+%   \trans `(int.) not even go'%
+%
+%\ex[*] \gll anh-ass-e.\\
+%   \textsc{neg}-\textsc{pst}-\textsc{decl}
+%  \trans `(int.) not even go'
+%
+As shown in (\ref{fragment}c) and (\ref{fragment}d) here, neither the lexical verb nor the auxiliary verb alone can serve as an indepedent fragment answer. The two
+verbs must appear together as given in (\ref{fragment}b). These constituent tests
+indicate that the negative auxiliary forms
+a syntactic unit with a preceding lexical  verb in Korean.
+Following the HPSg analyses of \citet{Bratt:96}, \citet{Chung:98}, and \citet{Kim:16},
+we then could assume that
+an auxiliary verb forms a complex predicate, licensed by
+the following construction:
+%
+%
+%What this implies is that in addition to the Subject-Predicate
+%and Head-Complement Constructions, Korean employs
+%another construction rule that allows the combination of two lexical-level
+%expressions, as stated in the following:%\is{hd-lex-cxt@\textsl{hd-lex-cxt}}
+
+
+%\iffalse{}
+\ea
+\label{hd-lex-cxt}
+\hdlight:\\
+\begin{avm}\small
+\[\type{hd-light-cxt }\\
+\COMPS\  \textit{L}\\
+\LIGHT\  +\]    $\rightarrow$ \@1 \[\LIGHT\  +\\
+                                  \COMPS\  \textit{L}\], H \[\LIGHT\  +\\
+                                           \COMPS\  \q<\@1\q> $\oplus$ \textit{L}\]
+\end{avm}
+\z
+%\fi
+
+\noindent   This construction rule means that a \LIGHT\ head
+expression combines with a \LIGHT\ complement, yielding
+a light, quasi-lexical constituent \citep{BW:13}.
+When this combination happens,
+there is a kind of argument composition: the \COMPS\  value (\textit{L}) of this
+lexical complement is passed up to the resulting mother.
+The constructional constraint thus induces the effect of argument composition in syntax,
+as illustrated by the following example:
+%\footnote{The V$'$ is just a
+%notational variant to indicate that it is a syntactic complex predicate.}
+
+%\iffalse{}
+\begin{figure}
+	\begin{forest}
+		[V\\
+		\begin{avm}
+			\[\type{hd-light-cxt}\\
+			head \; \@{3}\\
+			light \; $+$\\
+			comps \; \<\@{2}\,NP\>\]
+		\end{avm}, l sep*=3
+			[\avmbox{1}\,V\\
+			\begin{avm}
+				\[head \|vform & ci\\
+				  light \; $+$\\
+				  comps \; \<\@{2}\,NP\>\]
+			\end{avm}, edge label={node[midway,left,outer sep=1.5mm,]{Lexical Arg.}}
+				[ilk-ci\\read-\textsc{conn},tier=word]]
+			[V\\
+			\begin{avm}
+				\[head \; \@{3}\\
+				comps \; \<\@{1}\,V\> \; $\oplus$ \; \<\@{2}\,NP\>\]
+			\end{avm}, edge label={node[midway,right,outer sep=1.5mm,]{H}}
+					[anh-ass-ta\\ \textsc{neg-pst-decl},tier=word]]]
+	\end{forest}
+\caption{An instance (construct) of the \hdlight}
+\end{figure}
+%\fi
+%
+The auxiliary verb \textit{anh-ass-ta} `\NEG-\PST-\DECL' combines with the matrix verb \textit{ilk-ci} `read-\conn',
+forming a well-formed Head-Light construct.
+%\footnote{The negative auxiliary
+%verb selects two arguments, a subject and a lexical  verb. See \citet{Kim:16} for
+%a detailed analysis.}
+Note that the resulting construction metaphorically inherits the
+\COMPS\ value from that of the lexical complement \textit{ilk-ci} `read-\conn' in accordance with the structure-sharing
+emposed on by the \hdlight\
+in (\ref{hd-lex-cxt}). That is, the \hdlight\ licenses
+the combination of an auxiliary verb with its lexical verb, while
+inheriting the lexical  verb's complement value as argument composition.
+The present system thus allows the argument composition at the syntax level, rather than in the lexicon.
+%\footnote{??? With respect
+%to the argument composition, we could it happens at the lexical
+%level. Bender and Adam}
+
+The HPSG analyses have taken the negative auxiliary in Korean
+to select a lexical verb, whose combination forms a verb complex
+structure. The present analysis implies that there is no upper limit for the
+number of auxiliary verbs to
+occur in sequence, as long as each combination observes
+the morphosyntactic constraint on the preceding auxiliary expression. Consider
+the following:
+
+\eal\ex \gll sakwa-lul [mek-ci anh-ta]. \\
+apple-\textsc{acc} eat-\textsc{conn} \textsc{neg}-\textsc{decl} \\
+\trans`do not eat the apple'
+
+\ex \gll sakwa-lul [[mek-ko siph-ci] anh-ta]. \\
+apple-\textsc{acc} eat-\textsc{conn} wish-\textsc{conn} \textsc{neg}-\textsc{decl} \\
+\trans`would not like to eat the apple'
+
+\ex \label{20c} \gll sakwa-lul [[[mek-ko siph-e] ha-ci] anh-ta]. \\
+apple-\textsc{acc} eat-\textsc{conn} wish-\textsc{conn} do-\textsc{conn} \textsc{neg}-\textsc{decl} \\
+\trans`do not like to eat the apple'
+
+\ex \gll sakwa-lul [[[[mek-ko siph-e] ha-key] toy-ci] anh-ta]. \\
+apple-\textsc{acc} eat-\textsc{conn} wish-\textsc{conn} do-\textsc{conn} become-\textsc{conn} \textsc{neg}-\textsc{decl} \\
+\trans`do not become to like to eat the apple.'
+\end{xlist} \end{exe}
+%
+As seen from the bracketed structures, we can add one more auxiliary verb to
+an existing Head-Light construct with the final auxiliary bearing an appropriate
+  connective marker. there is no upper limit to the possible number  of auxiliary
+  verbs we can add (see \citet{Kim:16} for detailed discussion).
+
+The present analysis in which the auxiliary negative forms a complex
+predicate structure with a lexical verb can be applied for languages
+like Basque, as suggested by \citet{CB:11}. They explore the interplay of sentential
+negation and word order in Basque. Consider
+a Basque example from \citet{CB:11}:
+
+\ea
+\label{basque-ex}
+\gll ez-ditu irakurri liburuak. \\
+     {\sc neg}-3{\sc plo.pres.3sgs} read.{\sc perf} book.{\sc abs.pl}\\
+\glt `has not read books'
+\z
+%
+%
+Unlike Korean, the negative auxiliary \textit{ez-ditu} precedes
+the main verb. Other than this ordering difference, just
+like Korean, the two form a verb complex structure, as represented in
+Figure~\ref{basque} (adopted from \citet{CB:11}):
+
+%\iffalse{}
+\begin{figure}
+	\begin{forest}
+		[V\\
+		\begin{avm}
+			\[\type{hd-light-cxt}\\
+			%head \; \@{3}\\
+			light \; $+$\\
+			comps \; \<\@{2}\,NP\>\]
+		\end{avm}, l sep*=3
+			[V\\
+			\begin{avm}
+				\[head \|aux  +\\
+				  light \; $+$\\
+				  comps \;  \<\@{1}\> $\oplus$ \<\@{2}\,NP\>\]
+			\end{avm}%, edge label={node[midway,left,outer sep=1.5mm,]}
+				[ez-ditu\\ \textsc{\sc neg}-3{\sc plo.pres.3sgs}]]
+			[\avmbox{1}\,V\\
+			\begin{avm}
+				\[comps \; \<\@{2}\,NP\>\]
+			\end{avm}%, edge label={node[midway,right,outer sep=1.5mm,]{H}}
+					[irakurri\\ read-\textsc{perf}]]]
+	\end{forest}
+\caption{Partial structure of (\ref{basque-ex})}\label{basque}
+\end{figure}
+%
+%
+%
+In the treatment of negative auxiliary verbs, the HPSG analyses
+have taken the negative auxiliary to be an independent lexical
+verb whose grammatical (syntactic) information is not distributed
+over different phrase structure nodes, but incorporated into
+its precise lexical specifications. In particular, the negative
+auxiliary forms a verb complex structure in many languages, whose
+constituenthood is motivated by other independent phenomena.
+%%, and provides a simple and straightforward explanation for
+%phenomena such as aspect selection.
+%The conclusion we can draw from here is that the
+% distribution of a negative auxiliary verb is determined by
+%independent constructional constraints
+%that regulate the placement of other
+%similar verbs.
+
+
+
+\section{Preverbal Negative}
+
+The final type of sentence negation is preverbal negatives, which
+we can observe in languages like Italian and Welsh:
+
+\eal
+\ex \label{position-1a}
+\gll Gianni non telefona a nessuno. \hfill (Italian) \\
+     Gianni {\sc neg} telephones to noone\\
+\glt`Gianni does not call anyone.'
+%\ex \label{position-1b}
+%\gll Jag har inte gett boken till henne. (Swedish)
+%I have {\sc neg} given the.book to her
+%\glt `I hae not given the book to her.'
+\ex \label{position-1c}
+\gll Dw i ddim wedi gweld neb. \hfill  (Welsh) \\
+     am I {\sc neg} {\sc perf} see nobody\\
+\glt `I haven't seen anybody.'
+\zl
+%
+%
+As seen here, in Italian,
+the preverbal negative \textit{non}, also called negative particle or
+clitic, always precedes a lexical  verb, whether finite or
+non-finite, as further attested by the following
+examples:
+
+\eal
+%\ex[]{
+%\gll
+%Gianni non legge articoli di sintassi. \\
+%Gianni   \textsc{neg}   reads  articles  of  syntax \\
+%\trans`Gianni doesn't read syntax articles.'
+%}
 \ex[]{
 \gll
 Gianni  vuole  che  io  non  legga  articoli  di  sintassi. \\
 Gianni  wants  that  I   \textsc{neg}   read  articles  of  syntax. \\
+\trans `Gianni hopes that I do not read syntax articles.'
 }
 \ex[]{
 \gll
 Non   leggere  articoli di sintassi   \`{e}  un vero peccato. \\
 \textsc{neg}  to.read  articles of syntax   is  a real shame \\
-}
+\trans `Not to read syntax articles is a real shame.'}
 \ex[]{
 \gll
 Non  leggendo  articoli di sintassi,  Gianni  trova  la linguistica  noiosa. \\
-\textsc{neg}   reading  articles of syntax,  Gianni  finds  {} linguistics  boring \\
-}
+\textsc{neg}   reading  articles of syntax  Gianni  finds  {} linguistics  boring \\
+\trans `Not reading syntax articles, Gianni finds linguistics boring.'}
 \zl
 
-
-Various properties of the negator \emph{non} in Italian
-and \emph{no} in Spanish are shared with those of pronominal
-clitics. Like pronominal clitics, the Italian negator \emph{non} must
-occupy the pre-auxiliary position:
-
-\eal
-\ex[]{
-\gll
-Gianni non ha parlato. \\
-Gianni \textsc{neg} has talked \\
-\trans `Gianni has not talked.'
-}
-\ex[*]{
-Gianni ha non parlato. \ \ \ \citep[12]{Belletti:90}
-}
-\zl
-
-However, one key difference from pronominal clitics is
-that negators \emph{non} in Italian and \emph{no} in Spanish can appear alone,
-especially in ellipsis-like constructions.
-Consider Spanish examples from \citet{Lopez:94}.
-
-
-
-
-\eal
-\ex[*]{
-\gll
-Juan no ha comido, pero Susana ha. \\
-Juan \textsc{neg} has eaten but Susana has \\
-\trans `John has not eaten, but Susana has.'
-}
-\ex[*]{
-\gll Juan ha comido, pero Susana no ha. \\
-Juan has eaten but Susana \textsc{neg} has \\
-}
-\ex[]{
-\gll Juan ha comido pero Susana no. \\
-Juan has eaten but Susana \textsc{neg} \\
-}
-\zl
-
-%As noted, any theory needs to capture the dual properties
-%of \emph{non} (clitic and non-clitic properties). But
-%neither Analysis A, nor Analysis B, nor Analysis C, appears to satisfy
-%this without significant adjustments.
-
-
-
-The derivational view again attributes the distribution of this
-negative marker to the reflex of verb movement and functional
-projections (see \citet{Belletti:90},
-\citet{Zanuttini:91}). This line of analysis also appears to be persuasive
+The derivational view again attributes the distribution of such
+a preverbal negative to the reflex of verb movement and functional
+projections \citep[see]{Belletti:90, Zanuttini:91}. This line of analysis also appears to be persuasive
 in that the different scope of verb movement application could explain
 the observed variations among typologically and genetically related
 languages. Such an analysis, however,
-  fails to capture unique properties of clitic-like negators
-  from inflectional negators, negative auxiliaries, or adverb negatives.
+  fails to capture unique properties of preverbal negative
+  from morphological negative, auxiliary negative, and adverb negative.
 
-The analysis which I defend here is to take \emph{non}
+\citet{Kim:00} offers an HPSG analysis of Italian and Spanish negation.
+His anlaysis takes \textit{non}
 to be an independent lexical head element though it is a clitic.
-This claim follows the spirit of  \citet{Monachesi:93,Monachesi:98}'s analysis claiming that there are two types of clitics, affix-like
+This claim follows the  analyses sketched by \citet{Monachesi:93} and \citet{Monachesi:98}
+assuming that there are two types of clitics, affix-like
 clitics and word-like clitics: pronominal clitics belong to the
-former, whereas the bisyllabic clitic \emph{loro} `to-them' to the
-latter. The present analysis thus suggests that \emph{non} also belongs
+former, whereas the bisyllabic clitic \textit{loro} `to-them' to the
+latter. Kim's analysis suggests that \textit{non} also belongs
 to the latter group.\footnote{But one main difference between
-\emph{non} and \emph{loro} is that \emph{non} is a head
-element, whereas \emph{loro} is a complement XP. See
-\citet{Monachesi:93,Monachesi:98} for further discussion of the
-behavior of \emph{loro} and its treatment.} One key difference from
+\textit{non} and \textit{loro} is that \textit{non} is a head
+element, whereas \textit{loro} is a complement XP. See
+\citet{Monachesi:98} for further discussion of the
+behavior of \textit{loro} and its treatment.} One key difference from
 pronominal clitics is thus that it functions as an independent word.
-%
-%Like Analysis B,
-Treating \emph{non} as
+Treating \textit{non} as
 a word-like element will allow us to capture its word-like
 properties such as the possibility of stress on the negator and
 its separation from the first verbal element. But it is not a
-phrasal modifier, but a clitic, which combines with
-the following lexical  verb. Adopting the treatment of
-English expressions like \emph{than, as, of, a/an, the} as functor expressions
-that select a head expression \citep{Eynde:07,kimsells:2011,Sag:12}, the present analysis takes \emph{non} as a functor, as represented by
-the following lexical specifications:
+phrasal modifier, but an independent particle (or clitic), which combines with
+the following lexical  verb.\footnote{See \citet{Kim:00} for
+detailed discussion.}
+
+\newpage
+\ea
+\label{non}
+Lexical specifications for \textit{non} in Italian:\\
+\begin{avm}
+\[\FORM\ \q<\normalfont non\q>\\
+  \SYN\ \; \[\HEAD\ \@1\\
+         \COMPS\ \; \<V\[\HEAD\ \ \; \@1\\
+                     \COMPS\ \ \; \textit{L}\]\> \ \; $\oplus$ \; \ \textit{L}
+         \]\\
+  \SEM\ \; \[{\sc restr} \; \<\[\PRED\ \ \; \type{neg-rel}\]\>\]\]
+  \end{avm}
+\z
+%
+\noindent
+This lexical entry roughly corresponds to the entry for
+Italian auxiliary verbs (and restructuring verbs with clitic climbing),
+in that the negator \textit{non} selects a verbal complement and further for the
+complement list (L). One key property of \textit{non}
+is its {\sc head} value: its {\sc head} value is in a sense undetermined, but structure-shared with the {\sc head} value of its verbal complement.
+The value is thus
+determined by what it combines with. When \textit{non} combines with a finite
+verb, it will be a finite verb. When it combines with an
+infinitive verb, it will be an infinitive verb.
+
+In order to see how
+this system works, let us consider an Italian example where
+the negator combines with a transitive verb as in the
+following:
+
+\begin{exe}
+\ex
+\label{read-it}
+\gll Gianni non legge articoli di sintassi.\\
+Gianni {\sc neg} reads articles of syntax\\
+\glt `Gianni doesn't read syntax articles.'
+\end{exe}
+
+\noindent
+When the negator \textit{non} combines with the finite verb \textit{legge} that
+selects an NP object, the resulting combination will form
+a verb complex structure given in Figure~\ref{read-it-st}.
+
+
+%\iffalse{}
+\begin{figure}
+	\begin{forest}
+		[V\\
+		\begin{avm}
+			\[\type{hd-light-cxt}\\
+			head \; \@{3}\\
+			light \; $+$\\
+			comps \; \<\@{2}\,NP\>\]
+		\end{avm}, l sep*=3
+			[V\\
+			\begin{avm}
+				\[head \; \@{3}\\
+				  light \; $+$\\
+				  comps \;  \<\@{1}\> $\oplus$ \<\@{2}\,NP\>\]
+			\end{avm}%, edge label={node[midway,left,outer sep=1.5mm,]}
+				[non\\ \textsc{\sc neg}]]
+			[\avmbox{1}\,V\\
+			\begin{avm}
+				\[head \; \@{3}\\
+				comps \; \<\@{2}\,NP\>\]
+			\end{avm}%, edge label={node[midway,right,outer sep=1.5mm,]{H}}
+					[legge\\ reads]]]
+	\end{forest}
+\caption{Verb complex structure of (\ref{read-it})}\label{read-it-st}
+\end{figure}
+
+
+%In the nonderivational, lexicalist analysis I propose,
+%the negator is taken to be a negative verb
+%bearing a clitic feature. This analysis
+%not only allows us to capture its dual properties -- clitic-like and
+%word-like properties, but also
+%correctly predicts the positioning\index{position!of {\it non}} of {\it non} in various %contexts,
+%and its behavior in clitic climbing and AUX-to-COMP constructions.
+
+\citet{Borsley:06}, adopting \citet{Kathol2000a} topological approach,
+ provides a linear-based HPSG approach to capture the distributional possibilities of negation in Italian and Welsh, which we have seen
+ in (\ref{position-1a}) and
+In Italian, negation is realized in a preverbal position
+as shown in (\ref{position-1c}), respectively.
+%
+% and The VSO language Welsh also has a preverbal negation but allows the multiple %realizations of negation, as in  (data from \citep{Borsley:06}).
+%
+ \citet{Borsley:06} assumes that a negative clause in these languages has a negative element (bearing the feature {\sc neg}) in the specified field.
+  Different from \citet{BJ:05} selectional
+  approach where a negative expression selects its own complement,
+  this linear-based approach  tries to offer a unified approach
+  to the distributional possibilities in three different languages.
+by assigning the negative expression in
+each language to a specified topological field. The linear-based
+approach assumes that constituents have an order domain to which ordering constituents
+apply. \citet{Borsley:06}, accepting the analysis of \citet{Kim:00}
+where \textit{non} is taken to be a type of clitic-auxiliary, posits the following
+order domain:
 
 
 \ea
-Lexical specifications for \emph{non}: \\
 \begin{avm}
-\[\FORM\ \q<\normalfont non\q>\\
-  \SYN\ \[\HEAD\|\POSP\ \type{clitic}\\
-        \SEL\ \<\[\HEAD\|\POSP\ \type{verb}\\
-                 \FRAMES\ \q<\@1\q>\]\>\]\\
-  \SEM\ \[\FRAMES\ \<\[\type{neg-fr}\\
-                       \ARGa\ \@1\]\>\]\]
-
+\[{\sc dom} \<\[\type{first}\\
+                \<\normalfont{Gianni}\>\], \  \[\type{second}\\
+                {\sc neg} +\\
+                \<\normalfont{non}\>\], \ \[\type{third}\\
+                \<\normalfont{telephona}\>\], \
+                \[\type{third}\\
+                {\sc neg} +\\
+                \<\normalfont{a nessuno}\>\]\>\]
 \end{avm}
 \z
 
+The only required constraint that \citet{Borsley:06} needs to postulate
+is that a negative element bearing the positive {\sc neg} feature is either in the second or the third field.  One advantage of this direction is
+to allow \citet{Borsley:06} to attribute the properties of Welsh negation
+to the difference in the domain value of the same {\sc neg} element. Unlike
+Italian,  the {\sc neg} bearing negative is in the second or the third field,
+as illustrated in the following domain for the sentence (\ref{position-1c}) (from (49)
+\citet{Borsley:06}):\footnote{Different from \citet{Borsley:06}, \citet{BJ:00} offer  a selectional analysis of Welsh negation.
+That is, the finite negative verb selects
+two complements (e.g., subject and object) while
+the nonfinite negative verb selects a VP. See \citet{BJ:00} for details.}
 
-
-%
-%Note that the \POSP\ value of the negator.
-%Its \POSP\ value is in a sense undetermined, but structure-shared
-%with the \POSP\ value of its verbal complement. Its head value is thus
-%determined by what it combines with. When it combines with a finite
-%verb, it will be a finite verb. When it combines with an
-%infinitive verb, it will be an infinitive verb.
-%
-%
-This lexical entry roughly corresponds to the entry for
-Italian auxiliary verbs (and restructuring verbs with clitic climbing),
-in that the negator selects for a verbal complement. The combination
-of these two expressions is licensed by the \textsc{head-functor construction}:
-
-\ea\label{hd-functor-cxt}
-\textsc{head-functor construction}:\\
-\begin{myavm}\small
-\[\type{hd-functor-cxt }\\
- \SEM\ \@2\]~$\rightarrow$ \[\SEL\ \q<\@1\q>\\
-                                             \SEM\ \@2\], \@1\,H[\POSP\ \type{verb}]
-                                           \end{myavm}
-\z
-
-The construction allows a functor expression to combine with a head
-expression, whose resulting semantics is identical to the functor. This
-then licenses the combination of the clitic \emph{non} with the following
-verb. In order to see how
-this system works, let us consider an example where
-the negator combines with a transitive verb as in
-(\ref{66}).
-
-
-\ea[]{
-\gll Gianni non legge articoli di sintassi. \\
-     Gianni \textsc{neg} reads articles of syntax \\
-\glt `Gianni doesn't read syntax articles.'
-}\label{66}
-\z
-
-
-
-\noindent
-The negator \emph{non} combines with the finite verb \emph{legge},
-whose lexical entry is given in (\ref{67}):
-
-%\pagebreak
-\ea\label{67} Lexical specifications for the word \emph{legge}:\\
+\ea
 \begin{avm}
-\[\FORM\ \q<\normalfont legge\q>\\
-  \SYN\ \[\HEAD\|\POSP\ \type{verb}\\
-        \VAL\ \[\SUBJ\ \q<\@1\,NP\q>\\
-              \COMPS\ \q<\@2\,NP\q>\]\]\\
-  \ARG-ST\ \q<\@1\,NP, \@2\,NP\q>\\
-  \SEM\ \[\FRAMES\ \<\[\type{legge-fr}\]\>\]
-                       \]
+\[{\sc dom} \<\[\type{second}\\
+                \<\normalfont{dw}\>\], \ \[\type{third}\\
+                \<\normalfont{i}\>\], \ \[\type{third}\\
+                {\sc neg} +\\
+                \<\normalfont{ddim}\>\], \ \[\type{third}\\
+                \<\normalfont{wedi gweld neb}\>\]\>\]
+\end{avm}
+\z
+
+\iffalse{
+The VSO language Welsh also employs a preverbal
+negative, as illustrated by \citet{BJ:00}:
+
+\ea
+\ex \label{NC-1a}
+\gll Ni chaf sefyll yma \\
+     {\sc neg} can stand here\\
+\glt `I can't stand here.'
+\z
+%
+%  \citet{BJ:00} offer an HPSG-based analysis of negation
+%in Welsh.
+As given in (\ref{NC-1a}), Welsh allows the preverbal
+particle \type{ni} to occur in the preverbal position.
+%
+With treating the negative particle to form a negative word
+with the following stem, \citet{BJ:00} offer a selectional
+analysis of negation.
+That is, the finite negative verb selects
+two complements (e.g., subject and object) while
+the nonfinite negative verb selects a VP.}\fi
+
+\section{Other related phenomena}
+
+In addition to these work focusing on the distributional possibilities
+ of negation, there have also been work on genitive negation and negative concord.
+
+ \citet{Prz:00} focuses on non-local genitive of negation in Polish where the object argument is not accusative but genitive marked with the presence of negative marker as in (\ref{genitive}b). %In Polish,  negation is realized as the prefix
+  %\type{nie} to a verbal expression (\citep{PK:99, Prz:00, Prz:01}).
+  The assignment of genitive case to the object is also effective in
+  the unbounded relation as shown in (\ref{genitive-1}) (data from \citet{Prz:00}):
+
+\eal
+\ex  \label{genitive}
+\gll Lubi\c{e} Mari\c{e} \\
+     like-1st.{\sc sg} Mary-{\sc acc}\\
+\glt `I like Mary.'
+\ex
+\gll Nie lubi\c{e} Marii/*Mari\c{e} \\
+     not like-1st.{\sc sg} Mary-{\sc gen}/Mary-{\sc acc}\\
+\glt `I don't like Mary.'
+\zl
+
+
+\eal
+\ex \label{genitive-1}
+\gll  Janek wydawa\l{} si\c{e} lubi\'{c} Mari\c{e}.\\
+John seemed {\sc rm} like-{\sc inf} Mary-{\sc acc}\\
+\glt `John seemed to like Mary.'
+
+\gll  Janek nie wydawa\l{} si\c{e} lubi\'{c} Marii/Mari\c{e}.\\
+John not seemed {\sc rm} like-{\sc inf}      Mary-{\sc gen}/Mary-{\sc acc}\\
+\glt `John did not seem to like Mary.'
+\zl
+
+\iffalse{
+\eal
+\ex \label{genitive-1}
+\gll Pisz\c{e} listy /*list\'{o}w.
+     write-1st.{\sc sg} letters-{\sc acc}/letters-{\sc gen}\\
+\glt `I am writing letters.'
+
+\ex
+\gll Nie chcialem   pisa\'{c} list\'{o}w. \\
+     not wanted-1{\sc st.sg.masc} write-{\sc inf} letters-{\sc gen}\\
+\glt `I didn't want to write letters.'
+\zl}\fi
+  %
+To account for this kind of phenomena, \citet{Prz:00} develops
+an HPSG-based analysis with the assumption that the combination of the
+negative morpheme \type{nie} with the verb stem introduces the
+feature {\sc neg}.\footnote{In Polish,  negation is realized as the prefix
+  \type{nie} to a verbal expression. \citet[see]{PK:99, Prz:00, Prz:01}.} The
+  case assignment constraint such that a {\sc neg} verbal expression assigns
+  the {\sc gen} to its non-initial argument ensures
+  the object NP in (\ref{genitive}b) to be {\sc gen}-marked (adopted from \citet{Prz:00}):
+
+%\iffalse{}
+\ea
+\label{polish-gen-case}
+{\sc polish case assignment rule}:\\
+\begin{avm}\small
+\[%\textit{hd-light-cxt }\\
+\HEAD\ \; \[\type{verb}\\
+       {\sc neg} \ +\]\\
+\ARG-ST\ \; \<XP, YP[\CASE\ \type{str}]\>\] \; \; $\mapsto$ \; \;
+\[\ARG-ST\ \; \<XP\> $\oplus$ \<NP[\CASE\ \type{gen}]\> $\oplus$ \textit{L} \]
+\end{avm}
+\z
+%\fi
+This type constraint will ensure that the object complement of
+(\ref{genitive}) to be \GEN-marked due to the negative word \textit{nie lubi\c{e}}.
+As for the long distance {\sc gen} in (\ref{genitive-1}), \citet{Prz:00}
+allows the VP complement of raising verbs like \type{seem} to optionally undergo the lexical
+argument composition, yielding the following for the
+matrix verb in (\ref{genitive-1}):
+
+\ea
+\label{polish-case}
+%{\sc polish case assignment Rule:\\
+\begin{avm}\small
+\[\FORM\ \ \<\normalfont{nie wydawa\l{} si\c{e}}\>\\
+ \HEAD\ \ \[\type{verb}\\
+           {\sc neg} \ +\]\\
+\ARG-ST\ \  \<NP, VP\[\COMPS\ \<\@1NP\>\]\> $\oplus$ \<\@1NP[\type{str}]\>\]
 \end{avm}
 \z
 %
+This lexical specification allows the object NP of the verb to get
+\GEN-marked in accordance with the constraint in (\ref{polish-gen-case}).\footnote{When
+there is no argument composition, the positive verb \type{lubi\'{c}}
+assigns {\sc acc} to the object NP.} In his analysis, the feature
+{\sc neg} thus tightly interacts with the mechanism of argument composition and construction-based case assignment (or satisfaction).
 
-This lexical construction will license the following structure, interacting
-with the \textsc{head-functor construction} (cf. Figure~\ref{fig:14}).\todostefan{add glosses to tree}
+Negative concord also also concerns negation that
+we often find in languages like French, Italian, Polish, and so forth.  \citet{Swart:02} investigates  negative concord in French where multiple occurrences
+of phonologically negative constituents express either
+double negation or single negation:
 
-\begin{figure}
-	\begin{forest}
-		sm edges
-		[VP\\
-		\begin{avm}
-			\[vform & fin\\
-			comps & \<~~\>\]
-		\end{avm}, s sep=1cm
-			[V$'$\\
-			\begin{avm}
-				\[\tp{hd-functor-cxt}\\
-				vform & fin\\
-				comps & \< \@{2}\,NP\>\]
-			\end{avm}
-				[V\\
-				\begin{avm}
-					\[sel & \< \@{1}\,V\>\]
-				\end{avm}
-					[non]]
-				[\ibox{1}\,V\\
-				\begin{avm}
-					\[vform & fin\\
-				 	comps & \< \@{2}\,NP\>\]
-				 \end{avm}
-			 		[legge]]]
-			 [\ibox{2}\,NP
-			 	[articoli di sintassi,roof]]]
-	\end{forest}
-\caption{Add caption}\label{fig:14}
-\end{figure}
-
-The \textsc{hd-functor construction} licenses the combination
-of the functor \emph{non} with the following finite verb. The resulting combination inherits the subcategorization value of the head
-verb \emph{legge}, but the meaning is identical
-to that of the functor.
-
-Given that a functor in Italian precedes the head it selects,
-the functor treatment of \emph{non} can easily account for the
-fact that the negator \emph{non} precedes an auxiliary
-verb either in finite or infinitive clauses, but cannot
-follow it in either clause-type .
-
+%\eal
+\ea \label{nc-ex}
+\gll Personne n'aime personne.\\
+     None likes no.one\\
+\glt `No one is such that they love no one.' \hfil (DN)
+\glt `No one likes anyone.' \hfil  (NC)
+\z
+%
+%With the semantic assumption that the contribution of negation in a concord context is %semantically empty, they formulate an HPSG analysis for negative concord.
+%
+The double negation reading in (\ref{nc-ex}) has two quantifiers while the single
+negation reading is an instance of negation concord where the two
+quantifiers merge into one. \citet{Swart:02}, assuming that the information of
+each quantifier is stored in {\sc qstore} and retrieved at the
+lexical level in accordance with constraints on the verb's arguments and semantic
+content. For instance, the verb \textit{n'aime} in (\ref{nc-ex}) will have two different ways of retrieving the
+{\sc qstore} value as in the following:\footnote{The
+{\sc qstore} value contains information
+roughly equivalent to first order logic expressions like \textit{NO}x[Person(x)]. See \citet{Swart:02}.}
 
 
 
 \eal
-\ex[]{
-\gll
-Maria   non  ha sempre  pagato  le tasse. \\
-Maria  \textsc{neg} has always  paid  the taxes \\
-\trans `Maria hasn't always paid taxes.'}
-\ex[*]{
-Maria ha sempre non pagato le tasse.  \citep[123]{Zanuttini:91}}
+\ex[]{\begin{avm}
+\[form  \;  \<\type{n'aime}\>\\
+ arg-st \<NP[{\sc store} \{\avmbox{1}\}], NP[{\sc store} \{\avmbox{2}\}]\>\\
+ quants \<\avmbox{1}, \avmbox{2}\>\]\end{avm}}
+\ex[] {
+\begin{avm}
+\[form  \;  \<\type{n'aime}\>\\
+  arg-st \<NP[{\sc store} \{\avmbox{1}\}], NP[{\sc store} \{\avmbox{2}\}]\>\\
+  quants \<\@1\>\]\end{avm}}\label{quant}
 \zl
-
-\eal
-\ex[]{
-\gll Gianni sostiene di non essere uscito.\\
-Gianni claims to \textsc{neg}  have gone.out \\
-\trans `Gianni claims not to have gone out.'}
-\ex[*]{
-\gll Gianni  sostiene   di   essere   non   uscito. \\
-Gianni   claims   to   have   \textsc{neg}  gone.out \ \ \ \citep[90]{Belletti:90} \\
-}
-%\ex
-%\gll *Gianni  sostiene   di   essere   non   uscito. \\
-%Gianni   claims   to   have   \textsc{neg}  gone.out (Belletti 1990:90)\\
-\zl
-
-In the nonderivational, lexicalist analysis just sketched here,
-the negator is taken to be a functor clitic that combines
-with a following verb. This analysis
-not only allows us to capture its dual properties -- clitic-like and
-word-like properties, but also
-correctly predicts the positioning of \emph{non} in various contexts.
-The conclusion we can draw from Italian type of sentential negation
-is that the distribution of a clitic-like negator is determined
-in relation to the head that this negative selects.
+%
+%\; \; :
+%\; \; :  $\neg\exists$x$\exists$y Love(x,y)
+%
+\noindent In (\ref{quant}a), the two quantifiers are retrieved, inducing double negation ($\neg\exists$x$\neg\exists$y[Love(x,y)]) while in (\ref{quant}b), the two have a resumptive interpretation in which the two are merged into one ($\neg\exists$x$\exists$y[Love(x,y)]).\footnote{See \citet{Swart:02} for detailed formulation of the retrieval condition of stored value.} This analysis, coupled with the complement treatment of \textit{pas} as a lexically stored quantifier, can account
+for why {\it pas} does not induce a resumptive interpretation with a quantifier (from \citet{Swart:02}):
 
 
-\section{Concluding Remarks}
+\ea
+Il ne va pas nulle part, il va \'{a} son travail.\\
+`He does not go nowhere, he goes to work.'
+\z
+%
+In this standard French example, \citet{Swart:02}, accepting
+the analysis of \citet{kim:00} as \textit{pas} as a complement,
+specifies the adverbial complement {\it pas} to be included the negative quantifier in the {\sc quants} value.
+ This means there would be no resumptive
+reading for standard French, inducing double negation as in (\ref{qstore}):\footnote{See \citet{Swart:02} for cases where \textit{pas} induces negative concord.}
+
+\ea
+\label{qstore}
+\begin{avm}
+\[form  \;  \<\type{ne va}\>\\
+ arg-st \<$Adv\jbsub{\textsc{i}}$[{\sc store} \{\avmbox{1}\}],NP[{\sc store} \{\avmbox{2}\}]\>\\
+ quants \<\avmbox{1}, \avmbox{2}\>\]\end{avm}
+\z
+
+\citet{PK:99} and \citet{BJ:00} also  investigate negative concord in Polish and Welsh
+and offer HPSG analyses. Consider a Welsh example from \citet{BJ:00}:
+
+\ea
+Nid         oes neb yn yr ystafell\\
+{\sc not}    is no.one in the room\\
+`There is no one in the room.'
+\z
+\noindent \citet{BJ:00}, identifying n-words with the feature
+{\sc nc} (negative
+concord),  takes the verb {\it nid oes} to bear the positive {\sc neg} value,
+and specifies the subject {\it neb yn} to carry the positive {\sc nc} (negative
+concord) feature. This selectional approach, interacting with 
+well-defined features, tries to capture how more than one
+negative elements are corresponding to a single semantic negation.\footnote{See
+\citet{BJ:00} for detailed discussion.}
+
+
+
+\section{Conclusion}
 
 %In the previous two sections, I have provided my
 %answers to the two main questions in this study.
 %Then, the remaining question is what these answers
 %imply for the theory of grammar.
 
-The types of negation we have seen are identical
-in that they negate a sentence or clause in the given language.
-Does this entail that there is a universal functional category Neg
-that, interacting with other
-grammatical constraints such as movement operations, allows all their
-distributional possibilities?  My answer to this question is no.
-
+%The types of negation we have seen are identical
+%in that they negate a sentence or clause in the given language.
+%Does this entail that there is a universal functional category Neg
+%that, interacting with other
+%grammatical constraints such as movement operations, allows all their
+%distributional possibilities?  My answer to this question is no.
 
 
 One of the most attractive consequences of the
@@ -2385,40 +2116,11 @@ negation. Each individual language has its own
 way of expressing negation, and further has
 its own restrictions in the surface realizations of negation which
 can hardly be reduced to one uniform category.
-%
-%The only thing that seems to be universal about negation
-%is that negation yield new sentences or clauses,
-%operating on sentences or clauses.
-The supposition of a uniform syntactic category
-notion abstracts away only the
-common denominator  (presumably a semantic notion), sweeping the
-particular lexical or syntactic characteristics of each type of negation
-under the carpet. This uniform NegP analysis has eventually forced
-nontrivial complications of other grammatical components
-in order to allow all the surface
-possibilities of each type of negation. For instance,
-by placing morphological negation in the realm of syntax, we
-miss the fundamental generalization that the formation and
-distribution of word and sentence are subject to different principles
-and operations and correspond to different modules of the grammar,
-namely, morphology and syntax.
 
-%The types of negation we have observed in this research can be
-%re-classified into two groups: morphological and syntactic
-%negation.  For a morphological treatment of
-%a negator, I have taken into consideration
-%factors such as prosodic unity of negation
-%and verb, morphophonemic alternation, and wordhood
-%tests. For a syntactic treatment, I have taken into consideration factors
-%such as prosodic independence, wordhood tests,
-%carrying inflectional affixes by itself, independent occurrence in
-%syntax, and  so forth.  Within the lexical integrity
-%principle I defend here, this means the distribution of a morphological
-%negative is regulated by morphological principles, whereas that of a
-%syntactic negative marker is governed by syntax principles.
-%This is what we have found.
 
-In the nonderivational analysis,  there is no uniform
+In the nonderivational HPSG analyses for the four main
+types of sentential negation that we have reviewed
+in this chapter,  there is no uniform
 syntactic element, though a certain universal aspect of
 negation does exist, viz.\ its semantic contribution.
 %Each type of negation exists as a distinct category.
@@ -2443,6 +2145,7 @@ in a much more complete and satisfactory way.
 %the positional possibilities of each type of negation from
 %its own lexical properties and `surface structure constraints'.
 
+\iffalse{
 One can view the difference between the derivational view
 and the nonderivational, lexicalist view as a matter
 of a different division of labor. In the derivational view
@@ -2459,10 +2162,26 @@ But in so doing it has also brought other complexities into the basic
 components of the grammar. The present research strongly suggests
 that a more conservative division of labor between morphology and syntax is
 far more economical and feasible.
+\fi
 
-}%end avmoptions{center}
+\section*{Acknowledgements}
+
+I thank reviewers of this chapter for comments and suggestions, which
+helped improve the quality of this chapter. I also thank
+Bob Borsley and Stefan M\"{u}ller for detailed comments on
+the earlier version. My thanks also go to Rok Sim
+and Jungsoo Kim for
+helpful feedback.
+%
+%
+%
+%
+\avmoptions{center}}
 
 %\fi
+%
 {\sloppy
-\printbibliography[heading=subbibliography,notkeyword=this] }
+\printbibliography[heading=subbibliography,notkeyword=this]
+}
+
 \end{document}

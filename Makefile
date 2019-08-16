@@ -171,8 +171,9 @@ clean:
 	*.aux *.toc *.cut *.out *.tpm *.bbl *-blx.bib *_tmp.bib \
 	*.glg *.glo *.gls *.wrd *.wdv *.xdv *.mw *.clr \
 	*.run.xml \
-	chapters/*aux chapters/*~ chapters/*.bak chapters/*.backup\
-	langsci/*/*aux langsci/*/*~ langsci/*/*.bak langsci/*/*.backup \
+	chapters/*.aux chapters/*.aux.copy chapters/*.old chapters/*~ chapters/*.bak chapters/*.backup chapters/*.blg\
+	chapters/*.log chapters/*.log chapters/*.mw  chapters/*.for  chapters/*.bbl chapters/*.bcf chapters/*.run.xml\
+	langsci/*/*.aux langsci/*/*~ langsci/*/*.bak langsci/*/*.backup \
 	chapter-pdfs/* cuts.txt
 
 
