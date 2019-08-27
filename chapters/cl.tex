@@ -73,22 +73,22 @@ the formalism is expressive enough to encode a wide variety of possible theories
 While some theoretical work does argue for or against the necessity of particular formal devices
 (\eg\ the shuffle operator \citep{Reape94a}),
 much of it proceeds within shared assumptions about the formalism.
-This is in contrast to work in the context of the Minimalist Program \citep{Chomsky93b-u},
+This is in contrast to work in the context of the Minimalist Program \citep{Chomsky95a-u},
 where theoretical results are typically couched in terms of modifications to the formalism itself.
 From a computational point of view, the benefit of differentiating between theory and formalism
 is that the formalism is relatively stable.
 That enables the development and maintenance of software systems that target the formalism \citep{boguraev1988software},
 such as software for parsing, generation, and grammar exploration
 (see Section~\ref{cl:resources} below for some examples).\footnote{%
-	There are implementations of Minimalism, notably \citealt{Stabler97a-u} and \citealt{Herring:16}.
+	There are implementations of Minimalism, notably \citealt{Stabler97a-u} and \citealt{Herring:16}. (See also \citealt{Tor:Sta:Ste:19} for a recent broad-verage, treebank-trained parser in this framework.)
 	However, implementing a theory requires fixing the formalism,
 	and so these implementations are unlikely to be useful for testing theoretical ideas as the theory moves on.
 }
 
-A second important property of HPSG that supports a strong connection between theoretical and computational work is an interest in both so-called `core' and so-called `peripheral' phenomena. Most implemented grammars are built with the goal of handling naturally occurring text.\footnote{It is possible, but less common, to do implementation work strictly against test suites of sentences constructed specifically to focus on phenomena of interest.} This means that they will need to handle a wide variety of linguistic phenomena not always treated in theoretical syntactic work \citep{Baldwin-et-al-05}. A syntactic framework that excludes research on `peripheral' phenomena as uninteresting provides less support for implementational work than does one, like HPSG or Construction Grammar, that values such topics
+A second important property of HPSG that supports a strong connection between theoretical and computational work is an interest in both so-called ``core'' and so-called ``peripheral'' phenomena. Most implemented grammars are built with the goal of handling naturally occurring text.\footnote{It is possible, but less common, to do implementation work strictly against test suites of sentences constructed specifically to focus on phenomena of interest.} This means that they will need to handle a wide variety of linguistic phenomena not always treated in theoretical syntactic work \citep{Baldwin-et-al-05}. A syntactic framework that excludes research on ``peripheral'' phenomena as uninteresting provides less support for implementational work than does one, like HPSG or Construction Grammar, that values such topics
 \crossrefchapterp[for a comparison of HPSG and Construction Grammar, see]{cxg}.
 
-Finally, the type hierarchy characteristic of HPSG lends itself well to developing broad-coverage grammars which are maintainable over time (see \citealt{Syg:Win:11}). The use of the type hierarchy to manage complexity at scale comes out of the work of \citet{Flickinger87} and others at HP labs in the project where HPSG was originally developed. The core idea is that any given constraint is (ideally) expressed only once on types which serve as supertypes to all entities that bear that constraint.\footnote{Originally this only applied to lexical entries in Flickinger's work. Now it also applies phrase structure rules, lexical rules, and types below the level of the sign which are used in the definition of all of these.} Such constraints might represent broad generalizations that apply to many entities or relatively narrow, idiosyncratic properties that apply to only a few. By isolating any given constraint on one type (as opposed to repeating it in mutiple places), we build grammars that are easier to update and adapt in light of new data that require refinements to constraints. Having a single locus for each constraint also makes the types a very useful target for documentation \citep{Hashimoto-etal:07} and grammar exploration \citep{Letcher:18}. 
+Finally, the type hierarchy characteristic of HPSG lends itself well to developing broad-coverage grammars which are maintainable over time (see \citealt{Syg:Win:11}). The use of the type hierarchy to manage complexity at scale comes out of the work of \citet{Flickinger87} and others at HP labs in the project where HPSG was originally developed. The core idea is that any given constraint is (ideally) expressed only once on types which serve as supertypes to all entities that bear that constraint.\footnote{Originally this only applied to lexical entries in Flickinger's work. Now it also applies to phrase structure rules, lexical rules, and types below the level of the sign which are used in the definition of all of these.} Such constraints might represent broad generalizations that apply to many entities or relatively narrow, idiosyncratic properties that apply to only a few. By isolating any given constraint on one type (as opposed to repeating it in mutiple places), we build grammars that are easier to update and adapt in light of new data that require refinements to constraints. Having a single locus for each constraint also makes the types a very useful target for documentation \citep{Hashimoto-etal:07} and grammar exploration \citep{Letcher:18}. 
 
 
 \subsection{Practical considerations}
@@ -99,7 +99,7 @@ because it uses a well-defined formalism.
 Furthermore, because HPSG is defined to be bi-directional,
 an implemented grammar can be used for both parsing and generation.
 In this section, we discuss how HPSG allows tractable algorithms,
-which enables linguists to empirically test hypotheses,
+which enables linguists to empirically test hypotheses
 and which also enables HPSG grammars to be used in a range of applications,
 as we will see in Sections~\ref{cl:lang-doc} and~\ref{cl:downstream}, respectively.
 
@@ -155,7 +155,7 @@ which aim to be just expressive enough to capture human language,
 and not any more expressive.
 Building this kind of constraint into the formalism itself
 highlights a different school of thought from HPSG.
-Indeed, \citet{MuellerCoreGram} explicitly argues
+Indeed, \citet[64]{MuellerCoreGram} explicitly argues
 in favor of developing linguistic analyses first,
 and improving processing efficiency second.
 As discussed above in Section~\ref{cl:theoretical},
@@ -184,7 +184,7 @@ until the parser reaches the entire sentence.
 
 For a context-free grammar, there is a finite number of nonterminal symbols,
 and each span is analysed as a subset of the nonterminals.
-For a feature-structure grammar, each span must be analysed as a set of feature structures,
+For a feature-structure grammar, each span must be analysed as a set of feature structures,\footnote{Much theoretical work in HPSG, including \citet{ps2} distinguishes between fully-resolved feature structures and possibly underspecified feature structure descriptions. Much comutational work, by contrast, operates entirely with partially specified feature structures, at both the level of grammar and the level of analyses licensed by the grammar. In keeping with this tradition, we use the term ``feature structure'' to refer to both fully-specified and partially specified objects.}
 which makes the algorithm more complicated.
 In principle, a grammar may allow an infinite number of possible feature structures,
 for example if it includes recursive unary rules.
@@ -213,12 +213,17 @@ but $C$ may nonetheless be very large.
 
 But is the number of possible feature structures bounded in
 implemented HPSG grammars? For \delphin\ grammars (see
-\S\ref{cl:delphin}), the answer is yes. The potential for
-unboundedness in the feature structures stems from two sources:
-recursion in feature paths (\eg\ the elements on the \textsc{comps}
-list themselves include the feature \textsc{comps}) and list-valued
-features. In practice, neither of these sources leads to an unbounded
-number of feature structures: On the one hand, selecting heads might
+Section \ref{cl:delphin}), the answer is yes. Assuming a system without
+relational constraints, the potential for
+unboundedness in the feature structures stems from the possibility
+of recursion in feature paths, \eg\ the elements on the \textsc{comps}
+list themselves include the feature \textsc{comps} or list-valued features, where lists are in fact recursive feature structures.\footnote{The typical
+implementation of a list as a feature structure provides a type signature
+where \emph{list} has two subtypes \emph{null} and \emph{non-empty-list}, and
+\emph{non-empty-list} has the features {\sc first}
+and {\sc rest}, where the value of {\sc rest} is of type \emph{list}.}
+In practice, neither of these sources leads to an unbounded
+number of feature structures: on the one hand, selecting heads might
 place contraints on their complement's subjects (\eg\ in
 raising/control constructions), but no further than that. On the other
 hand, while lists that are potentially unbounded in length are used in
@@ -226,7 +231,7 @@ the construction of semantic representations, these are never involved
 in constraining grammaticality. The lists that are are the valence
 lists, but in practical grammars these are never greater than length
 four or five.\footnote{In part, this is because \delphin\ does not
-adopt proposals like the \textsc{deps} list of \citet{BMS2001a-unlinked}.}
+adopt proposals like the \textsc{deps} list of \citet*{BMS2001a-unlinked}.}
 
 When parsing real corpora,
 it turns out that the average-case complexity is much better than might be expected \citep{Carroll94}.
@@ -291,8 +296,7 @@ and in fact, the 2018 version of the English Resource Grammar \citep[ERG;][]{Fli
 gives a total of 21 readings for this sentence.
 With increasingly long sentences, such ambiguities stack up very quickly.
 For~\rref{cl:ex:ambig-many}, the first line of a newspaper article,\footnote{%
-	\url{https://www.theguardian.com/science/2018/aug/22/offspring-of-neanderthal-and-denisovan-identified-for-first-time}
-}
+	\url{https://www.theguardian.com/science/2018/aug/22/offspring-of-neanderthal-and-denisovan-identified-for-first-time}, accessed 16 August 2019}
 the ERG gives 35,094 readings.
 
 \begin{exe}
@@ -309,7 +313,7 @@ a mysterious human ancestor that lived in the region.
 While exploring ambiguity can be interesting for a linguist,
 typical practical applications require just one parse per input sentence
 and specifically the parse that best reflects the intended meaning
-(or only the top few parses, in case the one put forward as `best' might be wrong).
+(or only the top few parses, in case the one put forward as ``best'' might be wrong).
 Thus, what is required is a \textit{ranking} of the parses,
 so that the application can only use the most highly-ranked parse,
 or the top~$N$ parses.
@@ -318,7 +322,7 @@ Parse ranking is not usually determined by the grammar itself, because
 of the difficulty of manually writing disambiguation
 rules.\footnote{In fact, in earlier work, this task was undertaken by
   hand. One of the authors (Bender) had the job of maintaining rule
-  weights in addition to developing the Jacy grammar \cite{SBB2016a}
+  weights in addition to developing the Jacy grammar \citep*{SBB2016a}
   at YY Technologies in 2001--2002. No systematic methodology for
   determining appropriate weights was available and the system was
   both extremely brittle (sensitive to any changes in the grammar) and
@@ -340,7 +344,7 @@ based on many features\footnote{%
 }
 of the parse.
 From the example in~\rref{cl:ex:ambig-simple},
-a number of a different features all influence the preferred interpretation:
+a number of different features all influence the preferred interpretation:
 the likelihood of a construction (such as topicalization),
 the likelihood of a valence frame (such as transitive \textit{speak}),
 the likelihood of a collocation (such as \textit{town crier}),
@@ -356,7 +360,7 @@ rather than ranking the full set of parses,
 ranking is restricted to a smaller set of parses.
 Carefully choosing how to restrict the parser's attention 
 can drastically reduce processing time without hurting parsing accuracy,
-as long as that the algorithm for selecting the subset
+as long as the algorithm for selecting the subset
 includes the correct parse sufficiently frequently.
 One method, called \textit{supertagging},\footnote{%
 	The term \textit{supertagging}, due to \citet{bangalore1999supertag},
@@ -615,9 +619,9 @@ In this section we describe various projects that have developed computational r
 As we'll discuss in Section~\ref{cl:deployment} below,
 such resources can be used both in linguistic hypothesis testing as well as in various practical applications.
 The intended purpose of the resources influences the form that they take.
-The CoreGram Project (Section~\ref{cl:coregram}) and Babel (Section~\ref{cl:other:babel} primarily target linguistic hypothesis testing,
+The CoreGram Project (Section~\ref{cl:coregram}) and Babel (Section~\ref{cl:other:babel}) primarily target linguistic hypothesis testing,
 the Alpino and Enju parsers (Section~\ref{cl:other:alpino} and \ref{cl:other:enju}) primarily target practical applications,
-and the \delphin\ Consortium (section \ref{cl:delphin}) attempts to balance these two goals.
+and the \delphin\ Consortium (Section \ref{cl:delphin}) attempts to balance these two goals.
 
 
 \subsection{CoreGram}
@@ -627,7 +631,7 @@ The CoreGram\footnote{
 	\url{https://hpsg.hu-berlin.de/Projects/CoreGram.html}
 } Project
 aims to produce large-scale HPSG grammars,
-which share a common `core' grammar \citep{MuellerCoreGram}.
+which share a common ``core'' grammar \citep{MuellerCoreGram}.
 % https://hpsg.hu-berlin.de/~stefan/Pub/coregram.pdf
 % https://hpsg.hu-berlin.de/~stefan/Pub/coregram-brief.pdf
 At the time of writing, large grammars have been produced for
@@ -644,9 +648,8 @@ which accommodates a wide range of technical devices proposed in the literature,
 phonologically empty elements,
 relational constraints,
 implications with complex antecedents,
-cyclic feature structures,
-and macros.
-It also accomodates an expressive morphological component.
+and cyclic feature structures.
+It also accomodates macros and an expressive morphological component.
 \citet{MelnikHandWritten} observes that,
 compared to other platforms like the LKB (see Section~\ref{cl:delphin} below),
 this allows grammar engineers to directly implement a wider range of theoretical proposals.
@@ -656,7 +659,7 @@ Some general constraints hold for all grammars,
 while others hold for a subset of the grammars,
 and some only hold for a single grammar.
 \citet{MuellerCoreGram} describes this as a
-``bottom-up approach with cheating'' (p.43)\,---\,the aim is
+``bottom-up approach with cheating'' (p.\,43)\,---\,the aim is
 to analyse each language on its own terms (hence ``bottom-up''),
 but to re-use analyses from existing grammars if possible (hence ``with cheating'').
 % on ``bottom-up'', cite Haspelmath, Dryer, Croft?
@@ -688,7 +691,7 @@ and the graphical debugging tool Kahina \citep{DER2010a-u,DER2013a}.
 \label{cl:delphin}
 
 The \delphin\footnote{This stands for DEep Linguistic
-  Processing in \textsc{Hpsg} INitiative; see \url{http://www.delph-in.net}} Consortium
+  Processing in \textsc{Hpsg} INitiative; see \url{http://www.delph-in.net}, accessed 16 August 2019} Consortium
 was established in 2001 to facilitate the development of large-scale,
 linguistically motivated HPSG grammars for multiple languages in tandem
 with the software required for developing them and deploying them in
@@ -698,30 +701,29 @@ English Resource Grammar
 development already for 8 years and the Verbmobil project
 \citep{Wahlster2000a-ed} had also spurred the development of grammars for
 German \citep[GG;][]{MK2000a-cr,Crysmann2003b} and Japanese
-\citep[Jacy;][]{SBB2016a}. Project DeepThought
-\citep{Callmeier-etal:2004} was exploring methodologies for combining
+\citep*[Jacy;][]{SBB2016a}. Project DeepThought
+\citep*{Callmeier-etal:2004} was exploring methodologies for combining
 deep and shallow processing in practical applications across multiple
 languages. This inspired the development of the LinGO Grammar Matrix
-\citep{BFO2002a-u}, which began as a core grammar, consisting of
+\citep*{BFO2002a-u}, which began as a core grammar, consisting of
 constraints hypothesized to be cross-linguistically useful, abstracted
 out of the ERG with reference to Jacy and GG. The goal of the Grammar
 Matrix is to serve as a starting point for the development of new
 grammars making it easy to reuse what has been learned in the
 development of existing grammars. In the years since, it has been
-extended to include `libraries' of analyses of cross-linguistically
-variable phenomena
-\citep[\eg][]{Drellishak2009a-u,BDFPS2010a-u}.
+extended to include ``libraries'' of analyses of cross-linguistically
+variable phenomena \citep[e.g.,][]{Drellishak2009a-u,BDFPS2010a-u}.
 
 \delphin\ provides infrastructure (version control repositories,
 mailing lists, annual meetings) and an emphasis on open-source
 distribution of resources. Both of these support the collaboration of a
 global network of researchers working on interoperable
 components. These include repositories of linguistic knowledge, that
-is, both grammars and meta-grammars (including the Matrix and CLIMB
-\citep{Fokkens:14}); processing engines that apply that
+is, both grammars and meta-grammars (including the Matrix and CLIMB,
+\citealt{Fokkens:14}); processing engines that apply that
 knowledge for parsing and generation (discussed further below);
 software for supporting the development of grammar documentation
-\citep[\eg][]{Hashimoto-etal:07}, software for creating treebanks
+\citep[e.g.,][]{Hashimoto-etal:07}, software for creating treebanks
 (\citealt{OFTM2004a-u,Packard:15}; see also Section~\ref{cl:lang-doc:treebanks} below), 
 and parse ranking models trained on them
 (\citealt{Tou:Man:Fli:Oep:05}; see also Section~\ref{cl:prac:rank} above), and
@@ -743,19 +745,22 @@ These standards facilitate the development of multiple different
 parsing and generation engines which can all process the same grammars
 (including, so far, the LKB \citep{Copestake2002a}, PET
 \citep{callmeier00},
-ACE,\footnote{\url{http://sweaglesw.org/linguistics/ace/}} and Agree
+ACE,\footnote{\url{http://sweaglesw.org/linguistics/ace/}, accessed 16 August 2019} and Agree
 \citep{Slayden2012a-u}), of multiple software systems for processing
 bulk grammar output (\itsdb\ \citep{Oepen:01}, art\footnote{%
-\url{https://sweaglesw.org/linguistics/libtsdb/art}}, PyDelphin\footnote{%
-	\url{https://github.com/delph-in/pydelphin/}
+\url{https://sweaglesw.org/linguistics/libtsdb/art.html}, accessed 16 August 2019}, PyDelphin\footnote{%
+	\url{https://github.com/delph-in/pydelphin/}, accessed 16 August 2019
 })
 % GE 2019-01-17 PyDelphin doesn't have an obvious citation...
 % maybe best to refer to systems by name?
 and of multilingual downstream systems which can be adapted to additional
 languages by plugging in different grammars.
-\citet{MelnikHandWritten} observes that,
-compared to other platforms like TRALE (see Section~\ref{cl:coregram} above),
-these tools make grammar engineering more accessible to HPSG linguists.
+These tools and standards have in turn helped support a thriving community
+of users who furthermore accumulate and share information about best practices.
+\citet[234]{MelnikHandWritten} credits this community and the information it
+shares as a key factor that makes the grammar engineering with
+\delphin\ ecosystem more accessible to HPSG linguists, 
+compared to other platforms like TRALE (see Section~\ref{cl:coregram} above).
 
 The \delphin\ community maintains research interests in both
 linguistics and practical applications. The focus on linguistics means
@@ -767,13 +772,13 @@ well-formed strings in generation. The focus on practical applications
 leads to several kinds of additional research goals. Practical applications
 require robust processing, which in turn requires methods for handling 
 unknown words
-\citep[\eg][]{chartmapping}, methods for managing extra-grammatical mark-up in
-text such as in Wikipedia pages \citep[\eg][]{FOY2010a-u} and strategies
+\citep[e.g.,][]{chartmapping}, methods for managing extra-grammatical mark-up in
+text such as in Wikipedia pages \citep[e.g.,][]{FOY2010a-u} and strategies
 for processing inputs that are ungrammatical, at least according to
-the grammar \citep[\eg][see also Section~\ref{cl:downstream:data}]{W11-2923}.
-Processing large quantities of text motivates performance innovations, such as supertagging or ubertagging \citep[\eg][see also Section~\ref{cl:prac:rank}]{matsuzaki2007supertag,dridan2013ubertag} to speed
+the grammar (\eg\ \citealp{W11-2923}, see also Section~\ref{cl:downstream:data}).
+Processing large quantities of text motivates performance innovations, such as supertagging or ubertagging (\eg\ \citealp{matsuzaki2007supertag,dridan2013ubertag}, see also Section~\ref{cl:prac:rank}) to speed
 up processing times. Naturally occurring text can include very long 
-sentences which can run up against processing limits. Supertagging helps some here, too, but other strategies include \textit{sentence chunking}, or the task of breaking a long sentence into smaller ones without loss of meaning \cite{muszynska:2016:ACL-SRW}.
+sentences which can run up against processing limits. Supertagging helps some here, too, but other strategies include \textit{sentence chunking}, or the task of breaking a long sentence into smaller ones without loss of meaning \citep{muszynska:2016:ACL-SRW}.
 %and pre-processors that provide partial
 %information about constituent boundaries to narrow the search space.
 % EMB 2019-02-21 Took the above out because I can't find a DELPH-IN citation for it.
@@ -785,9 +790,9 @@ sentences which can run up against processing limits. Supertagging helps some he
 Working with real-world text (rather than curated testsuites designed
 for linguistic research only) requires 
 the integration of external components such as morphological
-analyzers \citep[\eg][]{Marimon2013a-u} and named entity recognizers \cite[\eg][]{L06-1115,Sch:Usz:Fed:08}. As described in Section~\ref{cl:prac:rank}, working with real-world applications requires parse ranking \citep[\eg][]{Tou:Man:Fli:Oep:05}, and similarly ranking of generator outputs (known as \textit{realization ranking}; \citealt[\eg][]{Velldal:09}). Finally, research on embedding broad-coverage grammars in practical applications inspires work  towards making sure that the semantic
+analyzers \citep[e.g.,][]{Marimon2013a-u} and named entity recognizers \citep[e.g.,][]{L06-1115,Sch:Usz:Fed:08}. As described in Section~\ref{cl:prac:rank}, working with real-world applications requires parse ranking \citep[e.g.,][]{Tou:Man:Fli:Oep:05}, and similarly ranking of generator outputs (known as \textit{realization ranking}; \citealt[e.g.,][]{Velldal:09}). Finally, research on embedding broad-coverage grammars in practical applications inspires work  towards making sure that the semantic
 representations can serve as a suitable interface for external
-components \citep[\eg][]{flickinger2005sem}. 
+components \citep[e.g.,][]{flickinger2005sem}. 
 % EMB 2018-12-21 I can probably put in citations for all of those
 % things. Worth it, or too busy?
 % GE 2019-01-29 Probably okay like this,
@@ -810,7 +815,7 @@ useful guide points in the development of semantic analyses.
 \label{cl:other:alpino}
 
 Alpino\footnote{%
-	\url{http://www.let.rug.nl/vannoord/alp/Alpino/}
+	\url{http://www.let.rug.nl/vannoord/alp/Alpino/}, accessed 16 August 2019
 }
 is a broad-coverage grammar of Dutch
 \citep{BvNM2001a-u,vannoord2005alpino,vannoord2006alpino}.
@@ -837,7 +842,7 @@ to give a dependency graph for a whole sentence.
 Although these dependencies differ from the semantic dependencies discussed in Section~\ref{cl:prac:dep},
 a common motivation is to make the representations easier to use in practical applications.
 To harmonize with other computational work on dependency parsing,
-\citet{Bou:Van:17} have also producing a mapping from this format
+\citet{Bou:Van:17} have also produced a mapping from this format
 to Universal Dependencies \citep[UD;][]{Niv:Mar:Gin:16},
 as discussed in Section~\ref{cl:lang-doc:treebanks} below.
 Alpino uses a statistical model trained on a dependency treebank,
@@ -909,7 +914,7 @@ Then, in Section~\ref{cl:downstream}, we consider applications outside of lingui
 As decribed in \citealt{Mueller99a-Short,Bender2008c-Short} and \citealt{BFO2011a-u},
 grammar engineering, that is the building of grammars in software, is
 an essential technique for testing linguistic hypotheses at scale. By
-`at scale', we mean both against large quantities of data and as
+``at scale'', we mean both against large quantities of data and as
 integrated models of language that handle mulitple phenomena at
 once. In this section, we overview how this is done in the CoreGram
 and Grammar Matrix projects for cross-linguistic hypothesis testing,
@@ -918,7 +923,7 @@ documentation.\footnote{Grammar engineering isn't specific to HPSG and
 in fact has a history going back to at least the early 1960s \citep{Kay:63,ZFHW65a,Petrick65a-u,FBDPM71a-u}
 and modern work in Lexical Funcational Grammar \citep{BKNS99a-ed}, Combinatory Categorial
 Grammar \citep{BCPW2007a}, Grammatical Framework \citep{Ranta:09}, and others.
-For reflections grammar engineering for linguistic hypothesis testing
+For reflections on grammar engineering for linguistic hypothesis testing
 in LFG, see \citealt{BKNS99a-ed} and \citealt{King:16}.}
 
 % King (2016) ``Theoretical linguistics and grammar engineering as mutually constraining disciplines''
@@ -955,12 +960,12 @@ as well as for information structure
 \label{cl:lang-doc:gmcs}
 
 As noted in Section~\ref{cl:delphin}, the LinGO Grammar Matrix
-\cite{BFO2002a-u,BDFPS2010a-u} was initially developed in
+\citep{BFO2002a-u,BDFPS2010a-u} was initially developed in
 the context of Project DeepThought with the goal of speeding up the
 development of \delphin-style grammars for additional languages. It
-consists of a shared core grammar and a series of `libraries' of
+consists of a shared core grammar and a series of ``libraries'' of
 analyses for cross-lingusitically variable phenomena. Both of these
-constitute linguistic hypotheses: The constraints
+constitute linguistic hypotheses: the constraints
 in the core grammar are hypothesized to be cross-linguistically
 useful. However, in the course of developing grammars based on the
 Matrix for specific languages, it is not uncommon to find reasons to
@@ -1010,8 +1015,8 @@ a multilingual grammar engineering project like CoreGram, ParGram, the GF Resour
 Grammar Matrix.
 
 This is the motivation for the AGGREGATION
-project.\footnote{\url{http://depts.washington.edu/uwcl/aggregation/}}
-AGGREGATION starts from two observations: (1) Descriptive linguists
+project.\footnote{\url{http://depts.washington.edu/uwcl/aggregation/}, accessed 16 August 2019}
+AGGREGATION starts from two observations: (1) descriptive linguists
 produce extremely rich annotations on data in the form of interlinear
 glossed text (IGT); and (2) the Grammar Matrix's libraries are
 accessed through a customization system which elicits a grammar
@@ -1024,7 +1029,7 @@ customization system to produce language-particular
 grammars. AGGREGATION uses different approaches for different
 linguistic subsystems. For example, it learns morphotactics by
 observing morpheme order in the training data, and the grouping
-affixes together into position classes based on measures of overlap of
+of affixes together into position classes based on measures of overlap of
 stems they attach to \citep{Wax:14,Zamaraeva:17}. For many kinds of
 syntactic information, it leverages syntactic structure projected from
 the translation line (English, easily parsed with current tools)
@@ -1034,7 +1039,7 @@ translation lines) to the language line
 AGGREGATION system can detect case frames for verbs, word order
 patterns, etc.\ \citep{Ben:Goo:Cro:Xia:13,Zam:How:Ben:19}.\footnote{The TypeGram project \citep{Hel:Bee:14} is in a similar spirit. TypeGram provides methods of creating HPSG grammars by encoding specifications of valence and inflection in particularly rich IGT and then creating grammars based on those specifications.}
 
-\subsubsection{Treebanks and Sembanks}
+\subsubsection{Treebanks and sembanks}
 \label{cl:lang-doc:treebanks}
 %Emily
 
@@ -1044,7 +1049,7 @@ text where each sentence is associated with a syntactic
 representation. A sembank has semantic representations (in some cases
 in addition to the syntactic ones). Treebanks and sembanks can be used
 for linguistic research, as the analyses allow for more detailed
-structure-based searches for phenomena of interest \citep{Rohde:05,Gho:Bir:10,Kou:Oep:14}.\footnote{The WeSearch interface of \citet{Kou:Oep:14} can be accessed at \url{http://wesearch.delph-in.net/deepbank/search.jsp}}
+structure-based searches for phenomena of interest \citep{Rohde:05,Gho:Bir:10,Kou:Oep:14}.\footnote{The WeSearch interface of \citet{Kou:Oep:14} can be accessed at \url{http://wesearch.delph-in.net/deepbank/search.jsp} (accessed 16 August 2019).}
 % GE 2019-02-09 - TODO link to WeSearch?
 % http://wesearch.delph-in.net/deepbank/search.jsp
 % EMB 2019-02-21 Kou:Oep:14 is WeSearch isn't it? 
@@ -1111,7 +1116,7 @@ sentences that do receive analyses.
 Finally, there are also automatically annotated treebanks.
 These are not as reliable as manually annotated treebanks,
 but they can be considerably larger.
-WikiWoods\footnote{\url{http://moin.delph-in.net/WikiWoods}}
+WikiWoods\footnote{\url{http://moin.delph-in.net/WikiWoods}, accessed 16 August 2019}
 covers 55m sentences of English (900m tokens).
 It was produced by \citet{flickinger2010wikiwoods} and \citet{solberg2012wikiwoods}
 from the July 2008 dump of the full English Wikipedia,
@@ -1135,11 +1140,9 @@ In Section~\ref{cl:downstream:nlp},
 we cover applications where a grammar is used to provide features
 to help solve tasks in Natural Language Processing (NLP).
 Finally, in Section~\ref{cl:downstream:data},
-we cover applications where a grammar is used to provide data for machine learning systems.
-Within the \delphin\ community,
-a regularly updated list of applications is available online.\footnote{%
-	\url{http://moin.delph-in.net/DelphinApplications}
-}
+we cover applications where a grammar is used to provide data for machine learning systems.\footnote{The \delphin\ community maintains an updated list
+of applications of \delphin\ software and resources at \url{http://moin.delph-in.net/DelphinApplications} (accessed 16 August 2019).}
+
 
 
 \subsubsection{Education}
@@ -1240,7 +1243,7 @@ After parsing the input document into logical propositions,
 the summarizer prunes the set of propositions using a cognitively inspired model.
 A summary is then generated based on the pruned set of propositions.
 Because no text is directly extracted from the input document,
-it is possible to a generate a more concise summary.
+it is possible to generate a more concise summary.
 
 Finally, no discussion of NLP tasks would be complete without including \textit{machine translation}.
 A traditional grammar-based approach uses three grammars:
@@ -1347,10 +1350,10 @@ and scale across a variety of syntactic constructions.
 
 
 
-\section{Linguistic Insights}
+\section{Linguistic insights}
 \label{cl:insight}
 
-In Section~\ref{cl:lang-doc} above, we described multiple ways in which computational methods can be used in the service of linguistic research, especially in testing linguistic hypotheses. Here, we highlight a few ways in which grammar eningineering work in HPSG has turned up linguistic insights that had not previously been discovered through non-computational means.\footnote{For similar reflections from the point of view of LFG, see \citealt{King:16}}
+In Section~\ref{cl:lang-doc} above, we described multiple ways in which computational methods can be used in the service of linguistic research, especially in testing linguistic hypotheses. Here, we highlight a few ways in which grammar eningineering work in HPSG has turned up linguistic insights that had not previously been discovered through non-computational means.\footnote{For similar reflections from the point of view of LFG, see \cite{King:16}.}
 
 \subsection{Ambiguity} %Guy
 
@@ -1371,7 +1374,7 @@ consistent with probabilistic approaches in psycholinguistics.
 
 
 \subsection{Long-tail phenomena} % Emily
-One of the strengths of HPSG as a theoretical framework is that it allows for the analysis of both `core' and `peripheral' phenomena within a single, integrated model. When working with actual data and large scale gramamrs, it quickly becomes apparent just how long the long-tail of `peripheral' phenomena is. Furthermore, the sustained development of broad-coverage linguistic resources makes it possible to bring more and more low-frequency phenomena or low-frequency variations on relatively high-frequency phenomena into view. A case in point is the range of raising and control valence frames found in the ERG \cite{Flickinger2000a,Flickinger2011a-u}. As of the 2018 release, the ERG includes over 60 types for raising and control predicates, including verbs, adjectives, and nouns, many of which are not otherwise discussed in the syntactic literature. These include such low-frequency types as the one for \textit{incumbent} which requires an explitive \textit{it} subject, an obligatory \textit{(up)on} PP subject, and an infinitival VP complement and establishes a control relation between the object of \textit{on} and the VP's missing subject:\footnote{Our thanks to Dan Flickinger for this example.}
+One of the strengths of HPSG as a theoretical framework is that it allows for the analysis of both ``core'' and ``peripheral'' phenomena within a single, integrated model. When working with actual data and large scale gramamrs, it quickly becomes apparent just how long the long-tail of ``peripheral'' phenomena is. Furthermore, the sustained development of broad-coverage linguistic resources makes it possible to bring more and more low-frequency phenomena or low-frequency variations on relatively high-frequency phenomena into view. A case in point is the range of raising and control valence frames found in the ERG \cite{Flickinger2000a,Flickinger2011a-u}. As of the 2018 release, the ERG includes over 60 types for raising and control predicates, including verbs, adjectives, and nouns, many of which are not otherwise discussed in the syntactic literature. These include such low-frequency types as the one for \textit{incumbent} which requires an explitive \textit{it} subject, an obligatory \textit{(up)on} PP subject, and an infinitival VP complement and establishes a control relation between the object of \textit{on} and the VP's missing subject:\footnote{Our thanks to Dan Flickinger for this example.}
 
 \begin{exe}
 \ex\label{cl:incumbent} 
@@ -1396,7 +1399,7 @@ It is incumbent on you to speak plainly.
 \subsection{Analysis-order effects}
 Grammar engineering means making analyses
 specific and then being able to build on them. This has both benefits
-and drawbacks: One the one hand, it means that additional grammar
+and drawbacks: on the one hand, it means that additional grammar
 engineering work can build directly on the results of previous
 work. It also means that any additional grammar engineering work is
 constrained by the work it is building on.  \cite{Fokkens:14} observes
@@ -1407,7 +1410,7 @@ probably also true for non-computational work, as theoretical ideas
 developed with particular phenomena (and indeed languages) in mind
 influence the questions with which researchers approach additional
 phenomena. \citeauthor{Fokkens:14} proposes that the methodology of
-meta-grammar engineering can be used to address this problem: Using
+meta-grammar engineering can be used to address this problem: using
 her CLIMB methodology, rather than deciding between analyses of a
 given phenomenon without input from later-studied phenomena, the
 grammar engineer can maintain multiple competing analyses through time
