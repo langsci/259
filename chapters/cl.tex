@@ -936,7 +936,7 @@ Then, in Section~\ref{cl:downstream}, we consider applications outside of lingui
 \subsection{Language documentation and linguistic hypothesis testing}
 \label{cl:lang-doc}
 
-As decribed in \citealt{Mueller99a-Short,Bender2008c-Short} and \citealt{BFO2011a-u},
+As decribed in \citealt{Mueller99a,Bender2008c} and \citealt{BFO2011a-u},
 grammar engineering, that is the building of grammars in software, is
 an essential technique for testing linguistic hypotheses at scale. By
 ``at scale'', we mean both against large quantities of data and as
@@ -961,13 +961,14 @@ in LFG, see \citealt{BKNS99a-ed} and \citealt{King:16}.}
 
 As described in Section~\ref{cl:coregram},
 the CoreGram project develops grammars for a diverse set of languages,
-and shares constraints across grammars.
-The top-most set of constraints can therefore be seen
+and shares constraints across grammars, in a bottom-up fashion, so that more
+similar languages share more constraints. Still, there are constraints
+shared across all of the grammars in the project which can be seen
 as an hypothesis about properties shared by all languages.
 Whenever the CoreGram project expands to cover a new language,
 it can be seen as a test of this hypothesis.
 
-For example, the top-most constraint set
+For example, the most general constraint set
 allows a language to have V2 word order
 (as exemplified by Germanic languages),
 but rules out verb-penultimate word order,
@@ -1011,7 +1012,7 @@ linguistic phenomenon, but the libraries must be interoperable with
 each other. This is the cross-linguistic analogue of how monolingual
 implemented grammars allow linguists to ensure that analyses of
 different phenomena are interoperable
-\citep{Mueller99a,Bender2008c-Short}: the Grammar Matrix customization
+\citep{Mueller99a,Bender2008c}: the Grammar Matrix customization
 system allows its developers to test cross-linguistic libraries of
 analyses for interactions with other phenomena
 \citep{BFO2011a-u,Bender:16}. Without computational
@@ -1244,14 +1245,14 @@ One reason for low recall is that the grammar does not cover all sentences in na
 As we will see in Section~\ref{cl:downstream:data},
 recent work on robust parsing may help to close this coverage gap.
 
-Negation resolution is also included in \citet{oepen2017extrinsic}'s
+Negation resolution is also included in \citeauthor{oepen2017extrinsic}'s (\citeyear{oepen2017extrinsic})
 Shared Task on Extrinsic Parser Evaluation.
 As mentioned in Section~\ref{cl:prac:dep},
 dependency graphs can provide a useful tool in NLP tasks,
 and this shared task aims to evaluate the use of dependency representations (both semantic and syntactic),
 for three downstream applications:
 biomedical information extraction, negation resolution, and fine-grained opinion analysis.
-Some participating teams use DM dependencies \citep{schuster2017dep,chen2017dep}.
+Some participating teams use DM dependencies\footnote{DM stands for \delphin\ MRS dependencies; see Figure~\ref{cl:fig:dep}.} \citep{schuster2017dep,chen2017dep}.
 The results of this shared task suggest that,
 compared to other dependency representations,
 DM is particularly useful for negation resolution.
@@ -1399,11 +1400,11 @@ roughly half of the ambiguity was lexical, and half syntactic.
 They also showed how combining sources of information
 (such as both semantic and syntactic information)
 is important for resolving ambiguity,
-consistent with probabilistic approaches in psycholinguistics.
+and argue that using multiple kinds of information in this way is consistent with probabilistic approaches in psycholinguistics.
 
 
 \subsection{Long-tail phenomena} % Emily
-One of the strengths of HPSG as a theoretical framework is that it allows for the analysis of both ``core'' and ``peripheral'' phenomena within a single, integrated model. When working with actual data and large scale gramamrs, it quickly becomes apparent just how long the long-tail of ``peripheral'' phenomena is. Furthermore, the sustained development of broad-coverage linguistic resources makes it possible to bring more and more low-frequency phenomena or low-frequency variations on relatively high-frequency phenomena into view. A case in point is the range of raising and control valence frames found in the ERG \cite{Flickinger2000a,Flickinger2011a-u}. As of the 2018 release, the ERG includes over 60 types for raising and control predicates, including verbs, adjectives, and nouns, many of which are not otherwise discussed in the syntactic literature. These include such low-frequency types as the one for \textit{incumbent} which requires an explitive \textit{it} subject, an obligatory \textit{(up)on} PP subject, and an infinitival VP complement and establishes a control relation between the object of \textit{on} and the VP's missing subject:\footnote{Our thanks to Dan Flickinger for this example.}
+One of the strengths of HPSG as a theoretical framework is that it allows for the analysis of both ``core'' and ``peripheral'' phenomena within a single, integrated model. When working with actual data and large scale gramamrs, it quickly becomes apparent just how long the long-tail of ``peripheral'' phenomena is. Furthermore, the sustained development of broad-coverage linguistic resources makes it possible to bring more and more low-frequency phenomena or low-frequency variations on relatively high-frequency phenomena into view. A case in point is the range of raising and control valence frames found in the ERG \cite{Flickinger2000a,Flickinger2011a-u}. As of the 2018 release, the ERG includes over 60 types for raising and control predicates, including verbs, adjectives, and nouns, many of which are not otherwise discussed in the syntactic literature. These include such low-frequency types as the one for \textit{incumbent} which requires an expletive \textit{it} subject, an obligatory \textit{(up)on} PP subject, and an infinitival VP complement and establishes a control relation between the object of \textit{on} and the VP's missing subject:\footnote{Our thanks to Dan Flickinger for this example.}
 
 \begin{exe}
 \ex\label{cl:incumbent} 
@@ -1472,7 +1473,9 @@ connect with on-going research in computational linguistics using HPSG.
 %\section*{Abbreviations}
 \section*{Acknowledgements}
 
-% Stephan Oepen
+We'd like to thank Stephan Oepen for helpful comments on an early
+draft of this chapter and Stefan M\"uller for detailed comments as
+volume editor.
 
 {\sloppy
 \printbibliography[heading=subbibliography,notkeyword=this] 
