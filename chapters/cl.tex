@@ -108,24 +108,34 @@ as we will see in Sections~\ref{cl:lang-doc} and~\ref{cl:downstream}, respective
 
 One way to measure how easy or difficult it is
 to use a syntactic theory in practical computational applications
-is to consider the \textit{computational complexity}
+is to consider the \textit{computational complexity}\footnote{%
+	Computational complexity is related to
+	the complexity hierarchy of language classes in formal language theory.
+	More complex language classes tend to require
+	parsing and generation algorithms with higher computational complexity,
+	but this relationship is not exact.
+	For example, the class of strictly local languages is a proper subset of the class of regular languages,
+	but both classes can be parsed in linear time.
+	\citet[ch.~17]{MuellerGT-Eng3} discusses HPSG from the point of view of formal language theory.
+}
 of parsing and generation algorithms \citep{gazdar1985complexity}.
-Computational complexity in this case includes both how much
+Computational complexity includes both how much
 memory and how much computational time 
 a parsing algorithm needs to process a particular sentence.\footnote{% 
   In this section, we only consider parsing
   algorithms, but a similar analysis can be done for generation
   \citep[\eg][]{carroll1999generate}.}
-Considering parsing time, longer sentences should always take longer to process,
+Considering parsing time, longer sentences will take longer to process,
 but the more complex the algorithm is,
 the more quickly the amount of processing time increases.
 Parsing complexity can thus be measured by considering sentences containing $n$~tokens,
-finding the average amount of time taken or the longest amount of time taken,
 and then increasing~$n$ to see how the amount of time changes.
-% EMB 2019-02-21 Edits just above to work around pedantic mathy `we'.
-% GE 2019-02-25 (Reply via email).
+This can be done based on the average amount of time
+for sentences in a corpus (average-case complexity),
+or based on the longest amount of time
+for all theoretically possible sentences (worst-case complexity).
 
-At first sight, analysing computational complexity
+At first sight, analyzing computational complexity
 would seem to paint HPSG in a bad light,
 because the formalism allows us to write grammars
 which can be arbitrarily complex;
@@ -173,7 +183,7 @@ It would be beyond the scope of this chapter
 to give a full review of parsing algorithms,
 but it is instructive to give an example.
 For grammars that have a context-free backbone
-(every derivation can be expressed as a phrase-structure tree
+(every analysis can be expressed as a phrase-structure tree
 plus constraints between mother and daughter nodes),
 it is possible to adapt the standard \textit{chart-parsing} algorithm \cite{kay:1973} for context-free grammars.
 % EMB 2019-02-21 We should have cite for chart-parsing. It looks like Kay 1973 is the originator of that idea, so putting that in for now.
@@ -184,7 +194,15 @@ until the parser reaches the entire sentence.
 
 For a context-free grammar, there is a finite number of nonterminal symbols,
 and each span is analysed as a subset of the nonterminals.
-For a feature-structure grammar, each span must be analysed as a set of feature structures,\footnote{Much theoretical work in HPSG, including \citet{ps2} distinguishes between fully-resolved feature structures and possibly underspecified feature structure descriptions. Much comutational work, by contrast, operates entirely with partially specified feature structures, at both the level of grammar and the level of analyses licensed by the grammar. In keeping with this tradition, we use the term ``feature structure'' to refer to both fully-specified and partially specified objects.}
+For a feature-structure grammar, each span must be analysed as a set of feature structures,\footnote{%
+	Much theoretical work in HPSG, including \citet{ps2},
+	distinguishes between fully resolved feature structures and possibly underspecified feature structure descriptions.
+	Much computational work, by contrast, operates entirely with partially specified feature structures,
+	at both the level of grammar and the level of analyses licensed by the grammar.
+	In keeping with this tradition, we use the term
+	``feature structure'' to refer to both fully specified and partially specified objects,
+	and have no need for the term ``feature structure description''.
+}
 which makes the algorithm more complicated.
 In principle, a grammar may allow an infinite number of possible feature structures,
 for example if it includes recursive unary rules.
@@ -211,27 +229,34 @@ but $C$ may nonetheless be very large.
 % GE 2019-02-26 Looks good!
 
 
-But is the number of possible feature structures bounded in
-implemented HPSG grammars? For \delphin\ grammars (see
-Section \ref{cl:delphin}), the answer is yes. Assuming a system without
-relational constraints, the potential for
-unboundedness in the feature structures stems from the possibility
-of recursion in feature paths, \eg\ the elements on the \textsc{comps}
-list themselves include the feature \textsc{comps} or list-valued features, where lists are in fact recursive feature structures.\footnote{The typical
-implementation of a list as a feature structure provides a type signature
-where \emph{list} has two subtypes \emph{null} and \emph{non-empty-list}, and
-\emph{non-empty-list} has the features {\sc first}
-and {\sc rest}, where the value of {\sc rest} is of type \emph{list}.}
-In practice, neither of these sources leads to an unbounded
-number of feature structures: on the one hand, selecting heads might
-place contraints on their complement's subjects (\eg\ in
-raising/control constructions), but no further than that. On the other
-hand, while lists that are potentially unbounded in length are used in
-the construction of semantic representations, these are never involved
-in constraining grammaticality. The lists that are are the valence
-lists, but in practical grammars these are never greater than length
-four or five.\footnote{In part, this is because \delphin\ does not
-adopt proposals like the \textsc{deps} list of \citet*{BMS2001a-unlinked}.}
+But is the number of possible feature structures bounded
+in implemented HPSG grammars?
+For \delphin\ grammars (see Section \ref{cl:delphin}),
+the answer is yes.
+Assuming a system without relational constraints,
+the potential for unboundedness in the number of feature structures
+stems from the potential for recursion in feature paths --
+a list is a simple example,\footnote{%
+	More precisely, in the standard implementation of a list as a feature structure,
+	the type \textit{list} has two subtypes \textit{null} and \textit{non-empty-list}, and
+	\textit{non-empty-list} has the features \textsc{first}
+	and \textsc{rest}, where the value of \textsc{rest} is of type \textit{list}.
+	The value of \textsc{rest} can itself have the feature \textsc{rest}.
+}
+and as another example, the elements on a \textsc{comps} list
+also include the feature \textsc{comps}.
+
+However, in practice, such recursive paths do not need to be considered by the parsing algorithm.
+For example, selecting heads might place constraints on their complement's subjects
+(\eg\ in raising/control constructions),
+but no further than that (\eg a complement's complement's subject).
+Similarly, while lists that are potentially unbounded in length are used in semantic representations,
+these are never involved in constraining grammaticality.
+The only lists that constrain grammaticality are valence lists,
+but in practical grammars these are never greater than length four or five.\footnote{%
+	In part, this is because \delphin\ does not
+	adopt proposals like the \textsc{deps} list of \citet*{BMS2001a-unlinked}.
+}
 
 When parsing real corpora,
 it turns out that the average-case complexity is much better than might be expected \citep{Carroll94}.
@@ -471,13 +496,13 @@ annotations can be re-used when the grammar is updated
 	\setlength{\abovedisplayskip}{1ex}
 	\setlength{\belowdisplayskip}{1ex}
 	\begin{gather*}
-		\textsc{index} : e_1 \\
+		\textsc{index}\colon e_1 \\
 		\begin{aligned}
-			l_1 &: \textit{\_the\_q}(x_1,h_1,h_2),\; h_1 \,\textsc{qeq}\, l_4 \\
-			l_2 &: \textit{udef\_q}(x_2,h_3,h_4),\; h_3 \,\textsc{qeq}\, l_3 \\
-			l_3 &: \textit{\_cherry\_n\_1}(x_2) \\
-			l_4 &: \textit{\_tree\_n\_of}(x_1), \textit{compound}(e_2,x_1,x_2) \\
-			\textsc{ltop}\quad l_5 &: \textit{\_blossom\_v\_1}(e_1,x_1)
+			l_1\colon & \textit{\_the\_q}\left(x_1,h_1,h_2\right),\; h_1 \,\textsc{qeq}\, l_4 \\
+			l_2\colon & \textit{udef\_q}\left(x_2,h_3,h_4\right),\; h_3 \,\textsc{qeq}\, l_3 \\
+			l_3\colon & \textit{\_cherry\_n\_1}\left(x_2\right) \\
+			l_4\colon & \textit{\_tree\_n\_of}\left(x_1\right), \textit{compound}\left(e_2,x_1,x_2\right) \\
+			\textsc{ltop}, l_5\colon & \textit{\_blossom\_v\_1}\left(e_1,x_1\right)
 		\end{aligned}
 	\end{gather*}
 	\caption{MRS, abstractly.}
@@ -552,7 +577,7 @@ annotations can be re-used when the grammar is updated
 \end{figure}
 
 In practical applications of HPSG grammars,
-the full derivation trees and the full feature structures are often unwieldy,
+the full phrase-structure trees and the full feature structures are often unwieldy,
 containing far more information than necessary for the task at hand.
 It is therefore often desirable to extract a concise semantic representation.
 %TODO check the Semantics chapter once it's written
@@ -859,7 +884,7 @@ is a broad-coverage grammar of English,
 semi-automatically acquired from the Penn Treebank \citep{MNT2005a-u}.
 This approach aims to reduce the cost of writing a grammar
 by leveraging existing resources.
-The basic idea is that, by viewing Penn Treebank trees as partial specifications of HPSG derivations,
+The basic idea is that, by viewing Penn Treebank trees as partial specifications of HPSG analyses,
 it is possible to infer lexical entries.
 
 \citeauthor{MNT2005a-u} converted the relatively flat trees in the Penn Treebank to binary-branching trees,
@@ -911,7 +936,7 @@ Then, in Section~\ref{cl:downstream}, we consider applications outside of lingui
 \subsection{Language documentation and linguistic hypothesis testing}
 \label{cl:lang-doc}
 
-As decribed in \citealt{Mueller99a-Short,Bender2008c-Short} and \citealt{BFO2011a-u},
+As decribed in \citealt{Mueller99a,Bender2008c} and \citealt{BFO2011a-u},
 grammar engineering, that is the building of grammars in software, is
 an essential technique for testing linguistic hypotheses at scale. By
 ``at scale'', we mean both against large quantities of data and as
@@ -936,13 +961,14 @@ in LFG, see \citealt{BKNS99a-ed} and \citealt{King:16}.}
 
 As described in Section~\ref{cl:coregram},
 the CoreGram project develops grammars for a diverse set of languages,
-and shares constraints across grammars.
-The top-most set of constraints can therefore be seen
+and shares constraints across grammars, in a bottom-up fashion, so that more
+similar languages share more constraints. Still, there are constraints
+shared across all of the grammars in the project which can be seen
 as an hypothesis about properties shared by all languages.
 Whenever the CoreGram project expands to cover a new language,
 it can be seen as a test of this hypothesis.
 
-For example, the top-most constraint set
+For example, the most general constraint set
 allows a language to have V2 word order
 (as exemplified by Germanic languages),
 but rules out verb-penultimate word order,
@@ -986,7 +1012,7 @@ linguistic phenomenon, but the libraries must be interoperable with
 each other. This is the cross-linguistic analogue of how monolingual
 implemented grammars allow linguists to ensure that analyses of
 different phenomena are interoperable
-\citep{Mueller99a,Bender2008c-Short}: the Grammar Matrix customization
+\citep{Mueller99a,Bender2008c}: the Grammar Matrix customization
 system allows its developers to test cross-linguistic libraries of
 analyses for interactions with other phenomena
 \citep{BFO2011a-u,Bender:16}. Without computational
@@ -1219,14 +1245,14 @@ One reason for low recall is that the grammar does not cover all sentences in na
 As we will see in Section~\ref{cl:downstream:data},
 recent work on robust parsing may help to close this coverage gap.
 
-Negation resolution is also included in \citet{oepen2017extrinsic}'s
+Negation resolution is also included in \citeauthor{oepen2017extrinsic}'s (\citeyear{oepen2017extrinsic})
 Shared Task on Extrinsic Parser Evaluation.
 As mentioned in Section~\ref{cl:prac:dep},
 dependency graphs can provide a useful tool in NLP tasks,
 and this shared task aims to evaluate the use of dependency representations (both semantic and syntactic),
 for three downstream applications:
 biomedical information extraction, negation resolution, and fine-grained opinion analysis.
-Some participating teams use DM dependencies \citep{schuster2017dep,chen2017dep}.
+Some participating teams use DM dependencies\footnote{DM stands for \delphin\ MRS dependencies; see Figure~\ref{cl:fig:dep}.} \citep{schuster2017dep,chen2017dep}.
 The results of this shared task suggest that,
 compared to other dependency representations,
 DM is particularly useful for negation resolution.
@@ -1303,7 +1329,7 @@ and actually achieve slightly higher accuracy with their system,
 compared to a grammar-based parser.
 Unlike the previous statistical approaches,
 \citeauthor{chen2018parse} do not just train on the desired dependency graphs,
-but also use information in the derivation tree.
+but also use information in the phrase-structure tree.
 They suggest that using this information allows their system
 to learn compositional rules mirroring composition in the grammar,
 and thereby allows their system to generalise better.
@@ -1348,6 +1374,10 @@ The use of a broad-coverage grammar is crucial
 in allowing the system to be configurable
 and scale across a variety of syntactic constructions.
 
+%TODO Alex's more recent papers?
+% https://arxiv.org/pdf/1809.03044.pdf
+% https://arxiv.org/pdf/1812.11737.pdf
+
 
 
 \section{Linguistic insights}
@@ -1370,11 +1400,11 @@ roughly half of the ambiguity was lexical, and half syntactic.
 They also showed how combining sources of information
 (such as both semantic and syntactic information)
 is important for resolving ambiguity,
-consistent with probabilistic approaches in psycholinguistics.
+and argue that using multiple kinds of information in this way is consistent with probabilistic approaches in psycholinguistics.
 
 
 \subsection{Long-tail phenomena} % Emily
-One of the strengths of HPSG as a theoretical framework is that it allows for the analysis of both ``core'' and ``peripheral'' phenomena within a single, integrated model. When working with actual data and large scale gramamrs, it quickly becomes apparent just how long the long-tail of ``peripheral'' phenomena is. Furthermore, the sustained development of broad-coverage linguistic resources makes it possible to bring more and more low-frequency phenomena or low-frequency variations on relatively high-frequency phenomena into view. A case in point is the range of raising and control valence frames found in the ERG \cite{Flickinger2000a,Flickinger2011a-u}. As of the 2018 release, the ERG includes over 60 types for raising and control predicates, including verbs, adjectives, and nouns, many of which are not otherwise discussed in the syntactic literature. These include such low-frequency types as the one for \textit{incumbent} which requires an explitive \textit{it} subject, an obligatory \textit{(up)on} PP subject, and an infinitival VP complement and establishes a control relation between the object of \textit{on} and the VP's missing subject:\footnote{Our thanks to Dan Flickinger for this example.}
+One of the strengths of HPSG as a theoretical framework is that it allows for the analysis of both ``core'' and ``peripheral'' phenomena within a single, integrated model. When working with actual data and large scale gramamrs, it quickly becomes apparent just how long the long-tail of ``peripheral'' phenomena is. Furthermore, the sustained development of broad-coverage linguistic resources makes it possible to bring more and more low-frequency phenomena or low-frequency variations on relatively high-frequency phenomena into view. A case in point is the range of raising and control valence frames found in the ERG \cite{Flickinger2000a,Flickinger2011a-u}. As of the 2018 release, the ERG includes over 60 types for raising and control predicates, including verbs, adjectives, and nouns, many of which are not otherwise discussed in the syntactic literature. These include such low-frequency types as the one for \textit{incumbent} which requires an expletive \textit{it} subject, an obligatory \textit{(up)on} PP subject, and an infinitival VP complement and establishes a control relation between the object of \textit{on} and the VP's missing subject:\footnote{Our thanks to Dan Flickinger for this example.}
 
 \begin{exe}
 \ex\label{cl:incumbent} 
@@ -1443,7 +1473,9 @@ connect with on-going research in computational linguistics using HPSG.
 %\section*{Abbreviations}
 \section*{Acknowledgements}
 
-% Stephan Oepen
+We'd like to thank Stephan Oepen for helpful comments on an early
+draft of this chapter and Stefan M\"uller for detailed comments as
+volume editor.
 
 {\sloppy
 \printbibliography[heading=subbibliography,notkeyword=this] 
