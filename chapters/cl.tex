@@ -235,7 +235,7 @@ For \delphin\ grammars (see Section \ref{cl:delphin}),
 the answer is yes.
 Assuming a system without relational constraints,
 the potential for unboundedness in the number of feature structures
-stems from the potential for recursion in feature paths --
+stems from the potential for recursion in feature paths
 a list is a simple example,\footnote{%
 	More precisely, in the standard implementation of a list as a feature structure,
 	the type \textit{list} has two subtypes \textit{null} and \textit{non-empty-list}, and
@@ -260,8 +260,8 @@ but in practical grammars these are never greater than length four or five.\foot
 	the \textsc{slash} list cannot have more than one element.
 	If an unbounded \textsc{slash} list is required
 	(such as to model cross-serial dependencies),
-	the number of possible structures might still be bounded as a function of sentence length
-	-- this would allow us to bound worst-case parsing complexity,
+	the number of possible structures might still be bounded as a function of sentence length;
+	this would allow us to bound worst-case parsing complexity,
 	but it will be a higher bound.
 }
 
@@ -521,8 +521,15 @@ annotations can be re-used when the grammar is updated
 	as produced by the English Resource Grammar (ERG).
 	For simplicity, we have omitted some details, including
 	features such as number and tense,
-	individual constraints (ICONS),
+	individual constraints (\textsc{icons}),
 	and the use of difference lists.
+	\delphin\ predicates beginning with an underscore correspond to a lexical item,
+	and have a three-part format,
+	consisting of a lemma, a part-of-speech tag, and (optionally) a sense.
+	Predicates without an initial underscore are abstract predicates.
+	\textsc{qeq} (equality modulo quantifiers) indicates a scopal constraint,
+	with quantifiers possibly intervening
+	(for details, see \citealt{CFPS2005a} or \crossrefchaptert{semantics}).
 }
 \label{cl:fig:mrs}
 \end{figure}
@@ -551,7 +558,11 @@ annotations can be re-used when the grammar is updated
 		representation that captures all of the information
 		in the MRS in Figure~\ref{cl:fig:mrs}.
 		Predicates are represented as nodes,
-		while semantic roles and scopal constraints are represented as links.
+		while semantic roles and scopal constraints are represented as dependencies.
+		\textsc{rstr} stands for ``restriction'' (of a quantifier).
+		\textsc{eq} indicates that the linked nodes share a label in the MRS
+		(which is generally true for modifiers),
+		while \textsc{neq} indicates that they don't share a label.
 	}
 \end{subfigure}
 \begin{subfigure}{\textwidth}
@@ -570,9 +581,12 @@ annotations can be re-used when the grammar is updated
 	\vspace*{2mm}
 	\caption{
 		A \delphin\ MRS Dependencies (DM) representation.
-		This is a simplified version of MRS.
-		Nodes are the tokens in the sentence (rather than abstract predicates),
-		and some scopal information is dropped.
+		This is a simplified version of MRS,
+		where all nodes are tokens in the sentence.
+		Some abstract predicates are dropped (such as \textit{udef\_q}),
+		while others are converted to dependencies (such as \textit{compound}).
+		Some scopal information is dropped (such as \textsc{eq} vs \textsc{neq}).
+		\textsc{bv} stands for ``bound variable'' (of a quantifier).
 	}
 \end{subfigure}
 \caption{%
