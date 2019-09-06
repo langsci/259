@@ -40,7 +40,7 @@ chop: stable.pdf
 #	bash chopchapters.sh `grep "mainmatter starts" main.log|egrep -o "[0-9]*"`
 
 commit-stable: chop
-	git commit -m "automatic creation of stable.pdf and chapters" stable.pdf chapter-pdfs/
+	git commit -m "automatic creation of stable.pdf and chapters" stable.pdf chapters-pdfs/
 	git push -u origin
 
 
