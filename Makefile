@@ -82,8 +82,9 @@ cxg.pdf: stable.pdf
 
 #sm-public: order.pdf cxg.pdf
 sm-public: chop
-	scp chapter-pdfs/10.pdf hpsg.hu-berlin.de:public_html/Pub/constituent-order-hpsg.pdf
-	scp chapter-pdfs/37.pdf hpsg.hu-berlin.de:public_html/Pub/hpsg-cxg.pdf
+	scp chapters-pdfs/10.pdf hpsg.hu-berlin.de:public_html/Pub/constituent-order-hpsg.pdf
+	scp chapters-pdfs/32.pdf hpsg.hu-berlin.de:public_html/Pub/hpsg-minimalism.pdf
+	scp chapters-pdfs/36.pdf hpsg.hu-berlin.de:public_html/Pub/hpsg-cxg.pdf
 
 #main.pdf: main.aux
 #	xelatex main 
