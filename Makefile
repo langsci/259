@@ -14,9 +14,9 @@ index:  main.snd
 
 
 main.pdf: $(SOURCE)
-	xelatex -no-pdf main
+	xelatex -no-pdf -shell-escape main
 	biber main
-	xelatex -no-pdf main
+	xelatex -no-pdf -shell-escape main
 	sed -i.backup s/.*\\emph.*// main.adx #remove titles which biblatex puts into the name index
 	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.sdx # ordering of references to footnotes
 	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.adx
@@ -26,7 +26,7 @@ main.pdf: $(SOURCE)
 	makeindex -o main.and main.adx
 	makeindex -o main.lnd main.ldx
 	makeindex -o main.snd main.sdx 
-	xelatex main
+	xelatex -shell-escape main
 
 stable.pdf: main.pdf
 	cp main.pdf stable.pdf
