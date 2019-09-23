@@ -882,3 +882,46 @@ $}}
 
 \newcommand{\nodeconnect}[2]{}
 \newcommand{\nodetriangle}[2]{}
+
+
+
+% Doug relative clauses
+%% I've compiled out almost all my private LaTeX command, but there are some
+%% I found hard to get rid of. They are defined here.
+%% There are few others which defined in places in the document where they have only
+%% local effect (e.g. within figures); their names all end in DA, e.g. \MotherDA
+%% There are a lot of \labels -- they are all of the form \label{sec:rc-...} or
+%% \label{x:rc-...} or similar, so there should be no clashes.
+
+% Subscripts -- scriptsize italic shape lowered by .25ex 
+\newcommand{\subscr}[1]{\raisebox{-.25ex}{\protect{\scriptsize{\itshape #1\/}}}}
+% A boxed subscript, for avm tags in normal text
+\newcommand{\subtag}[1]{\subscr{\idx{#1}}}
+
+%% Sets and tuples: I use \setof{} to get brackets that are upright, not slanted
+\newcommand{\setof}[1]{\ensuremath{\lbrace\,\mathit{#1}\,\rbrace}}
+\newcommand{\tuple}[1]{\ensuremath{\left\langle\,\mathit{#1}\,\right\rangle}}
+
+% Single pile of stuff, optional arugment is psn (e.g. t or b)
+% e.g. to put a over b over c in a centered column, top aligned, do:
+%   \cPile[t]{a\\b\\c} 
+\newcommand{\cPile}[2][]{%
+  \begingroup%
+  \renewcommand{\arraystretch}{.5}\begin{tabular}[#1]{c}#2\end{tabular}%
+  \endgroup%
+}
+
+%% for linguistic examples in running text (`linguistic citation'):
+\newcommand{\lic}[1]{\textit{#1}}
+
+%% A gap marked by an underline, raised slightly
+%% Default argument indicates how long the line should be:
+\newcommand{\uGap}[1][3ex]{\raisebox{.25em}{\underline{\hspace{#1}}}\xspace}
+
+%% \TnodeDA{XP}{avmcontents} -- in a Tree, put a node label next to an AVM
+\newcommand{\TnodeDA}[2]{#1~\begin{avm}{#2}\end{avm}}
+
+%% This allows tipa stuff to be put in \emph -- we need to change to cmr first.
+%% It is used in the discussion of Arabic.
+\newcommand{\emphtipa}[1]{{\fontfamily{cmr}\emph{\tipaencoding #1}}} 
+
