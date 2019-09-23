@@ -446,10 +446,60 @@ annotations can be re-used when the grammar is updated
 \subsubsection{Semantic dependencies}
 \label{cl:prac:dep}
 
-\begin{figure}
-\centering
-\begin{subfigure}{\textwidth}
-	\centering
+In practical applications of HPSG grammars,
+the full phrase-structure trees and the full feature structures are often unwieldy,
+containing far more information than necessary for the task at hand.
+It is therefore often desirable to extract a concise semantic representation.
+%TODO check the Semantics chapter once it's written
+
+In computational linguistics, a popular approach to semantics
+is to represent the meaning of a sentence as a \textit{dependency graph},
+as this enables the use of graph-based algorithms.\footnote{%
+	In this section, we are concerned with \emph{semantic} dependencies.
+	For \emph{syntactic} dependencies, see \crossrefchaptert{dg}.
+	Some practical applications of HPSG use syntactic dependencies
+	(including many applications of the Alpino grammar, discussed in Section~\ref{cl:other:alpino}).
+}
+Several types of dependency graph have been proposed
+based on Minimal Recursion Semantics \citep[MRS;][]{CFPS2005a},
+with varying levels of simplification.
+\citet{oepen2006eds} observe that if every predicate has a unique
+\textit{intrinsic argument}, an MRS can be converted to a variable-free semantic representation,
+by replacing each reference to a variable with a reference to the corresponding predicate.
+They present Elementary Dependency Structures (EDS),
+semantic graphs which maintain predicate-argument structure but discard some scope information.
+(For many applications, scope information is less important than predicate-argument structure.)
+\citet{copestake2009dmrs} builds on this idea
+to create a more expressive graph-based representation called
+Dependency Minimal Recursion Semantics (DMRS),
+which is fully interconvertible with MRS.\footnote{%
+	More precisely, for DMRS and MRS to be fully interconvertible,
+	every predicate (except for quantifiers) must have an intrinsic argument,
+	and every variable must be the intrinsic argument of exactly one predicate.
+} This expressivity is achieved by adding annotations on the edges to
+indicate scope information.
+Finally, \delphin\ MRS Dependencies \citep[DM;][]{ivanova2012dm}
+express predicate-argument structure purely in terms of the surface tokens,
+without introducing any abstract predicates.
+
+For example, English Resource Grammar (ERG)
+produces the MRS representation in~(\ref{cl:fig:mrs-feat})
+for the sentence \textit{The cherry tree blossomed}.
+For simplicity, we have omitted some details, including
+features such as number and tense,
+individual constraints (\textsc{icons}),
+and the use of difference lists.
+By convention, \delphin\ predicates beginning with an underscore correspond to a lexical item,
+and have a three-part format,
+consisting of a lemma, a part-of-speech tag, and (optionally) a sense.
+Predicates without an initial underscore are abstract predicates.
+The \textit{qeq} constraints (equality modulo quantifiers)
+are scopal relationships,
+where quantifiers may possibly intervene
+(for details, see \citealt{CFPS2005a} or \crossrefchaptert{semantics}).
+
+\begin{exe}
+	\ex\label{cl:fig:mrs-feat}
 	\begin{avm}
 	[\asort{mrs}
 		hook & [\asort{hook}
@@ -496,49 +546,54 @@ annotations can be re-used when the grammar is updated
 				harg & @{11} \\
 				larg & @{13} ] \;\Bigg\rangle ]
 	\end{avm}
-	\caption{MRS, as a feature structure.}
-\end{subfigure}
-\begin{subfigure}{\textwidth}
-	\centering
+\end{exe}
+
+For readability, it can be easier to express an MRS
+in a more abstract mathematical form, as shown in~(\ref{cl:fig:mrs-abs}).
+This is equivalent to the feature structure in~(\ref{cl:fig:mrs-feat}).
+
+\begin{exe}
 	\setlength{\abovedisplayskip}{1ex}
 	\setlength{\belowdisplayskip}{1ex}
+	\ex\label{cl:fig:mrs-abs}
+	\begin{minipage}[c]{.6\textwidth}
+	\vspace*{-1\baselineskip}
 	\begin{gather*}
 		\textsc{index}\colon e_1 \\
 		\begin{aligned}
-			l_1\colon & \textit{\_the\_q}\left(x_1,h_1,h_2\right),\; h_1 \,\textsc{qeq}\, l_4 \\
-			l_2\colon & \textit{udef\_q}\left(x_2,h_3,h_4\right),\; h_3 \,\textsc{qeq}\, l_3 \\
+			l_1\colon & \textit{\_the\_q}\left(x_1,h_1,h_2\right), h_1 \,\textsc{qeq}\, l_4 \\
+			l_2\colon & \textit{udef\_q}\left(x_2,h_3,h_4\right), h_3 \,\textsc{qeq}\, l_3 \\
 			l_3\colon & \textit{\_cherry\_n\_1}\left(x_2\right) \\
 			l_4\colon & \textit{\_tree\_n\_of}\left(x_1\right), \textit{compound}\left(e_2,x_1,x_2\right) \\
 			\textsc{ltop}, l_5\colon & \textit{\_blossom\_v\_1}\left(e_1,x_1\right)
 		\end{aligned}
 	\end{gather*}
-	\caption{MRS, abstractly.}
-\end{subfigure}
-\caption{%
-	Minimal Recursion Semantics (MRS)
-	representation for the sentence \textit{The cherry tree blossomed},
-% EMB 2018-12-17 I approve of this example sentence!
-	as produced by the English Resource Grammar (ERG).
-	For simplicity, we have omitted some details, including
-	features such as number and tense,
-	individual constraints (\textsc{icons}),
-	and the use of difference lists.
-	\delphin\ predicates beginning with an underscore correspond to a lexical item,
-	and have a three-part format,
-	consisting of a lemma, a part-of-speech tag, and (optionally) a sense.
-	Predicates without an initial underscore are abstract predicates.
-	\textsc{qeq} (equality modulo quantifiers) indicates a scopal constraint,
-	with quantifiers possibly intervening
-	(for details, see \citealt{CFPS2005a} or \crossrefchaptert{semantics}).
-}
-\label{cl:fig:mrs}
-\end{figure}
+	\end{minipage}
+\end{exe}
 
-\begin{figure}
-\centering
-\begin{subfigure}{\textwidth}
-	\centering
-	\begin{tikzpicture}[node distance=8mm and 12mm, inner sep=2mm, thick]
+The corresponding Dependency Minimal Recursion Semantics (DMRS)
+representation is shown in~(\ref{cl:fig:dmrs}).
+This captures all of the information
+in the MRS in Figure~\ref{cl:fig:mrs-abs}.
+Predicates are represented as nodes,
+while semantic roles and scopal constraints are represented as dependencies.
+Each dependency has two labels.
+The first is an argument label,
+such as \textsc{arg1}, \textsc{arg2},
+or \textsc{rstr} (the restriction of a quantifier).
+The second is a scopal constraint,
+such as \textsc{qeq}\footnote{%
+	An alternative notation is to write
+	\textsc{/h} instead of \textsc{/qeq}.
+},
+\textsc{eq} (the linked nodes share a label in the MRS,
+which is generally true for modifiers),
+or \textsc{neq} (the linked nodes don't share a label).
+
+\begin{exe}
+	\ex\label{cl:fig:dmrs}
+	\small
+	\begin{tikzpicture}[node distance=7mm and 11mm, inner sep=1.5mm, thick, baseline=(ch.base)]
 		\node (ch) {\it \_cherry\_n\_1};
 		\node[right=of ch] (cm) {\it compound};
 		\node[right=of cm] (tr) {\it \_tree\_n\_of};
@@ -552,87 +607,32 @@ annotations can be re-used when the grammar is updated
 		\draw[->] (th) -- (tr) node[midway, right, yshift=1mm] {\textsc{rstr/qeq}};
 		\node[anchor=north, align=center, inner sep=0pt] at (b.south) {\textsc{ltop}\\\textsc{index}};
 	\end{tikzpicture}%
-	\vspace*{2mm}%
-	\caption{
-		A Dependency Minimal Recursion Semantics (DMRS)
-		representation that captures all of the information
-		in the MRS in Figure~\ref{cl:fig:mrs}.
-		Predicates are represented as nodes,
-		while semantic roles and scopal constraints are represented as dependencies.
-		\textsc{rstr} stands for ``restriction'' (of a quantifier).
-		\textsc{eq} indicates that the linked nodes share a label in the MRS
-		(which is generally true for modifiers),
-		while \textsc{neq} indicates that they don't share a label.
-	}
-\end{subfigure}
-\begin{subfigure}{\textwidth}
-	\centering
-	\vspace*{3mm}
-	\begin{tikzpicture}[node distance=15mm, inner sep=2mm, thick]
-		\node (th) {\it the};
+\end{exe}
+
+Finally, the corresponding \delphin\ MRS Dependencies (DM) representation.
+This is a simplified version of MRS,
+where all nodes are tokens in the sentence.
+Some abstract predicates are dropped (such as \textit{udef\_q}),
+while others are converted to dependencies (such as \textit{compound}).
+Some scopal information is dropped (such as \textsc{eq} vs \textsc{neq}).
+The label \textsc{bv} stands for the ``bound variable'' of a quantifier,
+equivalent to the \textsc{rstr/qeq} of DMRS.
+
+\begin{exe}
+	\ex\label{cl:fig:dm}
+	\begin{tikzpicture}[node distance=15mm, inner sep=1.5mm, thick, baseline=(ch.base)]
+		\node (th) {\it the\vphantom{y}};
 		\node[right=of th] (ch) {\it cherry};
-		\node[right=of ch] (tr) {\it tree};
-		\node[right=of tr] (b) {\it blossomed};
+		\node[right=of ch] (tr) {\it tree\vphantom{y}};
+		\node[right=of tr] (b) {\it blossomed\vphantom{y}};
 		\draw[->] (ch) -- (tr) node[midway, above] {\textsc{compound}};
 		\draw[->] (b) -- (tr) node[midway, above] {\textsc{arg1}};
 		\draw[->] (th) to[out=90, in=90, looseness=.4] node[midway, above, inner sep=1mm] {\textsc{bv}} (tr);
 		\node[anchor=north, inner sep=0pt] at (b.south) {\textsc{top}};
 	\end{tikzpicture}
-	\vspace*{2mm}
-	\caption{
-		A \delphin\ MRS Dependencies (DM) representation.
-		This is a simplified version of MRS,
-		where all nodes are tokens in the sentence.
-		Some abstract predicates are dropped (such as \textit{udef\_q}),
-		while others are converted to dependencies (such as \textit{compound}).
-		Some scopal information is dropped (such as \textsc{eq} vs \textsc{neq}).
-		\textsc{bv} stands for ``bound variable'' (of a quantifier).
-	}
-\end{subfigure}
-\caption{%
-	MRS-based dependency graphs for the sentence
-	\textit{The cherry tree blossomed},
-	based on the MRS given in Figure~\ref{cl:fig:mrs}.
-}
-\label{cl:fig:dep}
-\end{figure}
+\end{exe}
 
-In practical applications of HPSG grammars,
-the full phrase-structure trees and the full feature structures are often unwieldy,
-containing far more information than necessary for the task at hand.
-It is therefore often desirable to extract a concise semantic representation.
-%TODO check the Semantics chapter once it's written
 
-In computational linguistics,
-a popular approach to semantics is to represent the meaning of a sentence as a \textit{dependency graph},
-as this enables the use of graph-based algorithms.\footnote{%
-	In this section, we are concerned with \emph{semantic} dependencies.
-	For \emph{syntactic} dependencies, see \crossrefchaptert{dg}.
-	Some practical applications of HPSG use syntactic dependencies
-	(including many applications of the Alpino grammar, discussed in Section~\ref{cl:other:alpino}).
-}
-Several types of dependency graph have been proposed
-based on Minimal Recursion Semantics \citep[MRS;][]{CFPS2005a},
-with varying levels of simplification.
-\citet{oepen2006eds} observe that if every predicate has a unique
-\textit{intrinsic argument}, an MRS can be converted to a variable-free semantic representation,
-by replacing each reference to a variable with a reference to the corresponding predicate.
-They present Elementary Dependency Structures (EDS),
-semantic graphs which maintain predicate-argument structure but discard some scope information.
-(For many applications, scope information is less important than predicate-argument structure.)
-\citet{copestake2009dmrs} builds on this idea
-to create a more expressive graph-based representation called
-Dependency Minimal Recursion Semantics (DMRS),
-which is fully interconvertible with MRS.\footnote{%
-	More precisely, for DMRS and MRS to be fully interconvertible,
-	every predicate (except for quantifiers) must have an intrinsic argument,
-	and every variable must be the intrinsic argument of exactly one predicate.
-} This expressivity is achieved by adding annotations on the edges to
-indicate scope information.
-Finally, \delphin\ MRS Dependencies \citep[DM;][]{ivanova2012dm}
-express predicate-argument structure purely in terms of the surface tokens,
-without introducing any abstract predicates.
-A comparison of MRS, DMRS, and DM is given in Figures \ref{cl:fig:mrs} and~\ref{cl:fig:dep}.
 The existence of such dependency graph formalisms,
 as well as software packages to manipulate such graphs \citep{copestake2016pydmrs},
 has made it easier to use HPSG grammars in a number of practical tasks,
@@ -957,17 +957,17 @@ Then, in Section~\ref{cl:downstream}, we consider applications outside of lingui
 \subsection{Language documentation and linguistic hypothesis testing}
 \label{cl:lang-doc}
 
-As decribed by \citet{Mueller99a}, \citet{Bender2008c} and \citet{BFO2011a-u},
+As described by \citet{Mueller99a}, \citet{Bender2008c} and \citet{BFO2011a-u},
 grammar engineering, that is the building of grammars in software, is
 an essential technique for testing linguistic hypotheses at scale. By
 ``at scale'', we mean both against large quantities of data and as
-integrated models of language that handle mulitple phenomena at
+integrated models of language that handle multiple phenomena at
 once. In this section, we overview how this is done in the CoreGram
 and Grammar Matrix projects for cross-linguistic hypothesis testing,
 and in the AGGREGATION project in the context of language
 documentation.\footnote{Grammar engineering isn't specific to HPSG and
 in fact has a history going back to at least the early 1960s \citep{Kay:63,ZFHW65a,Petrick65a-u,FBDPM71a-u}
-and modern work in Lexical Funcational Grammar \citep{BKNS99a-ed}, Combinatory Categorial
+and modern work in Lexical Functional Grammar \citep{BKNS99a-ed}, Combinatory Categorial
 Grammar \citep{BCPW2007a}, Grammatical Framework \citep{Ranta:09}, and others.
 For reflections on grammar engineering for linguistic hypothesis testing
 in LFG, see \citealt{BKNS99a-ed} and \citealt{King:16}.}
