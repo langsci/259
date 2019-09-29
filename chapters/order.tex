@@ -119,8 +119,9 @@ appear in exactly this order, this is not the case in GPSG and HPSG:
 \label{rule-s-np-np-np-v}
 S $\to$ NP[nom] NP[dat] NP[acc] V
 \z
-The HPSG schemata corresponding to the phrase structure rule in (\mex{0}) do not express information
-about ordering. Instead, there are separate linear precedence (LP) rules\is{Linear Precedence Rule}. A schema like (\mex{0}) licenses 24 
+The HPSG schemata corresponding to the immediate dominance rule (ID rule) in (\mex{0}) do not express information
+about ordering. Instead, there are separate linear precedence (LP) rules\is{Linear Precedence Rule}
+(also called linearization rules). A schema like (\mex{0}) licenses 24 
 different orders: the six permutations of the three arguments that were shown in
 (\ref{ex-permutation-mf}) and all possible placements of the verb (to the right of NP[acc], between
 NP[dat] and NP[acc], between NP[nom] and NP[dat], to the left of NP[nom]). Orders like NP[nom],
@@ -139,7 +140,7 @@ to analyze \ili{German} would be the one that was suggested by \citet{Uszkoreit8
 of \isi{GPSG}: one could allow for two linearization variants of finite verbs. So in addition to the
 \textsc{ini}$-$ variant of verbs there could be a \textsc{ini}$+$ variant and this variant would be
 linearized initially. This reduces the number of permutations licensed by (\ref{rule-s-np-np-np-v})
-to 12: verb-initial placement and 6 permutations of the NPs and verb-final placement with 6
+and LP rules to 12: verb-initial placement and 6 permutations of the NPs and verb-final placement with 6
 permutations of the arguments. The ID rule in (\ref{rule-s-np-np-np-v}) together with the two
 linearization rules linearizing the verb in initial or final position therefore licenses the same
 orders as the following twelve phrase structure rules would do:
@@ -222,7 +223,9 @@ as post-modifiers (noun-modifying prepositions) follow it:
 \ex Head $<$ Adjunct[\textsc{pre-modifier} --]
 \zl
 In general, there are two options for two daughters: head-initial and head-final order. Examples are
-given in (\mex{1}):
+given in (\mex{1}):\footnote{%
+$\oplus$\is{$\oplus$} (\texttt{append}\isrel{append}) is a \isi{relational constraint} that concatenates two lists. 
+}
 \eal
 \ex \oneline{%
 \begin{tabular}[t]{@{}ll@{}}
@@ -337,7 +340,7 @@ it possible to have the daughters in the order in which the elements are ordered
 (primary object, secondary object, and obliques) and then compute a \phonv in which the secondary
 object precedes the primary object. \ili{French} is a language with freer constituent order than
 English and such flat structures with appropriate reorderings are suggested by \citet{AG2000a}. For
-English the function order-constituents would just return a concatenation of the \phonvs of the
+English the function \texttt{order-constituents} would just return a concatenation of the \phonvs of the
 daughters, but for other languages it would be much more complicated. In fact this function and its
 interaction with linear precedence constraints was never worked out in detail.
 
@@ -425,8 +428,7 @@ non-head-dtrs & \liste{ \ms{ synsem \ibox{3} } }\\
 }
 \end{schema}
 \end{samepage}
-$\oplus$ (append) is a \isi{relational constraint} that concatenates two lists. The \compsl of the head
-daughter is split into three lists: a beginning \iboxb{1}, a list containing \ibox{3} and a rest
+The \compsl of the head daughter is split into three lists: a beginning \iboxb{1}, a list containing \ibox{3} and a rest
 \iboxb{2}. \ibox{3} is identified with the \synsemv of the non-head daughter. All other elements of
 the \compsl of the head daughter are concatenated and the result of this concatenation (\ibox{1}
 $\oplus$ \ibox{2}) is the \compsl of the mother node. This schema is very general. It works for
@@ -466,7 +468,6 @@ sm edges
     [{V[\comps \sliste{ \ibox{1}, \ibox{2}, \ibox{3} } ]} [gab;gave]]]]
 \end{forest}
 %}
-
 \caption{\label{fig-gave-sandy-a-book-binary}\label{fig-sandy-ein-buch-gab}Analysis of the English VP \emph{gave Sandy a book} and
   the corresponding \ili{German} verbal projection \emph{Sandy ein Buch gab} with binary branching structures}
 \end{figure}
@@ -524,6 +525,8 @@ subject-VP combinations as for determiner-noun combinations.\footnote{
 }
 The schema is given here as Schema~\ref{hss}:
 
+%\vbox{%
+%\begin{samepage}
 \begin{schema}[Specifier-Head Schema]\label{hss}
 %~\\\samepage
 %\begin{tabular}{@{}l@{}}
@@ -537,6 +540,8 @@ non-head-dtrs \liste{ \onems{ synsem \ibox{2} } }  \\
 }
 %\end{tabular}
 \end{schema}
+%\end{samepage}
+%\noindent
 The last element of the \sprl is realized as the non-head daughter. The remaining list is passed up
 to the mother node. 
 Note that the non-head daughter is taken from the end of the \sprl. For heads that have exactly one specifier this
@@ -613,12 +618,32 @@ Having explained scrambling in HPSG and the order of subjects in SVO languages, 
 
 The \ili{German}ic languages signal the clause type by verb position. All \ili{German}ic languages with the
 exception of English are V2 languages: the finite verb is in second position in declarative main
-clauses. The same holds for questions with \emph{wh} phrases. Yes/no questions are formed by putting
-the verb in initial position. English is a so-called \emph{residual V2 language}, that is, there are
+clauses. The first position can be filled by any other constituent, for example a subject,
+objects, or adverbials. (\mex{1}) shows an example from the V2 language German and its English translation.
+\ea 
+\gll Eigentlich mag ich Katzen sehr.\\
+     actually   like I cats really\\\jambox*{(German)}
+\glt `I actually really like cats.'
+\z
+The fronted material is not necessarily from the matrix clause, clause boundary
+crossing non-local dependencies are possible. The same holds for questions with \emph{w} phrases. 
+
+Yes/no questions are formed by putting the verb in initial position:
+\ea
+\gll Magst du Katzen?\\
+     like  you cats\\\jambox*{(German)}
+\glt `Do you like cats?'
+\z
+English is a so-called \emph{residual V2 language}, that is, there are
 some constructions that are parallel to what is known from V2 languages.
 %\todostefan{DB: English comes out of the blue.} 
 For example, while declarative clauses are in base order (SVO), questions follow the pattern that is
-known from other \ili{German}ic languages, with the finite verb in second position.
+known from other \ili{German}ic languages, with the finite verb in second position.\footnote{%
+  SVO is not V2 although the verb is in second position in SVO sentences. Languages can be
+  categorized into SOV, SVO, VSO, OSV, OVS, VOS languages and into V2 or non-V2 languages. These two
+  dimensions are independent. For example, Danish is an SVO language that is V2, while German is SOV
+  and V2 \citep{Haider2019a}. See \citew{MuellerGermanic} for discussion and the analysis of this variation in HPSG.
+}
 \ea
 What$_i$ will Kim read \trace$_i$? 
 \z
@@ -774,7 +799,7 @@ combination (External Merge is basically equivalent to our Schema~\ref{hcs-binar
 does not help in any way when considering the facts: there are at least five different meanings
 associated with auxiliary initial clauses (polar interrogative, blesses/curses, negative imperative,
 exclamatives, conditionals) and these have to be captured somewhere in a grammar. One
-way is to state them in a type hierarchy as is done in some HPSG analyses and in SBCG, another way
+way is to state them in a type hierarchy as is done in some HPSG analyses and in \sbcg (SBCG), another way
 is to use implicational constraints that assign meaning with respect to actual configurations
 (see Section~\ref{sec-mixed-approaches}), and a third way is to do everything lexically. The only option for
 Minimalism is the lexical one. This means that Minimalism has to either assume as many lexical items
@@ -1014,7 +1039,9 @@ sm edges
 \end{forest}
 }
 \caption{\label{fig-the-child-reads-the-book-reape-binary}Analysis of \emph{dass dem Kind ein Mann das Buch
-    gibt} `that a man gives the child the book' with binary branching structures and discontinuous constituents}
+    gibt} `that a man gives the child the book' with binary branching structures and discontinuous
+  constituents. The tree shows the order of combination, which does not correspond to the
+  linearization of the \domain objects.}
 \end{figure}%%
 Words or word sequences that are separated by commas stand for separate domain objects, that is,
 \phonliste{ das, Buch } contains the two objects \emph{das} and \emph{Buch} and \phonliste{ das
@@ -1051,7 +1078,7 @@ sm edges
 \subsection{Absolutely free}
 \label{sec-absolutely-free}\label{sec-warlpiri}
 
-While \ili{German} is more exciting than English in terms of constituent order, languages like
+While \ili{German} is more striking than English in terms of constituent order, languages like
 Warlpiri\il{Warlpiri|(} are even more so, since they have much freer constituent order. In
 Warlpiri the auxiliary has to be in first or in second position \citep[\page 8]{DS99a}, but apart from this, even parts of what are noun
 phrases in \ili{German} and English can appear separated from each other. For example, the two parts of
@@ -1061,7 +1088,7 @@ the same case:
 \label{ex-warlpiri}
 \gll Kurdu-jarra-rlu  ka-pala                 maliki     wajili.pi-nyi        wita-jarra-rlu.\\
 % S91:257 
-     child-\DU-\ERG{} \PRS-3\DU.\textsc{subj} dog.\ABS{} chase-\textsc{npast} small-\DU-\ERG\\%\jambox{(Warlpiri)}
+     child-\DU-\ERG{} \PRS-3\DU.\textsc{sbj} dog.\ABS{} chase-\textsc{npst} small-\DU-\ERG\\%\jambox{(Warlpiri)}
 \glt `Two small children are chasing the dog.' or\\
      `Two children are chasing the dog and they are small.'
 \z
@@ -1254,8 +1281,8 @@ This solves the problem with examples like (\mex{-1}) but it introduces a new on
 in which \emph{den Wählern} `the voters' is combined with \emph{erzählt} `tells' first and the result is then combined
 with \emph{Geschichten} `stories'. Since both objects are inserted into the same linearization domain, both
 orders can be derived. So we have too much freedom: freedom in linearization and freedom in the
-order of combination. The proposal that I suggested has just the freedom in the order of combination
-and hence can account for both (\ref{ex-waehlern-geschichten-erzaehlt}) and
+order of combination. The proposal that I suggested in Müller (\citeyear[Section~2.1]{Mueller2005c}; \citeyear[Section~2.2.1]{MuellerGS}) and which is implemented
+in Schema~\ref{hcs-binary} above has just the freedom in the order of combination and hence can account for both (\ref{ex-waehlern-geschichten-erzaehlt}) and
 (\ref{ex-geschichten-erzaehlen}) without spurious ambiguities.
 
 
