@@ -8,16 +8,16 @@
 \abstract{Information structure as the hinge between sentence and
   discourse has been at the center of interest for linguists working
   in different areas such as semantics, syntax or prosody for several
-  decades. A constraint-based grammar formalism such as HPSG encoding
+  decades. A constraint-based grammar formalism such as HPSG that encodes
   multiple levels of linguistic representation within the architecture
   of signs opens up the possibility to elegantly integrate such
-  information about discourse properties. In this chapter, we discuss
+  information about discourse properties. In this chapter, I discuss
   a number of approaches that have explored how to best integrate
   information structure as a separate level into the representation of
-  signs. We discuss which lexical and phrasal principles have been
+  signs. I discuss which lexical and phrasal principles have been
   implemented in these approaches and how they constrain the
   distribution of the various information structural
-  features. Finally, we discuss how the various approaches are used to
+  features. Finally, I discuss how the various approaches are used to
   formulate theories about the interaction of syntax, prosody and
   information structure. In particular, we will see several cases
   where (word order) principles that used to be stipulated in syntax
@@ -38,11 +38,11 @@ The \textit{information structure} of a sentence captures how the meaning
 expressed by the sentence is integrated into the discourse.
 The \textit{information structure} thus encodes which part of an
   utterance is informative in which way, in relation to a particular context.
-A wide range of approaches exists with respect to the question what
+A wide range of approaches exists with respect to the question of what
 should be regarded as the primitives of the information structure.
 
 It is now commonly assumed that there are three basic dimensions of
-information structure\footnote{For a comprehensive overview of the different research strands with respect to information structural dimension, see \citet{KruijffSteedman2003}.} that are encoded in natural languages and that
+information structure\footnote{For a comprehensive overview of the different research strands with respect to the information structural dimension, see \citet{KruijffSteedman2003}.} that are encoded in natural languages and that
 have been assumed as the basic primitives: (i) a distinction between
 what is new information advancing the discourse (\emph{focus}) and
 what is known, i.e., anchoring the sentence in existing (or
@@ -54,7 +54,7 @@ distinction between what the utterance is about (\emph{topic},
 mentioned in the discourse (\textit{given}) are distinguished from
 those that have not been mentioned (\emph{new}). For all three ways of
 partitioning the information structure, we find approaches within the
-HPSG framework.  Example (\ref{ex:info-struc}) illustrates, how one
+HPSG framework.  Example (\ref{ex:info-struc}) illustrates how one
 utterance in the context of a question can be structured according to
 different partitionings of information structure.
 \begin{exe}
@@ -72,7 +72,7 @@ Sarah & drinks & TEA.\\\hline
 
 The focus/background division with focus as the part of an utterance
 that is informative with respect to the discourse is one of the most
-commonly adopted partitioning when studying information structure, and
+commonly adopted partitionings when studying information structure, and
 thus many approaches within the HPSG architecture as well assume a
 division into focus and background, such as the ones that will be
 discussed in this article: \cite{EV96a}, \cite{deKuthy2002a},
@@ -83,33 +83,33 @@ an utterance is about, as the central notion and assume topic and
 comment (or theme and rheme) as the primitives of the information
 structure. Most approaches discussed here assume that the background
 has one designated (mostly referential) element functioning as the
-topic (or link), among them are \cite{EV96a}, \cite{deKuthy2002a},
-\cite{Paggio2009a-u}, and \cite{song2018}.
+topic (or link), among them \cite{EV96a}, \cite{deKuthy2002a},
+\cite{Paggio2009a-u} and \cite{song2018}.
 
 With respect to information status (including primitives such as new and
-given mentioned above) the discourse status of referential elements is of
+given mentioned above), the discourse status of referential elements is of
 interest, i.e. whether they can be linked to previously mentioned
 items, i.e. whether they are (discourse) old or given, or whether they
 haven't been mentioned before and are thus (discourse) new. The
 representation of information status has received comparatively little
-interest within the HPSG community, the approach by
-\cite{DeKuthy.Meurers-11} is one of the few approaches that
+interest within the HPSG community; the approach by
+\cite{DeKuthy.Meurers-11} is one of the few that
 explicitly integrate this dimension into their information structural
 architecture.
 
 The need to represent discourse properties in a grammar architecture
-of signs results from the insight that in many, if not all, languages
+of signs results from the insight that in many, if not all, languages,
 the way utterances are realized via their syntactic structure,
 morphological patterns and prosody very often interacts with discourse
 requirements of these utterances. In other words, approaches dealing
 with constraints on word order in a particular construction need to
 encode that this particular word order is only grammatical given a
 particular context, or a particular accent pattern has to be connected
-to a particular discourse status of the accented elements.\footnote{For some examples in the literature where this has been explored for word order phenomena, see for example \cite{ambridge.goldberg-08,DeKuthy.Konietzko-19,Culicover.Winkler-19}. }
+to a particular discourse status of the accented elements.\footnote{For some examples in the literature where this has been explored for word order phenomena, see for example \citet{ambridge.goldberg-08}, \citet{DeKuthy.Konietzko-19} and \citet{Culicover.Winkler-19}. }
 Most of the approaches discussed here deal with such interface
-questions, and we therefore discuss the particular word order and
+questions, and I therefore discuss the particular word order and
 phonetic theories that have been implemented in Sections \ref{sec:word-order}
-and \ref{sec:prosody} in detail. As a starting point, however, we will first
+and \ref{sec:prosody} in detail. As a starting point, however, I will first
 discuss the various architectural designs that have been implemented in
 order to be able to formulate the specific theories integrating
 discourse constraints.
@@ -164,17 +164,17 @@ the \isi{\textit{Focus Inheritance Principle}}, which enforces that in every
 phrase, the \textsc{info"=struc} value of the mother subsumes the values
 of the \textsc{info"=struc} of all of its daughters. The consequence of
 this principle is that if one daughter in a phrase is in the focus and
-the other one in the ground, then the mother's \textsc{info"=struc} value is the
-smallest common super-type of both, namely \textit{info-type}.
+the other one in the background, then the mother's \textsc{info"=struc} value is the
+smallest common supertype of both, namely \textit{info-type}.
 
 There are two problematic aspects of such an architecture. Firstly, it
 leads to a proliferation of syntactic markup of non-syntactic
 properties, in particular once one considers the full range of
-information structure notions, such as focus and focus projection,
-multiple foci, and the marking of other discourse functions such as
+information structural notions, such as focus and focus projection,
+multiple foci and the marking of other discourse functions such as
 topic. And secondly, the perspective of information structure as
 resulting from an independent interpretation process of syntactic
-markup does not support a view of syntax, information structure, and
+markup does not support a view of syntax, information structure and
 intonation as directly interacting modules, a view that can be nicely
 implemented in a multi-layer framework such as HPSG.
 More common are thus approaches that encode the information structure
@@ -189,7 +189,7 @@ argued that it would be most natural to also represent information
 structural information as part of this \textsc{context}
 feature. \cite{EV96a} thus introduce the feature \textsc{info"=struc}
 as part of the \textsc{context} and since they couch their
-approach into Vallduv{\'{\i}}'s \citeyear{vallduvi:92} information packaging account,
+approach into \citegen{vallduvi:92} information packaging account,
 \textsc{info"=struc} is further divided into \textsc{focus} and
 \textsc{ground}. All \textsc{info"=struc} features take entire signs as
 their values. The complete specification is shown in
@@ -228,10 +228,10 @@ within the \textsc{context} feature is the one by
 \textsc{infostr} features \textsc{topic}, \textsc{focus} and
 \textsc{bg} take as their values lists of indices. Since
 \cite{Paggio2009a-u} includes Minimal Recursion Semantics (MRS,
-\citealt{CFPS2005a}) as the semantic representation\footnote{A detailed
+\citealt{CFPS2005a}) as the semantic representation,\footnote{A detailed
   discussion of the properties and principles of MRS as implemented in
-  HPSG can be found in \crossrefchaptert{semantics}.}, these indices
-can be structure shared with the argument indices of the semantic
+  HPSG can be found in \crossrefchaptert{semantics}.} these indices
+can be structure-shared with the argument indices of the semantic
 relations collected on the \textsc{rels} list of the content of a
 sign. The basic setup is illustrated in \pref{fig:paggio-infostr}.
 % \begin{figure}[htb]
@@ -254,7 +254,7 @@ Information structure in \cite[149]{Paggio2009a-u}:\\
     \begin{avm}
     [\tp{sign}\\
      synsem|local|context|infostr & [focus & list-of-indices\\
-                                     topic & list-fo-indices\\
+                                     topic & list-of-indices\\
                                      bg & list-of-indices]
     ]     
     \end{avm}
@@ -265,12 +265,12 @@ such as \cite{song2018} and \cite{song-bender:2012}. Since they also
 use MRS as the semantic representation language, they enrich the
 architecture of \textit{mrs} structures. The information structure
 itself is encoded via a feature \isfeat{icons} \textsc{icons} (individual
-constraints), that is introduced parallel to \isfeat{hcons} \textsc{hcons} (handle
+constraints) that is introduced parallel to \isfeat{hcons} \textsc{hcons} (handle
 constraints) as part of the \textsc{content}, as shown in
 \pref{fig:song-infostruc}. \cite{song2018} and \cite{song-bender:2012}
 use \istype{diff-list} \textit{diff-list} as values for the features \textsc{rels, hcons}
 and \textsc{icons} (expressed by the ``!'' at the beginning and the
-end of the list. This type of list includes an explicit pointer
+end of the list). This type of list includes an explicit pointer
 to the last element of the list.
 \ea\label{fig:song-infostruc}
 Information structure in \cite{song-bender:2012} and \cite[116]{song2018}:\\
@@ -289,26 +289,26 @@ Information structure in \cite{song-bender:2012} and \cite[116]{song2018}:\\
     ]     
     \end{avm}
 \z
-The type \istype{info-str} \textit{info-str} used as value for elements on the
+The type \istype{info-str} \textit{info-str} used as the value for elements on the
 \textsc{icons} list is divided into an elaborate hierarchy with
 several subtypes, such as \textit{semantic-focus, constrast-focus,
   focus-or-topic, non-focus}, etc.\ (cf.~\citealt[114]{song2018}). The
 elements of type \textit{info-str} on the \textsc{icons} list have two
 appropriate features \textsc{clause} and \textsc{target}. \textsc{target} is
-always structure-shared with the respective signs \textsc{arg0} value,
+always structure-shared with the respective sign's \textsc{arg0} value, and
 the value of \textsc{clause} is always structure-shared with the
 \textsc{index} value of the predicate that is the semantic head of the
 clause.
 
 As pointed out by \cite{deKuthy2002a}, assuming that the information
 structure is part of \textit{local} objects (which it is if it is part
-of the \textsc{context} in HPSG as proposed by \cite{EV96a} or part of
+of the \textsc{context} in HPSG as proposed by \citealt{EV96a} or part of
 the \textsc{content}) is problematic in connection with a trace-based
 account of unbounded dependencies.  Traces should not contribute
 anything to the information structure of a sentence.  If one wants to
 develop an information structure approach which is independent of the
-decision of which kind of UDC theory one assumes, the only option for
-placing the information structure attribute is under \textit{synsem}
+decision of which kind of UDC theory one assumes, the only options for
+placing the information structure attribute are under \textit{synsem}
 objects or at the top level.
 
 Information structure as part of \textit{synsem} objects would suggest
@@ -316,15 +316,15 @@ that it plays a role in syntactic selection. This possibility is
 assumed in \cite{BC2011b}, and they thus represent
 \textsc{info"=struc} as a feature appropriate for \textit{synsem}
 objects (their account will be discussed in more detail in Section
-\ref{sec:word-order}.  A third possibility is argued for in
+\ref{sec:word-order}).  A third possibility is argued for in
 \cite{deKuthy2002a} and \cite{Bildhauer2008a}, namely that information
 structure should not be part of \textit{synsem} objects. As a result,
 they encode information structure again as an additional feature of
-signs (similar to \cite{Mandahar94a-u} approach discussed above), but
+signs (similar to the approach by \citealt{Mandahar94a-u} discussed above), but
 it is argued that the appropriate values should be semantic
 representations. Using indices as the value of information
 structure-related features (as in the approaches by
-\cite{Paggio2009a-u,song-bender:2012,song2018}) is again
+\citealt{Paggio2009a-u}, \citealt{song-bender:2012} and \citealt{song2018}) is again
 problematic whenever two constituents share their index value, but
 only one of them is assigned a particular information structural
 function. For example, under the assumption that in a head-adjunct
@@ -334,18 +334,18 @@ relate a particular information structure function (e. g., contrast) to the adje
 alone (as in \textit{RED car}).
 
 In \cite{deKuthy2002a}, a tripartite partition of information
-structure into focus, topic, and background is introduced. As to the
-question what kinds of objects should be defined as the values of
+structure into focus, topic and background is introduced. As to the
+question of what kinds of objects should be defined as the values of
 these features, De Kuthy proposes the values of the
 \textsc{info"=struc} features to be chunks of semantic information.  It
 is argued that the semantic representation proposed in \cite{ps2} is
 not appropriate for her purpose, because the semantic composition is
 not done in parallel with the syntactic build-up of a phrase. Instead,
-the Montague-style \citep[cf.\ ][]{DWP81a-u} semantic representation for HPSG proposed in
+the Montague-style \citep[cf.][]{DWP81a-u} semantic representation for HPSG proposed in
 \cite{Sailer2000a} is adopted, in which \textsc{content} values are
 regarded as representations of a symbolic language with a
 model-theoretic interpretation. As the semantic object language under
-\textsc{content} the language Ty2 \citep[cf.\ ][]{Gallin75a-u}) of
+\textsc{content} the language Ty2 \citep[cf.][]{Gallin75a-u} of
 two-sorted type theory is chosen. The resulting feature architecture
 is shown in \pref{fig:info-struc}.
 \ea
@@ -371,7 +371,7 @@ so-called meaningful expressions (semantic terms, cf.
 \citealt{Sailer2000a}) as values. These meaningful expressions (that are
 also used as the representation of logical forms as the \textsc{cont}
 values) are lambda terms formulated in a predicate logic language as
-discussed in more detail in Section \ref{sec:struc-meaning} in example
+discussed in more detail in Section \ref{sec:struc-meaning} in 
 \pref{fig:focus-backgr}.
 
 \section{Information structure principles}
@@ -381,7 +381,7 @@ The approaches sketched above all assume that signs contain some kind
 of structural representation of information structure, with the
 consequence that they need to introduce principles that constrain the
 values of the information structural features. Most approaches thus
-formulate two types of principles as part of their grammar fragment,
+formulate two types of principles as part of their grammar fragment:
 one set of principles on the lexical level tying information structure to word
 level properties such as accents, and another set of principles on the
 phrasal level determining the distribution of information structure
@@ -391,7 +391,7 @@ values between mother and daughters in a phrase.
 \subsection{Instantiating information structure on the word level}
 \label{sec:instant}
 
-In the approach of \cite{EV96a} prosodic properties of
+In the approach of \cite{EV96a}, prosodic properties of
 English, in particular accent placement, are tied to specific information
 structural properties of words and phrases. On the word level, they
 thus introduce two principles that instantiate the information
@@ -424,19 +424,19 @@ Information structure of words \citep[56]{EV96a}:\\
 \z
 Words with an A accent always contribute focal information, i.e. the
 entire sign is structure-shared with the \textsc{info"=struc|focus}
-value, words carrying a B accent contribute link information, i.e. the
+value; words carrying a B accent contribute link information, i.e. the
 entire sign is structure-shared with the
-\textsc{info"=struc|ground|link} value.\footnote{The usage of the terms A accent and B accent goes back to \cite{Jackendoff72a-u}.}
+\textsc{info"=struc|ground|link} value.\footnote{The usage of the terms ``A accent'' and ``B accent'' goes back to \cite{Jackendoff72a-u}.}
 
 A similar set of word level principles is introduced in the approach
 of \citet{deKuthy2002a}, where the information structure of utterances
 in German is also tied to words carrying particular accent patterns.
 The phonology of signs is altered as shown in Figure~\ref{fig:accent}
 to include an \textsc{accent} attribute to encode whether a word
-receives an accent or not, and whether it is a rising or a falling
-accent in case it receives one.
+receives an accent or not, and whether it is a rising or falling
+accent, should it receive one.
 \ea
-Representing pitch accents and accent type hierarchy according to \citep[166]{deKuthy2002a}:\\
+Representing pitch accents and accent type hierarchy according to \citet[166]{deKuthy2002a}:\\
     \begin{center}
       \begin{tabular}{@{}l@{\hspace{4em}}l@{}}
 \begin{avm}
@@ -515,7 +515,7 @@ i.e. a non-empty \textsc{topic} list.
 In the approach of \cite{song2018}, lexical items are subtypes of four
 different \textit{icons-lex-item} types, which specify whether
 lexical items can contribute any information structural information to
-the \textit{icons} list, and if yes, how many items. These four lexical
+the \textit{icons} list, and if yes, how many items can do this. These four lexical
 subtypes are shown in~\pref{ex:song-icons-lex}.
 \ea
 \label{ex:song-icons-lex}
@@ -539,7 +539,7 @@ Lexical types specifying \textsc{icons} values \citep[137]{song2018}
 \ex
 \begin{avm}
   [\tp{two-icons-lex-item}\\
-  icons & \<\ \normalfont{!}\ [],\ []\ \normalfont{!}\ \>]
+  icons & \<\ \normalfont{!}\ []\ ,\ []\ \normalfont{!}\ \>]
 \end{avm}
 \z
 \z
@@ -549,12 +549,12 @@ information structure are of type \textit{no-icons-lex-items}, such as
 relative pronouns or expletives in English.  Nominal items, such as
 common nouns, proper nouns and pronouns, have lexical entries of type
 \textit{basic-icons-lex-item}. These types of words can have an
-information structurally marking, but don't have to. The two other
+information structural marking, but don't have to. The two other
 lexical subtypes are used for verbs with one clausal argument
 (\textit{one-icons-lex-item}) or two clausal arguments
 (\textit{two-icons-lex-items}). The information structural
 contribution of these clausal arguments then has to be part of the
-verbs \textsc{icons} list. All other verbs are not required to have any
+verb's \textsc{icons} list. All other verbs are not required to have any
 elements on their \textsc{icons} list and can thus also be of type
 \textit{basic-icons-lex-item}.
 
@@ -633,20 +633,20 @@ Figure~\ref{fig:info-packaging}.
                 ]
              ]
            \end{forest}  
-  \caption{An example for VP focus in \citep[59]{EV96a}}
+  \caption{An example for VP focus in \citet[59]{EV96a}}
   \label{fig:info-packaging}
 \end{figure}
 In this example, the rightmost NP daughter \textit{the Delft China
   Set} carries an A accent.  According to the principle in
 (\ref{fig:engdahl-word-principle}) shown earlier, the entire sign is
-thus structure-shared with the focus value (or, in Engdahl and
-Valluvi's terms the focus value ``is instantiated''). As a
+thus structure-shared with the focus value (or, in Engdahl \&
+Valluvi's terms, the focus value ``is instantiated''). As a
 consequence, the second clause of the principle in
 (\ref{ex:infostruc-instantiation}) applies and the focus value of the
-VP mother is the sign itself, which is then inherited by the sentence
-itself. Several aspects of the licensing of the structure in
+VP mother is the sign itself, which is then inherited by the sentence. 
+Several aspects of the licensing of the structure in
 Figure~\ref{fig:info-packaging} are not properly spelled out in Engdahl
-and Vallduvi's approach. For example, the analysis seems to presuppose
+\& Vallduvi's approach. For example, the analysis seems to presuppose
 a set of additional principles for focus inheritance in nominal
 phrases which do not straightforwardly follow from the principles
 formulated in~\pref{ex:infostruc-instantiation}.
@@ -670,7 +670,7 @@ values. The background of a sentence in De Kuthy's approach is then defined
 to be that part of the logical form of the sentence which is neither
 in focus nor in topic.  This characterization of background closely
 resembles the definition of background employed by the 
-\textit{structured meaning} approach to focus (cf. \citealt{Krifka92a-u-kopiert}).
+\textit{structured meaning} approach to focus (cf.\ \citealt{Krifka92a-u-kopiert}).
 The \textsc{info"=struc} value of a simple sentence with the focus as
 indicated in~\pref{ex:peter} is thus structured as shown in~\pref{fig:focus-backgr}.
 \begin{exe}
@@ -725,9 +725,9 @@ Principle 1: Extended focus projection principle \citep{dKM2003a}:
                  cont|lf & @3
                 ]\\
        info-str|focus \XlstI{@3}\\
-       non-head-dtrs  \XlstI{..,[synsem [fpp \tpv{plus}\\
+       non-head-dtrs  \XlstI{...,[synsem [fpp \tpv{plus}\\
                                           loc|cont|lf  @4]\\
-                                  info-str|focus \XlstI{@4}],..}] 
+                                  info-str|focus \XlstI{@4}],...}] 
     \end{avm} \ $\vee$ \ \ldots\\
      \end{tabular}
 
@@ -736,22 +736,22 @@ Principle 1: Extended focus projection principle \citep{dKM2003a}:
 \z
 In this case, the mother of a phrase just collects the focus values of
 all her daughters as ensured by the principle in~\pref{fig:focus-projection}.\footnote{The presentation differs from that in
-  \citet{deKuthy2002a}, it is the one from \cite{dKM2003a}. Definitions of the auxiliary relations:
+  \citet{deKuthy2002a}; it is the one from \cite{dKM2003a}. Definitions of the auxiliary relations:
 \begin{center}\avmoptions{center}\smallAvmFonts
 \begin{avm}
 \begin{tabular}[t]{@{}l@{}}
-\rel{\normalfont{\textit{any-dtr}}}\,\(\@{1}\) := \[head-dtr & \@{1}\].\\ 
-\rel{\normalfont{\textit{any-dtr}}}\,\(\@{1}\) := \[non-head-dtrs &
+\rel{\normalfont{\textit{any-dtr}}}\,\(\@{1}\)\ := \[head-dtr & \@{1}\].\\ 
+\rel{\normalfont{\textit{any-dtr}}}\,\(\@{1}\)\ := \[non-head-dtrs &
 \rel{\normalfont{\mathit{element}}}\,\(\@{1}\)\].\\
 \\ 
-\rel{\normalfont{\textit{collect-focus}}}\,\(\,\elst\,\) := \elst.\\ 
-\rel{\normalfont{\textit{collect-focus}}}\,\(\,\<\[info-struc\|focus & \<\@{1}\>\] \ \| \@{2}\>\,\) := \<\@{1} \| \rel{\normalfont{\textit{collect-focus}}}\,\(\,\@{2}\,\) \>.
-\end{tabular}\end{avm}\end{center}\vspace{-2\baselineskip}} The relation \textit{collect-focus} ensures, that from the list of non-head daughters, the \textsc{focus} value of every non-head daughter is added to the list of \textsc{focus} values of the entire phrase.
+\rel{\normalfont{\textit{collect-focus}}}\,\(\,\elst\,\)\ := \elst.\\ 
+\rel{\normalfont{\textit{collect-focus}}}\,\(\,\<\[info-struc\|focus & \<\@{1}\>\] \ \| \@{2}\>\,\)\ := \<\@{1} \| \rel{\normalfont{\textit{collect-focus}}}\,\(\,\@{2}\,\) \>.
+\end{tabular}\end{avm}\end{center}\vspace{-2\baselineskip}} The relation \textit{collect-focus} ensures that from the list of non-head daughters, the \textsc{focus} value of every non-head daughter is added to the list of \textsc{focus} values of the entire phrase.
 A similar principle is needed to determine the \textsc{topic} value of
 phrases.
 
-For cases of so-called focus projection\footnote{Focus projection is a term commonly used to describe that in an utterance with prosodic marking of focus on a word, this marking can lead to ambiguity, in that different constituents containing the word can be interpreted as focused (cf.\  \citealt{Gussenhoven83-u,Selkirk95a-u}).} in NPs and PPs, it is assumed
-in \citep[169]{deKuthy2002a} that it is sufficient to express that the
+For cases of so-called focus projection\footnote{Focus projection is a term commonly used to describe the fact that in an utterance with prosodic marking of focus on a word, this marking can lead to ambiguity, in that different constituents containing the word can be interpreted as focused (cf.\  \citealt{Gussenhoven83-u,Selkirk95a-u}).} in NPs and PPs, it is assumed
+in \citet[169]{deKuthy2002a} that it is sufficient to express that the
 entire NP (or PP) can be focused if the rightmost constituent in that
 NP (or PP) is focused, as expressed by the second disjunct of the
 principle in~\pref{fig:focus-projection}.  If focus projection is
@@ -763,9 +763,9 @@ or a preposition can only be in the focus (i.e., its entire logical
 form is token identical to its \textsc{focus} value) if the daughter
 that contributes the rightmost part of the phonology of the phrase is
 entirely focused itself. The relation \textit{any-dtr} is a description of a sign with a head daughter or a list of non-head daughters and thereby
-ensures, that it can be either the head (i.e. head daughter) of the
+ensures that it can be either the head (i.e. head daughter) of the
 phrase itself, or any non-head daughter that meets the
-condition of being focussed. Again, a similar principle needs to be provided for the
+condition of being focused. Again, a similar principle needs to be provided for the
 \textsc{topic} value of nominal and prepositional phrases.
 
 For the verbal domain, the regularities are known to be influenced by
@@ -775,8 +775,8 @@ need to be able to lexically mark which of their arguments can project
 focus when they are accented, \cite{dKM2003a} introduce the boolean-valued feature
 \textsc{focus"=projection"=potential (fpp)} for objects of type
 \textit{synsem}.  Figure~\ref{fig:fpp-lieben} shows the relevant part
-of the lexical entry of the verb \textit{lieben} 'love' which allows
-projection from the object but not the subject:
+of the lexical entry of the verb \textit{lieben} `love' which allows
+projection from the object but not from the subject:
 \ea
 The focus projection potential of \textit{lieben} \citep{dKM2003a}:
 \begin{center}
@@ -799,10 +799,10 @@ itself.
 
 \subsubsection{Information structure principles in MRS}
 
-As introduced above, in the MRS based approach of \cite{Paggio2009a-u} the
+As introduced above, in the MRS based approach of \cite{Paggio2009a-u}, the
 information structure is part of the \textsc{context}, consisting of
 \textsc{focus}, \textsc{topic} and \textsc{background} features which
-are structure shared with the respective \textsc{index} values of the
+are structure-shared with the respective \textsc{index} values of the
 semantic representation of a phrase. \cite{Paggio2009a-u} connects the
 distribution of information structure values to particular clausal
 types and introduces new phrasal subtypes which constrain the
@@ -813,7 +813,7 @@ with every basic phrasal subtype (such as \textit{hd-comp, hd-spec,
   hd-adj}, etc.) in order to constrain the distribution of focus
 values across all phrasal subtypes.
 \ea
-Principle for focus-inheritance \citep[155]{Paggio2009a-u}\\
+Principle for focus-inheritance \citep[155]{Paggio2009a-u}:\\
 \centering
   \textit{{focus-inheritance}} $\to$
   \begin{avm}
@@ -828,11 +828,11 @@ Principle for focus-inheritance \citep[155]{Paggio2009a-u}\\
     \label{fig:focus-inheritance}
     \z
 The principle in \pref{fig:focus-inheritance} ensures that for
-signs of type \textit{focus-inheritance} the list of focus values
+signs of type \textit{focus-inheritance}, the list of focus values
 of the mother is the list of focus values of the head
 daughter\footnote{This is not correctly specified in the original
-principle as formulated by \citep{Paggio2009a-u}. If the
-head-daughter can have a list with more than one element as its
+principle as formulated by \citet{Paggio2009a-u}. If the
+head daughter can have a list with more than one element as its
 \textsc{focus} value, then this entire list would have to be
 added to the list of \textsc{focus} values of the mother, and
 not just be one element of that list.} plus the focus value of
@@ -847,11 +847,11 @@ subtype \textit{focus-hd-adj} that is a subtype both of
 clausal types are introduced that account for the information
 structure values at the top level of a clause. For example, the
 specification for \textit{decl-main-all-focus} as shown
-in~\pref{fig:decl-main-all-focus}, is a clause, in which both the
+in~\pref{fig:decl-main-all-focus} is a clause in which both the
 background and the topic values are empty and the mother collects
 the focus values from the head and the non-head
-daughter.\footnote{Again, the list specifications as formulated by
-\citep{Paggio2009a-u} are not entirely correct: if the head
+daughters.\footnote{Again, the list specifications as formulated by
+\citet{Paggio2009a-u} are not entirely correct: if the head
 daughter's \textsc{focus} value \idx{2} is a list with more than
 one element, this list has to be added to the list of
 \textsc{focus} values of the mother.}
@@ -904,19 +904,19 @@ to the question \textit{What happened?} and signal broad focus.
     \ex {\LF The \textsc{dog} barks\RF.}
   \end{xlist}
 \end{exe}
-The approach pursued in \cite{song-bender:2012} thus assumes, that the
+The approach pursued in \cite{song-bender:2012} thus assumes that the
 two possible readings in (\ref{ex:underspec-focus}) are further
 specializations of one MRS which is associated with one syntactic
 structure and includes underspecified values, in particular the type
 of the \textsc{icons} element for the constituent \textit{barks},
-leaving it open whether it is part of the focus or not.
+leaving it open whether that is part of the focus or not.
 
 In \cite{song2018}, this approach is further spelled out and lexical
 rules allowing transitive and ditransitive verbs to be a possible
 source for focus projection. In an example such as
-\pref{ex:song-ditrans-focus}, \cite{song2018} assumes, that focus can
+\pref{ex:song-ditrans-focus}, \cite{song2018} assumes that focus can
 only project if the last argument is accented as in
-\pref{ex:song-ditrans-focus-b} (here the noun \textit{book} shown in
+\pref{ex:song-ditrans-focus-b} (here accent is shown on the noun \textit{book} in
   small caps), but not if some other argument is accented, as in
   \pref{ex:song-ditrans-focus-a}, where the proper noun \textit{Lee}
   is accented.
@@ -934,7 +934,7 @@ which are derived by the lexical rules shown
 in~\pref{ex:song-focus-projection}.
 \ea
 \label{ex:song-focus-projection}
-Focus projection lexical rules \citep[227]{song2018}
+Focus projection lexical rules \citep[227]{song2018}:
 \ea
 \textit{no-focus-projection-rule}
 $\rightarrow$
@@ -963,28 +963,28 @@ The lexical rule \textit{no-focus-projection-rule} requires lexical
 entries to have a non-focus-marked element as the last element on the
 \textsc{comps} list, and in addition the word itself has an
 \textsc{icons-key} of type \textit{non-focus} preventing the word
-itself to be focussed. The lexical rule \textit{focus-projection-rule}
-has a focus-marked element as the last element on the \textsc{comps}
+itself from being focused. The lexical rule \textit{focus-projection-rule}
+has a focus-marked element as the last element in the \textsc{comps}
 list. It is not further specified whether only that focussed
 complement or also the word itself contributes anything to the
-\textit{icons} value. In the example~\pref{ex:song-ditrans-focus-b},
+\textsc{icons} value. In the example~\pref{ex:song-ditrans-focus-b},
 if the verb \textit{sent} is licensed by the rule
-\textit{focus-projection-rule}, either only \textit{the book} can be
-focussed, or the entire VP \textit{sent Lee the book}, or even the
-entire sentence \textit{Kim sent Lee the book} could be focussed.
+\textit{focus-projection-rule}, either only \textit{the book},
+or the entire VP \textit{sent Lee the book}, or even the
+entire sentence \textit{Kim sent Lee the book} could be focused.
 
 Since the approach of \cite{song2018} is part of a larger grammar
-fragment (the LinGO Grammar Matrix, \citealt{BDFPS2010a-u}) with the aim
+fragment (the LinGO Grammar Matrix; \citealt{BDFPS2010a-u}) with the aim
 of parsing and generating sentences from a large number of different
 languages, it contains a multitude of lexical and phrasal types and
 principles. Some of these specifications are introduced to capture
 very language-specific information structure properties (such as
-morphological markings, word order constraints etc.), others are
-necessary for the specific way of how grammar fragments in the LinGO
+morphological markings, word order constraints, etc.), while others are
+necessary for the specific way in which grammar fragments in the LinGO
 Grammar Matrix are implemented and processed. It would be far beyond
 the scope of this article to discuss all these principles and
-specifications in detail and we therefore only included the most
-essential aspects of Song's approach in our discussion here.
+specifications in detail and I therefore only included the most
+essential aspects of Song's approach in my discussion here.
 % Unfortunately
 % they don't specify how a potential focus projection or focus
 % instantiation principle for a non-ambiguous phrase could look like in
@@ -1008,7 +1008,7 @@ topics. In the approaches of \cite{deKuthy2002a} and \cite{Paggio2009a-u}, an ad
 topics from the rest of the background.
 
 Most approaches don't introduce separate mechanisms for the
-distribution of \textsc{topic} values, but assume that similar
+distribution of \textsc{topic} values, but rather assume that similar
 principles as the ones introduced for focus can constrain topic
 values, as mentioned above for the approach of \cite{deKuthy2002a}. A
 more specific example can be found in \cite{Paggio2009a-u}, where a
@@ -1046,7 +1046,7 @@ Figure~\ref{fig:inv-topic-comment}.
 \end{figure}
 This \textit{inv-topic-comment} phrasal type constrains the
 information structure values of topicalization constructions in Danish
-characterized by subject verb inversion,\footnote{Although Danish is generally considered to be a V2 language, where any kind of constituent (not only the subject) can occur in the position before the finite verb, \cite{Paggio2009a-u} seems to assume, that clauses, in which a dependent different from the subject, i.e. an object or some adjunct phrase, occurs before the finite verb, have a different structure than those where the subject occurs in the sentence initial position.} where the topic corresponds
+characterized by subject verb inversion,\footnote{Although Danish is generally considered to be a V2 language, where any kind of constituent (not only the subject) can occur in the position before the finite verb, \cite{Paggio2009a-u} seems to assume that clauses in which a dependent different from the subject, i.e. an object or some adjunct phrase, occurs before the finite verb have a different structure than those where the subject occurs in the sentence-initial position.} where the topic corresponds
 to the topicalized complement, as illustrated by the example in
 (\ref{ex:inv-topic-comment}) from \cite{Paggio2009a-u}.
 \begin{exe}
@@ -1056,10 +1056,10 @@ to the topicalized complement, as illustrated by the example in
   \trans `And in the lowest window you take and put the flowerpot.'
 \end{exe}
 
-In \cite{song2018}, a number of lexical and phrasal principles is
+In \cite{song2018}, a number of lexical and phrasal principles are
 provided with the purpose of licensing topic-comment structures. The
 principles and lexical entry in~\pref{ex:song-topic} are spelled out
-in order to license wa constructions in Japanese with a left
+in order to license \emph{wa} constructions in Japanese with a left
 dislocated topic phrase.
 \ea
 \label{ex:song-topic}
@@ -1098,14 +1098,14 @@ $\rightarrow$
 The constraint in~\pref{ex:song-topic-a} on the phrasal subtype
 \textit{topic-comment} ensures that only the non-head daughter is
 marked as a topic, whereas the head daughter functions as the comment
-(and presumably contains some focussed material). The specification
+(and presumably contains some focused material). The specification
 [\textsc{l-periph} +] indicates that a constituent with this feature
 value cannot be combined with another constituent leftward.
 
 A Japanese topic-comment structure, such as the one
-in~\pref{ex:song-wa} \citep[198]{song2018} is licensed by the phrasal
+in~\pref{ex:song-wa} \citep[198]{song2018}, is licensed by the phrasal
 subtype \textit{top-scr-comp-head}, i.e. it is assumed that the
-fronted complement, the wa-marked NP \textit{sono hon was} `the book'
+fronted complement, the \emph{wa}-marked NP \textit{sono hon wa} `the book'
 is scrambled to the left peripheral position and is interpreted as a
 contrastive topic phrase.
 \ea
@@ -1114,7 +1114,7 @@ contrastive topic phrase.
 Det book wa Kim nom read \\
 \trans `This book, Kim read.'
 \z
-The topic marker wa in Japanese is treated as an adposition with the
+The topic marker \emph{wa} in Japanese is treated as an adposition with the
 lexical specifications shown in \pref{ex:song-topic-c}. The entire
 sentence is thus licensed as a head complement structure, where the
 object NP is scrambled to the sentence initial position and functions
@@ -1131,7 +1131,7 @@ colleagues can be extended to capture givenness and to make the right
 predictions for so-called \emph{deaccenting}, which has been shown to be
 widespread \citep{buering:06}.  In contrast to
 \cite{Schwarzschild99a-u}, who spells out his approach in the framework
-of alternative semantics \cite{Rooth92a-u}, they show how the notion of
+of alternative semantics \citep{Rooth92a-u}, they show how the notion of
 givenness can be couched in a standard structured meaning approach --
 thereby preserving the explicit, compositional representations of focus.
 
@@ -1151,20 +1151,20 @@ setup.
 
 
 The context in (\ref{ex:vehicle-context}) introduces some conference participants, Bill, the rental of
-vehicles, and red and blue convertibles into the discourse.  Based on
+vehicles and red and blue convertibles into the discourse.  Based on
 this context, when considering the question
 (\ref{ex:vehicle-context-question}) asking for the object that John is
 renting as the focus, one can  answer this question with sentence (\ref{ex:green}), where
 \textit{a green convertible} is the focus: out of all the things John
 could have rented, he picked a green convertible. In this focus, only
 \textit{green} is new to the discourse, whereas convertibles were
-already given in the context, and still the entire NP is in the focus
+already given in the context, and still the entire NP is in the focus.
 
 To capture such cases of focus projection, an additional feature
 \textsc{given} is introduced as part of the setup of
-\cite{deKuthy2002a} as already discussed in Section \ref{sec:struc-meaning}. The
+\cite{deKuthy2002a}, as already discussed in Section \ref{sec:struc-meaning}. The
 relation between pitch accents and the information structure of words
-is still defined by the principle shown~\pref{fig:words2}
+is still defined by the principle shown in~\pref{fig:words2},
 depending on the type of accent the word receives.
 \ea
 Relating intonation and information structure for words \citep{DeKuthy.Meurers-11}:
@@ -1276,13 +1276,13 @@ disjunct of the principle in~\pref{fig:verbal-focus-projection}
 specifies that the mother of a phrase can be in the focus (i.e., the
 entire \textsc{lf} value of the mother's \textsc{content} is token
 identical to an element on the mother's \textsc{focus} list) if it is
-the case that the list of all daughters (provided by \rel{\normalfont{\textit{dtrs-list}}}, a relational description of a list containing signs that are given)
+the case that the list of all daughters (provided by \type{dtrs-list}, a relational description of a list containing signs that are given)
 consists of \textit{given} signs into which a single \textit{focused}
 sign is shuffled ($\bigcirc$).\footnote{The relation ``shuffle'' $\bigcirc$ is used as originally introduced in  \cite{Reape94}: the result is a list that contains all element from the two input lists and the order of elements from the original lists is preserved.}  \footnote{If only binary structures are
   assumed, as in the examples in this chapter, the principle can be
-  simplified. We here kept the general version with recursive
+  simplified. Here, I kept the general version with recursive
   relations following \citet{dKM2003a}, which also
-  support flatter structures.} As before, a sign is focused if its
+  supports flatter structures.} As before, a sign is focused if its
 \textsc{lf} value is token identical to an element of its
 \textsc{focus} value; and a sign is given if its \textsc{lf} value is
 token identical to an element of its \textsc{given} value.
@@ -1291,9 +1291,9 @@ The pitch accent in this example is on the adjective \textit{green} so
 that the principle in~\pref{fig:words} on p.~\pageref{fig:words} licenses structure
 sharing of the adjective's content with its \textsc{focus} value. In
 the context of the question (\ref{ex:vehicle-context-question}), the
-entire NP \textit{a green convertible} of example (\ref{ex:green}) is
+entire NP \textit{a green convertible} from example (\ref{ex:green}) is
 in the focus. In the phrase \textit{green convertible}, the clause
-licensing focus projection in NPs does not apply since the adjective
+licensing focus projection in NPs does not apply, since the adjective
 \textit{green}, from which the focus has to project in this case, is
 not the rightmost element of the phrase.  What does apply is the
 fourth disjunct of the principle licensing focus projection in
@@ -1319,15 +1319,15 @@ order to discourse properties.
 
 One first such approach is presented in \cite{EV96a}, where word order
 constraints for \ili{Catalan} are couched into the information
-structure set up discussed in Section \ref{sec:infostruc-phrase}. The
-basic observation is that in Catalan the word order within the
+structure setup discussed in Section \ref{sec:infostruc-phrase}. The
+basic observation is that in Catalan, the word order within the
 sentential core is \is{VOS} and that every constituent within this
 sentential core is interpreted as focal. If an argument of the main
 verb of a sentence is to be interpreted as non-focal, it must be
 clitic-dislocated. The example in \pref{ex:catalan} from \cite{EV96a}
 illustrates the two possible cases: the argument \textit{a Barcelona}
-'to Barcelona' can be topicalized \pref{ex:catalan-a} or positioned at
-the end of the sentence \pref{ex:catalan-b} in order to be interpreted
+`to Barcelona' can be topicalized as in \pref{ex:catalan-a} or positioned at
+the end of the sentence as in \pref{ex:catalan-b} in order to be interpreted
 as non-focal.
 
 \begin{exe}
@@ -1343,9 +1343,9 @@ as non-focal.
   \end{xlist}
 \end{exe}
  
-With respect to modelling this within the HPSG account, they assume
+With respect to modeling this within the HPSG account, they assume
 that phrases associated with a \textsc{link} interpretation should be
-constrained to be left dislocated whereas phrases associated with a
+constrained to be left dislocated, whereas phrases associated with a
 \textsc{tail} interpretation should be right attached.
 They thus introduce the following ID schema for Catalan:
 \begin{sloppy}
@@ -1355,7 +1355,7 @@ They thus introduce the following ID schema for Catalan:
   \textit{head-disloc"=struc} whose
   \textsc{head-dtr|""syn\-sem|""local|""category} value satisfies the
   description\\
-  \begin{avm} [head \type{verb}[vform \type{finite}], subcat \elst]
+  \begin{avm} [head \type{verb} [vform \type{finite}], subcat \elst]
   \end{avm}, and whose
   \textsc{disloc"=dtrs|""context|""info"=struc} value is instantiated and
   for each \textsc{disloc"=dtr}, the
@@ -1382,14 +1382,14 @@ focus material and focus material must precede tails. By this,
 \cite{EV96a} want to ensure that left-detached constituents are always
 interpreted as links and right-detached constituents as tails.
 
-The insights from Engdahl and Vallduvi's approach are the basis for an
+The insights from Engdahl \& Vallduvi's approach are the basis for an
 approach accounting for \isi{clitic left dislocation} in \ili{Greek} presented by
 \cite{AK2002a}. The representation of information structure with the
-features \textsc{focus}, and \textsc{ground} (further divided into
-\textsc{link} and \textsc{tail}), is taken over as well as the
-phonological constraints on words and the information"=structure
+features \textsc{focus} and \textsc{ground} (further divided into
+\textsc{link} and \textsc{tail}) is taken over as well as the
+phonological constraints on words and the information structure
 instantiation principle. In order to account for clitic left
-dislocation, as illustrated in example \pref{ex:clld-greek}, an
+dislocation, as illustrated in \pref{ex:clld-greek}, an
 additional feature \textsc{clitic} is introduced as appropriate for
 \textit{nonlocal} objects.
 
@@ -1410,7 +1410,7 @@ The Linkhood Constraint shown in~\pref{fig:clld-constraint}
 ensures that links (i.e. elements whose \textsc{info"=struc|link} value
 is instantiated) can only be fillers that are ``duplicated'' in the
 morphology by a pronominal affix, i.e. it is required that there is an
-element \idx{1} on the \textsc{clitic} list of the head daughter that is structure shared with the filler's \textsc{head} value. The use of the \isi{disjoint union} relation $\uplus$\footnote{\citet{AK2002a} provide no exact definition for the use of the symbol $\uplus$ (disjoint union), but a definition that is often used within HPSG approaches can be found in \citet{Manandhar94b-u}.} ensures that singleton element \idx{1} representing the doubled clitic is the only element on the phrase's clitic list with these specifications. In addition it is required that the filler-daughter \idx{2} is structure shared with the \textsc{link} attribute in the information structure of the mother. 
+element \idx{1} on the \textsc{clitic} list of the head daughter that is structure-shared with the filler's \textsc{head} value. The use of the \isi{disjoint union} relation $\uplus$\footnote{\citet{AK2002a} provide no exact definition for the use of the symbol $\uplus$ (disjoint union), but a definition that is often used within HPSG approaches can be found in \citet{Manandhar94b-u}.} ensures that the singleton element \idx{1} representing the doubled clitic is the only element on the phrase's clitic list with these specifications. In addition, it is required that the filler-daughter \idx{2} is structure-shared with the \textsc{link} attribute in the information structure of the mother. 
 \ea
 The Linkhood Constraint for clitic left dislocation phrases \citep[238]{AK2002a}:\\
   \centering
@@ -1422,32 +1422,32 @@ $\to$\
   @2[phon|accent & u\\
      head & @1], \textbf{H} [\tp{phrase}\\
                               head & verb\\
-                              clitic & \{@1\} $\uplus$ @{$\sum_2$} ]
+                              clitic & \{@1\}\ $\uplus$ @{$\sum_2$} ]
 \end{avm}
   \label{fig:clld-constraint}
 \z
-The Linkhood Constraint thus has two purposes, it ensures clitic
+The Linkhood Constraint thus has two purposes: it ensures clitic
 doubling and it connects the particular word order of left dislocated
 phrase to discourse properties by requiring the filler daughter to be
 the link of the entire clause.
 
 Other approaches dealing with left dislocated phrases are the ones by
-\cite{deKuthy2002a} and \citet{dKM2003a}: the latter relates the
+\cite{deKuthy2002a} and \citet{dKM2003a}; the latter relates the
 occurrence of discontinuous NPs in \ili{German} to specific
-information"=structural contexts, while \citet{dKM2003a} show that the
-realization of subjects as part of fronted non-finite constituent and
+information structural contexts, while \citet{dKM2003a} show that the
+realization of subjects as part of fronted non-finite constituents and
 its constraints can be accounted for based on independent
-information"=structure conditions.
+information structure conditions.
 
 Based on the setup discussed in Section \ref{sec:struc-meaning} above,
-constraints are formulated that constrain the occurrence of
+constraints are formulated that restrict the occurrence of
 discontinuous NPs and fronted VPs based on their information structure
 properties. The type of discontinuous NPs at the center of De
 Kuthy's approach are so-called NP-PP split constructions, in which a PP
 occurs separate from its nominal head, as exemplified in
 (\ref{ex:np-pp}).
 
-Example (\ref{ex:np-pp}) illustrated the type of discontinuous NPs 
+%Example (\ref{ex:np-pp}) illustrated the type of discontinuous NPs 
 \begin{exe}
   \ex\label{ex:np-pp} \begin{xlist}
     \ex\label{ex:simple-fronted-pp}\gll \textsl{Über Syntax} hat Max sich [ein
@@ -1476,7 +1476,7 @@ list of the \textsc{info"=struc} value of the utterance.
 As discussed in \cite{dKM2003a}, it has been observed that in
 \ili{German} it is possible for unergative and \isi{unaccusative} verbs to
 realize a subject as part of a fronted non-finite verbal
-constituent \citep{Haider90-ohne-crossref}. This is exemplified in (\ref{ex:erg-subj-fronted}):
+constituent \citep{Haider90-ohne-crossref}. This is exemplified in (\ref{ex:erg-subj-fronted}) with examples from \citet[94]{Haider90-ohne-crossref}:
 
 \begin{exe}
 \ex\label{ex:erg-subj-fronted}
@@ -1490,14 +1490,14 @@ constituent \citep{Haider90-ohne-crossref}. This is exemplified in (\ref{ex:erg-
 \ex\label{ex:nonerg-subj-fronted}
       \gll [Ein Außenseiter gewonnen] hat hier noch nie.\\
            {\LB}an.\nom{} outsider won has hier still never\\
-        \trans `An outsider has never won here yet.'  \citep[94]{Haider90-ohne-crossref}
+        \trans `An outsider has never won here yet.' 
   \end{xlist}
 \end{exe}
 
 In order to account for the context-sensitive occurrence of such
 fronted verbal constituents, specific information structure properties
 of fronted verb phrases need to be expressed in a principle expressing
-what De Kuthy and Meurers refer to as Webelhuth's generalization \citep[53]{Webelhuth90-ohne-crossref}: In
+what De Kuthy \& Meurers refer to as Webelhuth's generalization \citep[53]{Webelhuth90-ohne-crossref}: In
 an utterance in which a verb phrase occurs as a fronted constituent
 (i.e., the filler of a head-filler phrase) this entire verb phrase
 must be in the focus of the utterance (i.e., the \textsc{focus} value
@@ -1523,10 +1523,10 @@ $\to$\
 \end{flushright}\unskip
 \z
 Combining the new lexical specifications, the focus projection rule
-for the verbal domain, and the partial fronting focus requirement with
-the basic setup of \cite{deKuthy2002a} one obtains a theory which
+for the verbal domain and the partial fronting focus requirement with
+the basic setup of \cite{deKuthy2002a}, one obtains a theory which
 predicts that subjects can only be part of a fronted verb phrase
-if they can be the focus exponent.\footnote{Not every element in a syntactic phrase corresponding to the focus is prosodically prominent but generally only one element, the so-called \textit{focus exponent} (cf.\ \citealt{Selkirk95a-u}).} The sketch of an analysis for an
+if they can be the focus exponent.\footnote{Not every element in a syntactic phrase corresponding to the focus is prosodically prominent. Generally only one elementis: the so-called \textit{focus exponent} (cf.\ \citealt{Selkirk95a-u}).} The sketch of an analysis for an
 example such as (\ref{ex:nonerg-subj-fronted}) is illustrated in
 Figure~\ref{fig:focus-exponent}.
   \begin{figure}[htb]
@@ -1535,8 +1535,8 @@ Figure~\ref{fig:focus-exponent}.
     \caption{Partial VP fronting in \cite{dKM2003a}}
     \label{fig:focus-exponent}
   \end{figure}
-  The entry of \textit{gewinnen} (to win) (the base form of the verb
-  \textit{gewonnen} in example (\ref{ex:nonerg-subj-fronted}) in
+  The entry of \textit{gewinnen} `to win' (the base form of the verb
+  \textit{gewonnen}) in (\ref{ex:nonerg-subj-fronted}) in
   Figure~\ref{fig:lex-entry} encodes the lexical property that the
   subject of this intransitive verb has focus projection potential.
 \begin{figure}[htb!]
@@ -1552,9 +1552,9 @@ Figure~\ref{fig:focus-exponent}.
 \end{center}\unskip
 \end{figure}
 
-Under the assumption that in example (\ref{ex:nonerg-subj-fronted})
+Under the assumption that in (\ref{ex:nonerg-subj-fronted})
 the noun \textit{Außenseiter} carries a pitch accent, the
-information"=structure principle for words in~\pref{fig:words} on p.~\pageref{fig:words}
+information structure principle for words in~\pref{fig:words} on p.~\pageref{fig:words}
 ensures that the noun contributes its \textsc{logical-form} value to
 its \textsc{focus} value. The focus projection principle in~\pref{fig:focus-projection} on p.~\pageref{fig:focus-projection} ensures that the focus can project
 over the entire NP \textit{ein Außenseiter}, i.e., its \textsc{focus}
@@ -1566,10 +1566,10 @@ domain in~\pref{fig:focus-projection} licenses the focus to
 project over the entire fronted verb phrase \textit{ein
   Außenseiter gewonnen}. The fronted constituent thus contributes its
 \textsc{lf} value to its \textsc{focus} value. In this example, the
-focus does not project further so that in the head-filler phrase the
+focus does not project further, so that in the head-filler phrase the
 focus values of the two daughters are simply collected as licensed by
-the first disjunct of the focus principle in~\pref{fig:focus-projection} we discussed earlier in
-section~\ref{sec:struc-meaning}. As a result, the \textsc{focus} value
+the first disjunct of the focus principle in~\pref{fig:focus-projection} discussed earlier in
+Section~\ref{sec:struc-meaning}. As a result, the \textsc{focus} value
 of the fronted verb phrase is the \textsc{focus} value of the
 entire sentence. Finally, note that the example satisfies Webelhuth's
 generalization, which requires a fronted verb phrase to be the
@@ -1577,12 +1577,12 @@ focus of the utterance as formalized in the principle in~\pref{fig:webelhuths-ge
 
 In the same spirit, \cite{BC2010a} show that sentences in which
 multiple elements have been fronted \is{multiple fronting} are directly linked to specific
-types of information structure. In German as a V2 language, normally
+types of information structure. In German, a V2 language, normally
 exactly one constituent occurs in the position before the finite verb
 in declarative sentences. But so-called multiple fronting examples
 with more than one constituent occurring before the finite verb have
-been well attested in naturally occurring data \citep{Mueller2003b}. Two examples from
-\cite{BC2010a} are shown in (\ref{ex:multiple-fronting}).\footnote{The examples are corpus examples that were extracted by \cite{BC2010a} from Deutsches Referenzkorpus (DeReKo), hosted at Institut für Deutsche Sprache, Mannheim: http://www.ids-mannheim.de/kl/projekte/korpora}
+been well attested in naturally-occurring data \citep{Mueller2003b}. Two examples from
+\cite{BC2010a} are shown in (\ref{ex:multiple-fronting}).\footnote{The examples are corpus examples that were extracted by \cite{BC2010a} from Deutsches Referenzkorpus (DeReKo), hosted at the Institut für Deutsche Sprache, Mannheim: http://www.ids-mannheim.de/kl/projekte/korpora}
 \begin{exe}
   \ex\label{ex:multiple-fronting}
   \begin{xlist}
@@ -1596,23 +1596,23 @@ been well attested in naturally occurring data \citep{Mueller2003b}. Two example
 
 \end{exe}
 
-But, as discussed by Bildhauer and Cook, such multiple fronting
+But, as discussed by Bildhauer \& Cook, such multiple fronting
 examples seem to require very special discourse conditions in order to
 be acceptable. Just like the fronted verb phrases discussed in
 \cite{dKM2003a} above, \cite{BC2010a} propose
-to analyze multiple fronting constructions in German as head-filler
-phrases, which in this case introduce a topic shift. Following the
+analyzing multiple fronting constructions in German as head-filler
+phrases which in this case introduce a topic shift. Following the
 approach by \cite{Mueller2005d-unlinked}, multiple fronting
 configurations can be identified via the filler daughter which must
-have a \textsc{head|dsl} (double shlash) value of type
-\textit{local}.\footnote{In Müller’s (2005) formalization, filler daughters in multiple fronting configurations (and only in these) have a  \textsc{head|dsl} value of type \textit{local}, i.e., they contain information about an empty verbal head. The \textsc{dsl} (‘double slash’) feature is needed to model the HPSG equivalent of verb movement from the sentence final position to initial position. } As introduced above, \cite{BC2010a} assume that an
+have a \textsc{head|dsl} (double slash) value of type
+\textit{local}.\footnote{In \citegen{Mueller2005d-unlinked} formalization, filler daughters in multiple fronting configurations (and only in these) have a  \textsc{head|dsl} value of type \textit{local}, i.e., they contain information about an empty verbal head. The \textsc{dsl} (‘double slash’) feature is needed to model the HPSG equivalent of verb movement from the sentence-final position to initial position. } As introduced above, \cite{BC2010a} assume that an
 information structure attribute is specified in \textit{synsem}
 objects, with the features \textsc{focus} and \textsc{topic} taking
 lists of \textit{elementary predications} as their values. In general,
 multiple fronting \textit{head-filler} phrases are restricted by the
 constraint in~\pref{fig:multiplefronting}.
 \ea
-Relating multiple fronting to focus \citep[75]{BC2010a}\\
+Relating multiple fronting to focus \citep[75]{BC2010a}:\\
   \centering
     \begin{avm}
       [\tp{head-filler-phrase}\\
@@ -1643,7 +1643,7 @@ are instances of multiple frontings are restricted to have an
   \textsc{topic} and \textsc{focus} values, such as \textit{pres} for
   presentational focus or \textit{a-top-com} for
   assessed-topic-comment.} The second constraint then ensures that in
-presentational multiple frontings the designated topic of the head
+presentational multiple frontings, the designated topic of the head
 daughter (i.e. the verbal head of the \textit{head-filler-phrase})
 must be focused. The feature \textsc{dt} (designated topic) lexically specifies which
 element, if any, is normally realized as the topic of a particular
@@ -1653,8 +1653,8 @@ that would preferably be the topic is realized as a focus. A similar
 constraint is introduced for another instance of multiple frontings,
 which is called \textit{propositional assessment} multiple
 fronting. Here it has to be ensured that the designated topic must be
-realized as the topic somewhere in the head-daughter and the
-head-daughter must also contain a focused element.
+realized as the topic somewhere in the head daughter and the
+head daughter must also contain a focused element.
 
 \cite{Webelhuth2007a-u} provides another account of the special
 information structural requirements of fronted constituents, in this
@@ -1665,7 +1665,7 @@ of word order and information structural constraints.
 \end{exe}
 
 The principles part of Webelhuth's account require that in such cases
-of predicate fronting the auxiliary is focussed and the remainder of
+of predicate fronting, the auxiliary is focused and the remainder of
 the sentence is in the background. The two
 principles needed for this interaction are shown in~\pref{fig:predicatepreposing}.
 \ea
@@ -1694,7 +1694,7 @@ $\to$\
   \label{fig:predicatepreposing}
 \z
 The first constraint ensures that auxiliary words whose predicate
-complement have the potential to be preposed (i.e. is of type \textit{gap-ss}) have the
+complement has the potential to be preposed (i.e. is of type \textit{gap-ss}) have the
 information status \textit{focus}, whereas the status of the first
 argument (the subject) is \textit{background}. Additional constraints
 then ensure that auxiliary words with a gapped second argument can
@@ -1703,15 +1703,15 @@ predicate preposing phrases contain the right kind of auxiliary.
 
 \section{Information structure and prosody}
 \label{sec:prosody}
-A lot of languages mark information structure \is{prosody} prosodically, as for
+A lot of languages mark information structure \is{prosody} prosodically, like for
 example English and German, where pitch accents of various shapes are
-used to mark focus. Accordingly, several of the above discussed
-approaches include a component, which enriches the phonology representation
+used to mark focus. Accordingly, several of the approaches discussed above
+include a component which enriches the phonology representation
 of signs such that it allows the integration of the necessary prosodic
-aspects, as for example accents.
+aspects like accents.
 
-\cite{EV96a} assume, that signs can be marked for particular accents
-signalling focus or links in English, so-called A and B \isi{accents}.
+\cite{EV96a} assume that signs can be marked for particular accents
+signaling focus or links in English, so-called A and B \isi{accents}.
 In a similar way, \cite{deKuthy2002a} extends the value of
 \isfeat{phon} \textsc{phon} such that it includes a feature
 \isfeat{accent} \textsc{accent}, in order to formulate constraints on
@@ -1721,37 +1721,37 @@ of the prosodic properties of the respective language that is being
 investigated with respect to discourse properties. As a result, most
 approaches do not go beyond the postulation of one or two particular
 accents, which are then somehow encoded as part of the \textsc{phon}
-value. These accents more or less serve as an illustration how lexical
+value. These accents more or less serve as an illustration of how lexical
 principles can be formulated within a particular theory that constrain
 the distribution of information structural values on the lexical
 level. The more articulate such a representation of \textsc{phon}
-values including accent pattern, intonation contours, boundary tone
-etc is, the more detailed the principles could be that are needed to
+values including accent pattern, intonation contours, boundary tone,
+etc. is, the more detailed the principles could be that are needed to
 connect information structure to prosodic patterns in languages that
 signal discourse properties via intonation contours.
 
-In \cite{Bildhauer2008a}, such a detailed account of the prosodic
-properties of \ili{Spanish} is developed together with a proposal how to
+In \cite{Bildhauer2008a}, one such detailed account of the prosodic
+properties of \ili{Spanish} is developed together with a proposal for how to
 integrate prosodic aspects into the \textsc{phon} value, also allowing
 a direct linking of the interaction of prosody and information
 structure.  In his account, the representation of \textsc{phon} values
-in HPSG is enriched to include four levels of prosodic constituency,
-i.e., phonological utterance, intonational phrases, phonological
+in HPSG is enriched to include four levels of prosodic constituency:
+phonological utterance, intonational phrases, phonological
 phrases and prosodic words. The lowest level, prosodic words of type
 \textit{pwrd}, include the feature \textsc{segs}, which corresponds to
 the original \textsc{phon} value assumed in HPSG, and additional
-features such as \textsc{pa} for pith accents or \textsc{bd} for
-boundary tones, to encode whether a boundary tone is realized on that
+features such as \textsc{pa} for pitch accents or \textsc{bd} for
+boundary tones, which encodes whether a boundary tone is realized on that
 word. The additional features \textsc{ut} (phonological utterance),
 \textsc{ip} (intonational phrase) and \textsc{php} (phonological phrase)
 encode via the typ \textit{epr} (edges and prominence) which role
 a prosodic word plays in higher level constituents. For example, the
-feature \textsc{dte} (designated terminal element) specifies, whether
+feature \textsc{dte} (designated terminal element) specifies whether
 the word is the most prominent one in a phonological phrase. A sign's
-\textsc{phon} list then contains all \textit{pwrd} objects and
+\textsc{phon} list then contains all \textit{pwrd} objects, and
 relational constraints define the role each prosodic word plays in
 the higher prosodic constituents. This flat representation of prosodic
-constituency still allows to express constraints about intonational
+constituency still makes it possible to express constraints about intonational
 contours associated with certain utterance types. One example
 discussed in Bildhauer's work is the contour associated with broad
 focus declaratives in \ili{Spanish}, which can be decomposed into a
@@ -1759,7 +1759,7 @@ sequence of late-rise (L*H) prenuclear accents, followed by an
 early-rise nuclear accent (LH*), followed by a low boundary tone
 (L\%). The constraint introduced to model this contour for declarative
 utterances thus instantiates the \textsc{bd} value (boundary tone) of
-the last \textit{pwrd} (prosodic word) in the \textsc{phon} list to low, instantiates
+the last \textit{pwrd} (prosodic word) in the \textsc{phon} list to \textit{low}, instantiates
 a nuclear pitch accent \textit{low-high-star} on this rightmost
 prosodic word and ensures that a prenuclear pitch accent
 \textit{low-star-high} is instantiated on every preceding compatible
@@ -1779,18 +1779,18 @@ $\wedge$\\
 $\wedge$\\
 & &
 \begin{avm}
-@2 = \normalfont{\textit{list}}([pa & none]) $\shuffle$ \normalfont{\textit{list}}([pa & low-star-high])\end{avm}
+@2 = \normalfont{\textit{list}}([pa & none])\ $\shuffle$ \normalfont{\textit{list}}([pa & low-star-high])\end{avm}
 \\[4ex]
 \begin{avm}
 [\normalfont{\textit{sign}}\\
-  embed & $-$]\end{avm} & $\rightarrow$ & \begin{avm} [phon @1] $\wedge$ \normalfont{\textit{decl-tune}}(@1)
+  embed & $-$]\end{avm} & $\rightarrow$ & \begin{avm} [phon @1]\ $\wedge$ \normalfont{\textit{decl-tune}}(@1)
   \end{avm}  \\
   \end{tabular}
 \label{fig:spanish-intonation}
 \z
 The second constraint in~\pref{fig:spanish-intonation} ensures
-that only unembedded utterances can be constrained to the just
-described declarative tune. That this specific contour is then
+that only unembedded utterances can be constrained to the 
+declarative prosody described above. That this specific contour is then
 compatible with a broad focus reading is ensured by an additional
 principle expressing a general focus prominence constraint for
 \ili{Spanish}, namely that focus prominence has to fall on the last prosodic
@@ -1811,11 +1811,11 @@ Focus prominence in Spanish \citep[146]{Bildhauer2008a}:\\
 \z
 Since only words
 that are the designated terminal element (\textsc{dte}) can bear a
-pitch accent, the interplay of the two principles above ensures, that
+pitch accent, the interplay of the two principles above ensures that
 in utterances with a declarative contour the entire phrase can be in
-the focus. These principles thus nicely illustrate, how not only
+the focus. These principles thus illustrate nicely not only how
 lexical elements can contribute to the information structure via their
-prosodic properties, but how entire phrases with specific prosodic
+prosodic properties, but also how entire phrases with specific prosodic
 properties can be constrained to have specific information structural
 properties.
 
@@ -1824,27 +1824,27 @@ captures the interaction between prosodic properties of utterances and
 the effect on the information structure. In order to include
 information structural constraints of the so-called A and B accents in
 English, several components of Bildhauer's (2007) phonological
-architecture are adapted for the information structural set up in
+architecture are adapted for the information structural setup in
 \cite{song2018}. Among them is the idea that in a phonological phrase
-(encoded in the feature phonological utterance \textsc{ut}) focus
+(encoded in the feature phonological utterance \textsc{ut}), focus
 prominence is related to the most prominent word in that phrase, which
 is encoded via the constraint in~\pref{ex:song-mkg}.
 \ea
 \label{ex:song-mkg}
-Prosodic marking of focus \citep[159]{song2018}\\
+Prosodic marking of focus \citep[159]{song2018}:\\
 \begin{avm}
  \normalfont{\textit{lex-rule}} $\rightarrow$\  [ut|dte & @1\\mkg|fc & @1]
 \end{avm}
 \z
-Specific lexical principle for the A and B accent then ensure the
+Specific lexical principles for the A and B accents then ensure the
 correct information structural marking and specifiy which type of
 element has to be present on the \textsc{icons} list. The
-specification necessary for English A accents signalling focus (here characterized as
+specification necessary for English A accents that signal focus (here characterized as
 \textit{high-star}) are shown
 in~\pref{ex:song-a-accent}.
 \ea
 \label{ex:song-a-accent}
-Focus marking of A accents in English \citep[160]{song2018}\\
+Focus marking of A accents in English \citep[160]{song2018}:\\
 \textit{fc-lex-rule} $\rightarrow$
 \begin{avm}
   [ut|dte & $+$\\
@@ -1860,18 +1860,18 @@ Focus marking of A accents in English \citep[160]{song2018}\\
 \section{Conclusion}
 \label{sec:conclusion}
 
-We have discussed various possibilities of how to represent
+I have discussed various possibilities for how to represent
 information structure within HPSG's sign-based architecture.
 Several approaches from the HPSG literature were presented which all
 have in common that they introduce a separate feature
 \textsc{info"=struc} into the HPSG setup, but they differ in (i) where
 they locate such a feature, (ii) what the appropriate values are for
-the representation of information structure, and (iii) how they encode
+the representation of information structure and (iii) how they encode
 principles constraining the distribution and interaction of
 information structure with other levels of the grammatical
-architecture. Finally, we discussed a number of theories in which
-phenomena such as word order are constrained to be only well-formed in
-case they exhibit specific information structural properties.
+architecture. Finally, I discussed a number of theories in which
+phenomena such as word order are constrained to only be well-formed
+when they exhibit specific information structural properties.
 
 %  {\sloppy
 %  \printbibliography[heading=subbibliography,notkeyword=this] }
