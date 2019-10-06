@@ -41,7 +41,7 @@ compiled as part of a collection or standalone
 
 From the inception of HPSG in the 1980s,
 there has been a close integration between theoretical and computational work
-\crossrefchapterp[for an overview, see]{evolution}.
+(for an overview, see \crossrefchapter{chapters/evolution}).
 %\citep{FIXME-CLobit-or-other}.
 % at HP Labs in the joint work of Ivan Sag, Geoff Pullum, Tom Wasow, Mark Gawron, Carl Pollard and Dan Flickinger
 % GE: I think this list of authors is too long for a first sentence.  Do we need to do more than refer to the other chapter?
@@ -71,33 +71,32 @@ There are several properties of HPSG as a theory that make it well-suited to com
 First, the theory is kept separate from the formalism:
 the formalism is expressive enough to encode a wide variety of possible theories.
 While some theoretical work does argue for or against the necessity of particular formal devices
-(\eg\ the shuffle operator \citep{Reape94a}),
+(\eg\ the \isi{shuffle operator} \citep{Reape94a}),
 much of it proceeds within shared assumptions about the formalism.
-This is in contrast to work in the context of the Minimalist Program \citep{Chomsky95a-u},
+This is in contrast to work in the context of the \isi{Minimalist Program} \citep{Chomsky95a-u},
 where theoretical results are typically couched in terms of modifications to the formalism itself.
-From a computational point of view, the benefit of differentiating between theory and formalism
+From a computational point of view, the benefit of differentiating between theory and formalism\is{formalism!differentiating from theory}
 is that the formalism is relatively stable.
 That enables the development and maintenance of software systems that target the formalism \citep{boguraev1988software},
-such as software for parsing, generation, and grammar exploration
+such as software for \isi{parsing}, \isi{generation}, and \isi{grammar exploration}
 (see Section~\ref{cl:resources} below for some examples).\footnote{%
-	There are implementations of Minimalism, notably \citealt{Stabler97a-u} and \citealt{Herring:16}. (See also \citealt{Tor:Sta:Ste:19} for a recent broad-verage, treebank-trained parser in this framework.)
+	There are implementations of Minimalism, notably \citealt{Stabler97a-u} and \citealt{Herring:16}. (See also \citealt{Tor:Sta:Ste:19} for a recent broad-coverage, treebank-trained\is{treebank} parser in this framework.)
 	However, implementing a theory requires fixing the formalism,
 	and so these implementations are unlikely to be useful for testing theoretical ideas as the theory moves on.
 }
 
-A second important property of HPSG that supports a strong connection between theoretical and computational work is an interest in both so-called ``core'' and so-called ``peripheral'' phenomena. Most implemented grammars are built with the goal of handling naturally occurring text.\footnote{It is possible, but less common, to do implementation work strictly against test suites of sentences constructed specifically to focus on phenomena of interest.} This means that they will need to handle a wide variety of linguistic phenomena not always treated in theoretical syntactic work \citep{Baldwin-et-al-05}. A syntactic framework that excludes research on ``peripheral'' phenomena as uninteresting provides less support for implementational work than does one, like HPSG or Construction Grammar, that values such topics
-\crossrefchapterp[for a comparison of HPSG and Construction Grammar, see]{cxg}.
+A second important property of HPSG that supports a strong connection between theoretical and computational work is an interest in both so-called ``\isi{core}'' and so-called ``\isi{peripheral}'' phenomena. Most implemented grammars are built with the goal of handling naturally occurring text.\footnote{It is possible, but less common, to do implementation work strictly against test suites of sentences constructed specifically to focus on phenomena of interest.} This means that they will need to handle a wide variety of linguistic phenomena not always treated in theoretical syntactic work \citep{Baldwin-et-al-05}. A syntactic framework that excludes research on ``peripheral'' phenomena as uninteresting provides less support for implementational work than does one, like HPSG or \isi{Construction Grammar}, that values such topics (for a comparison of HPSG and Construction Grammar, see \crossrefchapter{cxg}).
 
-Finally, the type hierarchy characteristic of HPSG lends itself well to developing broad-coverage grammars which are maintainable over time (see \citealt{Syg:Win:11}). The use of the type hierarchy to manage complexity at scale comes out of the work of \citet{Flickinger87} and others at HP labs in the project where HPSG was originally developed. The core idea is that any given constraint is (ideally) expressed only once on types which serve as supertypes to all entities that bear that constraint.\footnote{Originally this only applied to lexical entries in Flickinger's work. Now it also applies to phrase structure rules, lexical rules, and types below the level of the sign which are used in the definition of all of these. See \chaptercrossreft{chapters/evolution} for further discussion.} Such constraints might represent broad generalizations that apply to many entities or relatively narrow, idiosyncratic properties that apply to only a few. By isolating any given constraint on one type (as opposed to repeating it in multiple places), we build grammars that are easier to update and adapt in light of new data that require refinements to constraints. Having a single locus for each constraint also makes the types a very useful target for documentation \citep{Hashimoto-etal:07} and grammar exploration \citep{Letcher:18}. 
+Finally, the \isi{type hierarchy} characteristic of HPSG lends itself well to developing broad-coverage grammars which are maintainable\is{maintability!of grammars} over time (see \citealt{Syg:Win:11}). The use of the type hierarchy to manage complexity\is{complexity!of grammars} at scale comes out of the work of \citet{Flickinger87} and others at \is{HP labs} in the project where HPSG was originally developed. The core idea is that any given constraint is (ideally) expressed only once on types which serve as supertypes to all entities that bear that constraint.\footnote{Originally this only applied to \isi{lexical entries} in Flickinger's work. Now it also applies to \isi{phrase structure rules}, \isi{lexical rules}, and types below the level of the sign which are used in the definition of all of these. See \chaptercrossreft{chapters/evolution} for further discussion.} Such constraints might represent broad generalizations that apply to many entities or relatively narrow, idiosyncratic properties that apply to only a few. By isolating any given constraint on one type (as opposed to repeating it in multiple places), we build grammars that are easier to update and adapt in light of new data that require refinements to constraints. Having a single locus for each constraint also makes the types a very useful target for documentation\is{documentation!of grammars} \citep{Hashimoto-etal:07} and grammar exploration \citep{Letcher:18}. 
 
 
 \subsection{Practical considerations}
 \label{cl:prac}
 
-HPSG allows practical implementations,
+HPSG allows practical implementations
 because it uses a well-defined formalism.
-Furthermore, because HPSG is defined to be bi-directional,
-an implemented grammar can be used for both parsing and generation.
+Furthermore, because HPSG is defined to be bi-directional,\is{bi-directionality}
+an implemented grammar can be used for both \isi{parsing} and \isi{generation}.
 In this section, we discuss how HPSG allows tractable algorithms,
 which enables linguists to empirically test hypotheses
 and which also enables HPSG grammars to be used in a range of applications,
@@ -105,6 +104,8 @@ as we will see in Sections~\ref{cl:lang-doc} and~\ref{cl:downstream}, respective
 
 \subsubsection{Computational complexity}
 \label{cl:prac:comp}
+
+\is{computational complexity|(}
 
 One way to measure how easy or difficult it is
 to use a syntactic theory in practical computational applications
@@ -120,7 +121,7 @@ is to consider the \textit{computational complexity}\footnote{%
 }
 of parsing and generation algorithms \citep{gazdar1985complexity}.
 Computational complexity includes both how much
-memory and how much computational time 
+memory\is{complexity!memory} and how much computational time\is{complexity!time} 
 a parsing algorithm needs to process a particular sentence.\footnote{% 
   In this section, we only consider parsing
   algorithms, but a similar analysis can be done for generation
@@ -131,15 +132,15 @@ the more quickly the amount of processing time increases.
 Parsing complexity can thus be measured by considering sentences containing $n$~tokens,
 and then increasing~$n$ to see how the amount of time changes.
 This can be done based on the average amount of time
-for sentences in a corpus (average-case complexity),
+for sentences in a corpus (average-case complexity),\is{complexity!average-case}
 or based on the longest amount of time
-for all theoretically possible sentences (worst-case complexity).
+for all theoretically possible sentences (worst-case complexity).\is{complexity!worst-case}
 
 At first sight, analyzing computational complexity
 would seem to paint HPSG in a bad light,
 because the formalism allows us to write grammars
 which can be arbitrarily complex;
-in technical terminology, the formalism is \textit{Turing-complete}
+in technical terminology, the formalism is \textit{Turing-complete}\is{Turing-complete}
 \citep[Section~3.4]{Johnson88}.
 % maybe also relevant:
 % Barton, Berwick, Ristad (1987)
@@ -159,7 +160,7 @@ such as Combinatory Categorial Grammar (CCG),\footnote{%
 or Tree Adjoining Grammar \citep[TAG;][]{Joshi87a-u,SAJ88a-u}.
 The formalisms of CCG and TAG inherently limit computational complexity:
 for both of them, as the sentence length~$n$ increases,
-worst-case parsing time is proportional to~$n^6$ \citep{Kasamietal1989}.
+worst-case\is{complexity!worst-case} parsing time is proportional to~$n^6$ \citep{Kasamietal1989}.
 This is a deliberate feature of these formalisms,
 which aim to be just expressive enough to capture human language,
 and not any more expressive.
@@ -211,7 +212,7 @@ then the worst-case parsing time is proportional to $C^2 n^{\rho+1}$,
 where $\rho$ is the maximum number of children in a phrase-structure rule
 \citep[Section~3.2.3]{carroll1993parse}. 
 This is less complex than for an arbitrary grammar
-(which means that this class of grammars is \emph{not} Turing-complete),
+(which means that this class of grammars is \emph{not} \isi{Turing-complete}),
 but $C$ may nonetheless be very large.
 
 % EMB 2019-02-21 But can we bound the number of possible feature structures?
@@ -231,42 +232,42 @@ but $C$ may nonetheless be very large.
 
 But is the number of possible feature structures bounded
 in implemented HPSG grammars?
-For \delphin\ grammars (see Section \ref{cl:delphin}),
+For \is{\delphin\ Consortium}\delphin\ grammars (see Section \ref{cl:delphin}),
 the answer is yes.
 Assuming a system without relational constraints,
 the potential for unboundedness in the number of feature structures
-stems from the potential for recursion in feature paths
-a list is a simple example,\footnote{%
+stems from the potential for \isi{recursion} in feature paths:
+A \isi{lists}list is a simple example,\footnote{%
 	More precisely, in the standard implementation of a list as a feature structure,
-	the type \textit{list} has two subtypes \textit{null} and \textit{non-empty-list}, and
-	\textit{non-empty-list} has the features \textsc{first}
-	and \textsc{rest}, where the value of \textsc{rest} is of type \textit{list}.
+	the type \textit{list}\istype{list} has two subtypes \textit{null}\istype{null} and \textit{non-empty-list},\istype{non-empty-list} and
+	\textit{non-empty-list} has the features \textsc{first}\isfeat{first}
+	and \textsc{rest},\isfeat{rest} where the value of \textsc{rest} is of type \textit{list}.
 	The value of \textsc{rest} can itself have the feature \textsc{rest}.
 }
 and as another example, the elements on a \textsc{comps} list
 also include the feature \textsc{comps}.
 
 However, in practice, such recursive paths do not need to be considered by the parsing algorithm.
-For example, selecting heads might place constraints on their complement's subjects
-(\eg\ in raising/control constructions),
+For example, selecting \isi{heads} might place constraints on their \is{complements}complements' \isi{subjects}
+(\eg\ in raising/control constructions),\isi{raising}\isi{control}
 but no further than that (\eg a complement's complement's subject).
 Similarly, while lists that are potentially unbounded in length are used in semantic representations,
 these are never involved in constraining grammaticality.
-The only lists that constrain grammaticality are valence lists,
+The only lists that constrain grammaticality are \isi{valence lists},
 but in practical grammars these are never greater than length four or five.\footnote{%
 	In part, this is because \delphin\ does not
-	adopt proposals like the \textsc{deps} list of \citet*{BMS2001a-unlinked}.
-	Furthermore, in many \delphin\ grammars, including the ERG,
-	the \textsc{slash} list cannot have more than one element.
+	adopt proposals like the \textsc{deps}\isfeat{deps} list of \citet*{BMS2001a-unlinked}.
+	Furthermore, in many \is{\delphin\ Consortium}\delphin\ grammars, including the ERG,\is{English Resource Grammmar (ERG)}
+	the \textsc{slash}\isfeat{slash} list cannot have more than one element.
 	If an unbounded \textsc{slash} list is required
 	(such as to model cross-serial dependencies),
 	the number of possible structures might still be bounded as a function of sentence length;
-	this would allow us to bound worst-case parsing complexity,
+	this would allow us to bound worst-case parsing complexity,\is{complexity!worst-case}
 	but it will be a higher bound.
 }
 
 When parsing real corpora,
-it turns out that the average-case complexity is much better than might be expected \citep{Carroll94}.
+it turns out that the average-case complexity\isi{complexity!average-case} is much better than might be expected \citep{Carroll94}.
 % TODO url in bib? https://aclweb.org/anthology/P94-1040
 On the one hand, grammatical constructions do not generally combine in the worst-case way,
 and on the other hand, when a grammar writer is confronted
@@ -288,13 +289,14 @@ it can be helpful to use a test suite composed of a representative sample of sen
 % TODO citation with numbers for parsing real corpora
 % EMB 2019-02-25 This would still be a nice to have, if we can get to it before the final version.
 
-
+\is{computaitonal complexity|)}
 
 \subsubsection{Parse ranking}
 \label{cl:prac:rank}
+\is{parse ranking|(}
 
-Various kinds of ambiguity are well-known in linguistics
-(such as modifier attachment and part-of-speech assignment),
+Various kinds of \isi{ambiguity} are well-known in linguistics
+(such as \is{ambiguity!modifier attachment}modifier attachment and part-of-speech\is{ambiguity!part-of-speech} assignment),
 to the point that examples like \rref{cl:ambig-telescope} are stock in trade:
 
 \begin{exe}
@@ -313,7 +315,7 @@ to the point that examples like \rref{cl:ambig-telescope} are stock in trade:
 A well-constructed grammar should be expected to return multiple
 parses for each ambiguous sentence.
 
-However, people are naturally very good at resolving ambiguity,
+However, people are naturally very good at resolving \isi{ambiguity},
 which means most ambiguity is not apparent, even to linguists.
 It is only with the development of large-scale grammars that the sheer scale of ambiguity has become clear.
 % EMB 2018-10-03 What's rref?
@@ -324,7 +326,7 @@ but there is a second reading, where \textit{my favorite} is the topicalized obj
 which would mean that town criers generally speak the speaker's favorite thing (perhaps a language) clearly.
 There is also a third, even more implausible reading, where \textit{my favorite town} is the topicalized object.
 Such implausible readings don't easily come to mind,
-and in fact, the 2018 version of the English Resource Grammar \citep[ERG;][]{Flickinger2000a,Flickinger2011a-u}
+and in fact, the 2018 version of the \is{English Resource Grammar (ERG)}English Resource Grammar \citep[ERG;][]{Flickinger2000a,Flickinger2011a-u}
 gives a total of 21 readings for this sentence.
 With increasingly long sentences, such ambiguities stack up very quickly.
 For~\rref{cl:ex:ambig-many}, the first line of a newspaper article,\footnote{%
@@ -362,16 +364,16 @@ rules.\footnote{In fact, in earlier work, this task was undertaken by
 % EMB 2019-02-21 Added the above footnote. TMI or fun historical detail?
 % GE 2019-02-25 fun historical detail! I didn't know if there was anything to cite.
 Typically, a statistical system is used \citep{Tou:Man:Shi:Fli:Oep:02,Tou:Man:Fli:Oep:05}.
-First, a corpus is \textit{treebanked}:
+First, a corpus is \textit{treebanked}:\is{treebanks}
 for each sentence in the corpus,
 an annotator (often the grammar writer) chooses the best parse,
 out of all parses produced by the grammar.
-The set of all parses for a sentence is often referred to as the \textit{parse forest},
-and the selected best parse is often referred to as the \textit{gold standard}.
+The set of all parses for a sentence is often referred to as the \textit{\isi{parse forest}},
+and the selected best parse is often referred to as the \textit{\isi{gold standard}} or \textit{\isi{gold parse}}.
 Given the gold parses for the whole corpus, a statistical system is trained
 to predict the gold parse from a parse forest,
 based on many features\footnote{%
-	In the machine-learning sense of ``feature'',
+	In the \isi{machine-learning} sense of ``feature'',
 	not the feature-structure sense.
 }
 of the parse.
@@ -387,14 +389,14 @@ and so on.
 % - any other references?
 
 Because of the large number of possible parses,
-it can be helpful to \textit{prune} the search space:
+it can be helpful to \textit{prune}\is{pruning} the search space:
 rather than ranking the full set of parses,
 ranking is restricted to a smaller set of parses.
 Carefully choosing how to restrict the parser's attention 
 can drastically reduce processing time without hurting parsing accuracy,
 as long as the algorithm for selecting the subset
 includes the correct parse sufficiently frequently.
-One method, called \textit{supertagging},\footnote{%
+One method, called \textit{\isi{supertagging}},\footnote{%
 	The term \textit{supertagging}, due to \citet{bangalore1999supertag},
 	refers to \textit{part-of-speech tagging},
 	which predicts a part-of-speech for each input token,
@@ -402,8 +404,8 @@ One method, called \textit{supertagging},\footnote{%
 	Supertagging is ``super'', in that it predicts detailed lexical entries,
 	rather than simple parts of speech.
 }
-exploits the fact that HPSG is a lexicalized theory:
-choosing the correct lexical entry brings in rich information
+exploits the fact that HPSG is a lexicalized\is{lexicalism} theory:
+choosing the correct lexical entry\is{lexical entries} brings in rich information
 that can be exploited to rule out many possible parses.
 Thus if the correct lexical entry can be chosen prior to parsing
 (\eg\ on the basis of the prior and following words),
@@ -412,12 +414,12 @@ Although there is a chance that the supertagger will predict the wrong lexical e
 using a supertagger can often improve parsing accuracy,
 by ruling out parses that the parse-ranking model might incorrectly rank too high.
 Supertagging was first applied to HPSG by \citet{matsuzaki2007supertag},
-building on previous work for TAG \citep{bangalore1999supertag}
-and CCG \citep{clark2004supertag}.
-To allow multi-word expressions (such as \textit{by and large}),
+building on previous work for TAG\is{Tree Adjoining Grammar (TAG)} \citep{bangalore1999supertag}
+and CCG\is{Combinatory Categorial Grammar (CCG)} \citep{clark2004supertag}.
+To allow \isi{multi-word expressions} (such as \textit{by and large}),
 where the grammar assigns a single lexical entry to multiple tokens,
-\citet{dridan2013ubertag} proposes an extension of supertagging, called \textit{ubertagging},
-which jointly predicts both a segmentation of the input and supertags for those segments.
+\citet{dridan2013ubertag} proposes an extension of supertagging, called \textit{\isi{ubertagging}},
+which jointly predicts both a \isi{segmentation}\is{tokenization} of the input and supertags for those segments.
 \citeauthor{dridan2013ubertag} manages to increase parsing speed by a factor of four,
 while also improving parsing accuracy.
 % Pruning via chunking? Muszyńska http://aclweb.org/anthology/P16-3014
@@ -425,15 +427,15 @@ while also improving parsing accuracy.
 % EMB 2018-09-28 Doesn't Bec also bring in the lexical rules? Maybe that's too much detail for here.
 
 Finally, in order to train these statistical systems,
-we need to first annotate a treebank.
+we need to first annotate\is{annotation} a treebank.\is{treebanks}
 When there are many parses for a sentence,
 it can be time-consuming to select the best parse.
 To efficiently use an annotator's time,
-it can be helpful to use \textit{discriminants},
+it can be helpful to use \textit{\isi{discriminants}},
 properties which hold for some parses but not for others \citep{Carter:97}.
-For example, discriminants might include
-whether to analyze an ambiguous token as a noun or a verb,
-or where to attach a prepositional phrase.
+For example, \isi{discriminants} might include
+whether to analyze an ambiguous\is{ambiguity} token as a noun or a verb,
+or where to attach a prepositional phrase.\is{ambiguity!modifier attachment}
 This approach to treebanking also means that
 annotations can be re-used when the grammar is updated
 \citep{OFTM2004a-u,Fli:Oep:Ben:17}. For more on treebanking, see Section~\ref{cl:lang-doc:treebanks}.
@@ -442,6 +444,7 @@ annotations can be re-used when the grammar is updated
 % e.g. for Alpino: 
 %% Gertjan van Noord. Self-trained Bilexical Preferences to Improve Disambiguation Accuracy. In: Harry Bunt, Paola Merlo and Joakim Nivre (editors), Trends in Parsing Technology. Dependency Parsing, Domain Adaptation, and Deep Parsing. Springer Verlag. pp 183-200. 2010.
 
+\is{parse ranking|)}
 
 \subsubsection{Semantic dependencies}
 \label{cl:prac:dep}
