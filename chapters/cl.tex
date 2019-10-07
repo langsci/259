@@ -1324,25 +1324,25 @@ The results of this shared task suggest that,
 compared to other dependency representations,
 DM is particularly useful for negation resolution.
 
-Another task where dependency graphs have been used is \textit{summarization}.
-Most existing work on this task focuses on so-called \textit{extractive summarization}:
+Another task where dependency graphs have been used is \textit{\isi{summarization}}.
+Most existing work on this task focuses on so-called \textit{extractive summarization}:\is{summariziation!extractive}
 given an input document, a system forms a summary by extracting short sections of the input.
-This is in contrast to \textit{abstractive summarization},
+This is in contrast to \textit{abstractive summarization},\is{summarization!abstractive}
 where a system generates new text based on the input document.
 Extractive summarization is limited, but widely used because it is easier to implement.
-\citet{fang2016summarise} show how a wide-coverage grammar like the ERG
+\citet{fang2016summarise} show how a wide-coverage grammar like the ERG\is{English Resource Grammar (ERG)}
 makes it possible to implement an abstractive summarizer with state-of-the-art performance.
-After parsing the input document into logical propositions,
+After \isi{parsing} the input document into logical propositions,
 the summarizer prunes the set of propositions using a cognitively inspired model.
 A summary is then generated based on the pruned set of propositions.
 Because no text is directly extracted from the input document,
 it is possible to generate a more concise summary.
 
-Finally, no discussion of NLP tasks would be complete without including \textit{machine translation}.
+Finally, no discussion of NLP tasks would be complete without including \textit{\isi{machine translation}}.
 A traditional grammar-based approach uses three grammars:
-a grammar for the source language,
-a grammar for the target language,
-and a \textit{transfer grammar}, which converts semantic representations for the source language
+a grammar for the \isi{source language},
+a grammar for the \isi{target language},
+and a \textit{\isi{transfer grammar}}, which converts semantic representations for the source language
 to semantic representations for the target language \citep{OVL2007a-u,bond2011deep}.
 Translation proceeds in three steps:
 parse the source sentence, transfer the semantic representation, and generate a target sentence.
@@ -1370,23 +1370,24 @@ within the paradigm of parsing, transferring, and generating.
 \subsubsection{Data for machine learning}
 \label{cl:downstream:data}
 
+\is{machine learning|(}
+
 In Section~\ref{cl:downstream:nlp},
 we described how HPSG grammars can be directly incorporated into NLP systems.
 Another use of HPSG grammars in NLP
-is to generate data, on which a statistical system can be trained.
+is to generate data on which a statistical system can be trained.
 
 For example, one limitation of using an HPSG grammar in an NLP system
 is that the grammar is unlikely to cover all sentences in the data \citep{flickinger2012deepbank}.
 One way to overcome this coverage gap
 is to train a statistical system to produce the same output as the grammar.
 The idea is that the trained system will be able to generalise to sentences that the grammar does not cover.
-\citet{oepen2014semeval} and \citet{oepen2015semeval}
-present shared tasks on semantic dependency parsing,
-including both DM dependencies and Enju predicate-argument structures.
-The best-performing systems in these shared tasks
-can produce dependency graphs almost as accurately as grammar-based parsers
-(for sentences where the grammar has coverage).
-Similarly, \citet{buys2017parse} develop a parser for EDS and DMRS
+\citet{oepen2014semeval}, \citet{oepen2015semeval}, and \citet{Oep:Abe:Haj:19}
+present shared tasks on semantic dependency parsing,\is{dependency parsing!semantic}
+including both DM dependencies\is{\delphin\ MRS Dependencies (DM)} and \isi{Enju} \isi{predicate-argument structures}.
+As of 2015, the best-performing systems in these shared tasks
+could already produce dependency graphs almost as accurately as grammar-based parsers (for sentences where the grammar has coverage).
+Similarly, \citet{buys2017parse} develop a parser for EDS\is{Elementary Dependency Structures (EDS)} and DMRS\isi{Dependency Minimal Recursion Semantics (DMRS)}
 which performs almost as well as a grammar-based parser,
 but has full coverage, and can run 70 times faster.
 
@@ -1398,41 +1399,41 @@ Unlike the previous statistical approaches,
 \citeauthor{chen2018parse} do not just train on the desired dependency graphs,
 but also use information in the phrase-structure tree.
 They suggest that using this information allows their system
-to learn compositional rules mirroring composition in the grammar,
+to learn compositional rules mirroring composition\is{compositionality} in the grammar,
 and thereby allows their system to generalise better.
 %TODO numbers in the above paragraphs?
 
 Another application of HPSG-derived dependency graphs
-is for \textit{distributional semantics}.
+is for \textit{\isi{distributional semantics}}.
 Here, the aim is to learn the meanings of words from a corpus,
 exploiting the fact that the context of a word tells us something about its meaning.
-This is known as the \textit{distributional hypothesis},
-an idea with roots in American structuralism \citep{harris1954distribution}
-and British lexicology \citep{firth1951collocation,firth1957company}.
-Most work on distributional semantics learns a \textit{vector space model},
+This is known as the \textit{\isi{distributional hypothesis}},
+an idea with roots in \isi{American structuralism} \citep{harris1954distribution}
+and \isi{British lexicology} \citep{firth1951collocation,firth1957company}.
+Most work on distributional semantics learns a \textit{\isi{vector space model}},
 where the meaning of each word is represented as a point in a high-dimensional vector space
 (for an overview, see \citealt{erk2012vector} and \citealt{clark2015vector}).
 However, \citet{emerson2018functional} argues that
 vector space models cannot capture various aspects of meaning,
-including logical structure, as well as phenomena like polysemy.
+including logical structure, as well as phenomena like \isi{polysemy}.
 Instead, \citeauthor{emerson2018functional} presents a distributional model
-which can learn truth-conditional semantics,
-using a parsed corpus like WikiWoods (see Section~\ref{cl:lang-doc:treebanks}).
-This approach relies on the semantic analyses given by a grammar,
+which can learn \isi{truth-conditional semantics},
+using a parsed corpus like \isi{WikiWoods} (see Section~\ref{cl:lang-doc:treebanks}).
+This approach relies on the \isi{semantic analyses} given by a grammar,
 as well as the infrastructure to parse a large amount of text.
 
-Finally, there are also applications using grammars not to parse, but to generate.
-\citet{kuhnle2018shapeworld} consider the task of \textit{visual question answering},
+Finally, there are also applications using grammars not to parse, but to \isi{generate}.
+\citet{kuhnle2018shapeworld} consider the task of \textit{visual question answering},\is{visual question answering (VQA)}
 where a system is presented with an image and a question about the image,
 and must answer the question.
-This task requires language understanding, reference resolution, and grounded reasoning,
+This task requires \isi{language understanding}, \isi{reference resolution}, and \isi{grounded reasoning},
 in a way that is relatively well-defined.
 However, for many existing datasets, there are biases in the questions
 which mean that high performance can be achieved without true language understanding.
 %TODO references
-For this reason, there is increasing interest in artificial datasets,
+For this reason, there is increasing interest in \isi{artificial datasets},
 which are controlled to make sure that high performance requires true understanding.
-\citeauthor{kuhnle2018shapeworld} present ShapeWorld,
+\citeauthor{kuhnle2018shapeworld} present \isi{ShapeWorld},
 a configurable system for generating artificial data.
 The system generates an abstract representation of a scene
 (coloured shapes in different configurations),
@@ -1445,23 +1446,25 @@ and scale across a variety of syntactic constructions.
 % https://arxiv.org/pdf/1809.03044.pdf
 % https://arxiv.org/pdf/1812.11737.pdf
 
+\is{machine learning|)}
 \is{Natural Language Processing (NLP)|)}
 
 \section{Linguistic insights}
 \label{cl:insight}
 
-In Section~\ref{cl:lang-doc} above, we described multiple ways in which computational methods can be used in the service of linguistic research, especially in testing linguistic hypotheses. Here, we highlight a few ways in which grammar engineering work in HPSG has turned up linguistic insights that had not previously been discovered through non-computational means.\footnote{For similar reflections from the point of view of LFG, see \cite{King:16}.}
+In Section~\ref{cl:lang-doc} above, we described multiple ways in which computational methods can be used in the service of linguistic research, especially in testing linguistic hypotheses. Here, we highlight a few ways in which grammar engineering work in HPSG has turned up linguistic insights that had not previously been discovered through non-computational means.\footnote{For similar reflections from the point of view of LFG,\is{Lexical Functional Grammar} see \cite{King:16}.}
 
 \subsection{Ambiguity} %Guy
+\is{ambiguity|(}
 
 As discussed in Section~\ref{cl:prac:rank},
-the scale of ambiguity has become clear now that broad-coverage precision grammars are available.
-By taking both coverage and precision seriously,
+the scale of ambiguity has become clear now that \isi{broad-coverage} precision grammars are available.
+By taking both \isi{coverage} and \isi{precision} seriously,
 it is possible to investigate ambiguity on a large scale,
 quantifying the sources of ambiguity and the information needed to resolve it.
 For example, \citet{Tou:Man:Shi:Fli:Oep:02,Tou:Man:Fli:Oep:05}
-found that in the Redwoods treebank (3rd Growth),
-roughly half of the ambiguity was lexical, and half syntactic.
+found that in the \isi{Redwoods} \isi{treebank} (3rd Growth),
+roughly half of the ambiguity was lexical,\is{ambiguity!lexical} and half syntactic.\is{ambiguity!syntactic}
 % Baseline accuracy: .227 ~ choosing out of 4.41 parses
 % Accuracy given lexical tags: .488 ~ choosing out of 2.05 parses, roughly square root of above
 They also showed how combining sources of information
@@ -1469,10 +1472,13 @@ They also showed how combining sources of information
 is important for resolving ambiguity,
 and argue that using multiple kinds of information in this way is consistent with probabilistic approaches in psycholinguistics.
 
+\is{ambiguity|)}
 
 \subsection{Long-tail phenomena} % Emily
+\is{periphery|(}
+
 One of the strengths of HPSG as a theoretical framework is that it allows for
-the analysis of both ``core'' and ``peripheral'' phenomena within a single, integrated model.
+the analysis of both ``\isi{core}'' and ``peripheral''\is{periphery} phenomena within a single, integrated model.
 Indeed, by implementing large-scale grammars across a range of languages,
 it becomes possible to investigate the extent to which
 a particular phenomenon should be considered ``core'', ``peripheral'',
@@ -1482,26 +1488,27 @@ In fact, when working with actual data and large-scale grammars,
 it quickly becomes apparent just how long the long-tail of ``peripheral'' phenomena is. Furthermore, the sustained development of broad-coverage linguistic resources makes it possible
 to bring into view more and more low-frequency phenomena
 (or low-frequency variations on relatively high-frequency phenomena).
-A case in point is the range of raising and control valence frames
-found in the ERG \citep{Flickinger2000a,Flickinger2011a-u}.
+A case in point is the range of \isi{raising} and \isi{control} \isi{valence frames}
+found in the ERG\is{English Resource Grammar (ERG)} \citep{Flickinger2000a,Flickinger2011a-u}.
 As of the 2018 release, the ERG includes over 60 types for raising and control predicates,
-including verbs, adjectives, and nouns,
+including \isi{verbs}, \isi{adjectives}, and \isi{nouns},
 many of which are not otherwise discussed in the syntactic literature.
 These include such low-frequency types as the one for \textit{incumbent},
 which requires an expletive \textit{it} subject,
 an obligatory \textit{(up)on} PP complement,
-and an infinitival VP complement,
+and an \isi{infinitival VP} complement,
 and which establishes a control relation between
 the object of \textit{on} and the VP's missing subject:\footnote{%
 	Our thanks to Dan Flickinger for this example.
 }
 
+\il{English}
 \begin{exe}
 \ex\label{cl:incumbent} 
 It is incumbent on you to speak plainly.
 \end{exe}
 
-
+\is{periphery|)}
 
 %\subsection{Scaling up (thematic roles)} % Emily
 
@@ -1516,6 +1523,8 @@ It is incumbent on you to speak plainly.
 % now, so commenting this out for now.
 
 \subsection{Analysis-order effects}
+\is{analysis order!effect of|(}
+
 Grammar engineering means making analyses
 specific and then being able to build on them. This has both benefits
 and drawbacks: on the one hand, it means that additional grammar
@@ -1529,18 +1538,19 @@ probably also true for non-computational work, as theoretical ideas
 developed with particular phenomena (and indeed languages) in mind
 influence the questions with which researchers approach additional
 phenomena. \citeauthor{Fokkens:14} proposes that the methodology of
-meta-grammar engineering can be used to address this problem: using
-her CLIMB methodology, rather than deciding between analyses of a
+\isi{meta-grammar engineering} can be used to address this problem: using
+her \isi{CLIMB} methodology, rather than deciding between analyses of a
 given phenomenon without input from later-studied phenomena, the
 grammar engineer can maintain multiple competing analyses through time
 and break free, at least partially, of the effects of the timeline of
 grammar development. The central idea is that the grammar writer develops
-a meta-grammar, like the Grammar Matrix customization system (see Section~\ref{cl:lang-doc:gmcs}),
+a \isi{meta-grammar}, like the Grammar Matrix customization system\is{Grammar Matrix!customization system} (see Section~\ref{cl:lang-doc:gmcs}),
 but for a single language. This customization system maintains
 alternate analyses of particular phenomena which are invoked via grammar
 specifications so the different versions of the grammar can be compiled
 and tested.
 
+\is{analysis order!effect of|)}
 
 \section{Summary}
 
