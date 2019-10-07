@@ -449,57 +449,59 @@ annotations can be re-used when the grammar is updated
 \subsubsection{Semantic dependencies}
 \label{cl:prac:dep}
 
+\is{dependencies!semantic |(}
+
 In practical applications of HPSG grammars,
 the full phrase-structure trees and the full feature structures are often unwieldy,
 containing far more information than necessary for the task at hand.
-It is therefore often desirable to extract a concise semantic representation.
+It is therefore often desirable to extract a concise semantic representation.\is{semantic representations}
 %TODO check the Semantics chapter once it's written
 
 In computational linguistics, a popular approach to semantics
-is to represent the meaning of a sentence as a \textit{dependency graph},
+is to represent the meaning of a sentence as a \textit{\isi{dependency graph}},
 as this enables the use of graph-based algorithms.\footnote{%
-	In this section, we are concerned with \emph{semantic} dependencies.
-	For \emph{syntactic} dependencies, see \crossrefchaptert{dg}.
+	In this section, we are concerned with \emph{semantic} dependencies.\is{dependencies!semantic}
+	For \emph{syntactic} dependencies,\is{dependencies!syntactic} see \crossrefchaptert{dg}.
 	Some practical applications of HPSG use syntactic dependencies
-	(including many applications of the Alpino grammar, discussed in Section~\ref{cl:other:alpino}).
+	(including many applications of the \isi{Alpino} grammar, discussed in Section~\ref{cl:other:alpino}).
 }
 Several types of dependency graph have been proposed
-based on Minimal Recursion Semantics \citep[MRS;][]{CFPS2005a},
+based on Minimal Recursion Semantics \citep[MRS;][]{CFPS2005a},\is{Minimal Recursion Semantics (MRS)}
 with varying levels of simplification.
 \citet{oepen2006eds} observe that if every predicate has a unique
-\textit{intrinsic argument}, an MRS can be converted to a variable-free semantic representation,
+\textit{\isi{intrinsic argument}}, an MRS can be converted to a variable-free semantic representation,\is{semantic representations!variable free}
 by replacing each reference to a variable with a reference to the corresponding predicate.
-They present Elementary Dependency Structures (EDS),
-semantic graphs which maintain predicate-argument structure but discard some scope information.
+They present \isi{Elementary Dependency Structures (EDS)},
+semantic graphs which maintain \isi{predicate-argument structure} but discard some \isi{scope} information.
 (For many applications, scope information is less important than predicate-argument structure.)
 \citet{copestake2009dmrs} builds on this idea
 to create a more expressive graph-based representation called
-Dependency Minimal Recursion Semantics (DMRS),
+\isi{Dependency Minimal Recursion Semantics (DMRS)},
 which is fully interconvertible with MRS.\footnote{%
 	More precisely, for DMRS and MRS to be fully interconvertible,
-	every predicate (except for quantifiers) must have an intrinsic argument,
+	every predicate (except for \isi{quantifiers}) must have an \isi{intrinsic argument},
 	and every variable must be the intrinsic argument of exactly one predicate.
 } This expressivity is achieved by adding annotations on the edges to
 indicate scope information.
-Finally, \delphin\ MRS Dependencies \citep[DM;][]{ivanova2012dm}
-express predicate-argument structure purely in terms of the surface tokens,
-without introducing any abstract predicates.
+Finally, \delphin\ MRS Dependencies \citep[DM;][]{ivanova2012dm}\is{\delphin\ MRS Dependencies (DM)}
+express \isi{predicate-argument structure} purely in terms of the surface tokens,
+without introducing any abstract predicates.\is{predicates!abstract}
 
-For example, English Resource Grammar (ERG)
+For example, the \isi{English Resource Grammar (ERG)}
 produces the MRS representation in~(\ref{cl:fig:mrs-feat})
 for the sentence \textit{The cherry tree blossomed}.
 For simplicity, we have omitted some details, including
 features such as number and tense,
-individual constraints (\textsc{icons}),
+individual constraints (\textsc{icons}),\isfeat{icons}
 and the use of difference lists.
-By convention, \delphin\ predicates beginning with an underscore correspond to a lexical item,
+By convention, \is{\delphin\ Consortium}\delphin\ predicates beginning with an underscore correspond to a \isi{lexical item},\is{predicates!lexical}
 and have a three-part format,
 consisting of a lemma, a part-of-speech tag, and (optionally) a sense.
-Predicates without an initial underscore are abstract predicates.
-The \textit{qeq} constraints (equality modulo quantifiers)
-are scopal relationships,
-where quantifiers may possibly intervene
-(for details, see \citealt{CFPS2005a} or \crossrefchaptert{semantics}).
+Predicates without an initial underscore are abstract predicates.\is{predicates!abstract}
+The \textit{qeq}\is{QEQ} constraints (equality modulo quantifiers)\is{equal modulo quantifiers}
+are scopal\is{scope} relationships,
+where \isi{quantifiers} may possibly intervene
+(for details, see \citealt{CFPS2005a} or \crossrefchapter{semantics}).
 
 \begin{exe}
 	\ex\label{cl:fig:mrs-feat}
@@ -574,24 +576,24 @@ This is equivalent to the feature structure in~(\ref{cl:fig:mrs-feat}).
 	\end{minipage}
 \end{exe}
 
-The corresponding Dependency Minimal Recursion Semantics (DMRS)
+The corresponding \isi{Dependency Minimal Recursion Semantics (DMRS)}
 representation is shown in~(\ref{cl:fig:dmrs}).
 This captures all of the information
-in the MRS in Figure~\ref{cl:fig:mrs-abs}.
-Predicates are represented as nodes,
-while semantic roles and scopal constraints are represented as dependencies.
+in the MRS\is{Minimal Recursion Semantics (MRS)} in (\ref{cl:fig:mrs-abs}).
+Predicates\is{predicates} are represented as nodes,
+while \isi{semantic roles} and scopal\is{scope} constraints are represented as dependencies.
 Each dependency has two labels.
-The first is an argument label,
-such as \textsc{arg1}, \textsc{arg2},
-or \textsc{rstr} (the restriction of a quantifier).
+The first is an \isi{argument label},
+such as \textsc{arg1},\isfeat{arg1} \textsc{arg2},\isfeat{arg2}
+or \textsc{rstr}\isfeat{rstr} (the restriction of a \isi{quantifier}).
 The second is a scopal constraint,
-such as \textsc{qeq}\footnote{%
+such as \is{QEQ}\textsc{qeq}\footnote{%
 	An alternative notation is to write
-	\textsc{/h} instead of \textsc{/qeq}.
+	\textsc{/h}\is{/H} instead of \textsc{/qeq}.\is{/QEQ}
 },
-\textsc{eq} (the linked nodes share a label in the MRS,
+\textsc{eq}\is{EQ} (the linked nodes share a \isi{label} in the MRS,
 which is generally true for modifiers),
-or \textsc{neq} (the linked nodes don't share a label).
+or \textsc{neq}\is{NEQ} (the linked nodes don't share a label).
 
 \begin{exe}
 	\ex\label{cl:fig:dmrs}
@@ -612,14 +614,14 @@ or \textsc{neq} (the linked nodes don't share a label).
 	\end{tikzpicture}%
 \end{exe}
 
-Finally, the corresponding \delphin\ MRS Dependencies (DM) representation.
-This is a simplified version of MRS,
+Finally, (\ref{cl:fig:dmrs}) shows the corresponding \delphin\ MRS Dependencies (DM) representation.\is{\delphin\ MRS Dependencies (DMRS)}
+This is a simplified version of MRS,\is{Minimal Recursion Semantics (MRS)}
 where all nodes are tokens in the sentence.
 Some abstract predicates are dropped (such as \textit{udef\_q}),
 while others are converted to dependencies (such as \textit{compound}).
 Some scopal information is dropped (such as \textsc{eq} vs \textsc{neq}).
-The label \textsc{bv} stands for the ``bound variable'' of a quantifier,
-equivalent to the \textsc{rstr/qeq} of DMRS.
+The label \textsc{bv}\is{BV} stands for the ``\isi{bound variable}'' of a \isi{quantifier},
+equivalent to the \textsc{rstr/qeq}\isfeat{rstr}\is{QEQ} of DMRS.
 
 \begin{exe}
 	\ex\label{cl:fig:dm}
@@ -637,7 +639,7 @@ equivalent to the \textsc{rstr/qeq} of DMRS.
 
 
 The existence of such dependency graph formalisms,
-as well as software packages to manipulate such graphs \citep{copestake2016pydmrs},
+as well as software packages to manipulate such graphs (\eg\ \citealt{copestake2016pydmrs}, \citealt{Her:Kuh:Oep:19}, or PyDelphin\footnote{\url{https://github.com/delph-in/pydelphin/}, accessed 16 August 2019}}),
 has made it easier to use HPSG grammars in a number of practical tasks,
 as we will discuss in Section~\ref{cl:downstream}.
 
@@ -660,6 +662,8 @@ as we will discuss in Section~\ref{cl:downstream}.
 %%     \item Other
 %%     \end{itemize}
 
+
+\is{dependencies!semantic |)}
 
 \section{Development of HPSG resources}
 \label{cl:resources}
