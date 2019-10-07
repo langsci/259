@@ -614,7 +614,7 @@ or \textsc{neq}\is{NEQ} (the linked nodes don't share a label).
 	\end{tikzpicture}%
 \end{exe}
 
-Finally, (\ref{cl:fig:dmrs}) shows the corresponding \delphin\ MRS Dependencies (DM) representation.\is{\delphin\ MRS Dependencies (DMRS)}
+Finally, (\ref{cl:fig:dm}) shows the corresponding \delphin\ MRS Dependencies (DM) representation.\is{\delphin\ MRS Dependencies (DMRS)}
 This is a simplified version of MRS,\is{Minimal Recursion Semantics (MRS)}
 where all nodes are tokens in the sentence.
 Some abstract predicates are dropped (such as \textit{udef\_q}),
@@ -989,10 +989,10 @@ integrated models of language that handle multiple phenomena at
 once. In this section, we overview how this is done in the CoreGram
 and Grammar Matrix projects for cross-linguistic hypothesis testing,
 and in the AGGREGATION project in the context of language
-documentation.\footnote{Grammar engineering isn't specific to HPSG and
+documentation.\footnote{Grammar engineering\is{grammar engineering} isn't specific to HPSG and
 in fact has a history going back to at least the early 1960s \citep{Kay:63,ZFHW65a,Petrick65a-u,FBDPM71a-u}
-and modern work in Lexical Functional Grammar \citep{BKNS99a-ed}, Combinatory Categorial
-Grammar \citep{BCPW2007a}, Grammatical Framework \citep{Ranta:09}, and others.
+and modern work in Lexical Functional Grammar\is{Lexical Functional Grammar (LFG} \citep{BKNS99a-ed}, Combinatory Categorial
+Grammar\is{Combinatory Categorial Grammar (CCG)} \citep{BCPW2007a}, Grammatical Framework\is{Grammatical Framework (GF)} \citep{Ranta:09}, and others.
 For reflections on grammar engineering for linguistic hypothesis testing
 in LFG, see \citealt{BKNS99a-ed} and \citealt{King:16}.}
 
@@ -1029,12 +1029,14 @@ as well as for \isi{information structure}
 \subsubsection{Grammar Matrix}
 % Emily
 \label{cl:lang-doc:gmcs}
+\is{Grammar Matrix|(}
+\is{\delphin\ Consortium|(}
 
 As noted in Section~\ref{cl:delphin}, the LinGO \isi{Grammar Matrix}
 \citep{BFO2002a-u,BDFPS2010a-u} was initially developed in
-the context of Project DeepThought with the goal of speeding up the
+the context of \isi{Project DeepThought} with the goal of speeding up the
 development of \delphin-style grammars for additional languages. It
-consists of a shared core grammar and a series of ``libraries'' of
+consists of a shared \isi{core grammar} and a series of ``libraries''\is{Grammar Matrix!libraries} of
 analyses for cross-linguistically variable phenomena. Both of these
 constitute linguistic hypotheses: the constraints
 in the core grammar are hypothesized to be cross-linguistically
@@ -1046,19 +1048,19 @@ Languages that are not covered by the analyses in the libraries provide
 evidence that the libraries need to be extended or refined. 
 
 Grammar Matrix grammar development is less tightly coordinated than
-that of CoreGram (see Section~\ref{cl:coregram}): in the typical use case,
+that of \isi{CoreGram} (see Section~\ref{cl:coregram}): in the typical use case,
 grammar developers start from the Grammar Matrix, but with their own
 independent copy of the Matrix core grammar. This impedes somewhat the
 ability of the Matrix to adapt to the needs of various languages
 (unless grammar developers report back to the Matrix developers).  On
-the other hand, the Matrix libraries represent an additional kind of
+the other hand, the Matrix libraries\is{Gramamr Matrix!libraries} represent an additional kind of
 linguistic hypothesis testing: each library on its own represents one
 linguistic phenomenon, but the libraries must be interoperable with
 each other. This is the cross-linguistic analogue of how monolingual
 implemented grammars allow linguists to ensure that analyses of
 different phenomena are interoperable
 \citep{Mueller99a,Bender2008c}: the Grammar Matrix customization
-system allows its developers to test cross-linguistic libraries of
+system\is{Grammar Matrix!customization system}\is{meta-grammar} allows its developers to test cross-linguistic libraries of
 analyses for interactions with other phenomena
 \citep{BFO2011a-u,Bender:16}. Without computational
 support\,---\,\ie\ a computer keeping track of the constraints that
@@ -1066,60 +1068,70 @@ make up each analysis, compiling them into specific grammars, and
 testing those grammars against testsuites\,---\,this problem space
 would be too complex for exploration.
 
+\is{Grammar Matrix|)}
+\is{\delphin\ Consortium|)}
+
 \subsubsection{AGGREGATION}
 \label{cl:lang-doc:aggr}
 % Emily
 
+\is{AGGREGATION|(}
+
 In many ways, the most urgent need for computational support for
-linguistic hypothesis testing is the description of endangered
-languages. Implemented grammars can be used to process transcribed but
+linguistic hypothesis testing is the description of \isi{endangered
+languages}. Implemented grammars can be used to process transcribed but
 unglossed text in order to find relevant examples more quickly, both
 of phenomena that have already been analyzed and of phenomena that are
 as yet not well-understood.\footnote{This methodology of using an
   implemented grammar as a sieve to sift the interesting examples out
   of corpora is demonstrated for English by \cite{Baldwin-et-al-05}.}
-Furthermore, treebanks constructed from implemented grammars can be
+Furthermore, \isi{treebanks} constructed from implemented grammars can be
 tremendously valuable additions to language documentation (see
 Section~\ref{cl:lang-doc:treebanks} below). However, the process of building an
 implemented grammar is time-consuming, even with the start provided by
-a multilingual grammar engineering project like CoreGram, ParGram, the GF Resource Library, or the
-Grammar Matrix.
+a multilingual grammar engineering project like \isi{CoreGram}, \isi{ParGram} \citep{BDKMR02a-u,Kin:For:Kuh:But:05}, the \isi{GF Resource Grammar Library} \cite{Ranta:09}, or the
+\isi{Grammar Matrix}.
 
 This is the motivation for the AGGREGATION\footnote{\url{http://depts.washington.edu/uwcl/aggregation/}, accessed 16 August 2019}
 project, which starts from two observations: (1) descriptive linguists
-produce extremely rich annotations on data in the form of interlinear
-glossed text (IGT); and (2) the Grammar Matrix's libraries are
+produce extremely rich annotations on data in the form of \isi{interlinear
+glossed text (IGT)}; and (2) the Grammar Matrix's libraries are
 accessed through a customization system which elicits a grammar
 specification in the form of a series of choices describing either
-high-level typological properties or specific constraints on lexical
-classes and lexical rules.  The goal of AGGREGATION is to
+high-level \isi{typological properties} or specific constraints on \isi{lexical
+classes} and \isi{lexical rules}.  The goal of AGGREGATION is to
 automatically produce such grammar specifications on the basis of
 information encoded in IGT, to be used by the Grammar Matrix
 customization system to produce language-particular
 grammars. AGGREGATION uses different approaches for different
-linguistic subsystems. For example, it learns morphotactics by
+linguistic subsystems. For example, it learns \isi{morphotactics} by
 observing morpheme order in the training data, and the grouping
-of affixes together into position classes based on measures of overlap of
+of affixes together into \isi{position classes} based on measures of overlap of
 stems they attach to \citep{Wax:14,Zamaraeva:17}. For many kinds of
 syntactic information, it leverages syntactic structure projected from
 the translation line (English, easily parsed with current tools)
 through the gloss line (which facilitates aligning the language and
 translation lines) to the language line
 \citep{Xia:Lew:07,Georgi:16}. Using this projected information, the
-AGGREGATION system can detect case frames for verbs, word order
-patterns, etc.\ \citep{Ben:Goo:Cro:Xia:13,Zam:How:Ben:19}.\footnote{The TypeGram project \citep{Hel:Bee:14} is in a similar spirit. TypeGram provides methods of creating HPSG grammars by encoding specifications of valence and inflection in particularly rich IGT and then creating grammars based on those specifications.}
+AGGREGATION system can detect \isi{case frames} for verbs, \isi{word order}
+patterns, etc.\ \citep{Ben:Goo:Cro:Xia:13,Zam:How:Ben:19}.\footnote{The \isi{TypeGram} project \citep{Hel:Bee:14} is in a similar spirit. TypeGram provides methods of creating HPSG grammars by encoding specifications of valence and inflection in particularly rich IGT and then creating grammars based on those specifications.}
+
+\is{AGGREGATION|)}
 
 \subsubsection{Treebanks and sembanks}
 \label{cl:lang-doc:treebanks}
 %Emily
 
+\is{treebanks|(}
+\is{sembanks|(}
+
 A particularly valuable type of resource that can be derived from HPSG
-grammars are treebanks and sembanks. A treebank is a collection of
+grammars are treebanks and sembanks. A \textit{treebank} is a collection of
 text where each sentence is associated with a syntactic
-representation. A sembank has semantic representations (in some cases
+representation. A \textit{sembank} has semantic representations (in some cases
 in addition to the syntactic ones). Treebanks and sembanks can be used
 for linguistic research, as the analyses allow for more detailed
-structure-based searches for phenomena of interest \citep{Rohde:05,Gho:Bir:10,Kou:Oep:14}.\footnote{The WeSearch interface of \citet{Kou:Oep:14} can be accessed at \url{http://wesearch.delph-in.net/deepbank/search.jsp} (accessed 16 August 2019).}
+structure-based searches\is{corpus search!structure-based} for phenomena of interest \citep{Rohde:05,Gho:Bir:10,Kou:Oep:14}.\footnote{The \isi{WeSearch} interface of \citet{Kou:Oep:14} can be accessed at \url{http://wesearch.delph-in.net/deepbank/search.jsp} (accessed 16 August 2019).}
 % GE 2019-02-09 - TODO link to WeSearch?
 % http://wesearch.delph-in.net/deepbank/search.jsp
 % EMB 2019-02-21 Kou:Oep:14 is WeSearch isn't it? 
@@ -1127,55 +1139,55 @@ structure-based searches for phenomena of interest \citep{Rohde:05,Gho:Bir:10,Ko
 % could be useful if readers are likely to want to use it
 % EMB 2019-02-25 I see -- added!
 In the context of language documentation and description, searchable
-treebanks can also be a valuable addition, helping readers connect
+treebanks\is{treebanks!searchable} can also be a valuable addition, helping readers connect
 prose descriptions of linguistic phenomena to multiple examples in the
 corpus \citep{Ben:Gho:Bal:Dri:12}. In natural language processing,
 treebanks and sembanks are critical source material for training
-stochastic and neural parsers (see Section~\ref{cl:downstream:data}).
+stochastic\is{parsing!stochastic} and neural parsers\is{parsing!neural} (see Section~\ref{cl:downstream:data}).
 
 Traditional treebanks are created by doing a certain amount of
-preprocessing on data, including possibly chunking or CFG parsing, and
+preprocessing on data, including possibly \isi{chunking} or \isi{CFG} parsing, and
 then hand-correcting the result \citep{Mar:San:Mar:93,Ban:Bon:Cai:13}.
 While this approach is a means to encode human insight about
 linguistic structure for later automatic processing, it is both
-inefficient and potentially error-prone. The Alpino project
-\citep{vanderbeek2002alpino} addresses this by first parsing the text
-with a broad-coverage HPSG-inspired grammar of Dutch and then having
-annotators select among the parses. The selection process is
-facilitated by allowing the annotators to mark potential lexical
-entries for words in the sentence at hand as correct, possibly
-correct, or wrong and to pre-mark some constituent boundaries. These
+inefficient and potentially error-prone. The \isi{Alpino} project
+(\citealt{vanderbeek2002alpino}; see also Section~\ref{cl:other:alpino} above) addresses this by first parsing the text
+with a broad-coverage HPSG-inspired grammar of \ili{Dutch} and then having
+annotators\is{annotation} select among the parses. The selection process is
+facilitated by allowing the annotators to mark potential \isi{lexical entries} 
+for words in the sentence at hand as correct, possibly
+correct, or wrong and to pre-mark some \isi{constituent boundaries}. These
 constraints reduce the search space for the parser and consequently
 also the range of analyses the annotator has to consider before
 choosing one. A facility for adding one-off lexical entries to handle
-\eg\ misspellings helps increase grammar coverage.  Disambiguation is
-handled with the aid of \textit{discriminants} \ie\ properties true of
-some but not all trees in the parse forest \citep{Carter:97}. Finally,
+\eg\ misspellings helps increase grammar coverage.  Disambiguation\is{ambiguity}\is{disambiguation} is
+handled with the aid of \textit{\isi{discriminants}} \ie\ properties true of
+some but not all trees in the \isi{parse forest} \citep{Carter:97}. Finally,
 the annotators may further edit analyses deemed insufficient. Though
 the underlying grammar is based on HPSG, the treebank stores
-dependency representations instead.  The Alpino parser was similarly
+\isi{dependency representations} instead.  The Alpino parser was similarly
 used to construct the Lassy treebanks of written Dutch
 \citep{van:bou:van:13}.  In more recent work, these dependency
-representations have been mapped to the Universal Dependencies (UD)
+representations have been mapped to the \isi{Universal Dependencies (UD)}
 annotation standards \citep{Niv:Mar:Gin:16} to produce a UD treebank
 for Dutch \citep{Bou:Van:17}.
 
-The Redwoods project \citep{OFTM2004a-u} also produces grammar-driven
-treebanks, in this case for English and without any post-editing of
+The \isi{Redwoods} project \citep{OFTM2004a-u} also produces grammar-driven
+treebanks, in this case for \ili{English} and without any post-editing of
 analyses.\footnote{There are also Redwoods-style treebanks for other
-  languages, including the Hinoki Treebank of Japanese
-  \citep{bond:etal:2004} and the Tibidabo Treebank of Spanish
+  languages, including the \isi{Hinoki Treebank} of \ili{Japanese}
+  \citep{bond:etal:2004} and the \isi{Tibidabo Treebank} of \ili{Spanish}
   \citep{marimon:2015}.}  As with Alpino, this is done by first
 parsing the corpus with the grammar and calcuating the discriminants
 for each parse forest.  Finally, the treebanking software stores not
 only the final full HPSG analysis that was selected, but also the
-decisions the annotator made about each discriminant. Thus when the
+decisions the annotator\is{annotation} made about each discriminant.\is{discriminants} Thus when the
 grammar is updated to include for example a refinement to the semantic
 representations, the corpus can be reparsed and the decisions
 replayed, leaving only a small amount of further annotation work to be
-done to handle any additional ambguity introduced. The activity of
-treebanking in turn provides useful insight into grammatical analyses,
-including sources of spurious ambiguity and phenomena that are not yet
+done to handle any additional \isi{ambguity} introduced. The activity of
+\isi{treebanking} in turn provides useful insight into grammatical analyses,
+including sources of spurious ambiguity\is{ambiguity!spurious} and phenomena that are not yet
 properly handled and thus informs and spurs further grammar
 development.  A downside to strictly grammar-based treebanking is that
 only items for which the grammar finds a reasonable parse can be
@@ -1183,19 +1195,23 @@ included in the treebank. For many applications, this is not a
 drawback, so long as there are sufficient and sufficiently varied
 sentences that do receive analyses.
 
-Finally, there are also automatically annotated treebanks.
+Finally, there are also automatically annotated\is{annotation!automatic} treebanks.
 These are not as reliable as manually annotated treebanks,
 but they can be considerably larger.
-WikiWoods\footnote{\url{http://moin.delph-in.net/WikiWoods}, accessed 16 August 2019}
-covers 55m sentences of English (900m tokens).
+\isi{WikiWoods}\footnote{\url{http://moin.delph-in.net/WikiWoods}, accessed 16 August 2019}
+covers 55m sentences of \ili{English} (900m tokens).
 It was produced by \citet{flickinger2010wikiwoods} and \citet{solberg2012wikiwoods}
-from the July 2008 dump of the full English Wikipedia,
+from the July 2008 dump of the full English \isi{Wikipedia},
 using the ERG and PET,
-with parse ranking trained on the manually treebanked subcorpus WeScience \citep{ytrestol2009wescience}.
-As with the Redwoods treebanks, WikiWoods is updated with each release of the ERG.
+with parse ranking trained on the manually treebanked subcorpus \isi{WeScience} \citep{ytrestol2009wescience}.
+As with the \isi{Redwoods} treebanks, WikiWoods is updated with each release of the ERG.
+
+\is{treebanks|)}
+\is{sembanks|)}
 
 \is{language documentation|)}
 \is{linguistic hypothesis testing|)}
+
 
 
 \subsection{Downstream applications}
@@ -1220,33 +1236,38 @@ of applications of \delphin\ software and resources at \url{http://moin.delph-in
 \subsubsection{Education}
 \label{cl:downstream:edu}
 
-Precise syntactic analyses can be useful in language teaching,
+\is{educational applications|(}
+
+Precise syntactic analyses can be useful in \isi{language teaching},
 in order to automatically identify errors and give feedback to the student.
 In order to model common mistakes,
-a grammar can be extended with so-called ``mal-rules''.
+a grammar can be extended with so-called \textit{\isi{mal-rules}}.
 A mal-rule is like a normal rule, in that it licenses a construction,
 and can be treated the same during parsing\,---\,however, given a parse,
 the presence of mal-rules indicates that the student needs to be given feedback
 \citep{Ben:Fli:Oep:04,flickinger2013error,morgadodacosta2016error}.
 A large scale system implementing this kind of computer-aided teaching has been developed
-by the Education Program for Gifted Youth at Stanford University,
-using the ERG \citep{suppes2014teach}.
+by the \isi{Education Program for Gifted Youth} at \isi{Stanford University},
+using the ERG\is{English Resource Grammar (ERG)} \citep{suppes2014teach}.
 This system has reached tens of thousands of elementary and middle school children,
 and has been found to improve the school results of underachieving children.
 % Redbird (McGraw-Hill)
 
 Another way to use a precision grammar is to automatically produce teaching materials.
-Given a semantic representation,
-a grammar can generate one or more sentences.
-\citet{Flickinger:17} uses the ERG to produce practice exercises for a student learning first-order logic.
-For each exercise, the student is presented with a natural language sentence
-and is supposed to write down the corresponding first-order logical form.
+Given a semantic representation,\is{semantic representations}
+a grammar can generate\is{generation} one or more sentences.
+\citet{Flickinger:17} uses the ERG\is{English Resource Grammar (ERG)} to produce practice exercises for a student learning \isi{first-order logic}.
+For each exercise, the student is presented with an \ili{English} sentence
+and is supposed to write down the corresponding first-order logical form.\is{logical form}\is{first-order logic}
 By using a grammar, the system can produce syntactically varied questions
-and automatically evaluate the student's answer.
+and automatically evaluate\is{evaluation!automatic} the student's answer.
 
+\is{educational applications|)}
 
 \subsubsection{NLP tasks}
 \label{cl:downstream:nlp}
+
+\is{Natural Language Processing (NLP)|(}
 
 Much NLP work focuses on specific \textit{tasks},
 where a system is presented with some input,
@@ -1255,50 +1276,50 @@ with a clearly-defined metric to determine how well the system performs.
 HPSG grammars have been used in a range of such tasks,
 where the syntactic and semantic analyses provide useful features.
 
-\textit{Information retrieval} is the task of finding relevant documents for a given query.
-For example, \citet{schaefer2011acl} present a tool for searching the ACL Anthology, using the ERG.
-\textit{Information extraction} is the task of identifying useful facts in a collection of documents.
-For example, \citet{reiplinger2012glossary} aim to identify definitions of technical concepts,
+\textit{\isi{Information retrieval}} is the task of finding relevant documents for a given query.
+For example, \citet{schaefer2011acl} present a tool for searching the ACL Anthology, using the ERG.\is{English Resource Grammar (ERG)}
+\textit{\isi{Information extraction}} is the task of identifying useful facts in a collection of documents.
+For example, \citet{reiplinger2012glossary} aim to identify definitions of technical concepts from English text,
 in order to automatically construct a glossary.
 They find that using the ERG reduces noise in the candidate definitions.
-\citet{miyao2008protein} aim to identify protein-protein interactions in the biomedical literature, using Enju.
+\citet{miyao2008protein} aim to identify protein-protein interactions in the \ili{English} biomedical literature, using \isi{Enju}.\is{biomedical NLP}
 
 For these tasks, some linguistic phenomena are particularly important,
-such as negation and hedging
-(including adverbs like \textit{possibly}, modals like \textit{may}, and verbs of speculation like \textit{suggest}).
+such as \isi{negation} and hedging\is{hedges}
+(including \isi{adverbs} like \textit{possibly}, \isi{modals} like \textit{may}, and verbs of speculation\is{verbs!of speculation} like \textit{suggest}).
 When it comes to identifying facts asserted in a document,
 a clause that has been negated or hedged should be treated with caution.
 \citet{mackinlay2012biomed} consider the biomedical domain,
-evaluating on the BioNLP 2009 Shared Task \citep{kim2009task},
-where they outperform previous approaches for negation, but not for speculation.
+evaluating on the \isi{BioNLP 2009 Shared Task} \citep{kim2009task},\is{biomedical NLP}
+where they outperform previous approaches for \isi{negation}, but not for \isi{speculation}.
 \citet{velldal2012specneg} consider negation and speculation in biomedical text,
 evaluating on the CoNLL 2010 Shared Task \citep{farkas2010task},
 where they outperform previous approaches.
-\citet{packard2014neg} propose a general-purpose method for finding the scope of negation in an MRS,
-evaluating on the *SEM 2012 Shared Task \citep{morante2012task}.
-They find that converting the output of the ERG with a relatively simple set of rules
-achieves high performance on this dataset,
+\citet{packard2014neg} propose a general-purpose method for finding the scope of negation\is{scope!of negation} in an MRS,
+evaluating on the \isi{*SEM 2012 Shared Task} \citep{morante2012task}.
+They find that converting the output of the ERG\is{English Resource Grammar (ERG)} with a relatively simple set of rules
+achieves high performance on this \ili{English} dataset,
 and combining this approach with a purely statistical system
 outperforms previous approaches.
-\citet{zamaraeva2018pathology} use the ERG for negation detection and then
+\citet{zamaraeva2018pathology} use the ERG for \is{negation} detection and then
 use that information to refine the (machine-learning) features in a 
-system that classifies pathology reports and improve system performance.
+system that classifies \ili{English} pathology reports and improve system performance.\is{biomedical NLP}
 A common finding from these studies
 is that a system using the output of the ERG
-tends to have high precision (items identified by the system tend to be correct)
-but low recall (items are often overlooked by the system).
+tends to have high \isi{precision} (items identified by the system tend to be correct)
+but low \isi{recall} (items are often overlooked by the system).
 One reason for low recall is that the grammar does not cover all sentences in natural text.
 As we will see in Section~\ref{cl:downstream:data},
-recent work on robust parsing may help to close this coverage gap.
+recent work on \isi{robust parsing} may help to close this coverage gap.
 
-Negation resolution is also included in \citeauthor{oepen2017extrinsic}'s (\citeyear{oepen2017extrinsic})
-Shared Task on Extrinsic Parser Evaluation.
+Negation\is{negation} resolution is also included in \citeauthor{oepen2017extrinsic}'s (\citeyear{oepen2017extrinsic})
+\isi{Shared Task on Extrinsic Parser Evaluation}.
 As mentioned in Section~\ref{cl:prac:dep},
 dependency graphs can provide a useful tool in NLP tasks,
-and this shared task aims to evaluate the use of dependency representations (both semantic and syntactic),
+and this shared task aims to evaluate the use of \isi{dependency representations} (both semantic and syntactic),
 for three downstream applications:
-biomedical information extraction, negation resolution, and fine-grained opinion analysis.
-Some participating teams use DM dependencies\footnote{DM stands for \delphin\ MRS dependencies; see Figure~\ref{cl:fig:dep}.} \citep{schuster2017dep,chen2017dep}.
+biomedical information extraction,\is{information extraction!biomedical} negation resolution, and fine-grained opinion analysis.\is{opinion analysis}
+Some participating teams use DM\is{\delphin\ MRS Dependencies (DM)} dependencies\footnote{DM stands for \delphin\ MRS dependencies; see (\ref{cl:fig:dm}).} \citep{schuster2017dep,chen2017dep}.
 The results of this shared task suggest that,
 compared to other dependency representations,
 DM is particularly useful for negation resolution.
@@ -1424,7 +1445,7 @@ and scale across a variety of syntactic constructions.
 % https://arxiv.org/pdf/1809.03044.pdf
 % https://arxiv.org/pdf/1812.11737.pdf
 
-
+\is{Natural Language Processing (NLP)|)}
 
 \section{Linguistic insights}
 \label{cl:insight}
