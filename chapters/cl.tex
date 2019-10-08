@@ -87,7 +87,7 @@ such as software for \isi{parsing}, \isi{generation}, and \isi{grammar explorati
 
 A second important property of HPSG that supports a strong connection between theoretical and computational work is an interest in both so-called ``\isi{core}'' and so-called ``\isi{peripheral}'' phenomena. Most implemented grammars are built with the goal of handling naturally occurring text.\footnote{It is possible, but less common, to do implementation work strictly against test suites of sentences constructed specifically to focus on phenomena of interest.} This means that they will need to handle a wide variety of linguistic phenomena not always treated in theoretical syntactic work \citep{Baldwin-et-al-05}. A syntactic framework that excludes research on ``peripheral'' phenomena as uninteresting provides less support for implementational work than does one, like HPSG or \isi{Construction Grammar}, that values such topics (for a comparison of HPSG and Construction Grammar, see \crossrefchapteralt{cxg}).
 
-Finally, the \isi{type hierarchy} characteristic of HPSG lends itself well to developing broad-coverage grammars which are maintainable\is{maintability!of grammars} over time (see \citealt{Syg:Win:11}). The use of the type hierarchy to manage complexity\is{complexity!of grammars} at scale comes out of the work of \citet{Flickinger87} and others at \is{HP labs} in the project where HPSG was originally developed. The core idea is that any given constraint is (ideally) expressed only once on types which serve as supertypes to all entities that bear that constraint.\footnote{Originally this only applied to \isi{lexical entries} in Flickinger's work. Now it also applies to \isi{phrase structure rules}, \isi{lexical rules}, and types below the level of the sign which are used in the definition of all of these. See \chaptercrossrefalt{chap-evolution} for further discussion.} Such constraints might represent broad generalizations that apply to many entities or relatively narrow, idiosyncratic properties that apply to only a few. By isolating any given constraint on one type (as opposed to repeating it in multiple places), we build grammars that are easier to update and adapt in light of new data that require refinements to constraints. Having a single locus for each constraint also makes the types a very useful target for documentation\is{documentation!of grammars} \citep{Hashimoto-etal:07} and grammar exploration \citep{Letcher:18}. 
+Finally, the \isi{type hierarchy} characteristic of HPSG lends itself well to developing broad-coverage grammars which are maintainable\is{maintability!of grammars} over time (see \citealt{Syg:Win:11}). The use of the type hierarchy to manage complexity\is{complexity!of grammars} at scale comes out of the work of \citet{Flickinger87} and others at \is{HP labs} in the project where HPSG was originally developed. The core idea is that any given constraint is (ideally) expressed only once on types which serve as supertypes to all entities that bear that constraint.\footnote{Originally this only applied to \isi{lexical entries} in Flickinger's work. Now it also applies to \isi{phrase structure rules}, \isi{lexical rules}, and types below the level of the sign which are used in the definition of all of these. See \crossrefchapteralt{chap-evolution} for further discussion.} Such constraints might represent broad generalizations that apply to many entities or relatively narrow, idiosyncratic properties that apply to only a few. By isolating any given constraint on one type (as opposed to repeating it in multiple places), we build grammars that are easier to update and adapt in light of new data that require refinements to constraints. Having a single locus for each constraint also makes the types a very useful target for documentation\is{documentation!of grammars} \citep{Hashimoto-etal:07} and grammar exploration \citep{Letcher:18}. 
 
 
 \subsection{Practical considerations}
@@ -563,16 +563,14 @@ This is equivalent to the feature structure in~(\ref{cl:fig:mrs-feat}).
 	\ex\label{cl:fig:mrs-abs}
 	\begin{minipage}[c]{.6\textwidth}
 	\vspace*{-1\baselineskip}
-	\begin{gather*}
-		\textsc{index}\colon e_1 \\
-		\begin{aligned}
-			l_1\colon & \textit{\_the\_q}\left(x_1,h_1,h_2\right), h_1 \,\textsc{qeq}\, l_4 \\
-			l_2\colon & \textit{udef\_q}\left(x_2,h_3,h_4\right), h_3 \,\textsc{qeq}\, l_3 \\
-			l_3\colon & \textit{\_cherry\_n\_1}\left(x_2\right) \\
-			l_4\colon & \textit{\_tree\_n\_of}\left(x_1\right), \textit{compound}\left(e_2,x_1,x_2\right) \\
-			\textsc{ltop}, l_5\colon & \textit{\_blossom\_v\_1}\left(e_1,x_1\right)
-		\end{aligned}
-	\end{gather*}
+	\begin{align*}
+	   \textsc{index}\colon & e_1 \\
+		l_1\colon & \textit{\_the\_q}\left(x_1,h_1,h_2\right), h_1 \,\textsc{qeq}\, l_4 \\
+		l_2\colon & \textit{udef\_q}\left(x_2,h_3,h_4\right), h_3 \,\textsc{qeq}\, l_3 \\
+		l_3\colon & \textit{\_cherry\_n\_1}\left(x_2\right) \\
+		l_4\colon & \textit{\_tree\_n\_of}\left(x_1\right), \textit{compound}\left(e_2,x_1,x_2\right) \\
+		\textsc{ltop}, l_5\colon & \textit{\_blossom\_v\_1}\left(e_1,x_1\right)
+	\end{align*}
 	\end{minipage}
 \end{exe}
 
@@ -581,7 +579,8 @@ representation is shown in~(\ref{cl:fig:dmrs}).
 This captures all of the information
 in the MRS\is{Minimal Recursion Semantics (MRS)} in (\ref{cl:fig:mrs-abs}).
 Predicates\is{predicates} are represented as nodes,
-while \isi{semantic roles} and scopal\is{scope} constraints are represented as dependencies.
+while \isi{semantic roles} and scopal\is{scope} constraints are represented as directed edges,
+called \textit{dependencies} or \textit{links}.
 Each dependency has two labels.
 The first is an \isi{argument label},
 such as \textsc{arg1},\isfeat{arg1} \textsc{arg2},\isfeat{arg2}
@@ -614,7 +613,8 @@ or \textsc{neq}\is{NEQ} (the linked nodes don't share a label).
 	\end{tikzpicture}%
 \end{exe}
 
-Finally, (\ref{cl:fig:dm}) shows the corresponding \delphin\ MRS Dependencies (DM) representation.\is{\delphin\ MRS Dependencies (DMRS)}
+Finally, the corresponding \delphin\ MRS Dependencies (DM) representation
+is shown in~(\ref{cl:fig:dm}).\is{\delphin\ MRS Dependencies (DM)}
 This is a simplified version of MRS,\is{Minimal Recursion Semantics (MRS)}
 where all nodes are tokens in the sentence.
 Some abstract predicates are dropped (such as \textit{udef\_q}),
@@ -639,7 +639,7 @@ equivalent to the \textsc{rstr/qeq}\isfeat{rstr}\is{QEQ} of DMRS.
 
 
 The existence of such dependency graph formalisms,
-as well as software packages to manipulate such graphs (\eg\ \citealt{copestake2016pydmrs}, \citealt{Her:Kuh:Oep:19}, or \isi{PyDelphin}\footnote{\url{https://github.com/delph-in/pydelphin/}, accessed 16 August 2019}}),
+as well as software packages to manipulate such graphs (\eg\ \citealt{copestake2016pydmrs}, \citealt{Her:Kuh:Oep:19}, or \isi{PyDelphin}\footnote{\url{https://github.com/delph-in/pydelphin/}, accessed 16 August 2019}),
 has made it easier to use HPSG grammars in a number of practical tasks,
 as we will discuss in Section~\ref{cl:downstream}.
 
