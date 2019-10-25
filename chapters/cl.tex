@@ -80,7 +80,7 @@ is that the formalism is relatively stable.
 That enables the development and maintenance of software systems that target the formalism \citep{boguraev1988software},
 such as software for \isi{parsing}, \isi{generation}, and \isi{grammar exploration}
 (see Section~\ref{cl:resources} below for some examples).\footnote{%
-	There are implementations of Minimalism, notably \citealt{Stabler97a-u} and \citealt{Herring:16}. (See also \citealt{Tor:Sta:Ste:19} for a recent broad-coverage, treebank-trained\is{treebank} parser in this framework.)
+	There are implementations of Minimalism, notably \citealt{Stabler97a-u} and \citealt{Herring:16}. (See also \citealt{Tor:Sta:Ste:19} for a recent broad-coverage, \isi{treebank}-trained parser in this framework.)
 	However, implementing a theory requires fixing the formalism,
 	and so these implementations are unlikely to be useful for testing theoretical ideas as the theory moves on.
 }
@@ -105,7 +105,7 @@ as we will see in Sections~\ref{cl:lang-doc} and~\ref{cl:downstream}, respective
 \subsubsection{Computational complexity}
 \label{cl:prac:comp}
 
-\is{computational complexity|(}
+\is{complexity!computational|(}
 
 One way to measure how easy or difficult it is
 to use a syntactic theory in practical computational applications
@@ -120,8 +120,11 @@ is to consider the \textit{computational complexity}\footnote{%
 	\citet[ch.~17]{MuellerGT-Eng3} discusses HPSG from the point of view of formal language theory.
 }
 of parsing and generation algorithms \citep{gazdar1985complexity}.
-Computational complexity includes both how much
-memory\is{complexity!memory} and how much computational time\is{complexity!time} 
+Computational complexity includes both how much memory
+% The technical term should be `space complexity',
+% but since we aren't discussing that here,
+% it doesn't make sense to introduce the terminology.
+and how much computational time\is{complexity!time}
 a parsing algorithm needs to process a particular sentence.\footnote{% 
   In this section, we only consider parsing
   algorithms, but a similar analysis can be done for generation
@@ -257,7 +260,7 @@ The only lists that constrain grammaticality are \isi{valence lists},
 but in practical grammars these are never greater than length four or five.\footnote{%
 	In part, this is because \delphin\ does not
 	adopt proposals like the \textsc{deps}\isfeat{deps} list of \citet*{BMS2001a-unlinked}.
-	Furthermore, in many \is{\delphin\ Consortium}\delphin\ grammars, including the ERG,\is{English Resource Grammmar (ERG)}
+	Furthermore, in many \is{\delphin\ Consortium}\delphin\ grammars, including the ERG,\is{English Resource Grammar (ERG)}
 	the \textsc{slash}\isfeat{slash} list cannot have more than one element.
 	If an unbounded \textsc{slash} list is required
 	(such as to model cross-serial dependencies),
@@ -289,7 +292,7 @@ it can be helpful to use a test suite composed of a representative sample of sen
 % TODO citation with numbers for parsing real corpora
 % EMB 2019-02-25 This would still be a nice to have, if we can get to it before the final version.
 
-\is{computaitonal complexity|)}
+\is{complexity!computational|)}
 
 \subsubsection{Parse ranking}
 \label{cl:prac:rank}
@@ -364,7 +367,7 @@ rules.\footnote{In fact, in earlier work, this task was undertaken by
 % EMB 2019-02-21 Added the above footnote. TMI or fun historical detail?
 % GE 2019-02-25 fun historical detail! I didn't know if there was anything to cite.
 Typically, a statistical system is used \citep{Tou:Man:Shi:Fli:Oep:02,Tou:Man:Fli:Oep:05}.
-First, a corpus is \textit{treebanked}:\is{treebanks}
+First, a corpus is \textit{\isi{treebank}ed}:
 for each sentence in the corpus,
 an annotator (often the grammar writer) chooses the best parse,
 out of all parses produced by the grammar.
@@ -427,7 +430,7 @@ while also improving parsing accuracy.
 % EMB 2018-09-28 Doesn't Bec also bring in the lexical rules? Maybe that's too much detail for here.
 
 Finally, in order to train these statistical systems,
-we need to first annotate\is{annotation} a treebank.\is{treebanks}
+we need to first annotate\is{annotation} a \isi{treebank}.
 When there are many parses for a sentence,
 it can be time-consuming to select the best parse.
 To efficiently use an annotator's time,
@@ -469,7 +472,7 @@ Several types of dependency graph have been proposed
 based on Minimal Recursion Semantics \citep[MRS;][]{CFPS2005a},\is{Minimal Recursion Semantics (MRS)}
 with varying levels of simplification.
 \citet{oepen2006eds} observe that if every predicate has a unique
-\textit{\isi{intrinsic argument}}, an MRS can be converted to a variable-free semantic representation,\is{semantic representations!variable free}
+\textit{\isi{intrinsic argument}}, an MRS can be converted to a variable-free semantic representation,\is{semantic representations!variable-free}\is{logical variable}
 by replacing each reference to a variable with a reference to the corresponding predicate.
 They present \isi{Elementary Dependency Structures (EDS)},
 semantic graphs which maintain \isi{predicate-argument structure} but discard some \isi{scope} information.
@@ -479,13 +482,13 @@ to create a more expressive graph-based representation called
 \isi{Dependency Minimal Recursion Semantics (DMRS)},
 which is fully interconvertible with MRS.\footnote{%
 	More precisely, for DMRS and MRS to be fully interconvertible,
-	every predicate (except for \isi{quantifiers}) must have an \isi{intrinsic argument},
+	every predicate (except for \isi{quantifier}s) must have an \isi{intrinsic argument},
 	and every variable must be the intrinsic argument of exactly one predicate.
 } This expressivity is achieved by adding annotations on the edges to
 indicate scope information.
 Finally, \delphin\ MRS Dependencies \citep[DM;][]{ivanova2012dm}\is{\delphin\ MRS Dependencies (DM)}
 express \isi{predicate-argument structure} purely in terms of the surface tokens,
-without introducing any abstract predicates.\is{predicates!abstract}
+without introducing any abstract predicates.\is{predicate!abstract}
 
 For example, the \isi{English Resource Grammar (ERG)}
 produces the MRS representation in~(\ref{cl:fig:mrs-feat})
@@ -494,13 +497,13 @@ For simplicity, we have omitted some details, including
 features such as number and tense,
 individual constraints (\textsc{icons}),\isfeat{icons}
 and the use of difference lists.
-By convention, \is{\delphin\ Consortium}\delphin\ predicates beginning with an underscore correspond to a \isi{lexical item},\is{predicates!lexical}
+By convention, \is{\delphin\ Consortium}\delphin\ predicates beginning with an underscore correspond to a \isi{lexical item},\is{predicate!lexical}
 and have a three-part format,
 consisting of a lemma, a part-of-speech tag, and (optionally) a sense.
-Predicates without an initial underscore are abstract predicates.\is{predicates!abstract}
-The \textit{qeq}\is{QEQ} constraints (equality modulo quantifiers)\is{equal modulo quantifiers}
+Predicates without an initial underscore are abstract predicates.\is{predicate!abstract}
+The \textit{qeq}\is{QEQ} constraints (\isi{equality modulo quantifiers})
 are scopal\is{scope} relationships,
-where \isi{quantifiers} may possibly intervene
+where \isi{quantifier}s may possibly intervene
 (for details, see \citealt{CFPS2005a} or \crossrefchapteralt{semantics}).
 
 \begin{exe}
@@ -578,7 +581,7 @@ The corresponding \isi{Dependency Minimal Recursion Semantics (DMRS)}
 representation is shown in~(\ref{cl:fig:dmrs}).
 This captures all of the information
 in the MRS\is{Minimal Recursion Semantics (MRS)} in (\ref{cl:fig:mrs-abs}).
-Predicates\is{predicates} are represented as nodes,
+Predicates\is{predicate} are represented as nodes,
 while \isi{semantic roles} and scopal\is{scope} constraints are represented as directed edges,
 called \textit{dependencies} or \textit{links}.
 Each dependency has two labels.
@@ -778,11 +781,11 @@ mailing lists, annual meetings) and an emphasis on \isi{open-source}
 distribution of resources. Both of these support the collaboration of a
 global network of researchers working on interoperable
 components. These include repositories of linguistic knowledge, that
-is, both grammars and \isi{meta-grammars} (including the Matrix and \isi{CLIMB},
+is, both grammars and \isi{meta-grammar}s (including the Matrix and \isi{CLIMB},
 \citealt{Fokkens:14}); processing engines that apply that
 knowledge for \isi{parsing} and \isi{generation} (discussed further below);
 software for supporting the development of grammar documentation\is{documentation!of grammars}
-\citep[e.g.,][]{Hashimoto-etal:07}, software for creating \isi{treebanks}
+\citep[e.g.,][]{Hashimoto-etal:07}, software for creating \isi{treebank}s
 (\citealt{OFTM2004a-u,Packard:15}; see also Section~\ref{cl:lang-doc:treebanks} below), 
 and \isi{parse ranking} models trained on them
 (\citealt{Tou:Man:Fli:Oep:05}; see also Section~\ref{cl:prac:rank} above), and
@@ -799,7 +802,7 @@ of a \isi{formalism} for the declaration of grammars
 % EMB 2019-02-21 Yes, though I think the discussion on MrsRfc is also 
 % relevant --- I guess there's not really anything citable there though.
 grammar outputs (\eg\ the forest that results from parsing a sentence,
-as well as the results of treebanking\is{treebanks} \citep{Oepen:01,OFTM2004a-u}).
+as well as the results of \isi{treebank}ing \citep{Oepen:01,OFTM2004a-u}).
 These standards facilitate the development of multiple different
 \isi{parsing} and \isi{generation} engines which can all process the same grammars
 (including, so far,
@@ -849,7 +852,7 @@ sentences which can run up against processing limits. Supertagging helps some he
 Working with real-world text (rather than curated testsuites designed
 for linguistic research only) requires 
 the integration of external components such as \isi{morphological analyzers} 
-\citep[e.g.,][]{Marimon2013a-u} and \isi{named entity recognizers} \citep[e.g.,][]{L06-1115,Sch:Usz:Fed:08}. As described in Section~\ref{cl:prac:rank}, working with real-world applications requires \isi{parse ranking} \citep[e.g.,][]{Tou:Man:Fli:Oep:05}, and similarly ranking of generator outputs (known as \textit{\isi{realization ranking}}; \citealt[e.g.,][]{Velldal:09}). Finally, research on embedding \isi{broad-coverage grammars} in \isi{practical applications} inspires work  towards making sure that the \isi{semantic representations}
+\citep[e.g.,][]{Marimon2013a-u} and \isi{named entity recognizers} \citep[e.g.,][]{L06-1115,Sch:Usz:Fed:08}. As described in Section~\ref{cl:prac:rank}, working with real-world applications requires \isi{parse ranking} \citep[e.g.,][]{Tou:Man:Fli:Oep:05}, and similarly ranking of generator outputs (known as \textit{\isi{realization ranking}}; \citealt[e.g.,][]{Velldal:09}). Finally, research on embedding \isi{broad-coverage grammar}s in \isi{practical applications} inspires work  towards making sure that the \isi{semantic representations}
 can serve as a suitable interface for external
 components \citep[e.g.,][]{flickinger2005sem}. 
 % EMB 2018-12-21 I can probably put in citations for all of those
@@ -880,7 +883,7 @@ useful guide points in the development of semantic analyses.
 Alpino\footnote{%
 	\url{http://www.let.rug.nl/vannoord/alp/Alpino/}, accessed 16 August 2019
 }
-is a broad-coverage grammar\is{broad-coverage grammars} of \ili{Dutch}
+is a broad-coverage grammar\is{broad-coverage grammar}s of \ili{Dutch}
 \citep{BvNM2001a-u,vannoord2005alpino,vannoord2006alpino}.
 % https://www.let.rug.nl/vannoord/papers/alpino.pdf
 % https://www.let.rug.nl/vannoord/papers/wcpsavg.pdf
@@ -911,7 +914,7 @@ as discussed in Section~\ref{cl:lang-doc:treebanks} below.
 Alpino uses a \isi{statistical model} trained on a dependency \isi{treebank},
 and in fact the same statistical model can be used in both \isi{parsing} and \isi{generation} \citep{dekok2011reversible}.
 
-\is{Aplino|)}
+\is{Alpino|)}
 
 \subsubsection{Enju}
 \label{cl:other:enju}
@@ -991,7 +994,7 @@ and Grammar Matrix projects for cross-linguistic hypothesis testing,
 and in the AGGREGATION project in the context of language
 documentation.\footnote{Grammar engineering\is{grammar engineering} isn't specific to HPSG and
 in fact has a history going back to at least the early 1960s \citep{Kay:63,ZFHW65a,Petrick65a-u,FBDPM71a-u}
-and modern work in Lexical Functional Grammar\is{Lexical Functional Grammar (LFG} \citep{BKNS99a-ed}, Combinatory Categorial
+and modern work in Lexical Functional Grammar\is{Lexical Functional Grammar (LFG)} \citep{BKNS99a-ed}, Combinatory Categorial
 Grammar\is{Combinatory Categorial Grammar (CCG)} \citep{BCPW2007a}, Grammatical Framework\is{Grammatical Framework (GF)} \citep{Ranta:09}, and others.
 For reflections on grammar engineering for linguistic hypothesis testing
 in LFG, see \citealt{BKNS99a-ed} and \citealt{King:16}.}
@@ -1053,7 +1056,7 @@ grammar developers start from the Grammar Matrix, but with their own
 independent copy of the Matrix core grammar. This impedes somewhat the
 ability of the Matrix to adapt to the needs of various languages
 (unless grammar developers report back to the Matrix developers).  On
-the other hand, the Matrix libraries\is{Gramamr Matrix!libraries} represent an additional kind of
+the other hand, the Matrix libraries\is{Grammar Matrix!libraries} represent an additional kind of
 linguistic hypothesis testing: each library on its own represents one
 linguistic phenomenon, but the libraries must be interoperable with
 each other. This is the cross-linguistic analogue of how monolingual
@@ -1085,7 +1088,7 @@ of phenomena that have already been analyzed and of phenomena that are
 as yet not well-understood.\footnote{This methodology of using an
   implemented grammar as a sieve to sift the interesting examples out
   of corpora is demonstrated for English by \cite{Baldwin-et-al-05}.}
-Furthermore, \isi{treebanks} constructed from implemented grammars can be
+Furthermore, \isi{treebank}s constructed from implemented grammars can be
 tremendously valuable additions to language documentation (see
 Section~\ref{cl:lang-doc:treebanks} below). However, the process of building an
 implemented grammar is time-consuming, even with the start provided by
@@ -1122,8 +1125,8 @@ patterns, etc.\ \citep{Ben:Goo:Cro:Xia:13,Zam:How:Ben:19}.\footnote{The \isi{Typ
 \label{cl:lang-doc:treebanks}
 %Emily
 
-\is{treebanks|(}
-\is{sembanks|(}
+\is{treebank|(}
+\is{sembank|(}
 
 A particularly valuable type of resource that can be derived from HPSG
 grammars are treebanks and sembanks. A \textit{treebank} is a collection of
@@ -1132,14 +1135,8 @@ representation. A \textit{sembank} has semantic representations (in some cases
 in addition to the syntactic ones). Treebanks and sembanks can be used
 for linguistic research, as the analyses allow for more detailed
 structure-based searches\is{corpus search!structure-based} for phenomena of interest \citep{Rohde:05,Gho:Bir:10,Kou:Oep:14}.\footnote{The \isi{WeSearch} interface of \citet{Kou:Oep:14} can be accessed at \url{http://wesearch.delph-in.net/deepbank/search.jsp} (accessed 16 August 2019).}
-% GE 2019-02-09 - TODO link to WeSearch?
-% http://wesearch.delph-in.net/deepbank/search.jsp
-% EMB 2019-02-21 Kou:Oep:14 is WeSearch isn't it? 
-% GE 2019-02-25 I meant the above url
-% could be useful if readers are likely to want to use it
-% EMB 2019-02-25 I see -- added!
 In the context of language documentation and description, searchable
-treebanks\is{treebanks!searchable} can also be a valuable addition, helping readers connect
+treebanks\is{treebank!searchable} can also be a valuable addition, helping readers connect
 prose descriptions of linguistic phenomena to multiple examples in the
 corpus \citep{Ben:Gho:Bal:Dri:12}. In natural language processing,
 treebanks and sembanks are critical source material for training
@@ -1165,8 +1162,8 @@ handled with the aid of \textit{\isi{discriminants}} \ie\ properties true of
 some but not all trees in the \isi{parse forest} \citep{Carter:97}. Finally,
 the annotators may further edit analyses deemed insufficient. Though
 the underlying grammar is based on HPSG, the treebank stores
-\isi{dependency representations} instead.  The Alpino parser was similarly
-used to construct the Lassy treebanks of written Dutch
+\isi{dependency graph}s instead.  The Alpino parser was similarly
+used to construct the \isi{Lassy treebanks} of written Dutch
 \citep{van:bou:van:13}.  In more recent work, these dependency
 representations have been mapped to the \isi{Universal Dependencies (UD)}
 annotation standards \citep{Niv:Mar:Gin:16} to produce a UD treebank
@@ -1185,8 +1182,8 @@ decisions the annotator\is{annotation} made about each discriminant.\is{discrimi
 grammar is updated to include for example a refinement to the semantic
 representations, the corpus can be reparsed and the decisions
 replayed, leaving only a small amount of further annotation work to be
-done to handle any additional \isi{ambguity} introduced. The activity of
-\isi{treebanking} in turn provides useful insight into grammatical analyses,
+done to handle any additional \isi{ambiguity} introduced. The activity of
+treebanking in turn provides useful insight into grammatical analyses,
 including sources of spurious ambiguity\is{ambiguity!spurious} and phenomena that are not yet
 properly handled and thus informs and spurs further grammar
 development.  A downside to strictly grammar-based treebanking is that
@@ -1206,8 +1203,8 @@ using the ERG and PET,
 with parse ranking trained on the manually treebanked subcorpus \isi{WeScience} \citep{ytrestol2009wescience}.
 As with the \isi{Redwoods} treebanks, WikiWoods is updated with each release of the ERG.
 
-\is{treebanks|)}
-\is{sembanks|)}
+\is{treebank|)}
+\is{sembank|)}
 
 \is{language documentation|)}
 \is{linguistic hypothesis testing|)}
@@ -1276,9 +1273,11 @@ with a clearly-defined metric to determine how well the system performs.
 HPSG grammars have been used in a range of such tasks,
 where the syntactic and semantic analyses provide useful features.
 
-\textit{\isi{Information retrieval}} is the task of finding relevant documents for a given query.
+\textit{Information retrieval}\isi{information retrieval}
+is the task of finding relevant documents for a given query.
 For example, \citet{schaefer2011acl} present a tool for searching the ACL Anthology, using the ERG.\is{English Resource Grammar (ERG)}
-\textit{\isi{Information extraction}} is the task of identifying useful facts in a collection of documents.
+\textit{Information extraction}\isi{information extraction}
+is the task of identifying useful facts in a collection of documents.
 For example, \citet{reiplinger2012glossary} aim to identify definitions of technical concepts from English text,
 in order to automatically construct a glossary.
 They find that using the ERG reduces noise in the candidate definitions.
@@ -1315,8 +1314,8 @@ recent work on \isi{robust parsing} may help to close this coverage gap.
 Negation\is{negation} resolution is also included in \citeauthor{oepen2017extrinsic}'s (\citeyear{oepen2017extrinsic})
 \isi{Shared Task on Extrinsic Parser Evaluation}.
 As mentioned in Section~\ref{cl:prac:dep},
-dependency graphs can provide a useful tool in NLP tasks,
-and this shared task aims to evaluate the use of \isi{dependency representations} (both semantic and syntactic),
+\isi{dependency graph}s can provide a useful tool in NLP tasks,
+and this shared task aims to evaluate the use of dependency graphs (both semantic and syntactic),
 for three downstream applications:
 biomedical information extraction,\is{information extraction!biomedical} negation resolution, and fine-grained opinion analysis.\is{opinion analysis}
 Some participating teams use DM\is{\delphin\ MRS Dependencies (DM)} dependencies\footnote{DM stands for \delphin\ MRS dependencies; see (\ref{cl:fig:dm}).} \citep{schuster2017dep,chen2017dep}.
@@ -1362,6 +1361,7 @@ within the paradigm of parsing, transferring, and generating.
 
 %TODO check:
 % http://www.let.rug.nl/vannoord/papers/
+% https://www.let.rug.nl/~vannoord/Lassy/
 % http://heartofgold.dfki.de/Publications_Applications.html
 % http://www.nactem.ac.uk/enju/
 
@@ -1422,7 +1422,8 @@ using a parsed corpus like \isi{WikiWoods} (see Section~\ref{cl:lang-doc:treeban
 This approach relies on the \isi{semantic analyses} given by a grammar,
 as well as the infrastructure to parse a large amount of text.
 
-Finally, there are also applications using grammars not to parse, but to \isi{generate}.
+Finally, there are also applications using grammars not to parse,
+but to generate.\is{generation}
 \citet{kuhnle2018shapeworld} consider the task of \textit{visual question answering},\is{visual question answering (VQA)}
 where a system is presented with an image and a question about the image,
 and must answer the question.
@@ -1452,13 +1453,14 @@ and scale across a variety of syntactic constructions.
 \section{Linguistic insights}
 \label{cl:insight}
 
-In Section~\ref{cl:lang-doc} above, we described multiple ways in which computational methods can be used in the service of linguistic research, especially in testing linguistic hypotheses. Here, we highlight a few ways in which grammar engineering work in HPSG has turned up linguistic insights that had not previously been discovered through non-computational means.\footnote{For similar reflections from the point of view of LFG,\is{Lexical Functional Grammar} see \cite{King:16}.}
+In Section~\ref{cl:lang-doc} above, we described multiple ways in which computational methods can be used in the service of linguistic research, especially in testing linguistic hypotheses. Here, we highlight a few ways in which grammar engineering work in HPSG has turned up linguistic insights that had not previously been discovered through non-computational means.\footnote{For similar reflections from the point of view of LFG,\is{Lexical Functional Grammar (LFG)} see \cite{King:16}.}
 
 \subsection{Ambiguity} %Guy
 \is{ambiguity|(}
 
 As discussed in Section~\ref{cl:prac:rank},
-the scale of ambiguity has become clear now that \isi{broad-coverage} precision grammars are available.
+the scale of ambiguity has become clear now that
+broad-coverage precision grammars are available. \is{broad-coverage grammar}
 By taking both \isi{coverage} and \isi{precision} seriously,
 it is possible to investigate ambiguity on a large scale,
 quantifying the sources of ambiguity and the information needed to resolve it.
