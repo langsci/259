@@ -1,5 +1,7 @@
 %add all your local new commands to this file
 
+\patchcmd{\includepaper}{\immediate\write\tempfile{@incollection{#1footer,author={\authorTemp},title={{\lsCollectionPaperFooterTitle}},booktitle={{\lsCollectionTitle}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},year={\lsYear},pages={\lsCollectionPaperFirstPage --\lsCollectionPaperLastPage},doi={\lsChapterDOI},options={dataonly=true}}}}{\immediate\write\tempfile{@incollection{#1footer,author={\authorTemp},title={{\lsCollectionPaperFooterTitle}},booktitle={{\lsCollectionTitle}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},pubstate={prepublished},addendum={[Preliminary page numbering]},options={dataonly=true}}}}
+
 \makeatletter
 \def\blx@maxline{77}
 \makeatother
@@ -809,10 +811,10 @@ $}}
 \newcommand{\citeposs}[1]{\citeauthor{#1}'s \citeyearpar{#1}}
 
 % for standalone compilations
-\makeatletter
-\let\thetitle\@title
-\let\theauthor\@author 
-\makeatother
+%\makeatletter
+%\let\thetitle\@title
+%\let\theauthor\@author 
+%\makeatother
 \newcommand{\togglepaper}[1][0]{ 
   \bibliography{../Bibliographies/stmue,../localbibliography,
 ../Bibliographies/phonology,
@@ -826,9 +828,8 @@ $}}
 ../Bibliographies/binding,
 ../Bibliographies/complex-predicates,
 ../Bibliographies/processing,
-../Bibliographies/wasow,
 ../Bibliographies/cl,
-../Bibliographies/hudson,
+../Bibliographies/dg,
 ../Bibliographies/islands,
 ../Bibliographies/diachronic,
 ../Bibliographies/gesture,
@@ -841,7 +842,7 @@ $}}
     \theauthor.
     \thetitle. 
     To appear in: 
-    Stefan Müller et al. (eds.)
+    Stefan Müller, Anne Abeillé, Robert D. Borsley \& Jean-Pierre Koenig (eds.)
     HPSG Handbook
     Berlin: Language Science Press. [preliminary page numbering]
   }
@@ -849,6 +850,28 @@ $}}
   \setcounter{chapter}{#1}
   \addtocounter{chapter}{-1}
 }
+
+
+
+
+% In case that year is not given, but pubstate. This mainly occurs for titles that are forthcoming, in press, etc.
+\renewbibmacro*{addendum+pubstate}{% Thanks to https://tex.stackexchange.com/a/154367 for the idea
+  \printfield{addendum}%
+  \iffieldequalstr{labeldatesource}{pubstate}{}
+  {\newunit\newblock\printfield{pubstate}}
+}
+
+\DeclareLabeldate{%
+    \field{date}
+    \field{year}
+    \field{eventdate}
+    \field{origdate}
+    \field{urldate}
+    \field{pubstate}
+    \literal{nodate}
+}
+
+
 
 % for bibliographies
 % biber/biblatex could use sortname field rather than messing around this way.
