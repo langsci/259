@@ -35,13 +35,36 @@ stable.pdf: main.pdf
 chop: stable.pdf 
 	egrep -v "\{part\}" main.toc | egrep -o "\{[0-9]+\}\{chapter\*\.[0-9]+\}" |  egrep -o "[0-9]+\}\{chapter"|egrep -o "[0-9]+" > cuts.txt
 	egrep -o "\{chapter\}\{Indexes\}\{[0-9]+\}\{section\*\.[0-9]+\}" main.toc| egrep -o ".*\."|egrep -o "[0-9]+" >> cuts.txt
-	bash chopchapters.sh 13
+	bash chopchapters.sh 13 chapters main
 # does not work on mac	
 #	bash chopchapters.sh `grep "mainmatter starts" main.log|egrep -o "[0-9]*"`
 
 commit-stable: chop
 	git commit -m "automatic creation of stable.pdf and chapters" stable.pdf chapters-pdfs/
 	git push -u origin
+
+# prepublish.toc contains roman numbers this means we have to update main.pdf and take the numbers
+# from main.toc. Takes a while ...
+prepublish: prepublish.pdf main.pdf
+	egrep -v "\{part\}" main.toc | egrep -o "\{[0-9]+\}\{chapter\*\.[0-9]+\}" |  egrep -o "[0-9]+\}\{chapter"|egrep -o "[0-9]+" > cuts.txt
+	egrep -o "\{chapter\}\{Indexes\}\{[0-9]+\}\{section\*\.[0-9]+\}" main.toc| egrep -o ".*\."|egrep -o "[0-9]+" >> cuts.txt
+	bash chopchapters.sh 13 prepubs prepublish
+
+prepublish.pdf: $(SOURCE)
+	xelatex -no-pdf -shell-escape prepublish
+	biber prepublish
+	xelatex -no-pdf -shell-escape prepublish
+	sed -i.backup s/.*\\emph.*// prepublish.adx #remove titles which biblatex puts into the name index
+	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' prepublish.sdx # ordering of references to footnotes
+	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' prepublish.adx
+	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' prepublish.ldx
+# 	python3 fixindex.py
+# 	mv prepublishmod.adx $*.adx
+	makeindex -o prepublish.and prepublish.adx
+	makeindex -o prepublish.lnd prepublish.ldx
+	makeindex -o prepublish.snd prepublish.sdx 
+	xelatex -shell-escape prepublish
+
 
 
 # 
@@ -110,6 +133,8 @@ main.snd: FORCE
 	makeindex -o main.lnd main.ldx
 	makeindex -o main.snd main.sdx 
 	xelatex main 
+
+
 
 
 #create a png of the cover
