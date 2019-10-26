@@ -32,8 +32,9 @@
 \input{localpackages.tex}
 \input{localhyphenation.tex}
 
+% \lsYear does not work, so I hardcoded the year as 2019
 
-\patchcmd{\includepaper}{\immediate\write\tempfile{@incollection{#1footer,author={\authorTemp},title={{\lsCollectionPaperFooterTitle}},booktitle={{\lsCollectionTitle}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},year={\lsYear},pages={\lsCollectionPaperFirstPage--\lsCollectionPaperLastPage},doi={\lsChapterDOI},options={dataonly=true}}}}{\immediate\write\tempfile{@incollection{#1footer,author={\authorTemp},title={{\lsCollectionPaperFooterTitle}},booktitle={{\lsCollectionTitle}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},note={prepublished version},addendum={[Preliminary page numbering]},options={dataonly=true}}}}
+\patchcmd{\includepaper}{\immediate\write\tempfile{@incollection{#1footer,author={\authorTemp},title={{\lsCollectionPaperFooterTitle}},booktitle={{\lsCollectionTitle}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},year={\lsYear},pages={\lsCollectionPaperFirstPage--\lsCollectionPaperLastPage},doi={\lsChapterDOI},options={dataonly=true}}}}{\immediate\write\tempfile{@incollection{#1footer,author={\authorTemp},title={{\lsCollectionPaperFooterTitle}},booktitle={{\lsCollectionTitle}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},pubstate={2019},note={Prepublished version},addendum={[Preliminary page numbering]},options={dataonly=true}}}}
 
 
 
@@ -79,7 +80,6 @@
 \setcounter{chapter}{0} % Reset the chapter counter so that preceeding prefaces are not counted
 %%
 \mainmatter          
-\pagenumbering{roman}\counterwithin*{page}{chapter} 
 \typeout{mainmatter starts at \therealpage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -89,6 +89,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  
 \part{Introduction}  
+\pagenumbering{roman}\counterwithin*{page}{chapter}%
 
 \includepaper{chapters/properties} %add a percentage sign in front of the line to exclude this chapter from book
 \includepaper{chapters/evolution} 

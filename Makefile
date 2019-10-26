@@ -48,9 +48,9 @@ commit-stable: chop
 prepublish: prepublish.pdf main.pdf
 	egrep -v "\{part\}" main.toc | egrep -o "\{[0-9]+\}\{chapter\*\.[0-9]+\}" |  egrep -o "[0-9]+\}\{chapter"|egrep -o "[0-9]+" > cuts.txt
 	egrep -o "\{chapter\}\{Indexes\}\{[0-9]+\}\{section\*\.[0-9]+\}" main.toc| egrep -o ".*\."|egrep -o "[0-9]+" >> cuts.txt
-	bash chopchapters.sh 13 prepubs prepublish
+	bash chopchapters.sh 14 prepubs prepublish
 
-prepublish.pdf: $(SOURCE)
+prepublish.pdf: $(SOURCE) prepublish.tex
 	xelatex -no-pdf -shell-escape prepublish
 	biber prepublish
 	xelatex -no-pdf -shell-escape prepublish
