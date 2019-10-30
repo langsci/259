@@ -32,9 +32,29 @@
 \input{localpackages.tex}
 \input{localhyphenation.tex}
 
+
+%% \patchcmd{\includepaper}{\immediate\write\tempfile{@incollection{#1,author={\authorTemp},title={{\lsCollectionPaperFooterTitle}},booktitle={{\lsCollectionTitle}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},year={\lsYear},pages={\lsCollectionPaperFirstPage --\lsCollectionPaperLastPage},doi={\lsChapterDOI},keywords={withinvolume}}}}{\immediate\write\tempfile{@incollection{#1,author={\authorTemp},title={{\lsCollectionPaperFooterTitle}},booktitle={{\lsCollectionTitle}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},year={2020},note={To appear},keywords={withinvolume}}}}
+
 % \lsYear does not work, so I hardcoded the year as 2019
 
 \patchcmd{\includepaper}{\immediate\write\tempfile{@incollection{#1footer,author={\authorTemp},title={{\lsCollectionPaperFooterTitle}},booktitle={{\lsCollectionTitle}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},year={\lsYear},pages={\lsCollectionPaperFirstPage--\lsCollectionPaperLastPage},doi={\lsChapterDOI},options={dataonly=true}}}}{\immediate\write\tempfile{@incollection{#1footer,author={\authorTemp},title={{\lsCollectionPaperFooterTitle}},booktitle={{\lsCollectionTitle}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},pubstate={2019},note={Prepublished version},addendum={[Preliminary page numbering]},options={dataonly=true}}}}
+
+% In case that year is not given, but pubstate. This mainly occurs for titles that are forthcoming, in press, etc.
+\renewbibmacro*{addendum+pubstate}{% Thanks to https://tex.stackexchange.com/a/154367 for the idea
+  \printfield{addendum}%
+  \iffieldequalstr{labeldatesource}{pubstate}{}
+  {\newunit\newblock\printfield{pubstate}}
+}
+
+\DeclareLabeldate{%
+    \field{date}
+    \field{year}
+    \field{eventdate}
+    \field{origdate}
+    \field{urldate}
+    \field{pubstate}
+    \literal{nodate}
+}
 
 
 
@@ -118,7 +138,7 @@
 %
 \part{Other levels of description}
 
-\includepaper{chapters/phonology}
+%\includepaper{chapters/phonology}
 \includepaper{chapters/morphology}
 \includepaper{chapters/semantics}
 \includepaper{chapters/information-structure}
