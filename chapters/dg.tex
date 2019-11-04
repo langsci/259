@@ -722,7 +722,84 @@ Moreover, any syntactician knows that language offers a multiplicity of complex 
 	\glt ‘(His) mother gave (him) milk with grog in it.’
 \end{exe}
 
-The literal gloss shows that both ‘grog’ and ‘milk’ are marked as \#\#accusative, which is enough to allow the former to modify the latter in spite of their separation. The word order is typical of many Australian non-configurational languages: totally free within the clause except that the auxiliary verb (glossed here as ‘3sg.past’) comes second (after one dependent word or phrase). Such freedom of order is easily accommodated if landmarks are independent of dependencies: the auxiliary verb is the root of the clause’s dependency structure (as in English), and also the landmark for every word that depends on it, whether directly or (crucially) indirectly. Its second position is due to a rule which requires it to precede all these words by default, but to have just one “preceder”. A simplified structure for this sentence (with Wambaya words replaced by English glosses) is shown in Figure \todo{ref: 13}, with dotted arrows below the words again showing landmark and position relations. The dashed horizontal line separates this sentence structure from the grammar that generates it. In words, an auxiliary verb requires precisely one preceder, which isa descendant. “Descendant” is a transitive generalisation of “dependent”, so a descendant is either a dependent or a dependent of a descendant. The preceder precedes the auxiliary verb, but all other descendants follow it.
+The literal gloss shows that both ‘grog’ and ‘milk’ are marked as \#\#accusative, which is enough to allow the former to modify the latter in spite of their separation. The word order is typical of many Australian non-configurational languages: totally free within the clause except that the auxiliary verb (glossed here as ‘3sg.past’) comes second (after one dependent word or phrase). Such freedom of order is easily accommodated if landmarks are independent of dependencies: the auxiliary verb is the root of the clause’s dependency structure (as in English), and also the landmark for every word that depends on it, whether directly or (crucially) indirectly. Its second position is due to a rule which requires it to precede all these words by default, but to have just one “preceder”. A simplified structure for this sentence (with Wambaya words replaced by English glosses) is shown in Figure \ref{fig:13}, with dotted arrows below the words again showing landmark and position relations. The dashed horizontal line separates this sentence structure from the grammar that generates it. In words, an auxiliary verb requires precisely one preceder, which isa descendant. “Descendant” is a transitive generalisation of “dependent”, so a descendant is either a dependent or a dependent of a descendant. The preceder precedes the auxiliary verb, but all other descendants follow it.
+
+\begin{figure}
+	\centering
+\begin{tikzpicture}[node distance= 3cm]
+\draw[dashed] (-1,0) to (10,0);
+%todo unterste Reihe überm Strich höher, große Kurve steiler
+%%%%%%%%%%%
+%below dashed line
+%first row
+\node[draw](grog) at (0,-2){\strut grog};
+%\node[draw,circle,inner sep=.2cm](circ)[above right of=grog, node distance=2cm]{};
+\node[draw](3rd)[right of=grog]{\strut 3sg.past};
+\node[draw](mother)[right of=3rd, node distance=2.5cm]{\strut mother};
+\node[draw](give)[right of=mother, node distance=2cm]{\strut give};
+\node[draw](milk)[right of=give, node distance=2cm]{\strut milk};
+%squares
+\node[draw,inner sep=.3cm](1)[below of=grog]{};
+\node[draw,inner sep=.3cm](2)[below of=3rd]{};
+\node[draw,inner sep=.3cm](3)[below of=mother]{};
+\node[draw,inner sep=.3cm](4)[below of=3, node distance=1.25cm]{};
+\node[draw,inner sep=.3cm](5)[below of=4, node distance=1.25cm]{};
+%arrows
+\draw[->,dashed] (grog) to (1);
+\draw[->,dashed] (3rd) to (2);
+\draw[->,dashed] (mother) to (3);
+\draw[->,dashed] (give.south) to (4.north);
+\draw[->,dashed] (milk.south) to (5.north);
+%
+\draw[->,dashed] (milk.south) to[in=300,out=225] (3.2,-2.37);
+\draw[->,dashed] (give.south) to[in=300, out=225] (3.4,-2.37);
+\draw[->,dashed] (mother.south) to[in=300, out=225] (3.6,-2.37);
+\draw[->,dashed] (grog.south) to[in=south, out=south] (2.8,-2.37);
+%arrow with small circle
+\draw[->] (2.8,-1.63) to[in=40, out=135] node[draw,circle,fill=white,inner sep=.2cm](circ){} (.2,-1.63);
+%
+\draw[->] (3rd.north) to[bend left] (give.north);
+\draw[->] (7.3,-1.63) to[bend right] (mother.north);
+\draw[->] (7.7,-1.63) to[bend left] (milk.north);
+\draw[->] (9.7,-1.63) to[bend right] (-.2,-1.63);
+%arrows with ellipses
+\draw[->,dashed] (1) to node[draw,solid,ellipse,fill=white](a){<} (2);
+\draw[->,dashed] (3) to (2);
+\node[draw,solid,ellipse,fill=white](b)[left of=3, node distance=.78cm]{<};
+\draw[->,dashed] (4) to node[draw,near start,solid,ellipse,fill=white](c){>} (2);
+\draw[->,dashed] (5) to node[draw,near start,solid,ellipse,fill=white](d){>} (2.south east);
+%above dashed line
+%%%%%%%%%%%
+%middle row
+\node[draw](one) at (0,4){\strut ~1~ };
+\node[draw](aux)[right of=one]{\strut aux verb};
+\node[draw,inner sep=.3cm](1a)[right of=aux]{};
+%lower row
+\node[draw,inner sep=.3cm](1b)[below of=1a]{};
+\node[draw,inner sep=.3cm](1c) at (3.5,1){};
+\node[draw,inner sep=.3cm](1d) at (1,1){};
+%arrows with ellipses
+%ellipses with words
+\draw[->] (aux.north) to[bend right] node[draw,ellipse,fill=white](prec){\strut preceder} (one.north);
+\draw[->] (aux.north) to[bend left] node[draw,ellipse,fill=white](desc){\strut descendant} (1a.north);
+%ellipses with <
+\draw[->,dashed] (1b) to node[draw,solid,ellipse,fill=white](aa){>} (1c);
+\draw[->,dashed] (1d) to node[draw,solid,ellipse,fill=white](ab){>} (1c);
+%triangle "arrows"
+\draw[<-,>=open triangle 90 reversed] (one) to (grog);
+\draw[<-,>=open triangle 90 reversed] (prec) to (circ);
+\draw[<-,>=open triangle 90 reversed] (desc) to (prec);
+\draw[<-,>=open triangle 90 reversed] (aux) to (3rd);
+%arrows
+\draw[->,dashed] (1a) to (1b);
+\draw[->,dashed] (3.5,3.6) to (1c);
+\draw[->,dashed] (one) to (1d);
+\draw[->,dashed] (one) to[in=south west, out=south east] (aux);
+\draw[->,dashed] (1a) to[in=south east, out=south west] (aux);
+\end{tikzpicture}
+	\caption{A non-configurational structure}
+	\label{fig:13}
+\end{figure}
 
 Later sections will discuss word order, and will reinforce the claims of this subsection: that plain-vanilla versions of either PS or DS are woefully inadequate and need to be supplemented in some way.
 
