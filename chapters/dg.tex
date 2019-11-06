@@ -551,6 +551,36 @@ Once again, inheritance plays a role in generating this diagram. The isa links h
 
 It’s not yet clear exactly how this happens, but one possibility is displayed in the diagram: d1 licenses d2 which licenses d3 which licenses d4 which licenses d5. Each of these licensing relations is based on isa. Whatever the mechanism, the main idea is that the members of a set can share a property; for example, we can think of a group of people sitting in a room as a set whose members share the property of sitting in the room. Similarly, the set of strings \emph{came in} and \emph{sat down} share the property of having \emph{Mary} as their subject.
 
+\begin{figure}
+	\centering
+\begin{tikzpicture}[node distance=2.5cm]
+\node[draw](mary) at(0,0){\emph{\strut Mary}};
+\node[draw](came)[right of=mary]{\emph{\strut came}};
+\node[draw](sat)[right of=came, node distance=3cm]{\emph{\strut sat}};
+%
+\node[draw](ci) at (3,2.8){(came,in)};
+\node[draw](sd)[above of=sat, node distance=4cm% lower number in case of path thru triangle
+]{(sat,down)};
+\node[draw](cisd)[above left of=sd, node distance=2cm]{((came,in),(sat, down))};
+%
+\draw[->] (came) to[in=north, out=north] node[draw,ellipse,fill=white](d1){d1} (.4,.37);
+\draw[->] (ci) to[in=north, out=west] node[draw,pos=.25,ellipse,fill=white](d2){d2} (mary);
+\draw[->] (cisd) to[in=north, out=west] node[draw,pos=.22,ellipse,fill=white](d3){d3} (-.4,.37);
+\draw[dashed,->] (sd) to[in=north, out=west] node[draw,pos=.095, ellipse,solid,fill=white](d4){d4} (-.2,1.5)% here could go the specs of the triangle thingy
+to (-.2,.37);
+\draw[dashed,->] (sat) to[in=north, out=north] node[draw,pos=.36,ellipse,solid,fill=white](d5){d5}
+%(x,y)% triangle specs
+(.2,.37);
+%triangle "arrows"
+\draw[<-,>=open triangle 90 reversed] (d1) to (d2);
+\draw[<-,>=open triangle 90 reversed] (d2) to (d3);
+\draw[<-,>=open triangle 90 reversed] (d3) to (d4);
+\draw[<-,>=open triangle 90 reversed] (d4) to (d5);
+\end{tikzpicture}
+	\caption{Coordination with inherited dependencies}
+	\label{fig:11}
+\end{figure}
+
 The proposed analysis may seem to have adopted phrases in all but name, but this is not so because the conjuncts have no grammatical classification, so coordination is not restricted to coordination of like categories. This is helpful with examples like (\ref{ex:4}) where an adjective is coordinated with an NP and a PP.
 
 \begin{exe}
@@ -727,7 +757,7 @@ The literal gloss shows that both ‘grog’ and ‘milk’ are marked as \#\#ac
 \begin{figure}
 	\centering
 \begin{tikzpicture}[node distance= 3cm]
-\draw[dashed] (-1,0) to (10,0);
+\draw[dashed] (-1,1) to (10,1);
 %todo unterste Reihe überm Strich höher, große Kurve steiler
 %%%%%%%%%%%
 %below dashed line
@@ -758,10 +788,10 @@ The literal gloss shows that both ‘grog’ and ‘milk’ are marked as \#\#ac
 %arrow with small circle
 \draw[->] (2.8,-1.63) to[in=40, out=135] node[draw,circle,fill=white,inner sep=.2cm](circ){} (.2,-1.63);
 %
-\draw[->] (3rd.north) to[bend left] (give.north);
-\draw[->] (7.3,-1.63) to[bend right] (mother.north);
-\draw[->] (7.7,-1.63) to[bend left] (milk.north);
-\draw[->] (9.7,-1.63) to[bend right] (-.2,-1.63);
+\draw[->] (3rd.north) to[in=north, out=north] (give);
+\draw[->] (7.3,-1.63) to[in=north, out=north] (mother);
+\draw[->] (7.7,-1.63) to[in=135, out=40] (milk.north);
+\draw[->] (9.7,-1.63) to[in=40, out=135] (-.2,-1.63);
 %arrows with ellipses
 \draw[->,dashed] (1) to node[draw,solid,ellipse,fill=white](a){<} (2);
 \draw[->,dashed] (3) to (2);
@@ -771,17 +801,17 @@ The literal gloss shows that both ‘grog’ and ‘milk’ are marked as \#\#ac
 %above dashed line
 %%%%%%%%%%%
 %middle row
-\node[draw](one) at (0,4){\strut ~1~ };
+\node[draw](one) at (0,4){\strut\ ~ 1 ~ };
 \node[draw](aux)[right of=one]{\strut aux verb};
 \node[draw,inner sep=.3cm](1a)[right of=aux]{};
 %lower row
-\node[draw,inner sep=.3cm](1b)[below of=1a]{};
-\node[draw,inner sep=.3cm](1c) at (3.5,1){};
-\node[draw,inner sep=.3cm](1d) at (1,1){};
+\node[draw,inner sep=.3cm](1b)[below of=1a, node distance=2cm]{};
+\node[draw,inner sep=.3cm](1c) at (3.5,2){};
+\node[draw,inner sep=.3cm](1d) at (1,2){};
 %arrows with ellipses
 %ellipses with words
-\draw[->] (aux.north) to[bend right] node[draw,ellipse,fill=white](prec){\strut preceder} (one.north);
-\draw[->] (aux.north) to[bend left] node[draw,ellipse,fill=white](desc){\strut descendant} (1a.north);
+\draw[->] (aux) to[in=north, out=north] node[draw,ellipse,fill=white](prec){preceder} (one);
+\draw[->] (aux) to[in=north, out=north] node[draw,ellipse,fill=white](desc){descendant} (1a);
 %ellipses with <
 \draw[->,dashed] (1b) to node[draw,solid,ellipse,fill=white](aa){>} (1c);
 \draw[->,dashed] (1d) to node[draw,solid,ellipse,fill=white](ab){>} (1c);
