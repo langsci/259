@@ -43,12 +43,18 @@ commit-stable: chop
 	git commit -m "automatic creation of stable.pdf and chapters" stable.pdf chapters-pdfs/
 	git push -u origin
 
+stable-commit: commit-stable
+
+
+
 # prepublish.toc contains roman numbers this means we have to update main.pdf and take the numbers
 # from main.toc. Takes a while ...
-prepublish: prepublish.pdf main.pdf
-	egrep -v "\{part\}" main.toc | egrep -o "\{[0-9]+\}\{chapter\*\.[0-9]+\}" |  egrep -o "[0-9]+\}\{chapter"|egrep -o "[0-9]+" > cuts.txt
-	egrep -o "\{chapter\}\{Indexes\}\{[0-9]+\}\{section\*\.[0-9]+\}" main.toc| egrep -o ".*\."|egrep -o "[0-9]+" >> cuts.txt
-	bash chopchapters.sh 14 prepubs prepublish
+prepublish: prepublish.pdf
+	chopchapters-bookmarks.sh prepublish.pdf prepubs-pdfs
+
+prepublish-commit: prepublish
+	git commit -m "automatic creation of prepublish.pdf and chapters" prepubs-pdfs/
+	git push -u origin
 
 prepublish.pdf: $(SOURCE) prepublish.tex
 	xelatex -no-pdf -shell-escape prepublish

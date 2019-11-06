@@ -1,6 +1,14 @@
 \documentclass[output=paper]{langscibook}
 
-\input{../localpackages}
+\IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
+  \input{../localpackages}
+  \input{../localcommands}
+  \input{../localhyphenation}
+  \bibliography{../Bibliographies/stmue,../Bibliographies/dg}
+
+  \togglepaper[35]
+}{}
+
 
 \hyphenation{analy-sis}
 
@@ -12,7 +20,7 @@
 %\epigram{Change epigram in chapters/03.tex or remove it there }
 %\abstract{Change the  abstract in chapters/03.tex \lipsum[3]}
 %\maketitle
-\bibliography{../Bibliographies/stmue}
+
 
 \begin{document}
 	\maketitle
@@ -24,7 +32,7 @@
 \section{Introduction}
 \label{sec:1}
 
-HPSG is firmly embedded, both theoretically and historically, in the phrase-structure (PS) tradition of syntactic analysis, but it also has some interesting theoretical links to the dependency-structure (DS) tradition. This is the topic of the present chapter, so after a very simple comparison of PS and DS and a glance at the development of these two traditions in the history of syntax, I consider a number of issues where the traditions interact.
+HPSG is firmly embedded, both theoretically and historically, in the phrase"=structure (PS) tradition of syntactic analysis, but it also has some interesting theoretical links to the dependency-structure (DS) tradition. This is the topic of the present chapter, so after a very simple comparison of PS and DS and a glance at the development of these two traditions in the history of syntax, I consider a number of issues where the traditions interact.
 
 The basis for PS analysis is the part-whole relation between smaller units (including words) and larger phrases, so the most iconic notation uses boxes \citep[6]{MuellerGT-Eng2}. In contrast, the basis for DS analysis is the asymmetrical dependency relation between two words, so in this case an iconic notation inserts arrows between words. (Although the standard notation in both traditions uses trees, these are less helpful because the lines are open to different interpretations.) The two analyses of a very simple sentence are juxtaposed in Figure \ref{fig:1}. As in HPSG AVMs, each rectangle represents a unit of analysis.
 
@@ -69,9 +77,9 @@ What, then, are the distinctive characteristics of the two traditions? In the fo
 	\item\label{it:3} Asymmetry: in both DS and PS, a direct relation between two items must be asymmetrical, but in DS the relation (between two words) is dependency whereas in PS it is the part-whole relation.
 \end{enumerate}
 
-These generalisations imply important theoretical claims which can be tested; for instance, \ref{it:2} claims that there are no discontinuous phrases, which is clearly false. On the other hand, \ref{it:3} claims that there can be no exocentric or headless phrases, so DS has to consider apparent counter-examples such as NPN constructions, coordination and verbless sentences (see Sections \ref{sec:4.2} and \ref{sec:5.1} for discussion, and also the chapter on coordination).
+These generalisations imply important theoretical claims which can be tested; for instance, \ref{it:2} claims that there are no discontinuous phrases, which is clearly false. On the other hand, \ref{it:3} claims that there can be no exocentric or headless phrases, so DS has to consider apparent counter-examples such as NPN constructions, coordination and verbless sentences (see Sections~\ref{sec:4.2} and~\ref{sec:5.1} for discussion, and also the chapter on coordination).
 
-The contrasts in \ref{it:1}--\ref{it:3} apply without reservation to ‘plain vanilla’ \citep{Zwicky85a} versions of DS and PS, but as we shall see in the history section, very few theories are plain vanilla. In particular, there are versions of HPSG that allow phrases to be discontinuous \citep{Reape94a,Kathol2000a,Mueller95c,Babel}. Nevertheless, the fact is that HPSG evolved out of more or less pure PS, that it includes \emph{phrase structure} in its name, and that it is never presented as a version of DS.
+The contrasts in \ref{it:1}--\ref{it:3} apply without reservation to ‘plain vanilla’ \citep{Zwicky85} versions of DS and PS, but as we shall see in the history section, very few theories are plain vanilla. In particular, there are versions of HPSG that allow phrases to be discontinuous \citep{Reape94a,Kathol2000a,Mueller95c,Babel}. Nevertheless, the fact is that HPSG evolved out of more or less pure PS, that it includes \emph{phrase structure} in its name, and that it is never presented as a version of DS.
 
 On the other hand, the term \emph{Head-driven} points immediately to dependency: an asymmetrical relation driven by a head word. Even if HPSG gives some constructions a headless analysis \citep[654-666]{MuellerGT-Eng2}, the fact remains that it treats most constructions as headed.
 This chapter reviews the relations between HPSG and the very long DS tradition of grammatical analysis. The conclusion will be that in spite of its PS roots, HPSG implicitly (and sometimes even explicitly) recognises dependencies; and it may not be a coincidence that one of the main power-bases of HPSG is Germany, where the DS tradition is also at its strongest  \citep[359]{MuellerGT-Eng2}.
@@ -120,7 +128,7 @@ The invention of syntactic diagrams in the nineteenth century made the inconsist
 %
 \footnote{Sentence Diagrammer by 1aiway at \url{https://download.cnet.com/windows/1aiway/3260-20_4-10725918-1.html}. (Last access January 2019)}%
 %
- which generates such diagrams, giving diagrams such as the one reproduced in Figure \ref{fig:2}. The significant feature of this diagram is the special treatment given to the relation between the subject and predicate (with the verb \emph{are} sitting uncomfortably between the two), with all the other words in the sentence linked by more or less straightforward dependencies. (The geometry of these diagrams also distinguishes grammatical functions.)
+ which generates such diagrams, giving diagrams such as the one reproduced in Figure~\ref{fig:2}. The significant feature of this diagram is the special treatment given to the relation between the subject and predicate (with the verb \emph{are} sitting uncomfortably between the two), with all the other words in the sentence linked by more or less straightforward dependencies. (The geometry of these diagrams also distinguishes grammatical functions.)
  
  \begin{figure}
  	\centering
@@ -293,10 +301,11 @@ The comparison requires some understanding of WG, so what follows is a brief tut
 
 This principle is of course merely a hypothesis which may turn out to be wrong, but so far it seems correct \citep[494]{MuellerGT-Eng2}, and it is more compatible with HPSG than with the innatist ideas underlying Chomskyan linguistics \todo{Berwick et al. 2013}. In WG, it plays an important part because it determines other parts of the theory.
 
-On the one hand, cognitive psychologists tend to see knowledge as a network of related concepts \todo{Reisberg 2007, 252}, so WG also assumes that the whole of language, including grammar, is a conceptual network (\citealt[1]{Hudson84a-u}; \citeyear[1]{Hudson2007a-u}). One of the consequences is that the AVMs of HPSG are presented instead as labelled network links; for example, we can compare the elementary example in Figure \ref{fig:5} of the HPSG lexical item for a German noun \citep[264]{MuellerGT-Eng2} with an exact translation using WG notation.
+On the one hand, cognitive psychologists tend to see knowledge as a network of related concepts \todo{Reisberg 2007, 252}, so WG also assumes that the whole of language, including grammar, is a conceptual network (\citealt[1]{Hudson84a-u}; \citeyear[1]{Hudson2007a-u}). One of the consequences is that the AVMs of HPSG are presented instead as labelled network links; for example, we can compare the elementary example in (\mex{1}) of the HPSG lexical item for a German noun \citep[264]{MuellerGT-Eng2} with an exact translation using WG notation.
 
-\begin{figure}
-	\centering
+\ea
+\label{fig:5}
+AVM for the German noun \emph{Grammatik}:\\
 \onems[word]{
 	phonology    \phonliste{ Grammatik } \\[1mm]
 	syntax-semantics  \ldots \ms[local]{ category  & \ms[category]{ head & \ms[noun]{ case & \ibox{1}
@@ -309,9 +318,7 @@ On the one hand, cognitive psychologists tend to see knowledge as a network of r
 	}
 }
 %\vspace{-\baselineskip}
-	\caption{An AVM for the German noun \emph{Grammatik}}
-	\label{fig:5}
-\end{figure}
+\z
 
 HPSG regards AVMs as equivalent to networks, so translating this AVM into network notation is straightforward; however it is visually complicated so I take it in two steps. First I introduce the basic notation in Figure \ref{fig:6}: a small triangle showing that the lexeme \textsc{grammatik} “isa” word, and a headed arrow representing a labelled attribute (here, “phonology”) and pointing to its value. The names of entities and attributes are enclosed in rectangles and ellipses respectively.
 
