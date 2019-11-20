@@ -1,0 +1,113 @@
+\makeatletter
+\def \infstr {\hbox {$\rightarrow$}}
+% Off-path constraints
+\def \offp #1#2{\setbox1\hbox{#1}\setbox2\hbox{\small #2}%
+  \raisebox{-\ht1}{$\copy1\atop\copy2$}}
+% \downlett lowers a letter(s) and sets it in scriptsize
+\def\downlett#1{\mbox{$_{\hbox{\scriptsize\textrm{#1}}}$}}
+\def\arglist#1{\mbox{$\langle$#1$\rangle$}}
+\def \gap {\rule[-1pt]{1.5em}{.5pt}\/}
+\def \star {\hbox{$*$}}
+\def \mstar {\hbox{$\widehat{*}$}}
+\def \plusminus {\raisebox{.4ex}{\mbox{$\scriptstyle\underline{+}$}}}
+\def \mt#1#2{\mbox{$#1:#2$}}
+\def \linimp {\mbox{$-\hspace*{-.4ex}\circ$}} 
+\newcommand{\IT}[1]{\mbox{\textsf{\textsl{#1\hspace*{.08em}}}}}
+\newcommand{\BF}[1]{\mbox{\textbf{[#1]}}}
+\newdimen\lexentrydimen
+\newdimen\lexcategorydimen
+\newdimen\mothernodedimen
+\newdimen\catdimen
+\def \gloss #1#2{\leavevmode
+        \vtop {\hbox {\strut \textit{#1}}
+               \hbox {\deepstrut #2}}}
+\def \cgloss #1#2{\mbox{\def\arraystretch{1}%
+        \begin{tabular}[t]{@{}c@{}}{\strut \textit{#1}}\\{\deepstrut #2}\end{tabular}}}
+\def \deepstrut {\hbox {\vrule height 1.5ex depth 1.2ex width 0pt}}
+\def \lexentry #1#2{\setbox1\hbox{\textit{#1}}%
+                      \ifdim \wd1 >3em \lexentrydimen=\wd1 %
+                      \else \lexentrydimen=3em \fi%
+                      \noindent%
+                      \makebox[\lexentrydimen][l]{\box1}\hspace*{1em}\nobreak%
+                      \feqs{#2}}
+\def \catlexentry #1#2#3{\setbox1\hbox{\textit{#1}}%
+                      \ifdim \wd1 >3em \lexentrydimen=\wd1 %
+                      \else \lexentrydimen=3em \fi%
+                      \noindent%
+                      \makebox[\lexentrydimen][l]{\box1}\hspace*{1em}\nobreak%
+                      \setbox2\hbox{\small #2}%
+                      \ifdim \wd2 >1em \catdimen=\wd2 %
+                      \else \catdimen=1em \fi%
+                      \noindent%
+                      \makebox[\catdimen][l]{\box2}\hspace*{1em}\nobreak%
+                      \feqs{#3}}
+
+% \feqs {<alignment material>}
+\def \feqs #1{\begin{tabular}[t]{@{\strut}l@{\strut}}#1\end{tabular}}
+
+\def \phraserule #1#2{\setbox1\hbox{#1}%
+                      \ifdim \wd1 >2em \mothernodedimen=\wd1 %
+                      \else \mothernodedimen=2em \fi%
+   \leavevmode\hbox{\makebox[\mothernodedimen][l]{\box1}{$\rightarrow$}\hspace{.6em}#2}}
+
+\def \rulenode #1{\begin{tabular}[t]{c}#1\end{tabular}}
+
+\def \optrulenode#1{
+  \setbox1\hbox{$\left(\hbox{\begin{tabular}{@{\strut}c@{\strut}}#1\end{tabular}}\right)$}
+  \raisebox{1.9ex}{\raisebox{-\ht1}{\copy1}}}
+
+\def \treenode #1{\renewcommand{\arraystretch}{1}
+  \begin{tabular}{@{\strut}c@{\strut}}#1\end{tabular}}
+
+\def \opttreenode#1{
+  $\left(\hbox{\renewcommand{\arraystretch}{1}\begin{tabular}{@{\strut}c@{\strut}}#1\end{tabular}}\right)$}
+
+\def \ups {\mbox{$\uparrow_{\sigma}$}}
+\def \downs {\mbox{$\downarrow_{\sigma}$}}
+\def \up {\hbox {$\uparrow$\kern .0em}}
+\def \upsp {\hbox {$\uparrow$\kern .2em}}
+\def \downsp {\hbox {$\downarrow$\kern .2em}}
+
+\def \lfgpast {\mbox{\small PAST}}
+\def \lfgpres {\mbox{\small PRES}}
+%% \def \indicative {\mbox{\small INDICATIVE}}
+%% \def \sg {\mbox{\small SG}}  
+%% \def \dual {\mbox{\small DUAL}}  
+%% \def \pl {\mbox{\small PL}}  
+%% \def \adj {\mbox{\small ADJ}}  
+%% \def \xadj {\mbox{\small XADJ}}
+\def \lfgobj {\mbox{\small OBJ}\xspace}
+\def \objtheme {\mbox{\small OBJ}\downlett{THEME}\xspace}  
+\def \objtheta {\mbox{\small OBJ$_\theta$}\xspace}  
+\def \obltheta {\mbox{\small OBL$_\theta$}\xspace}  
+\def \obl {\mbox{\small OBL}}  
+%% \def \num {\mbox{\small NUM}}  
+\def \lfgsubj {\mbox{\small SUBJ}\xspace} 
+%% \def \gf {\mbox{\small GF}} 
+\def \lfgpred {\mbox{\small PRED}} 
+%% \def \topic {\mbox{\small TOPIC}} 
+%% \def \rel {\mbox{\small REL}} 
+%% \def \pers {\mbox{\small PERS}} 
+%% \def \gend {\mbox{\small GEND}} 
+%% \def \neut {\mbox{\small NEUT}} 
+%% \def \masc {\mbox{\small MASC}} 
+\def \comp {\mbox{\small COMP}} 
+%% \def \anim {\mbox{\small ANIM}} 
+%% \def \spec {\mbox{\small SPEC}} 
+%% \def \poss {\mbox{\small POSS}} 
+%% \def \pcase {\mbox{\small PCASE}} 
+%% \def \perf {\mbox{\small PERF}} 
+%% \def \cond {\mbox{\small COND}} 
+%% \def \xcomp {\mbox{\small XCOMP}} 
+\def \lfgtense {\mbox{\small TENSE}} 
+%% \def \aspect {\mbox{\small ASPECT}} 
+%% \def \focus {\mbox{\small FOCUS}} 
+\def \case {\mbox{\small CASE}}
+%% \def \nom {\mbox{\small NOM}}
+\def \mdacc {\mbox{\small ACC}}
+\def \mdgen {\mbox{\small GEN}}
+\def \mddat {\mbox{\small DAT}}
+%% \def \abs {\mbox{\small ABS}}
+%% \def \agent {\mbox{\small AGENT}}
+%% \def \patient {\mbox{\small PATIENT}}
+\makeatother
