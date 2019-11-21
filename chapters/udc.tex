@@ -290,26 +290,34 @@ sentence. Thus, we have the schematic structure illustrated in Figure~\ref{fig:U
 
 \begin{figure}[htb]
   \centering
- %% \Tree [ [ what ].{NP\\\begin{avm}
- %%     \[local \@1 \]
- %%   \end{avm}} [ [ did ].V  [ you ].NP [ [ put ].{V\\\begin{avm}
- %%     \[slash \{ \@1 \} \]
- %%   \end{avm} }  \qroof{on the
- %% table}.{PP}
- %% ].{VP\\\begin{avm}
- %%     \[slash \{ \@1 \} \]
- %%   \end{avm}} ].{S\\\begin{avm}
- %%     \[slash \{ \@1 \} \]
- %%   \end{avm}} ].{S\\\begin{avm}
- %%     \[slash \{ \} \]
- %%   \end{avm} }
-%  \includegraphics{chapters/BB-udc-basic-tree-crop}
-
-  \caption{\label{fig:UDC:11}Extraction by \textsc{slash} feature percolation}
-  
+\begin{forest}
+sm edges without translation
+	[{S[\textsc{slash} \eliste]}
+		[{NP[\textsc{local} \ibox{1}]} [what]]
+		[{S[\textsc{slash} \sliste{ \ibox{1} }]}
+			[V[did]]
+			[NP[you]]
+			[{VP[\textsc{slash} \sliste{ \ibox{1} }]}
+				[{V[\textsc{slash} \sliste{ \ibox{1} }]} [put]]
+				[PP[on the table, roof]]]]]
+\end{forest}
+\caption{\label{fig:UDC:11}Extraction by \textsc{slash} feature percolation}
 \end{figure}
 
-
+ %% \Tree [ [ what ].{NP\\\begin{avm}
+%%     \[local \@1 \]
+%%   \end{avm}} [ [ did ].V  [ you ].NP [ [ put ].{V\\\begin{avm}
+%%     \[slash \{ \@1 \} \]
+%%   \end{avm} }  \qroof{on the
+%% table}.{PP}
+%% ].{VP\\\begin{avm}
+%%     \[slash \{ \@1 \} \]
+%%   \end{avm}} ].{S\\\begin{avm}
+%%     \[slash \{ \@1 \} \]
+%%   \end{avm}} ].{S\\\begin{avm}
+%%     \[slash \{ \} \]
+%%   \end{avm} }
+%  \includegraphics{chapters/BB-udc-basic-tree-crop}
 
 Obviously, we need to ask what ensures that the \textsc{slash} feature plays just
 the right role here. First, however, we need to say more about gaps.
@@ -355,6 +363,17 @@ mean that it has the following more elaborate analysis:
 
  \begin{figure}[htb]
    \centering
+\begin{forest}
+sm edges without translation
+	[{S[\textsc{slash} \eliste]}
+		[{NP[\textsc{local} \ibox{1}]} [what]]
+		[{S[\textsc{slash} \sliste{ \ibox{1} }]}
+			[{V[\textsc{slash} \sliste{ \ibox{1} }]} [did]]
+			[{NP[\textsc{slash} \eliste]} [you]]
+			[{VP[\textsc{slash} \sliste{ \ibox{1} }]}
+				[{V[\textsc{slash} \sliste{ \ibox{1} }]} [put]]
+				[{PP[\textsc{slash} \eliste]} [on the table, roof]]]]]
+\end{forest}
 
 \if0
     \Tree [ [ what ].{NP\\\begin{avm}
@@ -501,20 +520,27 @@ following somewhat simplified structure:
 
 \begin{figure}[htb]
   \centering
-
-\if0
-  \Tree  [ put ].{\begin{avm}
-      \[head & verb\\
-        slash & \{ \@1 \}\\
-        \textsc{arg-st} & \< NP \[local & \@1 \\slash & \{ \@1 \}\], PP \>\]
-    \end{avm}
-  }
-  
-\fi
-  
-  \caption{\label{fig:UDC:20}Representation of a slashed preposition (traceless)}
-  
+\begin{forest}
+sm edges without translation
+	[{\begin{avm}
+	\[\head & \textit{verb} \\
+	\textsc{slash} & \sliste{ \ibox{1} } \\
+	\textsc{arg-st} & \< NP \[ \textsc{local} & \ibox{1} \\ 
+										\textsc{slash} & \sliste{ \ibox{1} }\], PP \> \]
+	\end{avm}}
+	[put]]
+\end{forest}
+   \caption{\label{fig:UDC:20}Representation of a slashed preposition (traceless)}
 \end{figure}
+
+%\if0
+%\Tree  [ put ].{\begin{avm}
+	%	\[head & verb\\
+	%	slash & \{ \@1 \}\\
+	%	\textsc{arg-st} & \< NP \[local & \@1 \\slash & \{ \@1 \}\], PP \>\]
+	%\end{avm}
+%}
+%\fi
 
 \noindent
 We ignore the \textsc{comps} feature and the issue of what ensures that the verb
@@ -528,33 +554,52 @@ this view, the VP will have the following structure:
 
 \begin{figure}[htb]
   \centering
-  %% \resizebox{\linewidth}{!}{
-  %% \Tree [ [ put ].{\begin{avm}
-  %%     \[head & verb\\
-  %%       slash & \{ ~ \}\\
-  %%       arg-st & \< \@2 NP, \@3 PP \>\]
-  %%   \end{avm}
-  %% }
-  %% [ $e$ ].{
-  %%   \begin{avm}
-  %%     \[synsem & \@2\[local & \@1 \\nonlocal & \[slash & \{ \@1 \}\]\]\]
-  %%   \end{avm}
-  %% }
-  %% \qroof{on the table}.{
-  %%   \begin{avm}
-  %%     \[synsem & \@3\]
-  %%   \end{avm}
-  %% } 
-  %% ].{\begin{avm}
-  %%     \[head & verb\\
-  %%       slash & \{ \@1 \}\]
-  %%   \end{avm}
-  %% }
-  %% }
-
-  \caption{\label{fig:UDC:21}Representation of a slashed PP (with trace)}
-  
+\begin{forest}
+sm edges without translation
+	[{\begin{avm}
+	\[\head & \textit{verb} \\
+	\textsc{slash} & \sliste{ \ibox{1} } \]
+	\end{avm}}
+		[{\begin{avm}
+		\[\head & \textit{verb} \\
+		\textsc{slash} & \eliste \\
+		\textsc{arg-st} & \< \ibox{2} NP, \ibox{3} PP \> \]
+		\end{avm}} [put]]
+		[{\begin{avm}
+		\[\textsc{synsem} & \ibox{2} \[ \textsc{local} & \ibox{1} \\
+													\textsc{nonlocal} & \[ \textsc{slash} & \sliste{ \ibox{1} } \] \] \]
+		\end{avm}} [$e$]]
+		[{\begin{avm}
+		\[\textsc{synsem} & \ibox{3} \]
+		\end{avm}} [on the table, roof]] 
+	]
+\end{forest}
+    \caption{\label{fig:UDC:21}Representation of a slashed PP (with trace)}  
 \end{figure}
+
+  %% \resizebox{\linewidth}{!}{
+%% \Tree [ [ put ].{\begin{avm}
+%%     \[head & verb\\
+%%       slash & \{ ~ \}\\
+%%       arg-st & \< \@2 NP, \@3 PP \>\]
+%%   \end{avm}
+%% }
+%% [ $e$ ].{
+%%   \begin{avm}
+%%     \[synsem & \@2\[local & \@1 \\nonlocal & \[slash & \{ \@1 \}\]\]\]
+%%   \end{avm}
+%% }
+%% \qroof{on the table}.{
+%%   \begin{avm}
+%%     \[synsem & \@3\]
+%%   \end{avm}
+%% } 
+%% ].{\begin{avm}
+%%     \[head & verb\\
+%%       slash & \{ \@1 \}\]
+%%   \end{avm}
+%% }
+%% }
 
 \noindent
 Again we ignore the \textsc{comps} feature and how the PP here has the same \textsc{slash}
@@ -1164,8 +1209,20 @@ these approaches and the head-driven approach.
 A further point that we should emphasize here is that both approaches to
 the distribution of \textsc{slash} allow structures like the following:
 
-\begin{figure}[htb]
+\begin{figure}
   \centering
+\begin{forest}
+sm edges without translation
+ [{[\slasch \sliste{ \ibox{1} } ] }
+	[\ldots]
+	[{[\slasch \sliste{ \ibox{1} } ] } ]
+ 	[\ldots]
+ 	[{[\slasch \sliste{ \ibox{1} } ] } ]
+ 	[\ldots]]
+\end{forest}
+  \caption{\label{fig:UDC:36}Across-the-board (ATB) extraction: conflation of \textsc{slash} values} 
+\end{figure}
+
 %% \Tree [ {\ldots{}} {
 %%   \begin{avm}
 %%     \[slash & \{\@1\}\]
@@ -1180,11 +1237,6 @@ the distribution of \textsc{slash} allow structures like the following:
 %%     \[slash & \{\@1\}\]
 %%   \end{avm}
 %% }
-  
-  \caption{\label{fig:UDC:36}Across-the-board (ATB) extraction: conflation of \textsc{slash} values}
-  
-\end{figure}
-
 
 \noindent
 In other words, both allow more than one daughter of a phrase with a
@@ -1827,8 +1879,26 @@ optionally include a \textsc{slash} element coindexed with an
 unslashed pronominal argument. This move licenses Welsh resumptives in
 a structure like the one in Figure~\ref{fig:WelshResump} below:  
 
-\begin{figure}[htb]
+\begin{figure}
   \centering
+\begin{forest}
+sm edges without translation
+	[{\begin{avm}
+		\[\head & \ibox{1} prep $\vee$ noun \\
+		\textsc{slash} & \sliste{ \ibox{2} NP$_i$ } \]
+		\end{avm}}
+			[{\begin{avm}
+				\[\head & \ibox{1} \\
+				\textsc{slash} & \sliste{ \ibox{2} } \\
+				\textsc{arg-st} & \sliste{ \ldots{} \ibox{3} \ldots{} } \]
+			\end{avm}}]
+			[{\ibox{3} NP$_i$ }]
+			[\dots]]
+\end{forest}
+    \caption{\label{fig:WelshResump}Representation of Welsh resumptives}  
+\end{figure}
+
+
 %%     \Tree [ 
 %% {
 %%     \begin{avm}
@@ -1843,10 +1913,7 @@ a structure like the one in Figure~\ref{fig:WelshResump} below:
 %%         \[head & \@1 prep $\vee$ noun\\
 %%         slash & \{ \@2 NP$_i$ \} \]
 %%     \end{avm}
-%%     }  
-    \caption{\label{fig:WelshResump}Representation of Welsh resumptives}
-    
-\end{figure}
+%%     }
 \noindent
 Thus, the only difference between gaps and resumptives on his account
 is that the former give rise to a reentrancy of an element in
@@ -1951,8 +2018,29 @@ information, whereas exactly this information is excluded for
   
 \end{figure}
 
-\begin{figure}[htb]
+\begin{figure}
   \centering
+\begin{forest}
+sm edges without translation
+[{\begin{avm}
+	\[\asort{synsem}
+	loc & full-local \\
+	nloc & non-local\]
+\end{avm}} ]
+	[{\begin{avm}
+	\[\asort{slashed}
+	loc & \[\cont|index & \ibox{1} \] \\
+	nloc & \[sl & \sliste{ \[cont|index & \ibox{1} \] } \] \]
+	\end{avm}} ]
+		[{\begin{avm}
+		\[\asort{gap}
+		loc & \ibox{1} full-local \\
+		nloc & \[sl & \sliste{ \ibox{1} }\] \]
+		\end{avm}}
+		[\textit{resump}]]
+\end{forest}
+  \caption{\label{fig:synsem}Hierarchy of \textit{synsem} objects \citep{Crysmann:12}}
+\end{figure}
 
 %%     \begin{tree}
 %%     \psset{treesep=24ex,levelsep=10ex, linewidth=.5pt}
@@ -1978,10 +2066,6 @@ information, whereas exactly this information is excluded for
 %%       } \lf{\textit{resump}
 %%       } }}
 %% \end{tree}
-
-  \caption{\label{fig:synsem}Hierarchy of \textit{synsem} objects \citep{Crysmann:12}}
-  
-\end{figure}
 
 The hierarchy of \textit{local} types provides for the possibility
 that \textit{local} types on \textsc{slash} may only be partially
@@ -2360,21 +2444,23 @@ has a clausal interpretation can combine with a finite clause. Thus,
 Figure~\ref{fig:UDC:Tree:ThatHeMightBeWrong} gives the schematic
 structure for (\ref{ex:UDC:ThatHeMightBeWrong}).
 
-
-      \begin{figure}[htb]
-        \centering
-
-        %% \Tree [ \qroof{That he might be wrong}.{S} \qroof{he didn't think of}.{S\\
-        %%   \begin{avm}
-        %%     \[slash \{ NP \}\]
-        %%   \end{avm}
-        %% } ].S
-        
-        \caption{\label{fig:UDC:Tree:ThatHeMightBeWrong}``Dishonest'' gap }
-        
-      \end{figure}
+\begin{figure}[htb]
+	\centering
+\begin{forest}
+sm edges without translation
+	[S
+		[S [That he might be wrong, roof]]
+		[{S[\textsc{slash} \sliste{NP}]} [he didn't think of, roof]]]
+\end{forest}    
+	 \caption{\label{fig:UDC:Tree:ThatHeMightBeWrong}``Dishonest'' gap }
+\end{figure}
  
-
+ %% \Tree [ \qroof{That he might be wrong}.{S} \qroof{he didn't think of}.{S\\
+ %%   \begin{avm}
+ %%     \[slash \{ NP \}\]
+ %%   \end{avm}
+ %% } ].S
+ 
 \noindent
 On this analysis, the initial clause is not a filler, and the
 construction is not a head-filler phrase. However, the analysis involves

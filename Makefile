@@ -39,7 +39,7 @@ chop: stable.pdf
 # does not work on mac	
 #	bash chopchapters.sh `grep "mainmatter starts" main.log|egrep -o "[0-9]*"`
 
-commit-stable: chop
+commit-stable: chop 
 	git commit -m "automatic creation of stable.pdf and chapters" stable.pdf chapters-pdfs/
 	git push -u origin
 
@@ -49,33 +49,72 @@ stable-commit: commit-stable
 
 # prepublish.toc contains roman numbers this means we have to update main.pdf and take the numbers
 # from main.toc. Takes a while ...
-prepublish: prepublish.pdf
-	chopchapters-bookmarks.sh prepublish.pdf prepubs-pdfs
+prepublish-pdfs: prepublish.pdf
+	chopchapters-bookmarks.sh prepublish.pdf prepubs-chop-pdfs
 
-prepublish-commit: prepublish
+prepublish-commit: prepublish-pdfs
 	git commit -m "automatic creation of prepublish.pdf and chapters" prepubs-pdfs/
 	git push -u origin
 
+
+
+FINALIZED= chapters/evolution.tex chapters/lexicon.tex chapters/case.tex chapters/idioms.tex
+
+prepubs-pdfs/evolution.pdf: chapters/evolution.tex
+	xelatex -no-pdf -shell-escape prepublish
+	biber prepublish
+	xelatex -shell-escape prepublish
+	chopchapters-bookmarks.sh prepublish.pdf prepubs-chop-pdfs
+	cp prepubs-chop-pdfs/02.pdf prepubs-pdfs/evolution.pdf
+
+prepubs-pdfs/lexicon.pdf: chapters/lexicon.tex
+	xelatex -no-pdf -shell-escape prepublish
+	biber prepublish
+	xelatex -shell-escape prepublish
+	chopchapters-bookmarks.sh prepublish.pdf prepubs-chop-pdfs
+	cp prepubs-chop-pdfs/04.pdf prepubs-pdfs/lexicon.pdf
+
+prepubs-pdfs/case.pdf: chapters/case.tex
+	xelatex -no-pdf -shell-escape prepublish
+	biber prepublish
+	xelatex -shell-escape prepublish
+	chopchapters-bookmarks.sh prepublish.pdf prepubs-chop-pdfs
+	cp prepubs-chop-pdfs/07.pdf prepubs-pdfs/case.pdf
+
+prepubs-pdfs/idioms.pdf: chapters/idioms.tex
+	xelatex -no-pdf -shell-escape prepublish
+	biber prepublish
+	xelatex -shell-escape prepublish
+	chopchapters-bookmarks.sh prepublish.pdf prepubs-chop-pdfs
+	cp prepubs-chop-pdfs/18.pdf prepubs-pdfs/idioms.pdf
+
+
+
+# the index is irrelevant so I removed index creation here
 prepublish.pdf: $(SOURCE) prepublish.tex
 	xelatex -no-pdf -shell-escape prepublish
 	biber prepublish
 	xelatex -no-pdf -shell-escape prepublish
-	sed -i.backup s/.*\\emph.*// prepublish.adx #remove titles which biblatex puts into the name index
-	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' prepublish.sdx # ordering of references to footnotes
-	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' prepublish.adx
-	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' prepublish.ldx
-# 	python3 fixindex.py
-# 	mv prepublishmod.adx $*.adx
-	makeindex -o prepublish.and prepublish.adx
-	makeindex -o prepublish.lnd prepublish.ldx
-	makeindex -o prepublish.snd prepublish.sdx 
 	xelatex -shell-escape prepublish
 
+prepubs-latex-cp: prepublish-pdfs
+	cp prepubs-chop-pdfs/02.pdf prepubs-pdfs/evolution.pdf
+	cp prepubs-chop-pdfs/04.pdf prepubs-pdfs/lexicon.pdf
+	cp prepubs-chop-pdfs/07.pdf prepubs-pdfs/case.pdf
+	cp prepubs-chop-pdfs/10.pdf prepubs-pdfs/order.pdf
+	cp prepubs-chop-pdfs/18.pdf prepubs-pdfs/idioms.pdf
+	cp prepubs-chop-pdfs/24.pdf prepubs-pdfs/information-structure.pdf
+	cp prepubs-chop-pdfs/27.pdf prepubs-pdfs/processing.pdf
+	cp prepubs-chop-pdfs/29.pdf prepubs-pdfs/dialogue.pdf
+	cp prepubs-chop-pdfs/31.pdf prepubs-pdfs/gesture.pdf
+	cp prepubs-chop-pdfs/36.pdf prepubs-pdfs/hpsg-cxg.pdf
 
 
 # 
-lexicon.pdf: stable.pdf
-	pdftk stable.pdf cat 49-88 output lexicon.pdf
+prepublish: prepubs-pdfs/evolution.pdf prepubs-pdfs/lexicon.pdf prepubs-pdfs/case.pdf prepubs-pdfs/idioms.pdf
+	rsync -a -e ssh prepubs-pdfs/ hpsg.hu-berlin.de:/var/www/html/Projects/HPSG-handbook/PDFs
+
+#	scp prepubs-pdfs/32.pdf hpsg.hu-berlin.de:public_html/Pub/hpsg-minimalism.pdf
 
 
 evolution.pdf: stable.pdf
