@@ -170,6 +170,26 @@ mention the part of speech but instead refers to the function of the constituent
 a head that has the \textsc{ini} value `$-$' has to be linearized to the right of all other elements
 in the local tree. Hence, it also applies to adjectives, nouns, and prepositions and their dependents.
 
+This separation of linearization rules from phrase structure rules also makes it possible to capture
+other generalizations. For example, short elements tend to precede heavy constituents (Behaghel's
+Law of Increasing Constituents, \citealp[\page 139]{Behaghel09a}). \citet[Chapter~5]{Uszkoreit87a} captured one aspect of this more general rule by
+formulating a linearization statement requiring that pronouns precede non-pronouns. The LP rules
+apply a large set of ID rules, for example for intransitive, transitive and ditransitive verbs. By
+factoring out the LP constraints, generalizations over the whole set of phrase structure rules are covered.
+Uszkoreit's constraints on the order of arguments in the so-called \mf (that is, for rules like (\mex{0})) are
+assumed to be violable. While violable constraints are not part of the standard HPSG formalism, this
+is something desirable and something that is worked on. See also Abeillé \& Godard's work on
+weight-based linearization and the (reduced) mobility of various categories: bare nominals in
+various languages, certain pronouns \citep{AG99a-u}, certain adverbs
+\citep{AG97a-u,AG2004a-u}, negation \citep{AG2001a-u}, and attributive adjectives
+\citep{AG99b-u}. In various papers, Abeillé \& Godard propose a three valued \feat{weight} feature
+to account for the ordering of light, middle-weight and heavy constituents \citep{AG2000a,AG2004a-u}. See
+also \crossrefchaptert[Section~\ref{sec-structure-CP}]{complex-predicates} on \isi{complex predicates} and weight.
+%% \inlinetodostefan{
+%% There is also the work on heaviness and lightness, to account for the (reduced) mobility of various categories: bare nominals in various languages, certains pronouns (A\&G 1999a), certains adverbs \citep{AG97a-u,AG2004a-u-French}, negation \citep{AG2001a-u}, and attributive adjectives \citep{AG99b-u-French}. In various papers, Abeillé and Godard propose a three valued WEIGHT feature to account for light, middle-weight and heavy constituents \citep{AG2000a,AG2004a-u-French}. The LP rules ususally apply to middle weight ones. The light/heavy distinction is also relevant for the Complex predicate chapter, but it should definitely be mentioned, maybe as a subsection or word order/constituent order since it is part of what LFG people call X° syntax.
+%% }
+
+
 This treatment of constraints on linearization has an advantage that was already pointed out by
 researchers working in GPSG: it captures the generalizations regarding linearization. For instance,
 the order of verbs with respect to their arguments is the same in embedded sentences in \ili{German}, independent of
@@ -263,7 +283,7 @@ English, the \phonv of the head daughter is concatenated with the \phonv of the 
 and if the order has to be the other way around as in the case of adjectives modifying nouns, the
 non-head daughter is concatenated with the head daughter. An adjective is specified as
 \textsc{pre-modifier} + and a preposition as \textsc{pre-modifier} $-$. Since these features are
-head-features (see \crossrefchaptert{wherever} on head features), they are also accessible at the
+head-features (see \crossrefchaptert{properties} on head features\todostefan{check chapter}), they are also accessible at the
 level of adjective phrases and prepositional phrases.
 
 For languages with free variation in head-adjunct order, it would suffice to not state any LP
@@ -285,6 +305,7 @@ combines a head with all the complements selected via the \compsl.\footnote{
   \dtrs for a list of ordered daughters and \textsc{head-dtr} and \textsc{non-head-dtrs} for
   material that is not necessarily ordered.%
 }
+\newpage
 \begin{schema}[Head-Complement Schema]
 \label{schema-hc-flat}
 \type{head-complement-phrase} \impl\\*
@@ -445,7 +466,7 @@ analyzed as in Figure~\ref{fig-gave-sandy-a-book-binary}.\footnote{
   \crossrefchaptert{minimalism} for a comparison between HPSG and Minimalism.%
 }
 \begin{figure}
-%\scalebox{.95}{%
+\scalebox{.95}{%
 \begin{forest}
 sm edges
 [{V[\comps \eliste]},baseline
@@ -454,9 +475,9 @@ sm edges
     [\ibox{1} NP [Sandy]]]
     [\ibox{2} NP [a book,roof]]]
 \end{forest}
-%}
+}
 \hfill
-%\scalebox{.95}{%
+\scalebox{.95}{%
 \begin{forest}
 sm edges
 [{V[\comps \sliste{ \ibox{1} }]},baseline
@@ -465,7 +486,7 @@ sm edges
     [\ibox{3} NP [ein Buch;a book,roof]]
     [{V[\comps \sliste{ \ibox{1}, \ibox{2}, \ibox{3} } ]} [gab;gave]]]]
 \end{forest}
-%}
+}
 \caption{\label{fig-gave-sandy-a-book-binary}\label{fig-sandy-ein-buch-gab}Analysis of the English VP \emph{gave Sandy a book} and
   the corresponding \ili{German} verbal projection \emph{Sandy ein Buch gab} with binary branching structures}
 \end{figure}
@@ -662,7 +683,7 @@ by \citet{Pollock89a-u} and \citet{Cinque99a-u}.
 \ex Kim will get the job.
 \zl
 The technique that is used in Borsley's analysis is basically the same that
-was developed by \citet{Gazdar81} for the treatment of nonlocal dependencies in GPSG. An empty category is
+was developed by \citet{Gazdar81a} for the treatment of nonlocal dependencies in GPSG. An empty category is
 assumed and the information about the missing element is passed up the tree until it is bound off at
 an appropriate place (that is, by the fronted verb). Note that the heading of this section contains
 the term \emph{head movement} and I talk about traces, but it is not the case that something is
@@ -853,7 +874,9 @@ are doomed to failure). Rather, researchers assumed binary branching head-comple
 together with verb movement (for references see the end of
 Section~\ref{sec-head-movement}).\footnote{%
 I assumed linearization domains (see Section~\ref{sec-domains}) for ten
-years and then switched to the head-movement approach \citep{Mueller2005c,Mueller2005d,MuellerGS}.%
+years and then switched to the head-movement approach
+\citep{Mueller2005c,Mueller2005d,MuellerGS}. For a detailed discussion of all alternative proposals
+and a fully worked out analysis see \citew{MuellerGS}.%
 } 
 
 As was explained in Section~\ref{sec-head-movement}, the head movement approaches are based on lexical rules or unary
@@ -1505,13 +1528,6 @@ for discontinuous constituents. I showed that there are reasons for assuming hea
 German and how even languages with extremely free constituent order can be analyzed without assuming
 discontinuous constituents.
 
-\inlinetodostefan{
-There is also the work on heaviness and lightness, to account for the (reduced) mobility of various categories: bare nominals in various languages, certains pronouns (A\&G 1999a), certains adverbs \citep{AG97a-u,AG2004a-u-French}, negation \citep{AG2001a-u}, and attributive adjectives \citep{AG99b-u-French}. In various papers, Abeillé and Godard propose a three valued WEIGHT feature to account for light, middle-weight and heavy constituents \citep{AG2000a,AG2004a-u-French}. The LP rules ususally apply to middle weight ones. The light/heavy distinction is also relevant for the Complex predicate chapter, but it should definitely be mentioned, maybe as a subsection or word order/constituent order since it is part of what LFG people call X° syntax.
-
-
-
-
-}
 
 
 %\section*{Abbreviations}
