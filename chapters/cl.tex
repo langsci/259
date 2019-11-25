@@ -139,7 +139,8 @@ a \isi{parsing algorithm} needs to process a particular sentence.\footnote{%
 Considering parsing time, longer sentences will take longer to process,
 but the more complex the algorithm is,
 the more quickly the amount of processing time increases.
-Parsing complexity can thus be measured by considering sentences containing $n$~tokens,
+Parsing complexity can thus be measured by considering
+sentences containing $n$~\isi{token}s,\is{sentence length}
 and then increasing~$n$ to see how the amount of time changes.
 This can be done based on the average amount of time
 for sentences in a corpus (average-case complexity),\is{complexity!average-case}
@@ -197,14 +198,15 @@ but it is instructive to give an example.
 For grammars that have a \isi{context-free backbone}
 (every analysis can be expressed as a phrase-structure tree
 plus constraints between mother and daughter nodes),
-it is possible to adapt the standard \textit{parsing} algorithm \cite{kay:1973} for \isi{context-free grammar}s.\is{parsing!chart parsing}
+it is possible to adapt the standard \textit{parsing} algorithm \cite{kay:1973} for context-free grammars.\is{context-free grammar (CFG)}\is{parsing!chart parsing}
 % EMB 2019-02-21 We should have cite for chart-parsing. It looks like Kay 1973 is the originator of that idea, so putting that in for now.
 The basic idea is to parse ``bottom-up'',
 starting by finding analyses for each token in the input,
 and then finding analyses for increasingly longer sequences of tokens (called \textit{\isi{span}s}),
 until the parser reaches the entire sentence.
 
-For a \isi{context-free grammar}, there is a finite number of nonterminal symbols,
+For a context-free grammar,\is{context-free grammar (CFG)}
+there is a finite number of nonterminal symbols,
 and each \isi{span} is analyzed as a subset of the nonterminals.
 For a feature-structure grammar, each span must be analyzed as a set of feature structures,\footnote{%
 	Much theoretical work in HPSG, including \citet{ps2},
@@ -260,7 +262,7 @@ and as another example, the elements on a \textsc{comps} list
 also include the feature \textsc{comps}.
 
 However, in practice, such recursive paths do not need to be considered by the parsing algorithm.
-For example, selecting \isi{head}s might place constraints on their \is{complement}s' \isi{subject}s
+For example, selecting \isi{head}s might place constraints on their \isi{complement}s' \isi{subject}s
 (\eg\ in \isi{raising}/\isi{control} constructions),
 but no further than that (\eg a complement's complement's subject).
 Similarly, while \isi{list}s that are potentially unbounded in length are used in semantic representations,
@@ -385,7 +387,7 @@ and the selected best parse is often referred to as the \textit{\isi{gold standa
 Given the gold parses for the whole corpus, a statistical system is trained
 to predict the gold parse from a parse forest,
 based on many features\footnote{%
-	In the machine-learning sense of ``feature'',
+	In the machine-learning sense of \textit{feature},
 	not the feature-structure sense.
 }
 of the parse.
@@ -410,17 +412,17 @@ as long as the algorithm for selecting the subset
 includes the correct parse sufficiently frequently.
 One method, called \textit{\isi{supertagging}},\footnote{%
 	The term \textit{supertagging}, due to \citet{bangalore1999supertag},
-	refers to \textit{part-of-speech tagging},
+	refers to \textit{\isi{part-of-speech tagging}},
 	which predicts a part-of-speech for each input token,
 	from a relatively small set of part-of-speech tags.
 	Supertagging is ``super'', in that it predicts detailed lexical entries,
 	rather than simple parts of speech.
 }
 exploits the fact that HPSG is a lexicalized\is{lexicalism} theory:
-choosing the correct \isi{lexical entry} brings in rich information
+choosing the correct \isi{lexical entry} for each \isi{token} brings in rich information
 that can be exploited to rule out many possible parses.
 Thus if the correct lexical entry can be chosen prior to parsing
-(\eg\ on the basis of the prior and following words),
+(\eg\ on the basis of the preceding and following words),
 the range of possible analyses the parser must consider is drastically reduced.
 Although there is a chance that the supertagger will predict the wrong lexical entry,
 using a supertagger can often improve parsing accuracy,
@@ -467,7 +469,7 @@ For more on treebanking, see Section~\ref{cl:lang-doc:treebanks}.%
 In practical applications of HPSG grammars,
 the full phrase-structure trees and the full feature structures are often unwieldy,
 containing far more information than necessary for the task at hand.
-It is therefore often desirable to extract a concise semantic representation.\is{semantic representation}s
+It is therefore often desirable to extract a concise \isi{semantic representation}.
 %TODO check the Semantics chapter once it's written
 
 In computational linguistics, a popular approach to semantics
@@ -497,7 +499,7 @@ which is fully interconvertible with MRS.\footnote{%
 } This expressivity is achieved by adding annotations on the edges to
 indicate scope information.
 Finally, \delphin\ MRS Dependencies \citep[DM;][]{ivanova2012dm}\is{\delphin\ MRS Dependencies (DM)}
-express \isi{predicate-argument structure} purely in terms of the surface tokens,
+express \isi{predicate-argument structure} purely in terms of the surface \isi{token}s,
 without introducing any abstract predicates.\is{predicate!abstract}
 
 For example, the \isi{English Resource Grammar (ERG)}
@@ -727,8 +729,8 @@ Some general constraints hold for all grammars,
 while others hold for a subset of the grammars,
 and some only hold for a single grammar.
 \citet{MuellerCoreGram} describes this as a
-``bottom-up\is{linguistic universal!bottom-up exploration} approach with cheating'' (p.\,43)\,---\,the aim is
-to analyze each language on its own terms (hence ``bottom-up''),
+``bottom-up\is{linguistic universal!bottom-up exploration} approach with cheating'' (p.\,43):
+the aim is to analyze each language on its own terms (hence ``bottom-up''),
 but to re-use analyses from existing grammars if possible (hence ``with cheating'').
 % on ``bottom-up'', cite Haspelmath, Dryer, Croft?
 % p43 of https://hpsg.hu-berlin.de/~stefan/Pub/coregram.pdf
@@ -743,9 +745,9 @@ can be seen as an hypothesis about the structure of human language.
 % We currently also have ``a history'' and ``a high-dimensional vector'' elsewhere
 as we will discuss in Section~\ref{cl:lang-doc:coregram}.
 
-CoreGram grammar development aims to incrementally increase coverage of each language.
+CoreGram grammar development aims to incrementally increase \isi{coverage} of each language.
 To measure progress, grammars are evaluated against \isi{test suite}s,
-collections of sentences each annotated with a grammaticality judgment\is{grammaticality judgment}s \citep{ONK97a,Mueller2004f}.
+collections of sentences each annotated with a \isi{grammaticality judgment} \citep{ONK97a,Mueller2004f}.
 This allows a grammarian to check for unexpected side effects when modifying a grammar,
 to avoid situations when implementing an analysis of one phenomenon
 would break the analysis of another phenomenon.
@@ -762,7 +764,7 @@ and the graphical debugging tool \isi{Kahina} \citep{DER2010a-u,DER2013a}.\is{Co
 The \delphin\footnote{This stands for DEep Linguistic
   Processing in \textsc{Hpsg} INitiative; see \url{http://www.delph-in.net}, accessed 16 August 2019} Consortium
 was established in 2001 to facilitate the development of large-scale,
-linguistically motivated HPSG grammars for multiple languages in tandem
+linguistically motivated HPSG grammars for multiple languages, in tandem
 with the software required for developing them and deploying them in
 practical applications. At the time that \delphin\ was founded, the
 English Resource Grammar\is{English Resource Grammar (ERG)}\il{English}
@@ -794,7 +796,7 @@ knowledge for \isi{parsing} and \isi{generation} (discussed further below);
 software for supporting the development of grammar documentation\is{documentation!of grammars}
 \citep[e.g.,][]{Hashimoto-etal:07}, software for creating \isi{treebank}s
 (\citealt{OFTM2004a-u,Packard:15}; see also Section~\ref{cl:lang-doc:treebanks} below), 
-and \isi{parse ranking} models trained on them
+\isi{parse ranking} models trained on them
 (\citealt{Tou:Man:Fli:Oep:05}; see also Section~\ref{cl:prac:rank} above), and
 software for \isi{robust processing}, \ie\ using the knowledge encoded in
 the grammars to return analyses for sentences even if the grammar
@@ -808,7 +810,7 @@ of a \isi{formalism} for the declaration of grammars
 % GE 2019-01-17 I presume CFPS2005a is a suitable reference?
 % EMB 2019-02-21 Yes, though I think the discussion on MrsRfc is also 
 % relevant --- I guess there's not really anything citable there though.
-grammar outputs (\eg\ the forest that results from parsing a sentence,
+grammar outputs (\eg\ \isi{parse forest}s,
 as well as the results of \isi{treebank}ing \citep{Oepen:01,OFTM2004a-u}).
 These standards facilitate the development of multiple different
 \isi{parsing} and \isi{generation} engines which can all process the same grammars
@@ -847,7 +849,7 @@ for processing inputs that are ungrammatical, at least according to
 the grammar (\eg\ \citealp{W11-2923}, see also Section~\ref{cl:downstream:data}).
 Processing large quantities of text motivates performance innovations, such as \isi{supertagging} or \isi{ubertagging} (\eg\ \citealp{matsuzaki2007supertag,dridan2013ubertag}, see also Section~\ref{cl:prac:rank}) to speed
 up processing times.\is{processing time} Naturally occurring text can include very long 
-sentences which can run up against processing limits. Supertagging helps some here, too, but other strategies include \textit{\is{sentence chunking}}, or the task of breaking a long sentence into smaller ones without loss of meaning \citep{muszynska:2016:ACL-SRW}.
+sentences which can run up against processing limits. Supertagging helps here, too, but other strategies include \textit{\isi{sentence chunking}}, which is the task of breaking a long sentence into smaller ones without loss of meaning \citep{muszynska:2016:ACL-SRW}.
 %and pre-processors that provide partial
 %information about constituent boundaries to narrow the search space.
 % EMB 2019-02-21 Took the above out because I can't find a DELPH-IN citation for it.
@@ -869,7 +871,7 @@ components \citep[e.g.,][]{flickinger2005sem}.
 % EMB 2019-02-21 On my read-through, I decided they really should be there and
 % that I shouldn't try to cram that all into one sentence! So, fixed.
 These efforts are also valuable from a strictly linguistic point of view, \ie\ one not concerned with practical applications.
-First, the broader the coverage of a grammar,
+First, the broader the \isi{coverage} of a grammar,
 the more linguistic phenomena it can be used to explore.
 Second, external constraints on the form of semantic representations provide
 useful guide points in the development of semantic analyses.%
@@ -900,14 +902,14 @@ comparable to state-of-the-art parsers for \ili{English}.
 Nonetheless, it also includes theoretically interesting analyses,
 such as for \isi{cross-serial dependencies} \citep{BvN98a}.
 In addition to using hand-written rules,
-lexical information (such as \isi{subcategorisation frame}s) has also been extracted from two existing lexicons,
+lexical information (such as \isi{subcategorization frame}s) has also been extracted from two existing lexicons,
 \isi{Celex} \citep{baayen1995celex}
 and \isi{Parole} \citep{kruyt1997parole}.
 
 Alpino produces syntactic dependency graphs,\is{dependency!syntactic}
 following the annotation format of the \isi{Spoken Dutch Corpus} \citep{oostdijk2000corpus}.
 These dependencies are constructed directly in the feature-structure formalism,
-exploiting the fact that a feature structure can be formalised as a \isi{directed acyclic graph}.
+exploiting the fact that a feature structure can be formalized as a \isi{directed acyclic graph}.
 Each lexical entry encodes a partial dependency graph,
 and these graphs are composed through phrase structure rules
 to give a dependency graph for a whole sentence.
@@ -1042,12 +1044,13 @@ as well as for \isi{information structure}
 As noted in Section~\ref{cl:delphin}, the LinGO \isi{Grammar Matrix}
 \citep{BFO2002a-u,BDFPS2010a-u} was initially developed in
 the context of \isi{Project DeepThought} with the goal of speeding up the
-development of \delphin-style grammars for additional languages. It
-consists of a shared \isi{core grammar} and a series of ``libraries''\is{Grammar Matrix!library} of
-analyses for cross-linguistically variable phenomena. Both of these
-constitute linguistic hypotheses: the constraints
-in the core grammar are hypothesized to be cross-linguistically
-useful. However, in the course of developing grammars based on the
+development of \delphin-style grammars for additional languages.
+It consists of a shared \isi{core grammar}
+and a series of ``libraries''\is{Grammar Matrix!library}
+of analyses for cross-linguistically variable phenomena.
+Both of these constitute linguistic hypotheses:
+the constraints are hypothesized to be cross-linguistically useful.
+However, in the course of developing grammars based on the
 Matrix for specific languages, it is not uncommon to find reasons to
 refine the core grammar. The libraries, in turn, are intended to 
 cover the attested range of variation for the phenomena they model.
@@ -1129,10 +1132,12 @@ patterns, etc.\ \citep{Ben:Goo:Cro:Xia:13,Zam:How:Ben:19}.\footnote{The \isi{Typ
 \is{treebank|(}
 \is{sembank|(}
 
-A particularly valuable type of resource that can be derived from HPSG
-grammars are treebanks and sembanks. A \textit{treebank} is a collection of
-text where each sentence is associated with a syntactic
-representation. A \textit{sembank} has semantic representations (in some cases
+Annotated corpora are a particularly valuable
+type of resource that can be derived from HPSG grammars.
+Two important kinds are treebanks and sembanks.
+A \textit{treebank} is a collection of text
+where each sentence is associated with a syntactic representation.
+A \textit{sembank} has semantic representations (in some cases
 in addition to the syntactic ones). Treebanks and sembanks can be used
 for linguistic research, as the analyses allow for more detailed
 structure-based searches\is{corpus search!structure-based} for phenomena of interest \citep{Rohde:05,Gho:Bir:10,Kou:Oep:14}.\footnote{The \isi{WeSearch} interface of \citet{Kou:Oep:14} can be accessed at \url{http://wesearch.delph-in.net/deepbank/search.jsp} (accessed 16 August 2019).}
@@ -1143,22 +1148,23 @@ corpus \citep{Ben:Gho:Bal:Dri:12}. In natural language processing,
 treebanks and sembanks are critical source material for training parsers (see Sections \ref{cl:prac:rank} and~\ref{cl:downstream:data}).
 
 Traditional treebanks are created by doing a certain amount of
-preprocessing on data, including possibly \isi{chunking} or \isi{CFG} parsing, and
+automatic processing on corpus data,
+including possibly \isi{chunking} or CFG\is{context-free grammar (CFG)} parsing, and
 then hand-correcting the result \citep{Mar:San:Mar:93,Ban:Bon:Cai:13}.
 While this approach is a means to encode human insight about
 linguistic structure for later automatic processing, it is both
 inefficient and potentially error-prone. The \isi{Alpino} project
 (\citealt{vanderbeek2002alpino}; see also Section~\ref{cl:other:alpino} above) addresses this by first parsing the text
 with a broad-coverage HPSG-inspired grammar of \ili{Dutch} and then having
-annotators\is{annotation} select among the parses. The selection process is
-facilitated by allowing the annotators to mark potential \is{lexical entry}lexical entries
-for words in the sentence at hand as correct, possibly
-correct, or wrong and to pre-mark some \is{constituent boundary}constituent boundaries. These
-constraints reduce the search space for the parser and consequently
+annotators\is{annotation} select among the parses.
+The selection process is facilitated by allowing the annotators
+to mark \is{constituent boundary}constituent boundaries,
+and to mark \is{lexical entry}lexical entries as correct, possibly correct, or wrong.
+These constraints reduce the search space for the parser and consequently
 also the range of analyses the annotator has to consider before
-choosing one. A facility for adding one-off lexical entries to handle
-\eg\ misspellings helps increase grammar coverage.  Disambiguation\is{ambiguity}\is{disambiguation} is
-handled with the aid of \textit{\isi{discriminant}s} \ie\ properties true of
+choosing the best one. A facility for adding one-off lexical entries to handle
+\eg\ misspellings helps increase grammar \isi{coverage}.  Disambiguation\is{ambiguity}\is{disambiguation} is
+handled with the aid of \textit{\isi{discriminant}s}, \ie\ properties true of
 some but not all trees in the \isi{parse forest} \citep{Carter:97}. Finally,
 the annotators may further edit analyses deemed insufficient. Though
 the underlying grammar is based on HPSG, the treebank stores
@@ -1176,14 +1182,14 @@ analyses.\footnote{There are also Redwoods-style treebanks for other
   \citep{bond:etal:2004} and the \isi{Tibidabo Treebank} of \ili{Spanish}
   \citep{marimon:2015}.}  As with Alpino, this is done by first
 parsing the corpus with the grammar and calcuating the discriminants
-for each parse forest.  Finally, the treebanking software stores not
+for each parse forest.  After annotation, the treebanking software stores not
 only the final full HPSG analysis that was selected, but also the
-decisions the annotator\is{annotation} made about each \isi{discriminant}. Thus when the
-grammar is updated to include for example a refinement to the semantic
-representations, the corpus can be reparsed and the decisions
-replayed, leaving only a small amount of further annotation work to be
-done to handle any additional \isi{ambiguity} introduced. The activity of
-treebanking in turn provides useful insight into grammatical analyses,
+decisions the annotator\is{annotation} made about each \isi{discriminant}.
+Thus when the grammar is updated, for example to refine the semantic representations,
+the corpus can be reparsed and the decisions replayed,
+leaving only a small amount of further annotation work to be
+done to handle any additional \isi{ambiguity} introduced by the grammar update.
+The activity of treebanking in turn provides useful insight into grammatical analyses,
 including sources of spurious ambiguity\is{ambiguity!spurious} and phenomena that are not yet
 properly handled and thus informs and spurs further grammar
 development.  A downside to strictly grammar-based treebanking is that
@@ -1242,8 +1248,8 @@ in order to automatically identify errors and give feedback to the student.
 In order to model common mistakes,
 a grammar can be extended with so-called \textit{\isi{mal-rule}s}.
 A mal-rule is like a normal rule, in that it licenses a construction,
-and can be treated the same during parsing\,---\,however, given a parse,
-the presence of mal-rules indicates that the student needs to be given feedback
+and can be treated the same during parsing. However, given a parse,
+the presence of a mal-rule indicates that the student needs to be given feedback
 \citep{Ben:Fli:Oep:04,flickinger2013error,morgadodacosta2016error}.
 A large scale system implementing this kind of computer-aided teaching has been developed
 by the \isi{Education Program for Gifted Youth} at \isi{Stanford University},
@@ -1253,7 +1259,7 @@ and has been found to improve the school results of underachieving children.
 % Redbird (McGraw-Hill)
 
 Another way to use a precision grammar is to automatically produce teaching materials.
-Given a semantic representation,\is{semantic representation}s
+Given a \isi{semantic representation},
 a grammar can generate\is{generation} one or more sentences.
 \citet{Flickinger:17} uses the ERG\is{English Resource Grammar (ERG)} to produce practice exercises for a student learning \isi{first-order logic}.
 For each exercise, the student is presented with an \ili{English} sentence
@@ -1277,10 +1283,10 @@ with a clearly-defined metric to determine how well the system performs.
 HPSG grammars have been used in a range of such tasks,
 where the syntactic and semantic analyses provide useful features.
 
-\textit{Information retrieval}\isi{information retrieval}
+\textit{Information retrieval}\is{information retrieval}
 is the task of finding relevant documents for a given query.
 For example, \citet{schaefer2011acl} present a tool for searching the ACL Anthology, using the ERG.\is{English Resource Grammar (ERG)}
-\textit{Information extraction}\isi{information extraction}
+\textit{Information extraction}\is{information extraction}
 is the task of identifying useful facts in a collection of documents.
 For example, \citet{reiplinger2012glossary} aim to identify definitions of technical concepts from English text,
 in order to automatically construct a glossary.
@@ -1300,26 +1306,29 @@ evaluating on the CoNLL 2010 Shared Task \citep{farkas2010task},
 where they outperform previous approaches.
 \citet{packard2014neg} propose a general-purpose method for finding the scope of negation\is{scope!of negation} in an MRS,
 evaluating on the \isi{*SEM 2012 Shared Task} \citep{morante2012task}.
-They find that converting the output of the ERG\is{English Resource Grammar (ERG)} with a relatively simple set of rules
+They find that transforming the output of the ERG\is{English Resource Grammar (ERG)}
+with a relatively simple set of rules
 achieves high performance on this \ili{English} dataset,
 and combining this approach with a purely statistical system
 outperforms previous approaches.
-\citet{zamaraeva2018pathology} use the ERG for \is{negation} detection and then
+\citet{zamaraeva2018pathology} use the ERG for \isi{negation} detection and then
 use that information to refine the (machine-learning) features in a 
-system that classifies \ili{English} pathology reports and improve system performance.\is{biomedical NLP}
+system that classifies \ili{English} pathology reports,
+thereby improving system performance.\is{biomedical NLP}
 A common finding from these studies
 is that a system using the output of the ERG
 tends to have high \isi{precision} (items identified by the system tend to be correct)
 but low \isi{recall} (items are often overlooked by the system).
 One reason for low recall is that the grammar does not cover all sentences in natural text.
 As we will see in Section~\ref{cl:downstream:data},
-recent work on \isi{robust parsing} may help to close this coverage gap.
+recent work on \isi{robust parsing} may help to close this \isi{coverage} gap.
 
 Negation\is{negation} resolution is also included in \citeauthor{oepen2017extrinsic}'s (\citeyear{oepen2017extrinsic})
 \isi{Shared Task on Extrinsic Parser Evaluation}.
 As mentioned in Section~\ref{cl:prac:dep},
 \isi{dependency graph}s can provide a useful tool in NLP tasks,
-and this shared task aims to evaluate the use of dependency graphs (both semantic and syntactic),
+and this shared task aims to evaluate the use of dependency graphs
+(both semantic and syntactic)
 for three downstream applications:
 biomedical information extraction,\is{information extraction!biomedical} negation resolution, and fine-grained opinion analysis.\is{opinion analysis}
 Some participating teams use DM\is{\delphin\ MRS Dependencies (DM)} dependencies\footnote{DM stands for \delphin\ MRS dependencies; see (\ref{cl:fig:dm}).} \citep{schuster2017dep,chen2017dep}.
@@ -1381,18 +1390,24 @@ Another use of HPSG grammars in NLP
 is to generate data on which a statistical system can be trained.
 
 For example, one limitation of using an HPSG grammar in an NLP system
-is that the grammar is unlikely to cover all sentences in the data \citep{flickinger2012deepbank}.
-One way to overcome this coverage gap
+is that the grammar is unlikely to cover all sentences in the data
+\citep{flickinger2012deepbank}.
+One way to overcome this \isi{coverage} gap
 is to train a statistical system to produce the same output as the grammar.
-The idea is that the trained system will be able to generalise to sentences that the grammar does not cover.
+The idea is that the trained system will be able
+to generalize to sentences that the grammar does not cover.
 \citet{oepen2014semeval}, \citet{oepen2015semeval}, and \citet{Oep:Abe:Haj:19}
 present shared tasks on semantic dependency parsing,\is{dependency parsing!semantic}
-including both DM dependencies\is{\delphin\ MRS Dependencies (DM)} and \isi{Enju} \isi{predicate-argument structure}s.
+including both DM dependencies\is{\delphin\ MRS Dependencies (DM)}
+and \isi{Enju} \isi{predicate-argument structure}s.
 As of 2015, the best-performing systems in these shared tasks
-could already produce dependency graphs almost as accurately as grammar-based parsers (for sentences where the grammar has coverage).
-Similarly, \citet{buys2017parse} develop a parser for EDS\is{Elementary Dependency Structures (EDS)} and DMRS\isi{Dependency Minimal Recursion Semantics (DMRS)}
+could already produce dependency graphs almost as accurately as grammar-based parsers
+(for sentences where the grammar has coverage).
+Similarly, \citet{buys2017parse} develop a parser
+for EDS\is{Elementary Dependency Structures (EDS)}
+and DMRS\is{Dependency Minimal Recursion Semantics (DMRS)}
 which performs almost as well as a grammar-based parser,
-but has full coverage, and can run 70 times faster.
+but has full \isi{coverage}, and can run 70 times faster.
 
 In fact, in more recent work, the difference in performance has been effectively closed.
 \citet{chen2018parse} consider parsing to EDS and DMRS graphs,
@@ -1400,10 +1415,10 @@ and actually achieve slightly higher accuracy with their system,
 compared to a grammar-based parser.
 Unlike the previous statistical approaches,
 \citeauthor{chen2018parse} do not just train on the desired dependency graphs,
-but also use information in the phrase-structure tree.
+but also use information in the phrase-structure trees.
 They suggest that using this information allows their system
 to learn compositional rules mirroring composition\is{compositionality} in the grammar,
-and thereby allows their system to generalise better.
+which thereby allows their system to generalize better.
 %TODO numbers in the above paragraphs?
 
 Another application of HPSG-derived dependency graphs
@@ -1418,19 +1433,21 @@ where the meaning of each word is represented as a point in a high-dimensional v
 (for an overview, see \citealt{erk2012vector} and \citealt{clark2015vector}).
 However, \citet{emerson2018functional} argues that
 vector space models cannot capture various aspects of meaning,
-including logical structure, as well as phenomena like \isi{polysemy}.
+such as logical structure, and phenomena like polysemy.
 Instead, \citeauthor{emerson2018functional} presents a distributional model
 which can learn \isi{truth-conditional semantics},
 using a parsed corpus like \isi{WikiWoods} (see Section~\ref{cl:lang-doc:treebanks}).
 This approach relies on the semantic analyses given by a grammar,
 as well as the infrastructure to parse a large amount of text.
 
-Finally, there are also applications using grammars not to parse,
+Finally, there are also applications which use grammars not to parse,
 but to generate.\is{generation}
-\citet{kuhnle2018shapeworld} consider the task of \textit{visual question answering},\is{visual question answering (VQA)}
+\citet{kuhnle2018shapeworld} consider the task of
+\textit{visual question answering},\is{visual question answering (VQA)}
 where a system is presented with an image and a question about the image,
 and must answer the question.
-This task requires \isi{language understanding}, \isi{reference resolution}, and \isi{grounded reasoning},
+This task requires \isi{language understanding},
+\isi{reference resolution}, and \isi{grounded reasoning},
 in a way that is relatively well-defined.
 However, for many existing datasets, there are biases in the questions
 which mean that high performance can be achieved without true language understanding.
@@ -1543,7 +1560,7 @@ probably also true for non-computational work, as theoretical ideas
 developed with particular phenomena (and indeed languages) in mind
 influence the questions with which researchers approach additional
 phenomena. \citeauthor{Fokkens:14} proposes that the methodology of
-\isi{meta-grammar engineering} can be used to address this problem: using
+\textit{\isi{meta-grammar}} engineering can be used to address this problem: using
 her \isi{CLIMB} methodology, rather than deciding between analyses of a
 given phenomenon without input from later-studied phenomena, the
 grammar engineer can maintain multiple competing analyses through time
