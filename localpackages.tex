@@ -79,21 +79,25 @@
 \newtheorem{principle-break}[principle]{Principle}
 }
 
-% This avoids linebreaks in the Schema
-\newcounter{schema}
-\newenvironment{schema}[1][]
-  {% \begin{Beispiel}[<title>]
-  \goodbreak%
-  \refstepcounter{schema}%
-  \begin{list}{}{\setlength{\labelwidth}{0pt}\setlength{\labelsep}{0pt}\setlength{\rightmargin}{0pt}\setlength{\leftmargin}{0pt}}%
-    \item[{\textbf{Schema~\theschema}}]\hspace{.5em}\textbf{(#1)}\nopagebreak[4]\par\nobreak}%
-  {\end{list}}% \end{Beispiel}
 
 %% \newcommand{schema}[2]{
 %% \begin{minipage}{\textwidth}
 %% {\textbf{Schema~\theschema}}]\hspace{.5em}\textbf{(#1)}\\
 %% #2
 %% \end{minipage}}
+
+
+% This avoids linebreaks in the Schema
+\newcounter{schemacounter}
+\makeatletter
+\newenvironment{schema}[1][]
+  {%
+   \refstepcounter{schemacounter}%
+   \par\bigskip\noindent
+   \minipage{\linewidth}%
+   \textbf{Schema~\theschemacounter\hspace{.5em} \ifx&#1&\else(#1)\fi}\par
+  }{\endminipage\par\bigskip\@endparenv}%
+\makeatother
 
 %\usepackage{subfig}
 
