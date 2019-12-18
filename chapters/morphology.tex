@@ -1,26 +1,52 @@
-%\documentclass[output=paper]{LSP/langsci} 
+\documentclass[output=paper
+                ,modfonts
+                ,nonflat
+	        ,collection
+	        ,collectionchapter
+	        ,collectiontoclongg
+ 	        ,biblatex
+                ,babelshorthands
+                ,newtxmath
+                ,draftmode
+                ,colorlinks, citecolor=brown
+] {langscibook}
+
+\IfFileExists{../localcommands.tex} {%hack to check whether this is being compiled as part of a collection or standalone
+  \input{../localpackages}
+  \input{../localcommands-udc}
+  \input{../localhyphenation}
+}
+
 \author{Berthold Crysmann\affiliation{CNRS, Laboratoire de linguistique formelle}
 }
+
 \title{Morphology} 
 %\epigram{Change epigram in chapters/01.tex or remove it there }
-\abstract{
-   \mbox{~}
-% * <berthold.crysmann@gmail.com> 2018-01-16T16:46:49.084Z:
-% 
-% Do we need an abstract ?
-% 
-% ^.
-}
+\abstract{ This chapter provides an overview of work on morphology
+  within HPSG. Following a brief discussion how morphology relates to
+  the issue of lexical redundancy, and in particular horizontal
+  redundancy, I map out the historical transition from meta-level
+  lexical rules of derivational morphology and grammatical function
+  change towards theories that are more tighly integrated with the
+  hierarchical lexicon \citep{Riehemann98,Koenig99}. After a
+  discussion of fundamental issues of inflectional morphology and the
+  kind of models these favour, the chapter summarises previous HPSG
+  approaches to the issue and finally provides an introduction to
+  Information-based Morphology \citep{Crysmann:Bonami:2016}, a
+  realisational model of morphology
+  that systematically exploits HPSG-style underspecification in terms
+  of multiple inheritance hierarchies. }
 
-\avmoptions{center}
-
-\avmfont{\normalfont\scshape}
-\avmvalfont{\normalfont\itshape}
-\avmsortfont{\normalfont\small\itshape}
 
 
-\maketitle
+
+
 \begin{document}
+\maketitle
+
+\label{chap-morphology}
+
+{\avmoptions{center}
 
 \section{Introduction}
 \label{sec:Intro}
@@ -41,43 +67,45 @@ semantic properties: e.g. in English (and many other languages) there
 is a huge class of strictly transitive verbs which display the same
 valency specifications, the same semantic roles, and the same linking
 patterns. From its outset, HPSG successfully eliminates vertical redundancy by
-means of multiple inheritance networks over typed feature structures. 
+means of multiple inheritance networks over typed feature structures \citep{Flickinger:Pollard:ea:85a}. 
 
 The problem of horizontal redundancy is associated with systematic
 alternations in the lexicon: these include argument-structure
 alternations, such as resultatives or the causative-inchoative
 alternation, classical instances of grammatical function change, such
 as passives, applicatives or causatives. The crucial difference with
-respect to vertical redundancy is that we are are not confronted what
-is essentially a classificational problem, assigning lexical entries
-to a more general class and inheriting its properties, but rather a
-relation between lexical entries. Most importantly, morphological
-processes, both in word formation and inflection, crucially involve
-this latter type of redundancy: e.g. in the case of deverbal
-adjectives in \textit{-able}, we find a substantial number of
+respect to vertical redundancy is that we are are not confronted with
+what is essentially a classificational problem, assigning lexical
+entries to a more general class and inheriting its properties, but
+rather with a relation between lexical entries. Most importantly,
+morphological processes, both in word formation and inflection,
+crucially involve this latter type of redundancy: e.g. in the case of
+deverbal adjectives in \textit{-able}, we find a substantial number of
 derivations that show systematic changes in form, paired with equally
-systematic changes in grammatical category, meaning, and
-valency. In inflection, change in morpho-syntactic properties,
-e.g. case or agreement marking,
-I.e. the generalisation to be captured
-is about the contrast of form  and morpho-syntactic properties between
-fully inflected words. 
+systematic changes in grammatical category, meaning, and valency \citep{Riehemann98}. In
+inflection, change in morpho-syntactic properties, e.g. case or
+agreement marking, i.e. the generalisation to be captured is about the
+contrast of form and morpho-syntactic properties between fully
+inflected words.
 
 Following \citet{Bresnan82}, the classical way to attack the issue of
-horizontal redundancy in HPSG is by lexical rule. Early HPSG followed
-Bresnan's original conception of lexical rules as mappings between
-lexical items. To some considerable extent\footnote{Cf. also the work
-  by \citet{meurers:towards,Meurers02}, providing a formal
+horizontal redundancy in HPSG is by lexical rule
+\citep{Flickinger87}. Early HPSG followed Bresnan's original
+conception of lexical rules as mappings between lexical items. To some
+considerable extent\footnote{Cf. also the work by
+  \citet{meurers:towards,Meurers02}, providing a formal
   description-level formalisation of lexical rules, as standardly used
   in HPSG.}, work on morphology and, in particular, derivational
 morphology has led to a reconceptualisation of lexical rules within
 HPSG: now, they are understood as partial descriptions of lexical
-items that are fully integrated into the hierarchical lexicon. As
-such, they are amenable to the same underspecification techniques that
-are used to generalise across classes of basic lexical items.
+items that are fully integrated into the hierarchical lexicon
+\citep{meurers:towards,Copestake:01,Koenig99}. As such, they are
+amenable to the same underspecification techniques that are used to
+generalise across classes of basic lexical items.
 
-\subsection*{Tour of the chapter}
+%\subsection*{Tour of the chapter}
 
+\bigskip\noindent
 The chapter is structured as follows: in Section~\ref{sec:Deriv}, I
 shall present the main developments towards an inheritance-based view
 of derivational morphology within HPSG and finally provide pointers to
@@ -86,10 +114,11 @@ these efforts.
 
 In Section~\ref{sec:Infl}, I shall discuss inflectional morphology,
 starting with an overview of the classical challenges
-(\ref{sec:InflChallenges}) and rehearse how the different types of
-inflectional theories (IA, IP, WP) fare with respect to these basic
-challenges (\ref{sec:InflTypology}). Against this
-backdrop, I shall  discuss previous work on inflection in HPSG (\ref{sec:InflHPSG}).  
+(Section \ref{sec:InflChallenges}) and rehearse how the different types of
+inflectional theories (Item-and-Arrangement, Item-and-Process,
+Word-and-Paradigm) fare with respect to these basic
+challenges (Section~\ref{sec:InflTypology}). Against this
+backdrop, I shall  discuss previous work on inflection in HPSG (Section~\ref{sec:InflHPSG}).  
 
 Section~\ref{sec:IbM} will be consecrated to an introduction of
 Information-based Morphology, a recently developed companion framework
@@ -100,6 +129,8 @@ of HPSG for inflectional morphology.
 \section{Inheritance-based approaches to derivational morphology}
 \label{sec:Deriv}
 
+\subsection{\citet{Krieger:Nerbonne:93}}
+
 Probably the first attempt at a more systematic treatment of
 morphology is the approach by \citet{Krieger:Nerbonne:93}. They note
 that meta-level lexical rules, as conceived of at the time, remove the
@@ -108,25 +139,25 @@ morphology, outside the scope of lexical inheritance
 hierarchies. Consequently, they explore how morphology can be made
 part of the lexicon. They observe that inflection and derivation
 differ most crucially with respect to the finiteness of the domain:
-while inflection is essentially finite (modulo case stacking; \citealp{Sadler06,malouf:head-driven}),
-derivation can be recursive: they cite repetitive prefixation in
-German as the decisive  example (\textit{Silbe} `syllable',
-\textit{Vor-silbe} `pre-syllable', \textit{Vor-vor-silbe}
-`pre-pre-syllable' etc.). Consequently, they propose to model
-derivation by means of morphological rule schemata, which are
-underspecified descriptions of complex lexemes, and integrate
- them as part of the lexical hierarchy. They adopt a
+while inflection is essentially finite (modulo case stacking;
+\citealp{Sadler06,malouf:head-driven}), derivation can be recursive:
+they cite repetitive prefixation in German as the decisive example
+(\textit{Silbe} `syllable', \textit{Vor-silbe} `pre-syllable',
+\textit{Vor-vor-silbe} `pre-pre-syllable' etc.). Consequently, they
+propose to model derivation by means of morphological rule schemata,
+which are underspecified descriptions of complex lexemes, and
+integrate them as part of the lexical hierarchy. They adopt a
 word-syntactic approach akin to \citet{Lieber92}, where affixes are
 treated as signs that select the bases with which they combine. They
 propose a number of principles that govern headedness,
 subcategorisation and semantic composition. What is special is that
 all these principles are represented as types in the lexical type
-hierarchy. Concrete derivational rule schemata will then inherit from
-these super-types. What this amounts to is that different sub-classes
-of derivational processes may be subject to all or only a subset of
-these principles. They briefly discuss conversion, i.e. zero
-derivation, and suggest that this could be incorporated by means of
-unary rules. 
+hierarchy, cf. Chapter~\crossrefchaptert{lexicon}. Concrete
+derivational rule schemata will then inherit from these
+super-types. What this amounts to is that different sub-classes of
+derivational processes may be subject to all or only a subset of these
+principles. They briefly discuss conversion, i.e. zero derivation, and
+suggest that this could be incorporated by means of unary rules.
 
 
 % Recursion
@@ -153,7 +184,7 @@ formations, conversion, and  (subtractive) back formations
 Second, she conducts a detailed empirical study of \textit{-bar}
 `-able' affixation in German and shows that besides regular
 \textit{-bar} adjectives, which derive from strictly transitive verbs and
-introduce both modality and a  passivisation effect, there is a a
+introduce both modality and a  passivisation effect, there is a 
 broader class of similar formations which adhere to some of the
 properties, but not others. 
 
@@ -168,7 +199,8 @@ properties, but not others.
 She concludes that multiple inheritance type hierarchies lend
 themselves towards capturing the variety of the full empirical pattern
 while at the same time providing the necessary abstraction in terms of
-more general supertypes from individual subclasses may inherit. 
+more general supertypes from which individual subclasses may inherit. 
+
 
 
 \newbox\poss
@@ -199,13 +231,31 @@ more general supertypes from individual subclasses may inherit.
   \end{avm}
 }
 
+\begin{exe}
+  \ex     \avmoptions{active}
+  \begin{avm}
+    [\asort{reg-bar-adj}\\
+    ph & @1 + \textit{bar}\\
+    morph-b & <[\asort{trans-verb}
+    ph & @1\\
+      ss|l & [cat|val|comps  <NP\[acc\]$_{@2}$> ~$\oplus$ @3]\\
+      cont|nuc & @4[act & \textit{nom-obj}\\
+      und & @2]]>\\
+    ss|loc & [cat & [head & \textit{adj}\\
+    val & [subj & <\normalfont NP$_{@2}$>\\
+    comps & @3]]\\
+    cont|nuc & [reln & $\diamond$\\
+    und & @2\\
+    soa-arg & @4]]]
+  \end{avm} \label{fig:riehemannBar}
+\end{exe}
+
 Figure~\ref{fig:Riehemann} provides the extended hierarchy suggested
 by \citet{Riehemann98}. The type for regular \textit{-bar} adjectives
 given in (\ref{fig:riehemannBar}) is treated as a specific subtype
 that inherits inter alia from more general supertypes that capture the
 salient properties that characterise the regular formation, but which
 also hold to some extent for subregular \textit{-bar} adjectives. 
-
 
   
 One property that is almost trivial concerns suffixation of
@@ -232,40 +282,23 @@ transitive bases.
   \ex \usebox{\externalised}
 \end{exe}
 
-Regular \textit{-bar} adjectives inherit from all these supertypes, which
+Regular \textit{-bar} adjectives (\ref{fig:riehemannBar}) inherit from all these supertypes, which
 accounts for most of their properties, while at the same time
 capturing the relatedness to sub-regular formations. 
 
-\begin{exe}
-  \ex     \avmoptions{active}
-  \begin{avm}
-    [\asort{reg-bar-adj}\\
-    ph & @1 + \textit{bar}\\
-    morph-b & <[\asort{trans-verb}
-    ph & @1\\
-      ss|l & [cat|val|comps  <NP\[acc\]:@2> ~$\oplus$ @3]\\
-      cont|nuc & @4[act & \textit{nom-obj}\\
-      und & @2]]>\\
-    ss|loc & [cat & [hd & \textit{adj}\\
-    val & [subj & <\normalfont NP:@2>\\
-    comps & @3]]\\
-    cont|nuc & [reln & $\diamond$\\
-    und & @2\\
-    soa-arg & @4]]]
-  \end{avm} \label{fig:riehemannBar}
-\end{exe}
 
 One aspect that Riehemann's approach does not capture as part of the
 grammar is the productivity of the regular
 pattern. \citet{Riehemann98} suggests that this could be accounted for
-by extra-grammatical properties, such as lexical frequency.
+by extra-grammatical properties, such as lexical frequency. Cf. also
+Chapter~\crossrefchaptert{cxg} for further discussion.
 
 \subsection{\citet{Koenig99}}
 
 Koenig's work on lexical relations has made several important
 contributions to our understanding of morphological processes within
 the HPSG lexicon. Based on joint work with Dan Jurafsky
-\citep{Koenig94}, he uses Online Type Construction to turn the
+\citep{Koenig94}, he uses Online Type Construction (OTC) to turn the
 hierarchical lexicon, which is actually a static system into a
 dynamic, generative device. This enables him in particular to make a
 systematic distinction between open types for regular, productive
@@ -280,7 +313,7 @@ English passive, that systematic alternations are amenable to
 underspecification in the hierarchical lexical,  once
 cross-classification between types can be performed dynamically.
 
-Online Type Construction (OTC) depends on a hierarchical lexicon that is
+Online Type Construction depends on a hierarchical lexicon that is
 organised into an  AND/OR network of conjunctive dimensions and
 disjunctive types. While in a standard type hierarchy any two types
 that do not have a common subtype are understood as incompatible, OTC
@@ -367,7 +400,7 @@ Classical problems that illustrate the many-to-many nature of
 inflection include cumulation, where a single form expresses multiple
 morpho-syntactic properties. An extreme example of cumulation is
 contributed by the Latin verb \textit{am-o}
-`love-1.\textsc{s}.\textsc{prs}.\textsc{ind}.\textsc{av}'. 
+`love-1.\textsc{sg}.\textsc{prs}.\textsc{ind}.\textsc{av}'. 
 
 The mirror image of cumulation is extended (or multiple) exponence:
 here, a single property is expressed by more than one exponent. This
@@ -379,7 +412,7 @@ case of multiple exponence is contributed by Nyanja, whic marks
 certain adjectives with a combination of two agreement markers, as
 discussed on page \pageref{Nyanja} in
 Section~\ref{sec:Panini}.  See
-\citet{caballero_g-harris_a12,Harris17} for a typological overview. 
+\citet{caballero_g-harris_a12} and \citet{Harris17} for a typological overview. 
 
 Possibly more widely attested than pure multiple exponence is
 overlapping exponence: e.g. many German nouns form the dative plural
@@ -392,8 +425,8 @@ vowel (cf. singular \textit{Mutter} `mother.\textsc{sg}').
 
 An extremely wide-spread form of deviation from a one-to-one
 correspondence between form and function is zero exponence, where some
-morpho-syntactic properties do not give rise to any exponence. In
-German, nouns inflect for four cases and two numbers like, yielding
+morpho"=syntactic properties do not give rise to any exponence. In
+German, nouns inflect for four cases and two numbers, yielding
 eight cells. However, in some paradigms only very few cells are
 actually overtly marked. The feminine noun \textit{Mutter} `nut' does
 not take any inflectional markings except in the dative plural
@@ -411,11 +444,11 @@ of inflection is in terms of paradigmatic opposition: i.e. while it
 may be hard to figure out what exactly the meaning is of zero
 case/number marking in German, we can easily establish the meaning of
 a form like \textit{Rechner} in opposition to the non-bare forms
-\textit{Rechner-s} `computer-\textsc{gen.s}' and \textit{Rechner-n}
+\textit{Rechner-s} `computer-\textsc{gen.sg}' and \textit{Rechner-n}
 `computer-\textsc{dat.pl}'. This is even more the case, once we
 consider different paradigms, i.e. different patterns of
 opposition: e.g. the bare form \textit{Mutter} `nut' has a wider
-denotation than \textit{Rechner} just because it stands in opposition
+denotation than \textit{Rechner} just because the latter stands in opposition
 to fewer forms. 
 
 The recognition of paradigms has led to number of works on syncretism
@@ -491,19 +524,19 @@ nor do they lend themselves to be analysed as a default.
 
 In Table~\ref{tab:ParaSplit}a, we find a perfect alignment of
 syncretic forms along the number dimension. By contrast,
-Figure~\ref{tab:ParaSplit}b illustrates the case discusses above,
+Figure~\ref{tab:ParaSplit}b illustrates the case discussed above,
 where two specific cells constitute overrides to a general default
 pattern (here: zero exponence). Default forms need not involve zero
 exponence. German features a Pāṇinian split in another paradigm where
-all forms are marked with \textit{-en} (e.g. \textit{Mensch-en}),
-except the nominative singular (\textit{Mensch}), which constitutes a
-zero override. Table~\ref{tab:ParaSplit}c illustrates how a Pāṇinian
-split in
-the singular can combine with a natural split between singular and
+all forms are marked with \textit{-en} (e.g. \textit{Mensch-en}
+`human(s)'), except the nominative singular (\textit{Mensch}
+`human\textsc{.nom.sg}'), which constitutes a zero
+override. Table~\ref{tab:ParaSplit}c illustrates how a Pāṇinian split
+in the singular can combine with a natural split between singular and
 plural. Finally, Figure~\ref{tab:ParaSplit}d witnesses what could be
-taken as a morphomic split, where there is no natural alignment between
-form and function, and no clear way to establish what is the default
-and what is the override.
+taken as a morphomic split, where there is no natural alignment
+between form and function, and no clear way to establish what is the
+default and what is the override.
 
 The patterns we have just seen have two clear implications for
 morphological theory: first,  morphologists generally believe that
@@ -541,7 +574,7 @@ As a reaction to \citet{Matthews72}, new approaches to inflectional
 morphology were developed taking the notion of paradigms much more
 seriously. Theories, such as A-Morphous Morphology \citep{Anderson92}
 or Paradigm Function Morphology \citep{Stump01} have been classified
-into the Extended Word-and-Paradigm category.     
+into the Extended Word-and-Paradigm (WP) category.     
 
 % A much more fine-grained typology of approaches to inflection that
 % does more justice to the kind of theories currently on the market has
@@ -583,23 +616,25 @@ morphology. Work on morphology in grammar implementation typically
 follows this line: e.g. in platforms like the LKB \citep{Copestake02},
 character unification serves to provide statements of
 morpho-phonological changes that can be attached to (unary) lexical
-rules. See \citet{Goodman10} for a proposal as to how dependencies
-between morphological rules can be captured in a more systematic way,
+rules. See \citet{Goodman10} for a proposal as to how requirements for
+certain inflections and dependencies
+between morphological rules, e.g. the parts of extended or overlapping
+exponence can be captured in a more systematic way,
 and \citet{Crysmann:15:JLM,Crysmann:2017:JOMO} for implementations of
 non-concatenative morphology. 
 
 
-A notable exception to the function approach is the work
-of Olivier Bonami: in a series of papers, he argued for the
-incorporation of a serious formal model of morphology, namely PFM
-\citep{Stump01}, and showed specifically that the integration should
-be done at the level of the word, rather than individual lexical
-rules, in order to reap the benefits of a WP model over an IP model.
-In a similar vain, \citet{Erjavec94} explores how a model such as PFM
-can be cast in typed feature structures and observes that the only
-non-trivial aspect of such an enterprise relates to Pāṇinian
-competition, which requires a change to the underlying logic. See
-Section \ref{sec:Panini} for detailed discussion. 
+A notable exception to the function approach is the work of Olivier
+Bonami: in a series of papers, he argued for the incorporation of a
+serious formal model of morphology, namely PFM \citep{Stump01}, and
+showed specifically that the integration should be done at the level
+of the word, rather than individual lexical rules, in order to reap
+the benefits of a WP model over an IP model.  In a similar vain,
+\citet{Erjavec94} explores how a model such as PFM can be cast in
+typed feature descriptions and observes that the only non-trivial
+aspect of such an enterprise relates to Pāṇinian competition, which
+requires a change to the underlying logic. See Section
+\ref{sec:Panini} for detailed discussion.
 
 In the area of cliticisation, several sketches of WP models have been
 proposed: e.g. \citet{Miller97} provide an explication of the function
@@ -612,7 +647,7 @@ clusters.
 
 
 
-\subsubsection*{Word-based approaches}
+\subsubsection{Word-based approaches}
 
 \paragraph*{\citet{Krieger:Nerbonne:93}}
 As stated earlier, probably one of the first approaches to morphology
@@ -620,7 +655,7 @@ in HPSG has been developed by \citet{Krieger:Nerbonne:93}. What they
 propose is essentially an instance of a WP model, since they use
 distributed disjunctions to directly represent entire paradigms,
 matching exponents with the features they express. Most interestingly,
-their approach to inflection contrasts quite starkly with what their
+their approach to inflection contrasts quite starkly with their
 work on derivation \citep{Krieger:Nerbonne:93}, which is essentially a
 word-syntactic, i.e. morpheme-based approach.
 
@@ -642,7 +677,7 @@ word-syntactic, i.e. morpheme-based approach.
 
 Figure \ref{fig:DistrDisj} represents an encoding of the present
 indicative paradigm for German (cf. the endings in Table
-\ref{tab:GermanEndings}. The distributed disjunction, marked by $_{\$
+\ref{tab:GermanEndings}. The distributed disjunction, marked by ${\$
   1}$, associates each element in the disjunctive \textsc{ending}
 value with the corresponding element in the disjunctive \textsc{agr}
 value.  
@@ -756,34 +791,32 @@ constructions as given in Figure~\ref{fig:KoenigSwahili}.
 
 \begin{figure}[htb]
   \centering
-  
-  \begin{rtree}
-    \br{\textit{verb-infl}}{
-      \br{\avmbox{2ND-SLOT}}{
-        \br{\rnode{1sg}{1sg}}{\lf{\rnode{1sg-pos}{1sg-pos}}}
-        \lf{\textit{3pl}}
-      }
-      \br{\avmbox{1ST-SLOT}}{
-        \psset{treesep=5em}
-        \br{\textit{neg}}{\lf{\rnode{1sg-neg}{1sg-neg}}
-        \lf{\textit{¬1sg-neg}}}
-        \lf{\textit{pos}}
-      }
-      \br{\avmbox{3RD-SLOT}}{
-        \br{\textit{pst}}{
-          \lf{\textit{pos-pst}}
-          \lf{\textit{neg-pst}}
-        }
-        \lf{\textit{fut}}
-      }
-    }
-    \ncdiag{1sg}{1sg-neg}
-  \end{rtree}
-
-  
-  \caption{Koenig's constructional approach to Swahili position
-    classes}
-  \label{fig:KoenigSwahili}
+\begin{forest}
+[\emph{verb-infl}
+	[2ND-SLOT,draw
+    	[\emph{1sg},name=1sg
+    		[\emph{1sg-pos}]
+    	]
+    	[\emph{3pl}]
+   ]
+	[1ST-SLOT,draw
+		[\emph{neg}
+			[\emph{1sg-neg},name=neg]
+			[\emph{¬1sg-neg}]
+		]
+		[\emph{pos}]
+	]
+	[3RD-SLOT,draw
+		[\emph{pst}
+			[\emph{pos-pst}]
+			[\emph{neg-pst}]
+		]
+		[\emph{fut}]
+	]
+]
+\draw (1sg.south) to (neg.north);
+\end{forest}
+  \caption{Koenig's constructional approach to Swahili position classes}\label{fig:KoenigSwahili}
 \end{figure}
 
 As shown in Table~\ref{tab:SwahiliPast}, tensed verbs with plural
@@ -814,13 +847,13 @@ requirement that the verb be \textsc{[neg~$-$]}.
   \begin{subfigure}{.4\textwidth}
       \begin{avm}
         \[ph & \[aff & \[pref & \< \normalfont ha, ..., ... \>\]\]\\
-          cat  & \[head & \[$\mu$-feat & \[neg & + \]\]\]\]
+          cat  & \[head & \[$\mu$-feat & \[neg & $+$ \]\]\]\]
       \end{avm}
       \caption{\textit{$\neg$1sg-neg}} 
     \end{subfigure}
   \begin{subfigure}{.52\textwidth}
       \begin{avm}
-    \[ph & \[aff & \[pref & \< ..., ni, ... \>\]\]\\
+    \[ph & \[aff & \[pref & \< ..., \normalfont ni, ... \>\]\]\\
     cat  & \[head & \[$\mu$-feat & \[neg & $-$\\
     subj-agr & \[per & 1\\
     num & sg\]\]\]\]\]
@@ -831,7 +864,7 @@ requirement that the verb be \textsc{[neg~$-$]}.
   \begin{subfigure}{.48\textwidth}
 
       \begin{avm}
-    \[ph & \[aff & \[pref & \< \normalfont si, < >, ... \>\]\]\\
+    \[ph & \[aff & \[pref & \< \normalfont si, \< ~ \>, ... \>\]\]\\
     cat  & \[head & \[$\mu$-feat & \[neg & $+$\\
     subj-agr & \[per & 1\\
     num & sg\]\]\]\]\]
@@ -870,14 +903,14 @@ particular attention to is the relation between regular, sub-regular
 and irregular formations. He approaches the issue on two levels: the
 level of knowledge representation and the level of knowledge use. 
 
-At the representational level, regular formations, e.g. past tense
+At the representational level, regular formations, e.g.\ past tense
 \textit{snored}, are said to be intensionally defined in terms of
 regular rule types that license them, i.e. results of regular rule
 application are not listed in the lexicon. They are constructed either
 by Online Type Construction or rule application.  Irregular
-formations, by contrast are fully listed, e.g. the past tense form
+formations, by contrast are fully listed, e.g.\ the past tense form
 \textit{took} of a verb like \textit{take}. Most interesting are
-sub-regular types, e.g. \textit{sing/sang/sung} or
+sub-regular types, e.g.\ \textit{sing/sang/sung} or
 \textit{ring/rang/rung}: like irregulars, class membership is
 extensionally defined by enumeration, but the type hierarchy can still
 be exploited to abstract out common properties.
@@ -933,10 +966,10 @@ word-based model. Neither approach has proven to be fully
 satisfactory. Use of an external theory, such as PFM, not only begs
 the question why we need a different formalism in order to implement a
 theory of inflection, rather than exploit the power of inheritance and
-cross-classification in typed feature structure
-hierarchies. Word-based approaches suffer from problems of scalability
-with morphotactically complex systems.  These issues led to the
-development of Information-based Morphology
+cross-classification in hierarchies of typed feature structure
+descriptions. Word-based approaches suffer from problems of
+scalability with morphotactically complex systems.  These issues led
+to the development of Information-based Morphology
 \citep{Crysmann:Bonami:2016}, which will be discussed in the next
 section.
 
@@ -989,23 +1022,20 @@ From the viewpoint of inflectional morphology, words can be regarded
 as associations between a phonological shape (\textsc{ph}) and a
 morphosyntactic property set (\textsc{ms}), the latter including, of
 course, information pertaining to lexeme identity. This correspondence
-can be described in a maximally holistic fashion, as shown in Figure
-\ref{fig:Word}. Throughout this section, I shall use German
+can be described in a maximally holistic fashion, as shown in 
+(\ref{fig:Word}). Throughout this section, I shall use German
 (circumfixal) passive/past participle (\emph{ppp}) formation, as
 witnessed by \textit{ge-setz-t} `put', for illustration.
 
-\begin{figure}[htb]
-  \centering
-  \begin{avm}
-    \[ ph & <gesetzt>\\
+\begin{exe}
+  \ex \begin{avm}
+    \[ ph & \< \normalfont gesetzt\>\\
       infl & \[ms & \{\[lid & setzen\],\[tma & ppp\]\}\]
     \]
   \end{avm}
   
-  \caption{Holistic word-level association between form (\textsc{ph}) and
-    function (\textsc{ms})}
   \label{fig:Word}
-\end{figure}
+\end{exe}
 
 Since words in inflectional languages typically consist of multiple
 segment\-able parts, realisational models provide means to index
@@ -1024,7 +1054,7 @@ order to explicitly represent exponence.
 % Figure \ref{fig:WordMph} illustrates the
 % word-level $m:n$ correspondence of lexemic and inflectional properties
 % to the multiple morphs that realise it. 
-The sample word-level representation in Figure~\ref{fig:WordMph}
+The sample word-level representation in (\ref{fig:WordMph})
 illustrates the kind of information represented on the \textsc{mph}
 list and the \textsc{ms} set. While elements of the \textsc{ms} set
 are either inflectional features or lexemic properties, the latter comprising
@@ -1051,37 +1081,31 @@ from inflectional morphology, which clearly distinguishes this
 approach from other inferential-realisational approaches, such as PFM
 or AM, where order is derived from cascaded rule application.
 
-\begin{figure}[htb]
-  \begin{center}
+\begin{exe}
+  \ex Structured association of form (\textsc{mph}) and function (\textsc{ms})   \label{fig:WordMph}
 
-    \begin{tabular}{c@{\hspace*{.5ex}}c}
-      Word: & Abstraction of circumfixation ($1:n$):\\
-      \avmhskip{.5em}\footnotesize
-      \begin{avm}
-        \[mph & \<\[ph &  <ge>\\ pc & -1\],\[ph &  <setz>\\ pc & 0\],\[ph &  <t>\\ pc & 1\]\>\\
-          ms & \{\[lid & setzen\],\[tma & ppp\]\}
-        \]
-      \end{avm}
-                                        &
-                                          \avmhskip{.5em}\footnotesize
-                                          \begin{avm}
-                                            \[ mph & \<\[ph &  <ge>\\ pc & -1\],\[ph &  <t>\\ pc & 1\],\ldots\>\\
-                                              ms &
-                                              \{\[tma & ppp\],\ldots\}
-                                            \]
-                                          \end{avm}
-    \end{tabular}
-  \end{center}
-  
-  \caption{Structured association of form (\textsc{mph}) and function (\textsc{ms}) }
-  \label{fig:WordMph}
-\end{figure}
+  \begin{xlist}
+    \ex Word:
 
+    \begin{avm}
+      \[mph & \<\[ph &  <ge>\\ pc & -1\],\[ph &  <setz>\\ pc & 0\],\[ph &  <t>\\ pc & 1\]\>\\
+        ms & \{\[lid & setzen\],\[tma & ppp\]\}
+      \]
+    \end{avm}
+    \ex Abstraction of circumfixation ($1:n$):
+
+    \begin{avm}
+      \[ mph & \<\[ph &  <ge>\\ pc & -1\],\[ph &  <t>\\ pc & 1\],\ldots\>\\
+        ms & \{\[tma & ppp\],\ldots\}
+      \]
+    \end{avm}
+  \end{xlist}
+\end{exe}
 
 By means of underspecification, i.e. partial descriptions, one can
 easily abstract out realisation of the past participle property,
 arriving at a direct word-based representation of circumfixal
-realisation, as shown in Figure~\ref{fig:WordMph}.  Yet, a direct
+realisation, as shown in (\ref{fig:WordMph}).  Yet, a direct
 word-based description does not easily capture situations where the
 same association between form and content is used more than once in
 the same word, as is arguably the case for Swahili
@@ -1092,33 +1116,31 @@ By way of introducing a level of \textsc{r(ealisation) r(ules)}, reuse
 of resources becomes possible. Rather than expressing the relation
 between form and function directly at the word level, IbM assumes that
 a word's description includes a specification of which rules license
-the realisation between form and content, as shown in Figure
-\ref{fig:WordRR}.
+the realisation between form and content, as shown in 
+(\ref{fig:WordRR}).
 
-\begin{figure}[htb]
-  \begin{center}
 
-    \begin{avm}
-      \[ mph & \<\rnode{xx}{\[ph &  <ge>\\ pc & -1\]} \rnode{aa}{\[ph &  <setz>\\ pc & 0\]},\rnode{ab}{\[ph &  <t>\\ pc & 1\]}\> \\
-        rr & \{	\[	mph & \{\rnode{ba}{\[ph &  <setz>\\ pc & 0\]}\}\\
-          mud & \{\rnode{ca}{\[lid & setzen\]}\}
-          \],
-          \[	mph & \{\rnode{yy}{\[ph &  <ge>\\ pc & -1\]},\rnode{bb}{\[ph &  <t>\\ pc & 1\]}\}\\
-            mud & \{\rnode{cb}{\[tma & ppp\]}\}
-          \] 
-        \}	\\ \\
-        ms & \{\rnode{da}{\[lid &
-            setzen\]},\rnode{db}{\[tma & ppp\]}\}
+\begin{exe}
+  \ex{Association of form and function mediated by rule}
+
+  \begin{avm}
+    \[ mph & \<\rnode{xx}{\[ph &  <ge>\\ pc & -1\]} \rnode{aa}{\[ph &  <setz>\\ pc & 0\]},\rnode{ab}{\[ph &  <t>\\ pc & 1\]}\> \\
+      rr & \{	\[	mph & \{\rnode{ba}{\[ph &  <setz>\\ pc & 0\]}\}\\
+        mud & \{\rnode{ca}{\[lid & setzen\]}\}
+      \],
+      \[	mph & \{\rnode{yy}{\[ph &  <ge>\\ pc & -1\]},\rnode{bb}{\[ph &  <t>\\ pc & 1\]}\}\\
+        mud & \{\rnode{cb}{\[tma & ppp\]}\}
       \]
-    \end{avm}
-    \psset{arrows=<->,linecolor=gray,linestyle=dotted,angleA=-90,angleB=90}
-    \nccurve{xx}{yy} \nccurve{aa}{ba} \nccurve{ab}{bb}
-    \nccurve{ca}{da} \nccurve{cb}{db}
-  \end{center}
-  
-  \caption{Association of form and function mediated by rule}
-  \label{fig:WordRR}
-\end{figure}
+      \}	\\ \\
+      ms & \{\rnode{da}{\[lid & setzen\]},\rnode{db}{\[tma & ppp\]}\}
+    \]
+  \end{avm}
+  \psset{arrows=<->,linecolor=gray,linestyle=dotted,angleA=-90,angleB=90}
+  \nccurve{xx}{yy} \nccurve{aa}{ba} \nccurve{ab}{bb} \nccurve{ca}{da}
+  \nccurve{cb}{db}
+
+\label{fig:WordRR}
+\end{exe}
 
 Recognition of a level of realisation rules that mediate between parts
 of form and parts of function slightly increases the complexity of
@@ -1259,46 +1281,39 @@ The fact that IbM, in contrast to PFM or AM, recognises $m:n$
 relations between form and function at the most basic level of
 organisation, i.e. realisation rules, means that morphological
 generalisations can be expressed in a single place, name\-ly simply as
-abstractions over rules. Rules in IbM are represented as typed feature
-structures organised in an inheritance hierarchy, such that properties
-common to leaf types can be abstracted out into more general
-supertypes. This vertical abstraction is illustrated in Figure
-\ref{fig:Vertical}. Using again German past participles as an example,
-the commonalities that regular circumfixal \textit{ge-...-t} (as in
-\textit{gesetzt} `put') shares with subregular \textit{ge-...-en} (as
-in \textit{geschrieben} `written') can be generalised as the
-properties of a rule supertype from which the more specific leaves
-inherit. Note that essentially all information except choice of
-suffixal shape is associated with the supertype. This includes the
-shared morphotactics of the suffix.
+abstractions over rules. Rules in IbM are represented as descriptions
+of typed feature structures organised in an inheritance hierarchy,
+such that properties common to leaf types can be abstracted out into
+more general supertypes. This vertical abstraction is illustrated in
+Figure \ref{fig:Vertical}. Using again German past participles as an
+example, the commonalities that regular circumfixal \textit{ge-...-t}
+(as in \textit{gesetzt} `put') shares with subregular
+\textit{ge-...-en} (as in \textit{geschrieben} `written') can be
+generalised as the properties of a rule supertype from which the more
+specific leaves inherit. Note that essentially all information except
+choice of suffixal shape is associated with the supertype. This
+includes the shared morphotactics of the suffix.
 
 \begin{figure}
-  \begin{center}
-    \hspace*{-1em} 
-    \begin{rtree}
-      \psset{levelsep=8em,treesep=12em,linewidth=0pt,nodesep=0pt}
-      \br{
-        \begin{avm}
-          \[mud & \{ \[tma & ppp\] \}\\
-            mph & \< \[ph & ge\\ pc & -1 \],
-            \[pc & 1 \] \> \]
-        \end{avm}
-      }{
-        \lf{
-          \begin{avm}
-            \[mph & \< ..., \[ph & t \] \> \]
-          \end{avm}
-        }
-        \lf{
-          \rnode{Y}{ 
-            \begin{avm}
-              \[mph & \< ..., \[ph & en 
-                \] \>\]
-            \end{avm}}  } }
-    \end{rtree}
-  \end{center}
-  \caption{Vertical abstraction by inheritance}
-  \label{fig:Vertical}
+	\centering
+%    \hspace*{-1em} 
+\begin{forest}
+%\psset{levelsep=8em,treesep=12em,linewidth=0pt,nodesep=0pt}
+[{\begin{avm}
+    \[mud & \{ \[tma & ppp\] \}\\
+      mph & \< \[ph & ge\\ pc & -1 \],
+      \[pc & 1 \] \> \]
+  \end{avm}}
+	[{\begin{avm}
+		\[mph & \< ..., \[ph & t \] \> \]
+	\end{avm}}]
+	[{\begin{avm}
+		\[mph & \< ..., \[ph & en 
+		\] \>\]
+	\end{avm}}]
+]
+\end{forest}
+	\caption{Vertical abstraction by inheritance}\label{fig:Vertical}
 \end{figure}
 
 In addition to vertical abstraction by means of standard monotonic
@@ -1327,56 +1342,34 @@ vs. absence of the prefixal part (\textit{ge-}).
 
 \begin{figure}
   \centering
-  \begin{rtree}
-    \footnotesize
-    \avmhskip{.5em}
-    \psset{levelsep=8em,treesep=9em}
-    \br{
-      \begin{avm}
-        \[mud & \{\[tma & ppp\]\}\\
-          mph & \< ..., \[pc & 1\] \>\]
-      \end{avm}
-    } {
-      \avmoptions{bottom}
-      \psset{levelsep=5em,treesep=9em}
-      \br{\avmbox{PREF}}{
-        \lf{
-          \rnode{pl}{\begin{avm}
-              \[mph & \< \[ph & ge\\pc & -1\], \[ ~ \]\>\]
-            \end{avm}
-          }
-        }
-        \lf{
-          \rnode{def}{\begin{avm}
-              \[mph & \< \[ ~ \] \> \]
-            \end{avm}
-          }
-        }
-      }
-      \psset{levelsep=5em,treesep=10em}
-      \br{\avmbox{SUFF}}{
-        \lf{
-          \rnode{abs}{\begin{avm}
-              \[mph & \<..., \[ph & t\]\>\]
-            \end{avm}
-          }
-        }
-        \lf{\rnode{obl}{
-            \begin{avm}
-              \[mph & \< ..., \[ph & en\]\>\]
-            \end{avm}
-          }
-        }
-      }
-    }
-  \end{rtree}
-  
-  \caption{Horizontal abstraction by dynamic cross-classification }
-  \label{fig:Horizontal}
-    
+  \footnotesize
+\begin{forest}
+[{\begin{avm}
+  \[mud & \{\[tma & ppp\]\}\\
+    mph & \< ..., \[pc & 1\] \>\]
+\end{avm}}
+	[PREF,draw
+		[{\begin{avm}
+			\[mph & \< \[ph & ge\\pc & -1\], \[ ~ \]\>\]
+		\end{avm}}]
+		[{\begin{avm}
+			\[mph & \< \[ ~ \] \> \]
+		\end{avm}}]
+	]
+	[SUFF,draw
+		[{\begin{avm}
+            \[mph & \<..., \[ph & t\]\>\]
+          \end{avm}}]
+		[{\begin{avm}
+			\[mph & \< ..., \[ph & en\]\>\]
+		\end{avm}}]
+	]
+]
+\end{forest}
+  \caption{Horizontal abstraction by dynamic cross-classification}\label{fig:Horizontal}
 \end{figure}
 
-Figure \ref{fig:Horizontal} shows how Online Type Construction provide
+Figure \ref{fig:Horizontal} shows how Online Type Construction provides
 a means to generalise these patterns in a straightforward way: while the
 common supertype still captures properties true of all four different
 realisations, namely the property to be expressed and the fact that it
@@ -1540,7 +1533,7 @@ bleeding''.
 
 The relevant realisation rules for \textit{ha}, \textit{ni}, and the
 two markers \textit{si}, can be formulated quite straightforwardly as
-in (\ref{ex:SwahiliPanini}a-d), in that order. For expository
+in (\ref{ex:SwahiliPanini}a--d), in that order. For expository
 purposes, I shall make explicit the fact that \textsc{mud} is necessarily
 contained in \textsc{ms}.   
 
@@ -1550,7 +1543,7 @@ contained in \textsc{ms}.
       \exi{a. \begin{avm}
           \[mud & \@1 \{ \normalfont\textit{neg}\/ \}\\
             ms & \@1 $\cup$ set\\
-            mph & \< \[ph & <\normalfont ha>\\
+            mph & \< \[ph & \<\normalfont ha\>\\
               pc & $1$\] \> \]
         \end{avm}}
     \end{xlist}
@@ -1559,7 +1552,7 @@ contained in \textsc{ms}.
             \[mud & \@1 \{ \[\asort{ subj}
             per & 1\\num & sg\] \}\\
             ms & \@1 $\cup$ set\\
-            mph & \< \[ph & <\normalfont ni>\\
+            mph & \< \[ph & \<\normalfont ni\>\\
             pc & 2\] \> \]
         \end{avm}}
     \end{xlist}
@@ -1569,17 +1562,8 @@ contained in \textsc{ms}.
 \begin{minipage}[t]{0.4\linewidth} \begin{xlist}
       \exi{c.  \begin{avm}
           \[mud &  \@1 \{ \normalfont\textit{neg},\\ \[\asort{subj}
-          per & 1\\num & sg\]\}\\
-            ms & \@1 $\cup$ set\\
-          mph & \< \[ph & <\normalfont si>\\
-          pc & 1..2\] \> \]
-        \end{avm}}
-      \end{xlist}
-    \end{minipage} ~ \begin{minipage}[t]{0.4\linewidth} \begin{xlist}
-        \exi{d. \begin{avm}
-            \[mud & \@1 \{ \normalfont\textit{ neg}\}\\
-            ms & \@1 $\cup$ \{ \normalfont\textit{ rel\/}\} ~$\cup$ set\\
-            mph & \< \[ph & <\normalfont si>\\
+              per & 1\\num & sg\]\}\\
+            mph & \< \[ph & \<\normalfont si\>\\
             pc & $3$\] \> \]
         \end{avm}}
     \end{xlist}
@@ -1588,7 +1572,9 @@ contained in \textsc{ms}.
 \end{exe}
 
 On the basis of the definition in (\ref{ex:PAN}a), portmanteau
-\textit{si} in (\ref{ex:SwahiliPanini}c) is a competitor for both
+\textit{si} in (\ref{ex:SwahiliPanini}c)\footnote{IbM uses the
+  notation $m..n$ to represent spans of position classes. See
+  \citet{bonami_o-crysmann_b13hpsg} for a proposal of how spans can be made explicit.} is a competitor for both
 \textit{ni} (\ref{ex:SwahiliPanini}b) and \textit{ha}
 (\ref{ex:SwahiliPanini}c), since the \textsc{mud} of portmanteau
 \textit{si} is subsumed by either the set containing the \textsc{mud}
@@ -1607,7 +1593,7 @@ as in (\ref{ex:PanExp}a).  Similarly, in a first iteration,
           \[mud & \@1 \{ \[\asort{ subj}
               per & 1\\num & sg\] \}\\
             ms & \@1 $\cup$ set $\wedge$ $\neg$ \{ \normalfont\textit{neg}, ... \}\\
-            mph & \< \[ph & <\normalfont ni>\\
+            mph & \< \[ph & \<\normalfont ni\>\\
               pc & 2\] \> \]
         \end{avm}}
     \end{xlist}
@@ -1616,9 +1602,9 @@ as in (\ref{ex:PanExp}a).  Similarly, in a first iteration,
     \begin{xlist}
       \exi{b. \begin{avm}
           \[mud & \@1 \{ \normalfont\textit{neg} \}\\
-            ms & \@1 $\cup$ set $\wedge$ $\neg$ \{ \[\asort{ subj}
+            ms & \@1 $\cup$  $\neg$ \{ \[\asort{subj}
               per & 1\\num & sg\], ... \}\\
-            mph & \< \[ph & <\normalfont ha>\\
+            mph & \< \[ph & \<\normalfont ha\>\\
               pc & 1\] \> \]
         \end{avm}
       }
@@ -1631,24 +1617,24 @@ namely negative relative \textit{si} (\ref{ex:SwahiliPanini}c): while
 in this case the \textsc{mud} values are equally informative, the
 rules differ in terms of their \textsc{ms} descriptions, with
 \textit{si} being conditioned on relative and \textit{ha} being
-unconditioned.  Expansion by Pāṇinian competition add another
-existential constraint to (). The fully expanded entry is given in
+unconditioned.  Expansion by Pāṇinian competition will add another
+existential constraint to (\ref{ex:PanExp}b). The fully expanded entry is given in
 (\ref{ex:PanExpHa}).
 
 \begin{exe}
   \ex \label{ex:PanExpHa}
   \begin{avm}
     \[mud & \@1 \{ \normalfont\textit{neg} \}\\
-      ms & \@1 $\cup$ set $\wedge$ $\neg$ \{ \[\asort{ subj}
+      ms & \@1 $\cup$  $\neg$ \{ \[\asort{subj}
         per & 1\\num & sg\], ... \} $\wedge$ $\neg$ \{
       \normalfont\textit{rel, ...}\}\\
-      mph & \< \[ph & <\normalfont ha>\\
+      mph & \< \[ph & \<\normalfont ha\>\\
         pc & 1\] \> \]
   \end{avm}    
   
 \end{exe}
 
-One assertion that has been made repeatedly in IbM work concerns
+One assertion that has been made repeatedly in IbM work 
 concerns default zero exponence, the thesis being that there is need
 for only a single instance, in contrast to PFM, which has one instance
 of the identity function default in every rule block. The current
@@ -1683,8 +1669,6 @@ exponence.
     \ex[]{\gll tu- {ta}- taka\\
       \textsc{1pl} \textsc{fut} want\\
       \glt ‘we will want’}
-  \end{xlist}
-  \begin{xlist}
     \ex[]{ \gll {ha}- tu- {ta}- taka\\
       \textsc{neg} \textsc{1pl} \textsc{fut} want\\
       \glt ‘we will not want’}
@@ -1767,66 +1751,58 @@ in Figure \ref{fig:Nyanja}.
 
 \begin{sidewaysfigure}[htbp]
   \centering
-  \begin{center}
-    \hspace*{1em} {\scalebox{.8}{
-      \begin{rtree}
-        \psset{levelsep=6ex,treesep=14em,linewidth=0pt,nodesep=0pt}
-        \br{\textit{\raisebox{2pt}{\mbox{realisation-rule}}}} {
-          \psset{treesep=8em,levelsep=26ex}
-          \br{\rnode{M}{\avmbox{MORPHOTACTICS}}} { \lf{\rnode{V}{
-                \begin{avm}
-                  \[
-                  mud & \{\normalfont\textit{agr} \}\\
-                  ms & \{ \[\asort{pid}
-                  cat & verb\], ...\}\\
-                  mph & \< \[pc & -4\]\> \]
-                \end{avm}
-              } } \raisebox{-12em}{\lf{\rnode{B}{
-                  \begin{avm}
-                    \[mud & \{\normalfont\textit{agr}\}\\
-                    ms & \{ \[\asort{pid}
-                  cat & \[\asort{adj}
-                  type & B\]\], ...\}\\
-                    mph & \<\[pc & -2\], \[pc & -1\]\>\]
-                  \end{avm}
-                } } } \lf{\rnode{A}{
-                \begin{avm}
-                  \[mud & \{\normalfont\textit{agr}\}\\
-                    ms & \{ \[\asort{pid}
-                  cat & \[\asort{adj}
-                  type & A\]\], ...\}\\
-                  mph & \< \[pc & -1\]\>\]
-                \end{avm}
-              } } }
-          \psset{levelsep=6ex,treesep=7em,linewidth=0pt,nodesep=0pt}
-          \br{\avmbox{EXPONENCE}}{
-            \psset{levelsep=9em,treesep=8em,linewidth=0pt,nodesep=0pt}
-            \br{\rnode{Q}{\avmbox{QUAL}}}{\lf{
-                \begin{avm}
-                  \[mud & \{ \[\normalfont\textit{agr}\\cl & 7\]\}\\
-                  mph & \< ... \[ph & <\normalfont ca>\\
-                  pc & -1 $\vee$ -2
-                  \] ... \>\]
-                \end{avm}
-              } \lf{...}  }  \br{\rnode{C}{\avmbox{CONC}}}{ \lf{
-                \begin{avm}
-                  \[mud & \{ \[\normalfont\textit{agr}\\cl & 7\]\}\\
-                  mph & \< ... \[ph & <\normalfont ci>\\
-                  pc & -1 $\vee$ -4
-                  \] ... \>\]
-                \end{avm}} \lf{...}  } } }
-      \end{rtree}
-    
-      \psset{angleA=-90,angleB=90,arm=0pt,linewidth=0pt}
-    
-      \ncdiag{Q}{V} \ncdiag{C}{A}
-    
-    }}
-
-  \end{center}
-  
-  \caption{Nyanja pre-prefixation \citep{Crysmann:14:OUP}}
-  \label{fig:Nyanja}
+\scalebox{.8}{
+\begin{forest}for tree={l=2cm}
+[\emph{realisation-rule}
+	[MORPHOTACTICS,draw
+		[{\begin{avm}
+			\[
+			mud & \{\normalfont\textit{agr} \}\\
+			ms & \{ \[\asort{pid}
+			cat & verb\], ...\}\\
+			mph & \< \[pc & $-4$\]\> \]
+		\end{avm}}, name= 1, tier=word]
+			[{\begin{avm}
+				\[mud & \{\normalfont\textit{agr}\}\\
+				ms & \{ \[\asort{pid}
+				cat & \[\asort{adj}
+				type & B\]\], ...\}\\
+				mph & \<\[pc & $-2$\], \[pc & $-1$\]\>\]
+			\end{avm}}, l=7cm]
+		[{\begin{avm}
+			\[mud & \{\normalfont\textit{agr}\}\\
+			 ms & \{ \[\asort{pid}
+			cat & \[\asort{adj}
+			type & A\]\], ...\}\\
+			mph & \< \[pc & -1\]\>\]
+		\end{avm}}, name=2, tier=word]
+	]
+	[EXPONENCE,draw
+		[QUAL,draw, name=qual
+			[{\begin{avm}
+				\[mud & \{ \[\normalfont\textit{agr}\\cl & 7\]\}\\
+				mph & \< ... \[ph & \<\normalfont ca\>\\
+				pc & $-1$ $\vee$ $-2$
+				\] ... \>\]
+			\end{avm}}, tier=word]
+			[\dots]
+		]
+		[CONC,draw, name=conc
+			[{\begin{avm}
+				\[mud & \{ \[\normalfont\textit{agr}\\cl & 7\]\}\\
+				mph & \< ... \[ph & \<\normalfont ci\>\\
+				pc & $-1$ $\vee$ $-4$
+				\] ... \>\]
+			\end{avm}}, tier=word]
+			[\dots]
+		]
+	]
+]
+\draw (1.north) to (qual.south);
+\draw (2.north) to (conc.south);
+\end{forest}
+}    
+  \caption{Nyanja pre-prefixation \citep{Crysmann:14:OUP}}\label{fig:Nyanja}
 \end{sidewaysfigure}
 
 The difference in treatment for overlapping and pure multiple
@@ -1846,7 +1822,7 @@ grammar.
 \subsection{Morphotactics}
 \label{sec:Mortax}
 
-The treatment of morphotactically complex systems, as found in e.g.
+The treatment of morphotactically complex systems, as found in e.g.\
 position class systems, was one of the major motivations behind the
 development of IbM. With the aim of providing a formal model of
 complex morph ordering that matches the parsimony of the traditional
@@ -1902,95 +1878,61 @@ cell in the future.
 
 \begin{figure}[htb]
   \centering
-  
-  \scalebox{.73}{\begin{rtree}
-    \avmoptions{top}
-    \psset{treesep=-5.5ex,levelsep=11ex}
-    \br{
-      \begin{avm}
-        \[mud & \@1\\
-        ms & \@1 ~$\cup$ set\]
-      \end{avm}
-    }
-    {
-      \psset{treesep=24ex,levelsep=10ex}
-      \br{
-        \begin{avm}
-          \[mud & \{ \normalfont\textit{tense}  \} \]
-        \end{avm} 
-      } {
-        \lf{
-          \begin{avm}
-            \[mud & \{ \normalfont\textit{present} \}\\
-            mph & \{ \[ph & <\normalfont tʃ$^{\normalfont h}$a>\\
-            pc & $1$\] \} \]
-          \end{avm}
-        }
-        \lf{
-          \begin{avm}
-            \[mud & \{ \normalfont\textit{future}  \}\\
-            mph & \{ \[ph & <\normalfont lā>\\
-            pc & $3$\] \} \]
-          \end{avm}
-        }
-      }
-      \psset{levelsep=30ex,treesep=25ex}
-      \br{
-        \begin{avm}
-          \[mud & \{ \normalfont\textit{agr} \} \]
-        \end{avm}
-      } 
-      {       
-        \psset{levelsep=12ex,treesep=24ex}
-        \br{ 
-          \begin{avm}
-            \[mph & \{ \[pc & $2$\] \} \]
-          \end{avm}
-        } 
-        {
-          \lf{
-            \begin{avm}
-              \[mud & \{ \[per & 1 \]\}\\
-              mph & \{ \[ph & <aũ>\] \} \]
-            \end{avm}
-          }
-          \lf{              
-            \begin{avm}
-              \[mud & \{ \[per & 3\\
-              hon & low \] \}\\
-              mph & \{ \[ph & <au>\] \} \]
-            \end{avm}
-          }
-        }
-        \br{        
-          \begin{avm}
-            \[mph & \{ \[pc & $4$\] \} \]
-          \end{avm}
-        } 
-        {
-          \lf{             
-            \begin{avm}
-              \[mud & \{ \[per & 2\\
-              hon & low \]\}\\
-              mph & \{ \[ph  & <\normalfont s>\] \} \]
-            \end{avm}
-          }
-          \lf{
-            \begin{avm}
-              \[mud & \{ \[per & 3\\
-              hon & mid \] \}\\
-              mph & \{\[ph & <\normalfont n>\] \} \]
-            \end{avm}
-          }
-        }
-      }
-    }
-  \end{rtree}
-  }
-    
-  \caption{Nepali tense and
-    agreement marking}
-  \label{fig:AnalysisNepali}
+\scalebox{.73}{
+\begin{forest}
+[{\begin{avm}
+	\[mud & \@1\\
+	ms & \@1 ~$\cup$ set\]
+\end{avm}}
+	[{\begin{avm}
+		\[mud & \{ \normalfont\textit{tense}  \} \]
+	\end{avm}}
+		[{\begin{avm}
+			\[mud & \{ \normalfont\textit{present} \}\\
+			mph & \{ \[ph & \<\normalfont tʃ$^{\normalfont h}$a\>\\
+			pc & $1$\] \} \]
+		\end{avm}}]
+		[{\begin{avm}
+			\[mud & \{ \normalfont\textit{future}  \}\\
+			mph & \{ \[ph & \<\normalfont lā\>\\
+			pc & $3$\] \} \]
+		\end{avm}}]
+	]
+	[{\begin{avm}
+		\[mud & \{ \normalfont\textit{agr} \} \]
+	\end{avm}}
+		[{\begin{avm}
+			\[mph & \{ \[pc & $2$\] \} \]
+		\end{avm}}, l=4cm
+			[{\begin{avm}
+				\[mud & \{ \[per & 1 \]\}\\
+				mph & \{ \[ph & \<aũ\>\] \} \]
+			\end{avm}}]
+			[{\begin{avm}
+				\[mud & \{ \[per & 3\\
+				hon & low \] \}\\
+				mph & \{ \[ph & \<au\>\] \} \]
+			\end{avm}}]
+		]
+		[{\begin{avm}
+			\[mph & \{ \[pc & $4$\] \} \]
+		\end{avm}}, l=4cm
+			[{\begin{avm}
+				\[mud & \{ \[per & 2\\
+				hon & low \]\}\\
+				mph & \{ \[ph  & \<\normalfont s\>\] \} \]
+			\end{avm}}]
+			[{\begin{avm}
+				\[mud & \{ \[per & 3\\
+				hon & mid \] \}\\
+				mph & \{\[ph & \<\normalfont n\>\] \} \]
+			\end{avm}}]
+		]
+	]
+]
+\end{forest}
+}
+    \caption{Nepali tense and agreement marking}\label{fig:AnalysisNepali}
 \end{figure}
 
 If position class indices are part of the descriptive inventory, an
@@ -2017,20 +1959,20 @@ in all other cases it precedes it.
   \ex\label{ex:SwahiliRel:suff}
   \begin{xlist}
     \ex\gll  a-soma-\textbf{ye}\\
-    \textsc{m/wa.s}-read\textsc{-m/wa.rel}\\
-    ‘(person) who reads’
+    \textsc{m/wa.sg}-read\textsc{-m/wa.rel}\\
+    \glt ‘(person) who reads’
     \ex\gll a-ki-soma-\textbf{cho}\\
-    \textsc{m/wa.s}-\textsc{ki/vi.o}-read-\textsc{ki/vi.rel}\\
-    ‘(book) which he reads’
+    \textsc{m/wa.sg}-\textsc{ki/vi.o}-read-\textsc{ki/vi.rel}\\
+    \glt ‘(book) which he reads’
   \end{xlist}
   \ex\label{ex:SwahiliRel:pref}
   \begin{xlist}
     \ex\gll  a-na-\textbf{ye}-soma\\
-    \textsc{m/wa.s-pres-m/wa.rel}-read\\
-    ‘(person) who is reading’
+    \textsc{m/wa.sg-pres-m/wa.rel}-read\\
+    \glt ‘(person) who is reading’
     \ex\gll a-na-\textbf{cho}-ki-soma\\
-    \textsc{m/wa.s-pres-ki/vi.rel-ki/vi.rel}-read\\
-    ‘(book) which he is reading’
+    \textsc{m/wa.sg-pres-ki/vi.rel-ki/vi.rel}-read\\
+    \glt ‘(book) which he is reading’
   \end{xlist}
 \end{exe}
 
@@ -2044,64 +1986,52 @@ that undergo the alternation.
 \begin{figure}[htb]
   \centering
 
-  \scalebox{.75}{\begin{rtree}
-      \psset{levelsep=16ex,treesep=12em,linewidth=.8pt}
-      \br{  \begin{avm}
-          \[\asort{realisation-rule}
-            mud & \@1 set\\
-            ms & \@1 $~\cup$ set\\
-            mph &set\]
-        \end{avm}
-      }{
-        \psset{treesep=10em,levelsep=27ex}
-        \br{\avmbox{MORPHOTACTICS}}{
-          \lf{
-            \rnode{a}{\rr{\normalfont\textit{rel}}{\[pc & $4$\]}}	
-          }
-          \lf{
-            \rnode{b}{\rrr{\normalfont\textit{rel}}{\normalfont \textit{aff, def, ...}}{\[pc & $7$\]}}	
-          }
-        }
-        \psset{treesep=13em,levelsep=20ex}
-        \br{\avmbox{EXPONENCE}}{
-          \lf{
-            \rnode{X1}{\rr{ \[\asort{rel} per & {3}\\num & {sg}\\cl &
-                {ki-vi}\]}{\[ph & <\normalfont cho> \]}}
-          }
-          \lf{
-            \rnode{X2}{\rr{ \[\asort{rel} per & {3}\\num & {pl}\\cl &
-                {ki-vi}\]}{\[ph & <\normalfont vyo> \]}} ...
-          }
-        }
-      }
-    \end{rtree}
-  }
+\scalebox{.75}{
+\begin{forest}
+[{\begin{avm}
+\[\asort{realisation-rule}
+mud & \@1 set\\
+ms & \@1 $~\cup$ set\\
+mph &set\]
+\end{avm}}
+	[MORPHOTACTICS,draw
+		[{\rnode{a}{\rr{\normalfont\textit{rel}}{\[pc & $4$\]}}}]
+		[{\rnode{b}{\rrr{\normalfont\textit{rel}}{\normalfont \textit{aff, def, ...}}{\[pc & $7$\]}}}]
+	]
+	[EXPONENCE,draw
+		[{\rnode{X1}{\rr{ \[\asort{rel} per & {3}\\num & {sg}\\cl &
+		{ki-vi}\]}{\[ph & <\normalfont cho> \]}}}]
+		[{\rnode{X2}{\rr{ \[\asort{rel} per & {3}\\num & {pl}\\cl &
+		{ki-vi}\]}{\[ph & <\normalfont vyo> \]}} ...}]
+	]
+]
+\end{forest}
+}
 
-  \vspace*{2ex}
-% \scalebox{.75}{
-% \small
-% {\rnode{a1}{\colorbox[gray]{.7}{\rr{ \[\it{rel}\\per & {3}\\num & {sg}\\cl &
-%       {ki-vi}\]}{\[ph & <\normalfont cho>\\pc & $4$ \]}}}}
-% {\rnode{a2}{\colorbox[gray]{.7}{\rr{ \[\it{rel}\\per & {3}\\num & {pl}\\cl &
-%       {ki-vi}\]}{\[ph & <\normalfont vyo>\\pc & $4$ \]}}}}
-% \hspace*{.3ex}
-%  {\rnode{b1}{\ vyo>\\pc & $7$\]}}}}
+%\vspace*{2ex}
+%\scalebox{.75}{
+%\small
+%{\rnode{a1}{\colorbox[gray]{.7}{\rr{ \[\it{rel}\\per & {3}\\num & {sg}\\cl &
+%{ki-vi}\]}{\[ph & <\normalfont cho>\\pc & $4$ \]}}}}
+%{\rnode{a2}{\colorbox[gray]{.7}{\rr{ \[\it{rel}\\per & {3}\\num & {pl}\\cl &
+%{ki-vi}\]}{\[ph & <\normalfont vyo>\\pc & $4$ \]}}}}
+%\hspace*{.3ex}
+%{\rnode{b1}{\ vyo>\\pc & $7$\]}}}}
+%
+%
+%
+%\psset{angleA=-90,angleB=90,arm=0pt}
+%\ncdiag[linestyle=dashed]{a}{a1}
+%\ncdiag[linestyle=dashed]{b}{b1}
+%\ncdiag[linestyle=dashed]{a}{a2}
+%\ncdiag[linestyle=dashed]{b}{b2}
+%\ncdiag[linestyle=dashed]{X1}{a1}
+%\ncdiag[linestyle=dashed]{X2}{a2}
+%\ncdiag[linestyle=dashed]{X1}{b1}
+%\ncdiag[linestyle=dashed]{X2}{b2}
+%} 
 
-
-
-% \psset{angleA=-90,angleB=90,arm=0pt}
-% \ncdiag[linestyle=dashed]{a}{a1}
-% \ncdiag[linestyle=dashed]{b}{b1}
-% \ncdiag[linestyle=dashed]{a}{a2}
-% \ncdiag[linestyle=dashed]{b}{b2}
-% \ncdiag[linestyle=dashed]{X1}{a1}
-% \ncdiag[linestyle=dashed]{X2}{a2}
-% \ncdiag[linestyle=dashed]{X1}{b1}
-% \ncdiag[linestyle=dashed]{X2}{b2}
-% } 
-
-  \caption{Swahili relative markers}
-  \label{fig:SwahiliRel}
+	\caption{Swahili relative markers}\label{fig:SwahiliRel}
 \end{figure}
 
 Cross-classification by means of Online Type Construction  finally
@@ -2189,10 +2119,10 @@ alternation between indicative and imperative in (\ref{ex:Italian}).
   \begin{xlist}
     \ex\gll me- lo- da -te\\
     \textsc{dat.1sg} \textsc{acc.3sg.m} give[\textsc{prs}] \textsc{2pl}\\
-    ‘You give it to me.’
+    \glt ‘You give it to me.’
     \ex\gll da -te -me -lo!\\
     give[\textsc{imp}] \textsc{2pl} \textsc{dat.1sg} \textsc{acc.3sg.m}\\
-    ‘Give it to me!’
+    \glt ‘Give it to me!’
   \end{xlist}
 \end{exe}
 
@@ -2238,7 +2168,7 @@ surfaces after the initial morph, be it the stem, or some prefixal
 marker. Thus, placement is relative to what ever happens to be the
 first instantiated position index. 
 
-\begin{table}[h!]
+\begin{table}
 \begin{center}
 {\small
 \begin{tabular}[t]{lllll}
@@ -2257,7 +2187,7 @@ na=\textbf{jân}     &  da  & nard & im & {`they were not sending me'}\\
 \caption{Sorani Kurdish past person markers\label{table-kurdish}}
 \end{table}
 
-\citet{Bonami13d} propose a pivot feature \textsc{1st-pc} that is
+\citet{bonami_o-crysmann_b13hpsg} propose a pivot feature \textsc{1st-pc} that is
 instantiated to the position class index of the first element on the
 word's \textsc{mph} list and exposed on all other morphs by the
 principle in (\ref{ex:stem-principle}).
@@ -2277,9 +2207,11 @@ principle in (\ref{ex:stem-principle}).
   \end{avm}
 \end{exe}
 
-The realisation rule for a second position clitic will the look as
+The realisation rule for a second position clitic will then look as
 follows, determining its \textsc{pc} value relative to that of the
-word's first morph. 
+word's first morph. I use an arithmetic operator here as a convenient
+shortcut, but note that indices are actually represented as lists 
+underlyingly \citep{bonami-crysmann:2013}. 
 
 \begin{exe}
   \ex
@@ -2288,12 +2220,21 @@ word's first morph.
         num & pl \]\}\\
       mph & \< \[ph & <\normalfont jân>\\
         1st-pc & \@1\\
-      pc & \@1 +1\]\>\]
+      pc & \@1 $+ 1$\]\>\]
   \end{avm}
 \end{exe}
 
 To conclude the section, a more general remark is in order: as we have
-seen, IbM uses explicit ...  
+seen, IbM uses explicit position indices to constrain morphotactic
+position. In essence, these correspond to linear distribution classes,
+where higher indices are realised towards the right of lower indices
+and no two morphs within a word may bear the same index, yielding
+competition for linear position. As a consequence, there is no static
+notion of a slot: while morphs are ordered according to indices, there
+is no requirement for indices to be consecutive. Thus, nothing much
+needs to be said about empty slots, except that there happens to be no
+morph in the word with that particular positional index. 
+
 
 \subsection{Constructional vs. generative views}
 \label{sec:ConstrGen}
@@ -2301,7 +2242,11 @@ seen, IbM uses explicit ...
 IbM departs from previous purely word-based approaches, such as
 \citet{Blevins14} or, within HPSG, \citet{Koenig99} by recognising an
 intermediate level of realisation rules that effects the actual $m:n$
-relations between form and function. In this section, 
+relations between form and function. In this section, I shall discuss
+how this facilitates partial generalisations over gestalt exponence,
+provides for a better reuse of resources, as witnessed by parallel
+inflection, and finally ensures a modular organisation of rules of
+exponence.
 
 \subsubsection{Gestalt exponence}
 
@@ -2361,7 +2306,7 @@ as in Figure~\ref{fig:Matthews}.
 \begin{figure}[htb]
   \centering
   \begin{tabular}{lcc}
-    \rnode{u1}{beak} & \rnode{u2}{\textsc{gen}} & \rnode{u3}{\textsc{pl}}\\[2ex]
+    \rnode{u1}{\textsc{beak}} & \rnode{u2}{\textsc{gen}} & \rnode{u3}{\textsc{pl}}\\[2ex]
     \rnode{l1}{nokk} & \rnode{l2}{-a} & \rnode{l3}{-de}
   \end{tabular}
       \psset{angleA=-90,angleB=90,arm=0pt,linewidth=.5pt}
@@ -2403,15 +2348,16 @@ Finno-Ugric language,  is highly agglutinative.
 
 
 While it is straightforward to implement constructional analyses
-within IbM, non-constructional analyses are actually preferred
-whenever possible.  
+within IbM, involving complex $m:n$ relations between form and
+function, non-constructional analyses are actually preferred whenever
+possible, generally yielding much more parsomonious descriptions.
 
 \subsubsection{Reuse of resources}
 
 Cases of reuse of resources constitute a particularly strong case
 against over-generalising to the constructional view: parallel
 position classes are a case at hand, as exemplified in Swahili
-\citep{Stump93,Crysmann:Bonami:2016} or Choctaw \citep{broadwell:2017}. 
+\citep{Stump93,Crysmann:Bonami:2016} or Choc"-taw \citep{broadwell:2017}. 
 
 \begin{table}[hbt]
   \centering
@@ -2438,87 +2384,102 @@ position classes are a case at hand, as exemplified in Swahili
 
 \end{table}
 
+Consider the paradigms of Swahili subject and object agreement markers
+in Table~\ref{ex:SwaPer}: as one can easily establish, agreement
+markers draw largely on the same set of shapes. Grammatical function
+is disambiguated mainly by position, with subject agreement placed 
+to the left of tense markers, and object agreement to the right. 
+
+Under a constructional approach, such as the word-based analysis in
+\citet{Koenig99}, the generalisation about identity of shapes is
+essentially lost: this is due to the fact that under this view,
+markers that can potentially combine must be introduced in different
+cross-classifying dimensions, e.g. one for subject marking in slot 2,
+the other for object marking in slot 5. Likewise, in order to
+distribute shape constraints over subject and object agreement, they
+must constitute yet another cross-cutting dimension, but there is
+simply no way in this set-up to enforce that every shape constraint
+must be evaluated twice.  
+
 \begin{figure*}[htb]
   \centering
-
-\begin{center}
-  \begin{rtree}
-    \avmhskip{.5em}
-\small\avmoptions{top}
-      \psset{levelsep=6ex,treesep=11em,linewidth=.8pt}
-\br{\textit{realisation-rule}}{
-%\psset{linecolor=blue}
-	\br{\avmbox{SHAPE}}{
-		\lf{\rnode{a}{\begin{avm}
-\[ mph & \{\[ph &  <ni>\]\}\\
-   mud & \{\[per & 1\\ num & sg\]\}
-\]
-\end{avm}}}
-		\lf{\rnode{b}{\begin{avm}
-\[ mph & \{\[ph &  <wa>\]\}\\
-   mud & \{\[per & 3\\ num & pl\]\}
-\]
-\end{avm}}}
-		}
-		\psset{treesep=9em}
-%\psset{linecolor=red}
-	\br{\avmbox{POSITION}}{
-		\lf{\rnode{c}{\begin{avm}
-\[ mph & \{\[pc & -3\]\}\\
-   mud & \{subj\}
-\]
-\end{avm}}}
-		\lf{\rnode{d}{\begin{avm}
-\[ mph & \{\[pc & -1\]\}\\
-   mud & \{ obj \}
-\]
-\end{avm}}}
-		}
-	}
-\end{rtree}
-
-\vspace*{2.5\baselineskip}
-\smaller\smaller    \avmhskip{.5em}
-\rnode{x}{\begin{avm}
-\[ mph & \{\[ph &  <ni>\\ pc & -3\]\}\\
-   mud & \{ \[\asort{subj} per & 1\\ num & sg\] \}
-\]
-\end{avm}}
-~~
-\rnode{y}{\begin{avm}
-\[ mph & \{\[ph &  <wa>\\ pc & -1\]\}\\
-   mud & \{ \[\asort{obj} per & 3\\ num & pl\] \}
-\]
-\end{avm}}
-~~
-\rnode{z}{\begin{avm}
-\[ mph & \{\[ph &  <wa>\\ pc & -3\]\}\\
-   mud & \{ \[\asort{subj} per & 3\\ num & pl\] \}
-\]
-\end{avm}}
-~~
-\rnode{t}{\begin{avm}
-\[ mph & \{\[ph &  <ni>\\ pc & -1\]\}\\
-   mud & \{\[\asort{obj} per & 1\\ num & sg\]\}
-\]
-\end{avm}}
-\end{center}
-\psset{arm=0pt,angleA=-90,angleB=90,
-  % linecolor=blue,
-  linestyle=dashed}
-\ncdiag{a}{x}
-\ncdiag{a}{t}
-\ncdiag{b}{y}
-\ncdiag{b}{z}
-%\psset{linecolor=red}
-\ncdiag{c}{x}
-\ncdiag{c}{z}
-\ncdiag{d}{y}
-\ncdiag{d}{t}
+  \smaller\smaller
+\begin{forest}
+[\emph{realisation-rule}
+	[SHAPE,draw
+		[{\begin{avm}
+			\[ mph & \{\[ph &  \<\normalfont ni\>\]\}\\
+			mud & \{\[per & 1\\ num & sg\]\}
+			\]
+		\end{avm}}, name=1
+			[{\begin{avm}
+				\[ mph & \{\[ph &  \<\normalfont ni\>\\ pc & 2\]\}\\
+				mud & \{ \[\asort{subj} per & 1\\ num & sg\] \}
+				\]
+			\end{avm}}, name=a, no edge, tier=word, l=3cm]
+		]
+		[{\begin{avm}
+			\[ mph & \{\[ph &  \<\normalfont wa\>\]\}\\
+			mud & \{\[per & 3\\ num & pl\]\}
+			\]
+		\end{avm}}, name=2
+			[{\begin{avm}
+				\[ mph & \{\[ph &  \<\normalfont wa\>\\ pc & 5\]\}\\
+				mud & \{ \[\asort{obj} per & 3\\ num & pl\] \}
+				\]
+			\end{avm}}, name=b, no edge, tier=word, l=3cm]
+		]
+	]
+	[POSITION,draw
+		[{\begin{avm}
+			\[ mph & \{\[pc & 2\]\}\\
+			mud & \{subj\}
+			\]
+		\end{avm}}, name=3
+			[{\begin{avm}
+				\[ mph & \{\[ph &  \<\normalfont wa\>\\ pc & 2\]\}\\
+				mud & \{ \[\asort{subj} per & 3\\ num & pl\] \}
+				\]
+			\end{avm}}, name=c, no edge, tier=word, l=3cm]
+		]
+		[{\begin{avm}
+			\[ mph & \{\[pc & 5\]\}\\
+			mud & \{ obj \}
+			\]
+		\end{avm}}, name=4
+			[{\begin{avm}
+				\[ mph & \{\[ph &  \<\normalfont ni\>\\ pc & 5\]\}\\
+				mud & \{\[\asort{obj} per & 1\\ num & sg\]\}
+				\]
+			\end{avm}}, name=d, no edge, tier=word, l=3cm]
+		]
+	]
+]
+\draw[dashed] (1.south) to (a.north);
+\draw[dashed] (1.south) to (d.north);
+\draw[dashed] (2.south) to (b.north);
+\draw[dashed] (2.south) to (c.north);
+\draw[dashed] (3.south) to (c.north);
+\draw[dashed] (3.south) to (a.north);
+\draw[dashed] (4.south) to (b.north);
+\draw[dashed] (4.south) to (d.north);
+\end{forest}
   
   \caption{Rule type hierarchy for Swahili parallel position classes \citep{Crysmann:Bonami:2016}}
   \label{fig:Swahili}
 \end{figure*}
+
+However, once we move from word-based statements to realisation rules,
+the problem simply vanishes, since we are not trying to solve the
+problem of parallel inflection and combinbation at the same time: as
+illustrated in Figure~\ref{fig:Swahili}, constraints about shape can
+be straightforwardly distributed over realisation rules for subject
+and object agreement (which are types), because their combination is
+effectively factored out. Thus, by abstracting over rules instead of
+words, generalisation about parallel inflection can be captured quite
+easily. This is in fact a more general problem that tends to get
+overlooked by radically word-based approaches such as
+\citet{Blevins14}.
 
 \subsubsection{Modularity}
 
@@ -2533,8 +2494,9 @@ described so far within IbM.
 
 Oneida is a highly poly-synthetic language. According to
 \citet{diaz:koenig:michelson:19}, the inflectional system alone
-comprises 7 prefixal position classes in which up to 8 non-modal and 3
-modal categories can be expressed (cf. Table~\ref{tab:Oneida}). Given the number of categories and
+comprises seven prefixal position classes in which up to eight
+non-modal and three modal categories can be expressed
+(cf. Table~\ref{tab:Oneida}). Given the number of categories and
 position alone, it comes at no surprise that the system is
 characterised by heavy competition. Adding to the complexity, several
 markers undergo complex interactions, even between non-adjacent slots.
@@ -2574,16 +2536,15 @@ future and factual); and (iii) sharing, witnessed by the factual and
 the optative, which are distributed across different positions. Cross-cutting these subsystems, we find a great level of
 contextual inflectional allomorphy.
 
-\citet{diaz:koenig:michelson:19} contain the complexity by building
-essentially on several key notions, the first three of which are
-integral parts of IbM: first, the fact that IbM recognises
+\citet{diaz:koenig:michelson:19} contain the complexity of the system
+by building on several key notions, the first three of
+which are integral parts of IbM: first, the fact that IbM recognises
 $m:n$ relations at the rule level make it possible to approach the
-Oneida system in a more modular fashion carving out four
-independent subsystems for competition (slot 1 and slot 5), borrowing
-(slot 2) and sharing (factual). Second, they draw on the distinction
-between realisation (\textsc{mud}) and conditioning \textsc{ms} to
-abstract out inflectional allomorphy. Third, they capture
-discontinuous 
+Oneida system in a more modular fashion carving out four independent
+subsystems for competition (slot 1 and slot 5), borrowing (slot 2) and
+sharing (factual). Second, they draw on the distinction between
+realisation (\textsc{mud}) and conditioning \textsc{ms} to abstract
+out inflectional allomorphy. Third, they capture discontinuous
 exponence of the factual and optative in terms of Koenig/Jurafsky
 style cross-classification in order to derive complex discontinuous
 rules.
@@ -2631,7 +2592,7 @@ paper was biased to some degree towards inflection, for two reasons:
 on the one hand, a handbook article that provides a more balanced
 representation of derivational and inflectional work in
 constraint-based grammar was published quite recently
-\citep{Bonami15b}, while on the other, an comprehensive introduction
+\citep{Bonami15b}, while on the other, a comprehensive introduction
 to recent development within HPSG inflectional morphology was still
 missing.
 
@@ -2641,7 +2602,8 @@ with the works of \citet{Riehemann98} and \cite{Koenig99}:
 within HPSG, it is now clearly understood that lexical rules are
 description level devices organised into cross-cutting inheritance
 type hierarchies. Beyond HPSG these works have influenced the
-development of Construction Morphology \citep{Booij10}. 
+development of Construction Morphology \citep{Booij10}, cf.\ also
+Chapter ~\crossrefchaptert{cxg}. 
 
 Much more recently, some consensus model seems to have arrived for the
 treatment of inflectional morphology: Information-based Morphology
@@ -2659,60 +2621,13 @@ constructional views.
 
 
 
-% \subsection{Further applications}
-
-% \subsubsection{Extended exponence \citep{Crysmann:14:OUP}}
-
-% Brief discussion of Nyanja pre-prefixation 
-
-
-  
-
-
-% \subsubsection{Heteroclisis and overabundance \citep{Bonami:Crysmann:2018}}
-
-% Discussion of heteroclisis and overabundance in Czech
-
-% \section{Inflectional morphology in implementation}
-
-% Currently, there are two competing implementations 
-% for typed feature structure formalisms, the TRALE system on the one
-% hand, and the DELPH-IN systems on the other.   
-
-% \begin{exe}
-% \ex \label{ex:1:descartes}
-% \langinfo{Latin}{}{personal knowledge}\\
-% \gll cogit-o ergo sum \\
-%      think-1{\sg}.{\prs}.{\ind} hence exist.1{\sg}.{\prs}.{\ind}\\
-% \glt `I think therefore I am'
-% \end{exe}
-
-
-
-
-% \begin{table}
-% \caption{Frequencies of word classes}
-% \label{tab:1:frequencies}
-%  \begin{tabular}{lllll} % add l for every additional column or remove as necessary
-%   \lsptoprule
-%             & nouns & verbs & adjectives & adverbs\\ %table header
-%   \midrule
-%   absolute  &   12 &    34  &    23     & 13\\
-%   relative  &   3.1 &   8.9 &    5.7    & 3.2\\
-%   \lspbottomrule
-%  \end{tabular}
-% \end{table}
-
-
-
-%\isi{prolegomena}
- 
 
 \printbibliography[heading=subbibliography,notkeyword=this]
 
 \end{document}
 
+
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../main"
+%%% TeX-master: "../main-udc"
 %%% End:

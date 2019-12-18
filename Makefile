@@ -88,6 +88,14 @@ prepubs-pdfs/case.pdf: chapters/case.tex
 	chopchapters-bookmarks.sh prepublish.pdf prepubs-chop-pdfs
 	cp prepubs-chop-pdfs/07.pdf prepubs-pdfs/case.pdf
 
+
+prepubs-pdfs/relative-clauses.pdf: chapters/relative-clauses.tex
+	xelatex -no-pdf -shell-escape prepublish
+	biber prepublish
+	xelatex -shell-escape prepublish
+	chopchapters-bookmarks.sh prepublish.pdf prepubs-chop-pdfs
+	cp prepubs-chop-pdfs/15.pdf prepubs-pdfs/relative-clauses.pdf
+
 prepubs-pdfs/islands.pdf: chapters/islands.tex
 	xelatex -no-pdf -shell-escape prepublish
 	biber prepublish
@@ -117,6 +125,12 @@ prepubs-pdfs/semantics.pdf: chapters/semantics.tex
 	chopchapters-bookmarks.sh prepublish.pdf prepubs-chop-pdfs
 	cp prepubs-chop-pdfs/22.pdf prepubs-pdfs/semantics.pdf
 
+prepubs-pdfs/hpsg-minimalism.pdf: chapters/minimalism.tex
+	xelatex -no-pdf -shell-escape prepublish
+	biber prepublish
+	xelatex -shell-escape prepublish
+	chopchapters-bookmarks.sh prepublish.pdf prepubs-chop-pdfs
+	cp prepubs-chop-pdfs/32.pdf prepubs-pdfs/hpsg-minimalism.pdf
 
 prepubs-pdfs/hpsg-dg.pdf: chapters/dg.tex
 	xelatex -no-pdf -shell-escape prepublish
@@ -147,6 +161,7 @@ prepubs-latex-cp: prepublish-pdfs
 	cp prepubs-chop-pdfs/06.pdf prepubs-pdfs/agreement.pdf
 	cp prepubs-chop-pdfs/07.pdf prepubs-pdfs/case.pdf
 	cp prepubs-chop-pdfs/10.pdf prepubs-pdfs/order.pdf
+	cp prepubs-chop-pdfs/15.pdf prepubs-pdfs/relative-clauses.pdf
 	cp prepubs-chop-pdfs/16.pdf prepubs-pdfs/islands.pdf
 	cp prepubs-chop-pdfs/18.pdf prepubs-pdfs/idioms.pdf
 	cp prepubs-chop-pdfs/19.pdf prepubs-pdfs/negation.pdf
@@ -155,14 +170,16 @@ prepubs-latex-cp: prepublish-pdfs
 	cp prepubs-chop-pdfs/27.pdf prepubs-pdfs/processing.pdf
 	cp prepubs-chop-pdfs/29.pdf prepubs-pdfs/dialogue.pdf
 	cp prepubs-chop-pdfs/31.pdf prepubs-pdfs/gesture.pdf
+	cp prepubs-chop-pdfs/32.pdf prepubs-pdfs/hpsg-minimalism.pdf
 	cp prepubs-chop-pdfs/35.pdf prepubs-pdfs/hpsg-dg.pdf
 	cp prepubs-chop-pdfs/36.pdf prepubs-pdfs/hpsg-cxg.pdf
 
 
 # 
-prepublish: prepubs-pdfs/evolution.pdf prepubs-pdfs/lexicon.pdf prepubs-pdfs/agreement.pdf \
-            prepubs-pdfs/case.pdf prepubs-pdfs/islands.pdf prepubs-pdfs/idioms.pdf \
-            prepubs-pdfs/negation.pdf prepubs-pdfs/semantics.pdf prepubs-pdfs/hpsg-dg.pdf prepubs-pdfs/hpsg-cxg.pdf
+prepublish: prepubs-latex-cp
+# prepubs-pdfs/evolution.pdf prepubs-pdfs/lexicon.pdf prepubs-pdfs/agreement.pdf \
+#             prepubs-pdfs/case.pdf prepubs-pdfs/relative-clauses.pdf prepubs-pdfs/islands.pdf prepubs-pdfs/idioms.pdf \
+#             prepubs-pdfs/negation.pdf prepubs-pdfs/semantics.pdf prepubs-pdfs/hpsg-minimalism.pdf prepubs-pdfs/hpsg-dg.pdf prepubs-pdfs/hpsg-cxg.pdf
 	rsync -a -e ssh prepubs-pdfs/ hpsg.hu-berlin.de:/var/www/html/Projects/HPSG-handbook/PDFs
 
 #	scp prepubs-pdfs/32.pdf hpsg.hu-berlin.de:public_html/Pub/hpsg-minimalism.pdf
