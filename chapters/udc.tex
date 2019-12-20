@@ -2272,9 +2272,8 @@ Another non-local dependency is extraposition, the displacement of a
 constituent towards the right. Extraposition is most often observed
 with heavy constituents, such as relative clauses or complement
 clauses, but e.g. in German, it has also been attested with lighter
-constituents such as prepositional phrases and non-finite VPs.
-
-% Insert example from English
+constituents such as prepositional phrases and non-finite VPs. % cite
+                                % Müller on NPs
 
 Apart from the obvious difference in the linear direction of the
 process, extraposition also contrasts with e.g. filler-gap
@@ -2283,11 +2282,68 @@ constraints that have been claimed to hold for extraction to the left,
 such as the Complex NP Constraint \citep{ross_j67} clearly do not hold with relative clause
 extraposition.
 
-% 
+\begin{exe}
+  \ex 
+  \begin{xlist}
+    \ex{}{\gll Planck hat [die Entdeckung \_$_i$ ] gemacht, [daß Licht
+      Teilchennatur hat.]$_i$\\
+      Planck has the discovery {} {} made that light {particle nature} has\\
+      \glt `Planck made the discovery that light has particle
+      properties.' \hfill\citep{Keller:94a}}	
+    \ex[*]{\gll [daß Licht
+      Teilchennatur hat.]$_i$  hat Planck [die Entdeckung \_$_i$ ]
+      gemacht\\
+      that light {particle nature} has  has Planck the discovery {} {}
+      made \\
+      \glt  \hfill\citep{Keller:94a}}	
+  \end{xlist}
+  
+  \ex
+  \begin{xlist}
+    \ex[]{\gll Ich habe [die Frau \_$_i$ ] getroffen, [die das Stück
+      gelesen hat]$_i$.\\
+      I have the woman {} {} met who the play read has\\
+      \glt `I met the woman who has read the play.' \hfill
+      \citep[G.][]{mueller96:_extrap_and_succes_cyclic}}
+    \ex[*]{\gll [die das Stück
+      gelesen hat]$_i$, habe ich [die Frau \_$_i$ ] getroffen .\\
+      who the play read has have I the woman {} {} met \\
+      \glt \hfill \citep[G.][]{mueller96:_extrap_and_succes_cyclic}}
+  \end{xlist}
+
+\end{exe}
+
 
 Conversely, while extraction to the left can easily cross finte clause
 boundaries, extraposition is said to be clause-bound, i.e. subject to
 the Right Roof Constraint \citep{ross_j67}.   
+
+\begin{exe}
+  \ex{\gll Was$_i$ hat Hans gesagt, [daß wir \_$_i$ kaufen sollten]?\\
+    what has Hans said that we {} buy should\\
+    \glt `What did Hans say that we should buy?'}
+  \ex
+  \begin{xlist}
+    \ex[]{\gll [Daß Peter sich auf das Fest \_$_i$ gefreut hat, [das
+      Maria veranstaltet hat,]$_i$ ]
+      hat niemanden gewundert.\\
+      that Peter SELF on the party {} looked.forward has which Maria
+      organised has {} has noone surprised\\
+      \glt `That Peter was looking forward to the party that Maria had
+      organised, did not surprise anyone.' \hfill
+      \citep{wiltschko94:_extrap_in_german}} 
+
+    \ex[*]{\gll [Daß Peter sich auf das Fest
+      \_$_i$ gefreut hat],  hat niemanden gewundert, [das
+      Maria veranstaltet hat]$_i$\\
+      that Peter SELF on the party {} looked.forward has  has noone
+      surprised which Maria
+      organised has\\
+      \glt  \hfill
+      \citep{wiltschko94:_extrap_in_german}}
+  \end{xlist}
+
+\end{exe}
 
 
 
@@ -2296,10 +2352,88 @@ the Right Roof Constraint \citep{ross_j67}.
 Given the unbounded nature of extraposition, a natural approach to
 this construction is by means of non-local features. Because
 extraposition differs from extraction in both direction and locality,
-\citet{Keller:95} % Keller
-proposes a distinct non-local feature \textsc{extra} ...
+\citet{Keller:95} and \citet{Mueller99}
+have proposed a distinct non-local feature \textsc{extra} to capture
+this rightward-oriented dependency. 
+Similar to lexical \textsc{slash} introduction, \citet{Keller:95}  assumes two lexical
+extraposition rules, one for  complement extraposition, the other for
+adjunct extraposition. 
 
-See also \citet{Mueller99} for a similar proposal. 
+\begin{exe}
+  \ex Complement Extraposition Lexical Rule
+  
+  \begin{avm}
+    \[subcat \; \@1 $\oplus$ \< \[loc & \@4 \[cat|head & verb $\vee$
+          prep\\
+        subcat & \< ~ \>\] \]\> $\oplus$ \@2\\
+    nonloc|inher|extra \; \@3\] 
+\end{avm}
+
+$\mapsto$ \begin{avm}
+  \[subcat \; \@1 $\oplus$
+    \@2\\
+    nonloc|inher|extra \; \@3 $\cup$ \{ \@4 \}
+  \]
+\end{avm}
+
+\ex Adjunct Extraposition Lexical Rule
+
+\begin{avm}
+  \[loc \; \@2\[cat|head & noun $\vee$ verb\]\\
+    nonloc|inher|extra \; \@1
+    \]
+\end{avm}
+
+$\mapsto$ \begin{avm}
+  \[loc|cont  \; \@3\\
+    nonloc|inher|extra \; \@1 $\cup$ \{ \[cat & \[head & \[\asort{prep
+            $\vee$ rel} mod|loc & \@2\]\\
+      cont & \@3\]\] \}
+  \]
+\end{avm}
+
+\end{exe}
+
+The complement extraposition rule is straightforward: it removes a
+valency from the \textsc{subcat} list and inserts its \textsc{local}
+value into the \textsc{extra} set. 
+
+As for adjunct extraposition, the lexical rule  equally inserts an
+element into the \textsc{extra} set, yet constrains it to be a
+modifier that selects for the local value of the lexical head (via
+\textsc{mod}). 
+
+Since \textsc{extra} is a nonlocal feature, percolation up the tree,
+i.e. the middle of the dependency 
+will be handled by the \textsc{Nonlocal Feature Principle} \citep{Pollard:Sag:94}.
+
+\begin{exe}
+  \ex Head-Extra Schema
+
+  \begin{avm}
+    \[synsem & \[nonloc|inher|extra \; \{~\}\]\\
+      dtrs & \[head-dtr & \[synsem|nonloc|to-bind|extra \;
+          \normalfont\textsf{loc}\(\@1\) \]\\
+  extra-dtrs & \@1\]\]
+  \end{avm}
+\end{exe}
+
+At the top, the Head-Extra Schema will bind all extraposition
+dependencies, which are realised as extraposed daughters.\footnote{We
+  give a slightly simplified version of the schema, ignoring the
+  \textsc{periph} feature that was introduced to contrtol for
+  spurious ambiguity that could arise from string-vacuous
+  extraposition. See \citet{Keller:95} for details. } Order of
+extraposed daughters amongst eqach other and with respect to the head
+is regulated by linear precedence statements. 
+
+\citet{Keller:95} discusses how salient differences between extraction
+and extraposition can be captured quite straightforwardly: to account,
+e.g., for the clause-boundedness, it will be sufficient to restrict
+the \textsc{inher|extra} set of clausal signs to be the empty
+set. Similarly, since extraposition (\textsc{extra}) and extraction
+\textsc{slash} are implemented by different features, lcoality
+constraints imposed on \textsc{slash} will not hold for extrapostion. 
 
 
 \subsection{Extraposition as word order variation}
@@ -2327,19 +2461,23 @@ extraposition.
 
 \subsection{Generalised modification}
 
-Another line of proposals capitalises on the differences between complement and
-adjunct extraposition: as argued forcefully by \citet{kiss_t02nllt},  the
-non-locality observed with relative
-clauses extraposition in German, in particular the immunity to the
-Complex NP Constraint does not translate to complement extraposition
-in equal measure. 
+Another line of proposals capitalises on the differences between
+complement and adjunct extraposition: as argued forcefully by
+\citet{kiss_t02nllt}, the non-locality observed with relative clauses
+extraposition in German does not translate to complement extraposition
+in equal measure.
+
 
 % Cite example
+
+
 
 Furthermore, he observes that relative clause extraposition may give
 rise to split antecedents and therefore concludes that this process
 should be better understood as an anaphoric one, rather than as
 extraction to the right.
+
+
 
 Finally, no matching effect can be observed with adjunct
 extraposition, contrasting quite sharply with extraposition of
@@ -2359,33 +2497,129 @@ adjoin to.\footnote{\citet{crysmann_b04rlc} proposes to synthesise the
   using a two-step percolation mechanism that effectively controls for
   spurious ambiguity.} 
 
-% Sample derivation
+\begin{exe}
+  
+  { \newbox\onebox \newbox\twobox \newbox\onetwobox \newbox\emptybox
+
+    \setbox\onebox=\hbox{[\textsc{ANCS} \{\fbox{i}\}]}
+    \setbox\twobox=\hbox{[\textsc{ANCS} \{\fbox{j}\}]}
+    \setbox\onetwobox=\hbox{[\textsc{ANCS} \{\fbox{i},\fbox{j}\}]}
+    \setbox\emptybox=\hbox{[\textsc{ANCS} \{ \}]}
+
+    
+    \ex \Tree [ [ [ [ den ].{D \usebox{\emptybox}} [ [ Beweis
+    ].{N \usebox{\onebox}} [ [ der ].{D \usebox{\emptybox}} [ Theorie
+    ].{N \usebox{\twobox}} ].{NP \usebox{\twobox}} ].{N
+      \usebox{\onetwobox}} ].{NP \usebox{\onetwobox}}
+     [ erbracht ].{V
+      \usebox{\emptybox}} ].{V \usebox{\onetwobox}} [ {an die$_j$
+      niemand glaubt} ].S ].{V \usebox{\onetwobox}}
+
+  }
+\end{exe}
 
 The claim about the locality of complement extraposition has not been
 left unchallenged: \citet{mueller_s01dfki} presents examples of complement clause
 extraposition that equally defy the complex NP constraint.
 
-% Ex. Müller ND
+ \begin{exe}
+  \ex 
+  \begin{xlist}
+    \ex[]{\gll Ich habe [von [dem Versuch [eines Beweises [der Vermutung
+      \_$_i$ ]]]] gehört, [daß es Zahlen gibt, die die folgenden
+      Bedingungen erfüllen]$_i$. \\
+      I have of the attempt of.a proof of.the hypothesis {} {}
+      heard that there numbers exist which the following conditions
+      fulfil.\\
+      \glt `I have heard of the attempt at a proof of the hypothesis
+      that there are numbers which fulfil the following conditions.'\hfill
+      \citep[S.][223]{mueller_s02lc} 
+    }  
+    
+    % \ex[]{\gll Für das Volk der Deutschen Demokratischen Republik ist
+    %   dabei [die einmütige Bekräftigung [der Auffassung \_$_i$ ]]
+    %   wichtig, [daß es die Interessen des Friedens und der
+    %   Sicherheit erfordern, ... ]$_i$ \\
+    % For the people of.the German Democratic Republic is there the
+    % unanimous emphasis of.the position {} {} important that it the
+    % interest of.the peace and of.the security necessitate, ...\\
+    % `It is important for the people of the GDR to emphasise,
+    % unanimously, the position that it is necessary, in the interests
+    % of peace and security ...' \hfill
+    %   \citep[S.][223]{mueller_s02lc}}
+    
+  \end{xlist}
+\end{exe}
 
 Consequently, he suggests that complement extraposition and adjunct
 extraposition should both be handled by the same mechanism, i.e. a non-local
-\textsc{extra} feature in the sense of \citet{Keller:95}. 
+\textsc{extra} feature \citep{Keller:95,Mueller99}. 
 
 \citet{crysmann_b09xtra} challenges Müller's unified analysis on the
-grounds that it severely overgenerates.   
-While he concedes that non-local complement extraposition is indeed
-possible, he argues that the two processes still need to be
-distinguished, because (i) only adjunct extraposition may target split
-antecedents and (ii) complements cannot extrapose out of adjuncts,
-whereas  adjunct extraposition observes no such constraint, cf. (\ref{ex:ExtraAdj}).
+grounds that it severely overgenerates.  While he concedes that
+non-local complement extraposition is indeed possible, he argues that
+the two processes still need to be distinguished, because (i) only
+adjunct extraposition may target split antecedents and (ii)
+complements cannot extrapose out of adjuncts, whereas adjunct
+extraposition observes no such constraint.  He further notes that
+non-local complement extraposition is subject to stronger bridging
+requirements than adjunct extraposition, both semantic and prosodic:
+as illustrated in (), semantic affinity between the complex NP from
+which extraposition proceeds and the verb that governs it greatly
+improves acceptability.
 
-% Example Kiss 
+\begin{exe}
+  \ex
+  \begin{xlist}
+    \ex[]{\gll Er hat [ein Buch [über die Theorie \_$_i$ ]] gelesen,
+      [daß Licht Teilchennatur hat]$_i$.\\
+      he has a book about the theory {} {} read that light {particle
+        nature} has\\
+      \glt `He has read a book about the theory that light has particle
+      properties.'}
+    
+    \ex[*]{\gll Er hat [ein Buch [über die Theorie \_$_i$ ]]
+      geklaut,
+      [daß Licht Teilchennatur hat]$_i$.\\
+      he has a book about the theory {} {} stolen that light {particle
+        nature} has\\
+      \glt `He has stolen a book about the theory that light has
+      particle properties.'}
+  \end{xlist}
+\end{exe}
 
-He further notes that non-local complement extraposition is subject 
-to stronger bridging requirements than adjunct extraposition, both
-semantic and prosodic: as illustrated in (), semantic affinity between
-the NP from which greatly improves acceptability. 
+\begin{exe}
+\ex \label{ex:RemnantSemantic}
+\begin{xlist}
+  \ex[]{\gll [Über Syntax]$_i$  hat er [ein Buch  \_$_i$ ] gelesen.\\
+    about syntax has he a book {} {} read\\
+    \glt `It's about syntax that he has read a book.'}
+  \ex[*]{\gll [Über  Syntax]$_i$  hat er [ein Buch  \_$_i$ ] geklaut.\\
+    about syntax has he a book {} {} stolen\\
+    \glt `It's about syntax that he has stolen a book.'}
+\end{xlist}
+\end{exe}
 
+While this effect for complement extraposition is similar to what has
+been observed for PP extraction out of NPs \citep{DeKuthy02}, it is of
+note that no such contrasts can be found for adjunct extraposition:
+
+\begin{exe}
+\ex
+\begin{xlist}
+  \ex{\gll Er hat [ein Buch [über die Theorie \_$_i$ ]]
+    gelesen, [die derzeit kontrovers diskutiert wird]$_i$.\\
+    he has a book.N about the theory.F {} {} read {which.F} currently controversially discussed is\\
+    \glt `He has read a book about the theory which is under
+    considerable debate at present.'}  
+\ex{\gll Er hat [ein Buch [über
+    die Theorie \_$_i$ ]]
+    geklaut, [die derzeit kontrovers diskutiert wird]$_i$.\\
+    he has a book.N about the theory.F {} {} stolen {which.F} currently controversially discussed is\\
+    \glt `He has stolen a book about the theory which is under
+    considerable debate at present.'}
+\end{xlist}
+\end{exe}
 
 
 \citet{crysmann_b09xtra} ... % weak-local/full-local
