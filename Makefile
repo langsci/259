@@ -125,6 +125,13 @@ prepubs-pdfs/semantics.pdf: chapters/semantics.tex
 	chopchapters-bookmarks.sh prepublish.pdf prepubs-chop-pdfs
 	cp prepubs-chop-pdfs/22.pdf prepubs-pdfs/semantics.pdf
 
+prepubs-pdfs/cl.pdf: chapters/cl.tex
+	xelatex -no-pdf -shell-escape prepublish
+	biber prepublish
+	xelatex -shell-escape prepublish
+	chopchapters-bookmarks.sh prepublish.pdf prepubs-chop-pdfs
+	cp prepubs-chop-pdfs/28.pdf prepubs-pdfs/cl.pdf
+
 prepubs-pdfs/hpsg-minimalism.pdf: chapters/minimalism.tex
 	xelatex -no-pdf -shell-escape prepublish
 	biber prepublish
@@ -168,6 +175,7 @@ prepubs-latex-cp: prepublish-pdfs
 	cp prepubs-chop-pdfs/22.pdf prepubs-pdfs/semantics.pdf
 	cp prepubs-chop-pdfs/24.pdf prepubs-pdfs/information-structure.pdf
 	cp prepubs-chop-pdfs/27.pdf prepubs-pdfs/processing.pdf
+	cp prepubs-chop-pdfs/28.pdf prepubs-pdfs/cl.pdf
 	cp prepubs-chop-pdfs/29.pdf prepubs-pdfs/dialogue.pdf
 	cp prepubs-chop-pdfs/31.pdf prepubs-pdfs/gesture.pdf
 	cp prepubs-chop-pdfs/32.pdf prepubs-pdfs/hpsg-minimalism.pdf
@@ -181,6 +189,9 @@ prepublish: prepubs-latex-cp
 #             prepubs-pdfs/case.pdf prepubs-pdfs/relative-clauses.pdf prepubs-pdfs/islands.pdf prepubs-pdfs/idioms.pdf \
 #             prepubs-pdfs/negation.pdf prepubs-pdfs/semantics.pdf prepubs-pdfs/hpsg-minimalism.pdf prepubs-pdfs/hpsg-dg.pdf prepubs-pdfs/hpsg-cxg.pdf
 	rsync -a -e ssh prepubs-pdfs/ hpsg.hu-berlin.de:/var/www/html/Projects/HPSG-handbook/PDFs
+	git commit -m "automatic creation of prepublished chapters" prepubs-pdfs/
+	git push -u origin
+
 
 #	scp prepubs-pdfs/32.pdf hpsg.hu-berlin.de:public_html/Pub/hpsg-minimalism.pdf
 
