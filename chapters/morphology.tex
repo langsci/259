@@ -1079,6 +1079,11 @@ morphological properties. As a consequence, IbM eliminates structure
 from inflectional morphology, which clearly distinguishes this
 approach from other inferential-realisational approaches, such as PFM
 or AM, where order is derived from cascaded rule application.
+Although IbM recognises a minimal structure in terms of segmentable
+morphs, there is no hierarchy involved. AM and PFM, by contrast,
+reject derived structure, to borrow a term from Tree Adjoining
+Grammar, but this potential advantage is more than set off by their
+abundant use of derivation structure. 
 
 \begin{exe}
   \ex Structured association of form (\textsc{mph}) and function (\textsc{ms})   \label{fig:WordMph}
@@ -1272,6 +1277,23 @@ word's phonology is the concatenation of its constituent morphs, the
 second clause ensures that the order implied by position class indices
 (\textsc{pc}) is actually obeyed. \citet{bonami_o-crysmann_b13hpsg}
 provide a formalisation of morph ordering using list constraints.
+
+Before closing this section, a brief note is in order regarding the
+choice of data structures: while it is evident that order is
+not an appropriate characteristic of morpho-syntactic property sets,
+the question whether to adopt a list-based representation or a
+set-based one is pertinent for exponents: on the one hand, lists have
+some initial plausilibility, given that morphs are ordered, but on the
+other one may regard this as redundant, given the existence of an
+explicit indexing schem,e in the form of \textsc{pc} values (which are
+themselves implemented as lists). In fact, until recently, most IbM
+work did assume \textsc{mph} sets rather than lists. Probably the only
+reason to prefer lists over sets is presentational: since lists have
+an inherent indexing scheme, identifying e.g. initial or final
+elements yields much more parsimonious representations with lists than
+it does with sets, which would require abundant explicit reference to
+\textsc{pc} values. Thus, IbM currently assumes \textsc{mph}-lists
+rather than \textsc{mph}-sets.
 
 Given the very general nature of the well-formedness constraints and
 particularly the commitment to monotonicity embodied by
@@ -2179,7 +2201,7 @@ first instantiated position index.
 {\small
 \begin{tabular}[t]{lllll}
 \toprule
-$1$ & $2$ & $3$ & $4$\\
+$1$ & $3$ & $5$ & $7$\\
 %\textsc{neg} & \textsc{ipfv} & send & \textsc{3pl}\\   
 \midrule
     &      & nard=\textbf{jân} & im & {`they sent me'}\\
@@ -2191,6 +2213,7 @@ na=\textbf{jân}     &  da  & nard & im & {`they were not sending me'}\\
 }
 \end{center}
 \caption{Sorani Kurdish past person markers\label{table-kurdish}}
+\label{tab:Sorani}
 \end{table}
 
 \citet{bonami_o-crysmann_b13hpsg} propose a pivot feature \textsc{1st-pc} that is
@@ -2213,6 +2236,12 @@ principle in (\ref{ex:stem-principle}).
   \end{avm}
 \end{exe}
 
+What this principle does is distribute two critical position class
+indices over every element of the \textsc{mph} list: one for the
+position of the stem, in order to capture stem-relative vs. absolute placement as
+in Italian, the other for the lowest instatiated position class index,
+to capture second position phenomena. 
+
 The realisation rule for a second position clitic will then look as
 follows, determining its \textsc{pc} value relative to that of the
 word's first morph. I use an arithmetic operator here as a convenient
@@ -2224,11 +2253,23 @@ underlyingly \citep{bonami-crysmann:2013}.
   \begin{avm}
     \[mud & \{ \[per & 3\\
         num & pl \]\}\\
-      mph & \< \[ph & <\normalfont jân>\\
+      mph & \< \[ph & \<\normalfont jân\>\\
         1st-pc & \@1\\
       pc & \@1 $+ 1$\]\>\]
   \end{avm}
 \end{exe}
+
+For illustration, consider the two word forms \textit{nard=jân-im}
+`they sent me' and \textit{da=jân-nard-im} `they were sending me' from
+Table~\ref{tab:Sorani}. The first one consists of two positionally
+fixed morphs, the stem in position 5 and the person ending in position
+7. According to (\ref{ex:stem-principle}), \textsc{1st-pc} will be
+token identical to the \textsc{pc} of \textit{nard}, so \textit{=jân}
+will be assigned a \textsc{pc} value of 6. The second example
+\textit{da=jân-nard-im} has  the additional progressive prefix \textsc{da}
+in position 3, which is the lowest \textsc{pc} index in of the
+word. Accordingly \textsc{=jân} is placed relative to \textit{da},
+in position 4. 
 
 To conclude the section, a more general remark is in order: as we have
 seen, IbM uses explicit position indices to constrain morphotactic
@@ -2325,10 +2366,10 @@ as in Figure~\ref{fig:Matthews}.
 \end{figure}
 
 While it is clear that this kind of complex association between form
-and function requires a constructional perspective, but it is far from
-clear that i. this association has to be made at the level of the word
+and function requires a constructional perspective, it is far from
+evident that (i) this association has to be made at the level of the word
 rather than at the level of $m:n$ rules and
-ii. that this therefore requires word-to-word correspondences in the sense of
+(ii) that this therefore requires word-to-word correspondences in the sense of
 \citet{Blevins05,Blevins14}. To the contrary, the system depicted in
 Table~\ref{tab:Estonian} displays partial generalisations that are
 hard to capture in a system such as Blevins': e.g. theme vowels are
@@ -2478,14 +2519,14 @@ must be evaluated twice.
 
 However, once we move from word-based statements to realisation rules,
 the problem simply vanishes, since we are not trying to solve the
-problem of parallel inflection and combinbation at the same time: as
+problem of parallel inflection and combination at the same time: as
 illustrated in Figure~\ref{fig:Swahili}, constraints about shape can
 be straightforwardly distributed over realisation rules for subject
 and object agreement (which are types), because their combination is
 effectively factored out. Thus, by abstracting over rules instead of
 words, generalisation about parallel inflection can be captured quite
-easily. This is in fact a more general problem that tends to get
-overlooked by radically word-based approaches such as
+easily. Sharing of resources is in fact a more general problem that
+tends to get overlooked by radically word-based approaches such as
 \citet{Blevins14}.
 
 \subsubsection{Modularity}
