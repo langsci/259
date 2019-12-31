@@ -1056,11 +1056,16 @@ order to explicitly represent exponents.
 The sample word-level representation in (\ref{fig:WordMph})
 illustrates the kind of information represented on the \textsc{mph}
 list and the \textsc{ms} set. While elements of the \textsc{ms} set
-are either inflectional features or lexemic properties, the latter comprising
-e.g. information about the stem shape or inflection class membership,
-\textsc{mph} is a list of structured elements consisting of a
-phonological description (\textsc{ph}) paired with a position class
-index (\textsc{pc}).   
+are either inflectional features or lexemic properties, the latter
+comprising e.g. information about the stem shape or inflection class
+membership, \textsc{mph} is a list of structured elements consisting
+of a phonological description (\textsc{ph}) paired with a position
+class index (\textsc{pc}), which serves to establish linear order of
+exponents. In some previous work on IbM, \textsc{mph} was assumed to
+be a set, which is possible since order can be determined on the basis
+of \textsc{pc} indices alone. More recently, however, it is assumed to
+be a list, which is slightly redundant, yet permits much more
+parsimonious descriptions of principles and rules.
 
 \begin{exe}
   \ex \textit{mph} $\rightarrow$
@@ -1083,7 +1088,7 @@ Although IbM recognises a minimal structure in terms of segmentable
 morphs, there is no hierarchy involved. AM and PFM, by contrast,
 reject derived structure, to borrow a term from Tree Adjoining
 Grammar, but this potential advantage is more than set off by their
-abundant use of derivation structure. 
+abundant use of derivation structure:  
 
 \begin{exe}
   \ex Structured association of form (\textsc{mph}) and function (\textsc{ms})   \label{fig:WordMph}
@@ -1278,22 +1283,22 @@ second clause ensures that the order implied by position class indices
 (\textsc{pc}) is actually obeyed. \citet{bonami_o-crysmann_b13hpsg}
 provide a formalisation of morph ordering using list constraints.
 
-Before closing this section, a brief note is in order regarding the
-choice of data structures: while it is evident that order is
-not an appropriate characteristic of morpho-syntactic property sets,
-the question whether to adopt a list-based representation or a
-set-based one is pertinent for exponents: on the one hand, lists have
-some initial plausilibility, given that morphs are ordered, but on the
-other one may regard this as redundant, given the existence of an
-explicit indexing schem,e in the form of \textsc{pc} values (which are
-themselves implemented as lists). In fact, until recently, most IbM
-work did assume \textsc{mph} sets rather than lists. Probably the only
-reason to prefer lists over sets is presentational: since lists have
-an inherent indexing scheme, identifying e.g. initial or final
-elements yields much more parsimonious representations with lists than
-it does with sets, which would require abundant explicit reference to
-\textsc{pc} values. Thus, IbM currently assumes \textsc{mph}-lists
-rather than \textsc{mph}-sets.
+% Before closing this section, a brief note is in order regarding the
+% choice of data structures: while it is evident that order is
+% not an appropriate characteristic of morpho-syntactic property sets,
+% the question whether to adopt a list-based representation or a
+% set-based one is pertinent for exponents: on the one hand, lists have
+% some initial plausilibility, given that morphs are ordered, but on the
+% other one may regard this as redundant, given the existence of an
+% explicit indexing schem,e in the form of \textsc{pc} values (which are
+% themselves implemented as lists). In fact, until recently, most IbM
+% work did assume \textsc{mph} sets rather than lists. Probably the only
+% reason to prefer lists over sets is presentational: since lists have
+% an inherent indexing scheme, identifying e.g. initial or final
+% elements yields much more parsimonious representations with lists than
+% it does with sets, which would require abundant explicit reference to
+% \textsc{pc} values. Thus, IbM currently assumes \textsc{mph}-lists
+% rather than \textsc{mph}-sets.
 
 Given the very general nature of the well-formedness constraints and
 particularly the commitment to monotonicity embodied by
@@ -2519,15 +2524,15 @@ must be evaluated twice.
 
 However, once we move from word-based statements to realisation rules,
 the problem simply vanishes, since we are not trying to solve the
-problem of parallel inflection and combination at the same time: as
-illustrated in Figure~\ref{fig:Swahili}, constraints about shape can
-be straightforwardly distributed over realisation rules for subject
-and object agreement (which are types), because their combination is
-effectively factored out. Thus, by abstracting over rules instead of
-words, generalisation about parallel inflection can be captured quite
-easily. Sharing of resources is in fact a more general problem that
-tends to get overlooked by radically word-based approaches such as
-\citet{Blevins14}.
+problem of parallelism of exponence and combination at the same time:
+as illustrated in Figure~\ref{fig:Swahili}, constraints about shape
+can be straightforwardly distributed over realisation rules for
+subject and object agreement (which are types), because their
+combination is effectively factored out. Thus, by abstracting over
+rules instead of words, generalisation regarding parallel sets of
+exponents can be captured quite easily. Sharing of resources is in
+fact a more general problem that tends to get overlooked by radically
+word-based approaches such as \citet{Blevins14}.
 
 \subsubsection{Modularity}
 
@@ -2646,17 +2651,20 @@ missing.
 
 In the area of derivation and grammatical function change, a consensus
 has been reached relatively early, toward the end of the last century,
-with the works of \citet{Riehemann98} and \cite{Koenig99}:
-within HPSG, it is now clearly understood that lexical rules are
-description level devices organised into cross-cutting inheritance
-type hierarchies. Beyond HPSG these works have influenced the
-development of Construction Morphology \citep{Booij10}, cf.\ also
-Chapter ~\crossrefchaptert{cxg}. 
+with the works of \citet{Riehemann98} and \cite{Koenig99}: within
+HPSG, it is now clearly understood that lexical rules are description
+level devices organised into cross-cutting inheritance type
+hierarchies. One of the distinctive advantages of these approaches is
+the possibility to capture regular, sub-regular and irregular
+formations using a single unified formal framework, namely partial
+decsriptions of typed feature structures. Beyond HPSG these works have
+influenced the development of Construction Morphology \citep{Booij10},
+cf.\ also Chapter ~\crossrefchaptert{cxg}.
 
-Much more recently, some consensus model seems to have arrived for the
+Much more recently, a consensus model seems to have arrived for the
 treatment of inflectional morphology: Information-based Morphology
-\citep{Crysmann:Bonami:2016,Crysmann:14:OUP} builds on previous work on
-inflectional morphology in HPSG (Bonami), Online Type Construction
+\citep{Crysmann:Bonami:2016,Crysmann:14:OUP} builds on previous work
+on inflectional morphology in HPSG (Bonami), Online Type Construction
 \citep{Koenig99}, morph-based morphology \citep{crysmann_b03book}, and
 finally unification-based approaches to Pāṇini's principle
 \citep{Andrews90,Erjavec94,Koenig99} to provide an
@@ -2664,7 +2672,13 @@ inferential-realisational theory of morphology that exploits the same
 logic as HPSG, namely typed feature structure inheritance network to
 capture linguistic generalisations. Furthermore, like its syntactic
 parent, it permits to strike a balance between lexicalist and
-constructional views.
+constructional views. By recognising $m:n$ relations between function
+and form at the most basic level, i.e. realisation rules,
+morphological generalisations are uniformly captured in terms of
+partial rule description.
+
+
+% Bring in m:n and new perspectives. 
 
 
 }
