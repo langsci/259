@@ -74,6 +74,13 @@ prepubs-pdfs/lexicon.pdf: chapters/lexicon.tex
 	chopchapters-bookmarks.sh prepublish.pdf prepubs-chop-pdfs
 	cp prepubs-chop-pdfs/04.pdf prepubs-pdfs/lexicon.pdf
 
+prepubs-pdfs/understudied-languages.pdf: chapters/understudied-langauges.tex
+	xelatex -no-pdf -shell-escape prepublish
+	biber prepublish
+	xelatex -shell-escape prepublish
+	chopchapters-bookmarks.sh prepublish.pdf prepubs-chop-pdfs
+	cp prepubs-chop-pdfs/05.pdf prepubs-pdfs/understudied-languages.pdf
+
 prepubs-pdfs/agreement.pdf: chapters/agreement.tex
 	xelatex -no-pdf -shell-escape prepublish
 	biber prepublish
@@ -123,7 +130,7 @@ prepubs-pdfs/semantics.pdf: chapters/semantics.tex
 	biber prepublish
 	xelatex -shell-escape prepublish
 	chopchapters-bookmarks.sh prepublish.pdf prepubs-chop-pdfs
-	cp prepubs-chop-pdfs/22.pdf prepubs-pdfs/semantics.pdf
+	cp prepubs-chop-pdfs/23.pdf prepubs-pdfs/semantics.pdf
 
 prepubs-pdfs/cl.pdf: chapters/cl.tex
 	xelatex -no-pdf -shell-escape prepublish
@@ -138,6 +145,13 @@ prepubs-pdfs/hpsg-minimalism.pdf: chapters/minimalism.tex
 	xelatex -shell-escape prepublish
 	chopchapters-bookmarks.sh prepublish.pdf prepubs-chop-pdfs
 	cp prepubs-chop-pdfs/32.pdf prepubs-pdfs/hpsg-minimalism.pdf
+
+prepubs-pdfs/hpsg-categorial-grammar.pdf: chapters/cg.tex
+	xelatex -no-pdf -shell-escape prepublish
+	biber prepublish
+	xelatex -shell-escape prepublish
+	chopchapters-bookmarks.sh prepublish.pdf prepubs-chop-pdfs
+	cp prepubs-chop-pdfs/33.pdf prepubs-pdfs/hpsg-categorial-grammar.pdf
 
 prepubs-pdfs/hpsg-dg.pdf: chapters/dg.tex
 	xelatex -no-pdf -shell-escape prepublish
@@ -165,6 +179,7 @@ prepublish.pdf: $(SOURCE) prepublish.tex
 prepubs-latex-cp: prepublish-pdfs
 	cp prepubs-chop-pdfs/02.pdf prepubs-pdfs/evolution.pdf
 	cp prepubs-chop-pdfs/04.pdf prepubs-pdfs/lexicon.pdf
+	cp prepubs-chop-pdfs/05.pdf prepubs-pdfs/understudied-languages.pdf
 	cp prepubs-chop-pdfs/06.pdf prepubs-pdfs/agreement.pdf
 	cp prepubs-chop-pdfs/07.pdf prepubs-pdfs/case.pdf
 	cp prepubs-chop-pdfs/10.pdf prepubs-pdfs/order.pdf
@@ -179,6 +194,7 @@ prepubs-latex-cp: prepublish-pdfs
 	cp prepubs-chop-pdfs/29.pdf prepubs-pdfs/dialogue.pdf
 	cp prepubs-chop-pdfs/31.pdf prepubs-pdfs/gesture.pdf
 	cp prepubs-chop-pdfs/32.pdf prepubs-pdfs/hpsg-minimalism.pdf
+	cp prepubs-chop-pdfs/33.pdf prepubs-pdfs/hpsg-categorial-grammar.pdf
 	cp prepubs-chop-pdfs/35.pdf prepubs-pdfs/hpsg-dg.pdf
 	cp prepubs-chop-pdfs/36.pdf prepubs-pdfs/hpsg-cxg.pdf
 
