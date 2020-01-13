@@ -64,14 +64,20 @@
   terminology in the context of grammar implementation platforms.
 }
 
-
 \begin{document}
 \maketitle
 \label{chap-formal-background}
 
+% \chapterDOI{} %will be filled in at production
+% \epigram{}
+\maketitle
+
+{
+\avmoptions{center}
 
 %--------------------------------------------------------------
-\section{Introduction} 
+\section{Introduction}
+\label{sec-introduction}
 
 The two HPSG books by Pollard and Sag
 \citep{PollardSag1987,PollardSag1994} do not present grammar formalisms
@@ -86,37 +92,48 @@ assumptions. With this strategy, both books leave room for
 interpretation.
 
 There are a number of challenges with reviewing the formal background
-of HPSG. Some of them have to do with the long or
-complicated publication history of relevant articles and books, some
-with the effects of grammar implementation platforms, which have
-their own underlying formalisms and influence the way in which
-linguists think and talk about their grammars with their own terminology
+of HPSG. Some of them have to do with the long publication history of relevant papers and books, some
+with the considerable influence of grammar implementation platforms, which have
+their own formalisms and shape the way in which
+linguists think and talk about grammars with their platform-specific terminology
 and notational conventions. % book chapter? 
-Salient examples include
+Salient examples include convenient
 notations for phrase structure rules, the treatment of lexical
 representations or the lexicon, mechanisms for lexical rules, and
 notations for default values, among many other devices.  Many of these
-notations are well-known in the HPSG community. Even if they do not
-strictly belong to a formal syntax, there is usually a way to
-interpret their convenient notations in formalisms intended for, or at least
-compatible with, HPSG. However,
-their re-interpretation can deviate to a larger or lesser degree from
-what their users have in mind when they write grammars. These
-differences may be sometimes subtle and sometimes significant, but
-they entail that the meaning of the notations when adapted to a
-formalism is not what their users might have deduced from the behavior
-of a given implementation platform for parsing or generation.
+notations are well-known in the HPSG community, they are convenient,
+compact and arguably even necessary to write readable grammars. At
+the same time, they are
+a meta-notation in the sense that they
+do not (directly) belong to the syntax of the assumed feature logics.
+However, even if they are outside a declarative, feature logical formalism for HPSG,
+there is usually a way to
+interpret them in HPSG-compatible formalisms, but the necessary
+re-interpretation can deviate to a larger or lesser degree from
+what their users have in mind when they write grammars. For example,
+a phrase structure rule in the sense of a context-free or context-sensitive
+rewrite system is not the same as an ID Schema in written in a feature logic, which in
+some cases might matter but not in others. To name one difference,
+an ID Schema may easily leave the number of daughters unspecified (and
+thus potentially infinite).
+The differences may be sometimes subtle and sometimes significant, but
+they entail that the meaning of the notations seen through the lense
+of logic is not what their users might assume either
+by what it means in other contexts or what is observed 
+from the behavior
+of a given implementation platform for parsing or generation which also
+employs a that kind of syntax.
 Similarly, terminology that belongs to the computational environment
 of implementations is often transferred to grammar theory, and
-again, a re-interpretation in terms of the underlying
+again, when looking at the technical specifics, a re-interpretation in terms of a feature logical HPSG
 formalism can sometimes be trivial and sometimes nearly impossible,
-and different available choices of re-interpretations might
-have significantly different effects.
+and different available re-interpretations choices might
+lead to significantly different results.
 
-It is not only the flexibility of the informal AVM notation and its
-convenient notational enhancements (for lexical rules, decorated sort
+It is not only the multi-purpose character and flexibility of the ubiquitous informal attribute-value matrix (AVM) notation and its
+practical notational enhancements (for lexical rules, decorated sort
 hierarchies, phrase structure trees, etc.) but also early changes in
-underlying foundational assumptions and terminology that one needs to
+foundational assumptions and terminology that one needs to
 be aware of when reviewing HPSG's formal background. When first
 presented in a book in 1987, HPSG was conceived of as a
 \emph{unification-based} grammar theory, a name, the authors
@@ -134,14 +151,14 @@ portions of the terminology of 1987 remain with us to this day, such as the
 when the term \emph{type} was used for a different concept, to be
 discussed below), the pieces of information (for 1987-style feature
 structures) or even the word \emph{unification}, which took on a
-casual life of its own without the underlying original algebra in
+casual life of its own without the original algebra in
 which it had been defined. Occasionally these words still have a
-concrete technical interpretation in the language of grammar
+precise technical interpretation in the language of grammar
 implementation environments or in their run-time system, which may
 reinforce their use in the community despite their lack of meaning in
-the standard formalism of HPSG. Implementation platforms may also add
-their own convenient technical and notational devices, implicitly
-inviting linguists to import them into their theoretical grammar
+the standard formalism of HPSG. Implementation platforms also often add
+their own technical and notational devices, thereby
+inviting linguists to import them as useful tools into their theoretical grammar
 writing.
 
 %Another aspect that is frequently overlooked or ignored concerns
@@ -153,18 +170,17 @@ writing.
 %on  --> if at all, this will be in Sections \ref{sec-alt-gr-meaning} and
 %\ref{sec-alt-formalisms}
 
-This handbook article cannot disentangle the history and relationships
+This handbook article cannot disentangle the history of and relationships
 between the various formalisms leading to an explication of the
 1994 version of HPSG, nor of those that existed and still exist in
 parallel. It sets out to clarify the terminology and
 structure of a formalism for \cite{PollardSag1994} and
 presents a canonical formalism of the final version of
-HPSG in \cite{PollardSag1994}. It will only occasionally point out some of
+HPSG in \cite{PollardSag1994}. Only occasionally will it point out some of
 the differences to its 1987 precursor where
 the older terminology is still present in current HPSG papers and
 may be confusing to an audience unaware of the different
-usages of terms which mean different things in different
-contexts.
+usages of terms.
 
 %I will clarify parallel terminological traditions and
 
@@ -176,7 +192,281 @@ for HPSG, \emph{Relational Speciate Re-entrant Language} (RSRL) by
 in \citet{Richter2007a}.
 
 
+\section{Essentials: an informal overview}
+\label{sec-essentials}
+
+%informal first pass through the architecture of the formalism, introducing
+%terminology and main concepts
+
+This section gives an informal summary of the essentials of an HPSG
+formalism in the sense \cite{PollardSag1994} as it emerged from the
+original outline and its subsequent elaboration. From now on, the term
+HPSG formalism always refers to this tradition, unless explicitly
+stated otherwise.  The task of all following sections is to flesh out
+the basic ideas introduced here with a precise technical treatment of
+the relevant notions. Readers who are already familiar with feature
+logics and are interested in technical details may want to skip this section and
+continue directly with Section~\ref{sec-signatures}.
+
+At the heart of HPSG is a fundamental distinction between descriptions
+and described objects: A grammar avails itself of descriptions with
+the purpose of describing linguistic objects.  \cite{PollardSag1994}
+commits to the the ontological assumption that linguistic objects only
+exist as complete objects. Partial linguistic objects do not
+exist. Descriptions of linguistic objects, however, are typically
+partial, i.e.\ they do not mention many or even most properties of the
+objects in their denotation. They are \emph{underspecified} or
+\emph{partial}. A word can be described as being nominal
+and in plural leaving all its other properties unspecified. But any
+concrete word being so described will have all other properties that
+a plural noun can have, with none of them missing.
+A single underspecified description can therefore
+describe many distinct linguistic objects. Grammatical descriptions
+often describe an infinity of objects. Again considering plural nouns,
+English could be thought of as having a very large number or infinity
+of them considering its productive morphology.
+
+Descriptions are couched in a (language of a) feature logic rather
+than in English. Linguistic objects as the subject of linguistic study
+are sharply distinguished from their logical descriptions and are
+entities in the denotation of the grammatical descriptions.  The
+feature logic of HPSG can be seen as a particularly expressive variant
+of description logics. With this architecture, HPSG is a
+\emph{model-theoretic} grammar framework as opposed to the
+\emph{generative-enumerative} grammar frameworks which are
+characterized by comprising rule systems that generate expressions
+from some start symobl(s).
+
+A small digression might be in order to prevent confusion arising from the
+co-existence of different versions of feature logics.  Varieties of
+HPSG more closely related to the tradition of \cite{PollardSag1987} do
+not make the same distinction between descriptions and described
+objects. Instead they employ a notion of \emph{feature structures} as
+entities carrying \emph{partial information}. These partial feature
+structures are logical expressions in a certain normal form and are
+ordered in an agebra of partial information according to the amount of
+information they carry. In informal notation they are written as AVMs
+just like the descriptions of the formalism we are mainly concerned
+with in this handbook article, and this notational similarity
+contributes to obscuring deeper but substantial differences.  When
+two of these feature structures carry compatible information they are
+said to be unifyable. Their unification returns a unique third feature
+structure in the given algbra that carries the more specific
+information that is obtained when combining the previous two pieces of
+information (supposing they were not the same). These ideas and the
+properties of these algebras of feature logics are still essential for
+all current HPSG implementation platforms, which is presumably one of
+the reasons why the terminology of unification and unification-based
+grammars is still very popular in the HPSG community. Returning to
+\cite{PollardSag1994}, in a certain, very informal and casual sense
+combining two non-contradictory descriptions into one single bigger
+description by logical conjunction could be called -- and often is
+called -- their unification. However, since the logical descriptions of
+HPSG in the tradition of \cite{PollardSag1994} can no longer be arranged
+in an appropriate algebra, there is no technical interpretation of the
+term in this context.\footnote{This state of affairs is also responsible for the fact that implementation platforms either provide only a restricted syntax of descriptions compared to full HPSG or supply additional syntax which extends a logic of partial information toward the expressiveness of a feature logic with classical interpretation of negation and relational expressions.}
+
+HPSG employs partial descriptions in all areas of grammar, comprising
+at least syntax, semantics, pragmatics and morphology. The
+descriptions are normally notated in AVMs and contain sort symbols (by
+convention in italics with lower case letters), attribute symbols (by
+convenstion in small caps). These are augmented by the standard
+logical connectives (conjunction, disjunction, negation and
+implication) and relation symbols. So-called \emph{tags}, boxed
+numbers, function as variables. (\ref{ex-noun}) shows a typical example
+in which \type{word}, \type{noun} and \type{plural} are sorts and
+\attrib{synsem}, \attrib{local}, \attrib{category}, etc.\ are attributes,
+and the entire AVM is a description of plural nouns.
+
+\begin{exe}
+  \ex\label{ex-noun}
+  \begin{avm}
+    \[\asort{word}
+    synsem local & \[category & \hspace{-2cm}\[head & noun\]\\
+                     content index number & plural\]
+    \]
+  \end{avm}
+\end{exe}
+
+A description such as (\ref{ex-noun}) presupposes a declaration of the
+admissible nonlogical symbols: As in any formal logical theory, the
+vocabulary of the formal language in which the logical theory is
+written must be declared (often as the \emph{alphabet} of the
+language, together with a set of logical symbols). This means that the
+list of sorts, attributes and relation symbols must be listed. HPSG
+goes beyond merely stating the nonlogical vocabulary as sets of
+symbols by imposing additional structure on the set of sorts and on
+the relationship between sorts and attributes. This additional
+structure is known as the \emph{sort hierarchy} and the \emph{feature
+  (appropriateness) declarations}.
+
+Essentially the sort hierachy and the feature declarations provide the
+space of possible structures of the linguistic universe that an HPSG
+grammar talks about with its grammar principles. Metaphorically
+speaking, they generate a space of possible structures which is then
+constrained to the actual, well-formed structures which a
+linguist deems the grammatical structures of a language. The
+interaction between sort hierarchy and feature declarations is
+regulated by assumptions about feature inheritance and feature value
+inheritance. This can best be explained with a small example, using
+the (slightly modified) tiny fragment from the sort hierarchy and
+feature appropriateness of \cite{PollardSag1994} shown in
+Figure~\ref{ex-hier-decl}.
+
+\begin{figure}
+\begin{forest}
+[{\footnotesize\textit{object}}
+[{{\avmoptions{center}\begin{avm}\[\asort{substantive}
+						prd & boolean\]\end{avm}}}
+  [{{\avmoptions{center}\begin{avm}\[\asort{verb} vform & vform\\
+                                                  prd & plus\]\end{avm}}}]
+  [{{\avmoptions{center}\begin{avm}\[\asort{noun} case & case\]\end{avm}}}] ]
+[{\footnotesize\textit{case}}]
+[{\footnotesize\textit{vform}}]
+[{\footnotesize\textit{boolean}}
+  [{\footnotesize\textit{plus}}]
+  [{\footnotesize\textit{minus}}] ]
+]
+\end{forest}
+\caption{\label{ex-hier-decl}Example of sort hierarchy with feature declarations}
+\end{figure}
+
+%\begin{exe}
+% \ex\label{ex-subst}
+%   substantive hierarchy
+% \ex\label{ex-bool}
+%   boolean hierarchy
+% \ex\label{ex-sub-decl}
+%   \type{substantive}:
+% \ex\label{ex-decl-verb}
+%   \type{verb}:
+% \ex\label{ex-decl-noun}
+%   \type{noun}:
+%\end{exe}
+
+According to Figure~\ref{ex-hier-decl}, a top sort \type{object} is
+the highest sort with immediate subsorts \type{substantive}, \type{case},
+\type{vform} and \type{boolean}. The two sorts \type{substantive} and
+\type{boolean} have their own immedate subsorts: \type{verb} and \type{noun},
+and \type{plus} and \type{minus}, respectively. All are subsorts of
+\type{object}. The six sorts \type{verb}, \type{noun}, \type{case},
+\type{vform}, \type{plus} and \type{minus} are \emph{maximally specific} in
+this hierarchy, because they do not have proper subsorts. Such sorts are
+also called \emph{species}. The four sorts \type{case}, \type{vform},
+\type{plus} and \type{minus} are also called atomic, because the are species
+and they do not have attributes appropriate to them.
+
+Figure~\ref{ex-hier-decl} contains nontrivial feature declarations for the sorts
+\type{substantive}, \type{verb} and \type{noun}, and it also illustrates
+the idea behind feature inheritance. First of all, \type{verb} and
+\type{noun} have attributes which are only appropriate to them but to
+no other sort: \attrib{vform} is only appropriate to \type{verb},
+and \attrib{case} is only appropriate to \type{noun}. But there is
+one more attribute appropriate to both due to feature inheritance:
+The attribute \attrib{prd} is declared appropriate to \type{substantive},
+and appropriateness declarations are inherited by subsorts, so \attrib{prd}
+is also appropriate to \type{verb} and \type{noun}. The sort \emph{noun}
+inherits the declaration unchanged from \type{substantive}.
+
+Finally, we have to consider attribute values and their inheritance
+mechanism. Whereas attributes are called appropriate \emph{to} a sort,
+I call a sort appropriate \emph{for} an attribute at a given sort when
+talking about attribute values. For examle, the non-maximal sort
+\type{boolean} is declared appropriate for the attribute \attrib{prd}
+at \type{substantive}. This value declaration is also inherited by the
+subsorts, with a slight twist to it: At any subsort the value for an
+attribute can become \emph{more specific} (but not less specific) than
+at its supersort(s), and this is what happens here at the subsort
+\type{verb} of \type{substantive}.  At \type{verb} the value of
+\attrib{prd} must be one particular subsort of \type{boolean}, namely
+\type{plus}.
+
+Another crucial aspect of the sort hierarchy and the feature
+declarations is their significance for the meaning of
+grammars. Structures in the denotation of a grammar must fulfill all
+their combined restrictions plus the constraints imposed by all
+grammar principles. Every denoted object must be of a maximally
+specific sort, i.e.\ Figure~\ref{ex-hier-decl} allows only objects of
+one of its six species in the hierarchy. In addition, all attributes
+declared appropriate for a species (possibly by inheritance) must be
+present on objects of that species, with the values of course also
+obeying the feature declarations and being maximally specific. For
+example, an object of sort \type{noun} has \attrib{case} and
+\attrib{prd} properties. The object that is the \attrib{case} value
+must be of sort \type{case} (because \type{case} is a species in the
+present example, unlike in real grammars where \type{case} has
+subsorts), and the sort of the \attrib{prd} value must be either
+\type{plus} or \type{minus}, one of the two species which are
+maximally specific subsorts of \type{boolean}.  With these
+restrictions, declarations like in Figure~\ref{ex-hier-decl} determine
+the ontology of possible structures in the denotation of a
+grammar. These possible structures are further restricted by the
+grammar principles, leaving the well-formed structures as the
+predictions of a grammar.
+
+This is a good opportunity to reconsider underspecified descriptions.
+With the sort hierachy and feature declarations of Figure~\ref{ex-hier-decl}
+there is a number of ways to underspecify the description of structures
+of sort \type{noun}. All following AVMs describe the same structures:
+
+\begin{exe}\label{ex-desc-n}
+  \ex
+  \begin{xlist}
+    \ex\label{ex-n-n} \begin{avm}
+        \[\asort{noun}\]
+        \end{avm}
+    \ex\label{ex-n-o}  \begin{avm}
+      \[\asort{noun}
+        case & object\]
+    \end{avm}
+    \ex\label{ex-o-o} \begin{avm}
+      \[\asort{object}
+        case & object\]
+        \end{avm}
+     \ex\label{ex-n-full} \begin{avm}
+        \[\asort{noun}
+        case & case\\
+        prd & plus $\vee$ minus\]
+        \end{avm}
+        
+  \end{xlist}
+\end{exe}
+
+All AVMs in (\ref{ex-desc-n}) denote the same pair of objects as the
+fully specific AVM in (\ref{ex-n-full}): \type{noun} structures with
+the \attrib{case} property \type{case} and the \attrib{prd} property
+\type{plus} or the \attrib{prd} value \type{minus}. For \type{noun}
+structures (\ref{ex-n-n}), these are the only two choices. Of course
+it can be mentioned that they have a \attrib{case} property and leave
+its value underspecified, but that does not make a difference. And the
+only \type{object}s with \attrib{case} (\ref{ex-o-o}) are nouns, and
+for noun structures we have the two variants discussed before.
+
+
+The idea of grammar principles is that they are descriptions which
+every structure in the denotation obeyes in all its substructures.
+
+
+The meaning of grammars:
+The nature of what was termed \emph{linguistic objects} above
+has been under intense discussion.
+
+illustrate with: Head Feature Principle, Word Principle, Subcat Principle (?)
+
+
+HPSG as a constraint-based grammar framework: grammar principles are restrictions that exclude non-admissible structures
+
+partial descriptions of complete objects:
+Signatures declare the space of possible structures: properties of objects, possible generalizations in descriptions by ordering sorts in a hierarchy; inherent partiality of descriptions: omitted attribute value descriptions leave the possible value unspecified (`underspecification')
+Assumptions on well-formedness: totally well-typedness, sort-resolvedness
+
+origin of HPSG in work on feature logics, especially the work culminating in Carpenter (1990?): logic of typed feature structures, logics of partial information; this work was particularly interested in inferencing and used feature structures and their properties to investigate various logics, with unification as a central notion in appropriate algebras of partial feature structures. HPSG went beyond that approach
+
+debate on the meaning of grammars discusses the ontological status of the structures in the denotation of an HPSG grammar. special for HPSG: different proposals were made mathematical precise with the same class of formal languages, i.e. the proposals can be directly compared and mappings between them can be defined - its not only an abstract philosophical discussion, they can be compared in unprecedented level of detail.
+
+
 \section{Signatures and descriptions}
+\label{sec-signatures}
 
 As logical theories of entities in a domain of objects, HPSG grammars
 consist of two main components. First, a logical signature, which
@@ -207,7 +497,8 @@ investigate the two most prominent sets of non-logical symbols, sorts
 and attributes. The set of \emph{sort} symbols is arranged in a
 \emph{sort hierarchy}, and that sort hierarchy is in turn connected to
 the set of \emph{attribute} symbols (also known as
-\emph{features}). The sort hierarchy is a partial order, and\marginpar{def.\ partial order?}
+\emph{features}). The sort hierarchy is a partial order\footnote{A partial order is given by a set whose pairwise distinct elements stand in a reflexive,
+antisymmetric and transitive ordering relation.}, and
 attributes are declared \emph{appropriate to} sorts
 in the sort hierarchy. This appropriateness declaration must not be
 entirely random: if an attribute is declared appropriate to some sort,
@@ -267,7 +558,7 @@ descriptions. $F$ is a function for fixing the appropriateness conditions
 on attributes and attribute values, and the conditions on that function
 reflect HPSG's restrictions on feature declarations. $F$ is called the
 \emph{(feature) appropriateness function}. The last two lines of
-the definition provide the set of relation symbols with their arity.
+the definition provide the set of relation symbols, $R$, with their arity, $Ar$.
 We assume that relations are at least unary.
 
 Relations in HPSG often express relationships between
@@ -407,6 +698,7 @@ have to explain the meaning of signatures and of descriptions.
 
   
 \section{Meaning of signatures and descriptions}
+\label{sec-meaning}
 
 Descriptions of RSRL are interpreted similar to expressions of
 classical logics such as first order logic, except that they are not
@@ -574,7 +866,7 @@ $\Tinte^{g}_{\Inte}(v)(u)=g(u)$,\\
 \hspace*{1cm}if $\Tinte^{g}_{\Inte}(\tau\phi)(u)$ is defined then
              $\Tinte^{g}_{\Inte}(\tau\phi)(u)=\Aug{\Atti}(\phi)(\Tinte^{g}_{\Inte}(\tau)(u))$.
 \end{mydef}
-$\Tinte^{g}_\Inte$ is called the \emph{term interpretation function
+$\Tinte^{g}_{\Inte}$ is called the \emph{term interpretation function
   under $\Inte$ under $g$}. $\Sigma$ terms either start with a
 variable or with the special symbol colon (`$\its$'). The colon
 denotes the identity function. Interpreted on any object, it returns
@@ -607,8 +899,8 @@ for each $u\in\Unive$,\\
    =\set[$u'\in\Unive$
     \set=for some $g\in\VarInt_{\Inte}$,\\
          for some \(\pi \in A^*\),\einruck
-         $\Tinte^{g}_\Inte(\its\pi)(u)$ is defined, and\einruck
-         $u'=\Tinte^{g}_\Inte(\its\pi)(u)$
+         $\Tinte^{g}_{\Inte}(\its\pi)(u)$ is defined, and\einruck
+         $u'=\Tinte^{g}_{\Inte}(\its\pi)(u)$
     \set]$.
 
 \end{mydef}
@@ -861,7 +1153,7 @@ convention), be infinite:
 \begin{mydef}
 For each signature $\Sigma$,
 for each $\Sigma$ interpretation $\Inte=\Interpretation$,
-$\Theta_\Inte$ is the total function from the power set of $D_0^{\Sigma}$ to the
+$\Theta_{\Inte}$ is the total function from the power set of $D_0^{\Sigma}$ to the
 power set of $\Unive$ such that
 for each $\theta\subseteq D_0^{\Sigma}$,
 
@@ -871,7 +1163,7 @@ $u\in \Unive$
 \set= for each $\delta \in \theta$,
       $u\in\Dinte_{\Inte}(\delta)$
 \set]$.
-%\{u\in U\mid$ for each $\delta\in\theta$, $u\in D_\Inte(\delta)\}$.
+%\{u\in U\mid$ for each $\delta\in\theta$, $u\in D_{\Inte}(\delta)\}$.
 \end{mydef}
 
 $\Theta_{\Inte}$ is the \emph{theory denotation function with respect
@@ -890,7 +1182,7 @@ For each grammar $\Gamma = \left< \Sigma, \theta \right>$,
 for each $\Sigma$ interpretation $\Inte=\Interpretation$,
 $\Inte$
 is a \emph{$\Gamma$ model} iff
-\(\Theta_\Inte(\theta) =\Unive\).
+\(\Theta_{\Inte}(\theta) =\Unive\).
 \end{mydef}
 
 A $\Gamma$ model is an interpretation $\Inte=\Interpretation$ in which
@@ -1233,23 +1525,16 @@ detail that is hardly achieved elsewhere in linguistics.
 
 
 
-
-
-
-
-
-
 %--------------------------------------------------------------
-%\section*{Abbreviations}
 %\section*{Abbreviations}
 
 
 %--------------------------------------------------------------
-%\section*{Acknowledgements}
+\section*{Acknowledgements}
 
 
-{\sloppy
 \printbibliography[heading=subbibliography,notkeyword=this]
+
 }
 \end{document}
 
