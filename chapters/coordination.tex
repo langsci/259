@@ -1,15 +1,58 @@
-\documentclass[output=paper]{langsci/langscibook} 
+\documentclass[output=paper
+                ,modfonts
+                ,nonflat
+	        ,collection
+	        ,collectionchapter
+	        ,collectiontoclongg
+ 	        ,biblatex
+                ,babelshorthands
+                ,newtxmath
+                ,draftmode
+                ,colorlinks, citecolor=brown
+]{./langsci/langscibook}
 
-%\usepackage[linguistics]{forest}
-\usepackage{qtree}
+\IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
+  \input{../localpackages}
+  \input{../localcommands}
+  \input{../localhyphenation}
+  \bibliography{../Bibliographies/stmue,
+                ../localbibliography,
+../Bibliographies/formal-background,
+../Bibliographies/understudied-languages,
+../Bibliographies/phonology,
+../Bibliographies/case,
+../Bibliographies/evolution,
+../Bibliographies/agreement,
+../Bibliographies/lexicon,
+../Bibliographies/np,
+../Bibliographies/negation,
+../Bibliographies/argst,
+../Bibliographies/binding,
+../Bibliographies/complex-predicates,
+../Bibliographies/coordination,
+../Bibliographies/relative-clauses,
+../Bibliographies/udc,
+../Bibliographies/processing,
+../Bibliographies/cl,
+../Bibliographies/dg,
+../Bibliographies/islands,
+../Bibliographies/diachronic,
+../Bibliographies/gesture,
+../Bibliographies/semantics,
+../Bibliographies/pragmatics,
+../Bibliographies/information-structure,
+../Bibliographies/idioms,
+../Bibliographies/cg,
+../Bibliographies/udc,
+../collection_tmp.bib}
+
+  \togglepaper[17]
+}{}
 
 
-
-\author{Anne Abeill\'{e}\affiliation{Laboratoire de Linguistique Formelle, University of Paris} \lastand Rui P. Chaves\affiliation{Linguistics Department, University at Buffalo, The State University of New York}}
+\author{Anne Abeillé\affiliation{Laboratoire de Linguistique Formelle, University of Paris} \lastand Rui P. Chaves\affiliation{Linguistics Department, University at Buffalo, The State University of New York}}
 \title{Coordination} 
 
-
-\newcommand{\subl}[1]{$_{\small \textsc{#1}}$}
 
 
 % \chapterDOI{} %will be filled in at production
@@ -18,10 +61,10 @@
 
 \abstract{Coordination is a central topic in theoretical linguistics. Following GPSG, which provided the first formal analysis of unlike coordination, HPSG has developed detailed analyses of different coordination constructions in a variety of unrelated languages. Central to the HPSG analyses are two main ideas: (i) coordination structures are non-headed phrases, (ii) coordinate daughters display some kind of parallelism, which is captured by feature sharing ; from these ideas, specific properties can be derived, regarding extraction and agreement for instance. Many HPSG analyses also agree that coordination is a cover term for a wide variety of  different constructions which can be viewed as different subtypes of coordinate phrases, which can be cross-classified with other subtypes of the grammar (nominal or not, with ellipsis or not etc.) We present the description of various coordination phenomena and show that HPSG can account for their subtle properties, while integrating them in the general organization of the grammar.}
 
-\maketitle
 
 
 \begin{document}
+\maketitle
 \label{chap-coordination}
 
 \avmoptions{inactive}
@@ -263,7 +306,7 @@ Although prosodic phrasing is not generally believed to always align with syntac
 \begin{exe}
 \ex \textsc{Coordination Construction} (preliminary)
 
-\begin{avm} \type{coord-phr} $\rightarrow$ 
+\begin{avm} \type{coord-phr} \impl
 \[synsem   \| cat \@{1}\\
 dtrs \<\[synsem \| loc \| cat \@{1}\]\>$\oplus$ 
 \type{ne-list}\(\[synsem \| loc \| cat  \@{1}\]\)\]\end{avm}\label{coordparam2}
@@ -278,13 +321,13 @@ defines three subtypes of \type{coord-phr}, assuming a lexical feature \textsc{c
 
 \begin{exe}
 \ex
- \begin{avm}\type{simple-coord-phr} $\rightarrow$
+ \begin{avm}\type{simple-coord-phr} \impl
  \[dtrs &  \type{ne-list}\(\<\[coord &  nil\]\>\) \, $\oplus$ \type{ne-list}\(\[coord \type{crd}\]\)\]\end{avm}
 
- \begin{avm}\type{omnisyndetic-coord}  $\rightarrow$ 
+ \begin{avm}\type{omnisyndetic-coord}  \impl 
  \[dtrs  \type{ne-list}\(\[coord \type{crd} \]\)\]\end{avm}\label{omni}
 
- \begin{avm}\type{asyndetic-coord}  $\rightarrow$ 
+ \begin{avm}\type{asyndetic-coord}  \impl 
 \[dtrs   \type{ne-list}\(\[coord &  nil\]\)\]\end{avm}
 \end{exe}
 
@@ -323,7 +366,7 @@ and \citet{sangheepark} for HPSG work that specifically focuses on the semantics
 
 \begin{exe}
  \ex \begin{avm}
- %\type{coordinator} $\rightarrow$
+ %\type{coordinator} \impl
  \[\type{coord-lexeme}\\
  phon  \, \, $\langle$\type{and}$\rangle$\\
   synsem  \[loc \[cat & \[head & \[\type{coord}\\
@@ -344,10 +387,9 @@ Since the second daughter is the head, the value of the mother's \textsc{head} f
 Head Feature Principle.\footnote{The Head Feature Principle \citep{pollardsag} states that the value of
 the mother's {\sc head} feature is identical to that of the head daughter's {\sc head} feature.}
 
-\begin{exe}
- \ex 
- \begin{avm}
-\type{head-func-cxt} $\rightarrow$
+\eas 
+\type{head-func-cxt} \impl\\
+\begin{avm}
  \[synsem & \[loc & \[cat & \[val & \@{0}\\
  coord & \@{1}\\
  mrgk & \@{3}\]\]\]\\
@@ -356,7 +398,7 @@ the mother's {\sc head} feature is identical to that of the head daughter's {\sc
                coord & \@{1}\\ mrkg & \@{3}\]\]\]\],
         \@{2}\[synsem \[loc \[ cat \[ val \@{0}\]\]\]\]\>\]
  \end{avm}\label{rulem}
-\end{exe}
+\zs
 
 
 \noindent
@@ -397,7 +439,7 @@ coordinator lexemes is shown in (\ref{lexcoordentry}).
 \begin{exe}
 \ex 
 \begin{avm}
-\type{coord-lexeme} $\rightarrow$
+\type{coord-lexeme} \impl
 \[phon & $\langle${\it and}$\rangle$\\
 synsem & \[loc & \[cat & \[head & \@{0}\\
                    coord & and\\
@@ -626,7 +668,7 @@ constructions have in common the fact that both daughters are marked by a specia
 \ex
             \begin{avm}
             \type{correl-construction}
-$\rightarrow$  
+\impl  
             \[synsem  & \[loc \[cat \[head & finite\\
             correl  & \type{none}\]\]\]\\
             dtrs & \< \[synsem \[loc \[cat \[correl \type{corr-mrk}\]\]\]\],\\ 
@@ -671,7 +713,7 @@ in (\ref{ecc}), where \type{the} is a sub-type of \type{corr-mrk} (i.e.\ is a co
 \begin{exe}
  \ex
 	\begin{avm}
-	\type{asymmetric-cc-cx} $\rightarrow$ %\type{assymetric-correl-cx} \& 
+	\type{asymmetric-cc-cx} \impl %\type{assymetric-correl-cx} \& 
 	\[hd-dtr \@{1}\\
              dtrs \<\[synsem \[loc \[cat \[correl & the\]\]\]\],\\ 
              \@{1}\[synsem \[loc \[cat \[correl & the\]\]\]\]\>\]
@@ -687,7 +729,7 @@ the absence of  correlative marking.
  \ex
 	\begin{avm}
 	\type{symmetric-cc-cx}
-$\rightarrow$ %\type{symmetric-correl-cx} \& 
+\impl %\type{symmetric-correl-cx} \& 
 	\[dtrs \<\[synsem \[loc \[cat \[correl & compar\]\]\]\],\\
 	\[synsem \[loc \[cat \[coord \type{ none $\vee$ et}\\
 	 correl  \type{compar}\]\]\]\]\>\]\end{avm}\label{ccf}
@@ -1101,8 +1143,8 @@ morbidity.{\sc f.sg} and death.{\sc f.sg} premature.{\sc f.pl}\\
  
 \begin{exe}
 \ex 
+\type{nom-coord-phrase} \impl
 \begin{avm}
-\type{nom-coord-phrase} $\rightarrow$  
 \[synsem & \[cont \[index & \[num & pl\\
                                               gen & \[m & \@{1}$\oplus$\@{2} \]\\
                                               pers & \[me  & \@{4}$\oplus$\@{6}\]
@@ -1173,7 +1215,7 @@ constraint that shares the {\sc index} value of the (nominal) coordinate mother 
 
 \begin{exe}
 \ex \begin{avm}
-\type{nom-coord-phrase} $\rightarrow$  
+\type{nom-coord-phrase} \impl
 \[synsem  & \[cont \[index & \@{1}\]\]\\
 dtrs & \< \[\, \],\ldots{},\[synsem \[cont \[index & \@{1}\]\]\]\>\]
 \end{avm}
@@ -1199,8 +1241,8 @@ The hypothesis  was that verb-subject agreement involves order domains and coord
 
 \begin{exe}
  \ex
+\type{nom-coord-ph} \impl\\
 \begin{avm}
-\type{nom-coord-ph} $\rightarrow$    
 \[synsem & \[loc \[cat \[head  \[ lagr & \@{1}\\
             ragr & \@{2}\]\]\]\]\\
 dtrs & \< \[synsem \[loc \[cat \[head \[lagr & \@{1}\]\]\]\]\],\ldots{}, 
@@ -1209,7 +1251,7 @@ dtrs & \< \[synsem \[loc \[cat \[head \[lagr & \@{1}\]\]\]\]\],\ldots{},
 
 \ex
 \begin{avm}
-\type{noun} $\rightarrow$    
+\type{noun} \impl    
 \[lagr & \@{1}\\
   ragr & \@{1}\\
   concord & \@{1}\]
@@ -1223,13 +1265,13 @@ Attributive adjectives constrain the agreement features of the noun they modify 
 \begin{exe}
  \ex 
           \begin{avm}
-          \type{prenominal-adj} $\rightarrow$ 
+          \type{prenominal-adj} \impl 
           \[concord & \@{1}\\
                        sel & \[lagr \@{1}\]\]\end{avm}
 
  \ex 
   \begin{avm}
-  \type{postnominal-adj} $\rightarrow$  
+  \type{postnominal-adj} \impl  
   \[concord & \@{1} $\vee$ \@{2}\\
             sel & \[concord & \@{1}\\
                     ragr & \@{2}\]\]\end{avm}
@@ -1343,17 +1385,17 @@ Not all conjunctions are felicitous with lexical coordination; \textit{but}, for
 Analyzing the conjunction as a weak head (see above), the sub-type for lexical coordination has to allow for the coordination of items waiting for complements: the conjunction (this is done by concatenation of 
 {\sc arg-st} lists as it is for complex predicates, see \crossrefchaptert{complex-predicates}). It thus inherits all the dependents of the word it combines with.
 
-\begin{exe}
-  \ex          \begin{avm}
-            \type{ lex-coord} $\rightarrow$ 
-           \[synsem \[loc \[cat  \[head &  \@{0}\\
+\ea
+\type{ lex-coord} \impl\\
+\begin{avm}
+   \[synsem & \[loc \[cat  \[head &  \@{0}\\
         weight &  \@{3}light\]\]\]\\
     arg-st & \@{1} $\oplus$ 
     \< \[synsem \[loc \[cat \[head & \@{0}\\
     weight & \@{3}\]\]\]\\
     arg-st \@{1} $\oplus$ \@{2}\]\> $\oplus$ 
     \@{2}\]\end{avm}
-\end{exe}    
+\z
 
                                                     
 The construct resulting from the coordination of lexical elements has hybrid properties: as a syntactic construct, it must be a phrase, but it also behaves as a word: coordinate verbs behave as lexical heads, coordinate adjectives may occur in positions ruled out for phrases. To overcome this apparent paradox, \citet{Abeille:06} analyses it as an instance of ``light'' phrase, following the {\sc weight} account of \citet{Abeille:Godard:2000} and \citet{Abeille:Godard:2004}. Light elements can be words or phrases, and can have a restricted mobility (see \crossrefchaptert{order}). For example prenominal modifiers can be constrained to be [{\sc weight} \emph{light}]. In this theory, light phrases can be coordinate phrases or head-adjunct phrases, provided all their daughters are light as Figure~\ref{light} illustrates.
@@ -1569,7 +1611,7 @@ This can be achieved by adding the constraints in (\ref{lpec}) to the coordinati
 \begin{exe}
 \ex
 \begin{avm}
-\textup{ \emph{coord-phr} $\Rightarrow$
+\textup{ \emph{coord-phr} \impl
 \[phon \@{1}$\oplus$\@{2}$\oplus$\@{3}%\\
     \\
  dtrs \< \[phon \@{1}$\oplus$\@{2}$_{ne-list}$\],
@@ -1624,7 +1666,7 @@ values of the  daughters.
 
 \begin{exe}
 \ex 
-\begin{avm} \type{ac-cx} $\Rightarrow$ \[head & \[cluster \<\@{1},\ldots{},\@{n}\>\]\\
+\begin{avm} \type{ac-cx} \impl \[head & \[cluster \<\@{1},\ldots{},\@{n}\>\]\\
  dtrs & \< \[synsem \@{1}\],\ldots{},
  \[synsem  \@{n}\] \> \]
 \end{avm}\label{lines}
@@ -1692,7 +1734,7 @@ A syntactic and non-elliptical account of Right-Node Raising is harder to mainta
 \citet{bresnan74},
  \citet[299]{wexlercull},  \citet[45]{grosu81},
  \citet{
-mccawley},  and \citet[382,footnote 30]{sab}
+mccawley},  and \citet[382, footnote 30]{sab}
 for more data and discussion.\footnote{\citet{
 steedman85,gapsteed,steedmanbook}
 and \citet[183]{dowty88} claim that
@@ -1768,7 +1810,7 @@ of \textsc{lid} is a list of semantic frames that canonically specify the meanin
 \begin{exe}
 \ex
 \begin{avm}
-{\small \type{rpe-cx} $\Rightarrow$
+{\small \type{rpe-cx} \impl
 \[mp & \@{$L_1$}$\oplus$\@{$R_1$}$\oplus$\@{$R_2$}$\oplus$\@{$R_3$}\\
   synsem & \@{0}\\
  dtrs & \< \[mp   \@{$L_1$}$\oplus$\@{$L_2$}\<\[phon & \@{$p_1$}\\ lid & \@{1}\],\ldots{}, \[phon & \@{$p_n$}\\
