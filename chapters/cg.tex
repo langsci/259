@@ -1,4 +1,53 @@
-\documentclass[output=paper]{langsci/langscibook} 
+\documentclass[output=paper
+                ,modfonts
+                ,nonflat
+	        ,collection
+	        ,collectionchapter
+	        ,collectiontoclongg
+ 	        ,biblatex
+                ,babelshorthands
+                ,newtxmath
+                ,draftmode
+                ,colorlinks, citecolor=brown
+]{./langsci/langscibook}
+
+\IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
+  \input{../localpackages}
+  \input{../localcommands}
+  \input{../localhyphenation}
+  \bibliography{../Bibliographies/stmue,
+                ../localbibliography,
+../Bibliographies/formal-background,
+../Bibliographies/understudied-languages,
+../Bibliographies/phonology,
+../Bibliographies/case,
+../Bibliographies/evolution,
+../Bibliographies/agreement,
+../Bibliographies/lexicon,
+../Bibliographies/np,
+../Bibliographies/negation,
+../Bibliographies/argst,
+../Bibliographies/binding,
+../Bibliographies/complex-predicates,
+../Bibliographies/coordination,
+../Bibliographies/relative-clauses,
+../Bibliographies/udc,
+../Bibliographies/processing,
+../Bibliographies/cl,
+../Bibliographies/dg,
+../Bibliographies/islands,
+../Bibliographies/diachronic,
+../Bibliographies/gesture,
+../Bibliographies/semantics,
+../Bibliographies/pragmatics,
+../Bibliographies/information-structure,
+../Bibliographies/idioms,
+../Bibliographies/cg,
+../Bibliographies/udc}
+
+  \togglepaper[33]
+}{}
+
 \author{Yusuke Kubota\affiliation{National Institute for Japanese Language and Linguistics}}
 \title{HPSG and Categorial Grammar}
 
@@ -22,9 +71,9 @@
  research, in the hope of stimulating further research in the two
  research communities on their respective open questions, and so that the two
  communities can continue to learn from each other.}
-\maketitle
 
 \begin{document}
+\maketitle
 \label{chap-cg}
 
 
@@ -830,11 +879,10 @@ English. For example, without additional restrictions, the simple CCG
 fragment above overgenerates examples such as the following (see, for
 example, \citealt{kuhlmann-etal-2015-lexicalization}):
 
-\begin{exe}
- \ex\label{overg}
-  *a$_{\mathrm{NP/N}}$ [$_{\mathrm{N/N}}$ powerful$_{\mathrm{N/N}}$ by
-  Rivaldo$_{\mathrm{N\backslash N}}$] shot$_{\mathrm{N}}$ 
-\end{exe}
+\ea[*]{\label{overg}
+a$_{\mathrm{NP/N}}$ [$_{\mathrm{N/N}}$ powerful$_{\mathrm{N/N}}$ by Rivaldo$_{\mathrm{N\backslash N}}$] shot$_{\mathrm{N}}$ 
+}
+\z
 Here, I will not go into the technical details of how this issue is
 addressed in the CCG literature.
 In contemporary versions of CCG, the application of 
@@ -2545,7 +2593,7 @@ can generally take place across clause boundaries. But then,
 expressions such as \textit{thinks Bill hates} can be assigned
 the same syntactic type (i.e.\  \syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}NP}) as lexical transitive verbs,
 overgenerating non-local binding of a reflexive from a subject NP in
-the upstairs clause (*\textit{John\ensuremath{_i} thinks Bill hates {himself\ensuremath{_i}}}).
+the upstairs clause (*~\textit{John\ensuremath{_i} thinks Bill hates {himself\ensuremath{_i}}}).
 
 In order to prevent this situation while still retaining the lexical
 analysis of reflexivization sketched above, some kind of restriction
@@ -2605,13 +2653,16 @@ handle cases like the following:
 \begin{exe}
  \exi{(i)}
   \begin{xlist}
- \ex
-    *John\ensuremath{_i} warned Mary about him\ensuremath{_i}.
- \ex
-    *John talked to Mary\ensuremath{_i} about her\ensuremath{_i}.
- \ex
-    *John explained himself\ensuremath{_i} to him\ensuremath{_i}.
-  \end{xlist}
+ \ex[*]{
+    John\ensuremath{_i} warned Mary about him\ensuremath{_i}.
+ }
+ \ex[*]{
+   John talked to Mary\ensuremath{_i} about her\ensuremath{_i}.
+ }
+ \ex[*]{
+    John explained himself\ensuremath{_i} to him\ensuremath{_i}.
+ }
+ \end{xlist}
 \end{exe}
 What is needed in effect is a schematic type specification that applies
 to a pronoun in any or all argument positions, i.e., stated on an
@@ -2626,8 +2677,9 @@ Cases such as the following also call for an extension (also a
 relatively straightforward one):
 
 \begin{exe}
- \exi{(ii)}
-  *John\ensuremath{_i} is proud of him\ensuremath{_i}.
+ \exi{(ii)}[*]{
+  John\ensuremath{_i} is proud of him\ensuremath{_i}.
+}
 \end{exe}
 By assuming (following \citealt{jacobson07}) that the [$\pm$p] feature
 percolates from NPs to PPs and by generalizing the irreflexive
@@ -2654,10 +2706,10 @@ application to the set of signs which are specified in the lexicon. I
 notate this restriction by using the dashed line notion in 
 what follows. Then (\ref{condBex}) will be derived as in (\ref{proof}).
 
-\begin{exe}
- \ex\label{condBex}
-  John praises him.
-\end{exe}
+\ea
+\label{condBex}
+John praises him.
+\z
 \begin{samepage2}
 \ea\label{proof}%
 \resizebox{\linewidth}{!}{\begin{minipage}[t]{\textwidth}%
@@ -2714,10 +2766,10 @@ the pragmatic component of pronominal anaphora resolution. However,
 the relevant discussion is rather sketchy, and the details of such a
 pragmatic alternative are not entirely clear.}
 
-\begin{exe}
- \ex\label{condBex2}
-  *Every student\ensuremath{_i} praised him\ensuremath{_i}. 
-\end{exe}
+\ea[*]{\label{condBex2}
+Every student\ensuremath{_i} praised him\ensuremath{_i}. 
+}
+\z
 According to Steedman, pronouns receive translations of the form
 \sem{  \trns{pro}(x)  }, %
 {}%
@@ -2736,14 +2788,21 @@ ruled out (via Principle B) is as follows:
 \end{exe}
 And this is where the CCG Binding Theory kicks in. The relevant part
 of the structure of the logical formula in (\ref{lf}) can be more
-perspicuously written as a tree as in (\ref{lf-tree}), which makes clear the
+perspicuously written as a tree as in Figure~\ref{fig-lf-tree}, which makes clear the
 hierarchical relation between sub-terms.
 
-\begin{exe}
- \ex\label{lf-tree}
-  \tikzset{level distance=25pt}
-  \Tree [.{} [.{} \raisebox{-1ex}{\trns{praise}} [.{}  \trns{pro} $x$ ] ] \raisebox{-1ex}{$x$} ]
-\end{exe}
+\begin{figure}
+\begin{forest}
+nice empty nodes
+[{} [{} [\trns{praise}] 
+    [{} 
+      [\trns{pro}]
+      [ $x$ ] ]] 
+  [$x$] ]
+\end{forest}
+\caption{Logical formula as a tree}\label{lf-tree}
+
+\end{figure}
 Principle B states that pronouns need to be locally free. (\ref{lf-tree})
 violates this condition since there is a locally c-commanding term 
 $x$ that binds \sem{  \trns{pro}(x)  } %
@@ -2801,15 +2860,14 @@ Finally, some comments are in order regarding the status of
 Principle C, the part of Binding Theory that is
 supposed to rule out examples such as the following:
 
-\begin{exe}
- \ex
-  \begin{xlist}
- \ex
-    *He\ensuremath{_i} talked to John\ensuremath{_i}.
- \ex
-    *He\ensuremath{_i} talked to John's\ensuremath{_i} brother.
-  \end{xlist}
-\end{exe}
+\eal
+\ex[*]{
+He\ensuremath{_i} talked to John\ensuremath{_i}.
+}
+\ex[*]{
+He\ensuremath{_i} talked to John's\ensuremath{_i} brother.
+}
+\zl
 
 The formulation of Principle C has always been a problem in lexicalist
 theories of syntax. While Principles A and
