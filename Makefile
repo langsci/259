@@ -195,7 +195,7 @@ prepubs-latex-cp: prepublish-pdfs
 	cp prepubs-chop-pdfs/31.pdf prepubs-pdfs/gesture.pdf
 	cp prepubs-chop-pdfs/32.pdf prepubs-pdfs/hpsg-minimalism.pdf
 	cp prepubs-chop-pdfs/33.pdf prepubs-pdfs/hpsg-categorial-grammar.pdf
-	cp prepubs-chop-pdfs/35.pdf prepubs-pdfs/hpsg-dg.pdf
+	cp prepubs-chop-pdfs/35.pdf prepubs-pdfs/hpsg-dependency-grammar.pdf
 	cp prepubs-chop-pdfs/36.pdf prepubs-pdfs/hpsg-cxg.pdf
 
 
