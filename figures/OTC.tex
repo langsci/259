@@ -1,0 +1,131 @@
+%!TEX program = xelatex
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{ifxetex} \usepackage{newtxmath}
+
+
+\usepackage{fontspec}
+
+\usepackage[margin=3cm]{geometry}
+
+\setmainfont[Ligatures={TeX,Common}]{FreeSerif}
+\setsansfont[Ligatures={TeX,Common}]{FreeSans} \setmonofont{FreeMono}
+\usepackage{polyglossia} \setdefaultlanguage{british}
+
+\usepackage{microtype}
+
+\usepackage{avm} \avmoptions{center} \avmfont{\small\sc} \avmvalfont{\small\it}
+\avmsortfont{\small\it}
+
+\usepackage{natbib}
+
+\usepackage{subfigure}
+
+%\newcommand{\text}{\mathrm}
+
+\usepackage{gb4e} \noautomath
+
+\usepackage{rtrees} \psset{angleA=-90,angleB=90,arm=0pt}
+
+\usepackage{booktabs}
+
+\usepackage{multirow}
+
+\newcommand{\dnode}[1]{\rnode{#1}{\fbox{#1}}}
+\newcommand{\tnode}[1]{\rnode{#1}{\textit{#1}}}
+
+\bibliographystyle{OUP-ling}
+
+\title{The role of morphology in Constraint-based lexicalist grammars}
+
+\author{Olivier Bonami and Berthold Crysmann}
+
+\date{2015}
+
+\newcommand{\url}{} \newcommand{\manuscript}{ms.} \newcommand{\pappresf}{Paper
+presented at the} \newcommand{\alsopubas}{Also published as}
+\newcommand{\toappear}{to appear} \newcommand{\earlypubin}{Previously published
+in}
+
+\pagestyle{empty}
+
+
+\begin{document}
+
+\resizebox{\textwidth}{!}{%
+  \tabcolsep.2\tabcolsep
+  \begin{tabular}{ccccccc}
+    \multicolumn{4}{c}{\tnode{lexeme}} \\[2ex]
+    \multicolumn{2}{c}{\dnode{ROOT}}  & \multicolumn{2}{c}{\dnode{VALENCE}}\\[2ex]
+    \multicolumn{2}{c}{\rnode{verbs} {
+    \begin{avm}
+      \[\asort{verbs}
+      cat & V\]
+    \end{avm}
+}}\\     \rnode{love}{
+    \begin{avm}
+      \[\asort{love-lxm} ph & love\\
+      sem & \[restr & \{\[reln & love-rel\\
+      act & index\\
+      und & index\]\}\]\] 
+    \end{avm}
+}  & \rnode{hate}{\begin{avm}
+      \[\asort{hate-lxm} ph & hate\\
+      sem & \[restr & \{\[reln & hate-rel\\
+      act & index\\
+      und & index\]\}\]\] 
+    \end{avm}
+}  & \rnode{trans}{\begin{avm}
+      \[\asort{trans-lxm}
+      cat & V\\
+      val & \[subj & \< NP$_{\@x}$ \>\\
+      comps & \< NP$_{\@y}$ \>\]\\
+      sem & \[restr & \{\[act & \@x\\
+      und & \@y\]\}\]
+      \]
+    \end{avm}
+            }
+        &
+      \rnode{pass}{\begin{avm}
+       \[\asort{pass-lxm}
+       cat & V\\
+       val & \[subj & \< NP$_{\@y}$ \>\\
+       comps & \< PP$_{\@x}$ \>\]\\
+       sem & \[restr & \{\[act & \@x\\
+       und & \@y\]\}\]
+       \]
+    \end{avm}}  \\[6em] 
+    
+    \rnode{love-act}{\colorbox[gray]{.7}{\textit{love-lxm} $\wedge$ \textit{trans-lxm}}} &
+    \rnode{love-pass}{\colorbox[gray]{.7}{\textit{love-lxm} $\wedge$ \textit{pass-lxm}}} &
+    \rnode{hate-act}{\colorbox[gray]{.7}{\textit{hate-lxm} $\wedge$ \textit{trans-lxm}}} &
+    \rnode{hate-pass}{\colorbox[gray]{.7}{\textit{hate-lxm} $\wedge$ \textit{pass-lxm}}}
+    
+     
+    \ncdiag{lexeme}{ROOT}
+    \ncdiag{lexeme}{VALENCE}
+    \ncdiag{ROOT}{verbs}
+    \ncdiag{VALENCE}{trans}
+    \ncdiag{VALENCE}{pass}
+
+    \ncdiag[linestyle=dashed]{love}{love-act}
+    \ncdiag[linestyle=dashed]{hate}{hate-act}
+    \ncdiag[linestyle=dashed]{love}{love-pass}
+    \ncdiag[linestyle=dashed]{hate}{hate-pass}
+    \ncdiag[linestyle=dashed]{trans}{love-act}
+    \ncdiag[linestyle=dashed]{trans}{hate-act}
+    \ncdiag[linestyle=dashed]{pass}{love-pass}
+    \ncdiag[linestyle=dashed]{pass}{hate-pass}
+%    \ncdiag{pass}{rumored}
+
+    \ncdiag{verbs}{love}
+    \ncdiag{verbs}{hate}
+    % \ncdiag{verbs}{hate}
+ %   \ncdiag{verbs}{rumored}
+
+    
+    
+  \end{tabular}
+ } 
+
+\end{document}

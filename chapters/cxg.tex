@@ -1,0 +1,1846 @@
+\documentclass[output=paper]{langsci/langscibook} 
+\author{Stefan Müller\affiliation{Humboldt-Universität zu Berlin}}
+\title{HPSG and Construction Grammar}
+
+% \chapterDOI{} %will be filled in at production
+
+%\epigram{Change epigram in chapters/03.tex or remove it there }
+\abstract{This chapter discusses the main tenets of Construction Grammar (CxG) and shows that HPSG adheres
+to them. This discussion includes surface orientation, language acquisition without UG, and inheritance
+networks and shows how HPSG (and other frameworks) are positioned along these dimensions. Formal variants of CxG will be briefly discussed and their relation to HPSG will be
+pointed out. It is argued that lexical representations of valence are more appropriate than phrasal
+approaches, which are assumed in most variants of CxG. Other areas of grammar seem to require
+headless phrasal constructions (\eg the NPN construction and certain extraction constructions) and
+it is shown how HPSG handles these. Derivational morphology is discussed as a further example of
+an early constructionist analysis in HPSG.}
+\maketitle
+
+\begin{document}
+\label{firstpage-cxg}\label{chap-cxg}
+\is{Construction Grammar|(}
+
+%% \inlinetodostefan{
+%% BobB: No doubt a ‘what you see is what you get’ is an important feature of the various forms of Construction Grammar, but it seems to me that the insistence that a few very general combinatorial mechanisms are not sufficient is more important and I would be inclined to emphasize this.}
+
+\noindent
+This chapter deals with Construction Grammar (CxG) and its relation to Head-Driven Phrase Structure
+Grammar (HPSG). The short version of the message is: HPSG is a Construction Grammar.\footnote{%
+  This does not mean that HPSG is not a lot of other things at the same time. For instance, it is
+  also a Generative Grammar in the sense of \citet[\page 4]{Chomsky65a}, that is, it is explicit and
+  formalized. HPSG is also very similar to Categorial Grammar (\citealt{MuellerUnifying};
+  \crossrefchapteralt{cg}). Somewhat ironically, Head-Driven Phrase Structure Grammar is not entirely
+  head-driven anymore (see Section~\ref{sec-npn}), nor is it a phrase structure grammar \crossrefchapterp{formal-background}.
+}
+It had constructional properties right from the beginning and over the years -- due to influence by
+Construction Grammarians like Fillmore and Kay -- certain aspects were adapted, making it possible to better
+capture generalizations over phrasal patterns. In what follows I will first say what Construction
+Grammars are (Section~\ref{sec-cxg}), and I will explain why HPSG as developed in \citew{ps,ps2} was a
+Construction Grammar and how it was changed to become even more Constructive
+(Section~\ref{sec-inheritance}). Section~\ref{sec-valence} deals with so"=called argument structure
+constructions, which are usually dealt with by assuming phrasal constructions in CxG, and explains
+why this is problematic and why lexical approaches are more appropriate. Section~\ref{sec-cxg-morphology} explains
+Construction Morphology, Section~\ref{sec-phrasal} shows how cases that should be treated phrasally
+can be handled in HPSG, and Section~\ref{sec-summary} sums up the paper.
+
+\section{What is Construction Grammar?}
+\label{sec-cxg}
+
+%\inlinetodostefan{Add Fillmore's insistance that there are grammatical constructions in the sense
+%  Chomsky rejected. Mention What is X doing Y and way-construction.}
+
+Construction Grammar was developed as a theory that can account for non-regular phenomena as observed
+in many idioms \citep*{FKoC88a}. It clearly set itself apart from theories like Government \& Binding
+\citep{Chomsky81a}, which assumes very abstract schemata for the combination of lexical items (\xbar
+rules). The argument was that grammatical constructions are needed to capture irregular phenomena
+and their interaction with more regular ones. In contrast, \citet[\page 7]{Chomsky81a} considered
+rules for passive or relative clauses as epiphenomenological; everything was supposed to follow from
+general principles.\footnote{
+  The passive in GB is assumed to follow from suppression of case assignment and the Case Filter,
+  which triggers movement of the object to SpecIP. The important part of the analysis is the combination of the verb stem
+  with the passive morphology. This is where suppression of case assignment takes place. This
+  morphological part of the analysis corresponds to the passive construction in theories like HPSG
+  and SBCG: a lexical rule. So in a sense there is a Passive Construction in GB as well.% 
+} According to Chomsky, grammar consisted of a set of general combinatorical rules
+and some principles. The Minimalist Program \citep{Chomsky95a-u} is even more radical, since only two combinatorial rules
+are left (External and Internal Merge). Various forms of CxG object to this view and state that
+several very specific phrasal constructions are needed in order to account for language in its
+entirety and full complexity. Phenomena for which this is true will be discussed in
+Section~\ref{sec-phrasal}. However, the case is not as clear in general, since one of the authors of
+\citet*{FKoC88a} codeveloped a head"=driven, lexical theory of idioms that is entirely compatible with the abstract rules of
+Minimalism \citep*{Sag2007a,KSF2015a,KM2019a}. This theory will be discussed in
+Section~\ref{sec-locality}. Of course, the more recent lexical theory of idioms is a Constructional
+theory as well. So the first question to answer in a chapter like this is: what is a construction in
+the sense of Construction Grammar? What is Construction Grammar? While it is
+relatively clear what a Construction is, the answer to the question regarding Construction Grammar
+is less straight-forward (see also \citealt[\page 35]{Fillmore88a} on this). Section~\ref{sec-def-construction} provides the definition for the term
+\emph{Construction} and Section~\ref{sec-tenets} states the tenets of CxG and discusses to what
+extent the main frameworks currently on the market adhere to them.
+
+\subsection{The notion Construction}
+\label{sec-def-construction}
+
+\citet*{FKoC88a} discuss sentences like (\mex{1}) and notice that they pose puzzles for standard
+accounts of the syntax and the syntax/semantics interface. 
+\eal
+\ex The more carefully you do your work, the easier it will get.
+\ex I wouldn't pay five dollars for it, let alone ten dollars.
+\zl
+The \emph{the} \suffix{er} \emph{the} \suffix{er} Construction is remarkable, since it combines aspects of normal syntax
+(clause structure and extraction) with idiosyncratic aspects like the special use of
+\emph{the}. In (\mex{0}a) the adverb phrase \emph{more carefully} does not appear to the left of
+\emph{work} but is fronted and \emph{the} appears without a noun. The second clause in (\mex{0}a) is structured
+in a parallel way. There have to be two of these \emph{the} clauses to form the respective
+construction. \citet*{FKoC88a} extensively discuss the properties of \emph{let alone}, which are
+interesting for syntactic reasons (the fragments following \emph{let alone}) and for information
+structural reasons. I will not repeat the discussion here but refer the reader to the paper.
+
+In later papers, examples like (\mex{1}) were discussed:
+\eal
+\ex What is this scratch doing on the table? \hfill\citep[\page 3]{KF99a}
+\ex Frank dug his way out of prison. \hfill\citep[\page 199]{Goldberg95a}
+\zl
+Again, the semantics of the complete sentences is not in an obvious relation to the material
+involved. The question in (\mex{0}a) is not about actions of a scratch, but rather the question is why
+there is a scratch. Similarly, (\mex{0}b) is special in that there is a directional PP that does not
+normally go together with verbs like \emph{dug}. It is licensed by \emph{way} in combination with a
+possessive pronoun.
+
+\citet{FKoC88a}, \citet{Goldberg95a}, \citet{KF99a} and Construction Grammarians in general argue
+that the notion of Construction is needed for adequate models of grammar, that is, for models of
+grammar that are capable of analyzing the examples above. \citet[\page 501]{FKoC88a} define
+Construction as follows: 
+
+\begin{quote}\label{def-construction-fillmore}
+Constructions on our view are much like the nuclear family (mother plus daughters) subtrees
+admitted by phrase structure rules, \textsc{except} that (1) constructions need not be limited to a mother
+and her daughters, but may span wider ranges of the sentential tree; (2) constructions may specify,
+not only syntactic, but also lexical, semantic, and pragmatic information; (3) lexical items,
+being mentionable in syntactic constructions, may be viewed, in many cases at least, as
+constructions themselves; and (4) constructions may be idiomatic in the sense that a large
+construction may specify a semantics (and/or pragmatics) that is distinct from what might be
+calculated from the associated semantics of the set of smaller constructions that could be used to
+build the same morphosyntactic object. \citep[\page 501]{FKoC88a}
+\end{quote}
+A similar definition can be found in Goldberg's work. \citet[\page 5]{Goldberg2006a} defines \isi{Construction} as follows:
+\begin{quote}
+Any linguistic pattern is recognized as a construction as long as some aspect of its form or
+function is not strictly predictable from its component parts or from other constructions recognized
+to exist. In addition, patterns are stored as constructions even if they are fully predictable as
+long as they occur with sufficient frequency. \citep[\page 5]{Goldberg2006a}
+\end{quote}
+The difference between this definition and earlier definitions by her and others is that patterns
+that are stored because of their frequencies are included. This addition is motivated by
+psycholinguistic findings that show that forms may be stored even though they are fully regular and
+predictable \parencites{Bybee95a-u}[\page 228]{PJ2005a}.
+%% Bob: 
+%% > p,12, Goldberg quote. I assume not all forms of Construction
+%% > Grammar would assume that ‘patterns are stored as constructions even if
+%% > they are fully predictable as long as they occur with sufficient
+%% > frequency.’ If this is right, perhaps it is worth saying.
+%
+
+Goldberg provides Table~\ref{tab-constructions} with examples for Constructions.
+%\inlinetodostefan{BB: I understand her view is that constructions must have a distinctive meaning. I
+%  believe Jackendoff argues against this, and Newmeyer and I did here: \citew{BN2009a}}
+\begin{table}
+\oneline{%
+\begin{tabular}{ll}\lsptoprule
+Word                    & e.g., \emph{tentacle}, \emph{gangster}, \emph{the} \\
+Word (partially filled) & e.g., \emph{post}-N, V-\emph{ing}\\
+Complex word            & e.g., \emph{textbook}, \emph{drive-in}\\
+Idiom (filled)          & e.g., \emph{like a bat out of hell}\\
+Idiom (partially filled) & e.g., \emph{believe} <one’s> \emph{ears/eyes}\\
+Covariational Conditional &  The Xer the Yer\\
+                          & (e.g., \emph{The more you watch the less you know})\\
+Ditransitive              &  Subj V Obj1 Obj2\\
+                          & (e.g., \emph{She gave him a kiss};\\
+                          & \emph{He fixed her some fish tacos.})\\
+Passive                   & Subj aux VPpp ( PPby )\\
+% Subj kann bei Kontrollkonstruktionen entfallen
+                          & (e.g., \emph{The cell phone tower was struck by lightning.})\\\lspbottomrule
+\end{tabular}}
+\caption{\label{tab-constructions}Examples of constructions, varying in size and complexity according to \citet{Goldberg2009b-u}}
+\end{table}
+In addition to such constructions with a clear syntax-semantics or syntax-function relation,
+\citet[\page 453]{Goldberg2013a} assumes a rather abstract VP construction specifying ``statistical
+constraints on the ordering of postverbal complements, dependent on weight and information
+structure''. 
+
+If one just looks at Goldberg's definition of Construction, all theories currently on the market could be
+regarded as Construction Grammars. As Peter Staudacher\aimention{Peter Staudacher} pointed out in the discussion after a talk by
+Knud Lambrecht\aimention{Knud Lambrecht} in May 2006 in Potsdam, lexical items are form-meaning pairs and the rules of
+phrase structure grammars come with specific semantic components as well, even if it is just
+\isi{functional application}.
+%% \footnote{
+%% For example, the semantics of \emph{all children} is computed from the meaning contribution of
+%% \emph{all} and \emph{children}. Which term is applied to which has to be determined by the grammar
+%% rules somehow. In a rule for NPs combining a determiner with a noun the nominal semantics has to be
+%% inserted into the determiner semantics:
+%% \eal
+%% \ex 
+%% \ex
+%% \zl
+%% }
+So, \cg, \isi{GB}-style theories paired with semantics \citep{HK98a-u}, \gpsg, \treeag,
+\lfg, HPSG, and even \minimalism would be Construction Grammars. If one looks at the
+examples of Constructions in Table~\ref{tab-constructions}, things change a bit. Idioms are generally
+not the focus of work in \isi{Mainstream Generative Grammar (MGG)}.\footnote{
+  The term \emph{Mainstream Generative Grammar} is used to refer to work in Transformational
+  Grammar, for example Government \& Binding \citep{Chomsky81a} and Minimalism
+  \citep{Chomsky95a-u}. Some authors working in Construction Grammar see themselves in the tradition of
+  Generative Grammar in a wider sense, see for example \citew*[\page 501]{FKoC88a} and \citew[\page 36]{Fillmore88a}.%
+} MGG is usually concerned with explorations of the so-called \isi{Core} Grammar as opposed to the \isi{Periphery}, to which the
+idioms are assigned.
+%\todostefan{Anne: \citew{CvCHHLT2018a-ed}} 
+The Core Grammar is the part of the grammar that is supposed to be acquired with
+help of innate domain specific knowledge, something whose existence Construction Grammar
+denies. But if one takes \citet*{HCF2002a} seriously and assumes that only the ability to form complex
+linguistic objects out of less complex linguistic objects (\isi{Merge}) is part of this innate knowledge,
+then the core/periphery distinction does not have much content and after all, Minimalists could adopt
+a version of Sag's local, selection-based analysis of idioms\is{idiom} \parencites{Sag2007a}{KSF2015a}{KM2019a}.
+However, as is discussed in the next subsection, there are other aspects that really set Construction Grammar apart from
+MGG.
+
+\subsection{Basic tenets of Construction Grammar}
+\label{sec-tenets}
+
+ \citet{Goldberg2003b} names the following tenets as core assumptions standardly made in CxG:
+\begin{description}
+\item[Tenet 1] All levels of description are understood to involve pairings of form with semantic or discourse function, including morphemes or words, idioms, partially lexically filled and fully abstract phrasal patterns. (See Table~\ref{tab-constructions}.)
+\item[Tenet 2] An emphasis is placed on subtle aspects of the way we conceive of events and states of
+affairs.
+\item[Tenet 3] A ``what you see is what you get'' approach to syntactic form is adopted: no underlying levels
+  of syntax or any phonologically empty elements are posited. 
+\item[Tenet 4] Constructions are understood to be learned on the basis of the input and general cognitive mechanisms (they are constructed), and are expected to vary cross-linguistically.
+\item[Tenet 5] Cross-linguistic generalizations are explained by appeal to general cognitive constraints together with the functions of the constructions involved.
+\item[Tenet 6] Language-specific generalizations across constructions are captured via inheritance networks much like those that have long been posited to capture our non-linguistic knowledge.
+\item[Tenet 7] The totality of our knowledge of language is captured by a network of constructions: a ``constructicon''.
+\end{description}
+
+I already commented on Tenet~1 above. Tenet~2 concerns semantics and the syntax-semantics interface,
+which are part of most HPSG analyses. In what follows I want to look in more detail at the other
+tenets. Something that is not mentioned in Goldberg's tenets but is part of the definition of
+Construction by \citet[\page 501]{FKoC88a} is the non-locality of Constructions. I will comment on
+this in a separate subsection.
+
+\subsubsection{Surface orientation and empty elements}
+
+Tenet~3 requires a surface-oriented approach. Underlying levels and phonologically empty elements
+are ruled out. This excludes derivational models of transformational syntax assuming an underlying
+structure (the so-called \isi{D-structure}) and some derived structure or more recent derivational variants of Minimalism. There was a time
+where representational models of Government \& Binding (GB, \citealt{Chomsky81a}) did not assume a D-structure but just one structure with
+traces (Koster \citeyear[\page ]{Koster78b-u}; \citeyear[\page 235]{Koster87a-u}; 
+%\citealp[\page 66, Fußnote~4]{Bierwisch83a}; 
+\citealp{KT91a}; \citealp[Section~1.4]{Haider93a}; 
+\citealp[\page 14]{Frey93a}; \citealp[\page 87--88, 177--178]{Lohnstein93a-u}; \citealp[\page
+  38]{FC94a}; \citealp[\page 58]{Veenstra98a}). Some of these analyses are rather similar to HPSG
+analyses as they are assumed today \citep{Kiss95a,BvN98a,Meurers2000b,Mueller2005c,MuellerGS,MuellerGermanic}. Chomsky's Minimalist work \citep{Chomsky95a-u} assumes a derivational model and comes
+with a rhetoric of building structure in a bottom-up way and sending complete phases to the
+interfaces for pronunciation and interpretation. This is incompatible with Tenet~3, but in principle,
+Minimalist approaches are very similar to Categorial Grammar, so there could be representational
+approaches adhering to Tenet~3.\footnote{%
+  There is a variant of \isi{Minimalist Grammars} \citep{Stabler2010b}, namely \isi{Top-down Phase-based Minimalist Grammar
+(TPMG)} as developed by \citet{Chesi2004a-u,Chesi2007a-u} and \citet{BC2006a-u,BC2012a-u}. There is
+  no movement in TPMG. Rather, \emph{wh}-phrases are linked to their ``in situ'' positions with the
+aid of a short-term memory  buffer that functions like a stack. See
+also \citet{Hunter2010a-u,Hunter2018a-u} for a related account where the
+information about the presence of a \emph{wh}-phrase is percolated in the
+syntax tree, like in \isi{GPSG}/HPSG. 
+}
+
+A comment on empty elements is in order: all articles introducing Construction Grammar state that
+CxG does not assume empty elements. Most of the alternative theories do use empty elements: see
+\citet{KoenigE99a-u} on Categorial Grammar, \citet*[\page 143]{GKPS85a} on GPSG, \citet[\page
+  67]{Bresnan2001a} on LFG, \citew{Bender2000a} and \citew*[\page 464]{SWB2003a} on HPSG/Sign-Based
+Construction Grammar. There are results from the 60s that show that phrase structure grammars
+containing empty elements can be translated into grammars that do not contain empty elements
+\citep*[\page 153, Lemma~4.1]{BHPS61a} and sure enough there are versions of GPSG \citep[\page
+  76--77]{Uszkoreit87a}, LFG \citep{KZ89a,DKK2001a-u}, and HPSG \parencites{BMS2001a}[\page 508]{Sag2010b} that do not use empty elements. Grammars with empty elements often are more compact than
+those without empty elements and express generalizations more directly. See for example
+\citet{Bender2000a} for copulaless sentences in African American Vernacular
+English\il{English!African American Vernacular} and \citet{Mueller2004e} on nounless NPs in
+\ili{German}. The argument against empty elements usually refers to \isi{language acquisition}: it
+is argued that empty elements cannot be learned since they are not detectable in the input. However,
+if the empty elements alternate with visible material, it can be argued that what is learned is the
+fact that a certain element can be left out. What is true, though, is that things like empty
+expletives cannot be learned since these empty elements are neither visible nor do they contribute to
+meaning. Their only purpose in grammars is to keep uniformity. For example, \citet{Grewendorf93}
+working in GB suggests an analysis of the passive in German that is parallel to the movement-based analysis of English
+passives \citep[\page 124]{Chomsky81a}. In order to account for the fact that the subject does not move to
+initial position in German, he suggests an empty expletive pronoun that takes the subject position and that is connected to the original
+non-moved subject. Such elements cannot be acquired without innate knowledge about the IP/VP system and
+constraints about the obligatory presence of subjects. The CxG criticism is justified here.
+
+A frequent argumentation for empty elements in MGG is based on the fact that there are overt
+realizations of an element in other languages (\eg object agreement\is{agreement!object} in \ili{Basque} and \isi{focus} markers in
+\ili{Gungbe}). But since there is no language-internal evidence for these empty elements, they cannot be
+learned and one would have to assume that they are innate. This kind of empty element is rightly
+rejected (by proponents of CxG and others).
+
+Summing up, it can be said that all grammars can be turned into grammars without empty elements and
+hence fulfill Tenet~3. It was argued that the reason for assuming Tenet~3 (problems in language
+acquisition) should be reconsidered and that a weaker form of Tenet~3 should be assumed: empty
+elements are forbidden unless there is language-internal evidence for them. This revised version of
+Tenet~3 would allow one to count empty element versions of CG, GPSG, LFG, and HPSG among Construction Grammars.
+
+
+
+\subsubsection{Language acquisition without the assumption of UG}
+
+Tenets~4 and~5\is{language acquisition|(} are basically what everybody should assume in MGG if \citet*{HCF2002a} are taken seriously. Of
+course, this is not what is done in large parts of the field. The most extreme variant is
+\citet{CR2010a}, who assume at least 400 functional heads being part of \isi{Universal Grammar
+(UG)} and being present in all grammars of all languages, although sometimes
+invisibly. Such assumptions beg the question why the genera of \ili{Bantu} languages should be part of our
+genome\is{genetics} and how they got there. 
+Researchers working on language \isi{acquisition} realized that the \isi{Principles \& Parameters}
+approach \citep{Meisel95a} makes wrong predictions. They now talk about \isi{Micro-Cues} instead of
+parameters \citep{Westergaard2014a} and these Micro-Cues are just features that can be
+learned. However, Westergaard still assumes that the features are determined by UG, a dubious
+assumption seen from a CxG perspective (and from the perspective of Hauser, Chomsky, Fitch and
+genetics in general; \citealt{Bishop2002a}).
+
+Note that even those versions of Minimalism that do not follow the Rizzi-style Cartographic
+approaches are far from being minimalist in their assumptions. Some distinguish between strong
+and weak features, some assume enumerations of lexical items from which a particular derivation
+draws its input, and some assume that all movement has to be feature"=driven. Still others assume that
+derivations work in so-called phases and that a \isi{phase}, once completed, is ``shipped to the
+interfaces''. Construction of phases is bottom-up, which is incompatible with psycholinguistic
+results (see also \citealt[Section~\ref{sec-minimalism-processing}]{chapters/minimalism}, Chapter~\ref{chap-minimalism} in this
+volume). None of these assumptions is a natural one to make from a
+language acquisition point of view. Most of these assumptions do not have any empirical motivation; the
+only motivation usually given is that they result in ``restrictive theories''. But if there is no
+motivation for them, this means that the respective architectural assumptions have to be part of our
+innate domain-specific knowledge, which is implausible according to \citet*{HCF2002a}.
+
+As research in computational linguistics shows, our input is rich
+enough to form classes, to determine the part of speech of lexical items, and even to infer syntactic
+structure thought to be underdetermined by the input. For instance, \citet{Bod2009a} shows that the
+classical auxiliary inversion examples that Chomsky still uses in his \isi{Poverty of the Stimulus}
+arguments (\citealp[\page 29--33]{Chomsky71a-u}; \citealp*{BPYC2011a}) can also be learned from language input available to children. See also
+\citew{FPG2006a,FPAG2007a} on input-based language acquisition.
+
+HPSG does not make any assumptions about complicated mechanisms like feature"=driven movement and so
+on.
+%\todostefan{Bob: You could say that HPSG is feature"=driven. VALENCE features
+%are central to determining what structures are grammatical.}
+HPSG states properties of linguistic objects like part of speech, case, gender, etc., and
+states relations between features like agreement and government. In this respect it is like
+other Construction Grammars and hence experimental results regarding theories of language
+acquisition can be carried over to HPSG. See also \crossrefchaptert{acquisition} on language
+acquisition.\is{language acquisition|)}
+
+
+\subsubsection{Inheritance networks}
+\label{sec-inheritance}
+
+This leaves us with Tenets~6 and~7, that is, \emph{inheritance networks} and the
+constructicon. Inheritance is something that is used in the classification of knowledge. For example,
+the word \emph{animal} is very general and refers to entities with certain properties. There are
+subtypes of this kind of entity: \emph{mammal} and further subtypes like \emph{mouse}. In inheritance
+hierarchies, the knowledge of superconcepts is not restated at the subconcepts but instead, the superconcept
+is referred to. This is like Wikipedia: the Wikipedia entry of \emph{mouse} states that mice
+are mammals without listing all the information that comes with the concept of mammal. Such
+inheritance hierarchies can be used in linguistics as well. They can be used to classify roots,
+words, and phrases. An example of such a hierarchy used for the classification of adjectives and
+adjectival derivation is discussed in Section~\ref{sec-cxg-morphology}. See also
+\crossrefchaptert[Section~4]{lexicon} on inheritance in the lexicon.
+ 
+MGG does not make reference to inheritance hierarchies. HPSG did this right from the beginning in 1985 \citep{FPW85a} for lexical items and
+since 1995 also for phrasal constructions \citep{Sag97a}. LFG rejected the use of types but used
+macros in computer implementations. The macros were abbreviatory devices and did not play any role in
+theoretical work. This changed in 2004, when macros were suggested in theoretical work
+\citep*{DKK2004a}. And although any connection to constructionist work is vehemently denied by some
+of the authors, recent work in LFG has a decidedly constructional flavor
+\citep*{ADT2008a,AGT2014a}.\footnote{
+  See \citew[\page 516]{Toivonen2013a} for an explicit reference to construction-specific phrase
+  structure rules in the sense of Construction Grammar.
+}
+LFG differs from frameworks like HPSG, though, in assuming a separate level of
+c-structure. c-structure rules are basically context-free phrase structure rules and they are not
+modeled by feature value pairs (although they could be; \citealt{Kaplan95a}). This means that it is not
+possible to capture a generalization regarding lexical items, lexical rules, and phrasal
+schemata, or any two-element subset of these three kinds of objects. While HPSG describes all of
+these elements with the same inventory and hence can use common supertypes in the description of all
+three, this is not possible in LFG \citep[Section~23.1]{MuellerGT-Eng2}.\footnote{
+  One could use templates \citep{DKK2004a,ADT2013a} to specify properties of lexical items and of mother nodes in c-structure
+  rules, but usually c-structure rules specify the syntactic categories of mothers and daughters, so
+  this information has a special status within the c-structure rules.
+} For example, \citet{Hoehle97a} argued that
+complementizers and finite verbs in initial position in German form a natural class. HPSG can
+capture this since complementizers (lexical elements) and finite verbs in initial position (results
+of lexical rule applications or a phrasal schema) can have a common supertype.
+TAG is also using inheritance in the Meta Grammar \citep{LK2017a}.
+
+Since HPSG's lexical entries, lexical rules, and phrasal schemata are all described by typed feature
+descriptions, one could call the set of these descriptions the \isi{constructicon}. Therefore,
+Tenet~7 is also adhered to. 
+
+\subsubsection{Non-locality}
+\label{sec-non-locality}
+
+\citet*[\page 501]{FKoC88a} stated in their definition of Constructions that Constructions may
+involve more than mothers and immediate daughters (see p.\,\pageref{def-construction-fillmore}
+above).\footnote{%
+  This subsection is based on a much more thorough discussion of locality and SBCG in
+  \citew[Section~10.6.2.1.1 and Section~18.2]{MuellerGT-Eng1}.
+} That is, daughters of daughters can be specified
+as well. A straightforward example of such a specification is given in Figure~\ref{fig-take-into-account-TAG}, which shows the
+  TAG analysis of the idiom \emph{take into account} following \citet[\page 7]{AS89a}.
+\begin{figure}
+\centering
+\begin{forest}
+tag
+[S
+	[NP$\downarrow$]
+	[VP
+		[V
+			[takes]]
+		[NP$\downarrow$]
+		[PP\sub{NA}
+			[P
+				[into]]
+			[NP\sub{NA}
+				[N\sub{NA}
+					[account]]]]]]
+\end{forest}
+\caption{\label{fig-take-into-account-TAG}TAG tree for \emph{take into account} by \citet[\page 7]{AS89a}}
+\end{figure}%
+The fixed parts of the idiom are just stated in the tree. NP$\downarrow$ stands for an open slot
+into which an NP has to be inserted. The subscript NA says that adjunction to the respectively
+marked nodes is forbidden. Theories like Constructional HPSG can state such complex tree structures
+like TAG can. Dominance relationships are modeled by feature structures in HPSG and it is possible
+to have a description that corresponds to Figure~\ref{fig-take-into-account-TAG}. The NP slots would
+just be left underspecified and can be filled in models that are total (see
+\citealt{Richter2007a} and \crossrefchapteralt{formal-background} for formal foundations of HPSG).
+
+It does not come without some irony that the theoretical approach that was developed out of Berkeley
+Construction Grammar and Constructional HPSG, namely Sign-Based Construction Grammar
+\citep*{SBK2012a,Sag2012a}, is strongly local: it is made rather difficult to access daughters of
+daughters \citep{Sag2007a}. So, if one would stick to the early definition, this would rule out SBCG
+as a Construction Grammar. Fortunately, this is not justified. First, there are ways to establish
+nonlocal selection \citep{MuellerGT-Eng1} and second, there are ways to analyze idioms
+locally. \citet{Sag2007a}, \citet*{KSF2015a}, and \citet{KM2019a} develop a theory of idioms that is
+entirely based on local selection. For example, for \emph{take into account}, one can state that
+\emph{take} selects two NPs and a PP with the fixed lexical material \emph{into} and
+\emph{account}. The right form of the PP is enforced by means of the feature \textsc{lexical
+  identifier} (\textsc{lid}\isfeat{lid}). A special word \emph{into} with the \textsc{lid} value \type{into} is
+specified as selecting a special word \emph{account}. What is done in TAG via direct specification
+is done in SBCG via a series of local selections of specialized lexical items. The interesting (intermediate)
+conclusion is: if SBCG can account for idioms via local selection, then theories like Categorial
+Grammar and Minimalism can do so as well. So, they cannot be excluded from Construction Grammars on
+the basis of arguments concerning idioms and non-locality of selection.
+
+However, there may be cases of idioms that cannot be handled via local selection.
+For example, \citew{RS2009a} discuss the following idiom:
+\ea
+\label{mich-tritt-ein-Pferd}
+\gll glauben, X\_Acc tritt ein Pferd\\
+     believe  X     kicks a horse\\
+\glt `be utterly surprised'
+\z
+The X"=constituent has to be a pronoun that refers to the subject of the matrix clause. If this is not the case, the sentence becomes ungrammatical or loses its idiomatic meaning.
+\eal
+\ex[]{
+\gll Ich glaube, mich      /  \# dich tritt ein Pferd.\\
+     I   believe me.\acc{} {} {} you.\acc{} kicks a horse\\
+}
+\ex[]{
+\gll Jonas glaubt, ihn  tritt ein Pferd.\footnotemark\\
+     Jonas believes him kicks a horse\\
+\footnotetext{%
+  \url{http://www.machandel-verlag.de/der-katzenschatz.html}, 2015-07-06.
+}
+\glt `Jonas is utterly surprised.'
+}
+\ex[\#]{
+\gll Jonas glaubt, dich  tritt ein Pferd.\\
+     Jonas believes you kicks a horse\\
+\glt `Jonas believes that a horse kicks you.'
+}
+\zl
+\citet[\page 313]{RS2009a} argue that the idiomatic reading
+is only available if the accusative pronoun is fronted and the embedded clause is V2. The examples
+in (\mex{1}) do not have the idiomatic reading:
+\eal
+\ex 
+\gll Ich glaube, dass mich ein Pferd tritt.\\
+     I believe   that me   a horse   kicks\\
+\glt `I believe that a horse kicks me.'
+\ex 
+\gll Ich glaube, ein Pferd tritt mich.\\
+     I believe   a horse   kicks me\\
+\glt `I believe that a horse kicks me.'
+\zl
+They develop an analysis with a partly fixed configuration and some open slots, similar in spirit to
+the TAG analysis in Figure~\ref{fig-take-into-account-TAG}. However, their restrictions on \emph{Pferd} clauses are too strict since there are
+variants of the idiom that do not have the accusative pronoun in the \vf:
+\ea 
+%Und von wegen, die dort lebende Menschen hätte keine Bedürfnisse wie Strassen, schulen,
+%Krankenhäuser, 
+\gll ich glaub es tritt mich ein Pferd wenn ich einen derartigen Unsinn lese.\footnotemark\\
+     I believe \expl{} kicks me a horse when I a such nonsense read\\
+\footnotetext{%
+  \url{http://www.welt.de/wirtschaft/article116297208/Die-verlogene-Kritik-an-den-Steuerparadiesen.html},
+  commentary section, 2018-02-20.
+}
+\glt `I am utterly surprised when I read such nonsense.'
+\z
+So it might be the case that the organization of the embedded clause can be stated clause-internally,
+and hence it is an open question whether there are idioms that make nonlocal Constructions necessary.
+
+
+What is not an open empirical question, though, is whether humans store chunks with complex internal
+structure or not. It is clear that we do, and much Construction Grammar literature emphasizes
+this. Constructional HPSG can represent such chunks directly in the theory, but SBCG cannot, since
+linguistic signs do not have daughters. So here, Constructional HPSG and TAG are the theories that
+can represent complex chunks of linguistic material with its internal structure, while other
+theories like GB, Minimalism, CG, LFG, SBCG, and DG cannot.
+
+\subsubsection{Summary}
+
+If all these points are taken together, it is clear that most variants of MGG are not Construction
+Grammars. However, CxG had considerable influence on other frameworks so that there are
+constructionist variants of LFG, HPSG, and TAG. HPSG in the version of \citet{Sag97a} (also called
+Constructional HPSG) and the HPSG dialect Sign-Based Construction Grammar are Construction Grammars
+that follow all the tenets mentioned above.
+
+%\citet{Goldberg95a,Goldberg2006a,Michaelis2012a}
+%% Historical aspects:
+%% \begin{itemize}
+%% \item non-locality \citep{FKoC88a}
+%% \item type inheritance \citet{KF99a,Sag97a}
+%% \end{itemize}
+
+\subsection{Variants of Construction Grammar}
+
+The previous section discussed the tenets of CxG and to what degree other frameworks adhere to them. This
+section deals with frameworks that have Construction Grammar explicitly in their name. The following
+variants are usually named:
+\begin{sloppypar}
+\begin{itemize}
+\item Berkeley Construction Grammar\is{Construction Grammar!Berkeley} \citep{Fillmore85a,Fillmore88a,KF99a,FriedHSK}
+\item Cognitive Construction Grammar\is{Construction Grammar!Cognitive} \citep{Lakoff87a-u,Goldberg95a,Goldberg2006a}
+\item \isi{Cognitive Grammar} \citep{Langacker87a-u,Langacker2000a,Langacker2008a-u,Dabrowska2004a}
+\item Radical Construction Grammar\is{Construction Grammar!Radical} \citep{Croft2001a}
+\item Embodied Construction Grammar\is{Construction Grammar!Embodied} \citep{BC2005a}
+\item Fluid Construction Grammar\is{Construction Grammar!Fluid} \citep{SDB2006a-u,SteelsFluid-ed-not-crossreferenced}
+\item Sign-Based Construction Grammar\is{Construction Grammar!Sign-Based} \citep{Sag2010b,Sag2012a}
+\end{itemize}
+\end{sloppypar}
+
+Berkeley Construction Grammar, Embodied Construction Grammar, Fluid Construction Grammar, and
+Sign-Based Construction Grammar are the ones that are more formal. All of these variants use feature
+value pairs and are constraint-based. They are sometimes also referred to as unification-based
+approaches. Berkeley Construction Grammar\is{Construction Grammar!Berkeley|(} never had a consistent formalization. The variant of
+\isi{unification} assumed by \citet{KF99a} was formally inconsistent \citep[Section~2.4]{Mueller2006d} and the computation of \isi{construction-like
+object}s (CLOs) suggested  by \citet{Kay2002a} did not work either \citep[Section~3]{Mueller2006d}. Berkeley Construction
+Grammar was dropped by the authors, who joined forces with Ivan Sag and Laura Michaelis\aimention{Laura Michaelis} and eventually
+came up with an HPSG variant named \sbcg\is{Construction Grammar!Sign-Based|(} \citep{Sag2012a}. The differences between
+Constructional HPSG \citep{Sag97a} and SBCG are to some extent cosmetic: semantic relations got the
+suffix \type{-fr} for \emph{frame} (\type{like-rel} became \type{like-fr}), phrases were called constructions (\type{hd-subj-ph} became
+\type{subj-head-cxt}), and lexical rules were called \emph{derivational constructions}.\footnote{
+This renaming trick was so successful that it even confused some of the co-editors of the volume about
+SBCG \citep{BS2012a-ed}. See for example \citew{Boas2014a} and the reply in \citew{MWArgStReply}.
+}
+While this renaming would not have changed anything in terms of expressiveness of theories, there
+was another change that was not motivated by any of the tenets of Construction Grammar but rather by
+the wish to get a more restrictive theory: \citet*{SWB2003a} and \citet{Sag2007a} changed the feature geometry of phrasal
+signs in such a way that signs do not contain daughters. The information about mother-daughter relations
+is contained in lexical rules and phrasal schemata (Constructions) only. The phrasal schemata are
+more like GPSG immediate dominance schemata (phrase structure rules without constraints on the order of the daughters) in licensing a mother node when certain daughters are present,
+but without the daughters being represented as part of the AVM that stands for the mother node, as
+was common in HPSG from 1985 till \citew*{SWB2003a}.\footnote{%
+  The two approaches will be discussed in more detail in Section~\ref{sec-constructional-hpsg} and Section~\ref{sec-sbcg}.
+}
+This differs quite dramatically from what was done in Berkeley Construction
+Grammar, since BCxG explicitly favored a non-local approach \parencites[\page 37]{Fillmore88a}[\page
+  501]{FKoC88a}. Arguments were not canceled but
+passed up to the mother node. Adjuncts were passed up as well, so that the complete internal
+structure of an expression is available at the top-most node \citep[\page 9]{KF99a}. The advantage of BCxG and
+Constructional HPSG \citep{Sag97a} is that complex expressions (\eg idioms and other more transparent expressions
+with high frequency) can be stored as chunks containing the internal structure. This is not possible
+with SBCG, since phrasal signs never contain internal structures. For a detailed discussion of \sbcg
+see Section~\ref{sec-sbcg} and \citew[Section~10.6.2]{MuellerGT-Eng1}.\is{Construction Grammar!Berkeley|)}\is{Construction Grammar!Sign-Based|)}
+
+\isi{Embodied Construction Grammar} \citep{BC2005a} uses typed feature descriptions for the description of
+linguistic objects and allows for discontinuous constituents. As
+argued by \citet[Section~10.6.3]{MuellerGT-Eng1}, it is a notational variant of Reape-style HPSG
+\citep{Reape94a} (see \citealt[Section~\ref{sec-domains}]{chapters/order}, Chapter~\ref{chap-order}
+of this volume for discontinuous constituents in HPSG).
+
+\isi{Fluid Construction Grammar} is also rather similar to HPSG. An important difference is that FCG attaches
+weights to constraints, something that is usually not done in HPSG. But in principle, there is
+nothing that forbids adding weights to HPSG as well, and in fact it has been done \citep{Brew95a,BC99a,MT2008a-u}, and it should be
+done to a larger extent \citep{Miller2013a}. \Citet{vanTrijp2013a} tried to show that
+Fluid Construction Grammar is fundamentally different from SBCG, but I think he failed in every
+single respect. See \citew{MuellerFCG} for a detailed discussion, which cannot be repeated here for
+space reasons.
+
+
+%% \section{HPSG as a Construction Grammar}
+%% \label{sec-hpsg-as-cxg}
+
+%% \begin{itemize}
+%% \item form-meaning pairs
+%% \item type hierarchies
+%% \item surface oriented
+%% \end{itemize}
+
+\subsection{Constructional HPSG and formal variants of Construction Grammar}
+
+
+%\subsubsection{Berkeley Construction Grammar}
+
+\subsubsection{Constructional HPSG}
+\label{sec-constructional-hpsg}
+
+As is discussed in other chapters in more detail, HPSG uses feature value pairs to model linguistic
+objects. One important tool is structure sharing. For example, determiner, adjective, and noun agree
+with respect to certain features in languages like German. The identity of properties is modeled by
+identity of features and this identity is established by identifying the values in descriptions. Now,
+it is obvious that certain features are always shared together. In order to facilitate the statement
+of respective constraints, feature value pairs are put into groups. This is why HPSG feature
+descriptions are very complex. Information about syntax and semantics is represented under
+\textsc{syntax-semantics} (\synsem), information about syntax under \textsc{category} (\cat), and
+information that is projected along the head path of a projection is represented under \head. All
+feature structures have to have a type. The type may be omitted in the description, but there has to
+be one in the model. Types are organized in hierarchies. They are written in italics. (\mex{1})
+shows an example lexical item for the word \emph{ate}:\footnote{
+  The `\ldots' stands for the feature \local, which is irrelevant in the present discussion. It plays
+  a role in the treatment of nonlocal dependencies \crossrefchapterp{udc}.
+}
+
+\eas
+\label{le-ate}
+Lexical item for the word \emph{ate}:\\
+\onems[word]{
+phonology    \phonliste{ ate } \\[1mm]
+syntax-semantics  \ldots \ms[local]{ category  & \ms[category]{ head & \ms[verb]{ vform & fin
+                                                                                }\\[3mm]
+                                                                spr   & \sliste{ NP[\type{nom}]\ind{1} }\\[2mm]
+                                                                comps & \sliste{ NP[\type{acc}]\ind{2} }\\
+                                                                             } \\[10mm]
+                                          content & \ldots \ms[eat]{ agent & \ibox{1}\\
+                                                                     theme & \ibox{2}\\
+                                                                   }
+            }
+}
+\zs
+The information about part of speech and finiteness is bundled under \head. The selection of a
+subject is represented under \spr (sometimes the feature \subj is used for subjects) and the
+non-subject arguments are represented as part of a list under \comps. The semantic indices \ibox{1}
+and \ibox{2} are linked to thematic roles in the semantic representation.
+
+Dominance structures can also be represented with feature value pairs. While \citet{ps} and
+\citet{ps2} had a \textsc{daughters} feature and then certain phrasal types constraining the
+daughters within the \dtrs feature, \citet{Sag97a} represented the daughters and constraints upon them at
+the top level of the sign\footnote{
+The top level is the outermost level. So in (\mex{0}), \textsc{phonology} and
+\textsc{syntax-semantics} are on the top level.}. 
+This move made it possible to have subtypes of the type \type{phrase}, \eg
+\type{filler-head-phrase}, \type{specifier-head-phrase}, and
+\type{head-complement-phrase}. Generalizations over these types could be captured within the type
+hierarchy. (\mex{1}) shows a constraint on the type \type{head-complement-phrase}:
+
+\ea
+\label{schema-bin-prel}
+%~\\[-8pt]
+\type{head-complement-phrase}\istype{head"=complement"=phrase} \impl\\
+\onems{
+      synsem$|$loc$|$cat$|$comps \ibox{1} \\
+      head-dtr$|$synsem$|$loc$|$cat$|$comps \sliste{ \ibox{2} }  $\oplus$ \ibox{1} \\
+      non-head-dtrs \sliste{ [ \synsem \ibox{2} ] }
+      }
+\z
+The constraint says that feature structures of type \type{head-complement-phrase} have to have a
+\synsemv, a \textsc{head-dtr} feature, and a list-valued \textsc{non-head-dtrs} feature. The list has
+to contain a singleton element whose \synsemv is identical to the first element of the \compsl
+of the head daughter \iboxb{2}, and the remainder of the \compsl \iboxb{1} is identical to the
+\compsv of the phrase licensed by the schema (represented under
+\textsc{synsem|loc|cat|comps}). `$\oplus$'\is{$\oplus$} stands for the append relation concatenating
+two lists. For further details see \crossrefchaptert{properties}.
+
+Dominance schemata (corresponding to grammar rules in phrase structure grammars) refer to such
+phrasal types. (\mex{1}) shows how the lexical item in (\ref{le-ate}) can be used in a
+head-complement configuration:
+
+\eas
+\label{ex-ate-a-pizza-sag97}%
+Analysis of \emph{ate a pizza} in Constructional HPSG:\\
+\onems[head-complement-phrase]{
+phon   \phonliste{ ate, a, pizza }\\
+synsem$|$loc  \ms{ cat   & \ms{ head   & \ibox{1}\\
+                            spr & \ibox{2}\\
+                            comps & \eliste
+                          }\\
+                    cont  & \ldots\\ %\ibox{2}\\
+                  }\\
+head-dtr  \onems[word]{
+           phon \phonliste{ ate }\\ 
+           synsem$|$loc \ms{ cat & \ms{ head  & \ibox{1} \ms[verb]{
+                                                         vform & fin\\
+                                                         }\\
+                                          spr   & \ibox{2} \sliste{ NP[\type{nom}] }\\
+                                          comps & \sliste{ \ibox{3} NP[\type{acc}] }
+                                        }\\
+                               cont & \ldots
+% \ibox{2} \ms[essen]{
+%                                       agens & \ibox{1}\\
+%                                       thema & \ibox{3}\\ 
+%                                       }\\
+                             }
+           }\\
+non-head-dtrs  \liste{ \ms{ phon & \phonliste{ a, pizza }\\
+                            synsem & \ibox{3} } }
+}
+\zs
+The description in the \compsl of the head is identified with the \synsemv of the non-head daughter
+\iboxb{3}. The information about the missing specifier is represented at the mother node
+\iboxb{2}. Head information is also shared between head daughter and mother node. The respective
+structure sharings are enforced by principles: the Subcategorization Principle or Valence Principles
+make sure that all valents of the head daughter that are not realized in a certain configuration
+are still present at the mother node. The Head Feature Principle ensures that the head information
+of a head daughter in headed structures is identical to the head information on the mother node,
+that is, \head features are shared.
+
+This is a very brief sketch of Constructional HPSG and is by no means intended to be a full-blown
+introduction to HPSG, but it provides a description of properties that can be used to compare
+Constructional HPSG to Sign-Based Construction Grammar in the next subsection.
+
+
+
+
+\subsubsection{Sign-Based Construction Grammar}
+\label{sec-sbcg}
+
+Having discussed some aspects of Constructional HPSG, I now turn to SBCG. SBCG is an HPSG variant,
+so it shares most properties of HPSG but there are some interesting properties that are discussed in
+this section. Locality constraints are discussed in the next subsection, and changes in feature geometry
+in the subsections to follow. Subsection~\ref{sec-frame-semantics-SBCG} discusses Frame Semantics.
+
+\subsubsubsection{Locality constraints}
+\label{sec-locality}
+
+As mentioned in Section~\ref{sec-non-locality}, SBCG assumes a strong version of locality: phrasal
+signs do not have daughters. This is due to the fact that phrasal schemata (= phrasal constructions)
+are defined as in (\mex{1}):
+\eas
+Head"=Complement Construction following \citet[481]{SWB2003a}:\\
+\type{head"=comp"=cx}\istype{head"=comp"=cx} \impl\\
+\onems{
+mother$|$syn$|$val$|$comps  \eliste\\
+head-dtr \ibox{0} \ms[word]{
+                  syn$|$val$|$comps & \ibox{A}
+                  }\\
+dtrs  \sliste{ \ibox{0} } $\oplus$ \ibox{A} \type{nelist} \\
+}
+\zs
+Rather than specifying syntactic and semantic properties of the complete linguistic object at the
+top level (as earlier versions of HPSG did), these properties are specified as properties under \textsc{mother}. Hence a construction
+licenses a sign (a phrase or a complex word), but the sign does not include daughters. The daughters live on the level of the
+construction only. While earlier versions of HPSG licensed signs directly, SBCG needs a statement
+saying that all objects under \textsc{mother} are objects licensed by the grammar \citep*[\page
+  478]{SWB2003a}:\footnote{%
+A less formal version of this constraint is given as the Sign Principle\is{principle!Sign} by
+\citet[\page 105]{Sag2012a}: ``Every sign must be listemically or constructionally licensed, where: a
+sign is listemically licensed only if it satisfies some listeme, and a sign is constructionally
+licensed if it is the mother of some well-formed construct.''
+}
+\ea
+\label{meta-construction-statemnet}
+$\Phi$ is a Well"=Formed Structure according to a grammar $G$ if and only if:
+\begin{enumerate}
+\item there is a construction $C$ in $G$, and
+\item there is a feature structure $I$ that is an instantiation of $C$, such that
+      $\Phi$ is the value of the \textsc{mother} feature of $I$.
+\end{enumerate}
+\z
+The idea behind this change in feature geometry is that heads cannot select for daughters of their valents and hence
+the formal setting is more restrictive and hence affecting computational complexity (Ivan Sag,
+p.c. 2011). However, this restriction can be circumvented by just structure sharing an element of
+the daughters list with some value within \mother. The \textsc{xarg} feature making one argument
+available at the top level of a projection \citep{BF99a} is such a feature. So, on the formal level, the \motherf alone does not
+result in restrictions on complexity. One would have to forbid such structure sharings in addition,
+but then one could keep \mother out of the business and state the restriction for earlier variants
+of HPSG \citep[Section~10.6.2.1.3]{MuellerGT-Eng2}.
+
+\citet{SWB2003a} differentiated between specifiers and complements, but this distinction was given up
+in later work on SBCG. \citet{Sag2012a} has just one valence list that includes both subjects and
+non-subjects. This is a return to the valence representations of \citet{ps}. An argument for this
+was never given, despite arguments for a separation of valence information by \citet{Borsley87a}. With one single valence feature, a VP would be an unsaturated projection and generalizations
+concerning phrases cannot be captured. For example, a generalization concerning extraposition (in
+German) is that maximal projections (that is projections with an empty \compsl) can be
+extraposed \citep[Section~13.1.2]{Mueller99a}. It is impossible to state this generalization in SBCG
+in a straightforward way \citep[Section~10.6.2.3]{MuellerGT-Eng2}.
+
+\subsubsubsection{The Head Feature Principle}
+
+There\isfeat{head|(}\is{principle!Head Feature|(} have been some other developments as well. \citet{Sag2012a} got rid of the Head Feature
+Principle and stated identity of information explicitly within constructions. Structure sharing is
+not stated with boxed numbers but with capital letters instead. An exclamation mark can be used to
+specify information that is not shared \citep[\page 125]{Sag2012a}. While the use of letters instead
+of numbers is just a presentational variant, the exclamation mark is a non-trivial
+extension. (\mex{1}) provides an example: the constraints on the type \type{pred-hd"=comp"=cxt}:
+\eas
+Predicational Head"=Complement Construction following \citet[\page 152]{Sag2012a}:\\
+\type{pred-hd"=comp"=cxt}\istype{head"=comp"=cx} \impl\\
+\onems{
+mother$|$syn X ! [val \sliste{ Y }]\\
+head-dtr Z: \onems[word]{
+                  syn X: \ms{ val \sliste{ Y } $\oplus$ L }\\
+                  }\\
+dtrs  \sliste{ Z } $\oplus$ L:\type{nelist} \\
+}
+\zs
+The X stands for all syntactic properties of the head daughter. These are identified with the
+value of \textsc{syn} of the mother with the exception of the \textsc{val} value, which is specified
+to be a list with the element Y. It is interesting to note that the !-notation is not without
+problems: \citet[\page 145]{Sag2012a} states that the version of SBCG that he presents is ``purely
+monotonic (non-default)'', but if the \textsc{syn} value of the mother is not identical +
+overwriting of \textsc{val}, it is unclear how the type of \textsc{syn} can be constrained. ! can be
+understood as explicitly sharing all features that are not mentioned after the !. Note, though, that
+the type has to be shared as well. This is not trivial, since structure sharing cannot be applied
+here, since structure sharing the type would also identify all features belonging to the respective
+value. So one would need a relation that singles out a type of a structure and identifies this type
+with the value of another structure. Note also that information from features behind the ! can make
+the type of the complete structure more specific. Does this affect the shared structure (\eg
+\textsc{head-dtr|syn} in (\mex{0}))? What if the
+type of the complete structure is incompatible with the features in this structure? What seems to be a harmless notational device in fact involves some
+non-trivial machinery in the background. Keeping the Head Feature Principle makes this additional machinery
+unnecessary. 
+% There is only VAL in SBCG.
+%On the other hand it has to be stated which valence information has to be passed up and
+%which is not.
+\isfeat{head|)}\is{principle!Head Feature|)}
+
+\subsubsubsection{Feature geometry and the \textsc{form} feature}
+
+The phrasal sign for \emph{ate a pizza} in Constructional HPSG was given in
+(\ref{ex-ate-a-pizza-sag97}). (\mex{1}) is the Predicational Head Complement Construction with
+daughters and mother filled in.
+\ea
+\label{feat-geom-sag2012}
+\ms[head-comp-cx]{
+mother & \ms[phrase]{
+         form  & \phonliste{ ate, a, pizza }\\[1mm]
+         syn   & \ms{
+                      cat & \ibox{1}\\
+                      val   & \sliste{ NP[\type{nom}] }\\
+                    }\\
+%         sem   & \ibox{2}\\
+         sem   & \ldots
+         }\\
+head-dtr & \ibox{2} \ms[word]{
+           form & \phonliste{ ate }\\
+           syn & \ms{ cat & \ibox{1} \ms[verb]{
+                            vf & fin\\
+                            }\\
+                      val & \sliste{ NP[\type{nom}], \ibox{3} NP[\type{acc}] }\\
+                    }\\
+           sem   & \ldots
+           % sem   & \ibox{2} \ms[eat]{
+           %         agens & \ibox{1}\\
+           %         thema & \ibox{5}\\ 
+           %         }\\
+           }\\
+dtrs & \sliste{ \ibox{2}, \ibox{3} }
+}
+\z
+As was explained in the previous subsection, Constructional HPSG groups all selectable information under
+\synsem and then differentiates into \cat and \cont. SBCG goes back to \citew{ps} and uses \textsc{syn} and
+\textsc{sem}. The idea behind \synsem was to exclude the selection of phonological information and
+daughters \citep[\page 23]{ps2}. Since daughters are outside of the definition of \type{synsem}, they cannot be accessed from
+within valency lists. Now, SBCG pushes this idea one step further and also restricts the access
+to daughters in phrasal schemata (Constructions in SBCG terminology): since signs do not have
+daughters, constructions may not refer to the daughters of their parts. But obviously signs need to
+have a form part, since signs are per definition form-meaning pairs. It follows that the form part of
+signs is selectable in SBCG. This will be discussed in more detail in the following
+subsection. Subsection~\ref{sec-local-feature-sbcg} discusses the omission of the \localf.
+
+
+\subsubsubsection{Selection of \phon and \textsc{form} values}
+
+The feature geometry of constructional HPSG has the \phonv outside of \synsem. Therefore verbs can
+select for syntactic and semantic properties of their arguments but not for their phonology. For
+example, they can require that an object has accusative case but not that it starts with a
+vowel. SBCG allows for the selection of phonological information (the feature is called \form here)
+and one example of such a selection is the indefinite article in English, which has to be either \emph{a} or
+\emph{an} depending on whether the noun or nominal projection it is combined with starts with a
+vowel or not (Flickinger, Mail to the HPSG mailing list, 01.03.2016):
+\eal
+\ex an institute
+\ex a  house
+\zl
+%\addlines
+The distinction can be modeled by assuming a selection feature for determiners.\footnote{%
+  In Standard HPSG there is mutual selection between the determiner and the noun. The noun selects
+  the determiner via \spr and the determiner selects the noun via a feature called
+  \textsc{specified}\isfeat{specified} \citep[\page 45--54]{ps2}. 
+%This feature is similar to the \modf, which was explained in Section~\ref{sec-adjuncts-hpsg}.
+} An alternative would be, of course, to capture all phonological phenomena by formulating constraints on phonology on the
+phrasal level (see \citealp{BK94b} and \citealp{Walther99a-u} for phonology in HPSG).
+
+Note also that the treatment of raising in SBCG admits nonlocal selection of phonology
+values, since the analysis of raising in SBCG assumes that the element on the valence list of the
+embedded verb is identical to an element in the \argstl of the matrix verb \citep[\page
+  159]{Sag2012a}. Hence, both verbs in (\mex{1}) can see the phonology of the subject:
+\ea
+Kim can eat apples.
+\z
+In principle, there could be languages in which the form of the downstairs verb depends on the
+presence of an initial consonant in phonology of the subject. English allows for long chains of
+raising verbs and one could imagine languages in which all the verbs on the way are sensitive to the
+phonology of the subject. Such languages probably do not exist.
+
+Now, is this a problem? Not really, but if one develops a general setup in a
+way to exclude everything that is not attested in the languages of the world (as for instance the
+selection of arguments of arguments of arguments), then it is a problem that heads can see the
+phonology of elements that are far away.
+
+%\addlines
+There are two possible conclusions for practitioners of SBCG: either the \motherf could be given up,
+since one agrees that theories that do not make wrong predictions are sufficiently constrained and
+one does not have to explicitly state what cannot occur in languages, or one would have to address
+the problem with nonlocally selected phonology values and therefore assume a \synsem or \localf that
+bundles information that is relevant in raising and does not include the
+phonology.
+%% \footnote{%
+%%   If \synsem is reintroduced, the elements in the valence lists could be of type
+%%   \type{synsem}. Information about phonology would not be part of the description of the selected elements. This would not solve the problem
+%%   of partial verb phrase fronting though, since the \lexf is selected for (hence part of the
+%%   information under \synsem) but not shared with the filler. One would need a \localf in addition to \synsem. See Section~\ref{sec-sbcg-local-feature}.
+%% }
+%This supports the arguments I made on \mother and \local in the previous subsections.
+In the latter case, the feature geometry of SBCG would get more complicated. This additional
+complication is further evidence against \mother, adding to the argument I made about \mother in Subsection~\ref{sec-locality}.
+
+\subsubsubsection{The \local feature and information shared in nonlocal dependencies}
+\label{sec-local-feature-sbcg}
+
+Similarly, elements of the \argstl contain information about \form. In nonlocal dependencies, this
+information is shared in the \textsc{gap} list (\slasch set or list in other versions of
+HPSG) and is available all the way to the filler. In other versions of HPSG, only \local information is shared and elements in valence lists
+do not have a \phonf. If the sign that is contained in the \textsc{gap} list were identified with
+the filler, the information about phonological properties of the filler would be available at the
+extraction side and SBCG could be used to model languages in which the phonology of
+a filler is relevant for a head from which it is extracted. So for instance, \emph{likes} could see the
+phonology of \emph{bagels} in (\mex{1}):
+\ea
+Bagels, I think that Peter likes.
+\z
+It would be possible to state constraints saying that the filler has to contain a vowel or two
+vowels or that it ends with a consonant. In addition, all elements on the extraction path
+(\emph{that} and \emph{think}) can see the phonology of the filler as well. While there are
+languages that mark the extraction path, I doubt that there are languages that have phonological
+effects across long distances. This problem can be and has been solved by assuming that the
+filler is not shared with the information in the \textsc{gap} list, but parts of the filler are
+shared with parts in the \textsc{gap} list: \citet[\page 166]{Sag2012a} assumes that \textsc{syn},
+\textsc{sem}, and \textsc{store} information is identified individually. Originally, the feature
+geometry of HPSG was motivated by the wish to structure share information. Everything within \local
+was shared between filler and extraction side. This kind of motivation is given up in SBCG.
+
+Note, also, that not sharing the complete filler with the gap means that the \form
+value of the element in the \argstl at the extraction side is not constrained. Without any
+constraints, the theory would be compatible with infinitely many models, since the \form value could be
+anything. For example, the \form value of an extracted adjective could be \phonliste{ Donald Duck }
+or \phonliste{ Dunald Dock } or any arbitrary chaotic sequence of letters/""phonemes. To exclude this, one can stipulate the \form values of extracted
+elements to be the empty list, but this leaves one with the unintuitive situation that the element
+in \textsc{gap} has an empty \form list while the corresponding filler has a different, filled one.
+
+
+\subsubsubsection{Frame Semantics}
+\label{sec-frame-semantics-SBCG}
+
+Another difference between SBCG and other variants of HPSG is the use of Frame Semantics\is{Frame Semantics|(}
+\citep{Fillmore82a-u,Fillmore85b-u}. The actual representations in SBCG are based on \mrs (Minimal
+Recursion Semantics, \citealt{CFPS2005a}, see also \crossrefchapteralt{semantics}) and
+the change seems rather cosmetic (relations have the suffix \type{-fr} for frame rather than
+\type{-rel} for relation and the feature is called \textsc{frames}\isfeat{frames} rather than
+\textsc{relations}\isfeat{rels}), but there is one crucial difference: the labels of semantic roles
+are more specific then what is usually used in other variants of HPSG.\footnote{
+  \citet[\page 95]{ps} and \citet{ps2} use role labels like \textsc{kisser} and \textsc{kissee} that are predicate-specific. 
+  Generalizations over these feature names are impossible within the standard formal setting of
+  HPSG \parencites[Section~8.5.3]{ps2}[\page 24, Fn.~1]{Mueller99a}.
+}
+\citet[\page 89]{Sag2012a} provides the following representation for the meaning contribution of the
+verb \emph{eat}:
+%% JP: drop
+%% \footnote{
+%%   Note that the role label \textsc{ingestible} seems to be inappropriate for negated sentences like
+%%   (i):
+%%   \ea
+%%   Peter did not eat the stone.
+%%   \zlast
+%% }
+\ea
+\ms[sem-obj]{
+index & \\
+frames & \sliste{ \ms[eating-fr]{
+                  label & l\\
+                  sit   & s\\
+                  ingestor & i\\
+                  ingestible & j\\
+                  } } }
+\z
+While some generalizations over verbs of a certain type can be captured with role labels like
+\textsc{ingestor} and \textsc{ingestible}, this is limited to verbs of ingestion. More general role
+labels like \textsc{agent} and \textsc{patient} (or \textsc{proto-agent} and \textsc{proto-patient},
+\citealt{Dowty91a}) allow for more generalizations of broader classes of verbs (see
+\citealt{DK2000b-u} and \crossrefchapteralt{arg-st}).
+\is{Frame Semantics|)}
+
+%% \subsubsubsection{Frame Semantics}
+
+%% labels for roles
+
+%% \inlinetodostefan{Discuss Embodied CxG, BCG, FCG and SBCG,
+
+%% feature geometry, frame semantics, labels for roles}
+
+%% \inlinetodostefan{
+%% Rui: Head feature principle, LID from Berkeley CxG
+%% }
+
+%\subsubsection{Embodied Construction Grammar}
+
+\subsubsection{Fluid Construction Grammar}
+
+
+One thing that makes SBCG different from other Construction Grammars is that SBCG assumes a strongly
+lexicalist stance \citep{SW2011a}: argument structure is encoded lexically. A ditransitive verb is a
+ditransitive verb since it selects for three NP arguments. This selection is encoded in valence
+features of lexical items. It is not assumed that phrasal configurations can license additional
+arguments as it is in Radical Construction Grammar, Embodied Construction Grammar, and Fluid
+Construction grammar. The next section discusses phrasal CxG approaches in more
+detail. Section~\ref{sec-phrasal-patterns} then discusses patterns that should be analyzed phrasally
+and which are problematic for entirely head-driven (or rather functor-driven) theories like \isi{Categorial Grammar},
+\isi{Dependency Grammar}, and \isi{Minimalism}.
+
+
+
+\section{Valence vs.\ phrasal patterns}
+\label{sec-valence}
+
+Much\is{language acquisition|(} work in Construction Grammar starts from the observation that
+children acquire patterns and, in later acquisition stages, abstract from these patterns to schemata
+containing open slots to be filled by variable material, for example subjects and objects
+\citep{Tomasello2003a}. The conclusion that is drawn from this is that language should be 
+described with reference to phrasal patterns. Most Construction Grammar variants assume a phrasal
+approach to argument structure constructions \citep{Goldberg95a,Goldberg2006a,GJ2004a}, with
+Constructional HPSG \citep{Sag97a}, \citegen{Boas2003a} work, and SBCG \citep{SBK2012a,Sag2012a} being the
+three exceptions. So, for examples like the resultative construction in (\mex{1}),
+\citet{Goldberg95a} assumes that there is a phrasal construction [Sbj Verb Obj Obl] into which
+material is inserted and which contributes the resultative semantics as a whole.
+\ea
+She fished the pond empty.
+\z
+HPSG follows the lexical approach and assumes that \stem{fish} is inserted into a lexical
+construction (lexical rule), which licenses the combination with other parts of the resultative
+construction \citep{Mueller2002b}.
+
+I argued in several publications that the language acquisition facts can be explained in lexical
+models as well \parencites[Section~6.3]{MuellerPersian}[Section~9]{MWArgSt}. While a pattern-based approach claims that (\mex{1}) is
+analyzed by inserting \emph{Kim}, \emph{loves}, and \emph{Sandy} into a phrasal schema stating that
+NP[nom] verb NP[acc] or subject verb object are possible sequences in English, a lexical approach
+would state that there is a verb \emph{loves} selecting for an NP[nom] and an NP[acc] (or for a
+subject and an object).
+\ea
+Kim loves Sandy.
+\z
+Since objects follow the verb in English (modulo extraction) and subjects precede the verb, the same
+sequence is licensed in the lexical approach. The lexical approach does not have any problems
+accounting for patterns in which the sequence of subject, verb, and object is discontinuous. For
+example, an adverb may intervene between subject and verb:
+\ea
+Kim really loves Sandy.
+\z
+In a lexical approach it is assumed that verb and object may form a unit (a VP). The adverb attaches
+to this VP and the resulting VP is combined with the subject. The phrasal approach has to assume
+either that adverbs are part of phrasal schemata licensing cases like (\mex{0}) (see
+\citealt[Section~6.3.2]{Uszkoreit87a} for such a proposal in a \gpsg approach to \ili{German}) or that the phrasal
+construction may license discontinuous\is{constituent!discontinuous} patterns. \citet[\page 170]{BC2005a} follow the latter approach and
+assume that subject and verb may be discontinuous but verb and object(s) have to be adjacent. While
+this accounts for adverbs like the one in (\mex{0}), it does not solve the general problem, since
+there are other examples showing that verb and object(s) may appear discontinuously as well:
+\ea
+Mary tossed me a juice and Peter a water.
+\z
+Even though \emph{tossed} and \emph{Peter a water} are discontinuous in (\mex{0}), they are an
+instance of the ditransitive construction. The conclusion is that what has to be acquired is not a phrasal pattern but rather the fact that
+there are dependencies\is{dependency} between certain elements in phrases (see also
+\citealt{Behrens2009a} for a similar view from a language acquisition perspective). I return to ditransitive
+constructions in Section~\ref{sec-coercion}.%
+\is{language acquisition|)}
+
+I discussed several phrasal approaches to \isi{argument structure} and showed where they fail
+\citep{Mueller2006d,Mueller2006c,Mueller2007d,MuellerPersian,MWArgSt,MWArgStReply,MuellerLFGphrasal}. Of course,
+the discussion cannot be reproduced here, but I want to repeat four points showing that lexical valence
+representation is necessary and that effects that are the highlight of phrasal approaches can be
+achieved in lexical proposals as well. The first two are problems that were around in GPSG times and basically
+were solved by abandoning the framework and adopting a new framework which was a fusion of GPSG and
+Categorial Grammar: HPSG.\footnote{
+  For further criticism of GPSG see \citew{Jacobson87b}. A detailed discussion of reasons for
+  abandoning GPSG can be found in \citew[Section~5.5]{MuellerGT-Eng1}.
+}
+
+\subsection{Derivational morphology and valence} 
+
+The first argument \citep[Section~5.5.1]{MuellerGT-Eng1} is that certain patterns in derivational morphology refer to valence. For
+example, the \bard productively applies to transitive verbs only, that is, to verbs that govern an accusative.
+\eal
+\ex[]{
+\gll unterstützbar\\
+     supportable\\
+}
+\ex[*]{
+\gll helfbar\\
+     helpable\\
+}
+\ex[*]{
+\gll schlafbar\\
+     sleepable\\
+}
+\zl
+\begin{sloppypar}
+\noindent
+Note that the \bard is like the passive in that it suppresses the subject and promotes the accusative object: the
+accusative object is the element adjectives derived with the \bard predicate over. There is no argument
+realized with the adjective \emph{unterstützbaren} `supportable' attaching to \emph{Arbeitsprozessen} `work.""processes' in \emph{unterstützbaren
+  Arbeitsprozessen}.\footnote{
+Adjectives realize their arguments preverbally in German:
+\ea
+\gll der [seiner Frau treue] Mann\\
+     the \spacebr{}his wife faithful man\\
+\glt `the man who is faithful to his wife'
+\z
+\emph{unterstützbaren} `supportable' does not take an argument; it is a complete adjectival projection like \emph{seiner Frau treue}.
+}  Hence one could not claim that the stem enters a phrasal construction with arguments and
+\suffix{bar} attaches to this phrase. It follows that information about valency has to be present at
+the stem. 
+\end{sloppypar}
+
+Note also that the resultative construction interacts with the \bard. (\mex{1}) shows an example of the resultative
+construction in German in which the accusative object is introduced by the construction: it is the subject of
+\emph{leer} `empty' but not a semantic argument of the verb \emph{fischt} `fishes'.
+\ea
+\gll Sie fischt den Teich leer.\\
+     she fishes the pond empty\\
+\z
+So even though the accusative object is not a semantic argument of the verb, the \bard is possible
+and an adjective like \emph{leerfischbar} `empty.fishable' meaning `can be fished empty' can be derived. This is explained by lexical analyses of
+the \bard and the resultative construction, since if one assumes that there is a lexical item for
+the verb \stem{fisch} selecting an accusative object and a result predicate, then this item may function as
+the input for the \bard. See Section~\ref{sec-cxg-morphology} for further discussion of \bard and
+ \citew{Verspoor97a}, \citew{Wechsler97a}, \citew{WN2001a}, and \citew[Chapter~5]{Mueller2002b} for lexical analyses of the resultative construction in the framework of HPSG.
+
+\subsection{Partial verb phrase fronting}
+
+The second argument concerns partial verb phrase fronting \citep[Section~5.5.2]{MuellerGT-Eng1}. 
+(\mex{1}) gives some examples: in (\mex{1}a) the bare verb is fronted and its arguments are realized
+in the middle field, in (\mex{1}b) one of the objects is fronted together with the verb, and in
+(\mex{1}c) both objects are fronted with the verb.
+\eal
+\ex 
+\gll Erzählen wird er seiner Tochter ein Märchen können.\\
+     tell will he his daughter a fairy.tale can\\
+\ex 
+\gll Ein Märchen erzählen wird er seiner Tochter können.\\
+     a fairy.tale tell will he his daughter can\\
+\ex 
+\gll Seiner Tochter ein Märchen erzählen wird er können.\\
+     his daughter a fairy.tale tell will he can\\
+\glt `He will be able to tell his daughter a fairy tale.'
+\zl
+The problem with sentences such as those in (\mex{0}) is that the valence requirements of the verb
+\emph{erzählen} `to tell' are realized in various positions in the sentence. For fronted
+constituents, one requires a rule which allows a ditransitive to be realized without its arguments
+or with one or two objects. This basically destroys the idea of a fixed phrasal configuration for
+the ditransitive construction and points again in the direction of dependencies\is{dependency}.
+
+Furthermore, it has to be ensured that the arguments that are
+missing in the prefield are realized in the remainder of the clause. It is not legitimate to omit
+obligatory arguments or realize arguments with other properties like a different case, as the
+examples in (\mex{1}) show:
+\eal
+\ex[]{
+\gll Verschlungen hat er es nicht.\\
+     devoured     has he.\NOM{} it.\ACC{} not\\
+\glt `He did not devour it.'
+}
+\ex[*]{
+\gll Verschlungen hat er nicht.\\
+     devoured     has he.\NOM{} not\\
+}
+\ex[*]{
+\gll Verschlungen hat er ihm nicht.\\
+     devoured     has he.\NOM{} him.\DAT{} not\\
+}
+\zl
+The obvious generalization is that the fronted and unfronted arguments must add up to the total
+set of arguments selected by the verb. This is scarcely possible with the rule-based
+representation of valence in GPSG \citep{Nerbonne86a,Johnson86a}. In theories such as Categorial
+Grammar\is{Categorial Grammar (CG)}, it is possible to formulate elegant analyses of (\mex{0}) 
+\citep{Geach70a}. \citet{Nerbonne86a} and \citet{Johnson86a} both suggest analyses for sentences
+such as (\mex{0}) in the framework of GPSG which
+ultimately amount to changing the representation of valence information in the direction of
+Categorial Grammar.
+With a switch to CG-like valence representations in HPSG, the phenomenon of partial verb phrase
+fronting found elegant solutions \parencites[Section~4]{HoehleSpuren}{Mueller96a}{Meurers99a}.\is{partial verb phrase
+  fronting|)}
+%\todostefan{reference to UDC chapter?} 
+% no, it is not in there.
+
+
+\subsection{Coercion}
+\label{sec-coercion}
+
+An important observation in constructionist work is that, in certain cases, verbs can be used in
+constructions that differ from the constructions they are normally used in. For example, verbs that are usually
+used with one or two arguments may be used in the ditransitive construction:
+\eal
+\ex She smiled.
+\ex She smiled herself an upgrade.\footnote{
+Douglas Adams. 1979. \emph{The Hitchhiker’s Guide to the Galaxy}, Harmony Books. Quoted from
+\citew[\page 220]{Goldberg2003b}.
+}
+\ex He baked a cake.
+\ex He baked her a cake.
+\zl
+The usual explanation for sentences like (\mex{0}b) and (\mex{0}d) is that there is a phrasal
+pattern with three arguments into which intransitive and strictly transitive verbs may be
+entered. It is assumed that the phrasal patterns are associated with a certain meaning \citep{Goldberg96a,GJ2004a}. For example,
+the benefactive meaning of (\mex{0}d) is contributed by the phrasal pattern
+(\citealt[Section~6]{Goldberg96a}; \citealt*[\page 81]{AGT2014a}).
+
+The insight that a verb is used in the ditransitive pattern and thereby contributes a certain
+meaning is of course also captured in lexical approaches. \citet{BC99a} suggested a lexical
+rule-based analysis mapping a transitive version of verbs like \emph{bake} onto a ditransitive one
+and adding the benefactive semantics. This is parallel to the phrasal approach in that it says:
+three-place \emph{bake} behaves like other three-place verbs (\eg \emph{give}) in taking three
+arguments and by doing so, it comes with a certain meaning (see \citealt{MuellerLFGphrasal} for a
+lexical rule-based analysis of the benefactive constructions that works for both English and German,
+despite the surface differences of the respective languages). The lexical rule is a form-meaning pair
+and hence a construction. As Croft put it 15 years ago: Lexical rule vs.\ phrasal schema is a false
+dichotomy \citep{Croft2003a}. But see \citew{MuellerLFGphrasal,Mueller2006d,MuellerUnifying} and \citew{MWArgSt} for
+differences between the approaches.
+
+\citet{BC99a} paired their lexical rules with probabilities to be able to explain differences in
+productivity. This corresponds to the association strength that \citet[\page 141]{vanTrijp2011a} used to relate
+lexical items to phrasal constructions of various kinds.
+
+\subsection{Non-predictability of valence}
+
+The last subsection discussed phrasal models of coercion that assume that verbs can be inserted
+into constructions that are compatible with the semantic contribution of the verb. \citet[Section~7.4]{MWArgSt}
+pointed out that this is not sufficiently constrained. Müller \& Wechsler discussed the examples in
+(\mex{1}), among others:
+
+\eal\label{depends-on-ex}
+\ex John depends on Mary.  (\emph{counts, relies,} etc.)
+\ex John trusts (*on) Mary.  
+\zl
+While \emph{depends} can be combined with a \emph{on}-PP, this is impossible for \emph{trusts}. Also
+the form of the preposition of prepositional objects is not always predictable from semantic
+properties of the verb. So there has to be a way to state that certain verbs go together with
+certain kinds of arguments and others do not. A lexical specification of valence information is the
+most direct way to do this. Phrasal approaches sometimes assume other means to establish connections
+between lexical items and phrasal constructions. For instance, \citet[\page 50]{Goldberg95a} assumes
+that verbs are ``conventionally associated with constructions''. The more technical work in Fluid
+CxG\is{Construction Grammar!Fluid} assumes that every lexical item is connected to various phrasal constructions via coapplication
+links \citep[\page 141]{vanTrijp2011a}. This is very similar to Lexicalized Tree Adjoining
+Grammar\is{Tree Adjoining Grammar (TAG)}
+(LTAG; \citealt*{SAJ88a-u}), where a rich syntactic structure is associated to a lexical anchor. So,
+phrasal approaches that link syntactic structure to lexical items are actually lexical
+approaches as well. As in \gpsg, they include means to ensure that lexical items enter into correct
+constructions. In GPSG, this was taken care of by a number. I already discussed the GPSG shortcomings
+in previous subsections.
+
+Concluding this section, it can be said that there has to be a connection between lexical items and
+their arguments and that a lexical representation of argument structure is the best way to establish
+such a relation.
+
+%\section{HPSG as a Construction Grammar}
+%\label{sec-hpsg-as-cxg}
+
+\section{Construction Morphology}
+\label{sec-cxg-morphology}
+
+The\is{morphology|(}\is{derivation|(} first publications in \isi{Construction Morphology} were the
+master's thesis of \citet{Riehemann93a}, which later appeared as \citet{Riehemann98a}, and Koenig's BLS paper and thesis
+\citep{Koenig93a-u,Koenig94a-u,Koenig99a}. Riehemann called her framework \emph{Type-Based Derivational
+  Morphology}, since it was written before influential work like \citew{Goldberg95a} 
+appeared and before the term \emph{Construction Morphology} \citep{Booij2005a} was used. Riehemann did a careful corpus study on adjective
+derivations with the suffix \suffix{bar} `-able'. She noticed that there is a productive pattern
+that can be analyzed by a lexical rule relating a verbal stem to the adjective suffixed with
+\suffix{bar}.\footnote{
+  She did not call her rule a lexical rule, but the difference between her template and the
+  formalization of lexical rules by \citet{Meurers2001a} is the naming of the feature \textsc{morph-b}
+  vs.\ \textsc{dtr}.
+} The productive pattern applies to verbs governing an accusative as in (\mex{1}a) but
+is incompatible with verbs taking a dative as in (\mex{1}b):
+\eal
+\ex[]{
+\gll unterstützbar\\
+     supportable\\
+}
+\ex[*]{
+\gll helfbar\\
+     helpable\\
+}
+\ex[*]{
+\gll schlafbar\\
+     sleepable\\
+}
+\zl
+Intransitive verbs are also excluded, as (\mex{0}c) shows. Riehemann suggests the schema in
+(\mex{1}):
+\ea
+\label{ex-schema-bar}
+\begin{tabular}[t]{@{}l@{}}
+Schema for productive adjective derivations with the suffix \suffix{bar} in\\ German according to
+\citet[\page 68]{Riehemann98a}:\\*
+\onems[reg-bar-adj]{
+phonology  \ibox{1} + \normalfont\textit{bar}\\
+morph-b    \liste{ \onems[trans-verb]{ phon \ibox{1}\\
+                                        synsem|loc \ms{ cat|val|comps \sliste{ NP[\type{acc}]:\ibox{2} } $\oplus$ \ibox{3}\\              
+                                                        cont|nuc \ibox{4} \ms{ act\\
+                                                                               und \ibox{2}\\
+                                                                             }\\
+                                                      }\\
+                                     } }\\
+synsem|local \onems{ category \ms{ head & adj\\
+                                valence & \ms{ subj & \sliste{ NP:\ibox{2} }\\
+                                               comps & \ibox{3}\\
+                                             }\\
+                              }\\
+                  content|nucleus \ms{ reln & $\Diamond$\\
+                                       arg1 & \ibox{2}\\
+                                       arg2 & \ibox{4}\\
+                                     }\\
+                }\\
+}
+\end{tabular}
+\z
+\textsc{morph-b} is a list that contains a description of a transitive verb (something that governs
+an accusative object which is linked to the undergoer role \iboxb{2} and has an actor).\footnote{
+  Note that the specification of the type \type{trans-verb} in the list under \textsc{morph-b} is
+  redundant, since it is stated that there has to be an accusative object and that there is an actor
+  and an undergoer in the semantics. Depending on further properties of the grammar, the
+  specification of the type is actually wrong: productively derived particle verbs may be input to
+  the \bard, and these are not a subtype of \type{trans-verb}, since the respective particle verb rule
+  derives both transitive (\emph{anlachen} `laugh at somebody')  and intransitive verbs
+  (\emph{loslachen} `start to laugh') \citep[\page 296]{Mueller2003a}. \emph{Anlachen} does not have an
+  undergoer in the semantic representation suggested by \citet{Stiebels96a}. See
+  \citet[\page 308]{Mueller2003a} for a version of the \bard schema that is compatible with particle verb
+  formations as input.
+}
+The phonology of this element \iboxb{1} is combined with the suffix \suffix{bar} and forms the
+phonology of the complete lexical item. The resulting object is of category \type{adj} and the
+semantics of the accusative object of the input verb \iboxb{2} is identified with the one of the subject of the resulting adjective. The semantics of the
+input verb \iboxb{4} is embedded under a modal operator in the semantics of the adjective. 
+
+While the description of the \bard given so far captures
+the situation quite well, there are niches and isolated items that are exceptions. According to
+\citet[\page 5]{Riehemann98a}, this was the case for 7\% of the adjectives she looked at in her
+corpus study. Examples are verbs ending in \suffix{ig} like \emph{entschuldigen} `to excuse'. The
+\suffix{ig} is dropped in the derivation:
+\ea
+\gll entschuldbar\\
+     excuseable\\
+\z
+Other cases are lexicalized forms like \emph{essbar} `safely edible', which have a special
+lexicalized meaning. Exceptions of the accusative requirement are verbs selecting a dative
+(\mex{1}a), a prepositional object (\mex{1}b), reflexive verbs (\mex{1}c), and even intransitive, mono-valent verbs (\mex{1}d):
+\eal
+\ex 
+\gll unentrinnbar\\
+     inescapable\\
+\ex 
+\gll verfügbar\\
+     available\\
+\ex
+\gll regenerierbar\\
+     regenerable\\
+\ex 
+\gll brennbar\\
+     inflammable\\
+\zl 
+
+To capture generalizations about productive, semi-productive and fixed patterns/items, Riehemann
+suggests a type hierarchy, parts of which are provided in
+Figure~\ref{fig-bar-Riehemann}.
+%\todostefan{why doesn't the figure start at the left?}
+\begin{figure}
+\centerfit{%
+%\scalebox{0.95}{%
+\begin{forest}
+typehierarchy
+[bar-adj
+  [trans-bar-adj
+    [reg-bar-adj]
+    [essbar]
+    [\ldots]]
+  [dative-bar-adj
+    [unentrinnbar]
+    [\ldots]]
+  [prep-bar-adj
+    [verfügbar]]
+  [intr-bar-adj
+    [brennbar]
+    [\ldots]]]
+\end{forest}}
+\caption{\label{fig-bar-Riehemann}Parts of the type hierarchy for \bard adapted from \citew[\page 15]{Riehemann98a}}
+\end{figure}
+The type \type{bar-adj} stands for all \suffix{bar} adjectives and comes with the constraints that
+apply to all of them. One subtype of this general type is \type{trans-bar-adj}, which subsumes all
+adjectives that are derived from transitive verbs. This includes all regularly derived \baradjs,
+which are of the type \type{reg-bar-adj} but also \emph{essbar} `edible' and \emph{sichtbar} `visible'.
+
+As this recapitulation of Riehemann's proposal shows, the analysis is a typical CxG analysis:
+V-\emph{bar} is a partially filled word (see Goldberg's examples in
+Table~\ref{tab-constructions}). The schema in (\ref{ex-schema-bar}) is a form-meaning
+pair. Exceptions and subregularities are represented in an inheritance network.
+
+\is{morphology|(}\is{derivation|(}
+
+\section{Phrasal patterns}
+\label{sec-phrasal-patterns}
+\label{sec-phrasal}
+
+Section~\ref{sec-valence} discussed the claim that Constructions in the sense of CxG have to be phrasal. I
+showed that this is not true and that in fact lexical approaches to valence have to be preferred
+under the assumptions usually made in non-transformational theories. However, there are other areas
+of grammar that give exclusively head-driven approaches like \cg, \minimalism, and \dg a hard
+time. In what follows I discuss the NPN construction and various forms of filler gap constructions.
+
+\subsection{The NPN Construction}
+\label{sec-npn}
+
+\citet{Matsuyama2004a} and \citet{Jackendoff2008a} discuss the \isi{NPN Construction}, examples
+of
+%\todostefan{Anne: Compare analyses more precisely: inheritance?}
+which are provided in (\mex{1}):
+\eal
+\ex Student after student left the room.
+\ex
+\label{ex-npn-iteration}
+Day after day after day went by, but I never found the courage to talk to
+her. \citep{Bargmann2015a}
+\zl
+The properties of the NPN construction (with \emph{after})  are summarized by \citet{Bargmann2015a}
+in a concise way and I will repeat his examples and summarization below to motivate his analysis in (\ref{ex-npn-bragmann}).
+
+The examples in (\mex{0}) show that the N-after-N Construction has the \emph{distribution of NPs}.
+
+As (\mex{1}) shows, the construction is \emph{partially lexically fixed}: \emph{after} cannot be
+replaced by any other word \citep[\page 73]{Matsuyama2004a}.
+\ea
+Alex asked me question \{ after / * following / * succeeding \} question.
+\z
+
+The construction is \emph{partially lexically flexible}: the choice of Ns is free, except for the fact that
+the Ns must be identical (\mex{1}a), the Ns must be count nouns (\mex{1}b), Ns must be in the
+singular (\mex{1}c), and the Ns must be bare (\mex{1}d).
+
+\eal
+\settowidth\jamwidth{(Ns have determiners)}
+\ex[*]{
+bus after car \jambox{(N1 $\neq$ N2)}
+}
+\ex[*]{
+water after water \jambox{(Ns = mass nouns)}
+}
+\ex[*]{
+books after books \jambox{(Ns = plurals)}
+}
+\ex[*]{
+a day after a day \jambox{(Ns have determiners)}
+}
+\zl
+
+The construction is \emph{syntactically fixed}: N-after-N cannot be split by syntactic operations as the
+contrast in (\mex{1}) shows \citep{Matsuyama2004a}:
+\eal
+\ex[]{
+Man after man passed by. 
+}
+\ex[*]{
+Man passed by after man.
+}
+\zl
+If extraposition of the \emph{after}-N constituent were possible, (\mex{0}b) with an extraposed
+\emph{after man} should be fine but it is not, so NPN seems to be a fixed configuration.
+
+There is a syntax-semantics mismatch:
+while N-after-N is syntactically singular, as (\mex{1}) shows, it is plural semantically, as
+(\mex{2}) shows:
+\ea
+Study after study \{ reveals / *reveal \} the dangers of lightly trafficked streets.
+\z
+\eal
+\ex John ate \{ apple after apple / apples / *an apple \} for an hour. 
+\ex John ate \{ *apple after apple / *apples / an apple \} in an hour.
+\zl
+Furthermore there is an aspect of semantic sequentiality: N-after-N conveys a temporal or spatial
+sequence: as \citet{Bargmann2015a} states, the meaning of (\mex{1}a) is something like (\mex{1}b).
+\eal
+\ex Man after man passed by. 
+\ex First one man passed by, then another(, then another(, then another(, then  \ldots{} ))). 
+\zl
+The Ns in the construction do not refer to one individual each; rather, they contribute to a holistic meaning.
+
+The NPN construction allows adjectives to be combined with the nouns, but this is restricted.
+N1 can only be preceded by an adjective if N2 is preceded by the same adjective: 
+\eal
+\ex[]{
+bad day after bad day (N1 and N2 are preceded by the same adjective.)
+}
+\ex[*]{
+bad day after awful day (N1 and N2 are preceded by different adjectives.) 
+}
+\ex[*]{
+bad day after day (Only N1 is preceded by an adjective.)
+}
+\ex[]{
+day after bad day (Only N is preceded by an adjective.)
+}
+\zl
+
+Finally, \emph{after} N may be iterated to emphasize the fact that there are several referents of N, as the example in (\ref{ex-npn-iteration}) shows. 
+
+
+This empirical description is covered by the following phrasal construction, which is adapted from
+\citew{Bargmann2015a}:\footnote{%
+Jackendoff and Bargmann assume that the result of combining N, P, and N is an NP. However this is
+potentially problematic, as Matsuyama's example in (\mex{1}) shows \citep[\page 71]{Matsuyama2004a}:
+\ea
+All ranks joined in hearty cheer after cheer for every member of the royal family \ldots
+\z
+As Matsuyama points out, the reading of such examples is like the reading of \emph{old men and women}
+in which \emph{old} scopes over both \emph{men} and \emph{women}. This is accounted for in
+structures like the one indicated in (\ref{ex-hearty-cheer-after-cheer}):
+\ea
+\label{ex-hearty-cheer-after-cheer}
+hearty [cheer after cheer]
+\z
+Since adjectives attach to \nbars and not to NPs, this means that NPN constructions should be
+\nbars. Of course (\ref{ex-hearty-cheer-after-cheer}) cannot be combined with a determiner, so one would have to assume that
+NPN constructions select for a determiner that has to be dropped obligatorily. Determiners are also
+dropped in noun phrases with mass nouns with a certain reading.
+}
+\ea
+\label{ex-npn-bragmann}%
+NPN Construction as formalized by \citew{Bargmann2015a}:\\
+%\begin{sideways}
+\oneline{%
+\onems{
+phon \phonliste{ \ldots{} N \ldots, after, \ldots{} N \ldots }\\
+ss|loc|cat \ms{ head & \ms[noun]{ count & $-$\\
+                                  agr   & \type{3rdsing}\\
+                                }\\
+                val  & \ms{ spr & \eliste\\
+                            comps & \eliste\\
+                          }\\
+             }\\
+sr \textrm{$\lambda P.\exists X.|X| >1~\&~\forall x \in X$$:N'(x)~\&~\exists R^{order} \subseteq X^{2}~\&~P(x)$} \\
+dtrs \liste{ 
+\onems{ phon \phonliste{ \ldots{} N \ldots }\\
+        ss|l|c \ms{ head & \onems[noun]{ count $+$\\
+                                      agr  \type{3rdsing}\\
+                                }\\
+                val  & \ms{ spr   & \sliste{ Det }\\
+                            comps & \eliste\\
+                          }\\
+             }\\
+        sr $\ldots~\lambda x.N'(x)~\ldots$
+},
+$\left( \onems{ phon \phonliste{ after }\\
+            \ldots{} head \type{prep}\\
+            sr $\exists R^{order} \subseteq X^{2}$\\
+             },
+\onems{ phon \phonliste{ \ldots{} N \ldots }\\
+        ss|l|c \ms{ head & \onems[noun]{ count  $+$\\
+                                         agr   \type{3rdsing}\\
+                                }\\
+                val  & \ms{ spr   & \sliste{ Det }\\
+                            comps & \eliste\\
+                          }\\
+             }\\
+        sr $\ldots~\lambda x.N'(x)~\ldots$
+} \right)^+$
+}% list
+}
+}
+%\end{sideways}
+\z
+There is a list of daughters consisting of a first daughter and an arbitrarily long list of
+\emph{after} N pairs. The `+'\is{+} means that there has to be at least one \emph{after} N pair. The
+nominal daughters select for a determiner via \spr, so they can be either bare nouns or nouns
+modified by adjectives. The semantic representation, non-standardly represented as the value of
+\textsc{sr}, says that there have to be several objects in a set X ($\exists X.|X| >1$) and for all of them, the meaning
+of the \nbar has to hold ($\forall x \in X:N'(x)$). Furthermore there is an order between the elements of X as stated by $\exists R^{order} \subseteq X^{2}$.
+
+
+%% A further piece of data that is interesting was also provided by Matsuyama: The nouns of the NPN
+%% construction may take complements. (\mex{1}) is one of his examples \citep[\page 59]{Matsuyama2004a}:
+%% \ea
+%% \ldots{} and he kept asking question after question about the world that lay away down the river,
+%% with all its perils and marvels
+%% \z
+%% silly question after silly question about the ...
+%% This can be fixed easily in Bargmann's NPN construction by just assuming that 
+
+From looking at this construction, it is clear that it cannot be accounted for by standard \xbar
+rules. Even without requiring \xbar syntactic rules, there seems to be no way to capture these
+constructions in head-based approaches like \minimalism, \cg, or \dg. For simple NPN constructions,
+one could claim that \emph{after} is the head. \emph{after} would be categorized as a third-person singular
+mass noun and select for two \nbar{}s. It would (non-compositionally) contribute the semantics stated above. But it is unclear how the general schema with arbitrarily
+many repetitions of \emph{after} N could be accounted for. If one assumes that \emph{day after day}
+forms a constituent, then the first \emph{after} in (\mex{1}) would have to combine an N with an NPN sequence.
+\ea
+day after [day [after day]]
+\z
+This means that we would have to assume two different items for \emph{after}: one for the
+combination of \nbar{}s and another one for the combination of \nbar with NPN combinations. Note
+that an analysis of the type in (\mex{0}) would have to project information about the \nbar{}s contained
+in the NPN constructio,n since this information has to be matched with the single \nbar at the
+beginning. In any case, a lexical analysis would require several highly idiosyncratic lexical items
+(prepositions projecting nominal information and selecting items they usually do not select).
+It is clear that a reduplication account of the NPN construction as suggested by
+G.\ \citet{GMueller2011a} does not work, since patterns with several repetitions of PN as in
+(\mex{0}) cannot be accounted for as reduplication. G.\ Müller (p.\,241) stated that reduplication works
+for word-size elements only (in \ili{German}) and hence his account does not extend to the English
+examples given above. (\mex{1}) shows an attested German example containing adjectives, which means
+that G.\,Müller's approach is not appropriate for German either.
+\ea
+\label{ex-schwarzen-stein}
+\gll Die beiden tauchten nämlich geradewegs wieder aus dem heimischen Legoland auf, wo sie im
+Wohnzimmer, schwarzen Stein um schwarzen Stein, vermeintliche Schusswaffen nachgebaut
+hatten.\footnotemark\\
+     the two    surfaced namely straightaway again   from the home Legoland \particle{} where they
+     in.the living.room black brick after black brick alleged firearms recreated had\\%\german
+\footnotetext{
+  taz, 05.09.2018, p.\,20
+}
+\glt `The two surfaced straightaway from their home Legoland where they had recreated alleged
+firearms black brick after black brick.'
+\z
+
+%% \subsection{\emph{To hell with this government!}}
+
+%% \citet{Jacobs2008a}
+
+%% \citet[Section~21.10.1]{MuellerGT-Eng1}
+
+This subsection showed how a special phrasal pattern can be analyzed within HPSG. The next section
+will discuss filler-gap constructions, which were analyzed as instances of a single schema by
+\citet{ps2} but which were later reconsidered and analyzed as a family of subconstructions by
+\citew{Sag97a,Sag2010b}.
+
+\subsection{Specialized sub-constructions}
+
+HPSG took over the treatment of nonlocal dependencies from GPSG \citep{Gazdar81a} (see also
+\crossrefchapteralt{evolution} on the history of HPSG and \crossrefchapteralt{udc} on
+unbounded dependencies). \citet[Chapters~4 and~5]{ps2} had
+an analysis of topicalization constructions like (\mex{1}) and an analysis of relative
+clauses. However, more careful examination revealed that more fine-grained distinctions have to be
+made. \citet[\page 491]{Sag2010b} looked at the following examples:
+\settowidth\jamwidth{(topicalized clause)}
+\eal
+\ex {}[My bagels,] she likes.                           \jambox{(topicalized clause)}
+\ex {}[\emph{What} books] do they like?                 \jambox{(\emph{wh}-interrogative)} 
+\ex (the person) [\emph{who} (\emph{se} book)] they like \jambox{(\emph{wh}-relative)} 
+\ex {}[\emph{What a} play] he wrote!                    \jambox{(\emph{wh}-exclamative)} 
+\ex {}[\emph{the more} books] they read \ldots          \jambox{(the-clause)}
+\zl
+As Sag shows, the fronted element is specific to the construction at hand:
+\eal
+\ex[*]{
+[\emph{Which} bagels] / [\emph{Who}], she likes. \jambox{(topicalized clause)}
+}
+\ex[*]{
+[\emph{What a} book] do they like? \jambox{(\emph{wh}-interrogative)} 
+}
+\ex[\%]{
+the thing [[\emph{what}] they like] \jambox{(\emph{wh}-relative)}
+}
+\ex[*]{
+[\emph{Which} bagels] / [\emph{What}] she likes! \jambox{(\emph{wh}-exclamative)} 
+}
+\ex[*]{
+[\emph{which} books] they read, the more they learn. \jambox{(the-clause)}
+}
+\zl
+A topicalized clause should not contain a \emph{wh} item (\mex{0}a), a \emph{wh}-interrogative should not
+contain a \emph{what a} sequence as known from \emph{wh}-exclamatives (\mex{0}b), and so on.
+
+Furthermore, some of these constructions allow non-finite clauses and others do not:
+\eal
+\ex[*]{
+Bagels, (for us) to like. \jambox{(topicalized clause)}
+}
+\ex[*]{
+It's amazing [what a dunce (for them) to talk to]. \jambox{(\emph{wh}-exclamative)} 
+}
+\ex[*]{
+The harder (for them) to come, the harder (for them) to fall.  \jambox{(the-clause)}
+}
+\ex[]{
+I know how much time (* for them) to take.  \jambox{(\emph{wh}-interrogative)} 
+}
+\ex[]{
+The time in which (*for them) to finish.  \jambox{(\emph{wh}-relative)}
+}
+\zl
+So there are differences as far as fillers and sentences from which something is extracted
+are concerned. Sag discussed further differences like inversion/""non-inversion in the clauses out of
+which something is extracted. I do not repeat the full discussion here but refer the reader to the
+original paper.
+
+In principle, there are several ways to model the phenomena. One could assume empty
+heads as \citet[Chapter~5]{ps2} suggested for the treatment of relative clauses. Or one could assume empty
+heads as they are assumed in Minimalism: certain so-called operators have features that have to be
+checked and cause items with the respective properties to move \citep[\page 330--331]{Adger2003a}. \citet{Borsley2006a} discussed potential
+analyses of relative clauses involving empty heads and showed that one would need a large number of
+such empty heads, and since there is no theory of the lexicon in Minimalism, generalizations are
+missed (see also \crossrefchapteralt{minimalism}). The alternative suggested by
+\citet{Sag2010b} is to assume a general Filler-Head Schema of the kind assumed in \citew{ps2} and
+then define more specific sub-constructions. To take an example, the \emph{wh}-exclamative is a filler-head
+structure, so it inherits everything from the more general construction, but in addition, it
+specifies that the filler daughter must contain a \emph{what a} part and states the semantics that is
+contributed by the exclamative construction.
+
+
+\section{Summary}
+\label{sec-summary}
+
+This paper summarized the properties of Construction Grammar, or rather Construction Grammars, and
+showed that HPSG can be seen as a Construction Grammar, since it fulfills all the tenets assumed in
+CxG: it is surface-based, grammatical constraints pair form and function/meaning, the grammars do
+not rely on innate domain-specific knowledge, and the grammatical knowledge is represented in
+inheritance hierarchies. This sets HPSG and CxG apart from other generative theories that either
+assume innate language-specific knowledge (Minimalism, \eg
+\citealt{Chomsky2013a,Kayne94a-u,CR2010a}) or do not assume inheritance hierarchies for all linguistic levels (\eg LFG).
+
+I showed why lexical analyses of argument structure should be
+preferred over phrasal ones and that there are other areas in grammar where phrasal analyses are
+superior to lexical ones. I showed that they can be covered in HPSG, while they are problematic for
+proposals assuming that all structures have to have a head. 
+
+
+%% \appendix
+%% \section{Appendix: Sign-Based Construction Grammar}
+%% \label{appendix-cxg}
+
+
+
+\is{Construction Grammar|)}
+%\section*{Abbreviations}
+\section*{Acknowledgements}
+
+I thank Anne Abeillé, Bob Borsley, Rui Chaves, and Jean-Pierre Koenig for comments on earlier
+versions of this chapter and for discussion in general. I thank Frank Richter for discussion of
+formal properties of SBCG. 
+
+
+{\sloppy
+\printbibliography[heading=subbibliography,notkeyword=this] 
+}
+\end{document}
+
+\if0
+
+Stefan
+
+
+Your outline made me think about what exactly construction grammar is. It seems to me it’s not a simple matter. It might be seen as any approach which rejects the idea emphasized by Chomskyans that traditional constructions are epiphenomena. Constructions appear to be just epiphenomena in any approach in which the syntax is just a few general combinatorial mechanisms, so not just P&P and Minimalism but also categorial grammar and early HPSG with its few ID schemata. This might mean that construction grammar is any framework which has more than just a few general combinatorial mechanisms. That would include HPSG since Sag (1997), but also GPSG with its numerous ID rules and classical TG with its numerous PS rules. But I assume most people wouldn’t see either GPSG and classical TG as forms of Construction Grammar.
+
+ 
+
+This might suggest that form-meaning pairs is what’s key for construction grammar. That would include early GPSG with its pairs of syntactic and semantic rules, but not, I think, later GPSG with its few general semantic principles. It would also, I think, not include HPSG, since an HPSG phrase type may or may not have any semantic properties.
+
+ 
+I’m inclined to see the most important feature of construction grammar as complex hierarchies of phrase types, allowing the grammar to capture very broad general facts, very specific facts, and everything in between. This includes HPSG since Sag (1997), but not early HPSG, and not P&P and Minimalism, categorial grammar, GPSG, or classical TG. However, I don’t know whether all frameworks calling themselves construction grammar have complex hierarchies of phrase types. If not, I don’t know how I would define construction grammar. 
+
+
+best
+
+
+Bob
+
+
+
+JP:
+
+ This is a nice outline. I will make some high level remarks in the context of Bob’s comments. It’s clear that a decision was made to focus on that part of ConsGr that is closest to HPSG. It certainly makes sense for the Handbook, but of course the center of gravity of ConsGr is not that part which was closest to HPSG around 2012. So, I wonder a little more history of what ConsGram was is needed, particularly work by Fillmore and Kay (I assume Goldberg will be discussed in section 3), which presumably should be cited. Two things in particular might be stressed:
+
+1) Typing of constructions was not part of the original ConsGr if memory serves me right,
+2) Constructions that are not of depth 1 and thus resolute non-locality as a possibility was parts and parcels of ConsGram. 
+
+Finally, assigning meaning to phrase structure combinations (and meaning that can be quite more detailed than a standard type-logical meaning, see the Let alone paper, is a big thing of ConsGram and something that clearly can be done in HPSG (see Ginzburg and Sag), but is not always embraced. So, I remember Frank telling me LRS typically does not go for that, although he is quick to acknowledge nothing prevents it.
+
+
+
+As for comments, I suggest you discuss SBCG, and in particular, cite
+Boas & Sag 2012. I also suggest discussing Lee-Goldman 2011, a SBCG
+dissertation from Berkeley available at
+https://escholarship.org/uc/item/02m6b3hx
+
+Finally, note that Adele Goldberg has now a new book  "Explain me
+this: Creativity, Competition, and the Partial Productivity of
+argument structure constructions" Princeton University, which you may
+want to check too.
+
+
+
+BB: 04.05.19
+A few suggestions for possible revisions.
+
+ 
+
+It still seems to me that the most important feature of Construction Grammar is a rejection of the view that grammar is just a few very general combinatorial mechanisms. The Chomskyan mainstream has assumed this view since the early 80s, and it seems to me that both categorial grammar and early HPSG subscribe to it. As I understand it, you think Minimalism is not a form of Construction Grammar because of its abstractness. No doubt a ‘what you see is what you get’ is an important feature of the various forms of Construction Grammar, but it seems to me that the insistence that a few very general combinatorial mechanisms are not sufficient is more important and I would be inclined to emphasize this.
+
+ 
+
+I quite like Goldberg’s definition of a construction on p.839, and I think you might make a bit more of it. On this definition it follows that VP and PP are probably not constructions because their properties are predictable from the head-complement construction and the verbs and prepositions that they contain. On the other hand, wh-interrogative and wh-relative are constructions because they have properties which are not predictable either from more general constructions like head-filler-phrase or the lexical items that they contain. I think it’s important to say something about what is not a construction as well as about what is.
+
+ 
+
+I also think it would be good to have the material in section 4 before the material in section 2. I think you should first show that grammar cannot be just a few very general combinatorial mechanisms, and then present the argument against the over-use of constructions.
+
+
+ 
+
+Some more minor points:
+
+ 
+
+p.837, fn.1. Is HPSG not a phrase structure grammar because it doesn’t have phrase structure rules? If so, GPSG wasn’t a phrase structure grammar either except in its earliest incarnations.
+
+ 
+
+
+p.841, Tenet 1. Not all frameworks have morphemes.
+
+ 
+
+p.841, bottom. Tenet 3 also excludes Postal’s Metagraph Grammar although it’s not a derivational model.
+
+ 
+
+ 
+
+
+p.849, near the bottom. You refer to GPSG phrase structure rules. Shouldn’t it be like GPSG immediate dominance rules.
+
+ 
+
+
+
+
+\fi
+
+
+
+%      <!-- Local IspellDict: en_US-w_accents -->
