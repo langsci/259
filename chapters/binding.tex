@@ -196,38 +196,556 @@ expression Z heading its own chain has to be A-free in the domain of the head of
 
 \section{A non-configural Binding Theory}
 
+HPSG's Binding Theory differs from GB's Binding Theory in referring less to tree structures but
+rather to the notion of obliqueness of arguments of ahead. The arguments of a head are represented
+in a list called the argument structure list. The list is the value of the feature \argst. The
+\argst elements are descriptions of arguments of a head containing syntactic and semantic properties
+of the selected arguments but not their daughters. So they are not complete signs but \type{synsem}
+objects. See \crossrefchaptert{properties} for more on the general setup of HPSG
+theories. The list elements are ordered with respect to their obliqueness, the least oblique element
+being the first element:
 
 \ea
-Let Y and Z be \type{synsem} objects with distinct \localvs, Y referential. Then Y locally
-o-commands Z just in case Y is less oblique than Z.
+\label{def-obliqueness-hierarchy}
+\oneline{%
+\is{object!indirect|(}\is{object!direct|(}\is{subject}%
+\begin{tabular}[t]{@{}l@{\hspace{1ex}}l@{\hspace{1ex}}l@{\hspace{1ex}}l@{\hspace{1ex}}l@{\hspace{1ex}}l@{}}
+SUBJECT $>$ & DIRECT $>$ & INDIRECT $>$ & OBLIQUES $>$ & GENITIVES $>$  & OBJECTS OF\\
+             & OBJECT      & OBJECT        &               &                 & COMPARISON 
+\end{tabular}%
+}
+\z
+This order was suggested by \citet{KC77a}. It corresponds to the level of syntactic activity of grammatical functions\is{grammatical function}. Elements
+higher in this hierarchy are less oblique and can participate more easily in syntactic constructions, like for instance,
+reductions in coordinated structures\is{coordination} \citep[\page 15]{Klein85}\iaright{Klein, Wolfgang},
+topic drop\is{topic drop}\is{Vorfeldellipse@{\it Vorfeldellipse}} \citep{Fries88b}\ia{Fries},
+non-matching free relative clauses\is{relative clause!free} 
+\citep{Bausewein90,Pittner95b,Mueller99b}, 
+passive\is{passive} and relativization\is{relativization} \citep{KC77a}, and
+depictive predicates\is{predicate!depictive secondary} \citep{Mueller2008a}.
+In addition, \citet{Pullum77a} argued that this hierarchy plays a role in constituent order\is{scrambling}\is{serialization} (but see Section~\ref{sec-argst-order}.)
+And, of course, it was claimed to have play an important role in Binding Theory\is{Binding Theory} 
+(Grewendorf, \citeyear[\page 160]{Grewendorf85a} \citeyear[\page 60]{Grewendorf88a}; \citealp[Chapter~6]{ps2}\ia{Pollard}\ia{Sag}).
+
+
+Figure~\ref{fig-binding-argst} shows a version of Figure~\ref{fig-binding-gb} including \argst information.
+\begin{figure}
+\begin{forest}
+sm edges without translation
+[S
+  [\ibox{1} NP$_i$ [John\\John\\he]]
+  [VP
+    [V \sliste{ \ibox{1} NP$_i$, \ibox{2} CP } [thinks\\thinks\\thinks]]
+    [\ibox{2} CP 
+      [C [that\\that\\that]]
+      [S
+        [\ibox{3} NP$_j$ [Paul\\Paul\\Mary]]
+        [VP
+         [V \sliste{ \ibox{3} NP$_j$, \ibox{4} NP$_k$ } [likes\\likes\\likes]]
+         [\ibox{4} NP$_k$ [him\\himself\\Peter]]]]]]]
+\end{forest}
+
+\caption{\label{fig-binding-argst}Tree configuration of examples for binding with \argst lists}
+\end{figure}
+The main points of HPSG's Binding Theory can be discussed with respect to this simple figure:
+anaphors have to be bound locally. The definition of the domain of locality is rather simple. One
+does not have to refer to tree configurations since all arguments of a head are represented locally
+in a list. Simplifying a bit, reflexives and reciprocals may be bound to elements preceding them in
+the \argstl and a pronoun like \emph{him} must not be bound by a preceding element in the same \argstl.
+
+To be able to specif the conditions on binding of anaphors, pronouns and non-pronouns some further
+definitions are necessary. The following definitions are definitions of local \emph{o-command}, \emph{o-command}
+and \emph{o-bind}. The terms are reminiscent of \emph{c-command} and so on but we have an ``o''
+rather than a ``c'' here, which is supposed to indicate the important role of the obliqueness
+hierarchy. The definitions are as follows:
+
+\ea
+\label{def-local-o-command}
+Let Y and Z be \type{synsem} objects with distinct \localvs, Y referential. Then Y \emph{locally
+o-commands} Z just in case Y is less oblique than Z.
 \z
 
 \ea
-Let Y and Z be \type{synsem} objects with distinct \localvs, Y referential. Then Y o-commands Z just
+\label{def-o-command}
+Let Y and Z be \type{synsem} objects with distinct \localvs, Y referential. Then Y \emph{o-commands} Z just
 in case Y locally o-commands X dominating Z.
 \z
 
 \ea
-Y (\emph{locally}) \emph{o-binds} Z just in case Y and Z are coindexed and Y (locally) o-commands Z. If Z
-is not (locally) o-bound, then it is said to be (\emph{locally}) \emph{o-free}.
+\label{def-o-bind}
+Y (\emph{locally}) \emph{o-binds} Z just in case Y and Z are coindexed and Y (locally) o"=commands Z. If Z
+is not (locally) o-bound, then it is said to be (\emph{locally}) \emph{o"=free}.
 \z
 
-\begin{principle-break}[HPSG-Bindungsprinzipien]
+(\ref{def-local-o-command}) says that an \argst element locally o-commands any other \argst element
+further to the right of it. The condition of non-identity of the two elements under consideration in
+(\ref{def-local-o-command}) and (\ref{def-o-command}) is necessary to deal with cases of raising, in
+which one element may appear in various different \argstls. See Section~\ref{sec-binding-raising} below
+and \crossrefchaptert{control-raising} for discussion of raising in HPSG. The condition that Y has
+to be referential excludes expletive pronouns like \emph{it} in \emph{it rains} from entering
+o-command relations. Such expletives are part of \argst and valence lists but they are entirely
+irrelevant for Binding Theory, which is the reason for their exclusion in the definition.
+
+The definition of o-command uses the relations of locally o-command and dominate. With respect to
+Figure~\ref{fig-binding-argst}, we can say that NP$_i$ o-commands all nodes below the CP node since
+NP$_i$ locally o-commands the CP and the CP node dominates everything below it. So NP$_i$ o-commands
+C, NP$_j$, VP, V, and NP$_k$.
+
+The definition of \emph{o-bind} in (\ref{def-o-bind}) says that two elements have to be coindexed
+and there has to be a (local) o-command relation between them. The indices include person, number
+and gender information (in English), so that \emph{Mary} can bind \emph{herself} but not
+\emph{themselve} or \emph{himself}.
+
+\begin{principle-break}[HPSG Binding Theory]
 \begin{description}
-\item [Prinzip A] Eine lokal o-kom\-man\-dierte Anapher mu"s lokal o-gebunden sein.
-\item [Prinzip B] Ein Personalpronomen mu"s lokal o-frei sein.
-\item [Prinzip C] Ein Nicht-Pronomen mu"s o-frei sein.
+\item [Prinzip A] A locally o-commanded anaphor must be locally o-bound.
+\item [Prinzip B] A personal pronoun must be locally o-free.
+\item [Prinzip C] A nonpronoun must be o-free.
 \end{description}
 \end{principle-break}
+
+\noindent
+Principle A accounts for the ungrammaticality of sentences like (\mex{1}):
+\ea[*]{
+Mary likes himself.
+}
+\z
+Since both \emph{Mary} and \emph{himself} are members of the \argstl of \emph{likes}, there is an NP
+that locally o-commands \emph{himself}. Therefore there should be a local o-binder. But since the
+indices are incompatible because of incompatible gender values, \emph{Mary} cannot o-bind
+\emph{himself}, \emph{himslef} is locally o-free and hence in conflict to Principle A.
+
+Similarly, the binding in (\mex{1}) is excluded, since \emph{Mary} locally o-binds the pronoun \emph{her}
+and hence Principle B is violated.
+\ea[]{
+Mary$_i$ likes her$_{*i}$.
+}
+\z
+
+\noindent
+Finally, Principle C accounts for the ungrammaticality of (\mex{1}):
+\ea
+He$_i$ thinks that Mary likes Peter$_{*i}$.
+\z
+Since \emph{he} and \emph{Peter} are coindexed and since \emph{he} o-commands \emph{Peter},
+\emph{he} also o-binds \emph{Peter}. According to Principle C, this is forbidden and hence bindings
+like the one in (\mex{0}) are ruled out.
+
+This list-based Binding Theory seems very simple. So far we explained binding relations between
+coarguments of a head where the coarguments are NPs or pronouns. But there are also prepositional
+objects, which have an internal structure with the referential NPs embedded within a PP.
+
+\citet[\page 246,255]{ps2} discuss examples like (\mex{1}):
+\eal
+\ex{
+John$_i$ depends [on him$_{*i}$].
+}
+\ex{
+\label{ex-mary-talked-to-john-about-himself}
+Mary talked [to John$_i$] [about himself$_i$].
+}
+\zl
+As noted by \citet[\page 246]{ps2}, the second example is a problem for the GB Binding Theory since
+\emph{John} is inside the PP and does not c-command \emph{himself}. 
+\begin{figure}
+\begin{forest}
+sm edges without translation
+[S
+  [\ibox{1} NP [Mary]]
+  [VP
+    [V \sliste{ \ibox{1}, \ibox{2}, \ibox{3} } [talked]]
+    [\ibox{2} PP$_i$
+       [P [to]]
+       [NP$_i$ [John]]]
+    [\ibox{3} PP$_i$
+       [P [about]]
+       [NP$_i$ [himself]]]]]
+\end{forest}
+\caption{Binding within prepositional objects poses a challenge for GB's Binding Theory}
+\end{figure}
+Examples involving case-marking
+prepositions are no problem for HPSG however, since it is assumed that the semantic content of
+propositions is identified with the semantic content of the NP they are selecting. Hence, the PP
+\emph{to John} has the same referential index as the NP \emph{John} and the PP \emph{about himself}
+has the same index as \emph{himself}. The \argstl of \emph{talked} is shown in (\mex{1}):
+\ea
+\sliste{ NP, PP, PP }
+\z
+The Binding Theory applies as it would apply to ditransitive verbs. Since the first PP is less
+oblique than the second one, it can bind an anaphor in the second one. The same is true for the
+example in (\mex{-1}a): since the subject is less oblique than the PP object it locally o-commands
+it and even though the pronoun \emph{him} is embedded in a PP and not a direct argument of the verb
+the pronoun cannot be bound by \emph{him}. An anaphor would be possible within the PP object though.
+Of course the subject NP can bind NPs within both PPs: both \emph{to herself} and \emph{about
+  herself} would be possible as well.
+
+
+%\ea
+%It was herself that Mary loved.
+%\z
+
+\section{Exempt anaphors}
+
+The statement of Principle A has interesting consequences: if an anaphor is not locally o-commanded,
+Principle A does not say anything about requirements fro binding. This means that anaphors that are
+initial in an \argstl may be bound outside of their local environment.
+
+
+
+\section{i within i condition}
+
+\ea
+Karl heiratet eine nur sich$_i$ selbst liebdende Frau$_i$.
+\z
+
 
 
 \section{Reconstruction}
 
+\citet{ps2} point out an interesting consequence of the treatment of nonlocal dependencies in HPSG:
+since nonlocal dependencies are introduced by traces that are lexical elements rather then by
+transforming one structure into another one as is common in Transformational Grammar, there is no
+way to reconstruct some phrase into the position of the trace. Since traces do not have daughters,
+$\__j$ in (\mex{1}a) has the same local properties (part of speech, case, referential index) as \emph{which of Claire's$_i$ friends}
+without having its internal structure.\footnote{
+  Some of the more recent theories of nonlocal dependencies even do without traces. See
+  \crossrefchaptert{udc} for details.
+}
+\eal
+\ex I wonder [which of Claire's$_i$ friends]$_j$ [we should let her$_i$ invite $\__j$ to the party]?
+\ex {}[Which picture of herself$_i$]$_j$ does Mary$_i$ think John likes $\__j$?
+\zl
+Since extracted elements are not reconstructed into the position where they would be usually
+located, (\mex{0}a) is not related to (\mex{1}):
+\ea
+We should let her$_i$ invite which of Claire's$_i$ friends to the party.
+\z
+\emph{Claire} would be o-bound by \emph{her} in (\mex{0}), but since traces do not have daughters,
+no problem arises.
 
-\section{Matters of order in the \argstl}
+This is an interesting feature of the Binding Theory introduced so far, but as
+\citet[\page]{Mueller99a} pointed out, it makes wrong predictions as far as German (and English) are
+concerned. German is a V2 language and the placement of one constituent infront of the finite verb
+is usually accounted for by assuming a nonlocal dependency. If the fronted phrase is not
+reconstructed into the position of the trace, it is predicted that bindings like the following are
+acceptable, but they are not:
+\ea
+\gll [Karls$_i$ Freund]$_j$ kennt er$_{*i}$  $\__j$.\\
+     \spacebr{}Karl's    friend knows he\\
+\glt `He knows Karl's friend.'
+\z
+The situation is similar in English:
+\ea
+{}[Karl$_i$'s friend]$_j$, he$_{*i}$ knows $\__j$.
+\z
+According to the definition of o-command, \emph{he} locally o-commands the object of
+\emph{knows}. This object is realized as a trace. Therefore the local properties of \emph{Karl's
+  friend} are in relation to \emph{he} but since trace do not have daughters, there is no o-command
+relation between \emph{he} and \emph{Karl}, hence \emph{Karl} is o-free and Principle C is not
+violated. Hence there is no explanation for the impossibility to bind \emph{Karl} to \emph{he}.
+
+
+\section{A general Binding Theory with reference to obliqueness or language-specific binding conditions}
+
+
+\subsection{Obliqueness and constituent order}
+
+As was explained above the order of the elements in the \argstl is seen as crucial for the
+determination of possible bindings and reflexivization. Anaphors may refer to elements further to
+the left on the \argstl. If one assumes a nom, acc, dat order on the \argstl, \citegen{Grewendorf88a}
+binding examples are correctly predicted.\todostefan{add page numbers}
+\eal
+\label{bsp-der-arzt-zeigte-den-dem}
+\ex
+\label{bsp-der-arzt-zeigte-den} 
+\gll Der Arzt   zeigte den        Patienten$_j$ sich$_j$ / ihm$_{*j}$ im Spiegel.\\
+     the doctor showed the.\acc{} patient       self    {} him       in.the mirror\\
+\glt `The doctor showed the patient himself in the mirror.'
+\ex
+\label{bsp-der-arzt-zeigte-dem} 
+\gll Der Arzt zeigte dem Patienten$_j$ ihn$_j$ / sich$_{*j}$ im Spiegel.\\
+     the doctor showed the.\dat{} patient     him    {} self       in.the mirror\\
+\zl
+But, as \citet[\page 184]{Eisenberg86} points out, bindings like those in (\mex{1}) exist as well:
+\eal
+\label{ex-dat-acc-verbs}
+\ex Ich empfehle ihm$_j$ sich$_j$.
+\ex Du ersparst ihm$_j$ sich$_j$.
+\ex Du verleidest ihm$_j$ sich$_j$.
+\zl
+The examples in (\mex{0}) show that datives may bind accusatives. As (\mex{1}) shows,
+\emph{empfehlen} `recommend' allows for passivization, so the accusative object is a direct object in
+the sense of the obliqueness hierarchy and should be seen as less oblique than the dative.
+\ea
+\gll Dieser Stoff wurde ihm empfohlen.\\
+     this cloth was him.\dat{} recommended\\
+\glt `This cloth was recommended to him.'
+\z
+It is an open issue how this situation can be resolved. One way is to make binding principles verb
+(class) dependent and independent of the obliqueness hierarchy or to assume that it is verb (class)
+dependent and that verbs like those in (\ref{ex-dat-acc-verbs}) have a different order of elements
+in the \argstl. Of course this could have consequences for other parts of the grammar relying on the
+order of elements in the \argstl (see Section~\ref{sec-argst-order} for further discussion).
+
+Note also that (\ref{bsp-der-arzt-zeigte-dem}) causes a Principle C violation. Since accusative
+(direct object) is less oblique than dative (indirect object), \emph{ihn} `him' (locally) o-binds \emph{dem
+  Patienten} `the patient', which is prohibited by Principle C. This seems to indicate that linear
+order play a role in binding. Since the order on the \argstl determines the constituent order in
+English, similar problems do not arise in English. In a configurational Binding Theory involving
+movement and c-command, the dative would bei higher in the tree and hence c-command the accusative
+but due to the analysis of scrambling in HPSG \crossrefchapterp{order} this is not the
+case. \citet{Mueller2004b} discusses various alternative analyses for constituent
+order. Chapter~\ref{chap-order} of this book presents the one that is commonly assumed: there is a
+fixed order of element of the \argstl and heads may be combined with their arguments in any
+order. The alternative would be to assume multiple lexical items with different \argstls, each
+corresponding to one possible ordering of the arguments \citep{Uszkoreit86b}. This would fix the problem with
+(\ref{bsp-der-arzt-zeigte-dem}) but it would cause new problems since subjects may be ordered after
+objects:
+\eal
+\ex
+\gll dass der Mann sich vorstellt\\
+     that the man  self introduces\\
+\glt `that the man introduces himself'
+\ex
+\gll dass sich der Mann vorstellt\\
+     that self the man  introduces\\
+\glt `that the man introduces himself'
+\zl
+The reflexive has to be bound to the subject independent of the relative order of subject and
+accusative object. If constituent order were connected to the order of elements in the \argstl, one
+would have to reverse the order of elements to be able to analyze sentences like (\mex{0}b), but
+then \emph{sich} would be unbound and \emph{der Mann} would be bound (Principle C violation).
+
+\subsection{Binding and prepositional objects}
+
+We already discussed the English examples in (\ref{ex-mary-talked-to-john-about-himself}) with two
+prepositional objects and showed that the second PP can contain a reflexive referring to a preceding
+PP and that HPSG's Binding Theory explains this nicely. However, the situation in German is
+different, as the following data from \citet[\page 58]{Grewendorf88a} show:
+\eal
+\ex 
+\gll Ich sprach mit Maria$_i$ über sie$_i$ / *sich.\\
+     I talked   with Maria about her {} self\\
+\glt `I talked with Maria about herself.'
+\ex 
+\gll Ich beklagte mich bei Maria$_i$ über sie$_i$ / *sich.\\
+     I complained myself at Maria    about her {} self\\
+\glt `I complained to Maria about herself.'
+\zl
+
+
+The conclusion of the discussion in the previous two sections is that a Binding Theory that is entirely based on
+obliqueness seems to be not possible and that language-specific binding rules referring to specific
+situation involving case and part of speech are necessary (see \citew{Grewendorf88a} for such rules
+for German in GB).
+
+
+
+\section{Coindexing vs.\ coreference}
+
+\citet[\page 75]{ps2} distinguish between coindexing and coreference. They explicitly mention this
+possibility in the discussion of examples like the ones in (\mex{1}):\footnote{
+  The following sentence is an attested example of a sentence in which one would expect a reflexive
+  rather than a pronoun:
+        \ea
+        I saw me but I thought I was my dad! (J.\,K.\,Rowling \emph{Harry Potter and the Prisoner of Azbakan}, London: Bloomsbury, 1999, p.\,301)
+        \z
+  The sentence is uttered as part of a description of a time travel. Harry Potter traveled back three hours in
+  time and could see the visitor from the future (himself).
+}
+\eal
+\ex It isn't true that nobody voted for John$_{i}$. JOHN$_{j}$ voted for him$_{i}$. 
+        (in a context where both uses of {\em John\/} refer to the same person)
+\ex He$_{i}$ [pointing to Richard Nixon] voted for Nixon$_{j}$.
+\zl
+
+The definition of o-binding requires coindexing. Indices include person, number and gender
+information. Since the anaphors in (\mex{1}) are objects and the subjects o-command them locally,
+Principle A requires the subject to bind the anaphor and since this is impossible in (\mex{1}b) due
+to gender mismatches, the sentence is ungrammatical.
+\eal
+\ex[]{
+John knows himself.
+}
+\ex[*]{
+John knows herself.
+}
+\zl
+However, the inclusion of coindexing into the definition of o-binding causes a problem since nothing
+rules out a coreference like the one in (\mex{1}):
+\ea
+\label{bsp-john-likes-her}
+John$_{i'}$ likes her$_{*i'}$.
+\z
+The apostrophes show coreference rather than coindexation. According to the definition, \emph{John}
+does not o-bind \emph{her} since the two NPs cannot be coindexed. Hence, \emph{her} is o-free and
+Principle B is not violated even though the coreference in (\mex{0}) is impossible. One could now
+stipulate that coreference is excluded in case of gender mismatches, but the problem is more general
+and not restricted to gender. \citet[\page 197]{Eisenberg94a} discusses a German example with number mismatches:
+\ea
+\gll Auf der Brücke stand ein Paar. Sie stritten sich heftig.\\
+     on the bridge stood a couple   they argued  self fiercely\\
+\glt `There was a couple on the bridge. They argued fiercely.'
+\z
+The pronoun \emph{sie} `they' refers to \emph{ein Paar} although \emph{sie} is plural and \emph{ein
+  Paar} is singular. HPSG's Binding Theory does not have anything to say about coreferences in
+texts, but it is easy to create similar examples with pronoun binding within a single sentence:
+\eal
+\ex 
+\gll Das Paar$_{i'}$ behauptet, dass sie$_{i'}$ sich lieben.\\
+     the couple.\sg{} claims that they.\pl{} self love.\pl\\
+\ex 
+\gll Das Paar$_{i}$ behauptet, dass es$_{i}$ sich liebt.\\
+     the couple.\sg{} claims that it.\sg{} self love.\sg\\
+\zl
+The two NPs cannot be coindexed in (\mex{0}a) since the number of the two NPs is
+different.\footnote{
+  The number is also shown by the agreeing verbs. One way to model agreement is to assume that the
+  verb selects a subject with an index with person and number features corresponding to the
+  agreement features of the verb. See \citew{WZ2003a} and \crossrefchapterw{agreement} on
+  agreement. The alternative would be to have separate purely syntactic agreement features for
+  NPs. \emph{das Paar} would be singular as far as agreement is concerned but could have a
+  referential index that can be singular or plural.%
+}
+As in (\ref{bsp-john-likes-her}), \emph{das Paar} does not o-bind \emph{sie} in (\mex{1}), since it cannot be coindexed:
+\ea
+\gll Das Paar$_{i'}$ kennt sie$_{*i'}$.\\
+     the couple.\sg{} knows they.\pl\\
+\glt `The couple knows them.'
+\z
+Hence, the coindexing in (\mex{0}) does not violate any binding principles but it should be excluded
+by something like Principle B requiring that a pronoun must not be bound by/coreferential with
+something local.
+
+Similarly Principle C does not apply in (\mex{1}):
+\ea
+\gll Sie$_{*i'}$ behaupten, dass das Paar$_{i'}$ sich liebt.\\
+     they.\pl{} claim      that the couple.\sg{} self loves\\
+\glt `They claim that the couple loves each other.'
+\z
+
+One could assume that \emph{Paar} is underspecified with respect to number, but this would require
+an approach to agreement that does not refer to the index.
+\eal
+\ex[]{
+\gll Das Paar schläft.\\
+     the couple sleeps\\
+\glt `The couple sleeps.'
+}
+\ex[*]{
+\gll Das Paar schlafen.\\
+     the couple sleeps\\
+\glt Intended: `The couple sleeps.'
+}
+\zl
+Similarly the match of the relative pronoun and the noun it refers to is usually established by
+sharing the index (\citealp{ps2}; \citealp{Sag97a}; \citealp{MuellerLehrbuch1};
+\crossrefchapteralp{relative-clauses}). While \citet[\page 417--418]{Mueller99a} has data for neuter nouns in German
+like \emph{Mädchen} `girl' and \emph{Weib} archaic for `woman', showing that the relative pronoun may be both the neuter
+relative pronoun \emph{das} and the female pronoun \emph{die}, the plural relative pronoun with
+coreference to \emph{Paar} is strictly ungrammatical:  
+\eal
+\ex[]{
+\gll das Paar, das sich liebt,\\
+     the couple that.\sg{} self loves\\
+}
+\ex[*]{
+\label{ex-paar-die-sich-lieben}
+\gll das Paar, die sich lieben,\\
+     the couple that.\pl{} self love\\
+}
+\zl\is{number|)}
+
+Furthermore, as pointed out by \citet[]{Mueller99a}, underspecifying the number feature would run into problems with sentences like
+(\mex{1}) containing two different pronouns bound by the same NP:
+\ea
+\label{ex-paar-es-sie}
+\gll Das Paar$_{i}$ behauptet, dass es$_{i}$ sich liebt und dass sie$_{i}$ sich nie streiten.\\
+     the couple    claims     that it       self loves and that they self never argue\\
+\glt `The couple claims that they love each other and that they never argue with each other.'
+\z
+Since the number value of \emph{Paar} is underspecified, both \emph{es} and \emph{sie} would be
+compatible with the index of \emph{Paar}, but identifying the index of \emph{Paar} with one pronoun
+makes it incompatible with the other one. 
+
+Now, HPSG developed some new and interesting techniques to cope with conflicting demands in
+coordinate structures (see \citealp[\page 207]{LHC2001a-u} and
+\crossrefchapteralp[Figure~\ref{qwsa}]{coordination}) and these seem to be applicable here as well:
+Figure~\ref{fig-type-number} shows a type hierarchy that has a common subtype of \type{sg} and
+\type{pl}. 
+\begin{figure}
+\begin{forest}
+     [\type{number}
+        [\type{sg}
+          [\type{strict-sg} ]
+          [\type{sg-pl}, name = sgpl ]] 
+        [\type{pl}, name=pl,
+          [\type{strict-pl} ] ]]
+\draw  (pl.south) --(sgpl.north);
+\end{forest}
+\caption{Type hierarchy making the types \type{sg} and \type{pl} compatible}\label{fig-type-number}
+\end{figure}
+(\ref{ex-paar-es-sie}) can be analyzed now since \emph{Paar} can be specified to be of type
+\type{sg} and this would be compatible with \emph{es} (\type{sg}) and \emph{sie} (\type{pl}): the
+result of identifying all indices would result in an index with number value \type{sg-pl}. 
+
+While this general compatibility of singular and plural looks frightening at first sight, one can avoid collapsing all occurrences of
+singular and plural into \type{sg-pl} by specifying the number value of linguistic objects that are
+strictly singular by assigning the type \type{strict-sg} to them. So \emph{Haus} `house' would have
+the number value \type{strict-sg} and would be incompatible with \type{pl}. 
+
+This can also be used for the  
+
+
+For example the relative pronoun \emph{die} for antecedent nouns in the plural could be
+\type{strict-pl}. Since \type{sg} and \type{strict-pl} are incompatible, (\ref{ex-paar-die-sich-lieben}) would be correctly
+predicted to be ungrammatical.
+
+\iw{Paar|)}
+Dieses Problem tritt auch beim Satz (\ref{bsp-goethe-altes-weib}) auf: Der Index des Nomens
+{\em Weib\/}, des Relativpronomens {\em das\/} und des Possessivpronomens {\em ihr\/}
+können nicht identisch sein, da {\em das\/} ein Neutrum und {\em ihr\/} ein Femininum ist.
+
+
+Man beachte, daß das hier diskutierte Problem nicht dadurch gelöst werden kann, daß man
+in der Definition von O-binden `koindiziert' durch `koreferent' ersetzt.
+\citet[S.\,75]{ps2}\ia{Pollard}\ia{Sag} erlauben nämlich explizit, 
+daß zwei verschiedene Indizes auf dasselbe Individuum referieren können.\footnote{
+        Ein echter Beleg für einen Satz, in dem man ein Reflexivum erwarten würde, ist
+        (i).
+        \ea
+        I saw me but I thought I was my dad! (J.\,K.\,Rowling {\em Harry Potter and the Prisoner of Azbakan\/}, London: Bloomsbury, 1999, S.\,301)
+        \z
+        Harry Potter äußert den Satz in einer Beschreibung einer Zeitreise. Er ist
+        drei Stunden zurückgereist und und konnte in der Vergangenheit den Besucher
+        aus der Zukunft (sich selbst) sehen.
+}
+\eal
+\ex It isn't true that nobody voted for John$_{i}$. JOHN$_{j}$ voted for him$_{i}$. 
+        (in a context where both uses of {\em John\/} refer to the same person)
+\ex He$_{i}$ [pointing to Richard Nixon] voted for Nixon$_{j}$.
+\zl
+Auf diese Weise wären dann auch die folgenden Sätze von \citet[S.\,153]{Grewendorf85a}\ia{Grewendorf} wegzuerklären.
+\eal
+\ex Wenn jeder Wolfgangs Mutter liebt, dann liebt auch Wolfgang$_{i}$ Wolfgangs$_{j}$ Mutter.
+\ex Nur Adenauer$_{i}$ stimmte\iw{stimmen für} für Adenauer$_{j}$.
+\zl
+Im Prinzip macht die Existenz solcher Beispiele und die Erklärung, die für sie angenommen
+wird, Prinzip B und Prinzip C überflüssig, da diese Prinzipien 
+durch pragmatische\is{Pragmatik} Faktoren jederzeit
+wieder außer Kraft gesetzt werden können.
+
+Eine Lösung des Problems könnte die Unterscheidung zwischen {\sc index}"=Kongruenz und
+pragmatischer Kongruenz\is{Kongrunez!pragmatische} sein, die \citet{WZ2003a} vornehmen.
+%Im Serbokroatischen\il{Serbokroatisch} gibt es Genus"=Kongruenz zwischen Subjekten
+%und nicht"=finiten Prädikaten. Diese 
+{\sc index}"=Kongruenz liegt vor, wenn das Pronomen ein Neutrum ist, und pragmatische
+Kongruenz liegt vor, wenn das Pronomen mit dem natürlichen Geschlecht übereinstimmt,
+\dh, wenn ein Femininum verwendet wird.
+ 
 
 \section{Raising and o-command}
-
+\label{sec-binding-raising}
 
 A further problem has to do with predicate complex constructions in languages like
 German. Researcher working on SOV languages like German, Dutch or Korean assume that the verbs form
@@ -283,6 +801,40 @@ less-oblique than the verbal complement \ibox{4} and \ibox{4} selects for \emph{
 
 Kiss95a:33
 Der Junge ließ das Mädchen das Boot für sich reparieren.
+
+\section{Linking, order, scope and binding}
+\label{sec-argst-order}
+
+While \citet{KC77a} showed that the obliqueness hierarchy is relevant for activeness of grammatical
+functions crosslinguistically, it is an open question whether this hierarchy should be assumed to
+hold for all lexemes in all languages and if so, whether it plays a role in the same phenomena
+universally. As was discussed by \crossrefchaptert{arg-st}, the \argstl plays an important role in
+linking theories. In an analysis of (\mex{1}a), \emph{the dog} is the direct object, while \emph{dem
+  Hund} bearing dative case is the indirect object in (\mex{1}b): 
+\eal
+\ex The elephant gave the dog a ball.
+\ex
+\gll Der Elephant gab  dem Hund einen Ball.\\
+     the elephant gave the dog  a ball\\\jambox*{(German)}
+\zl
+While \citet{Mueller99a} ordered arguments according to the obliqueness hierarchy in (\ref{def-obliqueness-hierarchy}),
+\citet{MuellerCoreGram} decided to keep the \argstls and hence also the linking patterns constant
+across languages. \citet{MuellerGermanic} analyzes the Germanic languages with \argstls having the
+same order of elements and linking patterns, the differences resulting in a different distribution
+of lexical and structural case and a different mapping from \argst to \spr and \comps. See
+\crossrefchaptert{case} for more on case assignment and \argst in HPSG.
+
+\citet{Kiss2005a} develops an account of quantifier scope determination for German arguing that cope
+is determined with respect to an unmarked order.\footnote{
+  See \citew{Hoehle82a} for a definition of \emph{normal order}.
+}
+The unmarked order is nominative, dative, accusative for most German verbs. This does not correspond
+to universal tendencies, according to which the direct object precedes the secondary object
+\citep{Pullum77a}. Kiss uses the \argstl to represent the unmarked constitutent order. The consequence is that
+German seems to require a nom, dat, acc order for (uniform) linking, constituent order, and scope
+and nom, acc, dat for binding. If this really is the case, one seems to need two separate \argstls
+to be able to represent both orders.
+
 
 
 \section*{Abbreviations}
