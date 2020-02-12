@@ -1,0 +1,51 @@
+% stuff from langsci that is needed to compile without the langsci class
+
+
+\newcommand{\footnoteindex}[2]{\index{#2|infn{#1}}}
+\newcommand{\footnoteindex@sbj}[2]{\index[sbj]{#2|infn{#1}}}
+\newcommand{\footnoteindex@lan}[2]{\index[lan]{#2|infn{#1}}}
+\newcommand{\footnoteindex@wrd}[2]{\index[wrd]{#2|infn{#1}}}
+
+
+% Author index
+\newcommand{\ia}[1]{%
+  \if@noftnote%
+    \index{#1}%
+    \else%
+    \edef\tempnumber{\thefootnote}%
+    \expandafter\footnoteindex\expandafter{\tempnumber}{#1}%
+    % \index{#1|fn{\thefootnote}}%
+  \fi%
+}
+
+% Subject index
+\newcommand{\is}[1]{%
+  \if@noftnote%
+    \index[sbj]{#1}%
+    \else%
+    \edef\tempnumber{\thefootnote}%
+    \expandafter\footnoteindex@sbj\expandafter{\tempnumber}{#1}%
+    %\indexftn{#1}{\value{footnotemark}}%
+  \fi%
+}
+
+% Language index
+\newcommand{\il}[1]{%
+  \if@noftnote
+    \index[lan]{#1}%
+    \else%
+    \edef\tempnumber{\thefootnote}%
+    \expandafter\footnoteindex@lan\expandafter{\tempnumber}{#1}%
+  \fi%
+}
+
+
+
+
+% old font commands
+\renewcommand{\it}{\itshape}
+\renewcommand{\bf}{\bfseries}
+\renewcommand{\sc}{\scshape}
+%\renewcommand{\rm}{\upshape}
+
+\renewcommand{\rm}{\normalfont\rmfamily}
