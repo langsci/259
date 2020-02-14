@@ -334,7 +334,7 @@ biosketch.html: blurb.md
 clean:
 	rm -f *.bak *~ *.backup *.tmp \
 	*.adx *.and *.idx *.ind *.ldx *.lnd *.sdx *.snd *.rdx *.rnd *.wdx *.wnd \
-	*.log *.blg *.ilg \
+	*.log *.blg *.bcf *.for *.aux.copy *.ilg \
 	*.aux *.toc *.cut *.out *.tpm *.bbl *-blx.bib *_tmp.bib \
 	*.glg *.glo *.gls *.wrd *.wdv *.xdv *.mw *.clr \
 	*.run.xml \
