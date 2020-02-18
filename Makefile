@@ -339,7 +339,8 @@ clean:
 	*.glg *.glo *.gls *.wrd *.wdv *.xdv *.mw *.clr \
 	*.run.xml \
 	chapters/*.aux chapters/*.aux.copy chapters/*.old chapters/*~ chapters/*.bak chapters/*.backup chapters/*.blg\
-	chapters/*.log chapters/*.log chapters/*.mw  chapters/*.for  chapters/*.bbl chapters/*.bcf chapters/*.run.xml\
+	chapters/*.log chapters/*.out chapters/*.mw chapters/*.ldx  chapters/*.for  chapters/*.bbl chapters/*.bcf chapters/*.run.xml\
+	chapters/*.blg chapters/*.idx chapters/*.sdx chapters/*.run.xml chapters/*.for.tmp chapters/*.adx chapters/*.ldx\
 	langsci/*/*.aux langsci/*/*~ langsci/*/*.bak langsci/*/*.backup \
 	chapter-pdfs/* cuts.txt
 
