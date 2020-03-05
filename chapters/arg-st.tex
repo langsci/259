@@ -527,7 +527,7 @@ These linking constraints can be viewed as parts of the definition of lexical ty
 	{\avmoptions{center}
 	\begin{avm}
 		\[content$|$key & \[act & \@1 \] 
-		\]
+		\]\,
 		$\Rightarrow$
 		\[ 
 		arg-st & \<\textsc{np}$_{\@1}$,  \ldots \>
@@ -564,7 +564,7 @@ These linking constraints can be viewed as parts of the definition of lexical ty
 	\begin{avm}
 		\[content$|$key & \[\asort{cause-possess-rel} 
 									soa & \[act & \@3 \] \] \\
-		arg-st & \<\rm \textit{synsem}\> $\oplus$ \<\textsc{np}$_{\@3}$,  \ldots \>
+		arg-st & \<\rm \textit{synsem}\> \,$\oplus$ \<\textsc{np}$_{\@3}$,  \ldots \>
 		\]
 	\end{avm}
 	}
@@ -1271,15 +1271,17 @@ The semantics of actives and corresponding long passives, as in (\ref{act-pass})
 In this section, we outline two possible approaches to 
 %this question.
 the passive.  
-Both of them treat the crucial characteristic of passivization as subject demotion (see \citealt{Blevins2003} for a thorough exposition of this characterization), rather than object advancement, as proposed, e.g., in Relational Grammar \citep{PerlmutterandPostal1983b}.
+Both of them treat the crucial characteristic of passivization as subject demotion (see \citealt{Blevins2003} for a thorough exposition of this characterization), rather than object advancement, as proposed, e.g., in \isi{Relational Grammar} \citep{PerlmutterandPostal1983b}.
 As we will see, there are various options for implementing this general idea of demotion within HPSG.
 
 % TD 14 Jan. 20: new material inserted here
 The first approach, which goes back to \citet{pollard+sag:1987}, assumes that passivization targets the first member of a \attrib{subcat} list and either removes it or optionally puts it last on the list, but as a PP.
-This approach is illustrated in (\ref{pass-lr}), a possible formulation of a lexical rule for transitive verbs adapted to a theory that replaces \attrib{subcat} with \argst, as discussed in \citet[67]{Manning+Sag:1999}.
+This approach is illustrated in (\ref{pass-lr}), a possible formulation of a lexical rule for transitive verbs adapted to a theory that replaces \attrib{subcat} with \argst, as discussed in \citet[67]{Manning+Sag:1999}. 
 See \citealt{Mueller2000h} for a  more refined formulation of the passive lexical rule for German that accounts for impersonal passives, and \citet{Blevins2003} for a similar analysis.
-The first NP is demoted and either does not appear on the output's \argst or is a PP coindexed with the input's first NP's index (see \crossrefchapteralt{binding} and \crossrefchapteralt{diachronic} for scholars who assume such a view within this handbook).
-Linking in passives thus violates the constraints in (\ref{act-vb-linking})--(\ref{emb-act-vb-linking}), specifically (\ref{act-vb-linking}), which links the value of \attrib{act} to the first element of \argst. (We use one possible feature-based representation for lexical rules to help comparing approaches to passives. See \crossrefchaptert{lexicon} for a discussion of various approaches to lexical rules.) 
+The first NP is demoted and either does not appear on the output's \argst or is a PP coindexed with the input's first NP's index (see \crossrefchapteralt{binding} and \crossrefchapteralt{diachronic} for scholars who assume the latter view within this handbook).
+Linking in passives thus violates the constraints in (\ref{act-vb-linking})--(\ref{emb-act-vb-linking}), specifically (\ref{act-vb-linking}), which links the value of \attrib{act} to the first element of \argst. (We use one possible feature-based representation for lexical rules to help comparing approaches to passives. See \citet{Meurers2001} and \crossrefchaptert{lexicon} for a discussion of various approaches to lexical rules.
+Note that we use the attribute \attrib{lex-dtr} rather than the \attrib{in(put)} attribute used in the representation of lexical rules in \citet[76]{Meurers2001} to avoid any procedural implications; nothing substantial hinges on this labeling change.
+
 
  \begin{exe}
  \ex \label{pass-lr}
@@ -1287,8 +1289,8 @@ Linking in passives thus violates the constraints in (\ref{act-vb-linking})--(\r
  
  \[\asort{passive-verb}
  arg-st & \@2\textup{(}$\oplus$\<PP[\textit{by}$]$$_{i}$\>\textup{)} \\
- input & \[\asort{active-verb}
- arg-st & \<\@1 $_{i}$\> $\oplus$ \@2
+ lex-dtr & \[\asort{active-verb}
+ arg-st & \<\@1 $_{i}$\> $\oplus$ \@2\<np, \ldots\>
  \]
  \]
  \end{avm}}
@@ -1305,13 +1307,13 @@ Third, what is the status of the \word{by}-phrase in long passives, and how is i
 Another approach maintains the \argst list of the active verb in its passive counterpart, thereby preserving linking constraints.
 Passives differ from actives under this account in their non-canonical mapping from \argst to \val lists; the subject is not the first element of the \argst list. This analysis bears some resemblance to the distinction between macro-roles and syntactic pivots in RRG, with passives having a marked mapping from macro-roles to syntactic pivot \citep{VanValinandLapolla1997}.  
 In this kind of approach, the passive subject might be the second element of the \argst list, as in a typical personal passive, or an expletive element, as in impersonal passives.
-In a long passive, the first element of \argst is coindexed with a PP on the \attrib{comps} list.
+In a long passive, the first element of \argst is coindexed with a PP on the \attrib{comps} list or an adjunct.
 This analysis is reminiscent of the account of Balinese objective voice presented in Section \ref{ergativity} in that the account of both phenomena uses a non-canonical mapping between \argst and \val lists.
 % ALERT:  We argued in some detail that passive differs from OV and can't work this way.  cp. binding "They don't seem to mind being insulted by each other."    Balinese would be:  "Each other insulted-OV them."
 % TD 28 Jan. 20: Yes, I don't wish to imply that passive and OV are the same, just that the non-canonical mapping between arg-st abd valence in this treatment of passives resembles the account of OV presented earlier.  If that isn't clear, we should reword this so that it is.
 %JPK 1-29-20 You are right, Steve, that our wording was unclear. I added something to the end of the sentence to make the parallel clearer. Hopefully, that clarifies things.
 %SW 1-29-20.  Sorry, but it doesn't help. I'll email about it.
-A version of this view is proposed in \citet[241]{Davis2001} who proposes the representation in (\ref{pass-lxm}) for passive lexemes.
+A version of this view is proposed in \citet[241]{Davis2001}, who proposes the representation in (\ref{pass-lxm}) for passive lexemes (as before we substituted the attribute name \attrib{lex-dtr} for \attrib{in}).
 
 \begin{exe}
 \ex\label{pass-lxm}
@@ -1320,8 +1322,8 @@ A version of this view is proposed in \citet[241]{Davis2001} who proposes the re
 \[\asort{passive-verb}
 subj & \@2  \\
 comps & \@3 \\
-arg-st & \@1(\<xp\>$\oplus$\@2$\oplus$\@3 \\
-in & \[\asort{trans-stem}
+arg-st & \@1$($\<xp\>$\textup{)}\oplus$\@2$\oplus$\@3 \\
+lex-dtr & \[\asort{trans-stem}
 			arg-st & \@1 \\
 			content & \@4 \]\\
 content & \@4
@@ -1366,7 +1368,7 @@ The money was donated to himself. (\word{himself} intended to refer to the donor
 
 Certain control constructions also illustrate this point.
 While the unexpressed logical subject can control rationale clauses in English, as exemplified above in (\ref{mkb}), not all cases of control exhibit parallel behavior.
-The Italian consecutive \word{da} + infinitive construction \citep{Perlmutter1984, Sanfilippo1998} appears to be controlled by the surface subject, as shown in \ref{italian-da}.\il{Italian}
+The Italian consecutive \word{da} + infinitive construction \citep{Perlmutter1984, Sanfilippo1998} appears to be controlled by the surface subject, as shown in (\ref{italian-da}).\il{Italian}
 
 % TD 18 Jan. 20: these examples are from Sanfilippo (1998), (49a) and  (51)
 
@@ -1374,19 +1376,19 @@ The Italian consecutive \word{da} + infinitive construction \citep{Perlmutter198
 \ex     \label{italian-da}
 \begin{xlist}
 \ex             \gll Gino ha rimproverato Eva tante volte da arrabbiarsi.  \\
-                Gino has scolded Eva so-many times so-as to-get-angry  \\
+                Gino has scolded Eva so-many times so.as to.get.angry  \\
                 \glt `Gino scolded Eva so many times that he/*she got angry.'
 \ex             \gll Eva fu rimproverata da Gino tante volte da arrabbiarsi.  \\
-                Eva was scolded by Gino so-many times so-as to-get-angry  \\
+                Eva was scolded by Gino so-many times so.as to.get.angry  \\
                 \glt `Eva was scolded by Gino so many times that *he/she got angry.'
 \end{xlist}
 \end{exe}
 
 Although there are other factors involved in the choice of controller of consecutive \word{da} infinitive constructions, it is clear that the logical subject in the passivized main clause cannot control the infinitive.
-Thus, even if it remains the initial element of the passsive verb's \argst, it must be blocked as a controller.
+Thus, even if it remains the initial element of the passive verb's \argst, it must be blocked as a controller.
 Sanfilippo argues from these kinds of examples that the passive \word{by}-phrase should be regarded as a ``thematically bound'' (i.e., linked) adjunct that does
 not appear on the passive verb's \argst list, but on the \attrib{slash} list.
-However, this would require some additional mechanism to explain the involvement of the \word{by}-phrase in binding, noted below, and possibly with respect to other evidence for including adjuncts on \argst, as discussed in the following section.
+However, this would require some additional mechanism to explain the involvement of the \word{by}-phrase in binding, noted below, and possibly with respect to other evidence for including adjuncts on \argst, as discussed in the Section \ref{sec:extended-arg-st}.
 
 In addition, the implicit agent of short passives is ``inert'' in discourse, as discussed in \citet{KoenigandMauner1999}.
 It cannot serve as an antecedent of cross"=sentential pronouns without additional inferences, as shown in (\ref{a-def}), where the referent of \word{he} cannot without additional inference be tied to the logical subject argument of \word{killed}.
@@ -1396,7 +1398,7 @@ It cannot serve as an antecedent of cross"=sentential pronouns without additiona
 \# The president was killed. He$_{i}$ was from Iowa.
 \end{exe}
 
-Note that the discourse inertness of the implicit agent in (\ref{a-def}) does not follow from its being unexpressed, as shown by the indefinite use of the subject pronoun \word{on} in \ili{French} \citep{Koenig1998c} or \ili{Hungarian} bare singular objects \citep{FarkasandDeSwart2003}.
+Note that the discourse inertness of the implicit agent in (\ref{a-def}) does not follow from its being unexpressed, as shown by the indefinite use of the subject pronoun \word{on} in \ili{French} \citep[241--244]{Koenig1998c} or \ili{Hungarian} bare singular objects \cite[89--108]{FarkasandDeSwart2003}.
 These, though syntactically expressed, do not introduce discourse referents either.
 In such cases, as well as in passives under the non-canonical argument realization analysis, the first member of the \argst list must therefore be distinguished from indices that introduce discourse referents.
 % TD 17 Jan. 20: Here's a bit that might be added to the paragraph above, with a brief mention of how ``inertness'' might be handled, and maybe Kathol's idea of two different kinds of indices (cross-ref to Agreement chapter for that as well).
@@ -1407,7 +1409,7 @@ One possibility is to introduce a special subtype of the type \type{index}, whic
 This is also one way to treat the inertness of expletive pronouns, so it has some plausible independent motivation.
 Unlike expletive pronouns, the logical subject of passives is linked to an index in \attrib{content}.
 Its person and number features therefore cannot be assigned as defaults (e.g., third person singular \word{it} and \word{there} in English), but must correspond to those of the entity playing the relevant semantic role in \attrib{content}.
-\citet{Davis2001}, offers a slightly different alternative using the dual indices \attrib{index} and \attrib{a-index} proposed for different varieties of agreement in \citet{Kathol1999b}.
+\citet[251--253]{Davis2001} offers a slightly different alternative using the dual indices \attrib{index} and \attrib{a-index} following the distinction between \attrib{agr} and \attrib{index} used in \citet[240--250]{Kathol1999b} to model different varieties of agreement.
 The \attrib{a-index} of a passive verb's logical subject is of type \type{null}, which, by stipulation, can neither o-command other members of \argst nor appear on \val lists.
 %This would be the case for both personal and impersonal passives.
 In both impersonal and short personal passives, the logical subject is coindexed with a role in \attrib{content} representing an unspecified human (or animate).
@@ -1446,7 +1448,8 @@ Finally, we turn to \word{by}-phrases in long passives.
 In languages like English, a \word{by}-phrase can express the lexeme's logical subject.
 Under both the non-canonical linking and non-canonical argument realization analyses, this might be represented as an optional oblique complement on \argst, as indicated in (\ref{pass-lr}) and (\ref{pass-lxm}), respectively.
 As noted, the non-canonical argument realization analysis would then posit that the \argst of passives includes two members that correspond to the same argument, which again shows the need for an inert first element of \argst.
-Another possibility is to treat such \word{by}-phrases as adjuncts (and therefore not part of the \argst list) or not targeting the logical subject per se \citep{Jackendoff1990}.
+Another possibility is to treat such \word{by}-phrases as adjuncts (and therefore not part of the \argst list), see \citet[Chapter 7]{Hoehle78a} and \citet[292--294]{Mueller2003e} for German and \citet[180]{Jackendoff1990} for English. 
+%or not targeting the logical subject per se \citep{Jackendoff1990}.
 There is evidence, however, that \word{by}-phrases can serve as antecedents of anaphors in at least some languages.
 \citet[111]{Collins2005} cites sentences like (\ref{by-bind}), which suggest that the complement of \word{by}-phrases can bind a reciprocal.
 
@@ -1454,7 +1457,7 @@ There is evidence, however, that \word{by}-phrases can serve as antecedents of a
 \ex\label{by-bind}The packages were sent by the children to each other.
 \end{exe} 
 
-Acceptability judgements of this and similar examples vary, but they are certainly not outright unacceptable.  Likewise, \citet{Perlmutter1984}, furnishes \ili{Russian} examples in which the logical subject (realized as an instrumental case NP) binds a reflexive (note that the English translation of it is also fairly acceptable).
+Acceptability judgements of this and similar examples vary, but they are certainly not outright unacceptable.  Likewise, \citet[10]{Perlmutter1984}, furnishes \ili{Russian} examples in which the logical subject (realized as an instrumental case NP) binds a reflexive (note that the English translation of it is also fairly acceptable).
 
 \begin{exe}
 \ex     \label{russian-pass}
@@ -1465,7 +1468,7 @@ Acceptability judgements of this and similar examples vary, but they are certain
 
 Given that binding is a relation between members of the \argst list, such data would seem problematic for an approach that does not include \word{by}-phrases on the \argst list.
 Interestingly, Perlmutter also argues that Russian \word{sebja} is subject-oriented (see \crossrefchapteralt{binding}).
-The intrumental NP \word{Borisom} can bind \word{sebja}, only because it corresponds to the subject of active \word{kupit'}, 'buy'.
+The intrumental NP \word{Borisom} can bind \word{sebja}, only because it corresponds to the subject of active \word{kupit'}, `buy'.
 Assuming that is correct, an HPSG account of Russian passives would need some means of representing the logical subjecthood of these instrumental NPs; this might involve some way of accessing their active counterpart's \subj value, or of referencing the first element of the passive verb's \argst list, despite its inertness.
 
 The interaction of binding and control with passivization across languages appears to be varied, and as we have noted, we are not aware of systematic investigations into this variation and possible accounts of it within HPSG.
@@ -1477,12 +1480,12 @@ Further work is required to assure that these can be preserved in a meaningful w
 
 \subsection{Summary}
 
-We've examined in this section several approaches to argument alternations in HPSG and their implications for \argst.
+We have examined in this section several approaches to argument alternations in HPSG and their implications for \argst.
 For alternations based on semantic differences, different alternants will have different \attrib{content} values, and linking principles like those we outlined in the previous section account for their syntactic differences.
 Even where such meaning differences are small, there are differing semantic entailments that can affect linking.
 For some cases where there seems to be no discernible meaning difference between alternants, it is still possible for linking principles to yield syntactic differences, if the alternants select different \attrib{key} predications in \attrib{content}.
 The active/passive alternation, however, cannot be accounted for in such a fashion, as it applies to verbs with widely varying \attrib{content} values.
-HPSG accounts of passives therefore resort to lexical entries that are non-canonical, either in their linking or in their mapping between \argst and \val.
+HPSG accounts of passives therefore resort to lexical items that are non-canonical, either in their linking or in their mapping between \argst and \val.
 Both of these are ways of modeling the demotion of the logical subject.
 But there is as yet no consensus within the HPSG community on the correct analysis of passives.
 
@@ -1524,7 +1527,7 @@ But there is as yet no consensus within the HPSG community on the correct analys
 
 Most of this chapter focuses on cases where semantic roles linked to the \argst list are arguments of the verb's core meaning. But in quite a few cases, complements (or even subjects) of a verb are not part of this basic meaning; consequently, the \argst list must be extended to include elements beyond the basic meaning. We consider three cases here, illustrated in (\ref{fish})-(\ref{adj}).  
 
-Resultatives, \is{resultative} illustrated in (\ref{fish}), express an effect, which is caused by an action of the type denoted by the basic meaning of the verb. The verb \textit{fischen} `to fish' is a simple intransitive verb (\ref{fish}a) that does not entail that any fish were caught, or any other specific effect of the fishing (see \citealt{Mueller2002b,Wechsler2005result}).  
+Resultatives, \is{resultative} illustrated in (\ref{fish}), express an effect, which is caused by an action of the type denoted by the basic meaning of the verb. The verb \textit{fischen} `to fish' is a simple intransitive verb (\ref{fish}a) that does not entail that any fish were caught, or any other specific effect of the fishing (see \citealt[219--220]{Mueller2002b}).  
 \il{German}
 
 \begin{exe}
@@ -1541,12 +1544,12 @@ Resultatives, \is{resultative} illustrated in (\ref{fish}), express an effect, w
 \ex 
 \gll wegen der Leerfischung der Nordsee \\
      because.of the empty.fishing of.the North.See.\textsc{gen} \\
-\glt `because of the North Sea being fished empty'
+\glt `because of the North Sea being fished empty' (\word{Die Tageszeitung}, 06.20.1996, p.\,6)
 \end{xlist}
 \end{exe}
 
 \noindent
- In (\ref{fish}b) we see a resultative construction, with an object NP and a secondary predicate AP.  The meaning is that he is fishing, causing it (the body of water) to become empty of fish.  \citet{Mueller2002b} posits a German lexical rule applying to the verb that augments the \argst list with an NP and AP, and adds the causal semantics to the \content (see \cite{Wechsler2005result} for a similar analysis of English resultatives).     The existence of deverbal nouns like \textit{Leerfischung} `fishing empty', which takes the body of water as an argument in genitive case (see \ref{fish}c) confirms that the addition of the object is a lexical process, as noted by \citealt{Mueller2002b}).  
+ In (\ref{fish}b) we see a resultative construction, with an object NP and a secondary predicate AP.  The meaning is that he is fishing, causing it (the body of water) to become empty of fish.  \citet[241]{Mueller2002b} posits a German lexical rule applying to the verb that augments the \argst list with an NP and AP, and adds the causal semantics to the \content (see \cite{Wechsler2005result} for a similar analysis of English resultatives).     The existence of deverbal nouns like \textit{Leerfischung} `fishing empty', which takes the body of water as an argument in genitive case (see \ref{fish}c) confirms that the addition of the object is a lexical process, as noted by \citealt{Mueller2002b}).  
 
 %any effect or change of state due to the hammering. Since there is evidence th
 Romance clause-union structures as in (\ref{faire}) have long been analyzed as cases where the complements of the complements of a clause-union verb (\word{faire} in (\ref{faire})) are complements of the clause-union verb itself \citep{Aissen1979}.
