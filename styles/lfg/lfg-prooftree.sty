@@ -6,7 +6,7 @@
 %%
 %% 2 Aug 1996: fixed \mscount and \proofdotnumber
 %%
-%%      \prooftree
+%%      \lfgprooftree
 %%              hyp1            produces:
 %%              hyp2
 %%              hyp3            hyp1    hyp2    hyp3
@@ -16,13 +16,13 @@
 %%      \shiftright 2em
 %%      \using
 %%              rulename
-%%      \endprooftree
+%%      \endlfgprooftree
 %%
 %% where the hypotheses may be similar structures or just formulae.
 %%
 %% To get a vertical string of dots instead of the proof rule, do
 %%
-%%      \prooftree                      which produces:
+%%      \lfgprooftree                      which produces:
 %%              [hyp]
 %%      \using                                  [hyp]
 %%              name                              .
@@ -30,20 +30,20 @@
 %%      \proofdotnumber=4                         .
 %%      \leadsto                                  .
 %%              concl                           concl
-%%      \endprooftree
+%%      \endlfgprooftree
 %%
-%% Within a prooftree, \[ and \] may be used instead of \prooftree and
-%% \endprooftree; this is not permitted at the outer level because it
+%% Within a lfgprooftree, \[ and \] may be used instead of \lfgprooftree and
+%% \endlfgprooftree; this is not permitted at the outer level because it
 %% conflicts with LaTeX. Also,
 %%      \Justifies
-%% produces a double line. In LaTeX you can use \begin{prooftree} and
+%% produces a double line. In LaTeX you can use \begin{lfgprooftree} and
 %% \end{prootree} at the outer level (however this will not work for the inner
 %% levels, but in any case why would you want to be so verbose?).
 %%
-%% All of of the keywords except \prooftree and \endprooftree are optional
+%% All of of the keywords except \lfgprooftree and \endlfgprooftree are optional
 %% and may appear in any order. They may also be combined in \newcommand's
 %% eg "\def\Cut{\using\sf cut\thickness.08em\justifies}" with the abbreviation
-%% "\prooftree hyp1 hyp2 \Cut \concl \endprooftree". This is recommended and
+%% "\lfgprooftree hyp1 hyp2 \Cut \concl \endlfgprooftree". This is recommended and
 %% some standard abbreviations will be found at the end of this file.
 %%
 %% \thickness specifies the breadth of the rule in any units, although
@@ -97,7 +97,7 @@
 \mathchardef\squigto="3A3B
 %
 % flag where we are
-\newif\ifinsideprooftree\insideprooftreefalse
+\newif\ifinsidelfgprooftree\insidelfgprooftreefalse
 \newif\ifonleftofproofrule\onleftofproofrulefalse
 \newif\ifproofdots\proofdotsfalse
 \newif\ifdoubleproof\doubleprooffalse
@@ -119,7 +119,7 @@
 \def\setproofrulebreadth{\proofrulebreadth}
 
 %=============================================================================
-\def\prooftree{% NESTED ZERO (\ifonleftofproofrule)
+\def\lfgprooftree{% NESTED ZERO (\ifonleftofproofrule)
 %
 % first find out whether we're at the left-hand end of a proof rule
 \ifnum  \lastpenalty=1
@@ -129,7 +129,7 @@
 %
 % some space on left (except if we're on left, and no infinity for outermost)
 \ifonleftofproofrule
-\else   \ifinsideprooftree
+\else   \ifinsidelfgprooftree
         \then   \hskip.5em plus1fil
         \fi
 \fi
@@ -139,18 +139,18 @@
 %               \shortenproofleft, \shortenproofright, \proofrulebreadth)
 \setbox\proofbelow=\hbox{}\setbox\proofrulename=\hbox{}%
 \let\justifies\proofover\let\leadsto\proofoverdots\let\Justifies\proofoverdbl
-\let\using\proofusing\let\[\prooftree
-\ifinsideprooftree\let\]\endprooftree\fi
+\let\using\proofusing\let\[\lfgprooftree
+\ifinsidelfgprooftree\let\]\endlfgprooftree\fi
 \proofdotsfalse\doubleprooffalse
 \let\thickness\setproofrulebreadth
 \let\shiftright\shiftproofbelow \let\shift\shiftproofbelow
 \let\shiftleft\shiftproofbelowneg
-\let\ifwasinsideprooftree\ifinsideprooftree
-\insideprooftreetrue
+\let\ifwasinsidelfgprooftree\ifinsidelfgprooftree
+\insidelfgprooftreetrue
 %
 % now begin to set the top of the rule (definitions local to it)
 \setbox\proofabove=\hbox\bgroup$\displaystyle % NESTED TWO
-\let\wereinproofbit\prooftree
+\let\wereinproofbit\lfgprooftree
 %
 % these local variables will be copied out:
 \shortenproofleft=0pt \shortenproofright=0pt \proofbelowshift=0pt
@@ -164,7 +164,7 @@
 \def\eproofbit{% NESTED TWO
 %
 % various hacks applicable to hypothesis list 
-\ifx    \wereinproofbit\prooftree
+\ifx    \wereinproofbit\lfgprooftree
 \then   \ifcase \lastpenalty
         \then   \shortenproofright=0pt  % 0: some other object, no indentation
         \or     \unpenalty\hfil         % 1: empty hypotheses, just glue
@@ -228,7 +228,7 @@ $\displaystyle
 }
 
 %=============================================================================
-\def\endprooftree{% NESTED TWO
+\def\endlfgprooftree{% NESTED TWO
 \eproofbit % NESTED ONE
 % \dimen0 =     length of proof rule
 % \dimen1 =     indentation of conclusion wrt rule
@@ -307,7 +307,7 @@ $\displaystyle
 %
 % set up to centre outermost tree only
 \let\doll\relax
-\ifwasinsideprooftree
+\ifwasinsidelfgprooftree
 \then   \let\VBOX\vbox
 \else   \ifmmode\else$\let\doll=$\fi
         \let\VBOX\vcenter
@@ -330,7 +330,7 @@ $\displaystyle
 %
 % some space on right and flag we've just made a tree
 \onleftofproofrulefalse
-\ifinsideprooftree
+\ifinsidelfgprooftree
 \then   \hskip.5em plus 1fil \penalty2
 \fi
 }
