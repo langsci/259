@@ -777,7 +777,7 @@ therefore useful in helping us focus on semantic composition in its
 own right.
 
 The principal compositional rules for Glue Semantics are those for the
-linear implication connective, \linimp, which are here presented in a
+linear implication connective, $\multimap$, which are here presented in a
 natural deduction format:
 %
 %\begin{exe}
@@ -809,35 +809,32 @@ natural deduction format:
 %\end{exe}
   
 \begin{exe}
-\ex \label{ex:implE} 
-  \begin{tabular}[t]{c}
-    \multicolumn{1}{l}{\textbf{Functional application : Implication 
-        elimination}} \\ 
-    \multicolumn{1}{l}{\textbf{(modus ponens)}}  \\[2ex] 
-    \begin{lfgprooftree}
-      \formula{f:A \linimp B} \hspace*{2em} \formula{a:A}
-      \justifies
-      \formula{f(a):B} \using \linimpE
-    \end{lfgprooftree}
-  \end{tabular}
+% % \ex \label{ex:implE} 
+% %   \begin{tabular}[t]{c}
+% %     \multicolumn{1}{l}{\textbf{Functional application : Implication 
+% %         elimination}} \\ 
+% %     \multicolumn{1}{l}{\textbf{(modus ponens)}}  \\[2ex] 
+% %     \begin{lfgprooftree}
+% %       \formula{f:A \linimp B} \hspace*{2em} \formula{a:A}
+% %       \justifies
+% %       \formula{f(a):B} \using \linimpE
+% %     \end{lfgprooftree}
+% %   \end{tabular}
+
+\ex \label{ex:implE}  Functional application : Implication elimination (modus ponens)\medskip\\ 
+    \begin{prooftree}
+      \hypo{f:A \multimap B} \hypo{a:A}
+      \infer2[$\multimap_{\mathcal{E}}$]{f(a):B}
+    \end{prooftree}\medskip\\
   
-\bigskip
-
 \ex \label{ex:implI} 
-  \begin{tabular}[t]{c}
-    \multicolumn{1}{l}{\textbf{Functional abstraction : Implication 
-        introduction}} \\ 
-            \multicolumn{1}{l}{\textbf{(hypothetical reasoning)}} \\[2ex] 
-    \begin{lfgprooftree}
-      \[\formula{[a:A]}^1 
-      \leadsto
-      \formula{f:B}\]
-      \justifies
-      \formula{\lambda a.f:A \linimp B} \using \linimpIi{1}
-    \end{lfgprooftree}
-  \end{tabular} 
+    Functional abstraction : Implication introduction (hypothetical reasoning)\medskip\\ 
+    \begin{prooftree}
+      \hypo{[a:A]\textsuperscript{1}} 
+      \ellipsis{}{f:B}
+      \infer1[$\multimap_{\mathcal{I}, 1}$]{\lambda a.f:A \multimap B}
+    \end{prooftree}
 \end{exe}
-
 
 \noindent
 In each of these rules, the inference over the linear logic term,
@@ -894,50 +891,26 @@ careful pedagogical presentation of the issue
 in][244--263]{jacobson14}. 
 
 First, though, let us see how this argument reordering, otherwise
-known as Currying or Sch\"onfinkelization, works in a
+known as Currying or Schönfinkelization, works in a
 proof, which also demonstrates the rules of implication elimination
 and introduction:
 %
 \begin{exe}
   
 \ex \label{ex:semantics-3}
-  \attop{
-    \begin{lfgprooftree}
-      \[
-        \[
-    \[
-    \[
-    \[
-    \formula{\lambda y.\lambda x.f(y)(x):a \linimp b \linimp c} \pspace[1.5em]
-    \formula{[v:a]}^1
-    \justifies
-    \formula{\lambda x.f(v)(x):b \linimp c} 
-    \using \linimpE
-    \]    
-    \formula{[u:b]}^2
-    \justifies
-    \formula{f(v)(u):c}
-    \using \linimpE
-    \]
-    \justifies
-    \formula{\lambda v.f(v)(u):a \linimp c}    
-    \using \linimpIi{1}
-  \]
-  \justifies
- \formula{\lambda y.f(y)(u):a \linimp c}    
- \using \Rightarrow_\alpha
- \]
-    \justifies
-    \formula{\lambda u.\lambda y.f(y)(u):b \linimp a \linimp c}    
-    \using \linimpIi{2}
-  \]
-  \justifies
-  \formula{\lambda x.\lambda y.f(y)(x):b \linimp a \linimp c}
-  \using \Rightarrow_\alpha 
-  \end{lfgprooftree}
-}
+  \attop{\begin{prooftree}
+    \hypo{\lambda y.\lambda x.f(y)(x):a \linimp b \linimp c}     \hypo{[v:a]\textsuperscript{1}}
+    \infer2[$\multimap_{\mathcal{E}}$]{\lambda x.f(v)(x):b \multimap c} 
+    \hypo{[u:b]\textsuperscript{2}}
+    \infer2[$\multimap_{\mathcal{E}}$]{f(v)(u):c}
+    \infer1[$\multimap_{\mathcal{I},1}$]{\lambda v.f(v)(u):a \multimap c}    
+    \infer1[$\Rightarrow_\alpha$]{\lambda y.f(y)(u):a \multimap c}    
+    \infer1[$\multimap_{\mathcal{I},2}$]{\lambda u.\lambda y.f(y)(u):b \multimap a \multimap c}
+  \infer1[$\Rightarrow_\alpha$]{\lambda x.\lambda y.f(y)(x):b \multimap a \multimap c}
+  \end{prooftree}\medskip\\}
 \end{exe}
-%
+
+\noindent
 The general structure of the proof is as follows. First, an assumption (hypothesis)
  is formed for each argument, in the order in which they
 originally occur, corresponding to a variable in the meaning
@@ -966,7 +939,7 @@ is the predominant pairing of syntactic framework and \glue.
 
 \glue\ for LFG will be demonstrated by analyses of the following three
 examples:
-%
+
 \begin{exe}
 \ex \label{ex:bca} Blake called Alex.
 \ex \label{ex:bce} Blake called everybody.
@@ -1022,8 +995,9 @@ when quantifier scope is demonstrated shortly.
 
 \begin{table}
   \centering
-\begin{tabular}{lll}\hline
-\textbf{Expression} & \textbf{Type} & \textbf{Meaning Constructor}\\\hline
+\begin{tabular}{lll}
+\lsptoprule
+Expression & Type & Meaning Constructor\\\midrule
   \word{Alex} & $e$ & \formula{\func{alex}:\upsig}\\
   \word{Blake} & $e$ & \formula{\func{blake}:\upsig}\\
   \word{called} & \bracket{e,\bracket{e,t}} & \formula{\lambda
@@ -1034,6 +1008,7 @@ when quantifier scope is demonstrated shortly.
     \linimp\ S}\\
   \word{somebody} & \bracket{\bracket{e,t},t} &
   \formula{\lambda Q.\func{some}(\func{person},Q):\forall S.(\upsig \linimp\ S) \linimp\ S}
+  \\\lspbottomrule
 \end{tabular}
 \caption{Relevant lexical details  for the three examples in (\ref{ex:bca}--\ref{ex:ecs})}
 \label{tab:gen-lex}
@@ -1082,29 +1057,22 @@ of the normal form proof as the minimal proof that yields the
 conclusion, without unnecessary steps of introducing and discharging
 assumptions; see \citet{asudeh;crouch02-wccfl-ellipsis} for some
 basic discussion.}
+
 \begin{exe}
-\ex\high{Proof}\nopagebreak\\
-\scalebox{1}{
-\begin{lfgprooftree}
-    \[
-      \[
-        \[
-          \formula{\lambda y.\lambda x.\func{call}(y)(x):a \linimp\ b
-            \linimp\ c} \hspace*{1em} \formula{\func{alex}:a}
-          \justifies \formula{(\lambda y.\lambda
-            x.\func{call}(y)(x))(\func{alex}):b \linimp\ c} \using \linimpE
-        \]
-        \justifies \formula{\lambda x.\func{call}(\func{alex})(x):b \linimp\
-          c} \using \betared
-      \]
-      \formula{\func{blake}:b} \justifies \formula{(\lambda
-        x.\func{call}(\func{alex})(x))(\func{blake}):c} \using \linimpE
-    \]
-    \justifies \formula{\func{call}(\func{alex})(\func{blake}):c} \using \betared
-  \end{lfgprooftree}
-  }
+\ex\high{Proof}\medskip\\
+\begin{prooftree}
+\hypo{\lambda y.\lambda x.\func{call}(y)(x):a \multimap b \multimap c} 
+\hypo{\func{alex}:a}
+\infer2[$\multimap_{\mathcal{E}}$]{(\lambda y.\lambda
+            x.\func{call}(y)(x))(\func{alex}):b \multimap c} 
+\infer1[$\Rightarrow_\beta$]{\lambda x.\func{call}(\func{alex})(x):b \multimap c}
+\hypo{\func{blake}:b} 
+\infer2[$\multimap_{\mathcal{E}}$]{(\lambda x.\func{call}(\func{alex})(x))(\func{blake}):c}
+\infer1[$\Rightarrow_\beta$]{\func{call}(\func{alex})(\func{blake}):c}
+\end{prooftree}
 \end{exe}
-%
+
+\noindent
 The final meaning language expression,
 \formula{\func{call}(\func{alex})(\func{blake})}, gives the correct truth
   conditions for \word{Blake called Alex}, based on a standard
@@ -1142,47 +1110,24 @@ instantiated as follows ($\sigma$ subscripts again suppressed):
 These meaning constructors yield the following proof, which is again 
 the only available normal form proof:\footnote{We have not presented
   the proof rule for Universal Instantiation, but it is trivial; see \citet[396]{asudeh-lpr}.}
+
 \begin{exe}
-\ex \high{Proof}\nopagebreak\\
-\hspace*{-.5em}
-  \oneline{
-  \begin{lfgprooftree}
-  \[
-    \mformula{\lambda Q.\func{every}(\func{person},Q)}%
-    {\forall S.(e \linimp\ S) \linimp\ S}
-    \justifies
-    \mformula{\lambda Q.\func{every}(\func{person},Q)}%
-    {(e \linimp\ c) \linimp\ c} 
-  \using \forallE{[c/S]}
-  \]
-\hspace*{-0em}
-  \[
-  \[
-  \[
-    \mformula{\lambda y.\lambda x.\func{call}(y)(x)}%
-    {e \linimp\ b \linimp\ c}
-  \hspace*{1em} 
-  \formula{[z:e]}^1
-  \justifies
-  \formula{\lambda x.\func{call}(z)(x): b \linimp\ c}
-  \using \linimpE, \betared
-  \]
-  \formula{\func{blake}:b}
-  \justifies
-  \formula{\func{call}(z)(\func{blake}):c}
-  \using \linimpE, \betared 
-  \]
-  \justifies
-  \formula{\lambda z.\func{call}(z)(\func{blake}):e \linimp\ c}
-  \using \linimpIi{1}
-  \]
-  \justifies
-  \formula{\func{every}(\func{person}, \lambda z.\func{call}(z)(\func{blake})):c}
-  \using \linimpE, \betared
-\end{lfgprooftree}
-}
+\ex \high{Proof}\medskip\\
+\begin{prooftree}[separation=.5em]\footnotesize
+\hypo{\parbox[t]{\widthof{$\lambda Q.\func{every}(\func{person},Q) :$}}{\raggedright$\lambda Q.\func{every}(\func{person},Q) :$\\$\forall S.(e \multimap S) \multimap S$}}
+\infer1[$\forall_{\mathcal{E}}[c/S]$]{\parbox[t]{\widthof{$\lambda Q.\func{every}(\func{person},Q) :$}}{\raggedright $\lambda Q.\func{every}(\func{person},Q) :$\\$(e \multimap c) \multimap c$}}
+
+\hypo{\parbox[b]{\widthof{$\lambda y.\lambda x.\func{call}(y)(x) :$}}{\raggedright$\lambda y.\lambda x.\func{call}(y)(x) :$\\$e \multimap b \multimap c$}}
+\hypo{[z:e]\textsuperscript{1}}
+\infer2[$\multimap_{\mathcal{E}}, \Rightarrow_\beta$]{\lambda x.\func{call}(z)(x): b \multimap c}
+\hypo{\func{blake}:b}
+\infer2[$\multimap_{\mathcal{E}}, \Rightarrow_\beta$]{\func{call}(z)(\func{blake}):c}
+\infer1[$\multimap_{\mathcal{I}, 1}$]{\lambda z.\func{call}(z)(\func{blake}):e \multimap c}
+\infer2[$\multimap_{\mathcal{E}}, \Rightarrow_\beta$]{\func{every}(\func{person}, \lambda z.\func{call}(z)(\func{blake})):c}
+\end{prooftree}
 \end{exe}
-%
+
+\noindent
 The final meaning language expression,
 \formula{\func{every}(\func{person}, \lambda
   z.\func{call}(z)(\func{blake}))}, again gives the correct truth
@@ -1245,105 +1190,46 @@ proofs, because of the scope ambiguity:\footnote{We have made the
   instantiation step this time.}
 %
 \begin{exe}
-\ex \high{Proof 1 (subject wide scope)}\nopagebreak\\
-\hspace*{-3em}
-\oneline{ 
-  \begin{lfgprooftree}
-    \[
-    \[
-  \mformula{\lambda Q.\func{every}(\func{person},Q)}%
-  {\forall S.(e \linimp\ S) \linimp\ S}
-\[
-\[
-  \mformula{\lambda Q.\func{some}(\func{person},Q)}%
-  {\forall S.(s \linimp\ S) \linimp\ S}
-  \[
-    \[
-      \[
-\mformula{\lambda y.\lambda x.\func{call}(y)(x)}{s \linimp\ e \linimp\
-  c}
-\hspace*{1em}
-\formula{[v:s]}^1
-\justifies
-  \formula{\lambda x.\func{call}(v)(x):e \linimp\ c}
-\using \linimpE, \betared
-\]
-\formula{[u:e]}^2
-\justifies
-\formula{\func{call}(v)(u):c}
-\using \linimpE, \betared
-\]
-\justifies
-\formula{\lambda v.\func{call}(v)(u):s \linimp c}
-\using \linimpIi{1}
-\]
-\justifies
-  \formula{\func{some}(\func{person},\lambda v.\func{call}(v)(u)):c}
-\using \linimpE, \forallE{[c/S]},  \betared
-\]
-\justifies
-\formula{\lambda u.\func{some}(\func{person},\lambda v.\func{call}(v)(u)):e \linimp\ c}
-\using \linimpIi{2}
-\]
-\justifies
-\formula{\func{every}(\func{person},\lambda u.\func{some}(\func{person},\lambda v.\func{call}(v)(u)))}
-\using \linimpE, \forallE{[c/S]}, \betared
-\]
-\justifies
-\formula{\func{every}(\func{person},\lambda
+\ex \high{Proof 1 (subject wide scope)}\medskip\\
+\begin{prooftree}[separation=0.5em]\footnotesize
+\hypo{\parbox[b]{\widthof{$\lambda Q.\func{every}(\func{person},Q) :$}}{\raggedright $\lambda Q.\func{every}(\func{person},Q) :$\\$\forall S.(e \multimap  S) \multimap S$}}
+
+\hypo{\parbox[b]{\widthof{$\lambda Q.\func{some}(\func{person},Q) :$}}{\raggedright $\lambda Q.\func{some}(\func{person},Q) :$\\$\forall S.(s \multimap S) \multimap S$}}
+
+\hypo{\parbox[b]{\widthof{$\lambda y.\lambda x.\func{call}(y)(x) :$}}{\raggedright $\lambda y.\lambda x.\func{call}(y)(x) :$\\$s \multimap e \multimap c$}}
+\hypo{[v:s]\textsuperscript{1}}
+\infer2[$\multimap_{\mathcal{E}}, \Rightarrow_\beta$]{\lambda x.\func{call}(v)(x):e \multimap c}
+\hypo{[u:e]\textsuperscript{2}}
+\infer2[$\multimap_{\mathcal{E}}, \Rightarrow_\beta$]{\func{call}(v)(u):c}
+\infer1[$\multimap_{\mathcal{I}, 1}$]{\lambda v.\func{call}(v)(u):s \linimp c}
+\infer2[$\multimap_{\mathcal{E}}, \forall_{\mathcal{E}} [c/S], \Rightarrow_\beta$]{\func{some}(\func{person},\lambda v.\func{call}(v)(u)):c}
+\infer1[$\multimap_{\mathcal{I}, 2}$]{\lambda u.\func{some}(\func{person},\lambda v.\func{call}(v)(u)):e \multimap c}
+\infer2[$\multimap_{\mathcal{E}}, \forall_{\mathcal{E}} [c/S], \Rightarrow_\beta$]{\func{every}(\func{person},\lambda u.\func{some}(\func{person},\lambda v.\func{call}(v)(u)))}
+\infer1[$\Rightarrow_\alpha$]{\func{every}(\func{person},\lambda
   u.\func{some}(\func{person},\lambda y.\func{call}(y)(u)))}
-\using \alphared 
-\]
-\justifies
-\formula{\func{every}(\func{person},\lambda
+\infer1[$\Rightarrow_\alpha$]{\func{every}(\func{person},\lambda
   x.\func{some}(\func{person},\lambda y.\func{call}(y)(x)))}
-\using \alphared
-\end{lfgprooftree}
-}
+\end{prooftree}\medskip\\
 
-\bigskip
+\ex \high{Proof 2 (object wide scope)}\medskip\\
+\begin{prooftree}[separation=0.5em]\footnotesize
+\hypo{\parbox[b]{\widthof{$\lambda Q.\func{some}(\func{person},Q) :$}}{\raggedright $\lambda Q.\func{some}(\func{person},Q) :$\\$\forall S.(s \multimap S) \multimap S$}}
 
-\item \high{Proof 2 (object wide scope)}\nopagebreak\\
-\hspace*{-3em}
-\oneline{
-  \begin{lfgprooftree}
-    \[
-  \mformula{\lambda Q.\func{some}(\func{person},Q)}%
-  {\forall S.(s \linimp\ S) \linimp\ S}
-\[
-\[
-  \mformula{\lambda Q.\func{every}(\func{person},Q)}%
-  {\forall S.(e \linimp\ S) \linimp\ S}
-\[
-\mformula{\lambda y.\lambda x.\func{call}(y)(x)}{s \linimp\ e \linimp\
-  c}
-\hspace*{1em}
-\formula{[v:s]}^1
-\justifies
-  \formula{\lambda x.\func{call}(v)(x):e \linimp\ c}
-\using \linimpE, \betared
-\]
-\justifies
-  \formula{\func{every}(\func{person},\lambda x.\func{call}(v)(x)):c}
-\using \linimpE, \forallE{[c/S]},  \betared
-\]
-\justifies
-\formula{\lambda v.\func{every}(\func{person},\lambda
-  x.\func{call}(v)(x)):s \linimp\ c}
-\using \linimpIi{1}
-\]
-\justifies
-\formula{\func{some}(\func{person},\lambda v.\func{every}(\func{person},\lambda x.\func{call}(v)(x)))}
-\using \linimpE, \forallE{[c/S]}, \betared
-\]
-\justifies
-\formula{\func{some}(\func{person},\lambda
+\hypo{\parbox[b]{\widthof{$\lambda Q.\func{every}(\func{person},Q) :$}}{\raggedright $\lambda Q.\func{every}(\func{person},Q) :$\\$\forall S.(e \multimap  S) \multimap S$}}
+
+
+\hypo{\parbox[b]{\widthof{$\lambda y.\lambda x.\func{call}(y)(x) :$}}{\raggedright $\lambda y.\lambda x.\func{call}(y)(x) :$\\$s \multimap e \multimap c$}}
+
+\hypo{[v:s]\textsuperscript{1}}
+\infer2[$\multimap_{\mathcal{E}}, \Rightarrow_\beta$]{\lambda x.\func{call}(v)(x):e \multimap c}
+\infer2[$\multimap_{\mathcal{E}}, \forall_{\mathcal{E}} [c/S], \Rightarrow_\beta$]{\func{every}(\func{person},\lambda x.\func{call}(v)(x)):c}
+\infer1[$\multimap_{\mathcal{I}, 1}$]{\lambda v.\func{every}(\func{person},\lambda x.\func{call}(v)(x)):s \multimap c}
+\infer2[$\multimap_{\mathcal{E}}, \forall_{\mathcal{E}} [c/S], \Rightarrow_\beta$]{\func{some}(\func{person},\lambda v.\func{every}(\func{person},\lambda x.\func{call}(v)(x)))}
+\infer1[$\Rightarrow_\alpha$]{\func{some}(\func{person},\lambda
   y.\func{every}(\func{person},\lambda x.\func{call}(y)(x)))}
-\using \alphared 
-\end{lfgprooftree}
-}
+\end{prooftree}
 \end{exe}
-%
+
 \begin{sloppypar}\noindent 
   The final meaning language expressions,
   \formula{\func{every}(\func{person},\lambda
