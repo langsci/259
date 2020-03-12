@@ -1,0 +1,214 @@
+\documentclass{scrartcl} 
+
+\usepackage{./langsci/styles/langsci-forest-setup}
+
+
+\usepackage{./styles/my-xspace,./styles/abbrev,./styles/merkmalstruktur,german}
+
+\selectlanguage{USenglish}
+
+
+
+
+\usepackage{./styles/lfg/dalrymple}
+
+\RequirePackage{graphics}
+\RequirePackage{./styles/lfg/trees}
+%% \RequirePackage{avm}
+%% \avmoptions{active}
+%% \avmfont{\sc}
+%% \avmvalfont{\sc}
+\RequirePackage{./styles/lfg/lfgmacrosash}
+
+\usepackage{./styles/lfg/glue}
+%\usepackage{./styles/lfg/prooftree}
+
+\usepackage{ebproof}
+
+\usepackage{booktabs}
+\newcommand{\lsptoprule}{\midrule\toprule}
+\newcommand{\lspbottomrule}{\bottomrule\midrule}
+
+\newcommand{\lfgfst}[1]{\textit{#1}\ensuremath{\,}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Markup
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[normalem]{ulem} % For thinks like strikethrough, using \sout
+
+\newcommand{\high}[1]{\textbf{#1}} % highlighted text
+\newcommand{\term}[1]{\textit{#1}\/} % technical term
+\newcommand{\qterm}[1]{`{#1}'} % technical term, quotes
+%\newcommand{\trns}[1]{\strut `#1'} % translation in glossed example
+\newcommand{\trnss}[1]{\strut \phantom{\sqz{}} `#1'} % translation in ungrammatical glossed example
+\newcommand{\ttrns}[1]{(`#1')} % an in-text translation of a word
+%\newcommand{\feat}[1]{\mbox{\textsc{\MakeLowercase{#1}}}}     % feature name
+%\newcommand{\val}[1]{\mbox{\textsc{\MakeLowercase{#1}}}}    % f-structure value
+\newcommand{\mg}[1]{\mbox{\textsc{\MakeLowercase{#1}}}}    % morphological gloss
+%\newcommand{\word}[1]{\textit{#1}}       % mention of word
+\providecommand{\kstar}[1]{{#1}\ensuremath{^*}}
+\providecommand{\kplus}[1]{{#1}\ensuremath{^+}}
+\newcommand{\template}[1]{@\textsc{\MakeLowercase{#1}}}
+\newcommand{\templaten}[1]{\textsc{\MakeLowercase{#1}}}
+\newcommand{\templatenn}[1]{\MakeUppercase{#1}}
+\newcommand{\tempeq}{\ensuremath{=}}
+\newcommand{\predval}[1]{\ensuremath{\langle}\textsc{#1}\ensuremath{\rangle}}
+\newcommand{\predvall}[1]{{\rm `#1'}}
+\newcommand{\fst}[1]{\textit{#1}\ensuremath{\,}}
+\newcommand{\scare}[1]{`#1'} % scare quotes
+\newcommand{\bracket}[1]{\ensuremath{\left\langle\mathit{#1}\right\rangle}}
+\newcommand{\sectionw}[1][]{Section#1} % section word: for cap/non-cap
+\newcommand{\tablew}[1][]{Table#1} % table word: for cap/non-cap
+\newcommand{\lfgglue}{LFG+Glue}
+\newcommand{\hpsgglue}{HPSG+Glue}
+\newcommand{\gs}{GS}
+\newcommand{\func}[1]{\ensuremath{\mathbf{#1}}}
+\renewcommand{\glue}{Glue}
+\newcommand{\exr}[1]{(\ref{ex:#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Notation
+%\newcommand{\xbar}[1]{$_{\mbox{\textsc{#1}$^{\raisebox{1ex}{}}$}}$}
+\newcommand{\xprime}[2][]{\textup{\mbox{{#2}\ensuremath{^\prime_{\hspace*{-.0em}\mbox{\footnotesize\ensuremath{\mathit{#1}}}}}}}}
+\providecommand{\xzero}[2][]{#2\ensuremath{^0_{\mbox{\footnotesize\ensuremath{\mathit{#1}}}}}}
+
+
+\newcommand{\UP}{\Up}
+
+
+
+\let\leftangle\langle
+\let\rightangle\rangle
+
+\newcommand{\pslabel}[1]{}
+
+
+%\usepackage{pst-node}
+
+\newcommand{\crossrefchaptert}[2][]{\citet*[#1]{chapters/#2}, Chapter~\ref{chap-#2} of this volume} 
+\newcommand{\crossrefchapterp}[2][]{(\citealp*[#1]{chapters/#2}, Chapter~\ref{chap-#2} of this volume)}
+\newcommand{\crossrefchapteralt}[2][]{\citealt*[#1]{chapters/#2}, Chapter~\ref{chap-#2} of this volume}
+\newcommand{\crossrefchapteralp}[2][]{\citealp*[#1]{chapters/#2}, Chapter~\ref{chap-#2} of this volume}
+% example of optional argument:
+% \crossrefchapterp[for something, see:]{name}
+% gives: (for something, see: Author 2018, Chapter~X of this volume)
+
+\let\crossrefchapterw\crossrefchaptert
+
+
+
+
+	\newcommand{\bstpath}{./langsci/bst/}
+	\newcommand{\bbxpath}{\bstpath biblatex-sp-unified/bbx/}
+	% \renewcommand{\bbxpath}{\bstpath}
+	\newcommand{\cbxpath}{\bstpath biblatex-sp-unified/cbx/}
+
+\usepackage[
+	natbib=true,
+	% \iflsUndecapitalize
+	% style=\bstpath biblatex-langsci-unified-undecap,
+	% \else
+	% style=\bstpath biblatex-langsci-unified,
+	% \fi
+	style=\bbxpath biblatex-sp-unified,
+	citestyle=\cbxpath sp-authoryear-comp,
+	useprefix = true, %sort von, van, de where they should appear
+	%refsection=chapter,
+	maxbibnames=99,
+	uniquename=false,
+	mincrossrefs=99,
+	maxcitenames=2,
+	isbn=false,
+	doi=false,
+	url=false,
+	eprint=false,
+        autolang=hyphen,
+        useprefix=true,
+	backend=biber,
+	indexing=cite,
+  datamodel=\bstpath langsci   % add authauthor and autheditor as possible fields to bibtex entries
+]{biblatex}
+
+  \bibliography{../Bibliographies/stmue,
+                ../localbibliography,
+../Bibliographies/formal-background,
+../Bibliographies/understudied-languages,
+../Bibliographies/phonology,
+../Bibliographies/case,
+../Bibliographies/evolution,
+../Bibliographies/agreement,
+../Bibliographies/lexicon,
+../Bibliographies/np,
+../Bibliographies/negation,
+../Bibliographies/argst,
+../Bibliographies/binding,
+../Bibliographies/complex-predicates,
+../Bibliographies/coordination,
+../Bibliographies/relative-clauses,
+../Bibliographies/udc,
+../Bibliographies/processing,
+../Bibliographies/cl,
+../Bibliographies/dg,
+../Bibliographies/islands,
+../Bibliographies/diachronic,
+../Bibliographies/gesture,
+../Bibliographies/semantics,
+../Bibliographies/pragmatics,
+../Bibliographies/information-structure,
+../Bibliographies/idioms,
+../Bibliographies/cg,
+../Bibliographies/udc,
+../Bibliographies/lfg}    %SW:  I added this line
+
+%\bibliography{macros,own,general,crossreferences,hpsg-handbook} <-from Ash  ??
+
+% If the user provided a shortauthor in the bibtex entry, we use the authentic author (as with the
+% authorindex package) if it is defined, otherwise we use the author.
+% This gets F/T as shorthand right and puts the guys in the index.
+
+\renewbibmacro*{citeindex}{%
+  \ifciteindex
+    {\iffieldequalstr{labelnamesource}{shortauthor} % If biblatex uses shortauthor as the label of a bibitem
+      {\ifnameundef{authauthor}                     % we check whether there is something in authauthor
+        {\indexnames{author}}                       % if not, we use author
+        {\indexnames{authauthor}}}                  % if yes, we use authauthor
+      {\iffieldequalstr{labelnamesource}{author}    % if biblatex uses author we similarly test for
+                                                    % authauthor and use this field
+        {\ifnameundef{authauthor}% if defined use authauthor
+          {\indexnames{author}}
+          {\indexnames{authauthor}}} % if defined use this field
+        {\iffieldequalstr{labelnamesource}{shorteditor} % same for editor
+          {\ifnameundef{autheditor}
+            {\indexnames{editor}}
+            {\indexnames{autheditor}}}
+          {\indexnames{labelname}}}}}               % as a fallback we index on whatever biblatex used.
+    {}}
+
+
+\usepackage{./styles/makros.2e}
+
+\usepackage{./styles/langsci-minimal}
+
+
+%\usepackage{amsmath}
+
+\usepackage{./styles/avm+}
+
+\renewcommand{\feat}[1]{\textsc{#1}}
+
+\usepackage{./styles/additional-langsci-index-shortcuts}
+\usepackage{./langsci/styles/langsci-gb4e}
+
+
+
+
+\author{Stephen Wechsler and Ash Asudeh }
+\title{HPSG and Lexical Functional Grammar}
+
+% \chapterDOI{} %will be filled in at production
+
+
+%\bibliography{Bibliographies/wechsler,Bibliographies/jp2,Bibliographies/stmue}
+
+\input lfg-include.tex

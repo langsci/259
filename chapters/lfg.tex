@@ -1,185 +1,63 @@
-\documentclass[output=paper]{langsci/langscibook} 
-\author{Stephen Wechsler\affiliation{The University of Texas}
-\and Ash Asudeh\affiliation{University of Rochester} }
+\documentclass[output=paper
+                ,modfonts
+                ,nonflat
+	        ,collection
+	        ,collectionchapter
+	        ,collectiontoclongg
+ 	        ,biblatex
+                ,babelshorthands
+                ,newtxmath
+                ,draftmode
+                ,colorlinks, citecolor=brown
+]{./langsci/langscibook}
+
+\IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
+  \input{../localpackages}
+  \input{../localcommands}
+  \input{../localhyphenation}
+  \bibliography{../Bibliographies/stmue,
+                ../localbibliography,
+../Bibliographies/formal-background,
+../Bibliographies/understudied-languages,
+../Bibliographies/phonology,
+../Bibliographies/case,
+../Bibliographies/evolution,
+../Bibliographies/agreement,
+../Bibliographies/lexicon,
+../Bibliographies/np,
+../Bibliographies/negation,
+../Bibliographies/argst,
+../Bibliographies/binding,
+../Bibliographies/complex-predicates,
+../Bibliographies/coordination,
+../Bibliographies/relative-clauses,
+../Bibliographies/udc,
+../Bibliographies/processing,
+../Bibliographies/cl,
+../Bibliographies/dg,
+../Bibliographies/islands,
+../Bibliographies/diachronic,
+../Bibliographies/gesture,
+../Bibliographies/semantics,
+../Bibliographies/pragmatics,
+../Bibliographies/information-structure,
+../Bibliographies/idioms,
+../Bibliographies/cg,
+../Bibliographies/lfg,
+../Bibliographies/udc,
+collection.bib}
+
+  \togglepaper[34]
+}{}
+
+\author{Stephen Wechsler\affiliation{The University of Texas}%
+\lastand Ash Asudeh\affiliation{University of Rochester}}
 \title{HPSG and Lexical Functional Grammar}
 
-% \chapterDOI{} %will be filled in at production
-
-\epigram{Here is the epigram:  more people have been to Berlin than I have}
+%not needed \epigram{Here is the epigram:  more people have been to Berlin than I have}
 \abstract{Here is the abstract: concrete gets you through abstract
 better than abstract gets you through concrete}
-\maketitle
-
-%\bibliography{Bibliographies/wechsler,Bibliographies/jp2,Bibliographies/stmue}
-
-\begin{document}
-\label{chap-lfg}
-
-\section{Introduction} 
-Head-Driven Phrase Structure Grammar is similar in many respects to its cousin framework, Lexical Functional Grammar or LFG \citep{Bresnan+etal:2015,dalrymple:2001}.  Both  HPSG and LFG are lexicalist frameworks in the sense that they distinguish between the morphological system which creates words, and the syntax proper which combines those fully inflected words into phrases and sentences.  Both frameworks assume a lexical theory of argument structure \citep{Mueller+Wechsler:2014} in which verbs and other predicators come equipped with valence structures indicating the kinds of complements and other dependents that the word is to be combined with.  Both theories treat control (equi) and raising as a lexical property of certain control or raising predicates.  Both  representational systems  are based on unification grammar \citep{Kay:1984}, employing directed graphs that are often represented in the form of recursively embedded feature structures.   Phonologically empty nodes of the constituent structure are avoided in both theories, with the gaps appearing in long-distance dependencies as the sole exception in some analyses, and complete elimination of empty categories even in those cases, in others.   
-
-At the same time, there are interesting differences.  Each theory makes available certain representational resources that the other theory lacks.   LFG has output filters in the form of \textit{constraining equations}, HPSG does not.  HPSG's feature structures are \textit{typed}, those of LFG are not.  The feature descriptions (directed graphs) are fully integrated with the phrase structure grammar in the case of HPSG, while in LFG they are intentionally separated in an autonomous level of representation in the form of a \textit{functional structure} or f-structure.  These differences lead some linguists to feel that certain types of generalization are more perspicuously stated in one framework than the other.   Because LFG's functional structure is autonomous from the constituent structure whose terminal yield gives the order of words in a sentence, that functional structure can instead serve as a representation of the grammatical functions played by various components of a sentence.  This makes LFG more amenable to a functionalist motivation, and also provides a standard representation language for capturing the more cross-linguistically invariant properties of syntax.  Meanwhile, HPSG is more deeply rooted in phrase structure grammar, and thus provides a clearer representation of the locality conditions that are important for the proper functioning of grammars.  
-
-This chapter presents a comparison of the two theories with a focus on contrasts between the two.  It is organized by grammatical topic.  
 
 
-\section{Phrases and Endocentricity} 
-A phrasal node shares certain grammatical features with specific daughters, such as the \textsc{head} features that it shares with the head daughter.  In HPSG this is accomplished
-by means of structure-sharing (reentrancies) in the immediate dominance schemata and other 
-constraints on local sub-trees such as the Head Feature Principle.  LFG employs essentially the same mechanism for feature sharing in a local sub-tree but implements it slightly differently.  Each node in a phrase structure is paired with a so-called functional structure or f-structure, which is formally a set of attribute-value pairs.  It is through the f-structure that the nodes of the phrase structure share features.   To distinguish it from f-structure, the phrase structure is referred to as \textit{c-structure}, for categorial or constituent structure.  The grammar, in the form of a standard rewriting system, directly generates only c-structures, not f-structures.   Those c-structure rules introduce equations that form a projection function from c-structure to f-structure.  For example,
-the phrase structure rules in 
-
-\eal
-\ex \label{ex:sample_eng_gram_lex1} %\ins{56}{40}
-{
-\phraserule{S}{\rulenode{NP\\(\up \subj)=\down}
-               \rulenode{VP\\ \up=\down}}}
-
-\ex %\ins{56}{41}
-
-{
-\phraserule{NP}{\optrulenode{Det\\ \up=\down}
-                \rulenode{N\\ \up=\down}}}
-
-\ex %\ins{56}{42}
-
-{
-\phraserule{VP}{\rulenode{V\\ \up=\down}
-                \optrulenode{PP\\(\up \oblloc)=\down}}}
-
-\ex %\ins{57}{43}
-
-{
-\makebox[4em][l]{{\it lion}\/: N}\qquad\feqs{(\up \predj) = `lion'}
-
-\makebox[4em][l]{-{\it s}\/: {\it infl}\/\pslabel{n}}\qquad\feqs{(\up \num) = \pl}
- }
-
-\ex \label{ex:sample_eng_gram_lex5} %\ins{57}{44}
-
-{\label{indent}
-\makebox[4em][l]{{\it live}\/: V}\qquad\feqs{(\up \predj) = `live$\leftangle
-\ldots \rightangle$'}
-
-\makebox[4em][l]{-{\it s}\/: {\it infl}\/\pslabel{v}}\qquad\feqs{(\up \tense) = \pres\\
-                  (\up \subj) = \down\\
-                  \qquad(\down\ \pers) = 3\\
-                  \qquad(\down\ \num) = \sg}}
-
-
-\zl
-
-%\begin{exe}
-%\ex 
-%
-%\end{exe}
-
-% those lions   [NUM pl]
-
-%The rule in () 
-%
-\begin{forest}
-sm edges
-[S 
-  [NP
-    [Det [those]]
-    [N   [lions]]]
-  [VP
-    [V   [rule]]]]
-\end{forest}
-
-\begin{forest}
-sm edges without translation
-[S 
-  [\csn{(\up\feat{subj}) $=$ \down}{NP}
-    [\csn{\updown}{Det} [those\\
-                         {(\up \feat{num}) $=$ \feat{plur}}\\
-                         {(\up \feat{PROX}) $=$ \feat{+}}]]
-    [\csn{\updown}{N}   [lions\\
-                         {(\up \feat{pred}) $=$ \feat{`lion'}}\\
-                         {(\up \feat{num}) $=$ \feat{plur}}]]]
-  [\csn{\updown}{VP}
-    [\csn{\updown}{V}   [rule\\
-                         {(\up \feat{pred}) $=$ `rule$\langle (\up\feat{subj}) \rangle $'}]]]]
-\end{forest}
-
- \tree{S\rnode[r]{s}{\raisebox{1ex}{}}}
- {\tree{\csn{(\up\feat{subj}) $=$ \down}{NP}\rnode[r]{np}{\raisebox{1ex}{}}}
- {
-  \tree{\csn{\updown}{Det\rnode[r]{det}{\raisebox{1ex}{}}}}
-  {
-    \le{
-      \rnode[l]{giis}
-{\raisebox{1ex}
-      {\begin{tabular}{@{}c}
-      \textit{those}\\
-          (\up \feat{num}) $=$ \feat{plur}\\
-          (\up \feat{PROX}) $=$ \feat{+}\\          
-        \end{tabular}     }} 
-    }
-  }
-  \tree{\csn{\updown}{\rnode[l]{N}{\raisebox{1ex}{}}N}}{
-      \le{
-      \rnode[l]{giis}
-      {\raisebox{1ex}{\begin{tabular}{@{}c}
-         \textit{lions}\\
-          (\up \feat{pred}) $=$ \feat{`lion'}\\
-                    (\up \feat{num}) $=$ \feat{plur}\\
-        \end{tabular}} } 
-      }
-    } } 
-     \tree{\csn{\updown}{VP}\rnode[r]{np}{\raisebox{1ex}{}}} 
- { 
-  \tree{\csn{\updown}{V\rnode[r]{v}{\raisebox{1ex}{}}}}   
-  {
-    \le{
-      \rnode[l]{giis}{\raisebox{1ex}{\begin{tabular}{@{}c}
-      \textit{rule}\\
-          (\up \feat{pred}) $=$ `rule$\langle (\up\feat{subj}) \rangle $'  \\  
-        \end{tabular}     }} 
-    }
-  }
-      }
-    } 
-
-
-
-
-
-
-
-\section{Valence} 
-
-\section{Head mobility} 
-
-\section{Pronouns and agreement} 
-
-\section{Lexical mapping}
-
-\section{Long distance dependencies}
-
-\section{Control and raising}
-
-\section{Anaphoric binding}
-
-\section{Semantics}
-
-\section{Conclusion}
-
-%Introduction:  high level differences
-%Phrase structure and heads in the 2 theories
-%Valence: F-structure vs ARG-ST
-%Functional heads; head mobility
-%Pronouns and agreement (PRED feature)
-%Linking: LMT versus inheritance hierarchies
-%Long distance dependencies (SLASH versus f-structure)
-%Control and raising (Locality is easier to account for in HPSG)
-%Anaphoric binding, yawn.
-%Semantics:  Glue (vs MRS?)
-%Conclusion
- 
-\section*{Abbreviations}
-\section*{Acknowledgements}
-
-\printbibliography[heading=subbibliography,notkeyword=this] 
-\end{document}
+\IfFileExists{../localcommands.tex}{
+\input lfg-include.tex}{\input chapters/lfg-include.tex}

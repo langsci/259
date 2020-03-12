@@ -1,4 +1,53 @@
-\documentclass[output=paper]{langsci/langscibook} 
+\documentclass[output=paper
+                ,modfonts
+                ,nonflat
+	        ,collection
+	        ,collectionchapter
+	        ,collectiontoclongg
+ 	        ,biblatex
+                ,babelshorthands
+                ,newtxmath
+                ,draftmode
+                ,colorlinks, citecolor=brown
+]{./langsci/langscibook}
+
+\IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
+  \input{../localpackages}
+  \input{../localcommands}
+  \input{../localhyphenation}
+  \bibliography{../Bibliographies/stmue,
+                ../localbibliography,
+../Bibliographies/formal-background,
+../Bibliographies/understudied-languages,
+../Bibliographies/phonology,
+../Bibliographies/case,
+../Bibliographies/evolution,
+../Bibliographies/agreement,
+../Bibliographies/lexicon,
+../Bibliographies/np,
+../Bibliographies/negation,
+../Bibliographies/argst,
+../Bibliographies/binding,
+../Bibliographies/complex-predicates,
+../Bibliographies/coordination,
+../Bibliographies/relative-clauses,
+../Bibliographies/udc,
+../Bibliographies/processing,
+../Bibliographies/cl,
+../Bibliographies/dg,
+../Bibliographies/islands,
+../Bibliographies/diachronic,
+../Bibliographies/gesture,
+../Bibliographies/semantics,
+../Bibliographies/pragmatics,
+../Bibliographies/information-structure,
+../Bibliographies/idioms,
+../Bibliographies/cg,
+../Bibliographies/udc}
+
+  \togglepaper[33]
+}{}
+
 \author{Yusuke Kubota\affiliation{National Institute for Japanese Language and Linguistics}}
 \title{HPSG and Categorial Grammar}
 
@@ -22,9 +71,9 @@
  research, in the hope of stimulating further research in the two
  research communities on their respective open questions, and so that the two
  communities can continue to learn from each other.}
-\maketitle
 
 \begin{document}
+\maketitle
 \label{chap-cg}
 
 
@@ -35,7 +84,7 @@ The goal of this chapter is to provide a comparison between HPSG and
 insights, mostly due to the fact that they are among the so-called
 ``lexicalist'', ``non"=transformational'' theories of syntax that were
 proposed as major alternatives to the mainstream transformational
-syntax in the 1980s (see \citet{BB2011a} and \citet{MuellerGT-Eng3}
+syntax in the 1980s (see \citealt{BB2011a} and \citealt{MuellerGT-Eng3}
 for overviews of these 
 theories). However, due to the differences in the main research goals
 in the respective communities in which these approaches have been
@@ -61,14 +110,14 @@ syntax research.
 \section{Two varieties of CG \label{cgexposition}}
 
 CG is actually not a monolithic theory, but is a family of related
-approaches (or, perhaps more accurately, it is much \emph{less of} a
+approaches---or, perhaps more accurately, it is much \emph{less of} a
 monolithic theory than either HPSG or Lexical Functional Grammar (LFG;
-\citealt{KB82a-u,BATW2015a}) is). For this reason, I will
+\citealt{KB82a-u,BATW2015a}) is. For this reason, I will
 start my discussion by sketching some important features of two major
-varieties of CG, \term{Combinatory Categorial Grammar} (CCG)
-\citep{Steedman2000a-u,steedman2012} and \term{Type-Logical Categorial Grammar}
-(TLCG; or ``Type-Logical Grammar'')
-\citep{Morrill94a-u,Moortgat2011a-u,KubotaLevineBook}.\footnote{For 
+varieties of CG, \term{Combinatory Categorial Grammar} (CCG;
+\citealt{Steedman2000a-u,steedman2012}) and \term{Type-Logical Categorial Grammar}
+(TLCG; or ``Type-Logical Grammar'';
+\citealt{Morrill94a-u,Moortgat2011a-u,KubotaLevineBook}).\footnote{For 
 more detailed introductions to these different variants of CG, see 
 \citet{steedman2011ccg} (on CCG) and \citet{oehrle2011} (on 
 TLCG), both included in \citet{BB2011a}.} After presenting the ``core''
@@ -124,45 +173,32 @@ I start with a simple fragment of CG called the \term{AB grammar},
 consisting of just two syntactic rules in (\ref{SE0}) (here,
 $\circ$ designates string concatenation):
 
-\begin{samepage2}
 \begin{exe}
- \ex\label{SE0} %\\[-15pt]
-     \begin{multicols}{2} 
+\ex\label{SE0} %\\[-15pt]
+\begin{multicols}{2} 
 \begin{xlist}
- \ex\label{rseone} \mbox{Forward Slash Elimination}
-
-\vspace*{-.2cm}
+\ex\label{rseone} Forward Slash Elimination\\[.5\baselineskip]
 \begin{prooftree}
 \NoSem
-\hspace*{-2.5cm}
-\def\defaultHypSeparation{\hskip.2in}
-\AxiomC{\LexEnt{\pt{\ptv{a}}}{\sem{ }}{\syncat{\textit{A}/\textit{B}}}}
-\AxiomC{\LexEnt{\pt{\ptv{b}}}{\sem{ }}{\syncat{\textit{B}}}}
-\RightLabel{\scalebox{.8}{\ensuremath{/}E}}
-\BinaryInfC{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ }}{\syncat{\textit{A}}}}
+\hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ }}{\syncat{\textit{A}/\textit{B}}}}
+\hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ }}{\syncat{\textit{B}}}}
+\infer2[\ensuremath{/}E]{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ }}{\syncat{\textit{A}}}}
 \end{prooftree}
-
- \ex\label{lseone} \mbox{Backward Slash Elimination}
-
+\ex\label{lseone} Backward Slash Elimination\\[.5\baselineskip]
 \begin{prooftree}
 \NoSem
-\hspace*{-2.5cm}
-\def\defaultHypSeparation{\hskip.2in}
-\AxiomC{\LexEnt{\pt{\ptv{b}}}{\sem{ }}{\syncat{\textit{B}}}}
-\AxiomC{\LexEnt{\pt{\ptv{a}}}{\sem{ }}{\syncat{\textit{B}\ensuremath{\backslash}{}\textit{A}}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash}E}}
-\BinaryInfC{\LexEnt{\pt{\ptv{b} \ensuremath{\circ}\xspace \ptv{a}}}{\sem{ }}{\syncat{\textit{A}}}}
+\hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ }}{\syncat{\textit{B}}}}
+\hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ }}{\syncat{\textit{B}\ensuremath{\backslash}{}\textit{A}}}}
+\infer2[\ensuremath{\backslash}E]{\LexEnt{\pt{\ptv{b} \ensuremath{\circ}\xspace \ptv{a}}}{\sem{ }}{\syncat{\textit{A}}}}
 \end{prooftree}
-
 \end{xlist} 
-     \end{multicols}
+\end{multicols}
 \end{exe}
-\end{samepage2}
 
 \noindent
 With the somewhat minimal lexicon in (\ref{lex01}), the sentence
 \textit{John loves Mary} can be licensed
-as in (\ref{tree1}). The two slashes $/$ and \ensuremath{\backslash}\
+as in (\ref{cg-tree1}). The two slashes $/$ and \ensuremath{\backslash}\
 are used to form ``complex'' syntactic categories (more on this below)
 indicating valence information: the transitive verb \textit{loves} is
 assigned the  category
@@ -184,23 +220,20 @@ its  right (i.e.\  the direct object) and then another NP to its left
     \pt{loves}; \ \syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}NP}
   \end{xlist}
 \end{exe}
-\begin{samepage2}
-\begin{exe}
- \ex\label{tree1}
-\end{exe}
-\vspace*{-1cm}
-\begin{prooftree}
+
+\begin{exe}%\todo[inline]{Is horizontal alignment OK?}
+ \ex\label{cg-tree1}
+ \attop{\begin{prooftree}
 \NoSem
 \DerivSize
-\AxiomC{\LexEnt{\pt{john}}{\sem{ }}{\syncat{NP}}}
-\AxiomC{\LexEnt{\pt{mary}}{\sem{ }}{\syncat{NP}}}
-\AxiomC{\LexEnt{\pt{loves}}{\sem{ }}{\syncat{(NP\ensuremath{\backslash}{}S)/NP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{/}E}}
-\BinaryInfC{\LexEnt{\pt{loves \ensuremath{\circ}\xspace mary}}{\sem{ }}{\syncat{NP\ensuremath{\backslash}{}S}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash}E}}
-\BinaryInfC{\LexEnt{\pt{john \ensuremath{\circ}\xspace loves \ensuremath{\circ}\xspace mary}}{\sem{ }}{\syncat{S}}}
-\end{prooftree}
-\end{samepage2}
+\hypo{\LexEnt{\pt{john}}{\sem{ }}{\syncat{NP}}}
+\hypo{\LexEnt{\pt{mary}}{\sem{ }}{\syncat{NP}}}
+\hypo{\LexEnt{\pt{loves}}{\sem{ }}{\syncat{(NP\ensuremath{\backslash}{}S)/NP}}}
+\infer2[\ensuremath{/}E]{\LexEnt{\pt{loves \ensuremath{\circ}\xspace mary}}{\sem{ }}{\syncat{NP\ensuremath{\backslash}{}S}}}
+\infer2[\ensuremath{\backslash}E]{\LexEnt{\pt{john \ensuremath{\circ}\xspace loves \ensuremath{\circ}\xspace mary}}{\sem{ }}{\syncat{S}}}
+\end{prooftree}}
+\end{exe}
+
 
 \noindent
 At this point, this is just like the familiar PSG analysis of the
@@ -212,7 +245,7 @@ following form, except that the symbol VP is replaced by \syncat{NP\ensuremath{\
 \end{exe}
 \noindent
 Things will start looking more interesting as one makes the fragment
-more complex (and also by adding the semantics), but before doing so
+more complex (and also by adding the semantics), but before doing so,
 I first introduce
 some basic assumptions, first about syntactic categories (below) and then
 about semantics (next section).
@@ -229,7 +262,7 @@ built on the basis of a theory/formalism of complex feature
 structures). CCG seems to assume something similar to 
 feature unification in HPSG, though details are typically not
 worked out explicitly. In TLCG, there are occasional suggestions in the
-literature (see, for example, \citet{Morrill94a-u,pogodallapompigne2011})
+literature (see, for example, \citealt{Morrill94a-u,pogodallapompigne2011})
 that syntactic features can be formalized in terms of
 dependent types \citep{MartinLofIntuitionistic,ranta94}, but
 there is currently no in-depth study working out a theory of
@@ -300,7 +333,7 @@ become an S.
 One point to keep in mind (though it may not seem to make much
 difference at this point) is that in CG, syntactic rules are
 thought of as logical rules and the derivations of sentences like
-(\ref{tree1}) as \emph{proofs} of the well-formedness of
+(\ref{cg-tree1}) as \emph{proofs} of the well-formedness of
 particular strings as sentences.
 From this ``logical'' point of view, the two slashes should really be
 thought of as directional variants of implication (that is, both
@@ -371,57 +404,39 @@ For example, \SemTyp(\syncat{S\ensuremath{/}(NP\ensuremath{\backslash}{}S)}) =  
 Syntactic rules with semantics can then be written as in (\ref{SE-rev})
 (where the semantic effect of these rules is \term{function application})
 and a sample derivation with semantic annotation is given in (\ref{tree02}).
-
-\begin{samepage2}
+ 
 \begin{exe}
  \ex\label{SE-rev} %\\[-15pt]
      \begin{multicols}{2} 
 \begin{xlist}
- \ex\label{rsetwo} \mbox{Forward Slash Elimination}
-
-\vspace*{-.2cm}
+ \ex\label{rsetwo} Forward Slash Elimination\\[.33\baselineskip]
 \begin{prooftree}
-\hspace*{-1cm}
-\def\defaultHypSeparation{\hskip.2in}
-\AxiomC{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF }}{\syncat{\textit{A}\ensuremath{/}\textit{B}}}}
-\AxiomC{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG }}{\syncat{\textit{B}}}}
-\RightLabel{\scalebox{.8}{\ensuremath{/}E}}
-\BinaryInfC{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ \sF(\sG)}}{\syncat{\textit{A}}}}
+\hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF }}{\syncat{\textit{A}\ensuremath{/}\textit{B}}}}
+\hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG }}{\syncat{\textit{B}}}}
+\infer2[\ensuremath{/}E]{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ \sF(\sG)}}{\syncat{\textit{A}}}}
 \end{prooftree}
-
- \ex\label{lsetwo} \mbox{Backward Slash Elimination} 
-
+ \ex\label{lsetwo} Backward Slash Elimination\\[.5\baselineskip]
 \begin{prooftree}
-\hspace*{-1cm}
-\def\defaultHypSeparation{\hskip.2in}
-\AxiomC{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG }}{\syncat{\textit{B}}}}
-\AxiomC{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF }}{\syncat{\textit{B}\ensuremath{\backslash}{}\textit{A}}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash}E}}
-\BinaryInfC{\LexEnt{\pt{\ptv{b} \ensuremath{\circ}\xspace \ptv{a}}}{\sem{ \sF(\sG) }}{\syncat{\textit{A}}}}
+\hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG }}{\syncat{\textit{B}}}}
+\hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF }}{\syncat{\textit{B}\ensuremath{\backslash}{}\textit{A}}}}
+\infer2[\ensuremath{\backslash}E]{\LexEnt{\pt{\ptv{b} \ensuremath{\circ}\xspace \ptv{a}}}{\sem{ \sF(\sG) }}{\syncat{\textit{A}}}}
 \end{prooftree}
-
 \end{xlist} 
      \end{multicols}
 \end{exe}
-\end{samepage2}
 
 
-\begin{samepage2}
 \begin{exe}
  \ex\label{tree02}
-\end{exe}
-\vspace*{-1.2cm}
-\begin{prooftree}
+\attop{\begin{prooftree}
 \DerivSize
-\AxiomC{\LexEnt{\pt{john}}{\sem{ \trns{j} }}{\syncat{NP}}}
-\AxiomC{\LexEnt{\pt{mary}}{\sem{ \trns{m} }}{\syncat{NP}}}
-\AxiomC{\LexEnt{\pt{loves}}{\sem{ \trns{love} }}{\syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}NP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{/}E}}
-\BinaryInfC{\LexEnt{\pt{loves \ensuremath{\circ}\xspace mary}}{\sem{ \trns{love}(\trns{m}) }}{\syncat{NP\ensuremath{\backslash}{}S}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash}E}}
-\BinaryInfC{\LexEnt{\pt{john \ensuremath{\circ}\xspace loves \ensuremath{\circ}\xspace mary}}{\sem{ \trns{love}(\trns{m})(\trns{j}) }}{\syncat{S}}}
-\end{prooftree}
-\end{samepage2}
+\hypo{\LexEnt{\pt{john}}{\sem{ \trns{j} }}{\syncat{NP}}}
+\hypo{\LexEnt{\pt{mary}}{\sem{ \trns{m} }}{\syncat{NP}}}
+\hypo{\LexEnt{\pt{loves}}{\sem{ \trns{love} }}{\syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}NP}}}
+\infer2[\ensuremath{/}E]{\LexEnt{\pt{loves \ensuremath{\circ}\xspace mary}}{\sem{ \trns{love}(\trns{m}) }}{\syncat{NP\ensuremath{\backslash}{}S}}}
+\infer2[\ensuremath{\backslash}E]{\LexEnt{\pt{john \ensuremath{\circ}\xspace loves \ensuremath{\circ}\xspace mary}}{\sem{ \trns{love}(\trns{m})(\trns{j}) }}{\syncat{S}}}
+\end{prooftree}}
+\end{exe}
 
 \noindent
 A system of CG with only the Slash Elimination rules like the fragment
@@ -456,74 +471,45 @@ variants of TLCG. For this reason, separating the two sets of rules
 helps clarify the similarities and differences between CCG and TLCG.
 
 The \term{Type Raising} and \term{Function Composition} rules are defined as in
-(\ref{FC}) and (\ref{TR}), respectively. 
+(\ref{FC}) and (\ref{TR}), respectively.\largerpage[2]
 
-\begin{samepage2}
-\begin{multicols}{2}
+
 \begin{exe}
- \ex\label{FC} \begin{xlist}
-      \ex\mbox{Forward Function Composition} 
-
-\vspace*{-0cm}
+\ex\label{FC} \begin{multicols}{2}
+  \begin{xlist}
+      \ex\mbox{Forward Function Composition}\\[.5\baselineskip]
 \begin{prooftree}
-\hspace*{-1cm}
-\def\defaultHypSeparation{\hskip.6cm}
-\AxiomC{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF}}{\syncat{\textit{A}\ensuremath{/}\textit{B}}}}
-\AxiomC{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG}}{\syncat{\textit{B}\ensuremath{/}\textit{C}}}}
-\RightLabel{\scalebox{.8}{FC}}
-\BinaryInfC{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ \lambda x. \sF(\sG(x))}}{\syncat{\textit{A}\ensuremath{/}\textit{C}}}}
+\hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF}}{\syncat{\textit{A}\ensuremath{/}\textit{B}}}}
+\hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG}}{\syncat{\textit{B}\ensuremath{/}\textit{C}}}}
+\infer2[FC]{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ \lambda x. \sF(\sG(x))}}{\syncat{\textit{A}\ensuremath{/}\textit{C}}}}
 \end{prooftree}
-
-         \columnbreak
-      \ex\mbox{Backward Function Composition}
-
-\vspace*{-0cm}
+\columnbreak
+\ex\mbox{Backward Function Composition}\\[.5\baselineskip]
 \begin{prooftree}
-\hspace*{-1cm}
-\def\defaultHypSeparation{\hskip.6cm}
-\AxiomC{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG}}{\syncat{\textit{C}\ensuremath{\backslash}{}\textit{B}}}}
-\AxiomC{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF}}{\syncat{\textit{B}\ensuremath{\backslash}{}\textit{A}}}}
-\RightLabel{\scalebox{.8}{FC}}
-\BinaryInfC{\LexEnt{\pt{\ptv{b} \ensuremath{\circ}\xspace \ptv{a}}}{\sem{ \lambda x. \sF(\sG(x))}}{\syncat{\textit{C}\ensuremath{\backslash}{}\textit{A}}}}
+\hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG}}{\syncat{\textit{C}\ensuremath{\backslash}{}\textit{B}}}}
+\hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF}}{\syncat{\textit{B}\ensuremath{\backslash}{}\textit{A}}}}
+\infer2[FC]{\LexEnt{\pt{\ptv{b} \ensuremath{\circ}\xspace \ptv{a}}}{\sem{ \lambda x. \sF(\sG(x))}}{\syncat{\textit{C}\ensuremath{\backslash}{}\textit{A}}}}
 \end{prooftree}
-
-     \end{xlist}
-
+     \end{xlist}\end{multicols}
 \end{exe}
-\end{multicols}
-\end{samepage2}
-
-\begin{samepage2}
-\begin{multicols}{2}
+% \end{multicols}
+% 
 \begin{exe}
- \ex\label{TR} \begin{xlist}
-      \ex\mbox{Forward Type Raising} 
-
-\vspace*{-0cm}
+\ex\label{TR} \begin{multicols}{2}\begin{xlist}
+\ex\mbox{Forward Type Raising}\\[.5\baselineskip]
 \begin{prooftree}
-\hspace*{-1cm}
-\AxiomC{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF}}{\syncat{\textit{A}}}}
-\RightLabel{\scalebox{.8}{TR}}
-\UnaryInfC{\LexEnt{\pt{\ptv{a} }}{\sem{ \lambda v. v(\sF) }}{\syncat{\textit{B}\ensuremath{/}(\textit{A}\ensuremath{\backslash}{}\textit{B})}}}
+\hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF}}{\syncat{\textit{A}}}}
+\infer1[TR]{\LexEnt{\pt{\ptv{a} }}{\sem{ \lambda v. v(\sF) }}{\syncat{\textit{B}\ensuremath{/}(\textit{A}\ensuremath{\backslash}{}\textit{B})}}}
 \end{prooftree}
-
-         \columnbreak
-      \ex\mbox{Backward Type Raising}
-
-\vspace*{-0cm}
+% \columnbreak
+\ex\mbox{Backward Type Raising}\\[.5\baselineskip]
 \begin{prooftree}
-\hspace*{-1cm}
-\AxiomC{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF}}{\syncat{\textit{A}}}}
-\RightLabel{\scalebox{.8}{TR}}
-\UnaryInfC{\LexEnt{\pt{\ptv{a} }}{\sem{ \lambda v. v(\sF) }}{\syncat{(\textit{B}\ensuremath{/}\textit{A})\ensuremath{\backslash}{}\textit{B}}}}
+\hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF}}{\syncat{\textit{A}}}}
+\infer1[TR]{\LexEnt{\pt{\ptv{a} }}{\sem{ \lambda v. v(\sF) }}{\syncat{(\textit{B}\ensuremath{/}\textit{A})\ensuremath{\backslash}{}\textit{B}}}}
 \end{prooftree}
-
      \end{xlist}
-
-\end{exe}
 \end{multicols}
-\end{samepage2}
-\medskip
+\end{exe}
 
 \noindent
 The Type-Raising rules are essentially rules of ``type lifting''
@@ -544,22 +530,15 @@ an NP to its right to become an S:\footnote{\trns{love} is a function
 is equivalent to the two-place relation notation
 \ensuremath{\trns{love}(y,x)} in which the subject argument is written first.}
 
-\begin{samepage2}
 \begin{exe}
- \ex\label{ }
+ \ex\label{}
+\attop{\begin{prooftree}
+\hypo{\LexEnt{\pt{john }}{\sem{ \trns{j} }}{\syncat{NP}}}
+\infer1[TR]{\LexEnt{\pt{john }}{\sem{ \lambda f. f(\trns{j}) }}{\syncat{S\ensuremath{/}(NP\ensuremath{\backslash}{}S)}}}
+\hypo{\LexEnt{\pt{loves}}{\sem{ \trns{love} }}{\syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}NP}}}
+\infer2[FC]{\LexEnt{\pt{john \ensuremath{\circ}\xspace loves }}{\sem{ \lambda x. \trns{love}(x)(\trns{j})}}{\syncat{S\ensuremath{/}NP}}}
+\end{prooftree}}
 \end{exe}
-\vspace*{-1.2cm}
-\begin{prooftree}
-\hspace*{-1cm}
-\small
-\AxiomC{\LexEnt{\pt{john }}{\sem{ \trns{j} }}{\syncat{NP}}}
-\RightLabel{\scalebox{.8}{TR}}
-\UnaryInfC{\LexEnt{\pt{john }}{\sem{ \lambda f. f(\trns{j}) }}{\syncat{S\ensuremath{/}(NP\ensuremath{\backslash}{}S)}}}
-\AxiomC{\LexEnt{\pt{loves}}{\sem{ \trns{love} }}{\syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}NP}}}
-\RightLabel{\scalebox{.8}{FC}}
-\BinaryInfC{\LexEnt{\pt{john \ensuremath{\circ}\xspace loves }}{\sem{ \lambda x. \trns{love}(x)(\trns{j})}}{\syncat{S\ensuremath{/}NP}}}
-\end{prooftree}
-\end{samepage2}
 
 \noindent Intuitively, Function Composition has the effect of delaying
 the application of a function. The verb is looking for a direct object
@@ -573,7 +552,7 @@ category (of type \syncat{NP\ensuremath{\backslash}S})
 and semantics (of type $e \rightarrow t$).
 
 Assuming generalized conjunction (with the standard definition for
-the generalized conjunction operator \ensuremath{ \sqcap\xspace } \emph{a la}
+the generalized conjunction operator \ensuremath{ \sqcap\xspace } \emph{à la}
 \citet{partee-rooth1983a} and the polymorphic syntactic category
 \syncat{(\textit{X}\ensuremath{\backslash}{}\textit{X})\ensuremath{/}\textit{X}} for \textit{and}), the analysis for a \term{right-node raising}
 (RNR) sentence such as (\ref{RNR-CCG}) is straightforward, as in (\ref{RNR-CCG-DV}).
@@ -582,66 +561,55 @@ the generalized conjunction operator \ensuremath{ \sqcap\xspace } \emph{a la}
  \ex\label{RNR-CCG}
   John loves, and Bill hates, Mary.
 \end{exe}
-\begin{samepage2}
+
 \begin{exe}
  \ex\label{RNR-CCG-DV}
+\attop{\begin{prooftree}[separation=.5em]\footnotesize
+\hypo{$\vdots$}
+\infer[no rule]1{\MultiLine{\mathsf{ \ptfont john \ensuremath{\circ}\xspace loves  }; \\ \sem{ \lambda x. \trns{love}(x)(\trns{j})}; \syncat{S\ensuremath{/}NP}}}
+\hypo{\MultiLine{\mathsf{ \ptfont and  };\\
+\sem{ \ensuremath{ \sqcap\xspace } }; \syncat{(\textit{X}\ensuremath{\backslash}{}\textit{X})\ensuremath{/}\textit{X}}}}
+\hypo{$\vdots$}
+\infer[no rule]1{\MultiLine{\mathsf{ \ptfont bill \ensuremath{\circ}\xspace hates };\\
+\sem{ \lambda x. \trns{hate}(x)(\trns{b})}; \syncat{S\ensuremath{/}NP}}}
+\infer2[FA]{\MultiLine{\mathsf{ \ptfont and \ensuremath{\circ}\xspace bill \ensuremath{\circ}\xspace hates };\\
+\sem{\ensuremath{ \sqcap\xspace } (\lambda x. \trns{hate}(x)(\trns{b}))}; \syncat{(S\ensuremath{/}NP)\ensuremath{\backslash}{}(S\ensuremath{/}NP)}}}
+\infer2[FA]{\LexEnt{\pt{john \ensuremath{\circ}\xspace loves \ensuremath{\circ}\xspace and \ensuremath{\circ}\xspace bill \ensuremath{\circ}\xspace hates}}{\sem{ (\lambda x. \trns{love}(x)(\trns{j})) \ensuremath{ \sqcap\xspace } (\lambda x. \trns{hate}(x)(\trns{b}))}}{\syncat{S\ensuremath{/}NP}}}
+\hypo{\MultiLine{\mathsf{ \ptfont mary  };\\ \sem{ \trns{m} }; \syncat{NP}}}
+\infer2[FA]{\LexEnt{\pt{john \ensuremath{\circ}\xspace loves \ensuremath{\circ}\xspace and \ensuremath{\circ}\xspace bill \ensuremath{\circ}\xspace hates \ensuremath{\circ}\xspace mary}}{\sem{ \trns{love}(\trns{m})(\trns{j}) \ensuremath{ \wedge\xspace } \trns{hate}(\trns{m})(\trns{b})}}{\syncat{S}}}
+\end{prooftree}}
 \end{exe}
-\vspace*{-1.5cm}
-\begin{prooftree}
-\hspace*{-.5cm}
-\small
-\AxiomC{\Lemma}
-\UnaryInfC{\MultiLine{\mathsf{ \ptfont john \ensuremath{\circ}\xspace loves  }; \\ \sem{ \lambda x. \trns{love}(x)(\trns{j})}; \syncat{S\ensuremath{/}NP}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont and  }; \\ \sem{ \ensuremath{ \sqcap\xspace } }; \syncat{(\textit{X}\ensuremath{\backslash}{}\textit{X})\ensuremath{/}\textit{X}}}}
-\AxiomC{\Lemma}
-\UnaryInfC{\MultiLine{\mathsf{ \ptfont bill \ensuremath{\circ}\xspace hates }; \\ \sem{ \lambda x. \trns{hate}(x)(\trns{b})}; \syncat{S\ensuremath{/}NP}}}
-\RightLabel{\scalebox{.8}{FA}}
-\BinaryInfC{\MultiLine{\mathsf{ \ptfont and \ensuremath{\circ}\xspace bill \ensuremath{\circ}\xspace hates }; \\ \sem{ \ensuremath{ \sqcap\xspace } (\lambda x. \trns{hate}(x)(\trns{b}))}; \syncat{(S\ensuremath{/}NP)\ensuremath{\backslash}{}(S\ensuremath{/}NP)}}}
-\RightLabel{\scalebox{.8}{FA}}
-\BinaryInfC{\LexEnt{\pt{john \ensuremath{\circ}\xspace loves \ensuremath{\circ}\xspace and \ensuremath{\circ}\xspace bill \ensuremath{\circ}\xspace hates}}{\sem{ (\lambda x. \trns{love}(x)(\trns{j})) \ensuremath{ \sqcap\xspace } (\lambda x. \trns{hate}(x)(\trns{b}))}}{\syncat{S\ensuremath{/}NP}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont mary  }; \\ \sem{ \trns{m} }; \syncat{NP}}}
-\RightLabel{\scalebox{.8}{FA}}
-\BinaryInfC{\LexEnt{\pt{john \ensuremath{\circ}\xspace loves \ensuremath{\circ}\xspace and \ensuremath{\circ}\xspace bill \ensuremath{\circ}\xspace hates \ensuremath{\circ}\xspace mary}}{\sem{ \trns{love}(\trns{m})(\trns{j}) \ensuremath{ \wedge\xspace } \trns{hate}(\trns{m})(\trns{b})}}{\syncat{S}}}
-\end{prooftree}
-\end{samepage2}
+
 
 \noindent
 \citet{Dowty88a-u} showed  that this analysis extends straightforwardly to
 the (slightly) more complex case of \term{argument cluster coordination}
 (ACC), such as (\ref{DCC-EG}), as in (\ref{ACC-CCG-DV}) (here, VP, TV and DTV are
-abbreviations of \syncat{NP\ensuremath{\backslash}{}S}, \syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}NP}, and \syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}NP\ensuremath{/}NP}, respectively).
-
+abbreviations of \syncat{NP\ensuremath{\backslash}{}S}, \syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}NP} and \syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}NP\ensuremath{/}NP}, respectively).
+ 
 \begin{exe}
  \ex\label{DCC-EG}
   Mary gave Bill the book and John the record.
 \end{exe}
-\begin{samepage2}
 \begin{exe}
  \ex\label{ACC-CCG-DV}
+\attop{\begin{prooftree}[separation=.25em,label separation=.25em]\footnotesize
+\hypo{\MultiLine{\mathsf{ \ptfont mary  }; \\ \sem{ \trns{m}  }; \\\syncat{NP}}}
+\hypo{\MultiLine{\mathsf{ \ptfont gave  }; \\ \sem{ \trns{give} }; \\\syncat{DTV}}}
+\hypo{\MultiLine{\mathsf{ \ptfont bill  }; \\ \sem{ \trns{b}  }; \syncat{NP}}}
+\infer1[TR]{\MultiLine{\mathsf{ \ptfont bill  }; \\ \sem{ \lambda P. P(\trns{b})  }; \\\syncat{DTV\ensuremath{\backslash}{}TV}}}
+\hypo{\MultiLine{\mathsf{ \ptfont the \ensuremath{\circ}\xspace book  }; \\ \sem{ \I(\trns{bk})}; \syncat{NP}}}
+\infer1[TR]{\MultiLine{\mathsf{ \ptfont the \ensuremath{\circ}\xspace book  }; \\ \sem{ \lambda Q. Q(\I(\trns{bk}))}; \\\syncat{TV\ensuremath{\backslash}{}VP}}}
+\infer2[FC]{\MultiLine{\mathsf{ \ptfont bill \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace book  }; \\ \sem{ \lambda R. R(\trns{b})(\I(\trns{bk})) }; \syncat{DTV\ensuremath{\backslash}{}VP}}}
+\hypo{\MultiLine{\mathsf{ \ptfont and  }; \\ \sem{ \ensuremath{ \sqcap\xspace } }; \\\syncat{(\textit{X}\ensuremath{\backslash}{}\textit{X})\ensuremath{/}\textit{X}}}}
+\hypo{$\vdots$}
+\infer[no rule]1{\MultiLine{\mathsf{ \ptfont john \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace record  }; \\ \sem{ \lambda R. R(\trns{j})(\I(\trns{rc})) }; \\\syncat{DTV\ensuremath{\backslash}{}VP}}}
+\infer2{\MultiLine{\mathsf{ \ptfont and \ensuremath{\circ}\xspace john \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace record  }; \\ \sem{ \ensuremath{ \sqcap\xspace } (\lambda R. R(\trns{j})(\I(\trns{rc}))) }; \\\syncat{(DTV\ensuremath{\backslash}{}VP)\ensuremath{\backslash}{}(DTV\ensuremath{\backslash}{}VP)}}}
+\infer2{\MultiLine{\mathsf{ \ptfont bill \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace book \ensuremath{\circ}\xspace and \ensuremath{\circ}\xspace john \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace record  }; \\ \sem{ \lambda R. R(\trns{j})(\I(\trns{rc})) \ensuremath{ \sqcap\xspace } \lambda R. R(\trns{b})(\I(\trns{bk})) }; \syncat{DTV\ensuremath{\backslash}{}VP}}}
+\infer2{\MultiLine{\mathsf{ \ptfont gave \ensuremath{\circ}\xspace bill \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace book \ensuremath{\circ}\xspace and \ensuremath{\circ}\xspace john \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace record  }; \\ \sem{ \trns{give}(\trns{j})(\I(\trns{rc})) \ensuremath{ \sqcap\xspace } \trns{give}(\trns{b})(\I(\trns{bk})) }; \syncat{VP}}}
+\infer2{\MultiLine{\mathsf{ \ptfont mary \ensuremath{\circ}\xspace gave \ensuremath{\circ}\xspace bill \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace book \ensuremath{\circ}\xspace and \ensuremath{\circ}\xspace john \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace record  }; \\ \sem{ \trns{give}(\trns{j})(\I(\trns{rc}))(\trns{m}) \ensuremath{ \wedge\xspace } \trns{give}(\trns{b})(\I(\trns{bk}))(\trns{m}) }; \syncat{S}}}
+\end{prooftree}}
 \end{exe}
-\vspace*{-1.5cm}
-\begin{prooftree}
-\hspace*{-.2cm}
-\small
-\AxiomC{\MultiLine{\mathsf{ \ptfont mary  }; \\ \sem{ \trns{m}  }; \\\syncat{NP}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont gave  }; \\ \sem{ \trns{give} }; \\\syncat{DTV}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont bill  }; \\ \sem{ \trns{b}  }; \syncat{NP}}}
-\RightLabel{\scalebox{.8}{TR}}
-\UnaryInfC{\MultiLine{\mathsf{ \ptfont bill  }; \\ \sem{ \lambda P. P(\trns{b})  }; \\\syncat{DTV\ensuremath{\backslash}{}TV}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont the \ensuremath{\circ}\xspace book  }; \\ \sem{ \I(\trns{bk})}; \syncat{NP}}}
-\RightLabel{\scalebox{.8}{TR}}
-\UnaryInfC{\MultiLine{\mathsf{ \ptfont the \ensuremath{\circ}\xspace book  }; \\ \sem{ \lambda Q. Q(\I(\trns{bk}))}; \\\syncat{TV\ensuremath{\backslash}{}VP}}}
-\RightLabel{\scalebox{.8}{FC}}
-\BinaryInfC{\MultiLine{\mathsf{ \ptfont bill \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace book  }; \\ \sem{ \lambda R. R(\trns{b})(\I(\trns{bk})) }; \syncat{DTV\ensuremath{\backslash}{}VP}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont and  }; \\ \sem{ \ensuremath{ \sqcap\xspace } }; \\\syncat{(\textit{X}\ensuremath{\backslash}{}\textit{X})\ensuremath{/}\textit{X}}}}
-\AxiomC{\Lemma}
-\UnaryInfC{\MultiLine{\mathsf{ \ptfont john \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace record  }; \\ \sem{ \lambda R. R(\trns{j})(\I(\trns{rc})) }; \\\syncat{DTV\ensuremath{\backslash}{}VP}}}
-\BinaryInfC{\MultiLine{\mathsf{ \ptfont and \ensuremath{\circ}\xspace john \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace record  }; \\ \sem{ \ensuremath{ \sqcap\xspace } (\lambda R. R(\trns{j})(\I(\trns{rc}))) }; \\\syncat{(DTV\ensuremath{\backslash}{}VP)\ensuremath{\backslash}{}(DTV\ensuremath{\backslash}{}VP)}}}
-\BinaryInfC{\MultiLine{\mathsf{ \ptfont bill \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace book \ensuremath{\circ}\xspace and \ensuremath{\circ}\xspace john \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace record  }; \\ \sem{ \lambda R. R(\trns{j})(\I(\trns{rc})) \ensuremath{ \sqcap\xspace } \lambda R. R(\trns{b})(\I(\trns{bk})) }; \syncat{DTV\ensuremath{\backslash}{}VP}}}
-\BinaryInfC{\MultiLine{\mathsf{ \ptfont gave \ensuremath{\circ}\xspace bill \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace book \ensuremath{\circ}\xspace and \ensuremath{\circ}\xspace john \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace record  }; \\ \sem{ \trns{give}(\trns{j})(\I(\trns{rc})) \ensuremath{ \sqcap\xspace } \trns{give}(\trns{b})(\I(\trns{bk})) }; \syncat{VP}}}
-\BinaryInfC{\MultiLine{\mathsf{ \ptfont mary \ensuremath{\circ}\xspace gave \ensuremath{\circ}\xspace bill \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace book \ensuremath{\circ}\xspace and \ensuremath{\circ}\xspace john \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace record  }; \\ \sem{ \trns{give}(\trns{j})(\I(\trns{rc}))(\trns{m}) \ensuremath{ \wedge\xspace } \trns{give}(\trns{b})(\I(\trns{bk}))(\trns{m}) }; \syncat{S}}}
-\end{prooftree}
-\end{samepage2}
 
 \noindent
 Here, by Type Raising, the indirect and direct objects become
@@ -652,7 +620,7 @@ Intuitively, the idea behind this analysis is that
 \textit{Bill the book} is of type
 \syncat{DTV\ensuremath{\backslash}{}VP} since if it were to combine
 with an actual ditransitive verb (such as \textit{gave}), 
-a VP (\textit{gave Bill a book}) would be obtained. 
+a VP (\textit{gave Bill the book}) would be obtained. 
 Note that in both the RNR and ACC examples above, the right semantic
 interpretation for the whole sentence is
 assigned compositionally via the rules given above in (\ref{FC}) and (\ref{TR}).
@@ -669,7 +637,7 @@ extension of the AB grammar. The previous
 section has already introduced two key components that constitute this extension: Type
 Raising and (Harmonic) Function Composition.\footnote{There is
 actually a subtle point about Type Raising rules. Recent
-versions of CCG \citep{steedman2012} do not take them to be syntactic rules
+versions of CCG \citep{steedman2012} do not take them to be syntactic rules,
 but rather assume that Type Raising is an operation in the lexicon.
 This choice seems to be motivated by 
 parsing considerations (so as to eliminate as  many unary rules as
@@ -680,7 +648,7 @@ is actually a quite different system from Steedman's version of CCG in
 that it crucially assumes Geach rules, another type of unary rules
 likely to have similar computational consequences as Type-Raising rules, in the syntactic
 component. (Incidentally,  the Geach rules are often attributed
-to \citet{Geach70a},  but \citeposs{Humberstone2005} careful
+to \citealt{Geach70a},  but \citeauthor{Humberstone2005}'s \citeyear{Humberstone2005} careful
 historical study suggests that this attribution is highly misleading, if not
 totally groundless.)} There are 
 aspects of natural language syntax that cannot 
@@ -692,7 +660,7 @@ analysis of long-distance dependencies.
 The basic idea behind the CCG analysis of long-distance dependencies,
 due originally to \citet{AS82a}, is very simple and is similar in spirit to
 the HPSG analysis in terms of \slasch feature percolation (see
-\crossrefchaptert{udc}
+\crossrefchapteralt{udc}
 for the treatment of long-distance dependencies in HPSG). Specifically,
 CCG analyzes extraction dependencies via a chain of Function
 Composition, as illustrated by the derivation for (\ref{ldd-EX}) in (\ref{ldd-CCG-DV}).
@@ -700,45 +668,31 @@ Composition, as illustrated by the derivation for (\ref{ldd-EX}) in (\ref{ldd-CC
 \begin{exe}
  \ex\label{ldd-EX}
   This is the book that John thought that Mary read {\trace}\xspace .  
-\end{exe}
-\begin{samepage2}
-\begin{exe}
  \ex\label{ldd-CCG-DV}
+\attop{\begin{prooftree}[separation=.25em,label separation=.25em]\footnotesize
+\hypo{\MultiLine{\mathsf{ \ptfont that   }; \\ \sem{ \lambda P \lambda Q \lambda x. \\ \hspace{2ex} Q(x) \ensuremath{ \wedge\xspace } P(x) }; \\\syncat{(N\ensuremath{\backslash}{}N)\ensuremath{/}(S\ensuremath{/}NP)}}}
+\hypo{\MultiLine{\mathsf{ \ptfont john  }; \\ \sem{ \trns{j} }; \syncat{NP}}}
+\infer1[TR]{\MultiLine{\mathsf{ \ptfont john  }; \\ \sem{ \lambda P. P(\trns{j}) }; \\\syncat{S\ensuremath{/}(NP\ensuremath{\backslash}{}S)}}}
+\hypo{\MultiLine{\mathsf{ \ptfont thought   }; \\ \sem{ \trns{think}   }; \\\syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}S\ensuremath{'}}}}
+\hypo{\MultiLine{\mathsf{ \ptfont that  }; \\ \sem{ \lambda p. p  }; \\\syncat{S\ensuremath{'}\hskip-.3ex\ensuremath{/}S}}}
+\hypo{\MultiLine{\mathsf{ \ptfont read }; \\ \sem{ \trns{read} }; \\\syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}NP}}}
+\hypo{\MultiLine{\mathsf{ \ptfont mary }; \\ \sem{ \trns{m} }; \syncat{NP}}}
+\infer1[TR]{\MultiLine{\mathsf{ \ptfont mary }; \\ \sem{ \lambda P. P(\trns{m}) }; \\\syncat{S\ensuremath{/}(NP\ensuremath{\backslash}{}S)}}}
+\infer2[FC]{\MultiLine{\mathsf{ \ptfont mary \ensuremath{\circ}\xspace read  }; \\ \sem{ \lambda x. \trns{read}(x)(\trns{m}) }; \syncat{S\ensuremath{/}NP}}}
+\infer2[FC]{\MultiLine{\mathsf{ \ptfont that \ensuremath{\circ}\xspace mary \ensuremath{\circ}\xspace read  }; \\ \sem{ \lambda x. \trns{read}(x)(\trns{m}) }; \syncat{S\ensuremath{'}\hskip-.3ex\ensuremath{/}S}}}
+\infer2[FC]{\MultiLine{\mathsf{ \ptfont thought \ensuremath{\circ}\xspace that \ensuremath{\circ}\xspace mary \ensuremath{\circ}\xspace read  }; \\ \sem{ \lambda x. \trns{think}(\trns{read}(x)(\trns{m})) }; \syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}NP}}}
+\infer2[FC]{\MultiLine{\mathsf{ \ptfont john \ensuremath{\circ}\xspace thought \ensuremath{\circ}\xspace that \ensuremath{\circ}\xspace mary \ensuremath{\circ}\xspace read  }; \\ \sem{ \lambda x. \trns{think}(\trns{read}(x)(\trns{m}))(\trns{j}) }; \syncat{S\ensuremath{/}NP}}}
+\infer2[FA]{\MultiLine{\mathsf{ \ptfont that \ensuremath{\circ}\xspace john \ensuremath{\circ}\xspace thought \ensuremath{\circ}\xspace that \ensuremath{\circ}\xspace mary \ensuremath{\circ}\xspace read  }; \\ \sem{ \lambda Q \lambda x. Q(x) \ensuremath{ \wedge\xspace } \trns{think}(\trns{read}(x)(\trns{m}))(\trns{j})}; \syncat{N\ensuremath{\backslash}{}N}}}
+\end{prooftree}}
 \end{exe}
-\vspace*{-1.2cm}
-\begin{prooftree}
-\hspace*{-.3cm}
-\footnotesize
-\AxiomC{\MultiLine{\mathsf{ \ptfont that   }; \\ \sem{ \lambda P \lambda Q \lambda x. \\ \hspace{2ex} Q(x) \ensuremath{ \wedge\xspace } P(x) }; \\\syncat{(N\ensuremath{\backslash}{}N)\ensuremath{/}(S\ensuremath{/}NP)}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont john  }; \\ \sem{ \trns{j} }; \syncat{NP}}}
-\RightLabel{\scalebox{.8}{TR}}
-\UnaryInfC{\MultiLine{\mathsf{ \ptfont john  }; \\ \sem{ \lambda P. P(\trns{j}) }; \\\syncat{S\ensuremath{/}(NP\ensuremath{\backslash}{}S)}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont thought   }; \\ \sem{ \trns{think}   }; \\\syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}S\ensuremath{'}}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont that  }; \\ \sem{ \lambda p. p  }; \\\syncat{S\ensuremath{'}\hskip-.3ex\ensuremath{/}S}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont mary }; \\ \sem{ \trns{m} }; \syncat{NP}}}
-\RightLabel{\scalebox{.8}{TR}}
-\UnaryInfC{\MultiLine{\mathsf{ \ptfont mary }; \\ \sem{ \lambda P. P(\trns{m}) }; \\\syncat{S\ensuremath{/}(NP\ensuremath{\backslash}{}S)}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont read }; \\ \sem{ \trns{read} }; \\\syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}NP}}}
-\RightLabel{\scalebox{.8}{FC}}
-\BinaryInfC{\MultiLine{\mathsf{ \ptfont mary \ensuremath{\circ}\xspace read  }; \\ \sem{ \lambda x. \trns{read}(x)(\trns{m}) }; \syncat{S\ensuremath{/}NP}}}
-\RightLabel{\scalebox{.8}{FC}}
-\BinaryInfC{\MultiLine{\mathsf{ \ptfont that \ensuremath{\circ}\xspace mary \ensuremath{\circ}\xspace read  }; \\ \sem{ \lambda x. \trns{read}(x)(\trns{m}) }; \syncat{S\ensuremath{'}\hskip-.3ex\ensuremath{/}S}}}
-\RightLabel{\scalebox{.8}{FC}}
-\BinaryInfC{\MultiLine{\mathsf{ \ptfont thought \ensuremath{\circ}\xspace that \ensuremath{\circ}\xspace mary \ensuremath{\circ}\xspace read  }; \\ \sem{ \lambda x. \trns{think}(\trns{read}(x)(\trns{m})) }; \syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}NP}}}
-\RightLabel{\scalebox{.8}{FC}}
-\BinaryInfC{\MultiLine{\mathsf{ \ptfont john \ensuremath{\circ}\xspace thought \ensuremath{\circ}\xspace that \ensuremath{\circ}\xspace mary \ensuremath{\circ}\xspace read  }; \\ \sem{ \lambda x. \trns{think}(\trns{read}(x)(\trns{m}))(\trns{j}) }; \syncat{S\ensuremath{/}NP}}}
-\RightLabel{\scalebox{.8}{FA}}
-\BinaryInfC{\MultiLine{\mathsf{ \ptfont that \ensuremath{\circ}\xspace john \ensuremath{\circ}\xspace thought \ensuremath{\circ}\xspace that \ensuremath{\circ}\xspace mary \ensuremath{\circ}\xspace read  }; \\ \sem{ \lambda Q \lambda x. Q(x) \ensuremath{ \wedge\xspace } \trns{think}(\trns{read}(x)(\trns{m}))(\trns{j})}; \syncat{N\ensuremath{\backslash}{}N}}}
-\end{prooftree}
-\end{samepage2}
-
+% 
 
 Like (many versions of) HPSG, CCG does not assume any empty expression
 at the gap site. Instead, the information that the subexpressions
 (constituting extraction pathway) such
 as \textit{Mary read} and \textit{thought that Mary read} are missing an NP on the
 right edge is encoded in the syntactic category of the linguistic
-expression. \textit{Mary read} is assigned the type \syncat{S\ensuremath{/}NP} since it is a
+expression. \textit{Mary read} is assigned the type \syncat{S\ensuremath{/}NP}, since it is a
 sentence missing an NP on its right edge. \textit{thought that Mary read} is
 of type \syncat{VP\ensuremath{/}NP} since it is a VP missing an NP on its right edge, etc.
 Expressions that are not originally functions (such as the subject NPs
@@ -756,12 +710,12 @@ that handles this information passing, CCG achieves the effect via the
 ordinary slash that is also used for local syntactic
 composition.
 
-% \footnote{There are several complications that arise in
-%   the CCG analysis because of this architectural difference, which I
-%   discuss immediately below. But one interesting consequence of the CCG
-%   approach is that the quite complex set of specifications of \slasch
-%   feature percolation (including the \emph{termination} of percolation)
-%   are all unnecessary in CCG.}
+% % \footnote{There are several complications that arise in
+% %   the CCG analysis because of this architectural difference, which I
+% %   discuss immediately below. But one interesting consequence of the CCG
+% %   approach is that the quite complex set of specifications of \slasch
+% %   feature percolation (including the \emph{termination} of percolation)
+% %   are all unnecessary in CCG.}
 
 This difference immediately raises some issues for the CCG analysis of
 extraction. First, in (\ref{ldd-EX}), the NP gap happens to be on the right
@@ -782,15 +736,12 @@ Composition for this purpose, defined as follows:
 
 \begin{exe}
  \ex\label{mc}
-  Crossed Function Composition
-\begin{prooftree}
-\hspace*{-5cm}
-\def\defaultHypSeparation{\hskip.6cm}
-\AxiomC{\LexEnt{\pt{\ptv{a}}}{\sem{ \sG}}{\syncat{\textit{A}\ensuremath{/}\textit{B}}}}
-\AxiomC{\LexEnt{\pt{\ptv{b}}}{\sem{ \sF}}{\syncat{\textit{A}\ensuremath{\backslash}{}\textit{C}}}}
-\RightLabel{\scalebox{.8}{xFC}}
-\BinaryInfC{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ \lambda x. \sF(\sG(x))}}{\syncat{\textit{C}\ensuremath{/}\textit{B}}}}
-\end{prooftree}
+  Crossed Function Composition\\[.5\baselineskip]
+\attop{\begin{prooftree}
+\hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ \sG}}{\syncat{\textit{A}\ensuremath{/}\textit{B}}}}
+\hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ \sF}}{\syncat{\textit{A}\ensuremath{\backslash}{}\textit{C}}}}
+\infer2[xFC]{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ \lambda x. \sF(\sG(x))}}{\syncat{\textit{C}\ensuremath{/}\textit{B}}}}
+\end{prooftree}}
 \end{exe}
 Unlike its harmonic counterpart (in which \ptv{a} has the type
 \syncat{\textit{B}\ensuremath{\backslash}{}\textit{A}}), in (\ref{mc})
@@ -803,24 +754,18 @@ Once this non-order-preserving version of Function Composition is
 introduced in the grammar, the derivation for (\ref{nonP}) is
 straightforward, as in (\ref{nonP-DV}):
 
-\begin{samepage2}
 \begin{exe}
  \ex\label{nonP-DV}
-\end{exe}
-\vspace*{-1.2cm}
-\begin{prooftree}
+\attop{\begin{prooftree}
 \DerivSize
-\AxiomC{\LexEnt{\pt{mary}}{\sem{ \trns{m} }}{\syncat{NP}}}
-\RightLabel{\scalebox{.8}{TR}}
-\UnaryInfC{\MultiLine{\mathsf{ \ptfont mary }; \\ \sem{ \lambda P. P(\trns{m}) }; \\\syncat{S\ensuremath{/}(NP\ensuremath{\backslash}{}S)}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont read }; \\ \sem{ \trns{read} }; \syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}NP}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont at \ensuremath{\circ}\xspace school  }; \\ \sem{ \trns{at-school} }; \syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{\backslash}{}(NP\ensuremath{\backslash}{}S)}}}
-\RightLabel{\scalebox{.8}{xFC}}
-\BinaryInfC{\LexEnt{\pt{read \ensuremath{\circ}\xspace at \ensuremath{\circ}\xspace school}}{\sem{ \lambda x. \trns{at-school}(\trns{read}(x)) }}{\syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}NP}}}
-\RightLabel{\scalebox{.8}{FC}}
-\BinaryInfC{\LexEnt{\pt{mary \ensuremath{\circ}\xspace read \ensuremath{\circ}\xspace at \ensuremath{\circ}\xspace school}}{\sem{ \lambda x. \trns{at-school}(\trns{read}(x))(\trns{m}) }}{\syncat{S\ensuremath{/}NP}}}
-\end{prooftree}
-\end{samepage2}
+\hypo{\LexEnt{\pt{mary}}{\sem{ \trns{m} }}{\syncat{NP}}}
+\infer1[TR]{\MultiLine{\mathsf{ \ptfont mary }; \\ \sem{ \lambda P. P(\trns{m}) }; \\\syncat{S\ensuremath{/}(NP\ensuremath{\backslash}{}S)}}}
+\hypo{\MultiLine{\mathsf{ \ptfont read }; \\ \sem{ \trns{read} }; \syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}NP}}}
+\hypo{\MultiLine{\mathsf{ \ptfont at \ensuremath{\circ}\xspace school  }; \\ \sem{ \trns{at-school} }; \syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{\backslash}{}(NP\ensuremath{\backslash}{}S)}}}
+\infer2[xFC]{\LexEnt{\pt{read \ensuremath{\circ}\xspace at \ensuremath{\circ}\xspace school}}{\sem{ \lambda x. \trns{at-school}(\trns{read}(x)) }}{\syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}NP}}}
+\infer2[FC]{\LexEnt{\pt{mary \ensuremath{\circ}\xspace read \ensuremath{\circ}\xspace at \ensuremath{\circ}\xspace school}}{\sem{ \lambda x. \trns{at-school}(\trns{read}(x))(\trns{m}) }}{\syncat{S\ensuremath{/}NP}}}
+\end{prooftree}}
+\end{exe}
 
 
 Unless appropriately constrained, the addition of the crossed
@@ -828,20 +773,19 @@ composition rule leads to potential overgeneration, since
 non-extracted expressions cannot change word order so freely in
 English. For example, without additional restrictions, the simple CCG
 fragment above overgenerates examples such as the following (see, for
-example, \citet{kuhlmann-etal-2015-lexicalization}):
+example, \citealt{kuhlmann-etal-2015-lexicalization}):
 
-\begin{exe}
- \ex\label{overg}
-  *a$_{\mathrm{NP/N}}$ [$_{\mathrm{N/N}}$ powerful$_{\mathrm{N/N}}$ by
-  Rivaldo$_{\mathrm{N\backslash N}}$] shot$_{\mathrm{N}}$ 
-\end{exe}
+\ea[*]{\label{overg}
+a$_{\mathrm{NP/N}}$ [$_{\mathrm{N/N}}$ powerful$_{\mathrm{N/N}}$ by Rivaldo$_{\mathrm{N\backslash N}}$] shot$_{\mathrm{N}}$ 
+}
+\z
 Here, I will not go into the technical details of how this issue is
 addressed in the CCG literature.
 In contemporary versions of CCG, the application of 
 special rules such as crossed composition in (\ref{mc}) is 
 regulated by the 
 notion of ``structural control'' borrowed into CCG from  the
-``multi-modal'' variant of TLCG (see \citet{Baldridge2002a-u} and
+``multi"=modal'' variant of TLCG (see \citet{Baldridge2002a-u} and
 \citet{steedman2011ccg}).
 
 Another issue that arises in connection with extraction is how to treat
@@ -871,14 +815,11 @@ issue:
 
 \begin{exe}
  \ex\label{subst}
-  Substitution
+  Substitution\\[.5\baselineskip]
 \begin{prooftree}
-\hspace*{-5cm}
-\def\defaultHypSeparation{\hskip.6cm}
-\AxiomC{\LexEnt{\pt{\ptv{a}}}{\sem{ \sG}}{\syncat{\textit{A}\ensuremath{/}\textit{B}}}}
-\AxiomC{\LexEnt{\pt{\ptv{b}}}{\sem{ \sF}}{\syncat{(\textit{A}\ensuremath{\backslash}{}\textit{C})\ensuremath{/}\textit{B}}}}
-\RightLabel{\scalebox{.8}{S}}
-\BinaryInfC{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ \lambda x. \sF(x)(\sG(x))}}{\syncat{\textit{C}\ensuremath{/}\textit{B}}}}
+\hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ \sG}}{\syncat{\textit{A}\ensuremath{/}\textit{B}}}}
+\hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ \sF}}{\syncat{(\textit{A}\ensuremath{\backslash}{}\textit{C})\ensuremath{/}\textit{B}}}}
+\infer2[S]{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ \lambda x. \sF(x)(\sG(x))}}{\syncat{\textit{C}\ensuremath{/}\textit{B}}}}
 \end{prooftree}
 \end{exe}
 \noindent
@@ -888,22 +829,17 @@ two inputs into one, to be saturated by a single filler.
 The derivation for  the adjunct parasitic gap example in
 (\ref{PG-1}) then goes as follows (where VP is an abbreviation for \syncat{NP\ensuremath{\backslash}{}S}):
 
-\begin{samepage2}
 \begin{exe}
  \ex
-\end{exe}
-\vspace*{-1.2cm}
-\begin{prooftree}
+\attop{\begin{prooftree}
 \DerivSize
-\AxiomC{\MultiLine{\mathsf{ \ptfont filed  }; \\ \sem{ \trns{file} }; \syncat{VP\ensuremath{/}NP}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont without  }; \\ \sem{ \trns{wo} }; \syncat{(VP\ensuremath{\backslash}{}VP)\ensuremath{/}VP}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont reading  }; \\ \sem{ \trns{read} }; \syncat{VP\ensuremath{/}NP}}}
-\RightLabel{\scalebox{.8}{FC}}
-\BinaryInfC{\MultiLine{\mathsf{ \ptfont without \ensuremath{\circ}\xspace reading  }; \\ \sem{ \lambda x. \trns{wo}(\trns{read}(x)) }; \syncat{(VP\ensuremath{\backslash}{}VP)\ensuremath{/}NP}}}
-\RightLabel{\scalebox{.8}{S}}
-\BinaryInfC{\MultiLine{\mathsf{ \ptfont filed \ensuremath{\circ}\xspace without \ensuremath{\circ}\xspace reading  }; \\ \sem{ \lambda x. \trns{wo}(\trns{read}(x))(\trns{file}(x)) }; \syncat{VP\ensuremath{/}NP}}}
-\end{prooftree}
-\end{samepage2}
+\hypo{\MultiLine{\mathsf{ \ptfont filed  }; \\ \sem{ \trns{file} }; \syncat{VP\ensuremath{/}NP}}}
+\hypo{\MultiLine{\mathsf{ \ptfont without  }; \\ \sem{ \trns{wo} }; \syncat{(VP\ensuremath{\backslash}{}VP)\ensuremath{/}VP}}}
+\hypo{\MultiLine{\mathsf{ \ptfont reading  }; \\ \sem{ \trns{read} }; \syncat{VP\ensuremath{/}NP}}}
+\infer2[FC]{\MultiLine{\mathsf{ \ptfont without \ensuremath{\circ}\xspace reading  }; \\ \sem{ \lambda x. \trns{wo}(\trns{read}(x)) }; \syncat{(VP\ensuremath{\backslash}{}VP)\ensuremath{/}NP}}}
+\infer2[S]{\MultiLine{\mathsf{ \ptfont filed \ensuremath{\circ}\xspace without \ensuremath{\circ}\xspace reading  }; \\ \sem{ \lambda x. \trns{wo}(\trns{read}(x))(\trns{file}(x)) }; \syncat{VP\ensuremath{/}NP}}}
+\end{prooftree}}
+\end{exe}
 
 Like the crossed composition rule, the availability of the
 substitution rule should be restricted to extraction environments. In
@@ -913,8 +849,6 @@ organization of the CCG rule system in which the applicability of
 particular rules is governed by lexically specified ``modality''
 encodings. See \citet{steedman2011ccg} for this relatively recent
 development in CCG.
-
-
 
 \subsection{Type-Logical Categorial Grammar \label{sectlg}}
 
@@ -944,7 +878,7 @@ distinct lines of research. I choose to present one particular variant
 called Hybrid Type-Logical Categorial Grammar \citep{KubotaLevineBook}
 in what follows, in line with the present chapter's linguistic
 emphasis (for a more in-depth discussion on the linguistic application
-of TLCG, see \citet{Carpenter98a-u} and \citet{KubotaLevineBook}).
+of TLCG, see \citealt{Carpenter98a-u} and \citealt{KubotaLevineBook}).
 A brief comparison with major alternatives
 can be found in Chapter 12 of \citet{KubotaLevineBook}. 
 Other variants of TLCG, most notably, the
@@ -966,83 +900,57 @@ structure).\footnote{\citet{Morrill94a-u} was
 the first to recast the Lambek calculus in this labelled deduction
 format.}
 
-\begin{samepage2}
+
 \begin{exe}
  \ex\label{SE} %\\[-15pt]
      \begin{multicols}{2} 
 \begin{xlist}
- \ex\label{rsethree} \mbox{\term{Forward Slash Elimination}} 
-
-\vspace*{-.2cm}
+ \ex\label{rsethree} \mbox{\term{Forward Slash Elimination}}\\[.5\baselineskip]
 \begin{prooftree}
-\hspace*{-1cm}
-\def\defaultHypSeparation{\hskip.6cm}
-\AxiomC{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF }}{\syncat{\textit{A}\ensuremath{/}\textit{B}}}}
-\AxiomC{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG }}{\syncat{\textit{B}}}}
-\RightLabel{\scalebox{.8}{\ensuremath{/}E}}
-\BinaryInfC{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ \sF(\sG)}}{\syncat{\textit{A}}}}
+\hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF }}{\syncat{\textit{A}\ensuremath{/}\textit{B}}}}
+\hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG }}{\syncat{\textit{B}}}}
+\infer2[\ensuremath{/}E]{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ \sF(\sG)}}{\syncat{\textit{A}}}}
 \end{prooftree}
-
- \ex\label{lsethree} \mbox{\term{Backward Slash Elimination}} 
-
+ \ex\label{lsethree} \mbox{\term{Backward Slash Elimination}}\\[.5\baselineskip]
 \begin{prooftree}
-\hspace*{-1cm}
-\def\defaultHypSeparation{\hskip.6cm}
-\AxiomC{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG }}{\syncat{\textit{B}}}}
-\AxiomC{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF }}{\syncat{\textit{B}\ensuremath{\backslash}{}\textit{A}}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash}E}}
-\BinaryInfC{\LexEnt{\pt{\ptv{b} \ensuremath{\circ}\xspace \ptv{a}}}{\sem{ \sF(\sG) }}{\syncat{\textit{A}}}}
-\end{prooftree}
-
+\hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG }}{\syncat{\textit{B}}}}
+\hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF }}{\syncat{\textit{B}\ensuremath{\backslash}{}\textit{A}}}}
+\infer2[\ensuremath{\backslash}E]{\LexEnt{\pt{\ptv{b} \ensuremath{\circ}\xspace \ptv{a}}}{\sem{ \sF(\sG) }}{\syncat{\textit{A}}}}
+\end{prooftree}% 
 \end{xlist} 
      \end{multicols}
 \end{exe}
-\end{samepage2}
 
-\begin{samepage2}
- \begin{exe}
- \ex\label{si} %\\[-15pt]
-    \begin{multicols}{2}
+\begin{exe}
+\ex\label{si} %\\[-15pt]
+\begin{multicols}{2}
  \begin{xlist}
- \ex\label{rsi} \mbox{\term{Forward Slash Introduction}}
-
-\vspace*{-.2cm}
+ \ex\label{rsi} \mbox{\term{Forward Slash Introduction}}\\[.5\baselineskip]
 \begin{prooftree}
-\hspace*{-1cm}
-\AxiomC{\Lemma}
-\UnaryInfC{\Lemma}
-\AxiomC{[\LexEnt{\pt{ \ensuremath{\greekp}}}{\sem{ x}}{\syncat{\textit{A}}}]$^n$}
-\UnaryInfC{\LemmaAlt}
-\AxiomC{\Lemma}
-\UnaryInfC{\Lemma}
-\TrinaryInfC{\LexEnt{\pt{\ptv{b} \ensuremath{\circ}\xspace \p}}{\sem{ \sF}}{\syncat{\textit{B}}}}
-\RightLabel{\scalebox{.8}{/I$^n$}}
-\UnaryInfC{\LexEnt{\pt{\ptv{b}}}{\sem{ \lambda x. \sF}}{\syncat{\textit{B}\ensuremath{/}\textit{A}}}}
+\hypo{$\vdots$}
+\infer[no rule]1{$\vdots$}
+\hypo{[\LexEnt{\pt{ \ensuremath{\greekp}}}{\sem{ x}}{\syncat{\textit{A}}}]\ensuremath{^n}}
+\infer1{$\vdots$}
+\hypo{$\vdots$}
+\infer[no rule]1{$\vdots$}
+\infer3{\LexEnt{\pt{\ptv{b} \ensuremath{\circ}\xspace \p}}{\sem{ \sF}}{\syncat{\textit{B}}}}
+\infer1[/I$^n$]{\LexEnt{\pt{\ptv{b}}}{\sem{ \lambda x. \sF}}{\syncat{\textit{B}\ensuremath{/}\textit{A}}}}
 \end{prooftree}
-
- \ex\label{lsi} \mbox{\term{Backward  Slash Introduction}}
-
-\vspace*{-.2cm}
+ \ex\label{lsi} \mbox{\term{Backward  Slash Introduction}}\\[.5\baselineskip]
 \begin{prooftree}
-\hspace*{-1cm}
-\AxiomC{\Lemma}
-\noLine 
-\UnaryInfC{\Lemma}
-\AxiomC{[\LexEnt{\pt{\p}}{\sem{ x}}{\syncat{\textit{A}}}]$^n$}
-\UnaryInfC{\LemmaAlt}
-\AxiomC{\Lemma}
-\noLine 
-\UnaryInfC{\Lemma}
-\TrinaryInfC{\LexEnt{\pt{\p \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ \sF}}{\syncat{\textit{B}}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash} I$^n$}}
-\UnaryInfC{\LexEnt{\pt{\ptv{b}}}{\sem{ \lambda x. \sF}}{\syncat{\textit{A}\ensuremath{\backslash}{}\textit{B}}}}
+\hypo{$\vdots$}
+\infer[no rule]1{$\vdots$}
+\hypo{[\LexEnt{\pt{\p}}{\sem{ x}}{\syncat{\textit{A}}}]\ensuremath{^n}}
+\infer1{$\vdots$}
+\hypo{$\vdots$}
+\infer[no rule]1{$\vdots$}
+\infer3{\LexEnt{\pt{\p \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ \sF}}{\syncat{\textit{B}}}}
+\infer1[\ensuremath{\backslash} I$^n$]{\LexEnt{\pt{\ptv{b}}}{\sem{ \lambda x. \sF}}{\syncat{\textit{A}\ensuremath{\backslash}{}\textit{B}}}}
 \end{prooftree}
-
  \end{xlist}
 \end{multicols}
  \end{exe}
-\end{samepage2}
-
+ 
 \noindent The key idea behind the Slash Introduction rules in (\ref{si}) is that
 they allow one  to derive linguistic expressions by \emph{hypothetically}
 assuming the existence of words and phrases that are not
@@ -1064,50 +972,34 @@ there is  an expression \p\ of type
 One consequence that immediately follows
 in this system is that Type Raising and
 Function Composition (as well as other theorems; see, for example, 
-\citet[Section~2.2.5, pp.~46--49]{jaeger05}) are now derivable as theorems. As an
+\citealt[Section~2.2.5, pp.~46--49]{jaeger05}) are now derivable as theorems. As an
 illustration, the proofs for (\ref{TR}a) and (\ref{FC}a) are shown in (\ref{TRproof})
 and (\ref{FCproof}), respectively.
 
-\begin{samepage2}
-\begin{multicols}{2}
-
+% % \begin{multicols}{2}
 \begin{exe}
  \ex\label{TRproof}
+\attop{\begin{prooftree}
+\hypo{\ensuremath{[\LexEnt{\pt{\ensuremath{\greekp} }}{\sem{ v }}{\syncat{\textit{A}\ensuremath{\backslash}{}\textit{B}}}]^1\,\,}}
+\hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF }}{\syncat{\textit{A}}}}
+\infer2[\ensuremath{\backslash}E]{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ensuremath{\greekp}}}{\sem{ v(\sF)}}{\syncat{\textit{B}}}}
+\infer1[\ensuremath{/}I\ensuremath{^1}]{\LexEnt{\pt{\ptv{a}}}{\sem{ \lambda v. v(\sF) }}{\syncat{\textit{B}\ensuremath{/}(\textit{A}\ensuremath{\backslash}{}\textit{B})}}}
+\end{prooftree}}
+% \columnbreak
 \end{exe}
-\vspace*{-1cm}
-\begin{prooftree}
-\hspace*{-1cm}
-\DerivSize
-\def\defaultHypSeparation{\hskip.6cm}
-\AxiomC{\ensuremath{[\LexEnt{\pt{\ensuremath{\greekp} }}{\sem{ v }}{\syncat{\textit{A}\ensuremath{\backslash}{}\textit{B}}}]^1\,\,}}
-\AxiomC{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF }}{\syncat{\textit{A}}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash}E}}
-\BinaryInfC{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ensuremath{\greekp}}}{\sem{ v(\sF)}}{\syncat{\textit{B}}}}
-\RightLabel{\scalebox{.8}{\ensuremath{/}I\ensuremath{^1}}}
-\UnaryInfC{\LexEnt{\pt{\ptv{a}}}{\sem{ \lambda v. v(\sF) }}{\syncat{\textit{B}\ensuremath{/}(\textit{A}\ensuremath{\backslash}{}\textit{B})}}}
-\end{prooftree}
-
- \columnbreak
 \begin{exe}
  \ex\label{FCproof}
+\attop{\begin{prooftree}
+\hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF }}{\syncat{\textit{A}\ensuremath{/}\textit{B}}}}
+\hypo{\ensuremath{[\LexEnt{\pt{\ensuremath{\greekp} }}{\sem{ x }}{\syncat{\textit{C}}}]^1\,\,}}
+\hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG }}{\syncat{\textit{B}\ensuremath{/}\textit{C}}}}
+\infer2[\ensuremath{/}E]{\LexEnt{\pt{\ptv{b} \ensuremath{\circ}\xspace \ensuremath{\greekp}}}{\sem{ \sG(x) }}{\syncat{\textit{B}}}}
+\infer2[\ensuremath{/}E]{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b} \ensuremath{\circ}\xspace \ensuremath{\greekp}}}{\sem{ \sF(\sG(x)) }}{\syncat{\textit{A}}}}
+\infer1[\ensuremath{/}I\ensuremath{^1}]{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ \lambda x. \sF(\sG(x)) }}{\syncat{\textit{A}\ensuremath{/}\textit{C}}}}
+\end{prooftree}}
 \end{exe}
-\vspace*{-2cm}
-\begin{prooftree}
-\DerivSize
-\hspace*{-0cm}
-\def\defaultHypSeparation{\hskip.6cm}
-\AxiomC{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF }}{\syncat{\textit{A}\ensuremath{/}\textit{B}}}}
-\AxiomC{\ensuremath{[\LexEnt{\pt{\ensuremath{\greekp} }}{\sem{ x }}{\syncat{\textit{C}}}]^1\,\,}}
-\AxiomC{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG }}{\syncat{\textit{B}\ensuremath{/}\textit{C}}}}
-\RightLabel{\scalebox{.8}{\ensuremath{/}E}}
-\BinaryInfC{\LexEnt{\pt{\ptv{b} \ensuremath{\circ}\xspace \ensuremath{\greekp}}}{\sem{ \sG(x) }}{\syncat{\textit{B}}}}
-\RightLabel{\scalebox{.8}{\ensuremath{/}E}}
-\BinaryInfC{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b} \ensuremath{\circ}\xspace \ensuremath{\greekp}}}{\sem{ \sF(\sG(x)) }}{\syncat{\textit{A}}}}
-\RightLabel{\scalebox{.8}{\ensuremath{/}I\ensuremath{^1}}}
-\UnaryInfC{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ \lambda x. \sF(\sG(x)) }}{\syncat{\textit{A}\ensuremath{/}\textit{C}}}}
-\end{prooftree}
-\end{multicols}
-\end{samepage2}
+% % \end{multicols}
+
 
 \noindent
 These are formal theorems, but they intuitively make sense.
@@ -1147,7 +1039,7 @@ variable, and \emph{not} on the position of the hypothesis itself in the
 proof tree (this latter convention is more standardly adopted when the
 Lambek calculus is presented in Prawitz-style natural deduction,
 though the two presentations are
-equivalent---see, for example, \citet{Carpenter98a-u} and \citet{jaeger05}).
+equivalent---see, for example, \citealt{Carpenter98a-u} and \citealt{jaeger05}).
 
 Hypothetical reasoning with Slash Introduction makes it possible to
 recast the CCG analysis of nonconstituent coordination from
@@ -1162,25 +1054,18 @@ string \textit{Bill the book} as a derived constituent of type
 (the same type as in (\ref{ACC-CCG-DV})) can be obtained in the Lambek
 calculus:
 
-\begin{samepage2}
 \begin{exe}
  \ex\label{NCC-arg-deriv}
-\end{exe}
-\vspace*{-1.3cm}
-\begin{prooftree}
-\hspace*{-1cm}
+\attop{\begin{prooftree}
 \small
-\AxiomC{\ensuremath{[\LexEnt{\pt{\ensuremath{\greekp} }}{\sem{ f}}{\syncat{VP\ensuremath{/}NP\ensuremath{/}NP}}]^1\,\,}}
-\AxiomC{\LexEnt{\pt{bill }}{\sem{ \trns{b} }}{\syncat{NP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{/}E}}
-\BinaryInfC{\LexEnt{\pt{\ensuremath{\greekp} \ensuremath{\circ}\xspace bill }}{\sem{ f(\trns{b}) }}{\syncat{VP\ensuremath{/}NP}}}
-\AxiomC{\LexEnt{\pt{the \ensuremath{\circ}\xspace book }}{\sem{ \I(\trns{bk}) }}{\syncat{NP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{/}E}}
-\BinaryInfC{\LexEnt{\pt{\ensuremath{\greekp} \ensuremath{\circ}\xspace bill \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace book }}{\sem{ f(\trns{b})(\I(\trns{bk})) }}{\syncat{VP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash} I\ensuremath{^1}}}
-\UnaryInfC{\LexEnt{\pt{bill \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace book }}{\sem{ \lambda f. f(\trns{b})(\I(\trns{bk})) }}{\syncat{(VP\ensuremath{/}NP\ensuremath{/}NP)\ensuremath{\backslash}{}VP}}}
-\end{prooftree}
-\end{samepage2}
+\hypo{\ensuremath{[\LexEnt{\pt{\ensuremath{\greekp} }}{\sem{ f}}{\syncat{VP\ensuremath{/}NP\ensuremath{/}NP}}]^1\,\,}}
+\hypo{\LexEnt{\pt{bill }}{\sem{ \trns{b} }}{\syncat{NP}}}
+\infer2[\ensuremath{/}E]{\LexEnt{\pt{\ensuremath{\greekp} \ensuremath{\circ}\xspace bill }}{\sem{ f(\trns{b}) }}{\syncat{VP\ensuremath{/}NP}}}
+\hypo{\LexEnt{\pt{the \ensuremath{\circ}\xspace book }}{\sem{ \I(\trns{bk}) }}{\syncat{NP}}}
+\infer2[\ensuremath{/}E]{\LexEnt{\pt{\ensuremath{\greekp} \ensuremath{\circ}\xspace bill \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace book }}{\sem{ f(\trns{b})(\I(\trns{bk})) }}{\syncat{VP}}}
+\infer1[\ensuremath{\backslash} I\ensuremath{^1}]{\LexEnt{\pt{bill \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace book }}{\sem{ \lambda f. f(\trns{b})(\I(\trns{bk})) }}{\syncat{(VP\ensuremath{/}NP\ensuremath{/}NP)\ensuremath{\backslash}{}VP}}}
+\end{prooftree}}
+\end{exe}
 
 
 At this point, one may wonder what the relationship is between the
@@ -1195,35 +1080,23 @@ analysis from Section~\ref{preCCG} in the Lambek calculus. The relevant
 part is the part that derives the ``noncanonical constituent'' \textit{Bill the
 book}:
 
-\begin{samepage2}
 \begin{exe}
  \ex\label{redundant-DV}
+\attop{\begin{prooftree}[separation=.5em, label separation=.25em]\footnotesize
+\hypo{\ensuremath{[\LexEnt{\pt{\ensuremath{\greekp_3} }}{\sem{ R }}{\syncat{DTV}}]^3\,\,}}
+\hypo{\ensuremath{[\LexEnt{\pt{\ensuremath{\greekp_2} }}{\sem{ P }}{\syncat{DTV}}]^2\,\,}}
+\hypo{\LexEnt{\pt{bill }}{\sem{ \trns{b}  }}{\syncat{NP}}}
+\infer2[\ensuremath{/}E]{\LexEnt{\pt{\ensuremath{\greekp_2} \ensuremath{\circ}\xspace bill }}{\sem{ P(\trns{b})  }}{\syncat{TV}}}
+\infer1[\ensuremath{\backslash} I\ensuremath{^2}]{\LexEnt{\pt{bill }}{\sem{ \lambda P. P(\trns{b})  }}{\syncat{DTV\ensuremath{\backslash}{}TV}}}
+\infer2[\ensuremath{\backslash}E]{\LexEnt{\pt{\ensuremath{\greekp_3} \ensuremath{\circ}\xspace bill }}{\sem{ R(\trns{b})  }}{\syncat{TV}}}
+\hypo{\ensuremath{[\LexEnt{\pt{\ensuremath{\greekp_1} }}{\sem{ Q }}{\syncat{TV}}]^1\,\,}}
+\hypo{\LexEnt{\pt{the \ensuremath{\circ}\xspace book }}{\sem{ \I(\trns{bk})}}{\syncat{NP}}}
+\infer2[\ensuremath{/}E]{\LexEnt{\pt{\ensuremath{\greekp_1} \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace book }}{\sem{ Q(\I(\trns{bk}))}}{\syncat{VP}}}
+\infer1[\ensuremath{\backslash} I\ensuremath{^1}]{\LexEnt{\pt{the \ensuremath{\circ}\xspace book }}{\sem{ \lambda Q. Q(\I(\trns{bk}))}}{\syncat{TV\ensuremath{\backslash}{}VP}}}
+\infer2[\ensuremath{\backslash}E]{\LexEnt{\pt{\ensuremath{\greekp_3} \ensuremath{\circ}\xspace bill \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace book }}{\sem{ R(\trns{b})(\I(\trns{bk})) }}{\syncat{VP}}}
+\infer1[\ensuremath{\backslash} I\ensuremath{^3}]{\LexEnt{\pt{bill \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace book }}{\sem{ \lambda R. R(\trns{b})(\I(\trns{bk})) }}{\syncat{DTV\ensuremath{\backslash}{}VP}}}
+\end{prooftree}}
 \end{exe}
-\vspace*{-1.2cm}
-\begin{prooftree}
-\hspace*{-.5cm}
-\small
-\AxiomC{\ensuremath{[\LexEnt{\pt{\ensuremath{\greekp_3} }}{\sem{ R }}{\syncat{DTV}}]^3\,\,}}
-\AxiomC{\ensuremath{[\LexEnt{\pt{\ensuremath{\greekp_2} }}{\sem{ P }}{\syncat{DTV}}]^2\,\,}}
-\AxiomC{\LexEnt{\pt{bill }}{\sem{ \trns{b}  }}{\syncat{NP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{/}E}}
-\BinaryInfC{\LexEnt{\pt{\ensuremath{\greekp_2} \ensuremath{\circ}\xspace bill }}{\sem{ P(\trns{b})  }}{\syncat{TV}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash} I\ensuremath{^2}}}
-\UnaryInfC{\LexEnt{\pt{bill }}{\sem{ \lambda P. P(\trns{b})  }}{\syncat{DTV\ensuremath{\backslash}{}TV}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash}E}}
-\BinaryInfC{\LexEnt{\pt{\ensuremath{\greekp_3} \ensuremath{\circ}\xspace bill }}{\sem{ R(\trns{b})  }}{\syncat{TV}}}
-\AxiomC{\ensuremath{[\LexEnt{\pt{\ensuremath{\greekp_1} }}{\sem{ Q }}{\syncat{TV}}]^1\,\,}}
-\AxiomC{\LexEnt{\pt{the \ensuremath{\circ}\xspace book }}{\sem{ \I(\trns{bk})}}{\syncat{NP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{/}E}}
-\BinaryInfC{\LexEnt{\pt{\ensuremath{\greekp_1} \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace book }}{\sem{ Q(\I(\trns{bk}))}}{\syncat{VP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash} I\ensuremath{^1}}}
-\UnaryInfC{\LexEnt{\pt{the \ensuremath{\circ}\xspace book }}{\sem{ \lambda Q. Q(\I(\trns{bk}))}}{\syncat{TV\ensuremath{\backslash}{}VP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash}E}}
-\BinaryInfC{\LexEnt{\pt{\ensuremath{\greekp_3} \ensuremath{\circ}\xspace bill \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace book }}{\sem{ R(\trns{b})(\I(\trns{bk})) }}{\syncat{VP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash} I\ensuremath{^3}}}
-\UnaryInfC{\LexEnt{\pt{bill \ensuremath{\circ}\xspace the \ensuremath{\circ}\xspace book }}{\sem{ \lambda R. R(\trns{b})(\I(\trns{bk})) }}{\syncat{DTV\ensuremath{\backslash}{}VP}}}
-\end{prooftree}
-\end{samepage2}
 
 \noindent
 By comparing (\ref{redundant-DV}) and (\ref{NCC-arg-deriv}), one can
@@ -1231,7 +1104,7 @@ see that
 (\ref{redundant-DV}) contains some redundant steps. First, hypothesis
 2 ($\greekp_2$) is
 introduced only to be replaced by hypothesis 3 ($\greekp_3$). This is completely
-redundant since one could have obtained exactly the same result by
+redundant, since one could have obtained exactly the same result by
 directly combining hypothesis 3 with the NP \textit{Bill}. Similarly,
 hypothesis 1 can be eliminated by replacing it with the
 TV \pt{ \ensuremath{\greekp_3} \ensuremath{\circ}\xspace book} on the left-hand side of the third line from the bottom. By
@@ -1259,7 +1132,7 @@ it is important to keep in mind that
 lambda terms representing syntactic proofs
 and lambda terms notating semantic translations are distinct things.}
 Technically, this is known as \term{proof normalization}
-(\citet{jaeger05} contains a particularly useful discussion on this notion). 
+(\citealt{jaeger05} contains a particularly useful discussion on this notion). 
 
 Thus, the logic-based architecture of the Lambek calculus (and various versions of
 TLCG, which are all extensions of the Lambek calculus) enables us to say, in a
@@ -1281,7 +1154,7 @@ position---recall the discussion about crossed composition rules in
 CCG in Section~\ref{abc2ccg}) and quantifier scope (where the
 quantifier needs to covertly move from a sentence-medial position),
 as well as various kinds of discontinuous constituency phenomena (see, 
-for example,  \citet{morrill-ea11}, which contains analyses of various
+for example,  \citealt{morrill-ea11}, which contains analyses of various
 types of discontinuous constituency phenomena in a recent version of
 TLCG known as ``Displacement Calculus''). In what follows, I sketch one
 particular, relatively recent approach to this problem, known as
@@ -1294,88 +1167,58 @@ $\lambda$-binding in the prosodic component.
 Hybrid TLCG extends the Lambek calculus with the Elimination and Introduction rules for the
 \term{vertical slash}:
 
-\begin{samepage2}
 \begin{multicols}{2}
 \begin{exe}
  \ex\label{scoping} \begin{xlist}
-      \ex\label{upI} \mbox{\term{Vertical  Slash Introduction}} 
-
-\vspace*{-.2cm}
+      \ex\label{upI} \mbox{\term{Vertical  Slash Introduction}}\\[.33\baselineskip]
 \begin{prooftree}
-\hspace*{-1cm}
-\AxiomC{\Lemma}
-\noLine 
-\UnaryInfC{\Lemma}
-\AxiomC{[\LexEnt{\pt{\p}}{\sem{ x}}{\syncat{\textit{A}}}]$^n$}
-\UnaryInfC{\LemmaAlt}
-\AxiomC{\Lemma}
-\noLine 
-\UnaryInfC{\Lemma}
-\TrinaryInfC{\LexEnt{\pt{\ptv{b}}}{\sem{ \sF }}{\syncat{\textit{B}}}}
-\RightLabel{\scalebox{.8}{\vs I$^n$}}
-\UnaryInfC{\LexEnt{\pt{\ensuremath{\lambda} \p.  \ptv{b}}}{\sem{ \lambda x. \sF }}{\syncat{\textit{B}\vs \textit{A}}}}
+\hypo{$\vdots$}
+\infer[no rule]1{$\vdots$}
+\hypo{[\LexEnt{\pt{\p}}{\sem{ x}}{\syncat{\textit{A}}}]\ensuremath{^n}}
+\infer1{$\vdots$}
+\hypo{$\vdots$}
+\infer[no rule]1{$\vdots$}
+\infer3{\LexEnt{\pt{\ptv{b}}}{\sem{ \sF }}{\syncat{\textit{B}}}}
+\infer1[\vs I$^n$]{\LexEnt{\pt{\ensuremath{\lambda} \p.  \ptv{b}}}{\sem{ \lambda x. \sF }}{\syncat{\textit{B}\vs \textit{A}}}}
 \end{prooftree}
-
-      \ex\label{upE} \mbox{\term{Vertical  Slash Elimination}}
-
-\vspace*{-.2cm}
+\ex\label{upE} \mbox{\term{Vertical  Slash Elimination}}\\[.5\baselineskip]
 \begin{prooftree}
-\hspace*{-1cm}
-\AxiomC{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF }}{\syncat{\textit{A}\vs \textit{B}}}}
-\AxiomC{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG }}{\syncat{\textit{B}}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\vs}E}}
-\BinaryInfC{\LexEnt{\pt{\ptv{a}(\ptv{b})}}{\sem{  \sF(\sG)}}{\syncat{\textit{A}}}}
+\hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF }}{\syncat{\textit{A}\vs \textit{B}}}}
+\hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG }}{\syncat{\textit{B}}}}
+\infer2[\ensuremath{\vs}E]{\LexEnt{\pt{\ptv{a}(\ptv{b})}}{\sem{  \sF(\sG)}}{\syncat{\textit{A}}}}
 \end{prooftree}
-
      \end{xlist}
-
 \end{exe}
 \end{multicols}
-\end{samepage2}
 
-\medskip
 \noindent These rules make it possible to model what (roughly) corresponds to
 syntactic movement operations in
 mainstream generative grammar. This is illustrated
 in (\ref{inv-scope00}) for the \sem{   \forall > \exists   } %
 {}%
-reading for the sentence
-\textit{Someone talked to everyone today}:
+reading for the sentence \textit{Someone talked to everyone today}.
 
-\begin{samepage2}
+% \begin{figure}
 \begin{exe}
  \ex\label{inv-scope00}
+\attop{\begin{prooftree}[separation=.5em,label separation=.25em]\footnotesize
+\hypo{\MultiLine{\mathsf{ \ptfont \lambda \ensuremath{\greeks}.\ensuremath{\greeks}(someone) }; \\ \sem{ \GQU{E}{person} }; \\\syncat{S\vs (S\vs NP)}}}
+\hypo{\MultiLine{\mathsf{ \ptfont \lambda \ensuremath{\greeks}.\ensuremath{\greeks}(everyone) }; \\ \sem{ \GQU{A}{person}}; \\\syncat{S\vs (S\vs NP)}}}
+\hypo{\ensuremath{\ThreeColHyp{\MultiLine{\mathsf{ \ptfont \ensuremath{\greekp_2} }; \\ \sem{ x_2}; \\\syncat{NP}}}^2}}
+\hypo{\MultiLine{\mathsf{ \ptfont talked \ensuremath{\circ}\xspace to }; \\ \sem{ \trns{talked-to} }; \\\syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}NP}}}
+\hypo{\ensuremath{\ThreeColHyp{\MultiLine{\mathsf{ \ptfont \ensuremath{\greekp_1} }; \\ \sem{ x_1}; \\\syncat{NP}}}^1}}
+\infer2[\ensuremath{/}E]{\MultiLine{\mathsf{ \ptfont talked \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace \ensuremath{\greekp_1} }; \\ \sem{ \trns{talked-to}(x_1) }; \syncat{NP\ensuremath{\backslash}{}S}}}
+\infer2[\ensuremath{\backslash}E]{\MultiLine{\mathsf{ \ptfont \ensuremath{\greekp_2} \ensuremath{\circ}\xspace talked \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace \ensuremath{\greekp_1} }; \\ \sem{ \trns{talked-to}(x_1)(x_2) }; \syncat{S}}}
+\hypo{\MultiLine{\mathsf{ \ptfont today }; \\ \sem{ \trns{tdy} }; \\\syncat{S\ensuremath{\backslash}{}S}}}
+\infer2[\ensuremath{\backslash}E]{\MultiLine{\mathsf{ \ptfont \ensuremath{\greekp_2} \ensuremath{\circ}\xspace talked \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace \ensuremath{\greekp_1} \ensuremath{\circ}\xspace today }; \\ \sem{ \trns{tdy}(\trns{talked-to}(x_1)(x_2)) }; \syncat{S}}}
+\infer[left label=\maru{1}]1[\ensuremath{\vs}I\ensuremath{^2}]{\MultiLine{\mathsf{ \ptfont \lambda \ensuremath{\greekp_2}. \ensuremath{\greekp_2} \ensuremath{\circ}\xspace talked \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace \ensuremath{\greekp_1} \ensuremath{\circ}\xspace today }; \\ \sem{ \lambda x_2. \trns{tdy}(\trns{talked-to}(x_1)(x_2)) }; \syncat{S\vs NP}}}
+\infer[left label=\maru{2}]2[\ensuremath{\vs}E]{\MultiLine{\mathsf{ \ptfont someone \ensuremath{\circ}\xspace talked \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace \ensuremath{\greekp_1} \ensuremath{\circ}\xspace today }; \\ \sem{ \GQU{E}{person(}\lambda x_2. \trns{tdy}(\trns{talked-to}(x_1)(x_2))) }; \syncat{S}}}
+\infer1[\ensuremath{\vs}I\ensuremath{^1}]{\MultiLine{\mathsf{ \ptfont \lambda \ensuremath{\greekp_1}. Someone \ensuremath{\circ}\xspace talked \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace \ensuremath{\greekp_1} \ensuremath{\circ}\xspace today }; \\ \sem{ \lambda x_1. \GQU{E}{person(}\lambda x_2. \trns{tdy}(\trns{talked-to}(x_1)(x_2))) }; \syncat{S\vs NP}}}
+\infer2[\ensuremath{\vs}E]{\MultiLine{\mathsf{ \ptfont someone \ensuremath{\circ}\xspace talked \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace everyone \ensuremath{\circ}\xspace today }; \\ \sem{ \GQU{A}{person}(\lambda x_1. \GQU{E}{person}(\lambda x_2. \trns{tdy}(\trns{talked-to}(x_1)(x_2)))) }; \syncat{S}}}
+\end{prooftree}}
 \end{exe}
-\vspace*{-1.6cm}
-\begin{prooftree}
-\DerivSize
-\hspace*{-.3cm}
-\AxiomC{\MultiLine{\mathsf{ \ptfont \lambda \ensuremath{\greeks}.\ensuremath{\greeks}(everyone) }; \\ \sem{ \GQU{A}{person}}; \\\syncat{S\vs (S\vs NP)}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont \lambda \ensuremath{\greeks}.\ensuremath{\greeks}(someone) }; \\ \sem{ \GQU{E}{person} }; \\\syncat{S\vs (S\vs NP)}}}
-\AxiomC{\ensuremath{\ThreeColHyp{\MultiLine{\mathsf{ \ptfont \ensuremath{\greekp_2} }; \\ \sem{ x_2}; \\\syncat{NP}}}^2}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont talked \ensuremath{\circ}\xspace to }; \\ \sem{ \trns{talked-to} }; \\\syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}NP}}}
-\AxiomC{\ensuremath{\ThreeColHyp{\MultiLine{\mathsf{ \ptfont \ensuremath{\greekp_1} }; \\ \sem{ x_1}; \\\syncat{NP}}}^1}}
-\RightLabel{\scalebox{.8}{\ensuremath{/}E}}
-\BinaryInfC{\MultiLine{\mathsf{ \ptfont talked \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace \ensuremath{\greekp_1} }; \\ \sem{ \trns{talked-to}(x_1) }; \syncat{NP\ensuremath{\backslash}{}S}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash}E}}
-\BinaryInfC{\MultiLine{\mathsf{ \ptfont \ensuremath{\greekp_2} \ensuremath{\circ}\xspace talked \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace \ensuremath{\greekp_1} }; \\ \sem{ \trns{talked-to}(x_1)(x_2) }; \syncat{S}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont today }; \\ \sem{ \trns{tdy} }; \\\syncat{S\ensuremath{\backslash}{}S}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash}E}}
-\BinaryInfC{\MultiLine{\mathsf{ \ptfont \ensuremath{\greekp_2} \ensuremath{\circ}\xspace talked \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace \ensuremath{\greekp_1} \ensuremath{\circ}\xspace today }; \\ \sem{ \trns{tdy}(\trns{talked-to}(x_1)(x_2)) }; \syncat{S}}}
-\LeftLabel{\maru{1}}
-\RightLabel{\scalebox{.8}{\ensuremath{\vs}I\ensuremath{^2}}}
-\UnaryInfC{\MultiLine{\mathsf{ \ptfont \lambda \ensuremath{\greekp_2}. \ensuremath{\greekp_2} \ensuremath{\circ}\xspace talked \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace \ensuremath{\greekp_1} \ensuremath{\circ}\xspace today }; \\ \sem{ \lambda x_2. \trns{tdy}(\trns{talked-to}(x_1)(x_2)) }; \syncat{S\vs NP}}}
-\LeftLabel{\maru{2}}
-\RightLabel{\scalebox{.8}{\ensuremath{\vs}E}}
-\BinaryInfC{\MultiLine{\mathsf{ \ptfont someone \ensuremath{\circ}\xspace talked \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace \ensuremath{\greekp_1} \ensuremath{\circ}\xspace today }; \\ \sem{ \GQU{E}{person(}\lambda x_2. \trns{tdy}(\trns{talked-to}(x_1)(x_2))) }; \syncat{S}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\vs}I\ensuremath{^1}}}
-\UnaryInfC{\MultiLine{\mathsf{ \ptfont \lambda \ensuremath{\greekp_1}. Someone \ensuremath{\circ}\xspace talked \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace \ensuremath{\greekp_1} \ensuremath{\circ}\xspace today }; \\ \sem{ \lambda x_1. \GQU{E}{person(}\lambda x_2. \trns{tdy}(\trns{talked-to}(x_1)(x_2))) }; \syncat{S\vs NP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\vs}E}}
-\BinaryInfC{\MultiLine{\mathsf{ \ptfont someone \ensuremath{\circ}\xspace talked \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace everyone \ensuremath{\circ}\xspace today }; \\ \sem{ \GQU{A}{person}(\lambda x_1. \GQU{E}{person}(\lambda x_2. \trns{tdy}(\trns{talked-to}(x_1)(x_2)))) }; \syncat{S}}}
-\end{prooftree}
-\end{samepage2}
-\medskip\medskip
-\noindent
+% \end{figure}
+
 A quantifier has the ordinary G{}Q meaning  (\sem{  \GQU{E}{person}  } %
 {}%
 and \sem{  \GQU{A}{person}  } 
@@ -1386,13 +1229,13 @@ and
  \sem{   \lambda P. \forall x [ \trns{person}(x) \ensuremath{ \rightarrow }  P(x)]   }, %
 {}%
 respectively), but its phonology is a
-function of type (\st\xspace \shortarrow \st\xspace) \shortarrow
-\st\xspace (where \st\xspace is the type of strings).
+function of type (\yusukest\xspace \shortarrow \yusukest\xspace) \shortarrow
+\yusukest\xspace (where \yusukest\xspace is the type of string).
 By abstracting over the position in which the quantifier
 ``lowers into'' in an S via the Vertical Slash Introduction rule (\ref{upI}),
 an expression of
-type \syncat{S\vs NP} (phonologically \st\xspace \shortarrow
-\st\xspace)  is obtained (\maru{1}),
+type \syncat{S\vs NP} (phonologically \yusukest\xspace \shortarrow
+\yusukest\xspace)  is obtained (\maru{1}),
 which is then given as an argument to the quantifier. Then, by function
 application via $\vs$E (\maru{2}), the subject quantifier \textit{someone}
 semantically scopes over the sentence and lowers its phonology to the
@@ -1424,46 +1267,33 @@ Empirical application of parasitic scope include ``respective'' readings
 \citep{pollard-numerical}.
 
 Hypothetical reasoning with prosodic $\lambda$-binding enables a simple
-analysis of \textit{wh} extraction too, as originally noted by \citet{muskens03}.
+analysis of \textit{wh}-extraction too, as originally noted by \citet{muskens03}.
 The key idea is that sentences with medial gaps can be analyzed
 as expressions  of type \syncat{S\vs NP}, as in the derivation for
 (\ref{bagels}) in (\ref{bagels-derivation}).
-
+% 
 \begin{exe}
  \ex\label{bagels}
   Bagels\ensuremath{_i}, Kim gave  \trace$_i$ to Chris.
 \end{exe}
-\begin{samepage2}
 \begin{exe}
  \ex\label{bagels-derivation}
+\attop{\begin{prooftree}[label separation=.5em,separation=.25em]\footnotesize
+\hypo{\MultiLine{\mathsf{ \ptfont bagels  }; \\ \sem{ \trns{b} }; \syncat{NP}}}
+\hypo{\MultiLine{\mathsf{ \ptfont \lambda \ensuremath{\greeks} \lambda \ensuremath{\greekp}. \ensuremath{\greekp} \ensuremath{\circ}\xspace \ensuremath{\greeks}(\E)  }; \\ \sem{ \lambda \ensuremath{\mathcal{F}}. \ensuremath{\mathcal{F}} }; \\\syncat{(S\vs \textit{X})\vs (S\vs \textit{X})}}}
+\hypo{\MultiLine{\mathsf{ \ptfont kim  }; \\ \sem{ \trns{k} }; \syncat{NP}}}
+\hypo{\MultiLine{\mathsf{ \ptfont gave }; \\ \sem{ \trns{gave} }; \\\syncat{VP\ensuremath{/}PP\ensuremath{/}NP}}}
+\hypo{\ensuremath{\ThreeColHyp{\MultiLine{\mathsf{ \ptfont \ensuremath{\greekp}  }; \\ \sem{ x }; \\\syncat{NP}}}^1}}
+\infer2[/E]{\LexEnt{\pt{gave \ensuremath{\circ}\xspace \ensuremath{\greekp}  }}{\sem{ \trns{gave} (x) }}{\syncat{VP\ensuremath{/}PP}}}
+\hypo{\MultiLine{\mathsf{ \ptfont to \ensuremath{\circ}\xspace chris }; \\ \sem{ \trns{c} }; \syncat{PP}}}
+\infer2[\ensuremath{/}E]{\LexEnt{\pt{gave \ensuremath{\circ}\xspace \ensuremath{\greekp} \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace chris }}{\sem{ \trns{gave}(x)(\trns{c}) }}{\syncat{VP}}}
+\infer2[\ensuremath{\backslash}E]{\LexEnt{\pt{kim \ensuremath{\circ}\xspace gave \ensuremath{\circ}\xspace \ensuremath{\greekp} \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace chris }}{\sem{ \trns{gave}(x)(\trns{c})(\trns{k}) }}{\syncat{S}}}
+\infer[left label=\maru{1}]1[\ensuremath{\vs}I\ensuremath{^1}]{\MultiLine{\mathsf{ \ptfont \lambda \ensuremath{\greekp}. kim \ensuremath{\circ}\xspace gave \ensuremath{\circ}\xspace \ensuremath{\greekp} \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace chris  }; \\ \sem{ \lambda x. \trns{gave}(x)(\trns{c})(\trns{k}) }; \syncat{S\vs NP}}}
+\infer[left label=\maru{2}]2[\ensuremath{\vs}E]{\LexEnt{\pt{\ensuremath{\lambda} \ensuremath{\greekp}. \ensuremath{\greekp} \ensuremath{\circ}\xspace kim \ensuremath{\circ}\xspace gave \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace chris }}{\sem{ \lambda x. \trns{gave}(x)(\trns{c})(\trns{k}) }}{\syncat{S\vs NP}}}
+\infer2[\ensuremath{\vs}E]{\LexEnt{\pt{bagels \ensuremath{\circ}\xspace kim \ensuremath{\circ}\xspace gave \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace chris }}{\sem{ \trns{gave}(\trns{b})(\trns{c})(\trns{k}) }}{\syncat{S}}}
+\end{prooftree}}
 \end{exe}
-\vspace*{-1cm}
-\begin{prooftree}
-\DerivSize
-\hspace*{-.3cm}
-\AxiomC{\MultiLine{\mathsf{ \ptfont bagels  }; \\ \sem{ \trns{b} }; \syncat{NP}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont \lambda \ensuremath{\greeks} \lambda \ensuremath{\greekp}. \ensuremath{\greekp} \ensuremath{\circ}\xspace \ensuremath{\greeks}(\E)  }; \\ \sem{ \lambda \ensuremath{\mathcal{F}}. \ensuremath{\mathcal{F}} }; \\\syncat{(S\vs \textit{X})\vs (S\vs \textit{X})}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont kim  }; \\ \sem{ \trns{k} }; \syncat{NP}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont gave }; \\ \sem{ \trns{gave} }; \\\syncat{VP\ensuremath{/}PP\ensuremath{/}NP}}}
-\AxiomC{\ensuremath{\ThreeColHyp{\MultiLine{\mathsf{ \ptfont \ensuremath{\greekp}  }; \\ \sem{ x }; \\\syncat{NP}}}^1}}
-\RightLabel{\scalebox{.8}{/E}}
-\BinaryInfC{\LexEnt{\pt{gave \ensuremath{\circ}\xspace \ensuremath{\greekp}  }}{\sem{ \trns{gave} (x) }}{\syncat{VP\ensuremath{/}PP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{/}E}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont to \ensuremath{\circ}\xspace chris }; \\ \sem{ \trns{c} }; \syncat{PP}}}
-\BinaryInfC{\LexEnt{\pt{gave \ensuremath{\circ}\xspace \ensuremath{\greekp} \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace chris }}{\sem{ \trns{gave}(x)(\trns{c}) }}{\syncat{VP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash}E}}
-\BinaryInfC{\LexEnt{\pt{kim \ensuremath{\circ}\xspace gave \ensuremath{\circ}\xspace \ensuremath{\greekp} \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace chris }}{\sem{ \trns{gave}(x)(\trns{c})(\trns{k}) }}{\syncat{S}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\vs}I\ensuremath{^1}}}
-\LeftLabel{\maru{1}}
-\UnaryInfC{\MultiLine{\mathsf{ \ptfont \lambda \ensuremath{\greekp}. kim \ensuremath{\circ}\xspace gave \ensuremath{\circ}\xspace \ensuremath{\greekp} \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace chris  }; \\ \sem{ \lambda x. \trns{gave}(x)(\trns{c})(\trns{k}) }; \syncat{S\vs NP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\vs}E}}
-\LeftLabel{\maru{2}}
-\BinaryInfC{\LexEnt{\pt{\ensuremath{\lambda} \ensuremath{\greekp}. \ensuremath{\greekp} \ensuremath{\circ}\xspace kim \ensuremath{\circ}\xspace gave \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace chris }}{\sem{ \lambda x. \trns{gave}(x)(\trns{c})(\trns{k}) }}{\syncat{S\vs NP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\vs}E}}
-\BinaryInfC{\LexEnt{\pt{bagels \ensuremath{\circ}\xspace kim \ensuremath{\circ}\xspace gave \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace chris }}{\sem{ \trns{gave}(\trns{b})(\trns{c})(\trns{k}) }}{\syncat{S}}}
-\end{prooftree}
 
-\end{samepage2}
 
 \noindent Here, after deriving an \syncat{S\vs NP}, which keeps track of the gap
 position via the $\lambda$-bound variable \pt{ \ensuremath{\greekp} }, the topicalization
@@ -1506,72 +1336,47 @@ appropriate intonational cues. See \citet{kubota-levine-coord} for some discussi
 I now illustrate how this wide scope reading for the quantifier in NCC
 sentences like (\ref{NCCq}) is immediately predicted to be available in the
 fragment developed so far (Hybrid TLCG actually predicts both scopal relations
-for all NCC sentences; see \citet{kubota-levine-coord} for how the
+for all NCC sentences; see \citealt{kubota-levine-coord} for how the
 distributive scope is licensed). The derivation for (\ref{nothingEG}) is
 given in (\ref{RT-derivation}).
 
-\begin{samepage2}
+
 \begin{exe}
- \ex\label{RT-derivation}
+\ex\label{RT-derivation}
+\attop{\begin{prooftree}[separation=.5em,label separation=.25em]\footnotesize
+\hypo{\ensuremath{[\LexEnt{\pt{\ensuremath{\greekp_1}}}{\sem{ P}}{\syncat{VP\ensuremath{/}PP\ensuremath{/}NP}}]^1\,\,}}
+\hypo{\ensuremath{[\LexEnt{\pt{\ensuremath{\greekp_2}}}{\sem{ x}}{\syncat{NP}}]^2\,\,}}
+\infer2[\ensuremath{/}E]{\LexEnt{\pt{\ensuremath{\greekp_1} \ensuremath{\circ}\xspace \ensuremath{\greekp_2}}}{\sem{ P(x) }}{\syncat{VP\ensuremath{/}PP}}}
+\hypo{\MultiLine{\mathsf{ \ptfont to \ensuremath{\circ}\xspace robin }; \\ \sem{ \trns{r} }; \syncat{PP}}}
+\infer2[\ensuremath{/}E]{\LexEnt{\pt{\ensuremath{\greekp_1} \ensuremath{\circ}\xspace \ensuremath{\greekp_2} \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace robin}}{\sem{ P(x)(\trns{r}) }}{\syncat{VP}}}
+\hypo{\MultiLine{\mathsf{ \ptfont on \ensuremath{\circ}\xspace thursday }; \\ \sem{ \trns{onTh} }; \syncat{VP\ensuremath{\backslash}{}VP}}}
+\infer2[\ensuremath{\backslash}E]{\LexEnt{\pt{\ensuremath{\greekp_1} \ensuremath{\circ}\xspace \ensuremath{\greekp_2} \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday}}{\sem{ \trns{onTh}(P(x)(\trns{r}))}}{\syncat{VP}}}
+\infer1[\ensuremath{\backslash} I\ensuremath{^1}]{\LexEnt{\pt{\ensuremath{\greekp_2} \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday}}{\sem{ \lambda P. \trns{onTh}(P(x)(\trns{r}))}}{\syncat{(VP\ensuremath{/}PP\ensuremath{/}NP)\ensuremath{\backslash}{}VP}}}
+\infer1[\ensuremath{\backslash} I\ensuremath{^2}]{\LexEnt{\pt{to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday}}{\sem{ \lambda x \lambda P. \trns{onTh}(P(x)(\trns{r}))}}{\syncat{NP\ensuremath{\backslash}{}(VP\ensuremath{/}PP\ensuremath{/}NP)\ensuremath{\backslash}{}VP}}}
+\end{prooftree}\\
+\begin{prooftree}[separation=.5em,label separation=.25em]\footnotesize
+\hypo{$\vdots$}
+\infer[no rule]1{\MultiLine{\mathsf{ \ptfont to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday }; \\ \sem{ \lambda x \lambda P. \trns{onTh}(P(x)(\trns{r}))}; \\\syncat{NP\ensuremath{\backslash}{}(VP\ensuremath{/}PP\ensuremath{/}NP)\ensuremath{\backslash}{}VP}}}
+\hypo{\MultiLine{\mathsf{ \ptfont or }; \\ \sem{ \lambda \ensuremath{\mathcal{V}} \lambda \ensuremath{\mathcal{W}}. \ensuremath{\mathcal{W}} \ensuremath{ \sqcup\xspace } \ensuremath{\mathcal{V}} }; \\\syncat{(\textit{X}\ensuremath{\backslash}{}\textit{X})\ensuremath{/}\textit{X}}}}
+\hypo{$\vdots$}
+\infer[no rule]1{\MultiLine{\mathsf{ \ptfont to \ensuremath{\circ}\xspace leslie \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace friday }; \\ \sem{ \lambda x \lambda P. \trns{onFr}(P(x)(\trns{l}))}; \\\syncat{NP\ensuremath{\backslash}{}(VP\ensuremath{/}PP\ensuremath{/}NP)\ensuremath{\backslash}{}VP}}}
+\infer2[\ensuremath{/}E]{\MultiLine{\mathsf{ \ptfont or \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace leslie \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace friday  }; \\ \sem{ \lambda \ensuremath{\mathcal{W}}. \ensuremath{\mathcal{W}} \ensuremath{ \sqcup\xspace } [ \lambda x \lambda P. \trns{onFr}(P(x)(\trns{l}))]}; \\\syncat{(NP\ensuremath{\backslash}{}(VP\ensuremath{/}PP\ensuremath{/}NP)\ensuremath{\backslash}{}VP)\ensuremath{\backslash}{}(NP\ensuremath{\backslash}{}(VP\ensuremath{/}PP\ensuremath{/}NP)\ensuremath{\backslash}{}VP)}}}
+\infer2[\ensuremath{\backslash}E]{\MultiLine{\mathsf{ \ptfont to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday \ensuremath{\circ}\xspace or \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace leslie \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace friday }; \\ \sem{ \lambda x \lambda P \lambda z. \trns{onTh}(P(x)(\trns{r}))(z) \ensuremath{ \vee\xspace } \trns{onFr}(P(x)(\trns{l}))(z) }; \syncat{NP\ensuremath{\backslash}{}(VP\ensuremath{/}PP\ensuremath{/}NP)\ensuremath{\backslash}{}VP}}}
+\end{prooftree}\\
+\begin{prooftree}[separation=.5em,label separation=.25em]\footnotesize
+\hypo{\MultiLine{\mathsf{ \ptfont \lambda \ensuremath{\greeks}.  \ensuremath{\greeks}(nothing) }; \\ \sem{ \ensuremath{ \neg\xspace} \GQU{E}{thing} }; \\\syncat{S\vs (S\vs NP)}}}
+\hypo{\MultiLine{\mathsf{ \ptfont terry }; \\ \sem{ \trns{t} }; \syncat{NP}}}
+\hypo{\MultiLine{\mathsf{ \ptfont said }; \\ \sem{ \trns{said} }; \\\syncat{VP\ensuremath{/}NP\ensuremath{/}PP}}}
+\hypo{\ensuremath{\TwoColHyp{\MultiLine{\mathsf{ \ptfont \ensuremath{\greekp_3}  }; \\ \sem{ x }; \syncat{NP}}}^3}}
+\hypo{$\vdots$}
+\infer[no rule]1{\MultiLine{\mathsf{  \ptfont to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday \ensuremath{\circ}\xspace    {} }\\\mathsf{  \ptfont   \hspace{2ex} or \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace leslie \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace friday  }; \\   \sem{ \lambda x \lambda P \lambda z. \trns{onTh}(P(x)(\trns{r}))(z)  \ensuremath{ \vee\xspace } \\ \hspace{2ex} \trns{onFr}(P(x)(\trns{l}))(z) }; \\\syncat{NP\ensuremath{\backslash}{}(VP\ensuremath{/}PP\ensuremath{/}NP)\ensuremath{\backslash}{}VP}}}
+\infer2[\ensuremath{\backslash}E]{\MultiLine{\mathsf{  \ptfont \ensuremath{\greekp_3} \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday \ensuremath{\circ}\xspace     {} }\\\mathsf{  \ptfont   \hspace{2ex} or \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace leslie \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace friday  }; \\   \sem{ \lambda P \lambda z. \trns{onTh}(P(x)(\trns{r}))(z) \ensuremath{ \vee\xspace } \\ \hspace{2ex} \trns{onFr}(P(x)(\trns{l}))(z)}; \\\syncat{(VP\ensuremath{/}PP\ensuremath{/}NP)\ensuremath{\backslash}{}VP}}}
+\infer2[\ensuremath{\backslash}E]{\MultiLine{\mathsf{  \ptfont said \ensuremath{\circ}\xspace \ensuremath{\greekp_3} \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday \ensuremath{\circ}\xspace    {} }\\\mathsf{  \ptfont   \hspace{2ex} or \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace leslie \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace friday  }; \\   \sem{ \lambda z. \trns{onTh}(\trns{said}(x)(\trns{r}))(z) \ensuremath{ \vee\xspace } \trns{onFr}(\trns{said}(x)(\trns{l}))(z)  }; \syncat{VP}}}
+\infer2[\ensuremath{\backslash}E]{\MultiLine{\mathsf{  \ptfont terry \ensuremath{\circ}\xspace said \ensuremath{\circ}\xspace \ensuremath{\greekp_3} \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday \ensuremath{\circ}\xspace    {} }\\\mathsf{  \ptfont   \hspace{2ex} or \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace leslie \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace friday  }; \\   \sem{ \trns{onTh}(\trns{said}(x)(\trns{r}))(\trns{t}) \ensuremath{ \vee\xspace }  \trns{onFr}(\trns{said}(x)(\trns{l}))(\trns{t})  }; \syncat{S}}}
+\infer1[\ensuremath{\vs}I\ensuremath{^3}]{\MultiLine{\mathsf{  \ptfont \lambda \ensuremath{\greekp_3}. terry \ensuremath{\circ}\xspace said \ensuremath{\circ}\xspace \ensuremath{\greekp_3} \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday \ensuremath{\circ}\xspace    {} }\\\mathsf{  \ptfont   \hspace{2ex} or \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace leslie \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace friday  }; \\   \sem{ \lambda x.  \trns{onTh}(\trns{said}(x)(\trns{r}))(\trns{t}) \ensuremath{ \vee\xspace } \trns{onFr}(\trns{said}(x)(\trns{l}))(\trns{t}) }; \syncat{S\vs NP}}}
+\infer2[\ensuremath{\vs}E]{\MultiLine{\mathsf{ \ptfont terry \ensuremath{\circ}\xspace said \ensuremath{\circ}\xspace nothing \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday \ensuremath{\circ}\xspace  or \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace leslie \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace friday }; \\ \sem{ \ensuremath{ \neg\xspace} \GQU{E}{thing} ( \lambda x. \trns{onTh}(\trns{said}(x)(\trns{r}))(\trns{t}) \ensuremath{ \vee\xspace } \trns{onFr}(\trns{said}(x)(\trns{l}))(\trns{t})) }; \syncat{S}}}
+\end{prooftree}}
 \end{exe}
-\vspace*{-1.4cm}
-\begin{prooftree}
-\hspace*{.5cm}
-\DerivSize
-\AxiomC{\ensuremath{[\LexEnt{\pt{\ensuremath{\greekp_1}}}{\sem{ P}}{\syncat{VP\ensuremath{/}PP\ensuremath{/}NP}}]^1\,\,}}
-\AxiomC{\ensuremath{[\LexEnt{\pt{\ensuremath{\greekp_2}}}{\sem{ x}}{\syncat{NP}}]^2\,\,}}
-\RightLabel{\scalebox{.8}{\ensuremath{/}E}}
-\BinaryInfC{\LexEnt{\pt{\ensuremath{\greekp_1} \ensuremath{\circ}\xspace \ensuremath{\greekp_2}}}{\sem{ P(x) }}{\syncat{VP\ensuremath{/}PP}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont to \ensuremath{\circ}\xspace robin }; \\ \sem{ \trns{r} }; \syncat{PP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{/}E}}
-\BinaryInfC{\LexEnt{\pt{\ensuremath{\greekp_1} \ensuremath{\circ}\xspace \ensuremath{\greekp_2} \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace robin}}{\sem{ P(x)(\trns{r}) }}{\syncat{VP}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont on \ensuremath{\circ}\xspace thursday }; \\ \sem{ \trns{onTh} }; \syncat{VP\ensuremath{\backslash}{}VP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash}E}}
-\BinaryInfC{\LexEnt{\pt{\ensuremath{\greekp_1} \ensuremath{\circ}\xspace \ensuremath{\greekp_2} \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday}}{\sem{ \trns{onTh}(P(x)(\trns{r}))}}{\syncat{VP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash} I\ensuremath{^1}}}
-\UnaryInfC{\LexEnt{\pt{\ensuremath{\greekp_2} \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday}}{\sem{ \lambda P. \trns{onTh}(P(x)(\trns{r}))}}{\syncat{(VP\ensuremath{/}PP\ensuremath{/}NP)\ensuremath{\backslash}{}VP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash} I\ensuremath{^2}}}
-\UnaryInfC{\LexEnt{\pt{to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday}}{\sem{ \lambda x \lambda P. \trns{onTh}(P(x)(\trns{r}))}}{\syncat{NP\ensuremath{\backslash}{}(VP\ensuremath{/}PP\ensuremath{/}NP)\ensuremath{\backslash}{}VP}}}
-\end{prooftree}
-\end{samepage2}
-
-\vspace*{-.4cm}
-\begin{prooftree}
-\hspace*{.5cm}
-\DerivSize
-\AxiomC{\Lemma}
-\UnaryInfC{\MultiLine{\mathsf{ \ptfont to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday }; \\ \sem{ \lambda x \lambda P. \trns{onTh}(P(x)(\trns{r}))}; \\\syncat{NP\ensuremath{\backslash}{}(VP\ensuremath{/}PP\ensuremath{/}NP)\ensuremath{\backslash}{}VP}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont or }; \\ \sem{ \lambda \ensuremath{\mathcal{V}} \lambda \ensuremath{\mathcal{W}}. \ensuremath{\mathcal{W}} \ensuremath{ \sqcup\xspace } \ensuremath{\mathcal{V}} }; \\\syncat{(\textit{X}\ensuremath{\backslash}{}\textit{X})\ensuremath{/}\textit{X}}}}
-\AxiomC{\Lemma}
-\UnaryInfC{\MultiLine{\mathsf{ \ptfont to \ensuremath{\circ}\xspace leslie \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace friday }; \\ \sem{ \lambda x \lambda P. \trns{onFr}(P(x)(\trns{l}))}; \\\syncat{NP\ensuremath{\backslash}{}(VP\ensuremath{/}PP\ensuremath{/}NP)\ensuremath{\backslash}{}VP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{/}E}}
-\BinaryInfC{\MultiLine{\mathsf{ \ptfont or \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace leslie \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace friday  }; \\ \sem{ \lambda \ensuremath{\mathcal{W}}. \ensuremath{\mathcal{W}} \ensuremath{ \sqcup\xspace } [ \lambda x \lambda P. \trns{onFr}(P(x)(\trns{l}))]}; \\\syncat{(NP\ensuremath{\backslash}{}(VP\ensuremath{/}PP\ensuremath{/}NP)\ensuremath{\backslash}{}VP)\ensuremath{\backslash}{}(NP\ensuremath{\backslash}{}(VP\ensuremath{/}PP\ensuremath{/}NP)\ensuremath{\backslash}{}VP)}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash}E}}
-\BinaryInfC{\MultiLine{\mathsf{ \ptfont to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday \ensuremath{\circ}\xspace or \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace leslie \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace friday }; \\ \sem{ \lambda x \lambda P \lambda z. \trns{onTh}(P(x)(\trns{r}))(z) \ensuremath{ \vee\xspace } \trns{onFr}(P(x)(\trns{l}))(z) }; \syncat{NP\ensuremath{\backslash}{}(VP\ensuremath{/}PP\ensuremath{/}NP)\ensuremath{\backslash}{}VP}}}
-\end{prooftree}
-\medskip\medskip
-
-\vspace*{-.6cm}
-\begin{prooftree}
-\hspace*{-0cm}
-\DerivSize
-\AxiomC{\MultiLine{\mathsf{ \ptfont \lambda \ensuremath{\greeks}.  \ensuremath{\greeks}(nothing) }; \\ \sem{ \ensuremath{ \neg\xspace} \GQU{E}{thing} }; \\\syncat{S\vs (S\vs NP)}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont terry }; \\ \sem{ \trns{t} }; \syncat{NP}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont said }; \\ \sem{ \trns{said} }; \\\syncat{VP\ensuremath{/}NP\ensuremath{/}PP}}}
-\AxiomC{\ensuremath{\TwoColHyp{\MultiLine{\mathsf{ \ptfont \ensuremath{\greekp_3}  }; \\ \sem{ x }; \syncat{NP}}}^3}}
-\AxiomC{\Lemma}
-\UnaryInfC{\MultiLine{\mathsf{  \ptfont to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday \ensuremath{\circ}\xspace    {} }\\\mathsf{  \ptfont   \hspace{2ex} or \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace leslie \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace friday  }; \\   \sem{ \lambda x \lambda P \lambda z. \trns{onTh}(P(x)(\trns{r}))(z)  \ensuremath{ \vee\xspace } \\ \hspace{2ex} \trns{onFr}(P(x)(\trns{l}))(z) }; \\\syncat{NP\ensuremath{\backslash}{}(VP\ensuremath{/}PP\ensuremath{/}NP)\ensuremath{\backslash}{}VP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash}E}}
-\BinaryInfC{\MultiLine{\mathsf{  \ptfont \ensuremath{\greekp_3} \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday \ensuremath{\circ}\xspace     {} }\\\mathsf{  \ptfont   \hspace{2ex} or \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace leslie \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace friday  }; \\   \sem{ \lambda P \lambda z. \trns{onTh}(P(x)(\trns{r}))(z) \ensuremath{ \vee\xspace } \\ \hspace{2ex} \trns{onFr}(P(x)(\trns{l}))(z)}; \\\syncat{(VP\ensuremath{/}PP\ensuremath{/}NP)\ensuremath{\backslash}{}VP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash}E}}
-\BinaryInfC{\MultiLine{\mathsf{  \ptfont said \ensuremath{\circ}\xspace \ensuremath{\greekp_3} \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday \ensuremath{\circ}\xspace    {} }\\\mathsf{  \ptfont   \hspace{2ex} or \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace leslie \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace friday  }; \\   \sem{ \lambda z. \trns{onTh}(\trns{said}(x)(\trns{r}))(z) \ensuremath{ \vee\xspace } \trns{onFr}(\trns{said}(x)(\trns{l}))(z)  }; \syncat{VP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\backslash}E}}
-\BinaryInfC{\MultiLine{\mathsf{  \ptfont terry \ensuremath{\circ}\xspace said \ensuremath{\circ}\xspace \ensuremath{\greekp_3} \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday \ensuremath{\circ}\xspace    {} }\\\mathsf{  \ptfont   \hspace{2ex} or \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace leslie \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace friday  }; \\   \sem{ \trns{onTh}(\trns{said}(x)(\trns{r}))(\trns{t}) \ensuremath{ \vee\xspace }  \trns{onFr}(\trns{said}(x)(\trns{l}))(\trns{t})  }; \syncat{S}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\vs}I\ensuremath{^3}}}
-\UnaryInfC{\MultiLine{\mathsf{  \ptfont \lambda \ensuremath{\greekp_3}. terry \ensuremath{\circ}\xspace said \ensuremath{\circ}\xspace \ensuremath{\greekp_3} \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday \ensuremath{\circ}\xspace    {} }\\\mathsf{  \ptfont   \hspace{2ex} or \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace leslie \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace friday  }; \\   \sem{ \lambda x.  \trns{onTh}(\trns{said}(x)(\trns{r}))(\trns{t}) \ensuremath{ \vee\xspace } \trns{onFr}(\trns{said}(x)(\trns{l}))(\trns{t}) }; \syncat{S\vs NP}}}
-\RightLabel{\scalebox{.8}{\ensuremath{\vs}E}}
-\BinaryInfC{\MultiLine{\mathsf{ \ptfont terry \ensuremath{\circ}\xspace said \ensuremath{\circ}\xspace nothing \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace robin \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace thursday \ensuremath{\circ}\xspace  or \ensuremath{\circ}\xspace to \ensuremath{\circ}\xspace leslie \ensuremath{\circ}\xspace on \ensuremath{\circ}\xspace friday }; \\ \sem{ \ensuremath{ \neg\xspace} \GQU{E}{thing} ( \lambda x. \trns{onTh}(\trns{said}(x)(\trns{r}))(\trns{t}) \ensuremath{ \vee\xspace } \trns{onFr}(\trns{said}(x)(\trns{l}))(\trns{t})) }; \syncat{S}}}
-\end{prooftree}
 
 \noindent The key point in this derivation is that, via hypothetical
 reasoning, the string \textit{to Robin on Thursday or to Leslie on Friday}
@@ -1585,10 +1390,6 @@ conjunction in the analysis of NCC remains a challenging problem in
 the HPSG literature. See Section~\ref{NCCcomparison} for some
 discussion.
 
-
-
-
-
 \section{Architectural similarities and differences \label{architecture}}
 
 \subsection{Broad architecture}
@@ -1597,7 +1398,7 @@ One important property common to HPSG and CG is that they are both
 ``lexicalist'' theories of syntax in the broader sense.\footnote{I say
 ``broader sense'' here since not all variants of either HPSG or CG subscribe to the
 so-called ``lexical integrity hypothesis'' (see 
-\crossrefchaptert{lexicon}), which says that syntax and 
+\crossrefchapteralt{lexicon}), which says that syntax and 
 morphology are distinct components of grammar. For example, in the CG literature, 
 the treatments of verb clustering in Dutch by \citet{moortgatoehrle94} and
 in Japanese by \citet{Kubota2014a-u} seem to go against the tenet of
@@ -1607,12 +1408,12 @@ causatives that does not adhere to the lexical integrity hypothesis and which
 contrasts sharply with the strictly lexicalist analysis by 
 \citet{MSI99a}. 
 See also \crossrefchaptert{lexicon}, 
-\citet{Bruening2018a,Bruening2018c-u,MuellerLexicalism,MWArgSt}
+\citet{Bruening2018a, Bruening2018c-u}, \citet{MuellerLexicalism} and \citet{MWArgSt}
 for some discussion on lexicalism.} 
 This is partly due to an explicit choice made at an early
 stage of the development of HPSG to encode valence information in the
 syntactic categories of linguistic expressions, following CG
-(see \crossrefchaptert{evolution} and \crossrefchaptert{lexicon}).\footnote{This
+(see \crossrefchapteralt{evolution} and \crossrefchapteralt{lexicon}).\footnote{This
   point is explicitly noted by the founders of HPSG
   in the following passage in \citet{ps}:
 
@@ -1632,7 +1433,7 @@ and ``complex predicate'' phenomena in a typologically broad range of
 languages are generally treated by the sharing of valence information
 in the lexicon in these theories. For HPSG
 analyses of these phenomena, see
-\crossrefchaptert{arg-st}, \crossrefchaptert{complex-predicates}, 
+\crossrefchaptert{arg-st}, \crossrefchaptert{complex-predicates} 
 and \crossrefchaptert{control-raising}.
 \citet{steedman2011ccg} contains a good
 summary of CG analyses of local dependencies 
@@ -1728,7 +1529,7 @@ that is, patterns and (sub)regularities that are
 exhibited by linguistic expressions that cannot (at least according to
 the proponents of ``constructionist'' approaches) be lexicalized easily.
 As discussed in \crossrefchaptert{cxg} (see also
-\citealt{Sag97a,Fillmore99a,GSag2000a-u}),  recent Sign-Based Construction
+\citealt{Sag97a}, \citealt{Fillmore99a} and \citealt{GSag2000a-u}),  recent Sign-Based Construction
 Grammar (SBCG) variants of HPSG \citep{SBK2012a} 
 incorporate ideas from Construction Grammar 
 \citep{FKoC88a} and capture such
@@ -1744,15 +1545,15 @@ slogan ``language is logic'', there is no option to freely add
 syntactic rules in the deductive system. The general consensus in the
 literature seems to be that while many of the phenomena initially
 adduced as evidence for a constructional approach can be lexicalized
-(see, for example, \citet{MWArgSt} and \crossrefchaptert{cxg}; see also
-\citet{steedman2011ccg}, which discusses ways in which some of the
-empirical generalizations that \citet{Goldberg95a} adduces to the
+(see, for example, \citealt{MWArgSt} and \crossrefchapteralt{cxg}; see also
+\citealt{steedman2011ccg}, which discusses ways in which some of the
+empirical generalizations that \citealt{Goldberg95a} adduces to the
 notion of constructions can be lexicalized within CCG), there remain
 some real challenges for a strictly lexicalist approach
-(\crossrefchaptert{cxg} identifies the \textit{N after N}
+(\crossrefchapteralt{cxg} identifies the \textit{N after N}
 construction as an instance of this latter type of phenomenon). It
 then seems undeniable that the grammar of natural language is equipped with
-mechanisms for dealing ``peripheral'' patterns, but whether such
+mechanisms for dealing with ``peripheral'' patterns, but whether such
 mechanisms should be given a central role in the architecture of
 grammar is still a highly controversial issue. Whatever position one
 takes, it is important to keep in mind that this is ultimately an
@@ -1774,7 +1575,7 @@ a number of empirical phenomena at the syntax-semantics interface,
 including some notorious problems such as the scope parallelism issue
 in right-node raising known as
 the Geach paradigm (\textit{Every boy loves, and
-every girl detests, some saxophonist}; \citet{Geach70a}). Other important work on issues
+every girl detests, some saxophonist}; \citealt{Geach70a}). Other important work on issues
 at the syntax-semantics interface includes Jacobson's
 (\citeyear{jacobson1999a,jacobson2000a}) work on pronominal anaphora
 in Variable-Free Semantics (covering a wide range of phenomena
@@ -1821,8 +1622,8 @@ In a sense, HPSG retains a rigid phrase structure-based syntax (modulo
 the flexibility entertained with the use of the linearization-based
 architecture) and deals with the complex mapping to semantics via the
 use of underspecification languages in the semantic component (such as
-Minimal Recursion Semantics \citep{CFPS2005a} and Lexical Resources
-Semantics \citep{RS2004a-u}). CG, on the other hand, tends to adhere
+Minimal Recursion Semantics by \citealt{CFPS2005a} and Lexical Resources
+Semantics by \citealt{RS2004a-u}). CG, on the other hand, tends to adhere
 more closely to a tight mapping from syntax to semantics, but makes
 the syntactic component itself flexible. But it is important to keep
 in mind that, even within the CG research community,
@@ -1862,16 +1663,16 @@ as a driving principle.
 
 \subsection{Morpho-syntax and word order \label{sec:morphology}}
 
-While there is relatively less detailed work on morphology and
+While there is relatively less detailed work on morphology and the
 morpho-syntax interface in CG as compared to HPSG, there are several
 ideas originating in the CG literature that have either
 influenced some HPSG work or which are closely related to a certain
 line of work in HPSG. I review some of these in this
 section.\footnote{An important omission in the ensuing discussion is a
 comparison of recent work in HPSG on morphology by Olivier Bonami and
-Berthold Crysmann (see \crossrefchaptert{morphology}), which builds on
+Berthold Crysmann (see \crossrefchapteralt{morphology}), which builds on
 and extends Greg Stump's \term{Paradigm Function Morphology} (PFM;
-\citet{Stump2001a-u-kopiert}), and early CG work on morphology
+\citealt{Stump2001a-u-kopiert}), and early CG work on morphology
 \citep{hoeksema-diss,moortgat84,hoeksemajanda88,raffelsiefen92} which
 could be viewed as precursors of PFM.}
 
@@ -1890,7 +1691,7 @@ could be viewed as precursors of PFM.}
 The idea of separating surface word order and the underlying
 combinatorics, embodied in the so-called \term{linearization-based}
 version of HPSG (\citealt{Reape94a,Kathol2000a};
-cf.\ \crossrefchaptert{order}), has its origin 
+cf.\ \crossrefchapteralt{order}), has its origin 
 in the work by the logician Haskell Curry \citeyearpar{curry61}, in which he
 proposed the distinction between \term{phenogrammar} (the component
 pertaining to surface word order) and \term{tectogrammar} (underlying
@@ -1908,12 +1709,12 @@ Dowty's early work has influenced two separate lines of work in the
 later development of CG. First, a more formally sophisticated
 implementation of an enriched theory of phenogrammatical component of
 the sort sketched in \citet{Dowty90a-Eng} was developed in the
-literature of Multi-Modal Categorial Type Logics 
+literature of Multi"=Modal Categorial Type Logics 
 in the 90s, by exploiting the notion of ``modal control'' (as
 already noted, this technique was  
-later incorporated into CCG by \citet{Baldridge2002a-u}). Some empirical
+later incorporated into CCG by \citealt{Baldridge2002a-u}). Some empirical
 work in this line of research includes \citet{moortgatoehrle94} (on Dutch
-cross-serial dependencies; see also \citet{Dowty97a-u} for an accessible
+cross-serial dependencies; see also \citealt{Dowty97a-u} for an accessible
 exposition of this analysis), \citet{kraak98} (French clitic climbing),
 \citet{whitman2009} (``right-node wrapping'' in English) and
 \citet{kubota-diss,Kubota2014a-u} (complex predicates in Japanese). Second,
@@ -1922,12 +1723,12 @@ underlying architecture of
 a family of approaches called \term{Linear Categorial Grammar} (LCG;
 \citealt{oehrle1994,degroote01,muskens03,mihalicek-pollard10,pollard13}),
 in which, following the work of \citet{oehrle1994},
-the prosodic component is modellled as a lambda calculus
+the prosodic component is modelled as a lambda calculus
 (cf.\ Section~\ref{sec:extending}) for
 dealing with complex operations pertaining to word order
 (the more standard approach in the TLCG tradition is to model the
 prosodic component as some sort of algebra of structured strings as in
-\citet{moortgat1997} and \citet{morrill-ea11}). 
+\citealt{moortgat1997} and \citealt{morrill-ea11}). 
 In fact, among different variants of  
 CG, LCG can be thought of as an extremist approach in
 relegating word order completely from the combinatorics, by
@@ -1980,14 +1781,14 @@ explores the idea of implementing syntactic features via the notion of
 linguistic application of ideas from Dependent
 Type Theory \citep{MartinLofIntuitionistic} in the recent literature
 of CG and formal semantics (see, for example,
-\citet{ChatzikyriakidisLuo2017}), so pursuing this latter type of
+\citealt{ChatzikyriakidisLuo2017}), so pursuing this latter type of
 approach in connection with this new line of work may lead to some
 interesting developments.
 
 One issue that is worth noting in connection to syntactic features is
 the treatment of case syncretism and feature neutralization
-(cf.~\crossrefchaptert{case}, Section~2). The work by
-\citet{Morrill94a-u} \citet{Bayer96} and \citet{BJ95} mentioned
+(cf.~\crossrefchapteralt{case}, Section~2). The work by
+\citet{Morrill94a-u}, \citet{Bayer96} and \citet{BJ95} mentioned
 above proposed an approach
 to feature neutralization by positing meet and join connectives (which
 are like conjunction and disjunction in propositional logic) in CG.
@@ -2005,7 +1806,7 @@ exposition of this HPSG work on feature neutralization.
 Part II of the present handbook contains an excellent introduction to
 recent developments of HPSG research on major linguistic phenomena. I
 will therefore presuppose familiarity with such recent analyses, and my discussion below aims to highlight the
-differences between HPSG and CG in the analyses of a selected
+differences between HPSG and CG in the analyses of selected
 empirical phenomena. In order to make the ensuing discussion maximally
 informative, I focus on phenomena over which there is some ongoing
 major cross-theoretical debate, and those for which I believe one or
@@ -2022,7 +1823,7 @@ major aspects of long-distance dependencies, including island effects
 \citep{Steedman2000a-u} and parasitic gaps \citep{Steedman87a-u}.
 Earlier versions of CCG involved a somewhat ad-hoc stipulation on the
 use of crossed composition rules \citep{Steedman97a}. This was
-overcome in the more recent, ``multi-modal'' variant of CCG
+overcome in the more recent, ``multi"=modal'' variant of CCG
 \citep{Baldridge2002a-u}, which controls the application of such
 non-order-preserving rules via a fine-grained system of
 ``lexicalized modality''. The modality specifications in this new version of CCG
@@ -2034,9 +1835,9 @@ The situation is somewhat different in TLCG. TLCG typically makes use
 of a movement-like operation for the treatment of extraction
 phenomena (via hypothetical reasoning), but the specific implementations differ considerably in
 different variants of TLCG. Major alternatives include the approach in
-terms of   ``structural control'' in Multi-Modal Categorial Type
-Logics (cf.~\citet{BernardiPhD,Moortgat2011a-u};
-see also \citet{Morrill94a-u}), and the one involving prosodic
+terms of   ``structural control'' in Multi"=Modal Categorial Type
+Logics (cf.~\citealt{BernardiPhD,Moortgat2011a-u};
+see also \citealt{Morrill94a-u}), and the one involving prosodic
 $\lambda$-binding in LCG and related approaches (see
 Section~\ref{sec:extending}). In either approach, extraction phenomena
 are treated by means of some form of hypothetical reasoning, and this
@@ -2061,10 +1862,10 @@ generative grammar research in taking island effects to be syntactic,
 but this consensus has been challenged by a new body of research in
 the recent literature proposing various alternative explanations on
 different types of island constraints (some important work in this
-tradition includes \citet{deaneBook}, \citet{kluender98},
-\citet{HS2010a-u} and \citet{CP2020a-u}; see
-\crossrefchaptert{islands}, \citet{levine2017} and
-\citet{newmeyer2016} for an overview of this line of work and pointers
+tradition includes \citealt{deaneBook}, \citealt{kluender98},
+\citealt{HS2010a-u} and \citealt{CP2020a-u}; see
+\crossrefchapteralt{islands}, \citealt{levine2017} and
+\citealt{newmeyer2016} for an overview of this line of work and pointers
 to the relevant literature). Recent syntactic analyses of
 long-distance dependencies in the HPSG literature explicitly avoid
 directly encoding major island constraints within the grammar
@@ -2084,7 +1885,7 @@ mechanism and the step-by-step inheritance of the $/$NP specification
 in the Function Composition-based approach in CCG. Extraction pathway
 marking poses a much trickier challenge to TLCG, in which extraction
 is typically handled by a single-chain movement-like process by means
-of hypothetical reasoning (but see \citet[Chapter 7]{KubotaLevineBook}
+of hypothetical reasoning (but see \citealt[Chapter 7]{KubotaLevineBook}
 for a sketch of a possible approach which mimics successive cyclic
 movement in the type-logical setup).
 
@@ -2114,7 +1915,7 @@ Coordination and ellipsis are both major issues in contemporary
 syntactic theory. There are moreover some phenomena, such as Gapping
 and Stripping, which seem to lie at the boundary of the two
 empirical domains (see,  for example,  the recent overview
-by \citet{johnson-ellipsis-handbook}). There are some important similarities and
+by \citealt{johnson-ellipsis-handbook}). There are some important similarities and
 differences between analytic ideas entertained in the HPSG and CG
 literature for problems in these empirical domains.
 
@@ -2141,14 +1942,14 @@ both the CCG and HPSG literature.
 
 As compared to long-distance dependencies, coordination (in particular
 NCC) has received considerably less attention in the (H)PSG literature
-initially (\citet{sgww} is an important exception in the early
+initially (\citealt{sgww} is an important exception in the early
 literature). Things started to change somewhat around 2000, with a
 series of related proposals appearing one after another, including
 \citet{Yatabe2001a}, \citet{BS2004a}, \citet{chaves07} and
 \citet{Crysmann2003c} (see
-\crossrefchaptert{coordination} and \crossrefchaptert{ellipsis}). Here, I take up
+\crossrefchapteralt{coordination} and \crossrefchapteralt{ellipsis}). Here, I take up
 \citet{BS2004a} and \citet{Yatabe2001a} (updated in
-\citet{yatabe-tam2017}) as two representative proposals in this line
+\citealt{yatabe-tam2017}) as two representative proposals in this line
 of work. The two proposals share some common assumptions and ideas,
 but they also differ in important respects.
 
@@ -2163,9 +1964,9 @@ surface deletion-based analysis of NCC according to which NCC examples
 are analyzed as follows:
 
 \begin{exe}
- \ex\label{BeaversSag}
-  [$_{\scalebox{.7}{\textrm{S}}}$ Terry gave no man a book on Friday] or
-  [$_{\scalebox{.7}{\textrm{S}}}$ \sout{Terry gave no man} a record on Saturday]. 
+ \ex\label{BeaversSag}\relax
+  [\textsubscript{S} Terry gave no man a book on Friday] or
+  [\textsubscript{S} \sout{Terry gave no man} a record on Saturday]. 
 \end{exe}
 where the material in strike-out is underlyingly present but undergoes
 deletion in the prosodic representation.
@@ -2173,7 +1974,7 @@ deletion in the prosodic representation.
 In its simplest form, this analysis gets the scopal relation between
 the quantifier and coordination wrong in examples like (\ref{BeaversSag}) (a
 well-known problem for the conjunction reduction analysis from the
-70s; cf.\ \citet{partee70}). 
+70s; cf.\ \citealt{partee70}). 
 Beavers \& Sag address this issue by introducing a condition called
 \term{Optional Quantifier Merger}:
 
@@ -2221,7 +2022,7 @@ scope issue noted above, Beavers \& Sag's approach suffers from similar problems
 in the interpretations of symmetrical predicates (\textit{same},
 \textit{different}, etc.), summative predicates (\textit{a total of
 X}, \textit{X in total}, etc.) and the so-called ``respective'' readings
-of plural and conjoined expressions (see \citet{chaves12} for a lucid
+of plural and conjoined expressions (see \citealt{chaves12} for a lucid
 discussion of the empirical parallels between the three phenomena and
 how the basic cases can receive a uniform analysis within HPSG).
 \citet{yatabe-tam2017} offer a response to Kubota \& Levine, working out explicit
@@ -2233,7 +2034,7 @@ should aim to explain (as opposed to merely account for)
 linguistic generalizations. There is no easy answer to this
 question, and it is understandable that different theories put
 different degrees of emphasis on this goal (see also
-\crossrefchaptert{minimalism} for discussion on a related point).
+\crossrefchapteralt{minimalism} for discussion on a related point).
 Whatever conclusion one draws from this recent HPSG/CG debate on
 the treatment of nonconstituent coordination, one point seems 
 relatively uncontroversial: coordination continues to constitute a challenging
@@ -2257,7 +2058,7 @@ authors such as \citet{johnson2009}, take Gapping to be restricted to
 coordination. \citet{parkea18gapping} and \citet{parkDiss} take a
 different view, and argue that Gapping should be viewed as a type of
 ellipsis phenomenon that is not restricted to coordination
-environments. See \citet{KubotaLevineBook} for a response to
+environments. See \citet[46--47]{KubotaLevineBook} for a response to
 \citet{parkea18gapping}.}
 
 \begin{exe}
@@ -2312,8 +2113,8 @@ as a function from strings to strings of category {\syncat{S\vs ((NP\ensuremath{
   \LexEnt{\pt{\ensuremath{\lambda} \ensuremath{\greekp}. leslie \ensuremath{\circ}\xspace \ensuremath{\greekp} \ensuremath{\circ}\xspace a \ensuremath{\circ}\xspace cd }}{\sem{ \lambda R. \exists x. \trns{cd}(x) \ensuremath{ \wedge\xspace } R(x)(\trns{l}) }}{\syncat{S\vs ((NP\ensuremath{\backslash}{}S)/NP)}}
 \end{exe}
 A special type of conjunction entry (prosodically of type
-(\st\xspace \shortarrow \st\xspace) \shortarrow (\st\xspace
-\shortarrow \st\xspace) \shortarrow (\st\xspace \shortarrow \st\xspace))
+(\yusukest\xspace \shortarrow \yusukest\xspace) \shortarrow (\yusukest\xspace
+\shortarrow \yusukest\xspace) \shortarrow (\yusukest\xspace \shortarrow \yusukest\xspace))
 then conjoins two such expressions
 and returns a conjoined sentence missing the verb only in the first
 conjunct (on the prosodic representation). By feeding the verb to
@@ -2356,7 +2157,7 @@ words \textit{and} and \textit{or} are underspecified as to the relative scope
 between the propositional operator contributed by the modal auxiliary
 in the first conjunct and the boolean conjunction or disjunction
 connective that is contributed by the conjunction word itself. Park et
-al. argue that this is sufficient for capturing the scope anomaly in the
+al.\ argue that this is sufficient for capturing the scope anomaly in the
 Oehrle/Siegel data such as (\ref{mrj1}) and (\ref{ex2b}). Extension to
 the determiner gapping case (\ref{mccawley}) is left for future work.
 
@@ -2370,10 +2171,10 @@ and the on-line human sentence processing model indirect, and
 relatedly, it is likely to make efficient computational implementation
 less straightforward (for a discussion on the relationship between
 competence grammar and a model of sentence processing, see
-\crossrefchaptert{processing} and \crossrefchaptert{minimalism}).
-\citeposs{parkea18gapping} approach on the 
-other hand is more in line with the usual practice (and the shared
-spirit) of HPSG research where the main emphasis is on writing an
+\crossrefchapteralt{processing} and \crossrefchapteralt{minimalism}).
+\citeposs{parkea18gapping} approach, on the 
+other hand, is more in line with the usual practice (and the shared
+spirit) of HPSG research, where the main emphasis is on writing an
 explicit grammar fragment that is constraint-based and
 surface-oriented. This type of tension is perhaps not easy to
 overcome, but it seems useful (for researchers working in different
@@ -2395,7 +2196,7 @@ overview of approaches to ellipsis in HPSG.
 Recent analyses of ellipsis in HPSG \citep{GSag2000a-u,millereisspseudo}
 make heavy use of the notion of ``construction'' adopted from
 Construction Grammar (this idea is even borrowed into some of the CG
-analyses of ellipsis such as \citet{jacobson2016}). Many ellipsis phenomena
+analyses of ellipsis such as \citealt{jacobson2016}). Many ellipsis phenomena
 are known to exhibit some form of syntactic sensitivity
 \citep{kennedy2003,chung13,yoshida-ea-pg}, and this fact has long been
 taken to provide strong evidence for the ``covert structure'' analyses
@@ -2441,14 +2242,14 @@ taken over by constructional schemata, which can encode
 syntactic information of the antecedent to capture connectivity
 effects, as is done, for example, with the use of the 
 \textsc{sal-utt} feature in \citeposs{GSag2000a-u} analysis of sluicing
-(cf.~\crossrefchaptert{ellipsis}).
+(cf.~\crossrefchapteralt{ellipsis}).
 
 \citet[Chapter 8]{KubotaLevineBook} extend 
 \citeposs{kubota-levine-pseudo} approach further to the treatment of
 interactions between  VP ellipsis and extraction, which has often been
-invoked in the earlier literature (in particular, \citet{kennedy2003})
+invoked in the earlier literature (in particular, \citealt{kennedy2003})
 as providing crucial evidence for  covert structure analysis of
-ellipsis phenomena (see also \citet{jacobson14ellipsis} for a related
+ellipsis phenomena (see also \citealt{jacobson14ellipsis} for a related
 proposal, cast in a variant of CCG).
 At least some of the counterproposals that Kubota \& Levine formulate
 in their argument against the covert structure analysis seem to be
@@ -2461,19 +2262,20 @@ interaction currently exists in the HPSG literature.
 
 \subsubsection{Mismatches in right-node raising}
 
-While RNR has mostly been discussed in connection to coordination in
+While right-node raising (RNR) has mostly been discussed in connection to coordination in
 the literature, it is well-known that RNR is not necessarily
-restricted to coordination environments (see, for example, \citet{wilder-ellipsis-handbook}
+restricted to coordination environments (see, for example, \citealt{wilder-ellipsis-handbook}
 for a recent overview). Moreover, it
-has recently been pointed out by \citet{ACS2016a-u} that RNR in French
-admit certain types of syntactic mismatch between the RNR'ed material
+has recently been pointed out by \citet{ACS2016a-u,SAHM2019a-u} that RNR 
+admits certain types of syntactic mismatch between the RNR'ed material
 and the selecting head in a non-adjacent conjunct.
 The current literature seems to agree that RNR is not a unitary
 phenomenon, and that at least some type of RNR should be treated via a
 mechanism of surface ellipsis, which could be modelled as deletion of
 syntactic (or prosodic) objects or via some sort of anaphoric
-mechanism (cf.\ \crossrefchaptert{ellipsis},
-\citealt{Chaves2014a-u}, \citealt{kubota-levine-pseudo}).
+mechanism (cf.\ \crossrefchapteralt{ellipsis},
+\citealt{Chaves2014a-u}, \citealt{kubota-levine-pseudo},
+\citealt{SAHM2019a-u}).
 
 One point that is worth emphasizing in this connection is that
 while the ``NCC as constituent coordination'' analysis of RNR in CG
@@ -2484,7 +2286,7 @@ any means committed to the idea that \emph{all} instances of RNR should be
 analyzed this way.
 In fact, given the extensive evidence for the non-unitary nature of
 RNR reviewed in \citet{Chaves2014a-u} and the syntactic mismatch data from
-French offered by \citet{ACS2016a-u},  it seems
+French offered by \citet{ACS2016a-u,SAHM2019a-u}, it seems
 that a comprehensive account of RNR in CG (or, for that matter, in any
 other theory) would need to recognize the
 non-unitary nature of the phenomenon, along lines similar to
@@ -2498,7 +2300,7 @@ obstacle for formulating such an account.
 
 Empirical phenomena that have traditionally been analyzed by means of
 Binding Theory (both in the transformational and the
-nontransformational literature; cf.~\crossrefchaptert{binding})
+non-transformational literature; cf.~\crossrefchapteralt{binding})
 potentially pose a major challenge to the
 ``non-representational'' view of the syntax-semantics interface common
 to most variants of CG. The HPSG Binding Theory in \citet{PS92a,ps2}
@@ -2519,7 +2321,7 @@ syntax (broadly construed to include work in the Montague Grammar
 tradition). First, as for Principle A, there is a recurrent suggestion
 in the literature that these effects can (and should) be captured
 simply via strictly lexical properties of reflexive pronouns
-(e.g.\  \citet{szabolcsi1992}; see \citet{buringbinding} for a concise summary).
+(e.g.\  \citealt{szabolcsi1992}; see \citealt{buringbinding} for a concise summary).
 For example, for a reflexive in the direct object position
 of a transitive verb bound by the subject NP,
 the following type assignment (where the reflexive pronoun first takes
@@ -2528,7 +2330,9 @@ capture its bound status:
 
 \begin{exe}
  \ex\label{SELF}
-  \LexEnt{\pt{himself }}{\sem{ \lambda R \lambda x. R(x)(x)}}{\syncat{NP\ensuremath{\backslash}{}((NP\ensuremath{\backslash}{}S)\ensuremath{/}NP)\ensuremath{\backslash}{}S}}
+ \LexEnt{\pt{himself }}
+        {\sem{ \lambda R \lambda x. R(x)(x)}}
+        {\syncat{((NP\ensuremath{\backslash}S)\ensuremath{/}NP)\ensuremath{\backslash}NP\ensuremath{\backslash}{}S}}
 \end{exe}
 
 This approach is attractively simple, but there are at least two
@@ -2537,7 +2341,7 @@ Principle A in CG. First, while this
 lexical treatment of reflexive binding may at first sight 
 appear to capture the locality of binding quite nicely, CG's flexible
 syntax potentially overgenerates unacceptable long-distance binding
-readings for (English) reflexives. Since right-node raising can take
+readings for (English) reflexives. Since RNR can take
 place across clause boundaries,  it seems necessary to
 assume that hypothetical reasoning for the Lambek-slash
 (or a chain of Function Composition that has the same effect in CCG)
@@ -2545,7 +2349,7 @@ can generally take place across clause boundaries. But then,
 expressions such as \textit{thinks Bill hates} can be assigned
 the same syntactic type (i.e.\  \syncat{(NP\ensuremath{\backslash}{}S)\ensuremath{/}NP}) as lexical transitive verbs,
 overgenerating non-local binding of a reflexive from a subject NP in
-the upstairs clause (*\textit{John\ensuremath{_i} thinks Bill hates {himself\ensuremath{_i}}}).
+the upstairs clause (*~\textit{John\ensuremath{_i} thinks Bill hates {himself\ensuremath{_i}}}).
 
 In order to prevent this situation while still retaining the lexical
 analysis of reflexivization sketched above, some kind of restriction
@@ -2553,7 +2357,7 @@ needs to be imposed as to the way in which reflexives combine with
 other linguistic expressions. One possibility would be to distinguish
 between lexical transitive verbs and derived transitive verb-like
 expressions by positing different ``modes of composition'' in the two
-cases in a ``multi-modal'' version of CG.
+cases in a ``multi"=modal'' version of CG.
 
 The other issue is that the lexical entry in (\ref{SELF}) needs to be
 generalized to cover all cases in which a reflexive is bound by an
@@ -2565,7 +2369,7 @@ would amount to capturing the Principle A effects purely in terms of the
 specific lexical encoding for reflexive pronouns (unlike the treatment
 in HPSG which explicitly refers to the obliqueness hierarchy).
 
-While Principle A effects are in principle amenable to a 
+While Principle A effects are in essence amenable to a 
 relatively simple lexical treatment along lines sketched above, Principle B turns out to be
 considerably more challenging for CG. To see this point, note that the
 lexical analysis of reflexives sketched above crucially relies on the
@@ -2578,7 +2382,7 @@ appropriate lambda term as the semantic translation for the pronoun.
 To date, the most detailed treatment of Principle B effects in CG that
 explicitly addresses this difficulty is the proposal by
 \citet{jacobson07}, formulated in a version of CCG
-(\citet{Steedman97a} proposes a different approach to binding,
+(\citealt{Steedman97a} proposes a different approach to binding,
 which will be briefly discussed at the end of this section). The key
 idea of Jacobson's account of Principle B effects is that NPs are
 divided by a binary-valued feature $\pm$p, with pronouns marked NP[+p]
@@ -2592,6 +2396,7 @@ specified as [$-$p].\footnote{Here, $/$\$ is an abbreviation of a
  \ex\label{le}
   \LexEnt{\pt{\ptv{k}}}{\sem{ P}}{\syncat{VP\ensuremath{/}\$}}
 \end{exe}
+\largerpage
 The effect of this restriction is to rule out pronouns from argument
 positions of verbs with ordinary semantic denotations. On this
 approach, the only way a lexically specified functional category can
@@ -2605,13 +2410,16 @@ handle cases like the following:
 \begin{exe}
  \exi{(i)}
   \begin{xlist}
- \ex
-    *John\ensuremath{_i} warned Mary about him\ensuremath{_i}.
- \ex
-    *John talked to Mary\ensuremath{_i} about her\ensuremath{_i}.
- \ex
-    *John explained himself\ensuremath{_i} to him\ensuremath{_i}.
-  \end{xlist}
+ \ex[*]{
+    John\ensuremath{_i} warned Mary about him\ensuremath{_i}.
+ }
+ \ex[*]{
+   John talked to Mary\ensuremath{_i} about her\ensuremath{_i}.
+ }
+ \ex[*]{
+    John explained himself\ensuremath{_i} to him\ensuremath{_i}.
+ }
+ \end{xlist}
 \end{exe}
 What is needed in effect is a schematic type specification that applies
 to a pronoun in any or all argument positions, i.e., stated on an
@@ -2620,18 +2428,19 @@ the form VP\ensuremath{/}\$\ensuremath{/}XP[+p]\ensuremath{/}\$. To ensure the c
 of this extension, some version of the ``wrapping'' analysis needs to be
 assumed (cf.\ \citealt{jacobson07}), so that the order of the arguments in 
 verbs' lexical entries is isomorphic to the obliqueness hierarchy (of
-the sort discussed by \citet{PS92a}).
+the sort discussed by \citealt{PS92a}).
 
 Cases such as the following also call for an extension (also a
 relatively straightforward one):
 
 \begin{exe}
- \exi{(ii)}
-  *John\ensuremath{_i} is proud of him\ensuremath{_i}.
+ \exi{(ii)}[*]{
+  John\ensuremath{_i} is proud of him\ensuremath{_i}.
+}
 \end{exe}
 By assuming (following \citealt{jacobson07}) that the [$\pm$p] feature
 percolates from NPs to PPs and by generalizing the irreflexive
-operator still further so that it applies not just to VP\ensuremath{/}XP[$-$p] but
+operator still further so that it applies not just to VP\ensuremath{/}XP[$-$p] but to
 AP\ensuremath{/}XP[$-$p] as well, the ungrammaticality of (ii) follows
 straightforwardly.}
 
@@ -2654,28 +2463,22 @@ application to the set of signs which are specified in the lexicon. I
 notate this restriction by using the dashed line notion in 
 what follows. Then (\ref{condBex}) will be derived as in (\ref{proof}).
 
-\begin{exe}
- \ex\label{condBex}
-  John praises him.
+\ea
+\label{condBex}
+John praises him.
+\z
+
+\begin{exe}\ex\label{proof}%
+\attop{\begin{prooftree}[separation=.5em, label separation=.25em]\footnotesize
+\hypo{\MultiLine{\mathsf{ \ptfont \lambda \ensuremath{\greekp}. \ensuremath{\greekp} }; \\ \sem{  \lambda f \lambda u \lambda v. f(u)(v), u \neq v}; \\\syncat{(VP\ensuremath{/}NP[+p])\vs (VP\ensuremath{/}NP[\ensuremath{-}p])}}}
+\hypo{\MultiLine{\mathsf{ \ptfont praises }; \\ \sem{ \trns{praise} }; \syncat{VP\ensuremath{/}NP[\ensuremath{-}p]}}}
+\infer[dashed]2{\LexEnt{\pt{praises}}{\sem{ \lambda u \lambda v. \trns{praise}(u)(v), u \neq v}}{\syncat{VP\ensuremath{/}NP[+p]}}}
+\hypo{\LexEnt{\pt{him}}{\sem{ z}}{\syncat{NP[+p]}}}
+\infer2{\LexEnt{\pt{praises \ensuremath{\circ}\xspace him}}{\sem{ \lambda v. \trns{praise}(z)(v), z \neq v}}{\syncat{VP}}}
+\hypo{\LexEnt{\pt{john}}{\sem{ \trns{j} }}{\syncat{NP[\ensuremath{-}p]}}}
+\infer2{\LexEnt{\pt{john \ensuremath{\circ}\xspace praises \ensuremath{\circ}\xspace him}}{\sem{  \trns{praise}(z)(\trns{j}), z \neq  \trns{j} }}{\syncat{S}}}
+\end{prooftree}}
 \end{exe}
-\begin{samepage2}
-\begin{exe}
- \ex\label{proof}
-\end{exe}
-\vspace*{-1.2cm}
-\begin{prooftree}
-\hspace*{0cm}
-\DerivSize
-\AxiomC{\MultiLine{\mathsf{ \ptfont \lambda \ensuremath{\greekp}. \ensuremath{\greekp} }; \\ \sem{  \lambda f \lambda u \lambda v. f(u)(v), u \neq v}; \\\syncat{(VP\ensuremath{/}NP[+p])\vs (VP\ensuremath{/}NP[\ensuremath{-}p])}}}
-\AxiomC{\MultiLine{\mathsf{ \ptfont praises }; \\ \sem{ \trns{praise} }; \syncat{VP\ensuremath{/}NP[\ensuremath{-}p]}}}
-\dashedLine
-\BinaryInfC{\LexEnt{\pt{praises}}{\sem{ \lambda u \lambda v. \trns{praise}(u)(v), u \neq v}}{\syncat{VP\ensuremath{/}NP[+p]}}}
-\AxiomC{\LexEnt{\pt{him}}{\sem{ z}}{\syncat{NP[+p]}}}
-\BinaryInfC{\LexEnt{\pt{praises \ensuremath{\circ}\xspace him}}{\sem{ \lambda v. \trns{praise}(z)(v), z \neq v}}{\syncat{VP}}}
-\AxiomC{\LexEnt{\pt{john}}{\sem{ \trns{j} }}{\syncat{NP[\ensuremath{-}p]}}}
-\BinaryInfC{\LexEnt{\pt{john \ensuremath{\circ}\xspace praises \ensuremath{\circ}\xspace him}}{\sem{  \trns{praise}(z)(\trns{j}), z \neq  \trns{j} }}{\syncat{S}}}
-\end{prooftree}
-\end{samepage2}
 
 \noindent
 The presupposition \sem{   z \neq \trns{j}   } %
@@ -2691,7 +2494,7 @@ distributional correlation between the pronoun and the verb that
 subcategorizes for it. The idea is
 essentially the same as in the HPSG Binding Theory, except that the
 relevant condition is directly encoded as a restriction on the
-denotation itself since the standard CG syntax-semantics interface
+denotation itself, since the standard CG syntax-semantics interface
 does not admit of syntactic indices of the sort assumed in HPSG.
 
 Unlike Jacobson's proposal outlined above, \citeposs{Steedman97a}
@@ -2702,7 +2505,7 @@ stated. This approach can be thought of as a ``compromise'' which enables
 a straightforward encoding of the HPSG-style Binding Conditions by
 (slightly) deviating from the CG doctrine of not admitting any
 representational object at the syntax-semantics interface (see
-\citet{Dowty97a-u} for a critique of
+\citealt{Dowty97a-u} for a critique of
 the approach to binding by \citealt{Steedman97a}
 discussing this issue clearly).
 
@@ -2715,10 +2518,10 @@ the pragmatic component of pronominal anaphora resolution. However,
 the relevant discussion is rather sketchy, and the details of such a
 pragmatic alternative are not entirely clear.}
 
-\begin{exe}
- \ex\label{condBex2}
-  *Every student\ensuremath{_i} praised him\ensuremath{_i}. 
-\end{exe}
+\ea[*]{\label{condBex2}
+Every student\ensuremath{_i} praised him\ensuremath{_i}. 
+}
+\z
 According to Steedman, pronouns receive translations of the form
 \sem{  \trns{pro}(x)  }, %
 {}%
@@ -2737,14 +2540,20 @@ ruled out (via Principle B) is as follows:
 \end{exe}
 And this is where the CCG Binding Theory kicks in. The relevant part
 of the structure of the logical formula in (\ref{lf}) can be more
-perspicuously written as a tree as in (\ref{lf-tree}), which makes clear the
+perspicuously written as a tree as in Figure~\ref{fig-lf-tree}, which makes clear the
 hierarchical relation between sub-terms.
 
-\begin{exe}
- \ex\label{lf-tree}
-  \tikzset{level distance=25pt}
-  \Tree [.{} [.{} \raisebox{-1ex}{\trns{praise}} [.{}  \trns{pro} $x$ ] ] \raisebox{-1ex}{$x$} ]
-\end{exe}
+\begin{figure}
+\begin{forest}
+nice empty nodes
+[{} [{} [\trns{praise}] 
+    [{} 
+      [\trns{pro}]
+      [ $x$ ] ]] 
+  [$x$] ]
+\end{forest}
+\caption{Logical formula as a tree}\label{fig-lf-tree}
+\end{figure}
 Principle B states that pronouns need to be locally free. (\ref{lf-tree})
 violates this condition since there is a locally c-commanding term 
 $x$ that binds \sem{  \trns{pro}(x)  } %
@@ -2802,15 +2611,10 @@ Finally, some comments are in order regarding the status of
 Principle C, the part of Binding Theory that is
 supposed to rule out examples such as the following:
 
-\begin{exe}
- \ex
-  \begin{xlist}
- \ex
-    *He\ensuremath{_i} talked to John\ensuremath{_i}.
- \ex
-    *He\ensuremath{_i} talked to John's\ensuremath{_i} brother.
-  \end{xlist}
-\end{exe}
+\eal
+\ex[*]{He\ensuremath{_i} talked to John\ensuremath{_i}.}
+\ex[*]{He\ensuremath{_i} talked to John's\ensuremath{_i} brother.}
+\zl
 
 The formulation of Principle C has always been a problem in lexicalist
 theories of syntax. While Principles A and
@@ -2832,8 +2636,8 @@ where global reference to hierarchical structure is made not at the
 level of phrase structure, but instead at the level of
 ``logical structure'', that is, in the syntactic structure of the logical
 language used for writing the meanings of natural language
-expressions. As already noted above, if one takes the Motagovian, or
-``direct compositional'' view of the syntax-semantics interface that is
+expressions. As already noted above, if one takes the Montagovian, or
+``direct compositional'', view of the syntax-semantics interface that is
 more traditional/standard in CG research, this option is unavailable.
 
 % What this means is that if it can be firmly established that the
@@ -2848,7 +2652,7 @@ more traditional/standard in CG research, this option is unavailable.
 Thus, Principle C has a somewhat cumbersome place within lexicalist
 theories in general. However, unlike Principles A and B, the status of
 Principle C in the grammar is still considerably unclear and
-controversial to begin with (see \citet[122--124]{buringbinding} for
+controversial to begin with (see \citealt[122--124]{buringbinding} for
 some discussion on this point). In particular, it has been noted in
 the literature \citep{lasnik86} that there are languages such as Thai
 and Vietnamese that do not show Principle C effects. If, as suggested
@@ -2877,13 +2681,13 @@ be clear at this point, the role it plays in the grammar is much like
 the role of movement operations in mainstream generative grammar.
 
 As repeatedly emphasized by practitioners of HPSG and CCG (see, for
-example, \citet{SW2011a}, \citet{steedman2012},
-\crossrefchaptert{processing}), other things being equal, it is more
+example, \citealt{SW2011a}, \citealt{steedman2012} and
+\crossrefchapteralt{processing}), all other things being equal, it is more
 preferable to make the relationship between the competence grammar and
 the model of performance as transparent as possible. It is
 unlikely that any reasonable
 researcher would deny such a claim, but it begs one big question:
-how exactly are we to understand the qualification ``other things
+how exactly are we to understand the qualification ``all other things
 being equal''? Practitioners of TLCG in general seem to have a somewhat more
 detached take on the relationship between competence and performance, 
 and I believe the consensus there is more in line with (what seems to be)
@@ -2906,16 +2710,16 @@ emphasized in the early literature of CCG \citep{AS82a,CS85a}, but it
 does not seem to have had much impact on psycholinguistic research in
 general since then. A notable exception is the work by
 \citet{pickering-barry91,PB93a} in early 90s. There is also some work
-on the relationship between processing and TLCG (see \cite[Chapters 9
-and 10]{morrill2011}, and references therein). In any event, a serious
+on the relationship between processing and TLCG (see \citealt[Chapters 9 and 10]{morrill2011},
+and references therein). In any event, a serious
 investigation of the relationship between competence grammar and human
 sentence processing from a CG perspective (either CCG or TLCG) is a
 research topic that is waiting to be explored, much like the situation
-with HPSG (see \crossrefchaptert{processing}).
+with HPSG (see \crossrefchapteralt{processing}).
 
 As for connections to computational linguistics (CL)/natural language
 processing (NLP) research, like
-HPSG (cf.\ \crossrefchaptert{cl}), large"=scale computational
+HPSG (cf.\ \crossrefchapteralt{cl}), large"=scale computational
 implementation has been an important 
 research agenda for CCG (see, for example, \citealt{WhiteBaldridge2003,CC2007a-u}). I refer
 the reader to \cite[Chapter 13]{steedman2012} for an excellent
@@ -2944,7 +2748,7 @@ variants of lexicalist syntactic theories. This is particularly clear
 in the analyses of local dependencies in terms of lexically encoded
 argument structure information. Important differences emerge once one
 turns one's attention to less canonical types of phenomena, such as
-noncanonical types of coordination (nonconstituent coordination,
+atypical types of coordination (nonconstituent coordination,
 Gapping) and the treatment of ``constructional'' patterns that are not
 easily lexicalizable. In general, HPSG has a richer and more
 comprehensive treatment of various empirical phenomena, whereas CG has
@@ -2959,13 +2763,12 @@ two approaches both at the level of analytic ideas for specific
 empirical phenomena and at the more general, foundational level
 pertaining to the overall architecture of grammatical theory.
 
- 
 \section*{Acknowledgements}
 
 I'd like to thank Jean-Pierre Koenig, Bob Levine and Stefan M\"uller
 for comments.
 
-%{\sloppy
+{\sloppy
 \printbibliography[heading=subbibliography,notkeyword=this] 
-%}
+}
 \end{document}

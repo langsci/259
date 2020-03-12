@@ -1,23 +1,1559 @@
-\documentclass[output=paper]{langsci/langscibook} 
-\author{Anne Abeillé\affiliation{Université Paris Diderot}}
-\title{Control and raising}
+\documentclass[output=paper
+                ,modfonts
+                ,nonflat
+	        ,collection
+	        ,collectionchapter
+	        ,collectiontoclongg
+ 	        ,biblatex
+                ,babelshorthands
+                ,newtxmath
+                ,draftmode
+                ,colorlinks, citecolor=brown
+]{./langsci/langscibook}
+
+\IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
+  \input{../localpackages}
+  \input{../localcommands}
+  \input{../localhyphenation}
+  \bibliography{../Bibliographies/stmue,
+                ../localbibliography,
+../Bibliographies/formal-background,
+../Bibliographies/understudied-languages,
+../Bibliographies/phonology,
+../Bibliographies/case,
+../Bibliographies/evolution,
+../Bibliographies/agreement,
+../Bibliographies/lexicon,
+../Bibliographies/np,
+../Bibliographies/negation,
+../Bibliographies/argst,
+../Bibliographies/binding,
+../Bibliographies/complex-predicates,
+../Bibliographies/coordination,
+../Bibliographies/relative-clauses,
+../Bibliographies/udc,
+../Bibliographies/processing,
+../Bibliographies/cl,
+../Bibliographies/dg,
+../Bibliographies/islands,
+../Bibliographies/diachronic,
+../Bibliographies/gesture,
+../Bibliographies/semantics,
+../Bibliographies/pragmatics,
+../Bibliographies/information-structure,
+../Bibliographies/idioms,
+../Bibliographies/cg,
+../Bibliographies/udc}
+
+  \togglepaper[13]
+}{}
+
+\author{%
+	Anne Abeillé\affiliation{Université de Paris}%
+}
+\title{Control and Raising}
 
 % \chapterDOI{} %will be filled in at production
 
-\epigram{Change epigram in chapters/03.tex or remove it there }
-\abstract{Change the  abstract in chapters/03.tex \lipsum[3]}
-\maketitle
+%\epigram{Change epigram in chapters/03.tex or remove it there }
+\abstract{Please add an abstract here!}
 
 \begin{document}
+\maketitle
 \label{chap-control-raising}
+\avmoptions{center}
 
-\section{Introduction} 
-Duis pulvinar lacus id gravida ornare. Phasellus eu mauris sed tortor maximus condimentum ultrices in leo. Donec non erat nec nulla ullamcorper ornare sed id ex. Integer risus mauris, aliquet vel aliquam sed, feugiat quis nisi. Suspendisse quis nunc a turpis porttitor mollis. In luctus nulla id nunc dapibus, id rhoncus lorem pretium. Nunc eget fringilla velit, semper commodo diam. Suspendisse odio odio, euismod ac ornare sed, tincidunt ac arcu. Pellentesque vitae fringilla orci. Donec faucibus metus dui, nec iaculis purus pellentesque sit amet. Sed fermentum lorem non augue cursus, eu accumsan risus ullamcorper. Suspendisse rhoncus magna vitae enim pellentesque, eget porttitor quam finibus. Nunc ultricies turpis at quam vehicula, at tempus justo molestie. Proin convallis augue ut turpis cursus rhoncus. Donec sed convallis justo. Sed sed massa pharetra ex aliquet eleifend. 
-\isi{finality} 
+\section{Introduction}
+\label{control-sec-intro}
 
+The distinction between raising and control predicates has been a hallmark of syntactic theory since \citet{Postal1974}. Contrary to transformational analyses, HPSG treats the difference as mainly a semantic one: raising verbs (\word{seem}, \word{begin}, \word{start}) do not semantically select their subject (or object) nor assign them a semantic role, while control verbs (\word{want}, \word{promise}, \word{try}) semantically select all their syntactic arguments. On the syntactic side, raising verbs share their subject (or object) with the subject of their non"=finite complement while control verbs only coindex them. The distinction is also relevant for non"=verbal predicates such as adjectives (\word{likely} vs \word{eager}). We will see how the raising analysis naturally extends to copular constructions (\word{become}, \word{expect}) and auxiliary verbs. 
+
+
+
+\section{The distinction between control and raising predicates}
+
+\subsection{Obligatory and arbitrary control}
+
+Verbs taking non"=finite complements usually determine the interpretation of the missing subject of the non"=finite verb. With \word{promise}, the subject is understood as the subject of the infinitive, while with \word{permit} it is the object, as shown by the reflexives. In (\ref{equi1}) the controller is the main verb subject, while it is the object in (\ref{equi2}).
+
+	\begin{exe}
+	\ex \begin{xlist}
+	\ex John promised Mary to buy himself / * herself a coat. \label{equi1}
+   \ex 	John permitted Mary to buy herself / * himself a coat.\label{equi2}
+ \ex Buying a coat can be expensive.\label{arbitrary}
+ \end{xlist}
+ \end{exe}
+
+This is ``obligatory'' control, or ``equi'', while other constructions in which the missing subject remains vague (\ref{arbitrary}) are called ``arbitrary'' control \citep{Bresnan1982}.
+Verbs taking such non"=finite complements may also take nominal or sentential complements. For a discussion whether constructions such as (\ref{equi1}), (\ref{equi2}) involve some form of sentential complement or a VP, see below.
+
+\begin{exe}
+	\ex John promised Mary a book / that she will be rewarded.
+\end{exe}
  
+\subsection{Control verbs and semantic classes}
+
+Following \citet{PollardandSag1992} (see also \citealt{JackendoffandCulicover2003}), the choice of the controler is determined by the semantic class of the verb.  Verbs of influence (\word{permit, forbid}) are object-control
+while verbs of commitment (\word{promise, try}) as in (\ref{comit}) and orientation (\word{want,
+  hate}) as in (\ref{orient}) are subject-control, as shown by the reflexive in the following examples:
+
+\begin{exe}
+	\ex \begin{xlist}
+	\ex John promised Mary to buy himself / * herself a coat. \label{comit}
+   \ex 	John permitted Mary to buy herself / * himself a coat.\label{orient}
+ \end{xlist}
+ \end{exe}
+ 
+  The classification of control verbs is cross-linguistically widespread \citep{VanValinandLapolla1997}, but Romance verbs of mental representation and speech report are an exception in being subject-control without having a commitment or an orientation component.
+
+
+\begin{exe}
+\ex \begin{xlist}
+\ex \gll Marie dit {ne pas} \^etre convaincue. \\
+Mary says \ig{neg} be convinced \\
+\glt `Mary says she is not convinced.'	
+\ex \gll Paul pensait  avoir compris. \\
+Paul thought have understood \\
+\glt `Paul thought he understood.'
+ \end{xlist}
+\end{exe}
+
+As shown by \citet{Bresnan1982}, who attributes the generalization to Visser, object-control verbs may passivize (and become subject-control) while   subject-control verbs do not (with a verbal complement).
+\eal
+\ex[]{
+Mary was persuaded to leave (by John).
+}
+\ex[*]{
+Mary was promised to leave (by John).
+}
+\zl
+ 
+\subsection{Raising constructions}
+
+Another type of verbs also takes a non"=finite complement and identifies its subject (or its object) with the missing subject of the non"=finite verb. Since \citet{Postal1974}, they are called 'raising' verbs. Verbs like \word{seem} (\ref{seem}) are subject-raising, while
+causative and perception verbs like \word{expect} (\ref{exp}) are object-raising.
+\begin{exe}
+	\ex \begin{xlist}
+	\ex John seemed to like himself.\label{seem}
+\ex  John expected Mary to buy herself / * himself a coat. \label{exp}
+\end{xlist}
+ \end{exe}
+ 
+ A number of syntactic and semantic tests show how they differ for subject-control and object-control verbs, respectively. As observed by \citet{Jacobson1990}, control verbs may allow for a null complement, or a non"=verbal complement, while raising verbs may not (but \emph{She just started.} is fine):
+
+\eal
+\ex[]{
+Leslie wants this / a raise.
+}
+\ex[]{
+Leslie tried.
+}
+\ex[*]{
+Leslie seemed.
+}
+\ex[*]{
+Leslie seemed this.
+}
+\zl
+ 
+ Different tests show that the subjet (or the object) of a raising verb is only selected by the non
+ finite verb. Let us first consider non"=referential subjects: meteorological \word{it} is selected
+ by predicates such as \word{rain}. It can be the subject of \word{start}, \word{seem}, but not of
+ \word{try}, \word{want}. It can be the object of \word{expect}, \word{believe} but not of \word{force}, \word{persuade}.
+	
+\eal
+\ex[]{
+It rains.
+}
+\ex[]{
+It seems/started to rain.
+}
+\ex[]{
+We expect it to rain tomorrow.
+}
+\zl
+\eal
+\ex[*]{
+It wants/tries to rain.
+}
+\ex[*]{
+The sorcier forced it to rain.
+}
+\zl
+ 	
+ The same contrast holds with an idiomatic subject such \word{the cat} in the expression \word{the cat is out of the bag} (the secret is out). It can be the subject of \word{seem} or the object of \word{expect}, with its idiomatic meaning. If it is the subject of \word{want} or the object of \word{persuade}, the idiomatic meaning is lost and only the literal meaning remains.
+ 
+\eal
+\judgewidth{\#}
+\ex[]{
+The cat is out of the bag.
+}
+\ex[]{
+The cat seems to be out of the bag.
+}
+\ex[]{
+We expected the cat to be out of the bag.
+}
+\ex[\#]{
+The cat wants to be out of the bag.\hfill(non"=idiomatic)
+}
+\ex[\#]{
+We persuaded the cat to be out of the bag.\hfill(non"=idiomatic)
+}
+\zl
+
+	From a cross-linguistic point of view, raising verbs usually belong to other semantic classes than control verbs. The distinction between subject-raising and object-raising also has some semantic basis: verbs marking tense, aspect, modality (\word{start, cease, keep}) are subject-raising, while
+causative and perception verbs (\word{let, see}) are usually object-raising:
+
+	\begin{exe}
+\ex  \begin{xlist}
+\ex John started to like himself.
+\ex John let Mary buy herself / * himself a coat.
+	 \end{xlist}
+	 \end{exe}
+	
+\subsection{The problems with a ``raising'' analysis}
+
+Transformational analyses posit two distinct ``deep structures'': subject-raising verbs select a sentential complement (and no subject), while subject-control verbs select a subject and a sentential complement \citep{Postal1974, Chomsky1981}. They also
+posit three distinct rules:  a movement rule for ``raising'' the subject of \word{seem} verbs (the embedded clause's subject move to the position of matrix verb subject); an exceptional case marking (ECM) rule for assigning case to the embedded clause's subject of \word{expect} verbs); a co-indexing rule between the empty subject (PRO) of the infinitive and the subject (\word{promise}) or the object (\word{persuade}) of the matrix verb for control verbs.
+In this approach, both control and raising verbs have a sentential complement, but while the embedded subject is a PRO with control verbs, it is the trace left by ``raising'' of a full NP with raising verbs:
+	
+\begin{exe}
+\ex  \begin{xlist}
+\ex 	subject-raising:\\
+{}[\sub{NP} $e$ ] seems [\sub{S} John to leave ] 
+$\leadsto$  
+{}[\sub{NP} John$_{i}$ ] seems [\sub{S} $e_{i}$ to leave ]	
+\ex subject-control:  
+{}[\sub{NP} John$_{i}$ ] wants [\sub{S} PRO$_{i}$ to leave ]	
+ \end{xlist}
+ \end{exe}
+
+\begin{exe}
+\ex  \begin{xlist}
+\ex 	object-raising (ECM): We expected [\sub{S} John to leave ] 	
+\ex object-control: We persuaded  
+{}[\sub{NP} John$_{i}$ ]  [\sub{S} PRO$_{i}$ to leave ]	
+ \end{xlist}
+ \end{exe}
+
+ As observed by \citet{Bresnan1982} and \citet{SagandPollard1991}, the putative correspondence between source and target for raising structures is not systematic: \word{seem} may take a sentential complement (with an expletive subject) but the other subject-raising verbs (aspectual and modal verbs) do not. 
+
+
+\eal
+\ex[]{
+Paul seems to understand.
+}
+\ex[]{
+It seems [that Paul understands].
+}
+\zl
+\eal
+\ex[]{
+Paul started to understand.
+}
+\ex[*]{
+It started [that Paul understands].
+}
+\zl
+ 
+ Similarly, while some object-raising verbs (\word{expect, see}) may take a sentential complement, others do not (\word{let, make, prevent}).
+ 
+\eal
+\ex[]{
+We expect Paul to understand.	\label{ex-we-expect-paul-to-unterstand}
+}
+\ex[]{
+We expect [that Paul understands]. \label{ex-we-expect-that-paul-understands}
+}
+\zl
+\eal
+\ex[]{
+We let Paul sleep.
+}
+\ex[*]{
+We let [that Paul sleeps].
+}
+\zl
+
+Even when a finite sentential complement is attested with a raising verb, it is not the same structure as  with a non"=finite complement. Heavy NP shift is possible with a non"=finite complement, and not with a sentential complement \citet{Bresnan1982}: this shows that \word{expect} has two complements in (\ref{ex-we-expect-paul-to-unterstand}) and only one in (\ref{ex-we-expect-that-paul-understands}).
+
+\eal
+\ex[]{
+We expected [to understand] [all those who attended the class]. \label{HNPS}
+}
+\ex[*]{
+We expected that understand [all those who attended the class].
+}
+\zl
+
+Fronting also shows that the NP VP sequence does not behave as a single constituent, contrary to the finite complement:
+
+\eal
+\ex[]{
+That Paul understood, I did not expect.
+}
+\ex[*]{
+Paul to understand, I did not expect.
+}
+\zl
+
+
+ Furthermore, if the subject of the non"=finite verb is supposed to raise to receive case from the matrix verb, we expect it to be nominative. 
+ But the subject of \word{seem} or \word{start} need not be in the nominative since it can be a verbal subject.
+ 
+	
+\ea 
+{}[Drinking one liter of water each day] seems to benefit your health.
+\z
+
+Data from languages with ``quirky'' case such as Icelandic, also show this prediction not to be borne out.  Subjects of raising verbs in fact keep the quirky case assigned by the embedded verb in Icelandic \citep{Zaenenetal1985}, contrary to the subject of subject control verbs which are in the nominative. A verb like \word{need} takes an accusative subject, and a raising verb (\word{seem}) takes an accusative subject as well when combined with \word{need} (\ref{need}). With a control verb (\word{hope}), on the other hand, the subject must be nominative (\ref{hope}).
+
+\begin{exe}
+\ex \begin{xlist}
+\ex \gll Mig vantar peninga. \\
+I.\textsc{acc} need money.\textsc{acc} \\
+\ex \gll Mig virdast vanta peninga. \label{need} \\
+I.\textsc{acc} seem need money.\textsc{acc} \\
+\ex \gll Eg vonast till ad vanta ekki peninga. \label{hope} \\
+I.\textsc{nom} hope for to need not money.\textsc{acc} \\
+\glt `I hope I won't need money.'
+	\end{xlist}	
+	
+\end{exe}
+
+Turning now to object-raising verbs, the subject of the non"=finite verb has all properties of an object of the matrix verb. It is an accusative in English (\word{him, her}) and it can passivize, like the object of an object-control verb (\ref{passive}).
+
+\begin{exe}
+\ex
+\begin{xlist}
+\ex We expect him to understand.
+\ex  We persuaded him to work on this.
+\end{xlist}
+\ex \begin{xlist} \label{passive}
+\ex  He was expected to understand.
+\ex  He was persuaded to work on this.
+\end{xlist}
+	
+\end{exe}
+
+To conclude, the movement-based raising analysis for subject-raising verbs, as well as the ECM analysis of object-raising verbs is motivated by semantic considerations: an NP which receives a semantic role from a verb should be a syntactic argument of this verb. But it leads to syntactic structures which are not motivated and/or make wrong empirical predictions.
+ 
+
+
+\section{An HPSG analysis}
+
+
+\subsection{Coindexing or full sharing?}
+
+In a nutshell, the HPSG analysis rests on a few leading ideas: non"=finite complements are unsaturated VPs (a verb phrase with a non"=empty \subjl); a syntactic argument need not be assigned a semantic role; control and raising verbs have the same syntactic arguments; raising verbs do not assign a semantic role to all their syntactic arguments. I continue to use the term ``raising'', but it is just a cover term, since no raising is taking place in HPSG analyses.
+
+As a result, control supposes identity of semantic indices (discourse referents) while raising means identity of \type{synsem}s. Co-indexing is compatible with the controler and the controled subject not bearing the same case (\ref{hope}) or having different parts of speech (\ref{int}). This would not be possible with raising verbs, where there is full sharing of syntactic and semantic features between the subject (or the object) of the matrix verb and the (expected) subject of the non"=finite verb.
+
+
+\begin{exe}
+\ex \label{int}
+Paul appealed [to Mary] to stay.
+\end{exe}
+
+Subject-raising-verbs (and object-raising verbs) can be defined as subtypes inheriting from verb-lexeme and subject-raising- (or object raising-) lexeme types.
+
+
+
+\begin{figure}[htbp!]
+	\begin{forest}
+       [{\type{lexeme}} 
+      					[{\fbox{\attrib{part-of-speech}}}
+      						[{\type{verb-lx}}, name=A1 
+      							[, no edge ]
+      							[, no edge ] ] 
+      						 [{\type{adj-lx}}]
+      						 [{\type{noun-lx}}] 
+      						 [{\ldots}]   		
+      					] 
+      					[{\fbox{\attrib{arg-selection}}} 
+      					    [{\type{intr-lx}}
+      					 		[{\type{subj-rsg-lx}}
+      					 			[{\type{srv-lx}}, name=B1 ]
+      					 		]
+      					 		[{\ldots}]
+      					 	]
+      					 	 [{\type{tr-lx}}
+      					 		[{\type{obj-rsg-lx}}
+      					 			[{\type{orv-lx}}, name=B2 ]
+      					 		]
+      					 		[{\ldots}]
+      					 	]
+      					 	[{\ldots}]
+      					]  
+      	]
+      	\draw (A1.south)-- (B1.north);
+      	\draw (B2) to [bend left= 6] (A1);
+\end{forest}
+\caption{\label{verb-hier2}A type hierarchy for subject- and object-raising verbs}
+\end{figure}
+
+
+As in \crossrefchapterw{properties}, upper case letters are used for the two dimensions of classification, and \type{verb-lx}, \type{intr-lx}, \type{tr-lx}, \type{subj-rsg-lx}, \type{obj-rsg-lx}, \type{orv-lx} and \type{srv-lx} abbreviate \type{verb-lexeme}, \type{intransitive-lexeme}, \type{transitive-lexeme}, \type{subject-raising-lexeme}, \type{object-raising-lexeme}, \type{object-raising-verb-lexeme} and \type{subject-raising-verb-lexeme}, respectively. 
+Constraints on types \type{subj-rsg-lx} and  \type{obj-rsg-lx} are as follows:\footnote{The category of the complement is not specified as a VP since the same lexical types will also be used for copular verbs that take non"=verbal predicative complements, see Section~\ref{sec-copular-constructions}.}
+
+\begin{exe}
+\ex	\type{subj-rsg-lx}	\impl \begin{avm} \[arg-st & \<\@1, \[subj & \<\@1\>\]\>\] \end{avm}
+\ex \type{obj-rsg-lx} \impl \begin{avm} \[arg-st & \<\@0, \@1, \[subj & \<\@1\>\]\>\] \end{avm}
+\end{exe}
+
+Similary, for control verbs, \type{subject-cont-lx} and  \type{object-cont-lx} types can be defined as follows:
+
+\begin{exe}
+\ex	\type{subj-cont-lx}	\impl \begin{avm} \[arg-st & \<NP$_{\@i}$, \[subj & \<\[ind & \@i\]\>\]\>\] \end{avm}
+\ex \type{obj-cont-lx} \impl \begin{avm} \[arg-st & \<\@0, \@1 \[ind & \@i\], \[subj & \<\[ind &\@i\]\>\]\>\] \end{avm}
+\end{exe}
+
+Thus a subject-raising verb (\word{seem}) and a subject-control verb (\word{want}) inherit from \type{subj-rsg-v} and \type{subj-cont-v} respectively; their entries look as follows:
+
+\begin{exe}
+\ex \word{seem}:\\
+\begin{avm}
+	\[subj & \<\@1 \> \\
+	comps & \<VP\[head & \[vform & inf\] \\
+		subj & \<\@1\> \\
+		cont & \[ind & \@2\] \]\>\\
+	cont & \[ind & s \\
+			rels & \{\[\asort{seem-rel}
+			arg & \@2\]\}\]
+	\]
+\end{avm}
+\ex \word{want}:\\
+\begin{avm}
+	\[subj & \<NP$_{\@i}$ \> \\
+	comps & \<VP\[head & \[vform & inf\] \\
+		subj & \<\[ind & \@i\]\> \\
+		cont & \[ind & \@2\] \]\>\\
+	cont & \[ind & s \\
+			rels & \{\[\asort{want-rel}
+			exp & \@i \\
+			arg & \@2\]\}\]
+	\]
+\end{avm}	
+\end{exe}
+
+The corresponding simplified trees are as follows. Notice that the syntactic structures are the same.
+\begin{figure}
+ \begin{tikzpicture}[baseline, sibling distance=2pt, level distance=60pt, scale=.9]
+	\Tree
+	[.{\begin{avm}
+		\[phon & \phonliste{ Paul seems to sleep }\\
+			subj & \eliste \\
+			comps & \eliste\]
+		\end{avm}}
+		{\begin{avm}\[phon & \phonliste{ Paul } \\
+			synsem & \@1 \]
+		\end{avm}}
+		[.{\begin{avm}
+			\[phon & \phonliste{ seems to sleep }\\
+			subj & \<\@1\>\]
+			\end{avm}}
+		 {\begin{avm}
+			\[phon & \phonliste{ seems } \\
+			subj & \<\@1\>\\
+			comps & \<\@2 \[subj & \< \@1 \>\]\>\\
+			\]
+			\end{avm}} 
+		{\begin{avm}
+			\[phon \phonliste{ to sleep }\\
+				synsem \@2 \]	
+			\end{avm}}  
+		]
+	]
+\end{tikzpicture}
+\caption{\label{happy4}A sentence with a subject-raising verb}
+\end{figure}
+
+
+\begin{figure}
+ \begin{tikzpicture}[baseline, sibling distance=2pt, level distance=60pt, scale=.9]
+	\Tree
+	[.{\begin{avm}
+		\[phon & \phonliste{ Paul wants to sleep }\\
+			subj & \eliste \\
+			comps & \eliste\]
+		\end{avm}}
+		{\begin{avm}\[phon \phonliste{ Paul } \\
+			synsem \@1 \]
+		\end{avm}}
+		[.{\begin{avm}
+			\[phon & \phonliste{ wants to sleep }\\
+			subj & \<\@1\>\]
+			\end{avm}}
+		 {\begin{avm}
+			\[phon & \phonliste{ wants } \\
+			subj & \<\@1 \[ cont|ind  \type{i} \] \>\\
+			comps & \<\@2 \[subj & \< \normalfont NP_{i} \> \]\>\\
+			\]
+			\end{avm}} 
+		{\begin{avm}
+			\[phon & \phonliste{ to sleep }\\
+				synsem & \@2  \]	
+			\end{avm}}  
+		]
+	]
+\end{tikzpicture}
+\caption{\label{happy3}A sentence with a subject-control verb}
+\end{figure}
+
+An object-raising verb (\word{expect}) and an object-control verb (\word{persuade}) inherit from \type{obj-rsg-v} and \type{obj-cont-v} respectively. Their lexical entries look as follows:
+
+\begin{exe}
+\ex \word{expect}:\\
+\begin{avm}
+	\[subj & \<NP$_{\@i}$ \> \\
+	comps & \<\@3, VP\[head & \[vform & inf\] \\
+		subj & \<\@3\> \\
+		cont & \[ind & \@2\] \]\>\\
+	cont & \[ind & s \\
+			rels & \{\[\asort{expect-rel}
+			arg & \@i\\
+			arg & \@2\]\}\]
+	\]
+\end{avm}
+\ex \word{persuade}:\\*
+\begin{avm}
+	\[subj & \<NP$_{\@i}$ \> \\
+	comps & \<NP$_{\@j}$, VP\[head & \[vform & inf\] \\
+		subj & \<\[ind & \@j\]\> \\
+		cont & \[ind & \@2\] \]\>\\
+	cont & \[ind & s \\
+			rels & \{\[\asort{persuade-rel}
+			agent & \@i \\
+			arg & \@j \\
+			arg & \@2\]\}\]
+	\]
+\end{avm}	
+\end{exe}
+
+The corresponding trees are given in Figure~\ref{cons2} and~\ref{cons3}. Notice that the syntactic structures are the same.
+
+\begin{figure}
+\begin{tikzpicture}[baseline, sibling distance=2pt, level distance=60pt, scale=.9]
+	\Tree
+	[.{\begin{avm}
+\[phon & \phonliste{ Mary expected Paul to work }\\
+subj & \eliste\\
+comps & \eliste\]		
+\end{avm}}
+	{\begin{avm} \[phon & \phonliste{ Mary } \\
+			synsem & \@3 \]
+		\end{avm}}
+	[.{\begin{avm}
+\[phon & \phonliste{ expected Paul to work }\\
+subj & \<\@3 NP\>\\
+comps & \eliste\]		
+\end{avm}}
+	{\begin{avm}
+\[phon & \phonliste{ expected } \\
+subj & \<\@3 NP\>\\
+comps & \<\@1, \@2 \[
+		 subj & \@1 \]\>\]		
+\end{avm}}
+	{\begin{avm} \[phon & \phonliste{ Paul } \\
+			synsem & \@1 \]
+		\end{avm}}
+	{\begin{avm}
+			\[phon & \phonliste{ to work }\\
+				synsem & \@2 \]	
+			\end{avm}}
+	] ]
+\end{tikzpicture}	
+\caption{\label{cons2}A sentence with an object-raising verb}
+\end{figure}
+
+
+\begin{figure}
+
+\begin{tikzpicture}[baseline, sibling distance=2pt, level distance=60pt, scale=.9]
+	\Tree
+	[.{\begin{avm}
+\[phon & \phonliste{ Mary persuaded Paul to work }\\
+subj & \eliste\\
+comps & \eliste\]		
+\end{avm}}
+	{\begin{avm}\[phon & \phonliste{ Mary } \\
+	synsem & \@3
+			\]
+		\end{avm}}
+	[.{\begin{avm}
+\[phon & \phonliste{ persuaded Paul to work }\\
+subj & \<\@3 NP\>\\
+comps & \eliste\]		
+\end{avm}}
+	{\begin{avm}
+\[phon & \phonliste{ persuaded } \\
+subj & \<\@3 NP\>\\
+comps & \<\@1 \[cont|ind \type{i} \], \@2 \[
+		 subj & \< NP_{i} \> \]\>\]		
+\end{avm}}
+	{\begin{avm}\[phon  \phonliste{ Paul } \\
+		synsem \@1 \]
+		\end{avm}}
+	{\begin{avm}
+			\[phon & \phonliste{ to work }\\
+				synsem & \@2  \]	
+			\end{avm}}
+	] ]
+\end{tikzpicture}	
+\caption{\label{cons3}A sentence with an object-control verb}
+\end{figure}
+
+
+\citet{SagandPollard1991} propose a semantic-based control theory. The semantic class of the verb determines whether it is subject-control or object-control: verbs of comitment  and verbs of influence have a semantic content such as the following, with SOA meaning state-of-affairs and denoting the content of the non"=finite complement:
+
+\eas
+\word{promise}:\\
+\begin{avm}
+	\[\type{promise-rel} \\
+	committer & \@1 \\
+		committee & \@2 \\
+	SOA & \[relation &  \\
+			arg & \@1\]\]
+\end{avm}
+\zs
+\eas \word{persuade}:\\*
+\begin{avm}
+\[\type{persuade-rel} \\
+	influencer & \@1 \\
+		influenced & \@2 \\
+	SOA & \[relation &  \\
+			arg & \@2\]\]
+\end{avm}	
+\zs
+
+
+To account for Visser's generalization (object-control verbs passivize  while subject-control verbs do not), \citet{SagandPollard1991} analyse the missing subject of the infinitive as a reflexive, which must be bound by the controler. According to Binding Theory (see \crossrefchapteralp{binding}), the controler must be less oblique than the reflexive, hence less oblique than the controlled complement which contains the reflexive: the controler can be the subject and the VP a complement as in (\ref{per}); it can be the first complement when the VP is the second complement as in (\ref{per2}), but it cannot be a  \emph{by}-phrase, which is more oblique than the VP complement, as in (\ref{pro2}).
+
+\eal
+\ex[]{
+\label{per} 
+Kim was persuaded to leave (by Lee).
+}
+\ex[]{
+\label{per2}
+Lee persuaded Kim to leave.
+}
+\ex[*]{
+\label{pro2}
+Kim was promised to leave (by Lee).
+}
+\zl
+
+Thus, the ungrammaticality of (\ref{pro2}) is predicted by the Binding Theory (\word{Lee} should not be bound according to principle C, and the subject of \word{leave} should be bound according to principle A).
+
+Turning now to raising verbs, they exhibit some kind of mismatch between syntactic arguments and
+semantic arguments: the raising verb has a subject or an object which is not one of its semantic
+arguments (it does not appear in the CONT feature of the raising verb). To constrain this type of
+mismatch, \citet[140]{PollardandSag1994} propose the Raising Principle.
+
+\begin{exe}
+\ex Raising Principle: Let X be a non"=expletive element subcategorized by Y, X is not assigned any semantic role by Y iff Y also subcategorizes a complement which has X as its first argument.
+\end{exe}
+
+This principle accounts for the fact  that most raising verbs cannot have a null complement, nor a non"=verbal complement, contrary to control verbs \citep{Jacobson1990}. Without a non"=finite complement, the subject of \word{seem} is not assigned any semantic role, which violates the Raising principle.
+
+\eal
+\ex[*]{John seems.
+}
+\ex[*]{
+John seems this.
+}
+\ex[]{
+John tried.
+}
+\ex[]{
+John tried this.
+}
+\zl
+
+
+\subsection{Raising and control in Mauritian}
+
+\citet[\page 197]{HenriandLaurens2011} argue that ``while Mauritian data can be brought in accordance with the open complement analysis, both morphological data on the control or raising verb and the existence of genuine verbless clauses put up a big challenge for both the clause and small clause analysis.''
+Mauritian is a French-based creole, which has raising and control verbs. Verbs marking aspect or
+modality (\word{continue}, \word{stop}) are subject-raising verbs and causative and perception verbs are
+object-raising. Raising verbs differ from TMA markers by different properties: they are preceded by
+the negation, which follows TMA; they can be coordinated unlike TMA \citep[\page 209]{HenriandLaurens2011}:
+
+\eal
+\ex[]{ 
+\gll To pou kontign ou aret bwar? \\
+     2\SG{} \IRR{} continue.\textsc{sf} or stop.\textsc{sf} drink.\textsc{lf}\\
+\glt `You will continue or stop drinking?'
+}
+\ex[*]{
+\gll To'nn ou pou aret bwar? \\
+     2\SG{}'\PRF{} or \IRR{} stop.\textsc{sf} drink.\textsc{lf}\\
+\glt  `You have or will stop drinking?'
+}
+\zl
+ 
+If their verbal complement has no external argument, as is the case with impersonal expressions such as \word{ena lapli} `to rain', then the raising verb itself has no external argument, contrary to a control verb like \word{sey} `try':
+
+\eal
+\ex[]{
+\gll Kontign     ena lapli. \\
+     continue.\textsc{sf} have.\textsc{sf} rain \\
+\glt `It continued to rain.'
+}
+\ex[*]{
+\gll Sey ena lapli. \\
+     try have.\textsc{sf} rain \\
+\glt Literally: `It tries to rain.'
+}
+\zl
+
+Unlike French, its superstrate, Mauritian verbs neither inflect for tense, mood and aspect nor for person, number, and
+gender. But they have a short form and a long form (henceforth \textsc{sf} and \textsc{lf}), with
+30\,\% verbs showing a syncretic form. The following list of examples provides pairs of short and
+long forms respectively:
+
+\eal
+\ex manz/manze `eat', koz/koze `talk', sant/sante `sing'
+\ex pans/panse `think', kontign/kontigne `continue', konn/""kone `know'
+\zl
+
+As described in \citet{Henri2010}, the verb form is determined by the construction: the short form is required before a phrasal complement and the long form appears otherwise. \footnote{\textit{yer} `yesterday' is an adjunct. See \citew{Hassamal2017} for an analysis of Mauritian adverbs which treats as complements those trigering the verb short form.}
+
+
+\begin{exe}
+\ex \begin{xlist}
+\ex 
+\gll Zan sant sega / manz pom / trov so mama / pans Paris. \\
+     Zan sing.\textsc{sf} sega {} eat.\textsc{sf} apple {} find.\textsc{sf} \POSS{} mother {} think.\textsc{sf} Paris \\
+\glt `Zan sings a sega / eats an apple / finds his mother / thinks about Paris.'	
+\ex 
+\gll Zan sante / manze.\\
+     Zan sing.\textsc{lf} {} eat.\textsc{lf}\\
+\glt `Zan sings / eats.'
+\ex 
+\gll Zan ti zante yer. \\
+Zan  \PRF{} sing.\textsc{lf} yesterday\\
+\glt `Zan sang yesterday.'
+\end{xlist}
+\end{exe}
+
+
+\citet{Henri2010} proposes to define two possible values (\textsc{sf} and \textsc{lf}) for the head
+feature \vform, with the following lexical constraint (\type{nelist} stands for non-empty list):
+
+\begin{exe}       
+\ex \begin{avm} \[vform & \type{sf} \]~ \impl~  \[comps & nelist\] 
+\end{avm}
+\end{exe}
+Interestingly, clausal complements do not trigger the verb short form (\citet{Henri2010} analyses them as extraposed). The complementizer (\emph{ki}) is optional.
+
+\eal
+\ex 
+\gll Zan panse             (ki)               Mari pou    vini.\\
+     Zan think.\textsc{lf} \hspaceThis{(}that Mari \FUT{} come.\textsc{lf}\\
+\glt `Zan thinks that Mari will come.'
+\ex 
+\gll Mari trouve           (ki)                so      mama   tro      manze.\\
+     Mari find.\textsc{lf} \hspaceThis{(}that  \POSS{} mother too.much eat.\textsc{lf}\\
+\glt `Mari finds that her mother eats too much.'
+\zl
+
+On the other hand, subject-raising and subject-control verbs occur in a short form before a verbal complement.
+
+\begin{exe}
+\ex \begin{xlist}
+\ex \gll Zan kontign sante.\\
+Zan continue.\textsc{sf} sing.\textsc{lf}\\\jambox*{(subject-raising verb, p.\,198)}
+\glt `Zan continues to sing.'
+\ex \gll Zan sey sante.\\
+Zan try.\textsc{sf} sing.\textsc{lf}\\\jambox{(subject-control verb)}
+\glt `Zan tries to sing.'
+\end{xlist}
+\end{exe}
+
+The same is true with object-control and object-raising verbs:
+\eal
+\settowidth\jamwidth{(object-raising verb, p.\,200)}
+\ex \gll Zan inn fors Mari vini.\\
+Zan \PRF{} force.\textsc{sf} Mari come.\textsc{lf}\\\jambox{(object-control verb)}
+\glt `Zan has forced Mari to come.'
+\ex \gll Zan pe get Mari dormi.\\
+Zan \PROG{} watch.\textsc{sf} Mari sleep.\textsc{lf}\\\jambox{(object-raising verb, p.\,200)}
+\glt `Zan is watching Mari sleep.'
+\end{xlist}
+\end{exe}
+
+
+Raising  and control verbs thus differ from verbs taking sentential complements. Their \textsc{sf} form is
+predicted if they take unsaturated VP complements. Assuming the same lexical type hierarchy as
+defined above, verbs like \word{kontign} `continue' and \word{sey} `try' inherit from
+\type{subj-rsg-v} and \type{subj-cont-v} respectively and have the following lexical entries (Henri
+\& Laurens use SBCG, we adapt their analyses to the feature geometry of Constructional HPSG
+\citep{Sag97a} assumed in this volume):
+
+\begin{exe}
+\ex \word{kontign} `continue':\\
+\begin{avm}
+	\[subj & \<\@1 \> \\
+	comps & \<VP\[%head & verb \\
+		%marking & unmark\\
+		subj & \<\@1\> \\
+		cont & \[ind & \@2\] \]\>\\
+	cont & \[ind & s \\
+			rels & \{\[\asort{continue-rel}
+			arg & \@2\]\}\]
+	\]
+\end{avm}
+\ex \word{sey} `try':\\
+\begin{avm}
+	\[subj & \<NP$_{\@i}$ \> \\
+	comps & \<VP\[%head & verb \\
+		%marking & unmark\\
+		subj & \<\[ind & \@i\]\> \\
+		cont & \[ind & \@2\] \]\>\\
+	cont & \[ind & s \\
+			rels & \{\[\asort{try-rel} \\
+			exp & \@i \\
+			arg & \@2\]\}\]
+	\]
+\end{avm}	
+\end{exe}
+
+\subsection{Raising and control in Balinese}
+Balinese offers an intriguing case of syntactic ergativity. It displays rigid SVO order, regardless of the verb's voice form \citep{WechslerandArka1998}. In the ``Objective Voice'' (OV), the verb is transitive, and the subject is the initial NP, although it is not the first argument. In the ``Agentive Voice'' (AV), the subject is the \argst initial member (see \crossrefchapteralp[Section~\ref{arg-st-sec-ergativity}]{arg-st}):
+
+\begin{exe}
+\ex \begin{xlist}
+\ex \gll Bawi adol ida. \\
+pig \textsc{ov}.sell 3sg \\
+\glt `He/She sold a pig.' 
+\ex  \gll Ida ng-adol bawi.\\
+3sg \textsc{av}-sell pig\\
+\glt `He/She sold a pig.'
+\end{xlist}
+\end{exe}
+
+Different properties argue in favor of a subject status of the first NP in the objective voice. For
+binding properties that show that the agent is always the first element on the \argst list, see
+\citew{WechslerandArka1998} and \citew{ManningandSag1998} and for Binding Theory in general see \crossrefchaptert{binding}. The objective voice is also different from the passive: the passive may have a passive prefix, an agent by-phrase, and does not constrain the thematic role of its subject.\todostefan{See Chapter on linking for the two verbal types?}
+
+In many languages, only a subject
+can be controlled \citep{Zaenenetal1985}. In Balinese, only the pre-verbal argument, whether the Theme of an OV verb or the Agent of an AV verb, can be a controllee:
+
+\begin{exe}
+\ex \begin{xlist}
+\ex 
+\gll Tiang edot [ \trace{} teka].\\
+     1 want     {} {} come\\\hfill\citep[ex 25]{WechslerandArka1998}
+\glt `I want to come.'
+\ex 
+\gll Tiang edot [ \trace{}  meriksa dokter].\\
+     1     want {} {}     \textsc{av}.examine doctor\\
+\glt `I want to examine a doctor.'
+\ex 
+\gll Tiang edot [ \trace{} periksa dokter].\\
+     1     want {} {}    \textsc{ov}.examine doctor\\
+\glt `I want to be examined by a doctor.'
+\end{xlist}
+\end{exe}
+
+Turning to \word{majanji} `promise', in this type of commitment relation, the promiser must have semantic control over the action promised \citep{Farkas1988,Kroeger1993,SagandPollard1991}. The promiser should therefore be the actor of the downstairs verb. This semantic constraint interacts with the syntactic constraint that the controllee must be the subject to predict that the controlled VP must be in AV voice, which places the Agent in subject role. The same facts obtain for other control verbs such as \word{paksa} `force'.
+
+\eal
+\ex[]{
+\gll Tiang majanji maang Nyoman pipis.\\
+     1 promise \textsc{av}.give Nyoman money\\\hfill(W \& A ex 27)
+\glt `I promised to give Nyoman money.' 
+}
+\ex[*]{ 
+\gll Tiang majanji Nyoman baang pipis. \\
+     1 promise Nyoman \textsc{ov}.give money \\
+}
+\ex[*]{ 
+\gll Tiang majanji pipis baang Nyoman. \\
+     1 promise money \textsc{ov}.give Nyoman\\ 
+}
+\zl
+
+Cross-linguistically, only the embedded subject can be ``raised''. In Balinese, with an intransitive verb, the subject \emph{ia} `(s)he' can be raised to the position to the left of the matrix predicate \word{ngenah} `seem':
+
+\begin{exe}
+\ex \begin{xlist}
+\ex 
+\gll Ngenah ia mobog.\\
+     seem 3 lie\\\hfill(W \& A ex 7)
+\glt `It seems that (s)he is lying.'
+\ex 
+\gll  Ia ngenah mobog.\\
+      3 seem lie\\
+\glt `(S)he seems to be lying.'
+\end{xlist}
+\end{exe}
+
+The same applies to a transitive verb in the agentive voice: the agent can appear as the subject of \emph{ngenah} `seem' but not the patient.
+
+\eal
+\judgewidth{?*}
+\ex[]{ 
+\gll Ngenah sajan [ci ngengkebang kapelihan-ne].\\
+     seem much \spacebr{}2 \textsc{av}.hide mistake-3\POSS\\\hfill(W \& A ex 9)
+\glt `It is very apparent that you are hiding his/her wrongdoing.'
+}
+\ex[]{
+\gll Ci ngenah sajan ngengkebang kapelihan-ne.\\
+     2 seem much \textsc{av}.hide mistake-3\POSS\\
+\glt `You seem to be hiding his/her wrongdoing.'
+}
+\ex[?*]{ 
+\gll Kapelihan-ne ngenah sajan ci ngengkebang.\\
+     mistake-3\POSS{} seem much 2 \textsc{av}.hide\\
+}
+\zl
+
+On the other hand, only the patient can be ``raised'' in the objective voice:
+
+\eal
+\judgewidth{?*}
+\ex[]{ 
+\gll Ngenah sajan [kapelihan-ne engkebang ci].\\
+     seem much \spacebr{}mistake-3\POSS{} \textsc{ov}.hide 2\\\hfill(W \& A ex 8)
+\glt `It is very apparent that you are hiding his/her wrongdoing.'
+}
+\ex[]{
+\gll Kapelihan-ne ngenah sajan engkebang ci.\\
+     mistake-3\POSS{} seem much \textsc{ov}.hide 2 \\
+\glt `His/her wrongdoings seem to be hidden by you.'
+}
+\ex[?*]{
+\gll Ci ngenah sajan kapelihan-ne engkebang.\\
+     2 seem much mistake-3\POSS{} \textsc{ov}.hide \\
+}
+\zl
+
+The conclusion of the authors is that the preverbal NP is always the syntactic subject, regardless of its thematic role and of the verbal voice (see also \citealt{ManningandSag1998}.
+
+Balinese also displays object-raising. While the subject of \emph{mulih} `go home' has been ``raised'' to the
+subject of \emph{tawang} `know' in the objective voice, it can be analysed as the object of \emph{nawang} `know' in the agentive
+voice.
+
+\begin{exe}
+\ex \begin{xlist}
+\ex 
+\gll Nyoman Santosa tawang           tiang  mulih.\\
+     Nyoman Santosa \textsc{ov}.know 1      go.home\\\hfill(W \& A ex 22)
+\glt `I knew that Nyoman Santosa went home.'
+\ex 
+\gll Tiang nawang           Nyoman Santosa mulih.\\
+     1     \textsc{av}.know Nyoman Santosa go.home\\
+\glt `I knew that Nyoman Santosa went home.'
+\end{xlist}
+\end{exe}
+
+In Balinese, the semantic difference between control verbs and raising verbs has a consequence for their complementation: raising verbs (which do not constrain the semantic role of the raised argument) can take verbal complements either in the agentive or objective voice, while control verbs (which select an agentive argument) can only take a verbal complement in the agentive voice.
+
+\subsection{\xarg and the control of some saturated complements}
+
+As noted by \citet{Farkas1988}, in certain languages the expressed subject of a verbal complement
+may display obligatory control. It is the case in Romanian or Persian \citep{Karimi2008}, and in
+Mauritian for instance. As shown by \citet{HenriandLaurens2011}, after some subject-control verbs
+like \word{pans} `think', the VP complement may have an optional pronominal subject which must be coindexed with the matrix subject. It is not a clausal complement since the matrix verb is in the short form (\textsc{sf}) and not in the long form (see above).
+
+\begin{exe}
+\ex \gll Zan$_{i}$ pans pou (li$_{i}$) vini.\\
+Zan think.\textsc{sf} COMP 3\SG{} come.\textsc{lf}  \\\hfill(p.\,202)
+ \glt `Zan thinks about coming.'
+\end{exe}
+
+This may be a challenge for the theory of control presented here, since a clausal complement is a
+saturated complement, with an empty \subjl, and the matrix verb cannot access the \subjv of the
+embedded verb. This is why \citet{KaySag2009} and \citet{Sag2010-check} proposed to introduce a head
+feature \xarg that takes as its value the first syntactic argument of the head verb, and is
+accessible at the clause level. Under such an analysis, the entry for \word{pans} `think' looks like
+the following. The VP complement must have an \xarg coindexed with the subject of \word{pans} `think' but it can have a clausal complement (and an empty \subjl) or a VP complement (and a non"=empty \subjl).
+
+\begin{exe}
+\ex \word{pans} `think':\\
+\begin{avm}
+	\[subj & \<NP$_{\@i}$ \> \\
+	comps & \<VP\[head & \[xarg & \[ind & \@i\]\]\\
+		marking & pou  \\
+		cont & \[ind & \@2\] \]\>\\
+	cont & \[ind & s \\
+			rels & \{\[\asort{think-rel}
+			arg \@i \\
+			arg & \@2\]\}\]
+	\]
+\end{avm}
+\end{exe}
+
+See also \citet{SagKay2009} for the obligatory control of possessive determiners in English expressions such as \word{lose X's temper}, with an XARG feature on nouns and NPs:
+\begin{exe}
+\ex \begin{xlist}
+\ex John lost his / * her temper.
+\ex Mary lost * his / her temper.
+\end{xlist}
+\end{exe}
+
+\section{Copular constructions}
+\label{sec-copular-constructions}
+
+Copular verbs can also be considered as ``raising'' verbs \citep{Chomsky1981}. 
+While attributive adjectives are adjoined to N or NP, predicative adjectives are complements of copular verbs and share their subject with these verbs. Like raising verbs (Section~\ref{control-sec-intro}), copular verbs come in two varieties: subject copular verbs (\word{be}, \word{get}, \word{seem}, \ldots), and object copular verbs (\word{consider}, \word{prove}, \word{expect}, \ldots).
+
+Let us review a few properties of copular constructions.
+The adjective selects for the verb's subject or object: \word{likely} may selects a nominal or a sentential argument, while \word{expensive} only takes a nominal argument. As a result, \word{seem} combined with \word{expensive} only takes a nominal subject, and \word{consider} combined with the same adjective only takes a nominal object.
+
+
+\begin{exe}
+\ex \label{storm}
+\begin{xlist}
+\ex A storm / [That it rains] seems likely.
+\ex This trip / * [That he comes ] seems expensive.
+\end{xlist}
+\ex \begin{xlist}
+\ex 	I consider a storm likely / likely [that it rains].
+\ex 	I consider this trip expensive/ * expensive [that he comes].
+\end{xlist}	
+\end{exe}
+
+In English, copular \word{be} also has the properties of an auxiliary, see Section~\ref{control-sec-copula-verbs}.
+
+\subsection{The pro and cons of a clausal analysis}
+
+To account for these properties, Transformational Grammar since \citet{Stowell1983} and
+\citet{Chomsky1986} has proposed a clausal or \emph{small clause} analysis: the predicative
+adjective heads a (small) clause; the subject of the adjective raises to the subject position of the
+embedding clause (\ref{rais1}) or stays in its subject position and receives accusative case from
+the matrix verb via so-called Exceptional Case Marking\is{Exceptional Case Marking} (ECM) (\ref{ecm}).
+
+
+\begin{exe}
+\ex  {}[\sub{NP} e] be [\sub{S} John sick] $\leadsto$  [\sub{NP} John ] is  [\sub{S} $e_{i}$ sick] \label{rais1}
+\ex   We consider [\sub{S} John sick] \label{ecm}
+\end{exe}
+
+It is true that the adjective may combine with its subject to form a verbless sentence. It is the
+case in AAVE \citep{Bender2001a}, in French \citet{Laurens2008} and creole languages
+\citet{HenriandAbeille2007}, in Slavic languages (Zec 1987\todostefan{provide reference}), in Semitic languages (see
+Borsley\todostefan{provide reference} on Arabic), among others. 
+
+\begin{exe}
+\ex \gll Magnifique ce chapeau !\\
+beautiful this hat\\\hfill{(French)}\todostefan{give language in brackets: is this French?}
+\glt `what a beautiful hat'
+\end{exe}
+
+But this does not entail that \emph{be} takes a sentential complement. 
+
+
+%a problem for the raising principle? In French, and other Romance languages (Abeillé and Godard 2000), the predicate can be pronominalized as a complement:\\
+
+%\begin{exe}
+%\ex \gll Paul est malade / médecin / en forme.
+%Paul is sick / a doctor / in a good shape\\
+%\ex \gll Paul l'est.
+%Paul it is\\
+%\glt Paul is so
+%\end{exe}
+
+\citet[Chapter~3]{PollardandSag1994} present several arguments against a (small) clause analysis. The putative sentential source is sometimes attested (\ref{cons1}) but more often ungrammatical:
+
+	
+\eal
+\ex[]{
+John is / gets / becomes sick.
+}
+\ex[*]{
+It is / gets / becomes that John is sick.
+}
+\ex[]{
+\label{cons1}
+John considers Lou a friend / that Lou is a friend.
+}
+\ex[]{
+Paul regards Mary as crazy.
+}
+\ex[*]{
+Paul regards that Mary is crazy.
+}
+\zl
+
+	
+When a clausal complement is possible, its properties differ from those of the putative small clause. Pseudoclefting shows that \textit{Lou a friend} is not a constituent in (\ref{consider}).
+
+\eal
+\ex[]{
+We consider Lou a friend.\label{consider}
+}
+\ex[*]{
+What we consider is Lou a friend.
+}
+\ex[]{
+We consider [that Lou is a friend].
+}
+\ex[]{
+What we consider is [that Lou is a friend].
+}
+\zl
+
+Following \citet{Bresnan1982}, \citet[113]{PollardandSag1994} also show that Heavy-NP shift applies to the putative subject of the small clause, exactly as it applies to the first complement of a ditransitive verb (page 113):
+
+\begin{exe}
+\ex \begin{xlist}
+\ex   We would consider [acceptable]  [any candidate who supports the proposed amendment].
+\ex   I showed [to Dana]  [all the cookies that could be made from betel nuts and molasses].  
+\end{xlist}
+
+\end{exe}
+
+ Indeed, the ``subject'' of the adjective with object-raising verbs has all the properties of an
+ object: it bears accusative case and it can be the subject of a passive:
+
+\begin{exe}
+\ex \begin{xlist}
+\ex We consider him / * he guilty.
+\ex 	We consider that he / * him is guilty.
+\ex 	He was proved guilty (by the jury).	
+\end{xlist}
+\end{exe}
+	
+
+Furthermore, the matrix verb may select the head of the putative small clause, which is not the case
+with verbs taking a clausal complement, and which violates the locality of subcategorization. The
+verb \word{expect} takes a predicative adjective but not a preposition or a nominal predicate (\ref{ex-expect}),
+\word{get} selects a predicative adjective or a preposition (\ref{ex-get}), but not a predicative nominal, while
+\word{prove} selects a predicative noun or adjective but not a preposition (\ref{ex-prove}).
+
+
+\eal
+\label{ex-expect}
+\ex I expect that man (to be) dead  by tomorrow. (p.\,103)\todostefan{Who is cited here? Make a footnote}
+\ex I expect that island *(to be) off the route.
+\ex I expect that island *(to be) a good vacation spot.
+\zl
+\ea
+\label{ex-get}
+John got political / * a success. (p.\,105)	
+\z
+\eal
+\label{ex-prove}
+\ex Tracy proved the theorem (to be) false. (p.\,100)
+\ex I proved the weapon *(to be) in his possession.	(p.\,101)
+\zl
+	
+
+
+\subsection{An HPSG analysis of copular verbs}
+\label{control-sec-copula-verbs}
+	
+Copular verbs such as \word{be} or \word{consider} may be analysed as subtypes of subject-raising and object-raising verbs respectively. They share their subject (or object) with the expected subject of their predicative complement. Instead of taking a VP complement, they take a predicative complement (\prd $+$), which they may select the category of.
+A copular verb like \word{be} or \word{seem} does not assign any semantic role to its subject, while
+verbs like \word{consider} or \word{expect} do not assign any semantic role to their object. The
+structure of (transitive) verbs that take a predicative complement is as follows:
+\ea
+NP V NP AP\sub{\textsc{prd$+$}}/NP\sub{\textsc{prd$+$}}/PP\sub{\textsc{prd$+$}}
+\z
+For more details, see \citew{PollardandSag1994} and  \citew{VanEynde2015}. 
+The lexical entries for predicative (subject-raising) \word{seem} and predicative (object-raising)
+\word{consider} inherit from the \type{subject-raising-v} type and \type{object-raising-v} type
+respectively, and are as follows:\todostefan{fix these lexical items. Raise everything? Use append
+  for consider. Should this be \argst?}
+
+
+	\begin{exe}
+	\ex 
+	\word{seem}:\\
+\begin{avm}
+\[subj & \<\@1\>\\
+comps & \<\[head & \[prd & $+$\]\\
+		 subj & \<\@1\> \\
+		 cont & \[ind & \@2\]\]\>\\
+cont & \[ind & s \\
+		rels & \{\[\asort{seem-rel} 
+				arg & \@2\]\}\]\]		
+\end{avm}
+
+
+\ex \word{consider}:\\
+\begin{avm}
+\[subj & \<NP$_{i}$\>\\
+comps & \<\@1, \[head & \[prd & $+$\]\\
+		 subj & \@1 \\
+		 cont & \[ind & \@2\]\]\>\\
+cont & \[ind & s \\
+		rels & \{\[\asort{consider-rel} 
+				exp & i \\
+				arg & \@2\]\}\]\]		
+\end{avm}	
+	\end{exe}
+
+	
+The subject of \word{seem} is unspecified: it can be any category selected by the predicative complement; the same holds for the first complement of \word{consider}: it can be any category selected by the predicative complement (see examples (\ref{storm}) above).
+\word{Consider} selects a subject and two complements, but only takes two semantic arguments: one corresponding to its subject, and one coresponding to its predicative complement. It does not assign a semantic role to its non"=predicative complement.\\
+Let us take the example
+	\textit{Paul seems happy}. As a predicative adjective, \word{happy} has a head feature [\prd $+$] and a non"=empty \subjf: it subcategorizes for a nominal subject and assigns a semantic role to it, as shown in (\ref{happy2}).
+	
+		\begin{exe}
+	\ex \label{happy2}
+	\word{happy}:\\
+\begin{avm}
+\[phon & \phonliste{ happy }\\
+head & \[\asort{adj}
+	 prd & $+$\]\\
+subj & \<NP$_{i}$\> \\
+comps & \eliste \\
+cont & \[ind & s \\
+rels & \{\[\asort{happy-rel}
+exp & i\]\}\]
+\]	
+\end{avm}
+\end{exe}
+
+In the trees in the Figures~\ref{fig-happy} and~\ref{fig-cons}, the \subj feature of \word{happy} is
+shared with the \subj feature of \word{seem} and the first element of the \comps list of
+\word{consider}.
+\inlinetodostefan{fix figures. Is \ibox{1} a list or an element of a list? If the complete
+\subjv is supposed to be raised, my fix is technically not correct.}
+
+
+\begin{figure}
+\begin{tikzpicture}[baseline, sibling distance=2pt, level distance=60pt, scale=.9]
+	\Tree
+	[.{\begin{avm}
+		\[phon & \phonliste{ Paul seems happy }\\
+			subj & \eliste \\
+			comps & \eliste\]
+		\end{avm}}
+		{\begin{avm} \[phon & \phonliste{ Paul } \\
+			synsem & \@1 \]
+		\end{avm}}
+		[.{\begin{avm}
+			\[phon & \phonliste{ seems happy }\\
+			subj & \<\@1\>\]
+			\end{avm}}
+		 {\begin{avm}
+			\[phon & \phonliste{ seems } \\
+			subj & \<\@1\>\\
+			comps & \<\@2 \[subj & \<\@1\>\]\>\\
+			\]
+			\end{avm}} 
+		{\begin{avm}
+			\[phon & \phonliste{ happy }\\
+				synsem & \@2  \]	
+			\end{avm}}  
+		]
+	]
+\end{tikzpicture}
+\caption{\label{fig-happy}A sentence with an intransitive copular verb}
+\end{figure}
+
+
+
+\begin{figure}
+\begin{tikzpicture}[baseline, sibling distance=2pt, level distance=60pt, scale=.9]
+	\Tree
+	[.{\begin{avm}
+\[phon & \phonliste{ Mary considers Paul happy }\\
+subj & \eliste\\
+comps & \eliste\]		
+\end{avm}}
+	{\begin{avm}\[phon & \phonliste{ Mary }\\
+			synsem & \@3 \]
+		\end{avm}}
+	[.{\begin{avm}
+\[phon & \phonliste{ considers Paul happy }\\
+subj & \<\@3 NP\>\\
+comps & \eliste\]		
+\end{avm}}
+	{\begin{avm}
+\[phon & \phonliste{ considers } \\
+subj & \<\@3 NP\>\\
+comps & \<\@1, \@2 \[
+		 subj & \<\@1\> \]\>\]		
+\end{avm}}
+	{\begin{avm} \[phon & \phonliste{ Paul } \\
+			synsem & \@1 \]
+		\end{avm}}
+	{\begin{avm}
+			\[phon & \phonliste{ happy }\\
+				synsem & \@2 \]	
+			\end{avm}}
+	] ]
+\end{tikzpicture}	
+\caption{\label{fig-cons}A sentence with a transitive copular verb}
+\end{figure}
+
+\citet{PollardandSag1994} mention a few verbs taking a predicative complement which can be considered as control verbs. A verb like \word{feel} selects a nominal subject and assigns a semantic role to it. 
+
+\begin{exe}
+\ex John feels tired / in a good mood.
+\end{exe}
+
+\noindent
+It inherits from the subject-control-type; its lexical entry is as follows:
+
+\begin{exe}
+\ex 	\word{feel}:\\
+\begin{avm}
+	\[subj & \<NP$_{\@i}$ \> \\
+	comps & \<\[head & \[prd & $+$\] \\
+		subj & \<\[ind & \@i\]\> \\
+		cont & \[ind & \@2\] \]\>\\
+	cont & \[ind & s \\
+			rels & \{\[\asort{feel-rel}
+			exp & \@i \\
+			arg & \@2\]\}\]
+	\]
+\end{avm}
+\end{exe}
+
+
+\subsection{Copular verbs in Mauritian}
+
+As shown by \citet{HenriandLaurens2011}, Mauritian data also argue in favor of a non"=clausal
+analysis. A copular verb takes a short form before an attributive complement, and a long form before
+a clausal one. Despite the lack of inflection on the embedded verb, and the possibility of subject
+prodrop,  clausal complements differ from non"=clausal complements by the following properties: they
+do not trigger the matrix verb short form, they may be introduced by the complementizer \word{ki},
+their subject is a weak pronoun (\word{mo} `I', \word{to} `you'). On the other hand, a VP or AP complement
+cannot be introduced by \word{ki}, and an NP complement is a strong pronoun (\word{mwa} `me',
+\word{twa} `you').\todostefan{I edited these examples/glosses, please check. Unfold the brackets and
+stars?}
+
+\begin{exe}
+\ex \begin{xlist}
+\ex 
+\gll Mari ti res  malad.\\
+     Mari PST remain.\textsc{sf} sick\\\hfill\citep[\page 198]{HenriandLaurens2011}
+\glt `Mari remained sick.'
+
+\ex 
+\gll Mari trouv  so mama malad\\
+     Mari find.\textsc{sf} \POSS{} mother sick\\
+\glt `Mari finds her mother sick.'
+
+\ex 
+\gll Mari trouve (ki) mo malad\\
+     Mari find.\textsc{lf} \hspaceThis{(}that 1\SG.\textsc{wk} sick\\
+\glt `Mari finds that I am sick.'
+
+\ex 
+\gll Mari trouv (*ki) mwa malad\\
+     Mari find.\textsc{sf} \hspaceThis{(*}that 1\SG.\textsc{str} sick\\
+\glt `Mari finds me sick.'
+\end{xlist}
+\end{exe}
+
+\citet[\page 218]{HenriandLaurens2011} conclude that ``Complements of raising and control verbs systematically pattern with non-clausal phrases such as NPs or PPs. This kind of evidence is seldom available in world's languages because heads are not usually sensitive to the properties of their complements. The analysis as clause or small clauses is also problematic because of the existence of genuine verbless clauses in Mauritian which pattern with verbal clauses and not with complements of raising and control verbs.''
+
+\subsection{Control and raising adjectives}
+
+Adjectives taking a non"=finite complement can themselves be divided between subject-raising and subject-control adjectives. Adjectives such as \word{likely} have raising properties: they do not select the category of their subject, nor assign it a semantic role, contrary to adjectives like \word{eager}. Meteorological \word{it} is thus compatible with \word{likely}, but not with \word{eager}.
+
+\eal
+\ex[]{
+It is likely to rain.
+}
+\ex[]{
+John is eager to work here.
+}
+\ex[*]{
+It is eager to rain.
+}
+\zl
+
+Like control and raising verbs, both types of adjectives take a non"=saturated VP complement; the subject of \word{likely} shares its \textsc{synsem} value with the expected subject of that VP complement, while the subject of \word{eager} is coindexed with it.
+Such adjectives thus inhrit from subj-rsg-lexeme and subj-control-lexeme type, respectively, as well as from adjective-lexeme type.
+
+\section{Auxiliaries as raising verbs}
+
+Following pionneering work in GPSG \citep{Gazdaretal1982}, 
+ \word{be}, \word{do}, \word{have}, and modals (e.g., \word{can}, \word{should}) in HPSG are not considered a special part of speech (\type{aux}) but verbs with the head property in (\ref{ex-head-value-of-aux-elements}):
+
+\begin{exe}
+\ex \label{ex-head-value-of-aux-elements}
+  \begin{avm}
+ \[head & \[aux & $+$\]	\]
+ \end{avm}
+ \end{exe}
+ 
+ Auxiliaries take VP complements and do not select their subjects, just like subject-raising verbs. They are thus compatible with non"=referential subjects, such as meteorological \word{it} and existential \textit{there}. They select the verb form of their non"=finite complements: \textit{have} selects a past participle, \textit{be} a gerund, \textit{can} and \textit{will} a bare form.
+
+	
+\begin{exe}
+\ex \begin{xlist}
+\ex Paul has left.
+\ex Paul is leaving.
+\ex Paul can leave.
+\ex It will rain.
+\ex There can be a riot.
+\end{xlist}	
+\end{exe}
+
+In this approach, English auxiliaries are subtypes of subject-raising-verbs, and thus take a VP complement and share their subject with the expected subject of the non"=finite verb.
+The entries for the auxiliaries \word{will} and \word{have} look as follows: 
+
+\begin{exe}
+\ex \word{will}:\\
+\begin{avm}
+	\[head & \[aux &  $+$\]\\
+	subj & \<\@1 \> \\
+	comps & \<VP \[head & \[vform & bse\]  \\
+						subj & \<\@1\> \\
+						cont & \[ind & \@2\] \]\>\\
+	cont & \[ind & s \\
+			rels & \{\[\asort{future-rel}
+			arg & \@2\]\}\]
+	\]
+\end{avm}
+\ex \word{have}:\\
+\begin{avm}
+		\[head & \[aux & $+$\]\\
+		subj & \<\@1 \> \\
+	comps & \<VP \[head & \[vform & past-part\] \\
+		subj & \<\@1\> \\
+		cont & \[ind & \@2\] \]\>\\
+	cont & \[ind & s \\
+			rels & \{\[\asort{perfect-rel}
+			arg & \@2\]\}\]
+	\]
+\end{avm}	
+\end{exe}
+
+To account for their NICE (\isi{negation}, \isi{inversion}, \isi{contraction}, \isi{ellipsis}) properties, Pollard and Sag use a binary head feature \aux, so that only [\aux $+$] verbs may allow for subject inversion (\ref{inv}), sentential negation (\ref{neg}), contraction or VP ellipsis (\ref{ell}). See \crossrefchapterw[Section~\ref{sec-head-movement-vs-flat}]{order} on subject inversion, \crossrefchapterw[Section~\ref{sec-sentential-negation}]{negation} on negation and \crossrefchapterw{ellipsis} on ellipsis.\footnote{Copular \word{be} has the NICE properties (\textit{Is John happy?}), it is an auxiliary verb with [\prd $+$] complement. Since \emph{to} allows for VP ellipsis, it is also analysed as an auxiliary verb: \emph{John promised to work and he started to}.}
+
+\eal
+\ex[]{
+Is Paul working? \label{inv}
+}
+\ex[*]{
+Keeps Paul working?
+}
+\ex[]{
+Paul is (probably) not working.\label{neg}
+}
+\ex[*]{
+Paul keeps (probably) not working.
+}
+\ex[]{
+John promised to come and he will. \label{ell}
+}
+\ex[*]{
+John promised to come and he seems.
+}
+\zl
+
+\noindent
+Subject raising verbs such as \word{seem}, \word{keep} or \word{start} are [\aux $-$].\footnote{See \citew{KimandSag2002} for a comparison of French and English auxilaires, \citew{AG2002b-u} for a thorough analysis of French auxiliaries as ``generalized'' raising verbs, inheriting not only the subject but also any complement from the past participle; such generalized raising was first suggested by \citet{HN89a,HN94a} for German and has been adopted since in various analyses of verbal complexes in German \citep{Kiss95a,Meurers2000b,Kathol2001a,Mueller99a,Mueller2002b}, Dutch \citep{BvN98a} and Persian \citep[Section~4]{MuellerPersian}. See also \crossrefchaptert{complex-predicates}.}
+
+\citet{Sagetal2020} revised this analysis and proposed a new analysis couched in \sbcg (\citealp{Sag2012a}; see also \crossrefchapteralp[Section~\ref{sec-sbcg}]{cxg}). The descriptions used below were translated into the feature geometry of Constructional HPSG \citep{Sag97a}, which is used in this volume. In their approach, the head feature \aux is both lexical and constructional: the constructions restricted to auxiliaries require their head to be [\aux $+$], while the constructions available for all verbs are [\aux $-$]. In this approach, non"=auxiliary verbs are lexically specified as [\aux $-$]:
+
+\begin{exe}
+\ex \type{non-auxiliary-verb} \impl \begin{avm}\[head & \[aux & $-$\\
+ inv & $-$ \] \]\end{avm}
+\end{exe}
+
+ Auxiliary verbs, on the other hand are unspecified for the feature \aux, and are contextually specified; except for unstressed \word{do}  which is [\aux $+$] and must occur in constructions restricted to auxiliaries.
+
+\eal
+\ex[]{
+Paul is working. [\aux $-$]
+}
+\ex[]{
+Is Paul working? [\aux $+$]
+}
+\ex[*]{
+John does work. [\aux $-$]
+}
+\ex[]{
+Does John work? [\aux $+$]
+}
+\zl
+
+Subject inversion is handled by a specific (non"=binary) construction, of which other constructions such as \type{polar-interrogative-clause} are subtypes, and whose head must be [\textsc{inv} $+$].  
+
+\begin{exe}
+\ex \type{initial-aux-cx} \impl \begin{avm}
+		\[subj & \eliste \\
+                  comps & \eliste \\
+                  head-dtr & \@0 \[aux & $+$ \\
+                   subj & \@1\\
+                    comps & \@2 \]\\
+                  dtrs & \< \@0 \>~$\oplus$ \@1 $\oplus$ \@2
+                  \] \end{avm}
+  \end{exe}          
+       
+Most auxiliaries are lexically unspecified for the feature INV and allow for both constructions (non"=inverted and inverted), while the 1st person \word{aren't} is obligatory inverted (lexically marked as [\textsc{inv} $+$]) and the modal \word{better} obligatory non"=inverted (lexically marked as [\textsc{inv} $-$]):
+
+\eal
+\ex[]{
+Aren't I dreaming?
+}
+\ex[*]{
+I aren't dreaming.
+}
+\ex[]{
+We better be carefull.
+}
+\ex[*]{
+Better we be carefull?
+}
+\zl
+
+While the distinction is not always easy to make between VP ellipsis and Null complement anaphora (\textit{Paul tried}), \citeauthor{Sagetal2020} observe that certain elliptical constructions are restricted to auxiliaries, for example pseudogapping \citep{Miller2014a}.
+
+\eal
+\ex[]{
+John can eat more pizza than Mary can tacos.
+}
+\ex[*]{
+Ann seems to buy more bagels than Sue seems cupcakes.
+}
+\zl
+
+As observed by \citet{ArnoldandBorsley2008}, auxiliaries can be stranded in certain non-restrictive relative clauses such as (\ref{aux1}), no such possibility is afforded to non-auxiliary verbs (\ref{nonaux}):
+
+\eal
+\ex[]{
+Kim was singing, which Lee wasn't. \label{aux1}
+}
+\ex[*]{
+Kim tried to impress Lee, which Sandy didn't try. \label{nonaux}
+}
+\zl
+
+Such an analysis captures a very wide range of facts, and expresses both generalizations and lexical idiosyncrasies.
+
+
+	
+\section{Conclusion}
+Complements of raising and control verbs have been either analyzed as clauses \citep{Chomsky1981} or small clauses \citep{Stowell1981,Stowell1983} in Mainstream Generative Grammar.
+Like in LFG \citep{Bresnan1982}, raising and control predicates are analysed as taking non-clausal open complements in HPSG \citep{PollardandSag1994}. A rich hierarchy of lexical types enables verbs and adjectives taking non"=finite or predicative complements to inherit from a raising-type or a control-type. The Raising Principle prevents any other kind of non"=canonical linking between semantic argument and syntactic argument. A semantic based control theory predicts which predicates are subject-control and which object-control. The ``subject-raising'' analysis has been successfully extended to auxiliary verbs, without the need for an Infl category.
+
+
+
+
 \section*{Abbreviations}
+
+\begin{tabularx}{.45\textwidth}{lX}
+\textsc{av} & Agentive Voice\\
+\textsc{lf} & long form\\ 
+\textsc{ov} & Objective Voice\\
+\textsc{sf} & short form\\
+\textsc{str} & strong\\
+\textsc{wk} & weak\\
+
+\end{tabularx}
+
 \section*{Acknowledgements}
 
+{\sloppy
 \printbibliography[heading=subbibliography,notkeyword=this] 
+}
+
 \end{document}
+
+
+%      <!-- Local IspellDict: en_US-w_accents -->

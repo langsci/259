@@ -182,6 +182,7 @@ prepubs-latex-cp: prepublish-pdfs
 	cp prepubs-chop-pdfs/05.pdf prepubs-pdfs/understudied-languages.pdf
 	cp prepubs-chop-pdfs/06.pdf prepubs-pdfs/agreement.pdf
 	cp prepubs-chop-pdfs/07.pdf prepubs-pdfs/case.pdf
+	cp prepubs-chop-pdfs/09.pdf prepubs-pdfs/argument-structure.pdf
 	cp prepubs-chop-pdfs/10.pdf prepubs-pdfs/order.pdf
 	cp prepubs-chop-pdfs/15.pdf prepubs-pdfs/relative-clauses.pdf
 	cp prepubs-chop-pdfs/16.pdf prepubs-pdfs/islands.pdf
@@ -195,7 +196,7 @@ prepubs-latex-cp: prepublish-pdfs
 	cp prepubs-chop-pdfs/31.pdf prepubs-pdfs/gesture.pdf
 	cp prepubs-chop-pdfs/32.pdf prepubs-pdfs/hpsg-minimalism.pdf
 	cp prepubs-chop-pdfs/33.pdf prepubs-pdfs/hpsg-categorial-grammar.pdf
-	cp prepubs-chop-pdfs/35.pdf prepubs-pdfs/hpsg-dg.pdf
+	cp prepubs-chop-pdfs/35.pdf prepubs-pdfs/hpsg-dependency-grammar.pdf
 	cp prepubs-chop-pdfs/36.pdf prepubs-pdfs/hpsg-cxg.pdf
 
 
@@ -333,12 +334,13 @@ biosketch.html: blurb.md
 clean:
 	rm -f *.bak *~ *.backup *.tmp \
 	*.adx *.and *.idx *.ind *.ldx *.lnd *.sdx *.snd *.rdx *.rnd *.wdx *.wnd \
-	*.log *.blg *.ilg \
+	*.log *.blg *.bcf *.for *.aux.copy *.ilg \
 	*.aux *.toc *.cut *.out *.tpm *.bbl *-blx.bib *_tmp.bib \
 	*.glg *.glo *.gls *.wrd *.wdv *.xdv *.mw *.clr \
 	*.run.xml \
 	chapters/*.aux chapters/*.aux.copy chapters/*.old chapters/*~ chapters/*.bak chapters/*.backup chapters/*.blg\
-	chapters/*.log chapters/*.log chapters/*.mw  chapters/*.for  chapters/*.bbl chapters/*.bcf chapters/*.run.xml\
+	chapters/*.log chapters/*.out chapters/*.mw chapters/*.ldx  chapters/*.for  chapters/*.bbl chapters/*.bcf chapters/*.run.xml\
+	chapters/*.blg chapters/*.idx chapters/*.sdx chapters/*.run.xml chapters/*.for.tmp chapters/*.adx chapters/*.ldx\
 	langsci/*/*.aux langsci/*/*~ langsci/*/*.bak langsci/*/*.backup \
 	chapter-pdfs/* cuts.txt
 
