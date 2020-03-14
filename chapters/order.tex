@@ -276,14 +276,21 @@ English allow adjuncts to precede or follow the head they modify. Schema~\ref{sc
 about the order of the daughters.
 \begin{schema}[Head-Adjunct Schema]
 \label{schema-head-adjunct}
-\textit{head"=adjunct"=phrase} \impl\\
-\ms{ 
-head"=dtr      & \upshape [ \synsem \ibox{1} ] \\[2mm]
-non-head"=dtrs & \liste{ \ms{ synsem|loc|cat & \onems{ head$|$mod \ibox{1} \\
-                                            spr   \eliste\\
-                                            comps \liste{} \\
-                                       } \\
-                           }}\\
+\type{head-adjunct-phrase} \impl\\
+%%  \ms{ 
+%% head"=dtr      & \upshape [ \synsem \ibox{1} ] \\[2mm]
+%% non-head"=dtrs & \liste{ \ms{ synsem|loc|cat & \onems{ head$|$mod \ibox{1} \\
+%%                                             spr   \eliste\\
+%%                                             comps \liste{} \\
+%%                                        } \\
+%%                            }}\\
+%% }
+\avmtmp{
+[ head-dtr      & [ synsem \1 ] \\
+  non-head-dtrs & < [ synsem|loc|cat & [ head|mod \1\\
+                                           spr   <>\\
+                                           comps <>\\
+                                         ] ] > ]
 }
 \end{schema}
 There is a head daughter and a list of non-head daughters. The respective daughters are specified as
@@ -304,30 +311,30 @@ $\oplus$\is{$\oplus$} (\texttt{append}\isrel{append}) is a \isi{relational const
 \begin{tabular}[t]{@{}ll@{}}
 head-initial:                                   & example:\\
 %
-\ms{
-phon & \ibox{1} $\oplus$ \ibox{2}\\
-head-dtr & \onems{ phon \ibox{1}}\\
-nh-dtrs & \liste{ \onems{ phon \ibox{2} }} \\
+\avmtmp{
+[ phon & \ibox{1} + \2\\
+  head-dtr & [ phon \1 ]\\
+  nh-dtrs & < [ phon \2 ] > ]
 }&%
-\ms{
-phon & \phonliste{ squirrel, from, America }\\[2mm]
-head-dtr & \onems{ phon \phonliste{ squirrel } }\\
-nh-dtrs & \phonliste{ \onems{ phon \phonliste{ from, America } }} \\
+\avmtmp{
+[ phon & \phonliste{ squirrel, from, America }\\
+  head-dtr & [ phon \phonliste{ squirrel } ]\\
+  nh-dtrs & < [ phon \phonliste{ from, America } ] > ]
 }\\
 \end{tabular}
 }
 \ex \begin{tabular}[t]{@{}ll@{}}
 head-final:                            & example:\\
 %
-\ms{
-phon & \ibox{2} $\oplus$ \ibox{1}\\
-head-dtr & \onems{ phon \ibox{1}}\\
-nh-dtrs & \liste{ \onems{ phon \ibox{2} }} \\
+\avmtmp{
+[ phon     & \2 + \1\\
+  head-dtr & [ phon \1 ]\\
+  nh-dtrs  & < [ phon \2 ] > ]
 }&%
-\ms{
-phon & \phonliste{ grey, squirrel }\\[2mm]
-head-dtr & \onems{ phon \phonliste{ squirrel } }\\
-nh-dtrs & \liste{ \onems{ phon \phonliste{ grey } }} \\
+\avmtmp{
+[ phon & \phonliste{ grey, squirrel }\\
+  head-dtr & [ phon \phonliste{ squirrel } ]\\
+  nh-dtrs  & < [ phon \phonliste{ grey } ] > ]
 }\\
 \end{tabular}
 \zl
@@ -362,11 +369,10 @@ combines a head with all the complements selected via the \compsl.\footnote{
 \begin{schema}[Head-Complement Schema]
 \label{schema-hc-flat}
 \type{head-complement-phrase} \impl\\*
-\onems{
-synsem|loc|cat|comps \eliste\\
-head-dtr       \ms{ synsem|loc|cat|comps \ibox{1}\\
-                   }\\
-non-head-dtrs \upshape synsem2signs(\ibox{1})\\
+\avmtmp{
+[ synsem|loc|cat|comps <>\\
+  head-dtr [ synsem|loc|cat|comps \1 ]\\
+  non-head-dtrs \upshape ! synsem2signs(\1) ! ]
 }
 \end{schema}
 \verb+synsem2signs+ is a \isi{relational constraint} mapping a list of \type{synsem} objects as they are contained in
@@ -405,9 +411,11 @@ Order Principle, which is given as Principle~\ref{cop} in adapted form:
 \begin{principle-break}[Constituent Order Principle]
 \label{cop}
 ~\\[-3mm]
-\type{phrase} \impl \ms{ phon & \upshape order-constituents(\ibox{1})\\
-                  dtrs & \ibox{1}\\
-                }
+\type{phrase} \impl 
+\avmtmp{ 
+[ phon & \upshape ! order-constituents(\1) !\\
+  dtrs & \1 ]
+}
 \end{principle-break}
 \dtrs is a list of all daughters including the head daughter (if there is one). This setting makes
 it possible to have the daughters in the order in which the elements are ordered in the \compsl
@@ -493,11 +501,10 @@ The following schema licenses binary branching head-complement phrases:
 \begin{schema}[Head-Complement Schema (binary branching)]
 \label{hcs-binary}
 \type{head-complement-phrase} \impl\\*
-\ms{
-synsem|loc|cat|comps & \ibox{1} $\oplus$ \ibox{2}\\
-head-dtr      & \ms{ synsem|loc|cat|comps \ibox{1} $\oplus$ \sliste{ \ibox{3} } $\oplus$ \ibox{2}\\
-                   }\\
-non-head-dtrs & \liste{ \ms{ synsem \ibox{3} } }\\
+\avmtmp{
+[ \punk{synsem|loc|cat|comps}{\1 + \2}\\
+  head-dtr      & [ synsem|loc|cat|comps \1 + < \3 > + \2 ] \\
+  non-head-dtrs & < [ synsem \3 ] > ]
 }
 \end{schema}
 The \compsl of the head daughter is split into three lists: a beginning \iboxb{1}, a list containing \ibox{3} and a rest
@@ -599,12 +606,11 @@ The schema is given here as Schema~\ref{hss}:
 
 \begin{schema}[Specifier-Head Schema]\label{hss}
 \type{specifier-head-phrase} \impl\\*
-\onems{
-synsem$|$loc$|$cat$|$spr \ibox{1}\\
-head-dtr$|$synsem$|$loc$|$cat \ms{ spr   & \ibox{1} $\oplus$ \sliste{ \ibox{2} }   \\
-                                   comps & \eliste\\
-                                 }\\
-non-head-dtrs \liste{ \onems{ synsem \ibox{2} } }  \\
+\avmtmp{
+[ synsem|loc|cat|spr \1\\
+  head-dtr|synsem|loc|cat [ spr   & \1 + < \2 > \\
+                            comps & <> ]\\
+  non-head-dtrs < [ synsem \2 ] > ]
 }
 \end{schema}
 %\noindent
@@ -657,15 +663,15 @@ their \argst and they are linked in the same way to the semantic representation 
 \ea
 \begin{tabular}[t]{@{}ll@{}}
 \emph{gives} (English, SVO language): & \emph{gibt} (German, SOV language):\\
-\ms{
-spr    & \sliste{ \ibox{1} }\\
-comps  & \ibox{2}\\
-arg-st & \sliste{ \ibox{1} NP} $\oplus$ \ibox{2} \sliste{ NP, NP }\\
-}&
-\ms{
-spr    & \eliste\\
-comps  & \ibox{1}\\
-arg-st & \ibox{1} \sliste{ NP, NP, NP }\\
+\avmtmp{
+[ spr    & < \1 >\\
+  comps  & \2\\
+  arg-st & < \1 NP > + \2 < NP, NP >  ]
+}& 
+\avmtmp{
+[ spr    & <>\\
+  comps  & \1\\
+  arg-st & \1 < NP, NP, NP > ]
 }
 \end{tabular}
 \z
@@ -775,10 +781,10 @@ Principle).\todostefan{check reference to Chapter~\ref{chap-properties}.} The em
 head movement is rather simple:
 \ea
 empty element for head movement:\\*
-\ms[word]{
-phon & \eliste\\
-synsem|loc & \ibox{1} \ms{ cat|head|dsl \ibox{1}\\
-                         }\\
+\avmtmp{
+[ \type*{word}
+  phon       & <>\\
+  synsem|loc & \1 [ cat|head|dsl \1 ] ]
 }
 \z
 It states that there is an empty element that has the local requirements that correspond to its
@@ -1035,10 +1041,10 @@ headed-phrase is computed from the \domv of the head and the list of non-head da
 \ea
 \label{ex-shuffeling-daughters}
 \type{headed"=phrase}\istype{headed-phrase} \impl
-\ms{
-  head-dtr$|$dom  & \ibox{1} \\
-  non-head-dtrs   & \ibox{2} \\
-  dom  & \ibox{1} $\bigcirc$ \ibox{2} \\
+\avmtmp{
+[ head-dtr|dom  & \1 \\
+  non-head-dtrs & \2 \\
+  dom  & \1 $\bigcirc$ \2 ]
 }
 \z
 The symbol `$\bigcirc$'\is{$\bigcirc$}\is{relation!$\bigcirc$}\isrel{shuffle}\label{rel-shuffle}
@@ -1066,10 +1072,10 @@ On the linearization-based approach, every word comes with a domain value that i
 word itself:
 \ea
 Domain contribution of single words, here \emph{gibt} `gives':\\*
-\ibox{1} \ms{
-phon & \phonliste{ gibt }\\
-synsem & \ldots\\
-dom  & \sliste{ \ibox{1} } \\
+\avmtmp{
+\1 [ phon   & \phonliste{ gibt }\\
+     synsem & \ldots\\
+     dom    & < \1 > ] \\
 }
 \z
 The description in (\mex{0}) may seem strange at first glance, since it is cyclic\is{cycle!in
@@ -1079,11 +1085,12 @@ a statement saying that \emph{gibt} contributes itself to the items that occur i
 The constraint in (\mex{1}) is responsible for the determination of the \phonvs of phrases:
 \ea
 \type{phrase} \impl
-\ms{
- phon & \ibox{1} $\oplus$ \ldots{} $\oplus$ \ibox{n} \\ \\
-     dom  & \liste{ \ms[sign]{ phon & \ibox{1} \\ }, \ldots, \ms[sign]{ phon & \ibox{n} \\ }
-                  } \\
-   }
+\avmtmp{
+[ phon & \1 + \ldots{} + \tag{n} \\ \\
+  dom  & < [\type*{sign}
+            phon & \1 ], \ldots, [\type*{sign}
+                                   phon & \tag{n} ] > ]
+}
 \z
 It states that the \phonv of a sign is the concatenation of the \phonvs of its \textsc{domain}
 elements. Since the order of the \textsc{domain} elements corresponds to their surface order, this is
@@ -1173,11 +1180,10 @@ the same case:
 into the next higher domain. (\mex{1}) shows how this is formalized:
 \ea
 \type{liberating-phrase} \impl\\*
-\ms{
-dom & $\delta_0 \bigcirc \delta_1 \bigcirc \ldots \bigcirc \delta_n$\\
-head-dtr & \ms{ dom &  $\delta_0$\\
-              }\\
-non-head-dtrs & \liste{  \ms{ dom &  $\delta_1$\\}, \ldots, \ms{ dom &  $\delta_n$\\} }\\
+\avmtmp{
+[ dom      & $\delta_0 \bigcirc \delta_1 \bigcirc \ldots \bigcirc \delta_n$\\
+  head-dtr & [ dom &  $\delta_0$ ]\\
+  non-head-dtrs & <  [ dom &  $\delta_1$ ], \ldots, [ dom &  $\delta_n$ ] > ] 
 }
 \z
 Rather than inserting the complete daughters into the domain of the mother as in
@@ -1191,14 +1197,14 @@ difficulty. Figure~\ref{fig-warlpiri} shows \citegen{DS99a} analysis of a versio
 \oneline{%
 \begin{forest}
 sm edges
-[IP\\\ms{ phon \phonliste{ kurdu-jarra-rlu, ka-pala, wita-jarra-rlu, \ldots{} }\\
-        dom \liste{ \ibox{1} \ms{ phon \phonliste{ kurdu-jarra-rlu } },
-                    \ibox{2} \ms{ phon \phonliste{ ka-pala } },
-                    \ibox{3} \ms{ phon \phonliste{ wita-jarra-rlu} }, \ldots{} }\\
+[IP\\\avmtmp{ [ phon \phonliste{ kurdu-jarra-rlu, ka-pala, wita-jarra-rlu, \ldots{} }\\
+                dom < \1 [ phon \phonliste{ kurdu-jarra-rlu } ],
+                      \2 [ phon \phonliste{ ka-pala } ],
+                      \3 [ phon \phonliste{ wita-jarra-rlu} ], \ldots{} > ]
       }
-     [NP\\  \ms{ dom & \sliste{ \ibox{1}, \ibox{3} }} [ kurdu-jarra-rlu wita-jarra-rlu;{child-\textsc{du}-\textsc{erg} small-\textsc{du}-\textsc{erg}}, roof]]
-     [Aux\\ \ms{ dom & \sliste{ \ibox{2} }} [ka-pala;{\textsc{prs}-3\textsc{du}.\textsc{subj}}]]
-     [VP\\  \ms{ dom & \sliste{ \ldots{} }} [maliki wajili-pi-nyi;{dog.\textsc{abs} chase-\textsc{npast}},roof]]]
+     [NP\\  \avmtmp{ [ dom & < \1, \3 > ]} [ kurdu-jarra-rlu wita-jarra-rlu;{child-\textsc{du}-\textsc{erg} small-\textsc{du}-\textsc{erg}}, roof]]
+     [Aux\\ \avmtmp{ [ dom & < \2 > ]} [ka-pala;{\textsc{prs}-3\textsc{du}.\textsc{subj}}]]
+     [VP\\  \avmtmp{ [ dom & < \ldots{} > ]} [maliki wajili-pi-nyi;{dog.\textsc{abs} chase-\textsc{npast}},roof]]]
 \end{forest}}
 \caption{\label{fig-warlpiri}Analysis of free constituent order in Warlpiri according to \citet{DS99a}}
 \end{figure}
@@ -1241,33 +1247,44 @@ Figure~\ref{fig-extraposition-via-domain-union}.\footnote{
 \z
 \begin{figure}
 \begin{forest}
-[\ms{ VP\\
-      dom \ibox{5} \liste{ \ibox{2} \ms{ NP\\
-                       \phonshape{einen Hund}}, \ms{ V\\
-                                         \phonshape{füttern}}, \ibox{3} \ms{ REL-S\\
-                                                        extra $+$\\
-                                                        \phonshape{der Hunger hat}} } }
-  [\ibox{1} \ms{ NP\\
-        dom \liste{ \ms{ DET\\
-                         \phonshape{einen} }, \ms{ N\\
-                                       \phonshape{Hund}}, \ibox{3} \ms{ REL-S\\
-                                                        extra $+$\\
-                                                        \phonshape{der Hunger hat}} } } 
-    [\ms{ DET\\
-        \phonshape{einen} }]
-    [\ms{ \nbar\\
-          dom \liste{ \ms{ N\\
-                           \phonshape{Hund}}, \ibox{3} \ms{ REL-S\\
-                                                   extra $+$\\
-                                                   \phonshape{der Hunger hat}} } }  
-      [\ms{ N\\
-          \phonshape{Hund}} ] 
-      [\ms{ REL-S\\
-          extra $+$\\
-          \phonshape{der Hunger hat}}]]]
-  [\ms{ V\\
-        dom \ibox{4} \liste{ \ms{ V\\
-                         \phonshape{füttern} } } }]]
+[\avmtmp{ 
+  [ VP\\
+    dom \5 < \2 [ NP\\
+                  \phonshape{einen Hund} ],  
+                [ V\\
+                  \phonshape{füttern} ], 
+             \3 [ REL-S\\
+                  extra !$+$!\\
+                  \phonshape{der Hunger hat} ] > ] }
+  [\avmtmp{ 
+    \1 [ NP\\
+        dom < [ DET\\
+                \phonshape{einen} ], 
+              [ N\\
+                \phonshape{Hund} ], 
+              \3 [ REL-S\\
+                   extra !$+$!\\
+                   \phonshape{der Hunger hat} ] > ]}
+    [\avmtmp{ 
+        [ DET\\
+          \phonshape{einen} ]} ]
+    [\avmtmp{
+        [ \nbar\\
+          dom < [ N\\
+                  \phonshape{Hund} ], \3 [ REL-S\\
+                                           extra !$+$!\\
+                                           \phonshape{der Hunger hat} ] > ] }  
+      [\avmtmp{ 
+          [ N\\
+            \phonshape{Hund} ] } ] 
+      [\avmtmp{ 
+          [ REL-S\\
+            extra !$+$!\\
+            \phonshape{der Hunger hat} ]} ]]]
+  [\avmtmp{ 
+      [ V\\
+        dom \4 < [ V\\
+                   \phonshape{füttern} ] > ] } ]]
 \end{forest}\\
 \hspace{1.2cm}p-compaction(\ibox{1}, \ibox{2}, \sliste{ \ibox{3} })\hfill\mbox{}\\
 \hspace{1.2cm}\ibox{5} = \sliste{ \ibox{2} } $\bigcirc$ \sliste{ \ibox{3} } $\bigcirc$ \ibox{4}\hfill\mbox{}
@@ -1385,9 +1402,9 @@ constraint violation there must not be more than one \type{1}.
 \citet[]{Kathol2001a} assumes the following definition for V2 clauses:
 \ea
 \type{V2-clause} \impl
-\ms{
-S[\type{fin}]\\
-dom & \liste{ [1], \ms{ 2\\V[\type{fin}] }, \ldots }
+\avmtmp{
+[ !S[\type{fin}]!\\
+  dom & < ![1]!, [ 2\\!V[\type{fin}]! ], \ldots > ]
 }
 \z
 This says that the constituent order domain starts with one element assigned to field \type{1},
