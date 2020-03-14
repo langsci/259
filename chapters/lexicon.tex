@@ -1,8 +1,62 @@
-\documentclass[output=paper]{langsci/langscibook} 
+%% -*- coding:utf-8 -*-
+
+\documentclass[output=paper
+                ,modfonts
+                ,nonflat
+	        ,collection
+	        ,collectionchapter
+	        ,collectiontoclongg
+ 	        ,biblatex
+                ,babelshorthands
+                ,newtxmath
+                ,draftmode
+                ,colorlinks, citecolor=brown
+]{./langsci/langscibook}
+
+\IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
+  \input{../localpackages}
+  \input{../localcommands}
+  \input{../localhyphenation}
+  \bibliography{../Bibliographies/stmue,
+                ../localbibliography,
+../Bibliographies/formal-background,
+../Bibliographies/understudied-languages,
+../Bibliographies/phonology,
+../Bibliographies/case,
+../Bibliographies/evolution,
+../Bibliographies/agreement,
+../Bibliographies/lexicon,
+../Bibliographies/np,
+../Bibliographies/negation,
+../Bibliographies/argst,
+../Bibliographies/binding,
+../Bibliographies/complex-predicates,
+../Bibliographies/coordination,
+../Bibliographies/relative-clauses,
+../Bibliographies/udc,
+../Bibliographies/processing,
+../Bibliographies/cl,
+../Bibliographies/dg,
+../Bibliographies/islands,
+../Bibliographies/gesture,
+../Bibliographies/semantics,
+../Bibliographies/pragmatics,
+../Bibliographies/information-structure,
+../Bibliographies/idioms,
+../Bibliographies/cg,
+../Bibliographies/udc,
+collection.bib}
+
+  \togglepaper[4]
+}{}
+
 \author{%
 Anthony Davis\affiliation{Southern Oregon University}%
 \lastand Jean-Pierre Koenig\affiliation{University at Buffalo}%
 }
+
+
+
 \title{The nature and role of the lexicon in HPSG}
 
 % \chapterDOI{} %will be filled in at production
@@ -60,7 +114,7 @@ Within GL, lexical entries include, in addition to argument structure, an ``even
 For example, the natural interpretation of \word{enjoy the sandwich} as enjoying eating the sandwich arises from information in the event structures of \word{enjoy} and \word{sandwich} and the qualia structure of \word{sandwich}, which unify to yield this interpretation.
 % TD 14 Nov: end of GL stuff (a bit more comes later)
 
-Lexicalism, at least within HPSG, embodies two distinct ideas. First is the idea that parts of words are invisible to syntactic operations\is{lexical integrity} (\emph{lexical integrity}, see \citealt{BresnanandMchombo1995}), so that relations between stems and between word forms cannot be the result of or follow syntactic operations, as in \isi{Distributed Morphology} \citep{HalleandMarantz1993}, or other linguistic models that assign no special status to the notion of word. Relations between words are therefore not modeled via syntactic operations (hence the appeal to Jackendoff's \isi{lexical rules}). Second is the idea that the occurrence of a lexical head in distinct syntactic contexts arises from distinct variants of words. For instance, the fact that the verb \word{expect} can occur both with a finite clause and an NP+VP sequence (see (\ref{expect-a}) vs.\ (\ref{expect-b})) means that there are two variants of the verb \word{expect}, one that subcategorizes for a finite clause and one where it subcategorizes for an NP+VP sequence.\footnote{As this chapter is an overview of the approach to lexical knowledge HPSG embodies rather than a description of particular HPSG analyses of phenomena, we will sample liberally from various illustrative examples and simplify whenever possible the analyses so that readers can see the forest and not get lost in the trees.} Not all lexicalist theories, though, cash out these two distinct ideas the same way. The net effect of lexicalism within HPSG is that words and phrases are put together via distinct sets of constructions and that words are syntactic atoms. These two assumptions justify positing two kinds of signs, \type{phrasal-sign} and \type{lexical-sign}, and go hand in hand with the surface-oriented character of HPSG and what one might call a principle of surface combinatorics: if expression A consists of the concanetation of B and C (B$\oplus$C), then all grammatical constraints that make reference to B and C are circumscribed to A. 
+Lexicalism, at least within HPSG, embodies two distinct ideas. First is the idea that parts of words are invisible to syntactic operations\is{lexical integrity} (\emph{lexical integrity}, see \citealt{BresnanandMchombo1995}), so that relations between stems and between word forms cannot be the result of or follow syntactic operations, as in \isi{Distributed Morphology} \citep{HalleandMarantz1993}, or other linguistic models that assign no special status to the notion of word. Relations between words are therefore not modeled via syntactic operations (hence the appeal to Jackendoff's \isi{lexical rules}). Second is the idea that the occurrence of a lexical head in distinct syntactic contexts arises from distinct variants of words. For instance, the fact that the verb \word{expect} can occur both with a finite clause and an NP+VP sequence (see (\ref{expect-a}) vs.\ (\ref{expect-b})) means that there are two variants of the verb \word{expect}, one that subcategorizes for a finite clause and one where it subcategorizes for an NP+VP sequence.\footnote{As this chapter is an overview of the approach to lexical knowledge HPSG embodies rather than a description of particular HPSG analyses of phenomena, we will sample liberally from various illustrative examples and simplify whenever possible the analyses so that readers can see the forest and not get lost in the trees.} Not all lexicalist theories, though, cash out these two distinct ideas the same way. The net effect of lexicalism within HPSG is that words and phrases are put together via distinct sets of constructions and that words are syntactic atoms. These two assumptions justify positing two kinds of signs, \type{phrasal-sign} and \type{lexical-sign}, and go hand in hand with the surface-oriented character of HPSG and what one might call a principle of surface combinatorics: if expression A consists of the concatenation of B and C (B$\oplus$C), then all grammatical constraints that make reference to B and C are circumscribed to A. 
 
 \begin{exe}
 	\ex \label{expect-b} I expected that he would leave yesterday.
@@ -88,7 +142,7 @@ The second challenge to lexicalism presented in \citet{Bruening2018} bears more 
 \label{ch08}Over- and under-application of stress rules plagues Jim's analysis.
 \z
 \is{ellipsis!word internal|see{affixation, suspended}}%
-Chaves' analysis assumes that the phonology of compound words and words that contain affixoids (to borrom a term from \citealt{Booij2005}) is structured. The MorphoPhonology or \attrib{mp} attribute of words (and phrases) is a list of phonological forms and morphs information. The \attrib{mp} of compound words and words that contain affixoids includes a separate member for each member of the compound, or for the affixoid and stem.  Thus in (\ref{ch08}), the \attrib{mp}s of \word{overapplication} and \word{underapplication} each contain two elements: one for \word{over}/\word{under}, and one for \word{application}. Given this enriched representation of the morphophonology of words like \word{under/overapplication}, a single ellipsis rule can apply both to phrases and to composite words, eliding the second member of the word \word{overapplication}'s \attrib{mp}. As Chaves (p.\,304) makes clear, such an analysis is fully compatible with lexical integrity, as there is no access to the \is{morphology!internal structure of words} internal structure of composite words, only to the (enriched) morphophonology of the entire word.
+Chaves' analysis assumes that the phonology of compound words and words that contain affixoids (to borrow a term from \citealt{Booij2005}) is structured. The MorphoPhonology or \attrib{mp} attribute of words (and phrases) is a list of phonological forms and morphs information. The \attrib{mp} of compound words and words that contain affixoids includes a separate member for each member of the compound, or for the affixoid and stem.  Thus in (\ref{ch08}), the \attrib{mp}s of \word{overapplication} and \word{underapplication} each contain two elements: one for \word{over}/\word{under}, and one for \word{application}. Given this enriched representation of the morphophonology of words like \word{under/overapplication}, a single ellipsis rule can apply both to phrases and to composite words, eliding the second member of the word \word{overapplication}'s \attrib{mp}. As Chaves (p.\,304) makes clear, such an analysis is fully compatible with lexical integrity, as there is no access to the \is{morphology!internal structure of words} internal structure of composite words, only to the (enriched) morphophonology of the entire word.
 
 \citet{Haspelmath2011} similarly challenges the view that syntactic processes may not access the internal structure of words, although Haspelmath's point is merely that what is a word is cross-linguistically unclear. So-called \isi{suspended affixation} in \ili{Turkish }(see (\ref{turk})) also shows that word parts can be elided. We cannot discuss here whether Chaves' analysis can be extended to cases like (\ref{turk}) where suffixes are seemingly elided or whether lexical sharing (where a single word can be the daughter of two c-structure nodes \`a la \citealt{McCawley1982}), as proposed in \citet{Broadwell2008}, is needed. 
 
@@ -1337,3 +1391,6 @@ Both of these alternatives, like lexical rules, avoid massively repetitive speci
 }
 
 \end{document}
+
+
+%      <!-- Local IspellDict: en_US-w_accents -->
