@@ -1,0 +1,293 @@
+%%
+%% This is file `langsci-avm.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% langsci-avm.dtx  (with options: `package')
+%% ------------------------------------------------------------------------------
+%% 
+%% langsci-avm: Attribute-value matrices (AVMs) and feature structures in LaTeX3.
+%% 
+%% Copyright (C) 2020 by Felix Kopecky, Language Science Press
+%% 
+%% This work consists of the file  langsci-avm.dtx &
+%%                                 include/smallcaps-standalone.pdf.
+%%           and the derived files langsci-avm.ins,
+%%                                 langsci-avm.pdf,
+%%                                 langsci-avm.sty.
+%% 
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version. The latest version
+%% of this license is at <http://www.latex-project.org/lppl.txt>.
+%% 
+%% This work is ``maintained'' (per LPPL maintenance status) by
+%% Felix Kopecky <felix.kopecky@langsci-press.org>.
+%% 
+%% The development version of the bundle can be found at
+%% 
+%%    https://github.com/langsci/langsci-avm
+%% 
+%% for those people who are interested. Pull requests are welcome.
+%% 
+%% Please report any bugs or feature requests to
+%% 
+%%    https://github.com/langsci/langsci-avm/issues
+%% 
+%% ------------------------------------------------------------------------------
+\RequirePackage{xparse,array}
+\ProvidesExplPackage {langsci-avm}
+  {2020-03-11} {0.1.0-beta}
+  {AVMs and feature structures in LaTeX3}
+\NewDocumentCommand{\avmtmp}{ O{} +m }
+  {
+    \c_group_begin_token
+    \__avm_initialise_document_commands:
+    \bool_set_true:N \l__avm_mode_bool
+    \keys_set:nn { avm } { #1 }
+    \__avm_wrap:n { #2 }
+    \c_group_end_token
+  }
+\NewDocumentCommand{\avmsetup}{ m }
+  { \keys_set:nn { avm } { #1 } }
+
+\keys_define:nn { avm }
+  {
+    stretch .code:n        = {\def\arraystretch{#1}},
+    stretch .initial:n     = {1.15},
+    columnsep .dim_set:N   = \arraycolsep,
+    columnsep .initial:n   = {.5ex},
+    delimfactor .int_set:N = \delimiterfactor,
+    delimfactor .initial:n = {1000},
+    delimfall .dim_set:N   = \delimitershortfall,
+    delimfall .initial:n   = {0pt},
+    attributes .code:n     = {\cs_set:Nn \__avm_font_attribute: {#1}},
+    attributes .initial:n  = {\scshape},
+    types .code:n          = {\cs_set:Nn \__avm_font_type: {#1}},
+    types .initial:n       = {\itshape},
+    values .code:n         = {\cs_set:Nn \__avm_font_value: {#1}},
+    values .initial:n      = {\itshape},
+    tags .code:n           = {\cs_set:Nn \__avm_font_tag: {#1}},
+    tags .initial:n        = {\footnotesize},
+    switch .code:n         = {\tl_set:Nn \__avm_mode_switch_character {#1}},
+    switch .initial:n      = { ! }
+  }
+
+\bool_new:N \l__avm_math_bool
+\bool_new:N \l__avm_mode_bool
+\seq_new:N \l__avm_parens_tracker
+
+\cs_generate_variant:Nn \seq_set_split:Nnn { NVn }
+
+\cs_new:Nn \__avm_module_begin:
+  {
+    \begin{array}{
+      >{\c_math_toggle_token\normalfont\__avm_font_attribute:}l
+      <\c_math_toggle_token
+      >{\c_math_toggle_token\normalfont\__avm_font_value:}l
+      <\c_math_toggle_token}
+  }
+\cs_new:Nn \__avm_module_end:
+  { \end{array} }
+\cs_new:Nn \__avm_replace_lbrace:
+  {
+    \__avm_parse_output:nw
+      { \c_math_toggle_token\left\lbrace\__avm_module_begin: }
+  }
+\cs_new:Nn \__avm_replace_rbrace:
+  {
+    \__avm_parse_output:nw
+      { \__avm_module_end:\right\rbrace\c_math_toggle_token  }
+  }
+\cs_new:Nn \__avm_replace_lbrack:
+  {
+    \__avm_parse_output:nw
+      { \c_math_toggle_token\left\lbrack\__avm_module_begin: }
+  }
+\cs_new:Nn \__avm_replace_rbrack:
+  {
+    \__avm_parse_output:nw
+      { \__avm_module_end:\right\rbrack\c_math_toggle_token }
+  }
+\cs_new:Nn \__avm_replace_lparen:
+  {
+    \__avm_parse_output:nw
+      { \c_math_toggle_token\left(\__avm_module_begin: }
+  }
+\cs_new:Nn \__avm_replace_rparen:
+  {
+    \__avm_parse_output:nw
+      { \__avm_module_end:\right)\c_math_toggle_token  }
+  }
+\cs_new:Nn \__avm_replace_langle:
+  {
+    \__avm_parse_output:nw
+      { \c_math_toggle_token\left<\__avm_module_begin: }
+  }
+\cs_new:Nn \__avm_replace_rangle:
+  {
+    \__avm_parse_output:nw
+      { \__avm_module_end:\right>\c_math_toggle_token  }
+  }
+\cs_new:Nn \__avm_replace_plus:
+  {
+    \__avm_parse_output:nw { \ensuremath { \oplus } }
+  }
+
+\cs_new:Npn \__avm_controls_tag:n #1
+  { \fboxsep.25ex\fbox{\normalfont\__avm_font_tag: #1} }
+\cs_new:Npn \__avm_controls_type:n #1
+  { \c_group_begin_token\normalfont\__avm_font_type: #1\c_group_end_token }
+\cs_new_protected:Npn \__avm_controls_type_starred:n #1
+  {
+    \normalfont\__avm_font_type: #1\span
+    \peek_meaning_ignore_spaces:NTF \\ {} {\\}
+  }
+\cs_new_protected:Npn \__avm_controls_punk:nn #1 #2
+  {
+     \normalfont\c_group_begin_token\__avm_font_attribute:#1%
+     \c_group_end_token\hspace{2\arraycolsep}%
+     \c_group_begin_token\__avm_font_type: #2\c_group_end_token%
+     \span\peek_meaning_ignore_spaces:NTF \\ {} {\\}
+  }
+
+\cs_new:Nn \__avm_initialise_document_commands:
+  {
+    \cs_if_exist:NTF \tag
+      {  \RenewDocumentCommand{\tag}{m}{ \__avm_controls_tag:n {##1} } }
+      {  \NewDocumentCommand{\tag}{m}{   \__avm_controls_tag:n {##1} } }
+    \cs_if_exist:NTF \1
+      {  \RenewDocumentCommand{\1}{}{    \__avm_controls_tag:n {1} } }
+      {  \NewDocumentCommand{\1}{}{      \__avm_controls_tag:n {1} } }
+    \cs_if_exist:NTF \2
+      {  \RenewDocumentCommand{\2}{}{    \__avm_controls_tag:n {2} } }
+      {  \NewDocumentCommand{\2}{}{      \__avm_controls_tag:n {2} } }
+    \cs_if_exist:NTF \3
+      {  \RenewDocumentCommand{\3}{}{    \__avm_controls_tag:n {3} } }
+      {  \NewDocumentCommand{\3}{}{      \__avm_controls_tag:n {3} } }
+    \cs_if_exist:NTF \4
+      {  \RenewDocumentCommand{\4}{}{    \__avm_controls_tag:n {4} } }
+      {  \NewDocumentCommand{\4}{}{      \__avm_controls_tag:n {4} } }
+    \cs_if_exist:NTF \5
+      {  \RenewDocumentCommand{\5}{}{    \__avm_controls_tag:n {5} } }
+      {  \NewDocumentCommand{\5}{}{      \__avm_controls_tag:n {5} } }
+    \cs_if_exist:NTF \6
+      {  \RenewDocumentCommand{\6}{}{    \__avm_controls_tag:n {6} } }
+      {  \NewDocumentCommand{\6}{}{      \__avm_controls_tag:n {6} } }
+    \cs_if_exist:NTF \7
+      {  \RenewDocumentCommand{\7}{}{    \__avm_controls_tag:n {7} } }
+      {  \NewDocumentCommand{\7}{}{      \__avm_controls_tag:n {7} } }
+    \cs_if_exist:NTF \8
+      {  \RenewDocumentCommand{\8}{}{    \__avm_controls_tag:n {8} } }
+      {  \NewDocumentCommand{\8}{}{      \__avm_controls_tag:n {8} } }
+    \cs_if_exist:NTF \9
+      {  \RenewDocumentCommand{\9}{}{    \__avm_controls_tag:n {9} } }
+      {  \NewDocumentCommand{\9}{}{      \__avm_controls_tag:n {9} } }
+    \cs_if_exist:NTF \type
+      {  \RenewDocumentCommand{\type}{s m}
+        {
+          \IfBooleanTF { ##1 }
+            {  \__avm_controls_type_starred:n {##2}  }
+            {  \__avm_controls_type:n {##2} }
+         }
+       }
+       {  \NewDocumentCommand{\type}{s m}
+         {
+           \IfBooleanTF { ##1 }
+             {  \__avm_controls_type_starred:n {##2}  }
+             {  \__avm_controls_type:n {##2}  }
+          }
+        }
+    \cs_if_exist:NTF \punk
+      {  \RenewDocumentCommand{\punk}{m m}
+        { \__avm_controls_punk:nn {##1}{##2} } }
+      {  \NewDocumentCommand{\punk}{m m}
+        {  \__avm_controls_punk:nn {##1}{##2} } }
+  }
+
+\cs_new_protected:Npn \__avm_wrap:n #1
+  {
+    \seq_set_split:NVn \l__avm_wrapper_seq
+    \__avm_mode_switch_character { #1 }
+    \seq_map_inline:Nn \l__avm_wrapper_seq
+      {
+        \exp_args:No \exp_not:o
+          {  \__avm_parse:n {##1} }
+        \bool_set_inverse:N \l__avm_mode_bool
+      }
+  }
+
+\cs_new:Npn \__avm_parse:n #1
+  {
+      \exp:w
+      \group_align_safe_begin:
+        \__avm_parse_loop:w #1
+        \q_recursion_tail \q_recursion_stop
+        \__avm_result:n { }
+  }
+
+\cs_new:Npn \__avm_end:w \__avm_result:n #1
+  {
+    \group_align_safe_end:
+    \exp_end:
+    #1
+  }
+
+\cs_new:Npn \__avm_parse_loop:w #1 \q_recursion_stop
+  {
+    \tl_if_head_is_N_type:nTF {#1}
+      {
+        \__avm_N_type:N #1 \q_recursion_stop
+      }
+      {
+        \tl_if_head_is_group:nTF {#1}
+          { \__avm_replace_group:nw #1 \q_recursion_stop }
+          { \__avm_replace_space:w #1 \q_recursion_stop }
+      }
+  }
+
+\cs_new:Npn \__avm_N_type:N #1
+  {
+    \quark_if_recursion_tail_stop_do:Nn #1 { \__avm_end:w }
+    \bool_if:NTF \l__avm_mode_bool
+      { \__avm_replace:N #1 }
+      { \__avm_replace_none:N #1 }
+  }
+
+\cs_new:Npn \__avm_replace_none:N #1
+  {
+    \__avm_parse_output:nw {#1}
+  }
+
+\cs_new:Npn \__avm_replace:N #1
+  {
+    \str_case:nnF {#1}
+      {
+        { +  }{ \__avm_replace_plus: }
+        { [  }{ \__avm_replace_lbrack: }
+        { ]  }{ \__avm_replace_rbrack: }
+        { (  }{ \__avm_replace_lparen: }
+        { )  }{ \__avm_replace_rparen: }
+        { \{ }{ \__avm_replace_lbrace: }
+        { \} }{ \__avm_replace_rbrace: }
+        { <  }{ \__avm_replace_langle: }
+        { >  }{ \__avm_replace_rangle: }
+      }
+      { \__avm_replace_none:N #1 }
+  }
+
+\cs_new:Npn \__avm_replace_group:nw #1
+  { \exp_args:NNo \exp_args:No \__avm_replace_group:n { \__avm_parse:n {#1} } }
+
+\cs_new:Npn \__avm_replace_group:n #1 { \__avm_parse_output:nw { {#1} } }
+
+\exp_last_unbraced:NNo
+\cs_new:Npn \__avm_replace_space:w \c_space_tl { \__avm_parse_output:nw { ~ } }
+
+\cs_new:Npn \__avm_parse_output:nw #1 #2 \q_recursion_stop \__avm_result:n #3
+  { \__avm_parse_loop:w #2 \q_recursion_stop \__avm_result:n {#3  #1 } }
+
+%% 
+%%
+%% End of file `langsci-avm.sty'.
