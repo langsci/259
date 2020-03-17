@@ -40,7 +40,7 @@
 \ProvidesExplPackage {langsci-avm}
   {2020-03-11} {0.1.0-beta}
   {AVMs and feature structures in LaTeX3}
-\NewDocumentCommand{\avm}{ O{} +m }
+\NewDocumentCommand{\avmtmp}{ O{} +m }
   {
     \c_group_begin_token
     \__avm_initialise_document_commands:
@@ -133,6 +133,10 @@
 \cs_new:Nn \__avm_replace_plus:
   {
     \__avm_parse_output:nw { \ensuremath { \oplus } }
+  }
+\cs_new:Nn \__avm_replace_minus:
+  {
+    \__avm_parse_output:nw { \ensuremath { \ominus } }
   }
 \cs_new:Nn \__avm_replace_circle:
   {
@@ -269,6 +273,7 @@
     \str_case:nnF {#1}
       {
         { \+ }{ \__avm_replace_plus: }
+        { \- }{ \__avm_replace_minus: }
         { \shuffle }{ \__avm_replace_circle: }
         { [  }{ \__avm_replace_lbrack: }
         { ]  }{ \__avm_replace_rbrack: }
