@@ -259,7 +259,12 @@ also hold to some extent for subregular \textit{-bar} adjectives.
 
   
 One property that is almost trivial concerns suffixation of
-\textit{-bar}, and it holds for the entire class.  
+\textit{-bar}, and it holds for the entire class. Suffixation is no
+exclusive property of \textit{-bar} adjectives, so this property can
+be abstracted out into the supertype \textit{suffixed} in
+(\ref{fig:riehemannSuff}): the type \textit{bar-adj} in
+Figure~\ref{gig:Riehemann} inherits this property and specifies the
+concrete shape of the list appended to the morphological base.
 
 \begin{exe}
   \ex \usebox{\suffixed} \label{fig:riehemannSuff}
@@ -428,7 +433,12 @@ Classical problems that illustrate the many-to-many nature of
 inflection include cumulation, where a single form expresses multiple
 morpho-syntactic properties. An extreme example of cumulation is
 contributed by the Latin verb \textit{am-o}
-`love-1.\textsc{sg}.\textsc{prs}.\textsc{ind}.\textsc{av}'. 
+`love-1.\textsc{sg}.\textsc{prs}.\textsc{ind}.\textsc{av}', which
+contrasts e.g. with forms \textit{amā-v-i}
+`love-\textsc{prf}-\textsc{1.sg.av}', where perfective tense is
+expressed by a discrete exponent \textit{-v}, or present subjunctive
+\textit{am-ē-m} `love-\textsc{subj}-\textsc{1.sg.av}' where mood is
+expressed by a marker of its own.
 
 The mirror image of cumulation is extended (or multiple) exponence:
 here, a single property is expressed by more than one exponent. This
@@ -456,15 +466,22 @@ vowel (cf. singular \textit{Mutter} `mother.\textsc{sg}').
 An extremely wide-spread form of deviation from a one-to-one
 correspondence between form and function is zero exponence, where some
 morpho"=syntactic properties do not give rise to any exponence. In
-German, nouns inflect for four cases and two numbers, yielding
-eight cells. However, in some paradigms only very few cells are
-actually overtly marked. The feminine noun \textit{Mutter} `nut' does
-not take any inflectional markings except in the dative plural
-(\textit{Mutter-n} `nut-\textsc{dat.pl}'). Similarly, one of the most
-productive masculine/neuter paradigms, witnessed by \textit{Rechner}
-`computer', only shows overt marking for two cells, the genitive
-singular (\textit{Rechner-s}) and the dative plural
-(\textit{Rechner-n}), all other forms being bare.
+English, regular plural nouns are formed by suffixation of
+\textit{-s}, as in \textit{jeep/jeeps}, but we also find cases, such
+as \textit{sheep}, where no overt exponent of plural is
+present. Likewise, the past tense of English verbs is regularly
+signalled by suffixation of \textit{-ed}, as with \textit{fit/fitted},
+but again, there are forms such as \textit{hit/hit} where past is not
+overtly marked.  In German, nouns inflect for four cases and two
+numbers, yielding eight cells. However, in some paradigms only very
+few cells are actually overtly marked. The feminine noun
+\textit{Mutter} `nut' does not take any inflectional markings except
+in the dative plural (\textit{Mutter-n}
+`nut-\textsc{dat.pl}'). Similarly, one of the most productive
+masculine/neuter paradigms, witnessed by \textit{Rechner} `computer',
+only shows overt marking for two cells, the genitive singular
+(\textit{Rechner-s}) and the dative plural (\textit{Rechner-n}), all
+other forms being bare.
 
 
 
@@ -1186,15 +1203,18 @@ morphological descriptions beyond a simple pairing of form-related
 
 The crucial point about realisation rules is that they take care of
 parts of the inflection of an entire word independently of other
-realisation rules. Thus, in IbM, realisation rules explicitly
-represent the subset of morphosyntactic  features they are
-about. I.e. realisation rules introduce a feature \textsc{mud}
-(=Morphology Under Discussion), in addition to \textsc{mph} and
-\textsc{ms}, in order to single out the morphosyntactic features that
-are licensed by application of the rule.
+realisation rules. Thus, in IbM, realisation rules are explicitly
+defined in terms of that set of morphosyntactic features they express,
+as opposed to contextually determined features. To that end, realisation
+rules introduce a feature \textsc{mud} (=Morphology Under Discussion),
+in addition to \textsc{mph} and \textsc{ms}, in order to single out
+the morphosyntactic features that are licensed by application of the
+rule. Thus, \textsc{mud} specifies the subset of the morphosyntactic
+property set \textsc{ms} that the rule serves to express, as detailed
+in (\ref{ex:MudMS}). 
 
 \begin{exe}
-  \ex
+  \ex \label{ex:MudMS}
   \textit{realisation-rule} $\rightarrow$ \begin{avm}
     \[mud & \@1 set(msp)\\
       ms & \@1 ~$\cup$ set(msp)\\
@@ -1625,6 +1645,15 @@ contained in \textsc{ms}.
           \[mud &  \@1 \{ \normalfont\textit{neg},\\ \[\asort{subj}
               per & 1\\num & sg\]\}\\
             mph & \< \[ph & \<\normalfont si\>\\
+            pc & $1..2$\] \> \]
+        \end{avm}}
+    \end{xlist}
+  \end{minipage} ~ \begin{minipage}[t]{0.5\linewidth} \begin{xlist}
+      \exi{d.  \begin{avm}
+          \[mud &  \@1 \{ \normalfont\textit{neg}\}\\
+            ms & \@1 $~\cup$ \{ \normalfont\itshape rel \} $~\cup$
+            set\\
+            mph & \< \[ph & \<\normalfont si\>\\
             pc & $3$\] \> \]
         \end{avm}}
     \end{xlist}
@@ -1702,10 +1731,51 @@ of the identity function default in every rule block. The current
 formulation of Pāṇini's principle works as desired within an
 inflectional dimension, e.g. tense or polarity, but not for a rule
 that has a fully underspecified \textsc{mud} element, since such a
-rule would only be applicable if neither tense nor polarity have a
-non-default value.  A simple solution is to provide subtypes of the
+rule would only be applicable if neither tense nor polarity had a
+non-default value.  E.g. the rule for zero exponence suggested in
+\citet{Crysmann:Bonami:2016} realises a property (one underspecified
+element on \textsc{mud}) without
+contributing any morph, as shown in
+(\ref{ex:ifd}):
+
+\begin{exe}
+  \ex \label{ex:ifd}
+  \begin{avm}
+    \[mud & \{ \[ ~ \] \}\\
+    mph & \< ~ \>\]
+  \end{avm}
+\end{exe}
+
+A simple solution is to provide subtypes of the
 ultimate default for every inflectional dimension that witnesses zero
-exponence. While this is slightly less general than what might have
+exponence.
+E.g. the rule type in (\ref{ex:ifd}) could be specialised by adding
+appropriate subtypes, e.g. for tense and polarity:
+
+\begin{exe}
+  \ex 
+  \begin{forest}
+    [
+    \begin{avm}
+    \[mud & \{ \[ ~ \] \}\\
+      mph & \< ~ \>\]
+    \end{avm}
+    [
+    \begin{avm}
+      \[mud & \{ \normalfont\itshape tns\}\]
+    \end{avm}
+    ]
+    [
+    \begin{avm}
+      \[mud & \{ \normalfont\itshape pol\}\]
+    \end{avm}
+    ]
+    ]
+  \end{forest}
+
+\end{exe}
+
+While this is slightly less general than what might have
 been hoped, the finer control that this move offers is independently
 required to mitigate between the zero exponence as a fallback strategy
 and the existence of defectiveness, i.e. gaps in paradigms. 
@@ -1972,12 +2042,12 @@ cell in the future.
 		\end{avm}}, l=4cm
 			[{\begin{avm}
 				\[mud & \{ \[per & 1 \]\}\\
-				mph & \{ \[ph & \<aũ\>\] \} \]
+				mph & \{ \[ph & \<\normalfont aũ\>\] \} \]
 			\end{avm}}]
 			[{\begin{avm}
 				\[mud & \{ \[per & 3\\
 				hon & low \] \}\\
-				mph & \{ \[ph & \<au\>\] \} \]
+				mph & \{ \[ph & \<\normalfont au\>\] \} \]
 			\end{avm}}]
 		]
 		[{\begin{avm}
@@ -2293,7 +2363,7 @@ underlyingly \citep{bonami-crysmann:2013}.
         num & pl \]\}\\
       mph & \< \[ph & \<\normalfont jân\>\\
         1st-pc & \@1\\
-      pc & \@1 $+ 1$\]\>\]
+      pc & \@1 \normalfont + 1\]\>\]
   \end{avm}
 \end{exe}
 
@@ -2306,7 +2376,7 @@ token identical to the \textsc{pc} of \textit{nard}, so \textit{=jân}
 will be assigned a \textsc{pc} value of 6. The second example
 \textit{da=jân-nard-im} has  the additional progressive prefix \textsc{da}
 in position 3, which is the lowest \textsc{pc} index in of the
-word. Accordingly \textsc{=jân} is placed relative to \textit{da},
+word. Accordingly \textit{=jân} is placed relative to \textit{da},
 in position 4. 
 
 To conclude the section, a more general remark is in order: as we have
@@ -2724,5 +2794,5 @@ partial rule descriptions.
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../main-udc"
+%%% TeX-master: "../main-morph"
 %%% End:
