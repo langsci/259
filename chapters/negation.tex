@@ -1,6 +1,8 @@
+%% -*- coding:utf-8 -*-
+
 \documentclass[output=paper
                 ,modfonts
-                		,nonflat
+                ,nonflat
 	        ,collection
 	        ,collectionchapter
 	        ,collectiontoclongg
@@ -10,6 +12,44 @@
                 ,draftmode
                 ,colorlinks, citecolor=brown
 ]{./langsci/langscibook}
+
+\IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
+  \input{../localpackages}
+  \input{../localcommands}
+  \input{../localhyphenation}
+  \bibliography{../Bibliographies/stmue,
+                ../localbibliography,
+../Bibliographies/formal-background,
+../Bibliographies/understudied-languages,
+../Bibliographies/phonology,
+../Bibliographies/case,
+../Bibliographies/evolution,
+../Bibliographies/agreement,
+../Bibliographies/lexicon,
+../Bibliographies/np,
+../Bibliographies/negation,
+../Bibliographies/argst,
+../Bibliographies/binding,
+../Bibliographies/complex-predicates,
+../Bibliographies/coordination,
+../Bibliographies/relative-clauses,
+../Bibliographies/udc,
+../Bibliographies/processing,
+../Bibliographies/cl,
+../Bibliographies/dg,
+../Bibliographies/islands,
+../Bibliographies/gesture,
+../Bibliographies/semantics,
+../Bibliographies/pragmatics,
+../Bibliographies/information-structure,
+../Bibliographies/idioms,
+../Bibliographies/cg,
+../Bibliographies/udc,
+collection.bib}
+
+  \togglepaper[14]
+}{}
+
 \author{Jong-Bok Kim\affiliation{Kyung Hee University, Seoul}}
 \title{Negation}
 
@@ -35,27 +75,21 @@
 %\bibliography{negation-mine-bib}
 
 
-\newcommand\LIGHT{{\sc light}}
-%\newcommand\NEG{{\sc neg}}
-%\newcommand\FUT{{\sc fut}}
-%\def\jbsub#1{\lower4pt\hbox{\small #1}}
-%\def\ssub#1{\lower4pt\hbox{\small #1}}
-%\newcommand\trace{\underbar{\ \ \ }\ }
-\newcommand\FORM{{\sc form}}
-\newcommand\hdlight{{\sc head-light construction}}
-\newcommand\POL{{\sc pol}}
+%% \newcommand\LIGHT{{\sc light}}
+%% %\newcommand\NEG{{\sc neg}}
+%% %\newcommand\FUT{{\sc fut}}
+%% %\def\jbsub#1{\lower4pt\hbox{\small #1}}
+%% %\def\ssub#1{\lower4pt\hbox{\small #1}}
+%% %\newcommand\trace{\underbar{\ \ \ }\ }
+%% \newcommand\FORM{{\sc form}}
+%% \newcommand\hdlight{{\sc head-light construction}}
+%% \newcommand\POL{{\sc pol}}
 
 
-%\input{packages}
-
-\IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
-  \input{../localpackages}
-  \input{../localcommands}
-  \togglepaper[14]
-}{}
 
 
 \title{Negation}
+
 \abstract{Each language has a way to express (sentential) negation
 that reverses the truth value of a certain sentence, but employs
 language-particular expressions as well as grammatical strategies. There are
@@ -65,14 +99,6 @@ auxiliary negative verb, and
 preverbal negative. This chapter discusses HPSG analyses for these four strategies
 in marking sentential negation.}
 
-
-%Each language has its own way of expressing
-%sentential negation (to reverse the truth value of a certain sentence)
-%with grammatical restrictions in its surface realizations.
-%This chapter aims to provide an investigation of morpho-syntactic aspects
-%of this negation in natural languages, encompassing both empirical and
-%theoretical issues  concerning negation as well as related phenomena
-%in question.\footnote{This chapter grows out of \citep{Kim:00} and \citep{Kim:18}.}
 
 \begin{document}
 \maketitle
@@ -90,7 +116,7 @@ in marking sentential negation.}
 There are four different types of negative markers
 in expressing negation in languages: morphological negative,
 auxiliary negative verb, adverbial negative, and clitic-like
- preverbal negative (see \citealt{Dahl:79, Payne:85, Dryer:05}).
+ preverbal negative (see \citealt{Dahl:79, Payne:85, Dryer:05}).\addpages
 Each of these types is illustrated in the following:\footnote{The non-standard abbreviations
 used here include 
  {\sc conn} (connective), 
@@ -103,23 +129,23 @@ used here include
 
 \eal
 \ex\label{negation-1a}
-\gll Ali  elmalar-i  ser-me-di-$\emptyset$. \hfill (Turkish) \\
-Ali apples-\textsc{acc}  like-\textsc{neg}-\textsc{pst}-\textsc{3sg} \\
+\gll Ali  elmalar-i  ser-me-di-$\emptyset$. \\
+Ali apples-\textsc{acc}  like-\textsc{neg}-\textsc{pst}-\textsc{3sg} \\ \hfill (\ili{Turkish})
 \glt `Ali didn't like apples.'
 
 \ex\label{negation-1b}
-\gll sensayng-nim-i o-ci anh-usi-ess-ta.  \hfill (Korean) \\
-teacher-\textsc{hon}-\textsc{nom} come-\textsc{conn} \textsc{neg}-\textsc{hon}-\textsc{pst}-\textsc{decl} \\
+\gll sensayng-nim-i o-ci anh-usi-ess-ta. \\
+teacher-\textsc{hon}-\textsc{nom} come-\textsc{conn} \textsc{neg}-\textsc{hon}-\textsc{pst}-\textsc{decl} \\  \hfill (\ili{Korean})
 \glt `The teacher didn't come.'
 
 \ex \label{negation-1c}
-\gll Dominique (n')\'{e}crivait pas de lettre. \hfill (French)\\
-     Dominique wrote \textsc{neg} of letter \\
-\glt `Dominique did not write a letter.'
+\gll Dominique (n')\'{e}crivait pas de lettre.\\
+     Dominique wrote \textsc{neg} of letter \\ \hfill (\ili{French})
+\glt `Dominique did not write a letter.'\todostefan{check gloss: what about the (n)}
 
 \ex \label{negation-1d} %Italian:\\
-\gll Gianni non legge articoli di sintassi. \hfil (Italian) \\
-Gianni \textsc{neg} reads articles of syntax \\
+\gll Gianni non legge articoli di sintassi. \\
+Gianni \textsc{neg} reads articles of syntax \\\hfill (\ili{Italian}) 
 \glt `Gianni doesn't read syntax articles.'
 \zl
 
@@ -149,7 +175,7 @@ In particular, to account for the
 fact that unlike English, only French allows main or lexical verb inversion
 as in (\ref{negation-1c}), \citet{Pollock:89,Pollock:94} and a number of subsequent researchers
 have interpreted these contrasts as providing critical motivation for
-the process of head movement and the existence of functional
+the process of \isi{head movement} and the existence of functional
 categories such as MoodP, TP, AgrP, and NegP (see \citealt{Belletti:90, Zanuttini:91, Zanuttini:97,Zanuttini:01, Chomsky:91,Chomsky:93,Chomsky:95, Lasnik:95, Haegeman:95,Haegeman:97, Vikner97a-u, Zeijlstra:15}).
 Within the derivational view, it has thus been widely
 accepted that the variation between French and English can be explained only in terms of the respective properties of verb movement and its interaction with a view of clause
@@ -229,10 +255,13 @@ Kim is believed to [like not Mary].
 a finite lexical  verb (see \citealt{Baker:89,Baker:91,Ernst:92}).
 French is not exceptional in this respect. The finiteness also affects the distributional possibilities of the French negative {\it pas} (see \citealt{AG:97, KS:02, Zeijlstra:07}):
 
-\eal\ex[]{
-\gll Robin  n'aime  pas  Stacy. \\
-     Robin  (n')likes  \textsc{neg} Stacy \\
-\trans`Robin does not like Stacy.'
+\inlinetodostefan{Changed the optionality to be in the source rather than in the gloss. Check, Gloss
+b. everything has to be glossed! Please provide all glosses and languages in brackets as in initial examples}
+\eal
+\ex[]{
+\gll Robin  (n')aime   pas  Stacy. \\
+     Robin  \NEG.likes \NEG{} Stacy \\
+\glt`Robin does not like Stacy.'
 }
 \ex[*]{
 Robin ne pas aime Stacy.
@@ -242,10 +271,10 @@ Robin ne pas aime Stacy.
 \eal\ex[]{
 \gll Ne  pas         parler    Fran\c{c}ais  est  un  grand d\'{e}savantage  en ce cas. \\
      ne \textsc{neg} to.speak  French  is  a great disadvantage  in this case \\
-\trans `Not speaking French is a great disadvantage in this case.'
+\glt `Not speaking French is a great disadvantage in this case.'
 }
 \ex[*]{
-Ne  parler  pas  Fran\c{c}ais  est  un  grand d\'{e}savantage en ce cas.
+Ne  parler  pas  Fran\c{c}ais  est  un  grand d\'{e}savantage en ce cas.\addglosses
 }
 \zl
 
@@ -422,16 +451,15 @@ certain other adverbs precede an infinitival VP:
 
 \eal
 \ex[]{
-\gll
-[Ne  pas  [repeindre    sa    maison]]  est   une n\'{e}gligence. \\
-ne  not   paint     one's  house    is  a    negligence \\
-\trans `Not painting one's house is negligent.'
+\gll [Ne           pas  [repeindre      sa    maison]] est une n\'{e}gligence. \\
+     \spacebr{}ne  not  \spacebr{}paint one's house    is  a   negligence \\
+\glt `Not painting one's house is negligent.'
 }
 \ex[]{
 \gll
 [R\'{e}guli\`{e}rement   [repeindre    sa   maison]]   est  une  n\'{e}cessit\'{e}. \\
 regularly        to.paint    one's   house    is    a   necessity \\
-\trans `Regularly painting one's house is a necessity.'
+\glt `Regularly painting one's house is a necessity.'
 }
 \zl
 
@@ -455,16 +483,23 @@ whereas it is a subtype of \textit{nonfin} in English.}
 %
 
 %\iffalse{}
+\inlinetodostefan{check AVM changed Sag97 and numbering}
 \ea
 \label{negation-c-neg}
-\begin{avm} \avml
- %\textit{not}/\textit{ne-pas} \\
- \[\FORMjb\ \; \q<\normalfont\textit{not}/\textit{ne-pas}\q>\\
-\SYN|\HEAD\ \;  \[\type{adv}\\
-               \MOD\ \; \<VP[\type{nonfin}]: \@2\>\]\\
-  \SEM\ \; \[\RESTR\ \<\[\PRED\ \; \ \ \type{neg-rel}\\
-                        {\sc arg1}  \; \@2\]\>\]
-  \]\avmr\end{avm}
+\localvs of \emph{not} and \emph{ne-pas}:\\
+\avmtmp{
+[ cat|head & [\type*{adv}
+               mod & !\upshape VP[\type{nonfin}]!:\1 ]\\
+  cont     & [ restr < [ pred & neg-rel\\
+                         arg1 & \1 ] > ] ]}
+%% \begin{avm} \avml
+%%  %\textit{not}/\textit{ne-pas} \\
+%%  \[form\ \; \q<\normalfont\textit{not}/\textit{ne-pas}\q>\\
+%% \SYN|head\ \;  \[\type{adv}\\
+%%                \MOD\ \; \<VP[\type{nonfin}]: \@2\>\]\\
+%%   \SEM\ \; \[\RESTR\ \<\[\PRED\ \; \ \ \type{neg-rel}\\
+%%                         {\sc arg1}  \; \@2\]\>\]
+%%   \]\avmr\end{avm}
 \z
 %\fi
 
@@ -483,14 +518,14 @@ distributional similarities between English \textit{not} and French
 		sm edges
 		[VP
 			[V\\
-			\begin{avm}
-				\[head\[\type{adv}\\
-                        mod \; \<\@{3} VP\>\]\]
-				\end{avm}
+			\avmtmp{
+		          [head [\type*{adv}\\
+                                 mod & \1 \textnormal{VP} ]]
+	                }
 					[not/ne-pas]]
-			[\ibox{3}\,VP\\
-\begin{avm}
-\[vform \type{nonfin}\]\end{avm}
+			[\ibox{1}\,VP\\
+\avmtmp{
+[vform \type{nonfin}]}
 					[\ldots]]]
 	\end{forest}
 \caption{Structure of constituent negation}\label{negation-not-vp-mod}
@@ -519,9 +554,8 @@ from its complements, as observed from the following data:
 
 \eal
 \ex[]{
-\gll
-[Ne           pas  [\sub{VP} parler  fran\c{c}ais]]  est  un grand d\'{e}savantage  en ce cas. \\
-\spacebr{}ne  not  {}        to.speak French  is  a great disadvantage  in this case \\
+\gll [Ne           pas  [\sub{VP} parler  fran\c{c}ais]]  est  un grand d\'{e}savantage  en ce cas. \\
+     \spacebr{}ne  not  {}        to.speak French  is  a great disadvantage  in this case \\
 } \label{negation-34a}
 \ex[*]{
 [Ne  parler  pas  fran\c{c}ais]  est  un  grand d\'{e}savantage en ce cas.
@@ -749,22 +783,33 @@ With the observation of such properties, the HPSG analyses of \citet{AG:97},
 have taken this group of adverbs (Adv\jbsub{{\sc i}}) including the sentential negation {\it not} to function as the complement of a finite auxiliary verb via the following lexical rule:\footnote{
 The symbol $\oplus$ stands for the function {\it append}, i.e., a relation that concatenates two lists.}
 
+\inlinetodostefan{Is the lowered i a capital or a small i?}
 \ea
-\textsc{negative adverb-complement lexical rule}:\\
-			\begin{avm}
-				\[\type{fin-aux}\\
-				syn \; \[head \; \ \[aux \; $+$\\
-                               vform \; \type{fin}\]\\
-				     val|comps  \; \textit{L}\]\]
-			\end{avm}
-\ \  $\mapsto$\  \
-	\begin{avm}
-			\[\type{neg-fin-aux}\\
-			syn \ \; \[head \ \;  \[aux \; $+$\\
-                             vform \; \type{fin}\\
-	            		     neg \; $+$\]\\
-				     val|comps \ \; \<Adv\jbsub{{\sc i}}\> \; \ $\oplus$ \; \ \textit{L}\]\]
-		\end{avm}
+Negative adverb-complement lexical rule:\\
+\avmtmp{
+[\type*{fin-aux}
+  synsem|loc|cat & [ head & [aux   & $+$\\
+                             vform & \type{fin}]\\
+                     comps & \1 ]] } $\mapsto$
+\avmtmp{
+[\type*{neg-fin-aux}
+  synsem|loc|cat & [ head & [aux   & $+$\\
+                             vform & \type{fin}]\\
+                     comps & < Adv$_i$ > \+ \1 ]] }
+%% 			\begin{avm}
+%% 				\[\type{fin-aux}\\
+%% 				syn \; \[head \; \ \[aux \; $+$\\
+%%                                vform \; \type{fin}\]\\
+%% 				     val|comps  \; \textit{L}\]\]
+%% 			\end{avm}
+%% \ \  $\mapsto$\  \
+%% 	\begin{avm}
+%% 			\[\type{neg-fin-aux}\\
+%% 			syn \ \; \[head \ \;  \[aux \; $+$\\
+%%                              vform \; \type{fin}\\
+%% 	            		     neg \; $+$\]\\
+%% 				     val|comps \ \; \<Adv\jbsub{{\sc i}}\> \; \ $\oplus$ \; \ \textit{L}\]\]
+%% 		\end{avm}
 \z
 %
 This lexical rule specifies that when the input is a finite auxiliary verb,
@@ -778,26 +823,23 @@ license a structure like in Figure~\ref{negation-fig:6}.
 	\begin{forest}
 		sm edges
 		[VP\\
-		\begin{avm}
-			\[head|vform \; \type{fin}\\
-			subj \; \< \@{1}\,NP\>\\
-			comps \; \<~~\> \]
-		\end{avm}, l sep*=1.5
+		\avmtmp{
+	          [head|vform  \type{fin}\\
+		   subj  < \1 NP >\\
+		   comps < > ]}, l sep*=1.5
 			[V\\
-			\begin{avm}
-				\[\type{neg-fin-v}\\
-				head\[aux \; +\\
-                      vform \; \type{fin}\]\\
-				subj \; \< \@{1}\,NP\>\\
-				comps \; \< \@{2}\,$\textnormal{Adv}_\textnormal{I}${,} \@{3}\,VP\>\\
+			\avmtmp{
+			[\type{neg-fin-v}\\
+			head [ aux & $+$\\
+                               vform & \type{fin}]\\
+		        subj  < \1 NP >\\
+		        comps < \2 \textnormal{Adv}\sub{I}, \3 VP > ]}
 %				arg-st \; \< \@{1}\,NP{,} \@{2}\,$\textnormal{Adv}_\textnormal{I}${,} %\@{3}\,VP\>
-\]
-			\end{avm}
 				[could]]
-			[\avmbox{2}\,Adv\textsubscript{I}
+			[\ibox{2} Adv\sub{I}
 				[not]]
-			[\avmbox{3}\,NP
-				[approve the bill]]]
+			[\ibox{3} VP
+				[approve the bill,roof]]]
 	\end{forest}
 \caption{Structure of sentential negation}\label{negation-fig:6}
 \end{figure}
@@ -839,17 +881,14 @@ specified by the following lexical rule \citep{Kim:00}:
 
 \ea
 \label{negation-vpe-cxt}
-\textsc{predicate ellipsis lexical rule}:\\
-\begin{avm}
-\[\type{aux-v-lxm}\\
- arg-st \;  \< \@1XP, \@2YP \>\]
-			\end{avm}
-\ \  $\mapsto$\  \
-\begin{avm}	
-\[\type{aux-ellipsis-wd}\\
-      comps \;  \<  \; \; \>\\
-      arg-st \; \< \@1XP, \@2YP\[\type{pro}\]\>\]
-		\end{avm}
+Predicate ellipsis lexical rule:\\
+\avmtmp{
+[\type*{aux-v-lxm}
+ arg-st &  < \1 XP, \2 YP > ]}  $\mapsto$
+\avmtmp{
+[\type*{aux-ellipsis-wd}
+ comps  & < >\\
+ arg-st & < \1 XP, \2 ! YP[\type{pro}]! >]}
 \z
 %
 %
@@ -872,14 +911,13 @@ the structure in Figure~\ref{negation-could-not}:
 		sm edges
 		[VP
 			[V\\
-			\begin{avm}
-				\[head|aux \; $+$\\
-				val \; \[subj \; \<\@{1}\>\\
-					comps \; \<\@{2}\,$\textnormal{Adv}\jbsub{\textsc{i}}$\>\]\\
-				arg-st \; \<\@{1}{,} \@{2}{,} VP{[\textit{bse}]}\>\]
-				\end{avm}
+			\avmtmp{
+			[head|aux $+$\\
+			 subj  < \1 >\\
+		         comps < \2, \textnormal{Adv}\sub{I} >\\
+			 arg-st < \1, \2, VP![\type{bse}]! > ]}
 					[could]]
-			[\ibox{2}\,Adv\jbsub{\textsc{i}}\\
+			[\ibox{2} Adv\sub{I}\\
 					[not]]]
 	\end{forest}
 \caption{A licensed VP ellipsis structure}\label{negation-could-not}
@@ -898,10 +936,10 @@ structure like the one in Figure~\ref{negation-fig-could-never}:
 	\begin{forest}
 		sm edges
 		[VP
-			[V{[\textsc{aux $+$}]}
+			[V{[\aux $+$]}
 				[could]]
 			[*VP
-				[Adv{[\textsc{mod} $\langle$VP$\rangle$]}
+				[Adv{[\textsc{mod} VP]}
 					[never]]]]
 	\end{forest}
 \caption{Ill-formed structure of the head-mod construction}\label{negation-fig-could-never}
@@ -927,7 +965,7 @@ Robin  ne  \textsc{neg}  likes  Stacy \\
  \ex[ ]
  {
  \gll Robin  (n')aime  pas  Stacy. \\
-Robin  (n')likes  \textsc{neg}  Stacy \\
+Robin  \NEG.likes  \textsc{neg}  Stacy \\
 \glt{`Robin does not like Stacy.'}\label{negation-pas-good-b}}
 \zl
 
@@ -952,29 +990,26 @@ as the complement of the verb \textit{n'aime}, as represented in Figure~\ref{neg
 
 %\iffalse{}
 \begin{figure}
-	\begin{forest}
-		sm edges
-		[VP\\
-		\begin{avm}
-			\[head|form \; \type{fin}\\
-			subj \; \< \@{1}\,NP\>\\
-			comps \; \<~~\> \]
-		\end{avm}, l sep*=1.5
-			[V\\
-			\begin{avm}
-				\[\type{neg-fin-v}\\
-				head|vform \; \type{fin}\\
-				subj \; \< \@{1}\,NP\>\\
-				comps \; \< \@{2}\,$\textnormal{Adv}_\textnormal{I}${,} \@{3}\,NP\>\\
+\begin{forest}
+sm edges
+[VP\\
+ \avmtmp{
+ [head|form \type{fin}\\
+  subj < \1 NP >\\
+  comps <> ]}, l sep*=1.5
+  [V\\
+   \avmtmp{
+   [\type*{neg-fin-v}\\
+    head|vform \type{fin}\\
+    subj  < \1 NP > & \\
+    comps < \2, \textnormal{Adv}\sub{I}, \3 NP > ]}
 				%arg-st \; \< \@{1}\,NP{,} \@{2}\,$\textnormal{Adv}_\textnormal{I}${,} %\@{3}\,NP\>
-\]
-			\end{avm}
-				[n'aime]]
-			[\avmbox{2}\,Adv\textsubscript{I}
-				[pas]]
-			[\avmbox{3}\,NP
-				[Stacy]]]
-	\end{forest}
+   [n'aime;\textsc{neg}.likes]]
+ [\ibox{2} Adv\sub{I}
+	[pas;\textsc{neg}]]
+ [\ibox{3} NP
+	[Stacy;Stacy]]]
+\end{forest}
 \caption{Partial structure of (\ref{negation-pas-good-b})}\label{negation-pas-st}
 \end{figure}
 %\fi
@@ -1195,17 +1230,19 @@ The process of adding a negative morpheme to a lexeme can be modeled
 straightforwardly by a lexical rule given in the following (see \citealt{Kim:00,Crowgey:12}):
 
 \ea
-\textsc{negative word formation lexical rule}:\\
-\begin{avm}
-\small
-\[\type{v-lxm}\\
-  \FORM\ \; \q<\@1\q>\\
-  \SEM\ \;  \@2\]  \ \  $\mapsto$\  \ \  \[\type{neg-v-lxm}\\
-              \FORM\ \;  \q<\bf{F}\jbsub{{\type{neg}}}(\@1)\q>\\
-                                     \SYN\|\HEAD\|\POL\ \;  \type{neg}\\
-                                    \SEM\ \;  \[\RESTR \;  \<\[\PRED\ \ \;  \ \type{neg-rel}\\
-                                            {\sc arg1}\;  \ \ \@2\]\>\]\]
-\end{avm}
+\label{lr-neg-word-formation}
+Negative word formation lexical rule:\\
+\avmtmp{
+[\type*{v-lxm}
+ phon < \1 >\\
+ synsem|loc|cont \2 &]} $\mapsto$
+\avmtmp{
+[\type*{neg-v-lxm}
+ phon < !\textnormal{f}\sub{\type{neg}}(\1)! >\\
+ synsem|loc [ cat|head|pol \type{neg}\\
+              cont|restr \{ [ pred & neg-rel\\
+                              arg1 & \2 ] \} ] & ]
+}
 \z
 %
 As shown here, any verb lexeme can be turned into a verb with the negative
@@ -1225,7 +1262,7 @@ like Libyan Arabic, as discussed in \citet{BK:12}.  The language
 %\eal
 \ea
 \gll la-wlaad ma-m\u{s}uu-\u{s} li-l-madrsa. \\
-     the-boys {\sc neg}-go.{\sc pst}.3.{\sc pl}-{\sc neg} to-the-school\\
+     the-boys \NEG-go.\pst.3.\pl-\NEG{} to-the-school\\
 \glt `The boys didn't go to the school.'
 \z
  %
@@ -1234,19 +1271,36 @@ like Libyan Arabic, as discussed in \citet{BK:12}.  The language
  \citet{BK:12} is slightly different from the one given here, but both
  have the same effects.}
 
- \ea
+\inlinetodostefan{This does not work. The left side shows an input form. It looks like a lexical
+  rule but it is two forms. This is very confusing. I split this into two forms and related them. Please turn it into \citet{Sag97a} notation.}
+\ea
 \begin{avm}
 \small
 \[%\type{v-lxm}\\
-  \FORM\ \q<\normalfont{m\u{s}uu}\q>\\
-  \SEM\| \@2\]  \ \  $\mapsto$\  \ \  \[\FORM\ \q<\normalfont{ma-m\u{s}uu-\u{s}}\q>\\
-                                     \SYN\|\HEAD\|\POL\ \type{neg}\\
+  form\ \q<\normalfont{m\u{s}uu}\q>\\
+  \SEM\| \@2\]  \ \  $\mapsto$\  \ \  \[form\ \q<\normalfont{ma-m\u{s}uu-\u{s}}\q>\\
+                                     \SYN\|head\|pol\ \type{neg}\\
                                     \SEM\ \[\RESTR\<\[\PRED\ \ \ \type{neg-rel}\\
                                             {\sc arg1} \ \ \@2\]\>\]\]
 \end{avm}
 \z
+One could take these clitics as affixes and generate a negative word by applying the lexical rule in (\ref{lr-neg-word-formation}) to (\mex{1}a), as was suggested by \citet{BK:12}.\footnote{The formulation given in \citet{BK:12} is slightly different from the one given here, but both
+ have the same effects.}
+The result is shown in (\mex{1}b):
+
+\eal
+\ex add your avms here, please
+\avmtmp{
+
+}
+\ex add your avms here, please
+
+
+\zl
+
+
  The only thing we need to define here is the function
- {\bf F}\jbsub{{\type{neg}}}
+ f\sub{\type{neg}}
  in the language that allows the attachment of the prefix
  \textit{ma-} and the suffix -\textit{\u{s}} to the verb
  stem {\it m\u{s}uu}.\footnote{\citet{BK:12} note that
@@ -1270,38 +1324,6 @@ one. For instance, Figure~\ref{negation-fig:2} could be a morphological
 construction in Turkish.\footnote{See \citet{Sag:12} and \citet{Hilpert:16} for a construction-based approach to
 inflectional as well as derivational processes.}
 
-
-\iffalse{}
-\begin{figure}
-	\centering	
-	%\vspace{-.5cm}	
-	\begin{forest}
-		[
-		\begin{avm}
-			\[\textit{v-neg-stem}\\
-			form & \< \textbf{F}\textsubscript{NEG} (X)\>\\
-			%%
-			syn|head|pos & \tpv{verb}\\
-			%%
-			sem|frames & \< \[\tpv{neg-fr}\\
-			arg \@{1} \] \>
-			\]	
-		\end{avm}
-		%%%%%%
-		[
-		\begin{avm}
-			\[ \tpv{v-lxm}\\
-			form & \< X \>\\
-			syn|head|pos & verb\\
-			sem|frames & \<\@{1} \>
-			\]
-		\end{avm}
-		]
-		]
-	\end{forest}
-	\caption{Negative-Infl Construction ($\uparrow$\textit{infl-cxt})}\label{negation-fig:2}
-\end{figure}	
-\fi
 
 This inflectional construction ($\uparrow$\textit{infl-cxt}) allows us to generate a Turkish inflection construct like \textit{ser-me} `like-\NEG' (in (\ref{negation-1a})) from the v-lexeme \textit{ser-} with the change in the root's meaning into a sentential negation. The morphological function \textit{F}\jbsub{\textsc{neg}} could ensure that the vowel of the negative affix \textit{me} is subject to phonological changes depending on its environment. If it is followed by a consonant-initial morpheme, it undergoes vowel harmony with the vowel in the preceding syllable (e.g., \textit{yika-n-ma-di} `wash-\REFL-\NEG-\PST'). If it is followed by a vowel-initial morpheme, its vowel drops (gel-m-iyor `come-\NEG-\PROG')  \citep[see]{kelepir}.\footnote{As
  for a way of capturing the ordering of suffixes within this kind of system,
@@ -1466,8 +1488,8 @@ the main and auxiliary verb, as illustrated by the
 following Korean example:
 
 \ea
-\gll Mimi-nun (yehathun) tosi-lul (yehathun) ttena-ci (*yehathun) anh-ass-ta. \\
-     Mimi-\textsc{top} anyway city-\textsc{acc} anyway leave-\textsc{conn} anyway \textsc{neg}-\textsc{pst}-\textsc{decl} \\
+\gll Mimi-nun          (yehathun)           tosi-lul          (yehathun)           ttena-ci            (*yehathun) anh-ass-ta. \\
+     Mimi-\textsc{top} \hspaceThis{(}anyway city-\textsc{acc} \hspaceThis{(}anyway leave-\textsc{conn} \hspaceThis{(*}anyway \textsc{neg}-\textsc{pst}-\textsc{decl} \\
 \glt `Anyway, Mimi didn't leave the city.'
 \z
 %
@@ -1476,24 +1498,28 @@ Further, in an elliptical construction, the elements of a verb complex
 as the fragment answer to the polar question. The two verbs
 must occur together.
 
+\inlinetodostefan{Does \textsc{del} stand for \textsc{decl}?}
 \eal
 \label{negation-fragment}
-\ex
+\ex[]{
 \gll Kim-i hakkyo-eyse pelsse tolawa-ss-ni? \\
-Kim-\textsc{nom} school-\textsc{src} already return-\textsc{pst}-\textsc{que} \\
-\trans`Did Kim return from school already?'
-
-\ex \gll ka-ci-to anh-ass-e.\\
-go-\textsc{conn}-\textsc{del} \textsc{not}-\textsc{pst}-\textsc{decl} \\
-\trans`(He) didn't even go.'
-
-\ex \gll *ka-ci-to.\\
-go-\textsc{conn}-\textsc{del} \\
-
-\ex \gll *anh-ass-e. \\
+     Kim-\textsc{nom} school-\textsc{src} already return-\textsc{pst}-\textsc{que} \\
+\glt `Did Kim return from school already?'
+}
+\ex[]{
+\gll ka-ci-to anh-ass-e.\\
+     go-\textsc{conn}-\textsc{del} \textsc{not}-\textsc{pst}-\textsc{decl} \\
+\glt `(He) didn't even go.'
+}
+\ex[*]{
+\gll ka-ci-to.\\
+     go-\textsc{conn}-\textsc{del} \\
+}
+\ex[*]{ 
+\gll anh-ass-e. \\
 \textsc{neg}-\textsc{pst}-\textsc{decl}\\
-
-\end{xlist} \end{exe}
+}
+\zl
 
 % \end{xlist}
 %\end{exe}
@@ -1501,11 +1527,11 @@ go-\textsc{conn}-\textsc{del} \\
 %
 %\ex[*] \gll ka-ci-to.\\
 %   go-\textsc{conn}-\textsc{del}\\
-%   \trans `(int.) not even go'%
+%   \glt `(int.) not even go'%
 %
 %\ex[*] \gll anh-ass-e.\\
 %   \textsc{neg}-\textsc{pst}-\textsc{decl}
-%  \trans `(int.) not even go'
+%  \glt `(int.) not even go'
 %
 As shown in (\ref{negation-fragment}c) and (\ref{negation-fragment}d) here, neither the lexical verb nor the auxiliary verb alone can serve as an independent fragment answer. The two
 verbs must appear together as given in (\ref{negation-fragment}b). These constituent tests
@@ -1514,7 +1540,7 @@ a syntactic unit with a preceding lexical  verb in Korean.
 Following the HPSG analyses of \citet{Bratt:96}, \citet{Chung:98}, and \citet{Kim:16},
 we could assume that
 an auxiliary verb forms a complex predicate, licensed by
-the following construction:
+the following schema:
 %
 %
 %What this implies is that in addition to the Subject-Predicate
@@ -1526,14 +1552,22 @@ the following construction:
 %\iffalse{}
 \ea
 \label{negation-hd-lex-cxt}
-\hdlight:\\
-\begin{avm}\small
-\[\type{hd-light-cxt }\\
-\COMPS\  \textit{L}\\
-\LIGHT\  +\]    $\rightarrow$ \@1 \[\LIGHT\  +\\
-                                  \COMPS\  \textit{L}\], H \[\LIGHT\  +\\
-                                           \COMPS\  \q<\@1\q> $\oplus$ \textit{L}\]
-\end{avm}
+\head-\LIGHT Schema:\\
+\avmtmp{
+[\type*{hd-light-phrase}
+ comps & \1\\
+ light & $+$\\
+ head-dtr & \2\\
+ dtrs     & < \3 [light & $+$\\
+                  comps & \1 ], \2 [light & $+$\\
+                                    comps & < \3 > \+ \1 ] > ]}
+%% \begin{avm}
+%% \[\tp{hd-light-cxt}\\
+%% comps & \textit{L}\\
+%% light & $+$\]    $\rightarrow$ \@1 \[light & $+$\\
+%%                                   comps & \textit{L}\], H \[light & $+$\\
+%%                                                             comps & \q<\@1\q> $\oplus$ \textit{L}\]
+%% \end{avm}
 \z
 %\fi
 
@@ -1558,7 +1592,7 @@ as illustrated by the following example:
 			light \; $+$\\
 			comps \; \<\@{2}\,NP\>\]
 		\end{avm}, l sep*=3
-			[\avmbox{1}\,V\\
+			[\ibox{1}\,V\\
 			\begin{avm}
 				\[head \|vform & ci\\
 				  light \; $+$\\
@@ -1602,19 +1636,19 @@ the following:
 
 \eal\ex \gll sakwa-lul [mek-ci anh-ta]. \\
 apple-\textsc{acc} eat-\textsc{conn} \textsc{neg}-\textsc{decl} \\
-\trans`do not eat the apple'
+\glt`do not eat the apple'
 
 \ex \gll sakwa-lul [[mek-ko siph-ci] anh-ta]. \\
 apple-\textsc{acc} eat-\textsc{conn} wish-\textsc{conn} \textsc{neg}-\textsc{decl} \\
-\trans`would not like to eat the apple'
+\glt`would not like to eat the apple'
 
 \ex \label{negation-20c} \gll sakwa-lul [[[mek-ko siph-e] ha-ci] anh-ta]. \\
 apple-\textsc{acc} eat-\textsc{conn} wish-\textsc{conn} do-\textsc{conn} \textsc{neg}-\textsc{decl} \\
-\trans`do not like to eat the apple'
+\glt`do not like to eat the apple'
 
 \ex \gll sakwa-lul [[[[mek-ko siph-e] ha-key] toy-ci] anh-ta]. \\
 apple-\textsc{acc} eat-\textsc{conn} wish-\textsc{conn} do-\textsc{conn} become-\textsc{conn} \textsc{neg}-\textsc{decl} \\
-\trans`do not become to like to eat the apple.'
+\glt`do not become to like to eat the apple.'
 \end{xlist} \end{exe}
 %
 As seen from the bracketed structures, we can add one more auxiliary verb to
@@ -1627,10 +1661,11 @@ predicate structure with a lexical verb can be applied for languages
 like Basque, as suggested by \citet{CB:11}. They explore the interplay of sentential
 negation and word order in Basque. Consider their example:
 
+\inlinetodostefan{What is \textsc{sgs}? Is it supposed to be \sg? If not it should be in the list of abbreviations. Changed \perf to \PRF} 
 \ea
 \label{negation-basque-ex}
 \gll ez-ditu irakurri liburuak. \\
-     {\sc neg}-3{\sc plo.pres.3sgs} read.{\sc perf} book.{\sc abs.pl}\\
+     \NEG-3\textsc{plo.pres.3sgs} read.\PRF{} book.\ABS.\pl\\
 \glt `has not read books'
 \z
 %
@@ -1653,16 +1688,16 @@ sm edges without translation
 		\end{avm}}, l sep*=3
 			[{V\\
 			\begin{avm}
-				\[head \|aux  +\\
+				\[head|aux  +\\
 				  light \; $+$\\
 				  comps \;  \<\@{1}\> $\oplus$ \<\@{2}\,NP\>\]
 			\end{avm}}%, edge label={node[midway,left,outer sep=1.5mm,]}
-				[ez-ditu\\ \textsc{\sc neg}-3{\sc plo.pres.3sgs}]]
-			[{\avmbox{1}\,V\\
+				[ez-ditu\\ \textsc{neg}-3\textsc{plo.pres.3sgs}]]
+			[{\ibox{1}\,V\\
 			\begin{avm}
 				\[comps \; \<\@{2}\,NP\>\]
 			\end{avm}}%, edge label={node[midway,right,outer sep=1.5mm,]{H}}
-					[irakurri\\read-\textsc{perf}]]]
+					[irakurri\\read.\textsc{perf}]]]
 	\end{forest}
 \caption{Partial structure of (\ref{negation-basque-ex})}\label{negation-basque}
 \end{figure}
@@ -1693,16 +1728,16 @@ we can observe in languages like Italian and Welsh:
 
 \eal
 \ex \label{negation-position-1a}
-\gll Gianni non telefona a nessuno. \hfill (Italian) \\
-     Gianni {\sc neg} telephones to no.one\\
+\gll Gianni non telefona a nessuno.\\
+     Gianni {\sc neg} telephones to no.one\\ \hfill (Italian) 
 \glt`Gianni does not call anyone.'
 %\ex \label{negation-position-1b}
 %\gll Jag har inte gett boken till henne. (Swedish)
 %I have {\sc neg} given the.book to her
 %\glt `I hae not given the book to her.'
 \ex \label{negation-position-1c}
-\gll Dw i ddim wedi gweld neb. \hfill  (Welsh) \\
-     am I {\sc neg} {\sc perf} see nobody\\
+\gll Dw i ddim wedi gweld neb.\\
+     am I {\sc neg} {\sc perf} see nobody\\ \hfill  (Welsh) 
 \glt `I haven't seen anybody.'
 \zl
 %
@@ -1718,24 +1753,22 @@ examples:
 %\gll
 %Gianni non legge articoli di sintassi. \\
 %Gianni   \textsc{neg}   reads  articles  of  syntax \\
-%\trans`Gianni doesn't read syntax articles.'
+%\glt`Gianni doesn't read syntax articles.'
 %}
 \ex[]{
-\gll
-Gianni  vuole  che  io  non  legga  articoli  di  sintassi. \\
-Gianni  wants  that  I   \textsc{neg}   read  articles  of  syntax. \\
-\trans `Gianni hopes that I do not read syntax articles.'
+\gll Gianni  vuole  che  io  non  legga  articoli  di  sintassi. \\
+     Gianni  wants  that  I   \textsc{neg}   read  articles  of  syntax. \\
+\glt `Gianni hopes that I do not read syntax articles.'
 }
 \ex[]{
-\gll
-Non   leggere  articoli di sintassi   \`{e}  un vero peccato. \\
-\textsc{neg}  to.read  articles of syntax   is  a real shame \\
-\trans `Not to read syntax articles is a real shame.'}
+\gll Non   leggere  articoli di sintassi   \`{e}  un vero peccato. \\
+     \textsc{neg}  to.read  articles of syntax   is  a real shame \\
+\glt `Not to read syntax articles is a real shame.'}
 \ex[]{
 \gll
 Non  leggendo  articoli di sintassi,  Gianni  trova  la linguistica  noiosa. \\
 \textsc{neg}   reading  articles of syntax  Gianni  finds  {} linguistics  boring \\
-\trans `Not reading syntax articles, Gianni finds linguistics boring.'}
+\glt `Not reading syntax articles, Gianni finds linguistics boring.'}
 \zl
 
 The derivational view again attributes the distribution of such
@@ -1770,17 +1803,27 @@ the following lexical  verb.\footnote{See \citet{Kim:00} for
 detailed discussion.}
 
 %\newpage
+\inlinetodostefan{The embedding of the semantics was missing. I added it. I hope htis was correct. I modeled it after the lexical rule.}
 \ea
 \label{negation-non}
 Lexical specifications for \textit{non} in Italian:\\
-\begin{avm}
-\[\FORM\ \q<\normalfont non\q>\\
-  \SYN\ \; \[\HEAD\ \@1\\
-         \COMPS\ \; \<V\[\HEAD\ \ \; \@1\\
-                     \COMPS\ \ \; \textit{L}\]\> \ \; $\oplus$ \; \ \textit{L}
-         \]\\
-  \SEM\ \; \[{\sc restr} \; \<\[\PRED\ \ \; \type{neg-rel}\]\>\]\]
-  \end{avm}
+\avmtmp{
+[ phon \phonliste{ non }\\
+  synsem|loc [ cat [ head \1\\
+                     comps < V [ head & \1\\
+                                 comps & \2\\
+                                 cont  & \3] > \+ \2 ]\\
+               cont [ restr \{ [ pred & \type{neg-rel}\\
+                                 arg1 & \3 ] \} ]]]
+}               
+%% \begin{avm}
+%% \[form\ \q<\normalfont non\q>\\
+%%   \SYN\ \; \[head\ \@1\\
+%%          \COMPS\ \; \<V\[head\ \ \; \@1\\
+%%                      \COMPS\ \ \; \textit{L}\]\> \ \; $\oplus$ \; \ \textit{L}
+%%          \]\\
+%%   \SEM\ \; \[{\sc restr} \; \<\[\PRED\ \ \; \type{neg-rel}\]\>\]\]
+%%   \end{avm}
 \z
 %
 \noindent
@@ -1813,31 +1856,53 @@ selects an NP object, the resulting combination will form
 a verb complex structure given in Figure~\ref{negation-read-it-st}.
 
 
+\inlinetodostefan{The figure you provided contained a mistake. It is not the element in the comps list that is shared but the complete \compsl. Please check.} 
+
 %\iffalse{}
 \begin{figure}
 	\begin{forest}
 sm edges without translation
 		[V\\
-		\begin{avm}
-			\[\type{hd-light-cxt}\\
-			head \; \@{3}\\
-			light \; $+$\\
-			comps \; \<\@{2}\,NP\>\]
-		\end{avm}, l sep*=3
+		\avmtmp{
+		[\type*{hd-light-phrase}\\
+			head & \1\\
+			light & $+$\\
+			comps & \2 < NP > ]}, l sep*=3
 			[V\\
-			\begin{avm}
-				\[head \; \@{3}\\
-				  light \; $+$\\
-				  comps \;  \<\@{1}\> $\oplus$ \<\@{2}\,NP\>\]
-			\end{avm}%, edge label={node[midway,left,outer sep=1.5mm,]}
+			\avmtmp{
+			[head  & \1\\
+			 light & $+$\\
+			 comps & < \3 > \+ \2 < NP > ]}
 				[non\\ \textsc{\sc neg}]]
-			[\avmbox{1}\,V\\
-			\begin{avm}
-				\[head \; \@{3}\\
-				comps \; \<\@{2}\,NP\>\]
-			\end{avm}%, edge label={node[midway,right,outer sep=1.5mm,]{H}}
+			[\ibox{3}\,V\\
+			 \avmtmp{
+			  [head  & \1\\
+			   comps & \2 < NP > ]}
 					[legge\\ reads]]]
 	\end{forest}
+%% 	\begin{forest}
+%% sm edges without translation
+%% 		[V\\
+%% 		\begin{avm}
+%% 			\[\type{hd-light-cxt}\\
+%% 			head \; \@{3}\\
+%% 			light \; $+$\\
+%% 			comps \; \<\@{2}\,NP\>\]
+%% 		\end{avm}, l sep*=3
+%% 			[V\\
+%% 			\begin{avm}
+%% 				\[head \; \@{3}\\
+%% 				  light \; $+$\\
+%% 				  comps \;  \<\@{1}\> $\oplus$ \<\@{2}\,NP\>\]
+%% 			\end{avm}%, edge label={node[midway,left,outer sep=1.5mm,]}
+%% 				[non\\ \textsc{\sc neg}]]
+%% 			[\ibox{1}\,V\\
+%% 			\begin{avm}
+%% 				\[head \; \@{3}\\
+%% 				comps \; \<\@{2}\,NP\>\]
+%% 			\end{avm}%, edge label={node[midway,right,outer sep=1.5mm,]{H}}
+%% 					[legge\\ reads]]]
+%% 	\end{forest}
 \caption{Verb complex structure of (\ref{negation-read-it})}\label{negation-read-it-st}
 \end{figure}
 
@@ -1867,16 +1932,17 @@ order domain:
 
 
 \ea
-\begin{avm}
-\[{\sc dom} \<\[\type{first}\\
-                \<\normalfont{Gianni}\>\], \  \[\type{second}\\
-                {\sc neg} +\\
-                \<\normalfont{non}\>\], \ \[\type{third}\\
-                \<\normalfont{telephona}\>\], \
-                \[\type{third}\\
-                {\sc neg} +\\
-                \<\normalfont{a nessuno}\>\]\>\]
-\end{avm}
+\avmtmp{
+[ dom < [\type*{first}
+         \phonliste{ Gianni } & ],  
+        [\type*{second}
+          neg $+$\\
+          \phonliste{ non } & ], 
+        [\type*{third}
+         \phonliste{ telephona } & ], 
+        [\type*{third}
+         neg $+$\\
+         \phonliste{ a nessuno } & ] >]}
 \z
 %
 With this ordering domain, \citet{Borsley:06} postulates
@@ -1893,14 +1959,16 @@ two complements (e.g., subject and object) while
 the nonfinite negative verb selects a VP. See \citet{BJ:00} for details.}
 
 \ea
-\begin{avm}
-\[{\sc dom} \<\[\type{second}\\
-                \<\normalfont{dw}\>\], \ \[\type{third}\\
-                \<\normalfont{i}\>\], \ \[\type{third}\\
-                {\sc neg} +\\
-                \<\normalfont{ddim}\>\], \ \[\type{third}\\
-                \<\normalfont{wedi gweld neb}\>\]\>\]
-\end{avm}
+\avmtmp{
+[ dom < [\type*{second}
+         \phonliste{ dw } ],
+        [\type*{third}
+         \phonliste{ i } ], 
+        [\type*{third}
+         neg $+$\\
+         \phonliste{ ddim } & ],
+        [\type*{third}
+         \phonliste{ wedi gweld neb } & ] > ]}
 \z
 
 \iffalse{
@@ -1932,7 +2000,7 @@ In addition to this work focusing on the distributional possibilities
  of negation, there has also been work on genitive negation and negative concord.
 
  \citet{Prz:00} focuses on the non-local genitive of negation in Polish where the object argument is not 
- accusative but genitive-marked with the presence of negative marker as in (\ref{negation-genitive}. 
+ accusative but genitive-marked with the presence of negative marker as in (\ref{negation-genitive}). 
  %In Polish,  negation is realized as the prefix
   %\type{nie} to a verbal expression (\citep{PK:99, Prz:00, Prz:01}).
   The assignment of genitive case to the object is also effective in
@@ -1941,23 +2009,23 @@ In addition to this work focusing on the distributional possibilities
 \eal
 \ex  \label{negation-genitive}
 \gll Lubi\c{e} Mari\c{e} \\
-     like-1st.{\sc sg} Mary-{\sc acc}\\
+     like.1st.{\sc sg} Mary.{\sc acc}\\
 \glt `I like Mary.'
 \ex
-\gll Nie lubi\c{e} Marii/*Mari\c{e} \\
-     not like-1st.{\sc sg} Mary-{\sc gen}/Mary-{\sc acc}\\
+\gll Nie lubi\c{e} Marii / * Mari\c{e} \\
+     not like.1st.{\sc sg} Mary.{\sc gen} {} {} Mary.{\sc acc}\\
 \glt `I don't like Mary.'
 \zl
 
-
+\inlinetodostefan{what is \textsc{rm}? Explain and add in list of abbreviations. \textsc{rm} = \REFL?}
 \eal
 \ex \label{negation-genitive-1}
 \gll  Janek wydawa\l{} si\c{e} lubi\'{c} Mari\c{e}.\\
-John seemed {\sc rm} like-{\sc inf} Mary-{\sc acc}\\
+      John seemed {\sc rm}     like.{\sc inf} Mary.{\sc acc}\\
 \glt `John seemed to like Mary.'
-
-\gll  Janek nie wydawa\l{} si\c{e} lubi\'{c} Marii/Mari\c{e}.\\
-John not seemed {\sc rm} like-{\sc inf}      Mary-{\sc gen}/Mary-{\sc acc}\\
+\ex
+\gll  Janek nie wydawa\l{} si\c{e} lubi\'{c} Marii / Mari\c{e}.\\
+      John not seemed {\sc rm} like.{\sc inf}      Mary.{\sc gen} {} Mary.{\sc acc}\\
 \glt `John did not seem to like Mary.'
 \zl
 
@@ -1965,12 +2033,12 @@ John not seemed {\sc rm} like-{\sc inf}      Mary-{\sc gen}/Mary-{\sc acc}\\
 \eal
 \ex \label{negation-genitive-1}
 \gll Pisz\c{e} listy /*list\'{o}w.
-     write-1st.{\sc sg} letters-{\sc acc}/letters-{\sc gen}\\
+     write.1{\sc sg} letters.{\sc acc}/letters.{\sc gen}\\
 \glt `I am writing letters.'
 
 \ex
 \gll Nie chcialem   pisa\'{c} list\'{o}w. \\
-     not wanted-1{\sc st.sg.masc} write-{\sc inf} letters-{\sc gen}\\
+     not wanted.1\sg.\mas{} write.{\sc inf} letters.{\sc gen}\\
 \glt `I didn't want to write letters.'
 \zl}\fi
   %
@@ -1981,37 +2049,54 @@ feature {\sc neg}.\footnote{In Polish,  negation is realized as the prefix
   \type{nie} to a verbal expression (see \citealt{PK:99, Prz:00, Prz:01}).} The
   case assignment constraint such that a {\sc neg} verbal expression assigns
   the {\sc gen} to its non-initial argument ensures that
-  the object NP in (\ref{negation-genitive}b) is {\sc gen}-marked (adopted from \citealt{Prz:00}):
+  the object NP in (\ref{negation-genitive}b) is {\sc gen}-marked (adopted from \citealt[\page 143]{Prz:00}):
 
 %\iffalse{}
+\inlinetodostefan{ The rule contained an error. I fixed it and adapted notation. The rule is not a lexical rule $\mapsto$ but an implication \impl so it should be named the case priniple, I checked Adam's paper. You misquoted him. I fixed this and replaced it by a correct version.}
 \ea
 \label{negation-polish-gen-case}
-{\sc polish case assignment rule}:\\
-\begin{avm}\small
+Case Principle for Polish:\\
+\avmtmp{
+[ head & [\type*{verb}
+          neg & + ]\\
+  arg-st & \1 \type{nelist} \+ < ![case \type{str}]! > \+ \2  ]}  \impl
+\avmtmp{
+[arg-st \1 \+ < ![case \type{gen}]! > \+ \2  ]}
+\z
+\ea
+old formulation
+\begin{avm}
 \[%\textit{hd-light-cxt }\\
-\HEAD\ \; \[\type{verb}\\
+head\ \; \[\type{verb}\\
        {\sc neg} \ +\]\\
-\ARG-ST\ \; \<XP, YP[\CASE\ \type{str}]\>\] \; \; $\mapsto$ \; \;
-\[\ARG-ST\ \; \<XP\> $\oplus$ \<NP[\CASE\ \type{gen}]\> $\oplus$ \textit{L} \]
+arg-st\ \; \<XP, YP[case\ \type{str}]\>\] \; \; $\mapsto$ \; \;
+\[arg-st\ \; \<XP\> $\oplus$ \<NP[case\ \type{gen}]\> $\oplus$ \textit{L} \]
 \end{avm}
 \z
 %\fi
 This type constraint will ensure that the object complement of
 (\ref{negation-genitive}) is \GEN-marked due to the negative word \textit{nie}.
-As for the long distance {\sc gen} in (\ref{negation-genitive-1}), \citet{Prz:00}
+As for the long distance {\sc gen} in (\ref{negation-genitive-1}), \citet[\page 145]{Prz:00}
 allows the VP complement of raising verbs like \type{seem} to optionally undergo the lexical
 argument composition, yielding the following for the
 matrix verb in (\ref{negation-genitive-1}):
 
+\inlinetodostefan{the structure sharing was wrong. It is the whole \compsl that is shared not the element within it.}
 \ea
 \label{negation-polish-case}
 %{\sc polish case assignment Rule:\\
-\begin{avm}\small
-\[\FORM\ \ \<\normalfont{nie wydawa\l{} si\c{e}}\>\\
- \HEAD\ \ \[\type{verb}\\
-           {\sc neg} \ +\]\\
-\ARG-ST\ \  \<NP, VP\[\COMPS\ \<\@1NP\>\]\> $\oplus$ \<\@1NP[\type{str}]\>\]
-\end{avm}
+\avmtmp{
+[ phon & \phonliste{ nie wydawa\l{} si\c{e} }\\
+  head & [\type*{verb}
+          neg & + ]\\
+  arg-st & < NP, VP[ comps \1 < NP > ] > \+ \1 < NP![\type{str}]! > ]
+}
+%% \begin{avm}
+%% \[phon\ \ \<\normalfont{nie wydawa\l{} si\c{e}}\>\\
+%%  head\ \ \[\type{verb}\\
+%%            {\sc neg} \ +\]\\
+%% arg-st\ \  \<NP, VP\[comps\ \<\@1NP\>\]\> $\oplus$ \<\@1NP[\type{str}]\>\]
+%% \end{avm}
 \z
 %
 This lexical specification allows the object NP of the verb to get
@@ -2027,10 +2112,10 @@ double negation or single negation:
 
 %\eal
 \ea \label{negation-nc-ex}
-\gll Personne n'aime personne.\\
-     No.one (n')likes no.one\\
-\glt `No one is such that they love no one.' \hfil (double negation)
-\glt `No one likes anyone.' \hfil  (negative concord)
+\gll Personne (n')aime personne.\\
+     no.one \NEG.likes no.one\\
+\glt `No one is such that they love no one.' \hfill (double negation)
+\glt `No one likes anyone.' \hfill  (negative concord)
 \z
 %
 %With the semantic assumption that the contribution of negation in a concord context is %semantically empty, they formulate an HPSG analysis for negative concord.
@@ -2046,21 +2131,27 @@ content. For instance, the verb \textit{n'aime} in (\ref{negation-nc-ex}) will h
 roughly equivalent to first order logic expressions like \textit{NO}x[Person(x)]. See \citet{Swart:02}.}
 
 \eal
-\ex[]{\begin{avm}
-\[form  \;  \<\type{n'aime}\>\\
- arg-st \<NP[{\sc store} \{\avmbox{1}\}], NP[{\sc store} \{\avmbox{2}\}]\>\\
- quants \<\avmbox{1}, \avmbox{2}\>\]\end{avm}}
-\ex[] {
-\begin{avm}
-\[form  \;  \<\type{n'aime}\>\\
-  arg-st \<NP[{\sc store} \{\avmbox{1}\}], NP[{\sc store} \{\avmbox{2}\}]\>\\
-  quants \<\@1\>\]\end{avm}}\label{negation-quant}
+\ex
+\avmtmp{
+[phon   &  \phonliste{ n'aime }\\
+ arg-st & < NP![{\sc store} \{\ibox{1}\}], NP[{\sc store} \{\ibox{2}\}]! >\\
+ quants & < \ibox{1}, \ibox{2} > ]
+}
+\ex
+\avmtmp{
+[phon   & \phonliste{ n'aime } \\
+ arg-st & < NP![{\sc store} \{\ibox{1}\}], NP[{\sc store} \{\ibox{2}\}]! >\\
+ quants & < \1 > ]
+}
+\label{negation-quant}
 \zl
 %
 %\; \; :
 %\; \; :  $\neg\exists$x$\exists$y Love(x,y)
 %
-\noindent In (\ref{negation-quant}), the two quantifiers are retrieved, inducing double negation ($\neg\exists$x$\neg\exists$y[Love(x,y)]) while in (\ref{negation-quant}), the two have a resumptive interpretation in which the two are merged into one ($\neg\exists$x$\exists$y[Love(x,y)]).\footnote{See \citet{Swart:02} for detailed formulation of the retrieval condition of stored value.} This analysis, coupled with the complement treatment of \textit{pas} as a lexically stored quantifier, can account
+\inlinetodostefan{changed Love to love}
+\noindent
+In the AVM (\ref{negation-quant}), the two quantifiers are retrieved, inducing double negation ($\neg\exists$x$\neg\exists$y[love(x,y)]) while in (\ref{negation-quant}), the two have a resumptive interpretation in which the two are merged into one ($\neg\exists$x$\exists$y[love(x,y)]).\footnote{See \citet{Swart:02} for detailed formulation of the retrieval condition of stored value.} This analysis, coupled with the complement treatment of \textit{pas} as a lexically stored quantifier, can account
 for why {\it pas} does not induce a resumptive interpretation with a quantifier (from \citealt{Swart:02}):
 
 
@@ -2077,10 +2168,10 @@ reading for standard French, inducing double negation as in (\ref{negation-qstor
 
 \ea
 \label{negation-qstore}
-\begin{avm}
-\[form  \;  \<\type{ne va}\>\\
- arg-st \<Adv\jbsub{\textsc{i}}[{\sc store} \{\avmbox{1}\}],NP[{\sc store} \{\avmbox{2}\}]\>\\
- quants \<\avmbox{1}, \avmbox{2}\>\]\end{avm}
+\avmtmp{
+[phon   & \phonliste{ ne va }\\
+ arg-st & < Adv\sub{i}![{\sc store} \{\ibox{1}\}], NP[{\sc store} \{\ibox{2}\}]! >\\
+ quants & < \ibox{1}, \ibox{2} > ]}
 \z
 
 \citet{PK:99} and \citet{BJ:00} also  investigate negative concord in Polish and Welsh
