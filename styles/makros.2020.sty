@@ -1,0 +1,182 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%   $RCSfile: makros.2e.sty,v $
+%%  $Revision: 1.2 $
+%%      $Date: 2004/04/25 09:42:35 $
+%%     Author: Stefan Mueller (DFKI)
+%%    Purpose: 
+%%   Language: LaTeX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% $Log: makros.2e.sty,v $
+%% Revision 1.2  2004/04/25 09:42:35  stefan
+%% erste version
+%%
+%% Revision 1.1  2003/11/26 10:40:50  stefan
+%% *** empty log message ***
+%%
+%% Revision 1.1  2000/04/25 07:54:36  stefan
+%% Initial revision
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Version 15.6.98
+\NeedsTeXFormat{LaTeX2e}
+
+
+
+\def\two@digits#1{\ifnum#1<10 0\fi\number#1}
+
+
+
+\newcommand{\feat}[1]{\textsc{#1}\isfeat{#1}}
+
+\newcommand{\sub}[1]{\(_{\mbox{\scriptsize\textrm{#1}}}\)}
+\newcommand{\ssub}[1]{\(_{\mbox{\tiny\textrm{#1}}}\)}
+
+
+
+%-----------------------------------------------------
+
+% aus rotating.sty statt rotcaption 90
+\def\turncaption{\refstepcounter\@captype\@dblarg{\@turncaption\@captype}}
+\long\def\@turncaption#1[#2]#3{%
+\addcontentsline{\csname ext@#1\endcsname}{#1}{%
+ \protect\numberline{\csname the#1\endcsname}{\ignorespaces #2}}%
+  \par
+  \begingroup
+    \@parboxrestore
+    \normalsize
+    \@maketurncaption{\csname fnum@#1\endcsname}{#3}%
+  \endgroup}
+\long\def\@maketurncaption#1#2{%
+ \setbox\@tempboxa\hbox{#1: #2}%
+ \ifdim \wd\@tempboxa > .8\vsize
+    \rotatebox{180}{%
+    \begin{minipage}{.8\textheight}#1: #2\end{minipage}%
+    }\par
+ \else%
+    \rotatebox{180}{\box\@tempboxa}%
+ \fi
+ \hspace{12pt}%
+}
+
+%-------------------------------------------------
+
+
+\newlength{\MyTempLength}
+
+\newcommand{\fromto}[2]{(#1)\,--\,(#2)}
+\newcommand{\fromtobreak}[2]{(#1)\,--\discretionary{}{}{\,}(#2)}
+
+\newcommand{\cosmas}{\textsc{cosmas}\is{Cosmas@\textsc{cosmas}}\xspace}
+%\newcommand{\negra}{{\sf\sl negra}\is{Negra@{\sf\sl negra}}\xspace}
+\newcommand{\negra}{\textsc{negra}\is{Negra@\textsc{negra}}\xspace}
+\newcommand{\Verbmobil}{\textsf{Verb}\-{\sffamily\slshape mobil}\is{Verbmobil@{\sffamily Verb}{\sffamily\slshape mobil}}\xspace}
+\newcommand{\verbmobil}{\Verbmobil}
+\newcommand{\whiteboard}{Whiteboard\is{Whiteboard}\xspace}
+
+
+%\newgray{hell}{.85}
+%\newcommand{\clash}[1]{\psframebox[linecolor=hell,fillcolor=hell,fillstyle=solid]{#1}}
+
+%und verwendet haben wir's z.B. folgendermaﬂen:
+%
+%\begin{avm}
+%\[p & \<\phonfont{wird}\>\\
+%  s & \[l\|c\|v\|comps & 
+%            \<\@{5},\clash{\@{1'}\[lex & \minus\],\@{6}}\>
+%      \]\\
+%  a & \<\@{6}\[lex & \plus\\
+%               l\|c\|v\|comps & \<\@{1'}\>
+%             \]
+%      \>
+%\]
+%\end{avm}
+
+
+%--------------------------------------
+% LaTeX companion
+
+\usepackage{calc}
+\newcounter{hours}\newcounter{minutes}
+\newcommand{\printtime}{%
+\setcounter{hours}{\time/60}%
+\setcounter{minutes}{\time-\value{hours}*60}%
+\thehours:\theminutes}
+
+
+
+
+
+%
+\newlength{\quotewidth}
+\newcommand{\quotespace}{\settowidth{\quotewidth}{"`}\hspace{\quotewidth}}
+
+\newlength{\singlequotewidth}
+\newcommand{\singlequotespace}{\settowidth{\singlequotewidth}{`}\hspace{\singlequotewidth}}
+
+
+% footnotes in Mathmode
+\newcommand{\mfootnote}[1]{\footnotemark\footnotetext{#1}}
+
+
+\newcommand{\field}[2]{$\underbrace{\mbox{\rule[-0.5ex]{0cm}{2.5ex}#1}}_{\mbox{#2}}$}
+
+
+
+\def\smfootnote#1{%
+  {\discretionary{}{}{}\-\}%
+  \footnote{#1}}
+}
+
+
+\newcommand{\pref}[1]{(\ref{#1})}
+\newcommand{\pmex}[1]{(\mex{#1})}
+\newcommand{\pmexa}[1]{(\mex{#1}a)}
+\newcommand{\pmexb}[1]{(\mex{#1}b)}
+
+
+
+
+
+\newcommand{\relation}[1]{\textit{#1}\ensuremath{'}}
+
+% http://semantics-online.org/geek/2003/11/how_to_get_doi_into_a_latex_bibliography
+%
+%\providecommand{\doi}[1]{\href{http://dx.doi.org/#1}{doi:#1}}
+
+\newcommand{\mydoi}[1]{\textsc{doi}: \href{http://dx.doi.org/#1}{\nolinkurl{#1}}}
+
+
+% noexpand is needed to be able to use \trace in forest trees with translations 
+% the following definition is better
+%\newcommand{\trace}{\noexpand\raisebox{0.2ex}{\noexpand\_}\noexpand\rule{0cm}{0.7em}}
+
+
+% http://tex.stackexchange.com/questions/207259/passing-a-command-as-an-argument
+\newcommand\drawtrace{\raisebox{0.2ex}{\_}\rule{0cm}{0.7em}}
+
+\newcommand\trace{\usebox\tracebox\xspace}
+\newsavebox\tracebox
+\AtBeginDocument{
+  \savebox\tracebox{\drawtrace}
+}
+
+
+
+
+
+% used in figures to align things like SPR and COMPS
+\newcommand{\feattab}[1]{[\begin{tabular}[t]{@{}l@{}}#1]\end{tabular}}
+
+% conflicts with maltese.sty
+%\let\mc=\multicolumn
+
+
+
+
+
+\RequirePackage{etoolbox}
+
+% to be able to use this in glosses in forest trees
+\robustify\textsc
+\robustify\textit

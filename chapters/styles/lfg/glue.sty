@@ -1,0 +1,198 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document:      Macros for glue semantics
+% Author:        Ash Asudeh, Dick Crouch
+% Modifications: Ash Asudeh
+% Institution:   Xerox PARC
+% Status:        Internal
+% Version:       Draft
+% Time-stamp:    <2020-02-17 10:45:24 admin> 
+% 
+% File:          glue.sty
+% Format:        LaTeX 2e
+% Function:      package
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\RequirePackage{macros}
+\RequirePackage{amssymb}
+%\RequirePackage{stmaryrd} % For inverse ampersand
+\RequirePackage{graphics} % For alternative inverse impersand via rotation
+
+\providecommand{\formulafont}{\mathit }
+\providecommand{\formula}[1]{\ensuremath{\mathit{#1}}}
+
+\newcommand{\sig}{\mbox{$_\sigma\,$}}
+\newcommand{\sigb}{\mbox{$_\sigma$}}
+\newcommand{\gand}{\mbox{$\,\otimes\,$}}
+\newcommand{\gmeans}{\mbox{$\leadsto\,$}}
+\newcommand{\gmeaning}[1]{\textit{#1}}
+\newcommand{\gforall}{\mbox{$\forall$}}
+%\newcommand{\glolli}{\mbox{$-\hspace{-0.2em}\circ\,$}}
+\newcommand{\glolli}{\mbox{\ensuremath{\,\multimap\,}}}
+\newcommand{\upsig}{\mbox{\ensuremath{\uparrow\hspace{-0.35em}_\sigma\,}}}
+\newcommand{\Upsig}{\mbox{\ensuremath{\uparrow\hspace{-0.35em}_\sigma}}}
+\newcommand{\Upsige}{\mbox{\ensuremath{\uparrow\hspace{-0.35em}_{\sigma_{e}}}}}
+\newcommand{\Upsigt}{\mbox{\ensuremath{\uparrow\hspace{-0.35em}_{\sigma_{t}}}}}
+\newcommand{\upsigb}{\mbox{\ensuremath{\uparrow\hspace{-0.35em}_\sigma}}}
+\newcommand{\downsig}{\mbox{\ensuremath{\downarrow\hspace{-0.35em}_\sigma\,}}}
+\newcommand{\glambda}{\mbox{$\lambda$}}
+
+
+% Dick's glue macros (from gluemacros.sty)
+\newcommand{\linimp}{\mbox{\ensuremath{\,\multimap\,}}}
+\newcommand{\linimpE}{\mbox{\small\ensuremath{\multimap_{\mathcal{E}}}}}
+\newcommand{\linimpI}{\mbox{\small\ensuremath{\multimap_{\mathcal{I}}}}}
+\newcommand{\linimpIi}[1]{\mbox{\small\ensuremath{\multimap_{{\mathcal{I}},#1}}}}
+\newcommand{\forallI}{\mbox{\small$\forall_{{\mathcal{I}}}$}}
+\newcommand{\forallE}{\mbox{\small$\forall_{{\mathcal{E}}}$}}
+\newcommand{\forallIi}[1]{\mbox{\small$\forall_{{\mathcal{I}},#1}$}}
+\newcommand{\tensor}{\mbox{\ensuremath{\,\otimes\,}}} 
+\newcommand{\letE}{\mbox{\small\ensuremath{\mathit{\beta\mbox{-}reduction}}}}
+\newcommand{\tensorI}{\mbox{\small$\otimes_{\mathcal{I}}$}}
+\newcommand{\tensorE}{\mbox{\small$\otimes_{\mathcal{E}}$}}
+\newcommand{\tensorEij}[2]{\mbox{\small$\otimes_{{\mathcal{E}},#1,#2}$}}
+
+% Newer connectives; Ash 14.09.2005
+%\newcommand{\parr}{\mbox{\ensuremath{\bindnasrepma}}}  % From stmaryrd.sty
+%\newcommand{\with}{\mbox{\ensuremath{\binampersand}}}  % From stmaryrd.sty; for
+                                            % equivalnce with \parr
+\newlength{\ampheight}
+\settoheight{\ampheight}{\&}
+\addtolength{\ampheight}{-.5pt}
+\newcommand{\parr}{\raisebox{\ampheight}{\mbox{\ensuremath{\rotatebox{-180}{\&}}}}}
+\newcommand{\with}{\mbox{\ensuremath{\&}}}
+\newcommand{\lfgplus}{\mbox{\ensuremath{\oplus}}}
+
+
+% Identities 
+\newcommand{\lone}{\ensuremath{\mbox{\bf 1}}}
+\newcommand{\lzero}{\ensuremath{\mbox{\bf 0}}}
+%\newcommand{\ltop}{\mbox{\ensuremath{\top}}}
+\newcommand{\lbot}{\mbox{\ensuremath{\bot}}}
+
+% Negation
+\newcommand{\lneg}[1][]{\mbox{\ensuremath{{#1}^\bot}}}
+
+% Exponentials
+\newcommand{\ofcourse}{\mbox{\ensuremath{!}}}
+\newcommand{\whynot}{\mbox{\ensuremath{?}}}
+
+% Word-adorned proof steps
+\newcommand{\vformula}[2]{%
+  \begin{array}[b]{l}
+    \mbox{\textbf{#1}}\\%[-0.5ex]
+    \formula{#2}
+  \end{array}
+}
+
+% meaning-adorned (stacked) proof steps
+\newcommand{\mformula}[2]{%
+  \begin{array}[b]{l}
+   \formula{#1:}\\%[-0.5ex]
+    \formula{#2}
+  \end{array}
+}
+
+% Word- and meaning-adorned (stacked) proof steps
+\newcommand{\vmformula}[3][]{%
+  \begin{array}[b]{l}
+    \mbox{\textbf{#1}}\\
+    \formula{#2:}\\%[-0.5ex]
+    \formula{#3}
+  \end{array}
+}
+
+% meaning-adorned (stacked) proof steps for prooflist
+\providecommand{\pformula}[2]{%
+  \hspace*{-.8em}
+  \begin{array}[t]{l}
+    \formula{#1:}\\%[-0.5ex]
+    \formula{#2}
+  \end{array}
+}
+
+
+
+% expository, labelled meaning-adorned (stacked) proof steps
+\newcommand{\lmformula}[3]{%
+\ensuremath{
+  \begin{array}[b]{l}
+    \mbox{\small \textbf{#3}}\\
+    \formulafont
+    #1:\ \\%[-0.5ex]
+    #2
+  \end{array}
+}
+}
+
+% expository, labelled meaning-adorned (stacked) proof steps; linear
+% logic only version
+\newcommand{\lformula}[2]{%
+\ensuremath{
+  \begin{array}[b]{l}
+    \mbox{\small \textbf{#2}}\\
+    \formulafont
+    #1
+  \end{array}
+}
+}
+
+% single-line version of \lmformula
+\newcommand{\lsformula}[3]{%
+\ensuremath{
+  \begin{array}[b]{l}
+    \mbox{\small \textbf{#3}}\\
+    \formulafont
+    #1:#2
+  \end{array}
+}
+}
+
+% single-line formula that automatically inserts colon; useful for
+% cutting and pasting from \mformula and \lmformula
+\newcommand{\sformula}[2]{%
+\ensuremath{
+  \begin{array}[b]{l}
+    \formulafont
+    #1:#2
+  \end{array}
+}
+}
+
+% Space for use in proofs
+\newcommand{\pspace}[1][.75em]{\hspace*{#1}}
+
+\newenvironment{meaningconstructor}{\begin{tabular}[t]{ll}}{\end{tabular}}
+
+\newcommand{\meanCon}[2]{%
+\setlength{\tabcolsep}{0.5pt}
+\begin{meaningconstructor}
+\formula{#1}~:~ & #2 \\
+\end{meaningconstructor}
+\setlength{\tabcolsep}{\tabcolsepdef}
+}
+
+\newcommand{\meanConIns}[3]{%
+\setlength{\tabcolsep}{0.5pt}
+\begin{meaningconstructor}
+\formula{#1}~:~ & \phantom{$=$~}%
+{\protect\begin{tabular}[t]{l}#2\end{tabular}} \\ 
+& $=$~{\protect\begin{tabular}[t]{l}#3\end{tabular}}
+\end{meaningconstructor}
+\setlength{\tabcolsep}{\tabcolsepdef}
+}
+
+% intension
+\newcommand{\AAcap}{\mbox{\^{}}}
+
+
+% let
+\newcommand{\llet}[3]{\ensuremath{let~{#1}~be~{#2}~in~{#3}}}
+
+% lambda calculus
+\newcommand{\betared}{\ensuremath{\Rightarrow_{\beta}}}
+\newcommand{\alphared}{\ensuremath{\Rightarrow_{\alpha}}}
+
+
+%% Markup
+\newcommand{\glue}{Glue}
+

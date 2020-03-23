@@ -1,3 +1,5 @@
+%% -*- coding:utf-8 -*-
+
 \documentclass[output=paper
                 ,modfonts
                 ,nonflat
@@ -43,7 +45,8 @@
 ../Bibliographies/information-structure,
 ../Bibliographies/idioms,
 ../Bibliographies/cg,
-../Bibliographies/udc}
+../Bibliographies/udc,
+collection.bib}
 
   \togglepaper[9]
 }{}
@@ -58,7 +61,7 @@
 % \chapterDOI{} %will be filled in at production
 
 \epigram{}%We are up against one of the great sources of philosophical bewilderment: we must try to find a substance for a substantive.}
-\abstract{In this chapter, we discuss the nature and purpose of argument structure in HPSG, focusing on the problems that theories of argument structure are intended to solve, including: (1) the relationship between semantic arguments of predicates and their syntactic realizations, (2) the fact that lexical items can occur in more than one syntactic frame (so-called valence or diathesis alternations), and (3) argument structure as the locus of binding principles. We also discuss cases where the argument structure of a verb includes more than predicted from the meaning of the verb as well as arguments for a lexical approach to argument structure.}
+\abstract{In this chapter, we discuss the nature and purpose of argument structure in HPSG, focusing on the problems that theories of argument structure are intended to solve, including: (1) the relationship between semantic arguments of predicates and their syntactic realizations, (2) the fact that lexical items can occur in more than one syntactic frame (so-called valence or diathesis alternations), and (3) argument structure as the locus of binding principles. We also discuss cases where the argument structure of a verb includes more than predicted from the meaning of the verb, as well as rationales for a lexical approach to argument structure.}
 
 
 \begin{document}
@@ -68,7 +71,7 @@
 \section{Introduction}
 
 
-For a verb or other predicator to compose with the phrases or pronominal affixes expressing its semantic arguments, the grammar must specify the mapping between the semantic participant roles \is{participant roles|see{thematic role, semantic role, proto-role}} and syntactic dependents of that verb.  For example, the grammar of English indicates that the subject of \word{eat} fills the eater role and the object of \word{eat}  fills the role of the thing eaten.  In HPSG this mapping is usually broken down into two simpler mappings by positing an intermediate representation called \argst (`argument structure').  The first mapping connects the participant roles within the semantic \content with the elements of the value of the \argst feature; here we will call the theory of this mapping \emph{linking theory} (see Section \ref{linking-sec}).  The second mapping connects those \argst list elements to the elements of the  \val (\textsc{val}) lists, namely \comps (`complements') and \subj (`subject'; or \spr, `specifier'); we will refer to this second mapping as \emph{argument realization} (see Section \ref{sec:arg-st}).\footnote{Some linguists, such as \citet{LevinandRappaport2005}, use the term `argument realization' more broadly, to encompass linking as well.}  These two mappings \is{mapping|see{linking, argument realization}} are illustrated with the simplified lexical sign for the verb \word{eat} in (\ref{eat}) (for ease of presentation we use a standard predicate-calculus representation of the value of \content in (\ref{eat}) rather than the attribute-value representation we introduce later on)). 
+For a verb or other predicator to compose with the phrases or pronominal affixes expressing its semantic arguments, the grammar must specify the mapping between the semantic participant roles \is{participant roles|see{thematic role, semantic role, proto-role}} and syntactic dependents of that verb.  For example, the grammar of English indicates that the subject of \word{eat} fills the eater role and the object of \word{eat}  fills the role of the thing eaten.  In HPSG, this mapping is usually broken down into two simpler mappings by positing an intermediate representation called \argst (`argument structure').  The first mapping connects the participant roles within the semantic \content with the elements of the value of the \argst feature; here we will call the theory of this mapping \emph{linking theory} (see Section \ref{linking-sec}).  The second mapping connects those \argst list elements to the elements of the  \val (`valence') lists, namely \comps (`complements') and \subj (`subject'; or \spr, `specifier'); we will refer to this second mapping as \emph{argument realization} (see Section \ref{sec:arg-st}).\footnote{Some linguists, such as \citet{LevinandRappaport2005}, use the term ``argument realization'' more broadly, to encompass linking as well.}  These two mappings \is{mapping|see{linking, argument realization}} are illustrated with the simplified lexical sign for the verb \word{eat} in (\ref{eat}) (for ease of presentation, we use a standard predicate-calculus representation of the value of \content in (\ref{eat}) rather than the attribute-value representation we introduce later on). 
 %JPK 1-13-20 Just explained the notation 
 
 
@@ -79,7 +82,7 @@ For a verb or other predicator to compose with the phrases or pronominal affixes
 \begin{avm}
 \[phon & \< $\text{\rm eat}$ \> \\
 %TD 17 July: maybe /i:t/, or orth rather than phon
-valence & \[ subj \ \ & \<  {\@1} \> \\ 
+val & \[ subj \ \ & \<  {\@1} \> \\ 
 comps \ \ & \< {\@2}  \> \] \\ 
 arg-st & \< {\@1}\textsc{np}$_i$ , {\@2}np$_j$ \> \\	
 content  \ \ & \textit{eat}($i, j$)\] 
@@ -101,13 +104,13 @@ This fundamental property of lexicalist theories contrasts with many transformat
 Within the HPSG framework presented here, we will formulate and address a number of empirical and theoretical questions: 
 
 \begin{itemize}
-\item We know that a verb's meaning influences its valence requirements, (via the \argst list, on this theory). 
- What are the principles governing the mapping from \content to \argst ?  Are some aspects of \argst idiosyncratically stipulated for individual verbs?  What aspects of the semantic \content  bear on the value of \argst, and what aspects do not?  (For example, what is the role of modality?)  
+\item We know that a verb's meaning influences its valence requirements (via the \argst list, on this theory). 
+ What are the principles governing the mapping from \content to \argst ?  Are some aspects of \argst idiosyncratically stipulated for individual verbs?  Which aspects of the semantic \content  bear on the value of \argst, and which aspects do not?  (For example, what is the role of modality?)  
 \item How are argument alternations defined with respect to our formal system?  For each alternation we may ask which of the following it involves: a shuffling of the \argst list;  a change in the mapping from \argst to \val; or  a change in the \content, with a concomitant change in the \argst?  
 \end{itemize}
 
 \noindent
-These questions will be addressed below in the course of presenting the theory.  We begin by considering \argst itself (Section \ref{sec:arg-st}), followed by the mapping from \argst to \val (Section \ref{argst-valence-sec}) and the mapping from \content to \argst (Section \ref{linking-sec}).  \is{mapping|see{linking, argument realization}}
+These questions will be addressed below in the course of presenting the theory.  We begin by considering \argst itself (Section \ref{sec:arg-st}), followed by the mapping from \argst to \val (Section \ref{argst-valence-sec}), and the mapping from \content to \argst (Section \ref{linking-sec}).  \is{mapping|see{linking, argument realization}}
 The remaining sections address further issues relating to argument structure: the nature of argument alternations, extending the \argst attribute to include additional elements, whether \argst is a universal feature of languages, and a comparison of the lexicalist view of argument structure presented here with phrasal approaches.
 
 
@@ -115,7 +118,7 @@ The remaining sections address further issues relating to argument structure: th
 
 \label{sec:arg-st}
 
-In the earliest versions of HPSG, the selection of dependent phrases was specified in the \subcat feature \is{SUBCAT} of the head word (\citealt{pollard+sag:1987}, \citealt[Chapter~1--8]{pollard+sag:1994}).  The value of \subcat is a list of items, each of which corresponds to the \synsem value of a complement or subject.  Following are \subcat features for an intransitive verb, a transitive verb, and a transitive verb with obligatory PP complement:
+In the earliest versions of HPSG, the selection of dependent phrases was specified in the \subcat feature \is{SUBCAT} of the head word (\citealt{pollard+sag:1987}, \citealt[Chapters~1--8]{pollard+sag:1994}).  The value of \subcat is a list of items, each of which corresponds to the \synsem value of a complement or subject.  The following are \subcat features for an intransitive verb, a transitive verb, and a transitive verb with obligatory PP complement:
 
 
 \begin{exe} 
@@ -128,17 +131,17 @@ In the earliest versions of HPSG, the selection of dependent phrases was specifi
 \end{exe}
 
 \noindent
-Phrase structure rules in the form of immediate dominance schemata \is{immediate dominance schema} identify a certain daughter node as the head daughter (\textsc{head-dtr}) and others, including subjects, as complement daughters (\textsc{comp-dtrs}).  In keeping with the \emph{Subcategorization Principle}, \is{Subcategorization Principle} here paraphrased from \cite[34]{pollard+sag:1994}, list items are effectively ‘cancelled’ from the \subcat list as complement phrases, including the subject, are joined with the selecting head:
+Phrase structure rules in the form of immediate dominance schemata \is{immediate dominance schema} identify a certain daughter node as the head daughter (\textsc{head-dtr}) and others, including subjects, as complement daughters (\textsc{comp-dtrs}).  In keeping with the \emph{Subcategorization Principle}, \is{Subcategorization Principle} here paraphrased from \cite[34]{pollard+sag:1994}, list items are effectively ``cancelled'' from the \subcat list as complement phrases, including the subject, are joined with the selecting head:
 
 \begin{exe}
 \ex Subcategorization Principle: In a headed phrase, the \subcat value of the \headdtr (`head daughter') is the concatenation of the phrase's \subcat list with the list of \synsem values of the \compsdtrs (`complement daughters').
 \end{exe}
 
 \noindent
-Phrasal positions are distinguished by their saturation level: ``VP'' is defined as a verbal projection whose \subcat list contains a single item, corresponding to the subject; and ``S'' is defined as a verbal projection whose  \subcat list is empty. 
+Phrasal positions are distinguished by their saturation level: ``VP'' is defined as a verbal projection whose \subcat list contains a single item, corresponding to the subject, and ``S'' is defined as a verbal projection whose  \subcat list is empty. 
 
 \is{ARG-ST!as locus of binding}
-The ``subject'' of a verb, a distinguished dependent with respect to construal processes such as binding, control, and raising, was then defined as the first item in the  \subcat list, hence the last item with which the verb combines.   However, defining ``subject'' as the last item to combine with the head proved inadequate \citep[Chapter~9]{pollard+sag:1994}.  There are many cases where the dependent displaying subject properties need not be the last item added to the head projection.  For example, in German the subject is a nominal in nominative case \citep{Reis82}, but the language allows subjectless clauses containing only a dative or genitive non-subject NP.  If that oblique \is{oblique argument} NP is the only NP dependent to combine with the verb then it is \emph{ipso facto} the last NP to combine, yet such obliques lack the construal properties of subjects in German.  
+The ``subject'' of a verb, a distinguished dependent with respect to construal processes such as binding, control, and raising, was then defined as the first item in the  \subcat list, hence the last item with which the verb combines.   However, defining ``subject'' as the last item to combine with the head proved inadequate \citep[Chapter~9]{pollard+sag:1994}.  There are many cases where the dependent displaying subject properties need not be the last item added to the head projection.  For example, in German the subject is a nominal in nominative case \citep{Reis82}, but the language allows subjectless clauses containing only a dative or genitive non-subject NP.  If that oblique \is{oblique argument} NP is the only NP dependent to combine with the verb, then it is \emph{ipso facto} the last NP to combine, yet such obliques lack the construal properties of subjects in German.  
 
 Consequently, the \subcat list was split into two valence lists, a \subj list of length zero or one for subjects, and a \comps list for complements.  Nonetheless, certain grammatical phenomena, such as binding and other construal processes, must still be defined on a single list comprising both subject and complements \citep{Manning+Sag:1999}. Additionally, some syntactic arguments are unexpressed or realized by affixal pronouns, rather than as subject or complement phrases.  
 The new list containing all the syntactic arguments of a predicator was named \textsc{arg-st} (`argument structure').  
@@ -150,7 +153,7 @@ In clauses without implicit or affixal arguments, the \textsc{arg-st} is the con
 \ex	%\textit{put}: \\
 \begin{avm}
 [ phon & < \rm put > \\
-valence & [ subj \ \ & <  \ {@1} \ > \\ 
+val & [ subj \ \ & <  \ {@1} \ > \\ 
 comps \ \ & < \  {@2}, {@3} \  > ] \\ 
 arg-st & < \ {@1}np , {@2}np, {@3}pp \  > ] 
 \end{avm}
@@ -224,11 +227,11 @@ Affixal arguments can be illustrated with the first person singular Spanish verb
 \ex 		\gll Habl-o espa\~{n}ol.  \\
 		speak-\textsc{1sg} Spanish  \\
 		\glt `I speak Spanish.'
-\ex \textit{hablo}`speak.\textsc{1sg}': \\
+\ex \textit{hablo} `speak.\textsc{1sg}': \\
 {\avmoptions{center}
 \begin{avm}
 \[ phon & \< $\text{\rm ablo}$ \> \\
-valence & \[ subj & \<  \ \  \> \\ 
+val & \[ subj & \<  \ \  \> \\ 
 comps & \< \@2   \> \] \\ 
 arg-st & \< np:\[$ppro$ \\ index \[pers & $1st$ \\ num & $sg$ \] \]  , \@2np  \>  \]
 \end{avm}}
@@ -247,25 +250,25 @@ A final case to consider is null anaphora, in which a semantic argument is simpl
 \begin{exe}
 	\ex\label{jap}
 		\gll Naoki-ga mi-ta.  \\
-		Naoki-\ig{nom} see-\ig{past}  \\
+		Naoki-\ig{nom} see-\ig{pst}  \\
 		\glt `Naoki saw it/him/her/*himself.'
 \end{exe} 
 
 \noindent
-Null anaphors of this kind typically arise in discourse contexts similar to those that license ordinary weak pronouns, and the unexpressed object often has the (Principle B) obviation effects characteristic of overt pronouns, \is{obviation} as shown in (\ref{jap}).  HPSG eschews the use of silent formatives like `small \textit{pro}' when there is no evidence for such items, such as local interactions with the phrase structure.  Instead, null anaphors of this kind are present in \argst but absent from \val lists.  \argst is directly linked to the semantic \content and is the locus of binding theory, so the presence of a syntactic argument on the \argst list but not a \val list
+Null anaphors of this kind typically arise in discourse contexts similar to those that license ordinary weak pronouns, and the unexpressed object often has the obviation effects characteristic of overt pronouns, \is{obviation} as shown in (\ref{jap}).  HPSG eschews the use of silent formatives like `small \textit{pro}' when there is no evidence for such items, such as local interactions with the phrase structure.  Instead, null anaphors of this kind are present in \argst but absent from \val lists.  \argst is directly linked to the semantic \content and is the locus of binding theory, so the presence of a syntactic argument on the \argst list but not a \val list
  accounts for null anaphora.\is{ARG-ST}  To account for obviation, the \argst list item, when unexpressed, receives the binding feature of ordinary (non-reflexive) pronouns, usually \textit{ppro}.  This language-specific option can be captured in a general way by \val and \argst defaults in the lexical hierarchy for verbs.   
 
 \subsection{The syntax of \argst and its relation to \textsc{valence}}
 \label{argst-sec}
 
 
-The ordering of members of the \argst list represents a preliminary syntactic structuring of the set of argument roles.  In that sense \argst functions as an interface between the lexical semantics of the verb, and the expressions of dependents as described in Section \ref{argst-valence-sec}.  Its role thus bears some relation to the initial stratum in Relational Grammar \citep{PerlmutterandPostal1984}, \is{Relational Grammar} \textit{argument structure} (including intrinsic classifications) in LFG Lexical Mapping Theory \is{Lexical Functional Grammar} \citep{Bresnan+etal:2015}, macroroles in Role and Reference Grammar \citep{VanValinandLapolla1997}, D-structure in Government/Binding theory, and the Merge positions of arguments in Minimalism, \is{Minimalism} assuming in the last two cases the Uniform Thematic Alignment Hypothesis \citep{Baker1988} or something similar.  However, it also differs from all of those in important ways.  
+The ordering of members of the \argst list represents a preliminary syntactic structuring of the set of argument roles.  In that sense, \argst functions as an interface between the lexical semantics of the verb and the expressions of dependents as described in Section \ref{argst-valence-sec}.  Its role thus bears some relation to the initial stratum in Relational Grammar \citep{PerlmutterandPostal1984}, \is{Relational Grammar} \textit{argument structure} (including intrinsic classifications) in LFG Lexical Mapping Theory \is{Lexical Functional Grammar} \citep{Bresnan+etal:2015}, macroroles in Role and Reference Grammar \citep{VanValinandLapolla1997}, D-structure in Government/Binding theory, and the Merge positions of arguments in Minimalism, \is{Minimalism} assuming in the last two cases the Uniform Thematic Alignment Hypothesis \citep{Baker1988} or something similar.  However, it also differs from all of those in important ways.  
 
 
 Semantic constraints on \argst are explored in Section \ref{linking-sec} below.  But \argst represents not only
 % is  structured not only by    
-semantic distinctions between the arguments but also  %by 
-syntactic  ones.  Specifically, the list ordering represents relative syntactic \textit{obliqueness} of arguments.   The least \isi{oblique argument} is the subject (\subj), followed by the complements (\comps).  Following \citet{Manning1996}, term arguments (direct arguments, i.e. subjects and objects) are  assumed to be less oblique than ``oblique'' arguments (adpositional and oblique case marked phrases), followed finally by predicate and clausal complements.  The transitive ordering relation on the \argst list is called \textit{o-command} (`obliqueness command'):\is{o-command|see{anaphoric binding}} \is{anaphora|(} the list item that corresponds to the subject o-commands those corresponding to complements; a list item corresponding to an object o-commands \is{o-command|see{anaphoric binding}} those corresponding to any obliques; and so on (see \crossrefchapteralt{binding} for details).
+semantic distinctions between the arguments, but also  %by 
+syntactic  ones.  Specifically, the list ordering represents relative syntactic \textit{obliqueness} of arguments.   The least \isi{oblique argument} is the subject (\subj), followed by the complements (\comps).  Following \citet{Manning1996}, term arguments (direct arguments, i.e., subjects and objects) are  assumed to be less oblique than ``oblique'' arguments (adpositional and oblique case marked phrases), followed finally by predicate and clausal complements.  The transitive ordering relation on the \argst list is called \textit{o-command} (`obliqueness command'):\is{o-command|see{anaphoric binding}} \is{anaphora|(} the list item that corresponds to the subject o-commands those corresponding to complements; a list item corresponding to an object o-commands \is{o-command|see{anaphoric binding}} those corresponding to any obliques; and so on (see \crossrefchapteralt{binding} for details).
  
 % TD 18 Jan. 20: I think the following paragraph and examples could just be deleted.  They presuppose the non-canonical linking analysis we're skeptical of later, and they don't really seem to usefully illustrate or advocate anything.
 % \is{alternation}
@@ -290,45 +293,45 @@ syntactic  ones.  Specifically, the list ordering represents relative syntactic 
 
 Relative obliqueness conditions a number of syntactic processes and phenomena, including anaphoric binding.  The o-command relation replaces the c"=command in the Principles A, B, and C of Chomsky's \citeyearpar{Chomsky:1981} configurational theory of binding.  For example, HPSG's Principle B states that an ordinary pronoun cannot be o-commanded by its coargument antecedent, which accounts for the pronoun obviation observed in the English sentence \textit{Naoki$_i$ saw him$_{*i/j}$}, and also accounts for obviation in the Japanese sentence (\ref{jap}) above.  
 
-Relative obliqueness also conditions the \isi{accessibility hierarchy} of \citet{KeenanandComrie1977}, according to which a language allowing relativization of some type of dependent also allows relativization of any less oblique than it.  Hence if a language has relative clauses at all, it has subject relatives; if it allows obliques to relativize then it also allows subject and object relatives; and so on.  
-Similar implicational universals apply to verb agreement with subjects, objects, and obliques \is{oblique argument} \citet{greenberg:1966}.  \is{anaphora|)}
+Relative obliqueness also conditions the \isi{accessibility hierarchy} of \citet{KeenanandComrie1977}, according to which a language allowing relativization of some type of dependent also allows relativization of any less oblique than it.  Hence if a language has relative clauses at all, it has subject relatives; if it allows obliques to relativize, then it also allows subject and object relatives; and so on.  
+Similar implicational universals apply to verb agreement with subjects, objects, and obliques \is{oblique argument} \citep{greenberg:1966}.  \is{anaphora|)}
 
 Returning now to argument realization, we saw above that the rules for the selection of the subject from among the verb's arguments are also stated in terms of the \argst list.  In a canonical\ realization the subject is the first list item, o-commanding all of its coarguments.
 % TD 10 Jan. 20: added the following to transition to the next section
 In various non-canonical circumstances, such as those we noted above, o-command relations do not correspond to ordering on the valence lists, and this can be reflected in phenomena such as anaphoric binding.
-In the following section we examine another kind of non-canonical relationships between \argst and \val in more detail, syntactic ergativity, exemplified by Balinese.
+In the following section we examine another kind of non-canonical relationship between \argst and \val in more detail: syntactic ergativity, exemplified by Balinese.
 
 \subsection{Syntactic ergativity}
 \label{ergativity}\label{arg-st-sec-ergativity}
 \is{ergativity|(}
-The autonomy of \argst from the \val lists is further illustrated by cross"=linguistic variation in the mapping between them.  As just noted, in English and many other languages the initial item in \argst maps to the subject.  However,  languages with so-called \emph{syntactically ergative} clauses have been analyzed as following a different mapping rule.  Crucially, the \argst ordering in those languages is still supported by independent evidence from properties such as binding and NP versus PP categorial status of arguments.
-Balinese (Austronesian), as analyzed by \citet{Wechsler+Arka:1998}, is such a language.  In the morphologically unmarked, and most common voice, called \emph{Objective Voice}\is{voice!objective} (OV), the subject is any term \textit{except} the \argst-initial one.   
+The autonomy of \argst from the \val lists is further illustrated by cross"=linguistic variation in the mapping between them.  As just noted, in English and many other languages, the initial item in \argst maps to the subject.  However,  languages with so-called \emph{syntactically ergative} clauses have been analyzed as following a different mapping rule.  Crucially, the \argst ordering in those languages is still supported by independent evidence from properties such as binding and NP versus PP categorial status of arguments.
+Balinese (Austronesian), as analyzed by \citet{Wechsler+Arka:1998}, is such a language.  In the morphologically unmarked, and most common voice, called \emph{Objective Voice}\is{voice!objective} (\attrib{ov}), the subject is any term \textit{except} the \argst-initial one.   
 
-\il{Balinese|(} Balinese canonically has SVO order, regardless of the verb's voice form \citep{Artawa1994, Wechsler+Arka:1998}.  The preverbal NPs in  (\ref{bal1}) are the surface subjects and the postverbal ones are complements.  When the verb appears in the unmarked OV verb, a non-initial term is the subject, as in (\ref{bal1-a}).    But verbs in \emph{Agentive Voice}\is{voice!agentive} (AV) select as their subject the \argst{}-initial item, as in (\ref{bal1-b}).  
+\il{Balinese|(} Balinese canonically has SVO order, regardless of the verb's voice form \citep{Artawa1994, Wechsler+Arka:1998}.  The preverbal NPs in  (\ref{bal1}) are the surface subjects and the postverbal ones are complements.  When the verb appears in the unmarked objective voice (\attrib{ov}), a non-initial term is the subject, as in (\ref{bal1-a}).    But verbs in the \emph{Agentive Voice}\is{voice!agentive} (\attrib{av}) select as their subject the \argst{}-initial item, as in (\ref{bal1-b}).  
 
 \begin{exe}
 	\ex\label{bal1}
 \begin{xlist}
 \ex \label{bal1-a}	\gll Bawi adol ida.  \\
-		pig OV.sell 3sg   \\
+		pig \textsc{ov}.sell \textsc{3sg}   \\
 		\glt `He/She sold a pig.'
 \ex	\label{bal1-b}\gll Ida ng-adol bawi.  \\
-		3sg AV-sell pig   \\
+		\textsc{3sg} \textsc{av}-sell pig   \\
 		\glt `He/She sold a pig.'
 \end{xlist}
 \end{exe} 
 
 \noindent
-A ditransitive verb \is{ditransitive} such as the benefactive applied form of \textit{beli} `buy' in (\ref{bal2}), has three term arguments on its \argst list.  The subject can be either term that is non-initial in \argst{}:
+A ditransitive verb, \is{ditransitive} such as the benefactive applied form of \textit{beli} `buy' in (\ref{bal2}), has three term arguments on its \argst list.  The subject can be either term that is non-initial in \argst{}:
 
 \begin{exe}
 	\ex\label{bal2}
 \begin{xlist}
 \ex 	\gll Potlote ento beli-ang=a I Wayan.  \\
-		pencil-DEF that OV.buy-APPL=3 Art Wayan   \\
+		pencil-\textsc{def} that \textsc{ov}.buy-\textsc{appl}=3 \textsc{art} Wayan   \\
 		\glt `(s)he bought Wayan the pencil.'
 \ex 	\gll I Wayan beli-ang=a potlote ento.   \\
-		Art Wayan OV.buy-APPL=3 pencil-DEF that   \\
+		\textsc{art} Wayan \textsc{ov}.buy-\textsc{appl}=3 pencil-\textsc{def} that   \\
 		\glt `(s)he bought Wayan the pencil.'
 \end{xlist}
 \end{exe} 
@@ -341,10 +344,10 @@ Thus the agent argument can bind a coargument reflexive pronoun (but not vice ve
 	\ex\label{bal3}
 \begin{xlist}
 \ex 	\gll Ida ny-ingakin ragan idane. \\
-		3sg AV-see self\\
+		\textsc{3sg} \textsc{av}-see self\\
 		\glt ‘(s)he saw himself/herself’
 \ex 	\gll {Ragan idane} cingakin ida. \\
-		self OV.see 3sg \\
+		self \textsc{ov}.see \textsc{3sg} \\
 		\glt ‘(s)he saw himself/herself’
 \end{xlist}
 \end{exe} 
@@ -358,7 +361,7 @@ The `seer' argument o-commands \is{o-command|see{anaphoric binding}} the `seen',
 {\avmoptions{center}
 \begin{avm}
 \[ phon & \< $nyinkagin$ \> \\
-valence & \[ subj & \<  \@1  \> \\ 
+val & \[ subj & \<  \@1  \> \\ 
 comps & \< \@2   \> \] \\ 
 arg-st & \< \@1np$_{i}$  , \@2np$_j$ \> \\
 content  & \[\asort{see-rel}   seer & i \\ seen & j \]
@@ -372,7 +375,7 @@ content  & \[\asort{see-rel}   seer & i \\ seen & j \]
 {\avmoptions{center}
 \begin{avm}
 \[ phon & \< $cinkagin$ \> \\
-valence & \[ subj  & \<  \@2 \> \\ 
+val & \[ subj  & \<  \@2 \> \\ 
 comps & \< \@1 \> \] \\ 
 arg-st & \< \@1np$_{i}$  , \@2np$_j$ \> \\
 content  & \[ \asort{see-rel}   seer & i \\ seen & j \]
@@ -382,13 +385,13 @@ content  & \[ \asort{see-rel}   seer & i \\ seen & j \]
 
 \noindent
 Languages like Balinese illustrate the autonomy of \argst .  
-Although the agent binds the patient in both (\ref{bal3})a and b,  the binding conditions cannot be stated directly on the \is{thematic hierarchy|see{thematic roles}} thematic hierarchy.  For example, in HPSG a raised argument appears on the \argst list of the raising verb even though that verb assigns no thematic role \is{thematic role|see{semantic role, participant role, thematic hierarchy}} to that list item.  But a raised subject can bind a coargument reflexive in Balinese (this is comparable to English \textit{John seems to himself to be ugly}).  Anaphoric binding in Balinese raising constructions thus behaves as predicted by the \argst based theory \citep{Wechsler1999}.  
-In conclusion, neither \val nor \content provides the right representation for defining binding conditions, but \argst fills the bill.  
+Although the agent binds the patient in both (\ref{bal3}a) and (\ref{bal3}b),  the binding conditions cannot be stated directly on the \is{thematic hierarchy|see{thematic roles}} thematic hierarchy.  For example, in HPSG a raised argument appears on the \argst list of the raising verb, even though that verb assigns no thematic role \is{thematic role|see{semantic role, participant role, thematic hierarchy}} to that list item.  But a raised subject can bind a coargument reflexive in Balinese (this is comparable to English \textit{John seems to himself to be ugly}).  Anaphoric binding in Balinese raising constructions thus behaves as predicted by the \argst based theory \citep{Wechsler1999}.  
+In conclusion, neither \val nor \content provides the right representation for defining binding conditions, but \argst fits the bill.  
 
 
 Syntactically ergative languages besides Balinese that have been analyzed as using an alternative mapping between \argst and \val include Tagalog, Inuit, some Mayan languages, Chukchi, Toba Batak, Tsimshian languages, and Nad{\"e}b \citep{Manning1996,Manning+Sag:1999}.  
 
-Interestingly, while the GB/Minimalist configurational binding theory may be defined on analogues of \val or \content,  those theories lack any analogue of \argst.  This leads to special problems for such theories in accounting for binding in many Austronesian languages like Balinese.  In transformational theories since \citet{Chomsky:1981}, anaphoric binding conditions are usually stated with respect to the A-positions (`argument positions').  A-positions are analogous to HPSG \val list items, with relative c"=command in the configurational structure corresponding to relative list ordering in HPSG, in the simplest cases.  Meanwhile, to account for data similar to (\ref{bal3}), where agents asymmetrically bind patients, Austronesian languages like Balinese were said to define binding on the ``thematic structure'' encoded in d-structure or Merge positions, where agents asymmetrically c"=command patients regardless of their surface positions \citep{Guilfoyle+etal:1992}.  But the interaction with raising shows that neither of those levels is appropriate as the locus of binding theory \citep{Wechsler1999}.\footnote{To account for (\ref{bal3}b) under the configurational binding theory, the subject position must be an A-bar position; but to account for binding by a raised subject, it must be an A-position.  See \citet{Wechsler1999}. } 
+Interestingly, while the GB/Minimalist configurational binding theory may be defined on analogues of \val or \content,  those theories lack any analogue of \argst.  This leads to special problems for such theories in accounting for binding in many Austronesian languages like Balinese.  In transformational theories since \citet{Chomsky:1981}, anaphoric binding conditions are usually stated with respect to the A-positions (`argument positions').  A-positions are analogous to HPSG \val list items, with relative c"=command in the configurational structure corresponding to relative list ordering in HPSG, in the simplest cases.  Meanwhile, to account for data similar to (\ref{bal3}), where agents asymmetrically bind patients, Austronesian languages like Balinese were said to define binding on the ``thematic structure'' encoded in d-structure or Merge positions, where agents asymmetrically c"=command patients regardless of their surface positions \citep{Guilfoyle+etal:1992}.  But the interaction with raising shows that neither of those levels is appropriate as the locus of binding theory \citep{Wechsler1999}.\footnote{To account for (\ref{bal3}b) under the configurational binding theory, the subject position must be an A-bar position, but to account for binding by a raised subject, it must be an A-position.  See \citet{Wechsler1999}. } 
 
 \il{Balinese|)}
 
@@ -398,13 +401,13 @@ Interestingly, while the GB/Minimalist configurational binding theory may be def
 \is{symmetrical object}
 We have thus far tacitly assumed a total ordering of elements on the \argst list, but \citet{AMM2013a}, \citet{Ackermanetal2017} propose a partial ordering
 \is{ARG-ST!partial ordering on}
- for certain so-called \emph{symmetrical object languages}.  In \ili{Moro} (Kordofanian), the two term complements of a ditransitive \is{ditransitive} verb have exactly the same object properties.  Relative linear order of the theme and goal arguments is free, as shown by the two translations of (\ref{moro}) (from \citealt[9]{Ackermanetal2017}):
+ for certain so-called \emph{symmetrical object languages}.  In \ili{Moro} (Kordofanian), the two term complements of a ditransitive \is{ditransitive} verb have exactly the same object properties.  Relative linear order of the theme and goal arguments is free, as shown by the two translations of (\ref{moro}) (from \citealt[9]{Ackermanetal2017}; \attrib{cl} `noun class'; \attrib{sm} `subject marker').
 
 
 \begin{exe}
 	\ex\label{moro}
 \gll   \'{e}-g-a-nat\textipa{S}-\'{o} \'{o}r\'{a}\textipa{N}  \textipa{N}e\textipa{R}\'{a}  \\
-        1\textsc{sb.sm-cl}g-\textsc{main}-give-\textsc{pfv}    \textsc{cl}g.man \textsc{cl}\textipa{N}.girl \\
+        1\textsc{sg.sm-cl}g-\textsc{main}-give-\textsc{pfv}    \textsc{cl}g.man \textsc{cl}\textipa{N}.girl \\
 \glt `I gave the girl to the man.’ / `I gave the man to the girl.’
 \end{exe} 
 
@@ -419,7 +422,7 @@ More generally, the two objects have identical object properties with respect to
 \ex Goal argument as primary object: \\
 {\avmoptions{center}
 \begin{avm}
-\[ valence & \[ subj & \<  \@1 \> \\ 
+\[ val & \[ subj & \<  \@1 \> \\ 
 comps & \< \@2 , \@3  \> \] \\ 
 arg-st & \<  \@1np$_{i}$  ,\{ \@2np$_{j}$ , \@3np$_{k}$ \}   \> \\
 content  & \[ \tp{give-rel}  \\ agent & i \\ goal & j \\ theme & k \]
@@ -428,7 +431,7 @@ content  & \[ \tp{give-rel}  \\ agent & i \\ goal & j \\ theme & k \]
 \ex Theme argument as primary object: \\
 {\avmoptions{center}
 \begin{avm}
-\[ valence & \[ subj & \<  \@1 \> \\ 
+\[ val & \[ subj & \<  \@1 \> \\ 
 comps & \< \@3 , \@2 \> \] \\ 
 arg-st & \< \@1np$_{i}$  , \{ \@2np$_{j}$ , \@3np$_{k}$  \} \> \\
 content  & \[ \tp{give-rel}  \\ agent & i \\ goal & j \\ theme & k \]
@@ -444,10 +447,10 @@ To summarize this section, while the relationship between \argst, \subj, and \co
 %Non-canonical 
 Looser
 relationships between \argst and the \val lists are invoked in accounts of several core syntactic phenomena.
-Arguments not realized overtly in their canonical positions, 
-due to extraction, cliticization, or pro-drop (null anaphora), \is{anaphor!null|see{obviation}}appear on \argst but not in any \val list.  
+Arguments not realized overtly in their canonical positions 
+due to extraction, cliticization, or pro-drop (null anaphora) \is{anaphor!null|see{obviation}}appear on \argst but not in any \val list.  
 Accounts of syntactic ergativity in HPSG involve variations in the mapping between \argst and \val lists; in particular, the element of \subj is not, in such languages, the first element of \argst.  
-Modifications of \argst play a role in some treatments of passivization, where its expected first element is suppressed, and in languages with multiple, symmetric objects, where a partial rather than total ordering of \argst elements has been postulated (see Section  \label{passives} for details on the analysis of passives in HPSG).
+Modifications of \argst play a role in some treatments of passivization, where its expected first element is suppressed, and in languages with multiple, symmetric objects, where a partial rather than total ordering of \argst elements has been postulated (see Section \ref{passives} for details on the analysis of passives in HPSG).
 Thus \argst has now acquired an autonomous % independent 
 status within HPSG, and is not merely a predictable rearrangement of information present in the valence lists.  
 %present elsewhere in lexical entries.
@@ -460,7 +463,7 @@ status within HPSG, and is not merely a predictable rearrangement of information
 \subsection{HPSG approaches to linking}
 
 The term \textit{linking} refers to the mapping specified in a lexical entry between participant roles \is{participant roles|see{thematic role, semantic role, proto-role}} in the semantics and their syntactic representations on the \argst list.  
-Early HPSG grammars stipulated the linking of each verb:  semantic \content values with predicator-specific attributes like \textsc{devourer} and \textsc{devoured} were mapped to the subject and object, respectively, of the verb \textit{devour}.  But linking follows general patterns across verbs, and across languages; e.g. if one argument of a transitive verb in active voice has an agentive role, it will map to the subject, not the object, 
+Early HPSG grammars stipulated the linking of each verb:  semantic \content values with predicator-specific attributes like \textsc{devourer} and \textsc{devoured} were mapped to the subject and object, respectively, of the verb \textit{devour}.  But linking follows general patterns across verbs, and across languages; e.g., if one argument of a transitive verb in active voice has an agentive role, it will map to the subject, not the object, 
 except in syntactically ergative languages described in Section \ref{ergativity} above, and in those languages the linking is just as regularly reversed.
 Those early HPSG grammars did not capture the regularities across verbs.  
 %Thus these early accounts were regarded as unsatisfying, because they lead to purely stipulative accounts of linking, specified verb by verb.  
@@ -469,13 +472,13 @@ Those early HPSG grammars did not capture the regularities across verbs.
 %JPK 1-29-20 I agree with Tony's rewording.
 %SW 1-29-20  How about the new sentence above?  It still says why more general constraints were sought, but doesn't involve a statement that I disagree with, in the sense that "purely stipulative" is a pejorative in our field.  I don't agree with the view that these regularities should be captured in the competence grammar, so to me those 'stipulations' are good.  I'm not insisting you agree with me on that, just that we say things in a neutral way.  
 
-To capture those regularities, HPSG researchers beginning with \citet{Wechsler1995b} and \citet{Davis1996} formulated linking principles stated on more general semantic properties holding across verbs.  
+To capture those regularities, HPSG researchers beginning with \citet{Wechsler1995b} and \citet{Davis1996} formulated linking principles stated on more general semantic properties that hold across verbs.  
 
-Within the history of linguistics there have been three general approaches to modeling the lexico-semantic side of linking: thematic role types \is{thematic role|see{semantic role, participant role, thematic hierarchy}}
-(P\={a}\d{n}ini ca 400 B.C., \citealt{Fillmore1968}); lexical decomposition \is{lexical decomposition} \citep{FoleyandvanValin1984,RappaportandLevin1998}; and the proto-roles approach \is{proto-role|see{thematic role, semantic role, participant role}} \citep{Dowty1991}.   In developing linking theories within the HPSG framework \citet{Wechsler1995b} and \citet{Davis1996} employed a kind of lexical decomposition that also incorporated some elements of the proto-roles approach.  The reasons for preferring this over the alternatives are discussed in Section \ref{thetaroles} below.  
+Within the history of linguistics, there have been three general approaches to modeling the lexico-semantic side of linking: thematic role types \is{thematic role|see{semantic role, participant role, thematic hierarchy}}
+(P\={a}\d{n}ini ca.\ 400 B.C., \citealt{Fillmore1968}); lexical decomposition \is{lexical decomposition} \citep{FoleyandvanValin1984,RappaportandLevin1998}; and the proto-roles approach \is{proto-role|see{thematic role, semantic role, participant role}} \citep{Dowty1991}.   In developing linking theories within the HPSG framework, \citet{Wechsler1995b} and \citet{Davis1996} employed a kind of lexical decomposition that also incorporated some elements of the proto-roles approach.  The reasons for preferring this over the alternatives are discussed in Section \ref{thetaroles} below.  
 
 \is{linking!and meaning|(}
-Wechsler's \citeyear{Wechsler1995b} linking theory constrains the relative order of pairs of arguments on the \argst list according to semantic relations entailed between them.  For example, his \emph{notion rule} \is{Notion Rule} \is{experiencer predicates} states that if one participant in an event is entailed to have a mental notion of another, then the first must precede the second on the \argst list.  The \textit{conceive-pred} type is defined by the following type declaration (based on \cite[127]{Wechsler1995b}, with formal details adjusted for consistency with current usage):
+Wechsler's (\citeyear{Wechsler1995b}) linking theory constrains the relative order of pairs of arguments on the \argst list according to semantic relations entailed between them.  For example, his \emph{notion rule}\is{Notion Rule}\is{experiencer predicates} states that if one participant in an event is entailed to have a mental notion of another, then the first must precede the second on the \argst list.  The \textit{conceive-pred} type is defined by the following type declaration (based on \citealt[127]{Wechsler1995b}, with formal details adjusted for consistency with current usage):
 
 \begin{exe}
 	\ex\label{conceive}
@@ -492,34 +495,35 @@ Wechsler's \citeyear{Wechsler1995b} linking theory constrains the relative order
 \end{exe}
 
 This accounts for a host of linking facts in verbs as varied as \word{like}, \word{enjoy}, \word{invent}, \word{claim}, and \word{murder}, assuming these verbs belong to the type \textit{conceive-pred}.  
-It explains the well known contrast between experiencer-subject \word{fear} and experiencer-object \word{frighten} verbs:  \word{fear} entails that its subject has some notion of its object, so \word{The tourists feared the lumberjacks} entails that the tourists are aware of the lumberjacks.  But the object of \word{frighten} need not have a notion of its subject: in \word{The lumberjacks frightened the tourists (by cutting down a large tree that crashed right in front of them}, the tourists may not be aware of the lumberjacks' existence.  
+It explains the well-known contrast between experiencer-subject \word{fear} and experiencer-object \word{frighten} verbs:  \word{fear} entails that its subject has some notion of its object, so \word{The tourists feared the lumberjacks} entails that the tourists are aware of the lumberjacks.  But the object of \word{frighten} need not have a notion of its subject: in \word{The lumberjacks frightened the tourists (by cutting down a large tree that crashed right in front of them)}, the tourists may not be aware of the lumberjacks' existence.  
 
-Two other linking rules appear in Wechsler (1995).  One states that ``affected themes'', that is, participants that are entailed to undergo a change, map to the object, rather than subject, of a transitive verb.  Another states that when stative transitive verbs entail a part-whole relation between the two participants, the whole maps to the subject and the part to the object: for example,  \textit{X includes Y} and \textit{X contains Y} each entail that \textit{Y} is a part of \textit{X}.    
+Two other linking rules appear in \citet{Wechsler1995b}.  One states that ``affected themes'', that is, participants that are entailed to undergo a change, map to the object, rather than subject, of a transitive verb.  Another states that when stative transitive verbs entail a part-whole relation between the two participants, the whole maps to the subject and the part to the object: for example,  \textit{X includes Y} and \textit{X contains Y} each entail that \textit{Y} is a part of \textit{X}.    
 
 These linking constraints do not rely on a total ordering of thematic roles, nor on an exhaustive asssignment of thematic role types to every semantic role in a predicator. Instead, a small set of partial orderings of semantic roles, based on lexical entailments,\is{entailments!lexical} suffices to account for the linking patterns of a wide range of verbs. 
-This insight was adopted in a slightly different guise in work by \citet{Davis1996,Davis2001} and \cite{DavisandKoenig2000b}, who develop a more elaborated representation of lexical semantics, with which simple linking constraints can be stated.
+This insight was adopted in a slightly different guise in work by \citet{Davis1996}, \citet{Davis2001}, and \cite{DavisandKoenig2000b}, who develop a more elaborated representation of lexical semantics, with which simple linking constraints can be stated.
 The essence of this approach is to posit a small number of dyadic semantic relations such as \textit{act-und-rel} (`actor-undergoer relation') with attributes  \attrib{act(or)} \isfeat{ACT(OR)} and \attrib{und(ergoer)} \isfeat{UNDER(GOER)} that serve as intermediaries between semantic roles and syntactic arguments (akin to the notion of Generalized Semantic Roles discussed in \citealt{VanValin1999}).  
 
 What are the truth conditions of \textit{act-und-rel}?  
 Following \citet{Fillmore1977}, \citet{Dowty1991}, and \citet{Wechsler1995b}, Davis and Koenig note that many of the pertinent lexical entailments come in related pairs.
 For instance, one of Dowty's entailments is that one participant causally affects another, and of course the other is entailed to be causally affected.
 Another involves the entailments in Wechsler's notion rule (\ref{conceive}); one participant is entailed to have a notion of another. 
-These entailments of paired participant types characterize classes of verbs (or other predicators), and can then be naturally represented as dyadic relations in \attrib{content}.  Collecting those entailments we arrive at a disjunctive statement of truth conditions:
+These entailments of paired participant types characterize classes of verbs (or other predicators), and can then be naturally represented as dyadic relations in \attrib{content}.  Collecting those entailments, we arrive at a disjunctive statement of truth conditions:
 
-\begin{exe}
-\ex \textit{act-und-rel}($x,y$) is true iff $x$ causes a change in $y$, or $x$ has a notion of $y$, or \ldots
-\end{exe}
+\ea
+\label{def-act-und-rel}
+\textit{act-und-rel}($x,y$) is true iff $x$ causes a change in $y$, or $x$ has a notion of $y$, or \ldots
+\z
 
 \noindent
 We can designate the $x$ participant  in the pair as the value of \attrib{actor} (or \attrib{act}) and $y$ as the value of \attrib{undergoer} (or \attrib{und}), in a relation of type \type{act-und-rel}.   Semantic arguments that are \attrib{actor} or \attrib{undergoer} will then bear at least one of the entailments characteristic of \attrib{actor}s or \attrib{undergoer}s \citep[72]{DavisandKoenig2000b}. This then simplifies the statement of linking constraints for all of these paired participant types.
-\citet{Davis1996} and \citet{KoenigandDavis2001} argue that this obviates counting the relative number of proto-agent and proto-patient entailments, as advocated by \citet{Dowty1991}.
+\citet{Davis1996} and \citet{KoenigandDavis2001} argue that this obviates counting the relative number of proto-agent and proto-patient entailments, which is what  \citet{Dowty1991} had advocated.
 
 The linking constraints (\ref{act-vb-linking}) and (\ref{und-vb-linking}) state that 
 a verb whose semantic \content is of type \emph{act-und-rel} will be constrained to link the \attrib{act} participant to the the first element of the verb's \argst list (its subject), and the \attrib{und} participant to the second element of the verb's \argst list (this is analogous to Wechsler's constraints based on partial orderings).  The attribute \attrib{key} \is{KEY} selects one predication as relevant for linking, among a set of predications included in a lexical item's \attrib{content}; we furnish more details below.
 %JPK 1-13-2020 I added a sentence to briefly defined KEY.
 % TD 13 Jan. 20: modified a bit for clarity
 
-These linking constraints can be viewed as parts of the definition of lexical types, as in \citet{Davis2001}, where each of the constraints in (\ref{act-vb-linking})-(\ref{emb-act-vb-linking}) defines a particular class of lexemes (or words).\footnote{Alternatively, (\ref{act-vb-linking}) (and other linking constraints) can be recast as implicational constraints on lexemes or words 
+These linking constraints can be viewed as parts of the definition of lexical types, as in \citet{Davis2001}, where each of the constraints in (\ref{act-vb-linking})--(\ref{emb-act-vb-linking}) defines a particular class of lexemes (or words).\footnote{Alternatively, (\ref{act-vb-linking}) (and other linking constraints) can be recast as implicational constraints on lexemes or words 
 \citep{KoenigandDavis2003}.    (\ref{act-vb-linking-alt}) is an implicational constraint indicating that a word whose semantic content includes an \textsc{actor} role must map that role to the initial item in the \argst list. 
 
 \begin{exe}
@@ -527,7 +531,7 @@ These linking constraints can be viewed as parts of the definition of lexical ty
 	{\avmoptions{center}
 	\begin{avm}
 		\[content$|$key & \[act & \@1 \] 
-		\]
+		\]\,
 		$\Rightarrow$
 		\[ 
 		arg-st & \<\textsc{np}$_{\@1}$,  \ldots \>
@@ -564,7 +568,7 @@ These linking constraints can be viewed as parts of the definition of lexical ty
 	\begin{avm}
 		\[content$|$key & \[\asort{cause-possess-rel} 
 									soa & \[act & \@3 \] \] \\
-		arg-st & \<\rm \textit{synsem}\> $\oplus$ \<\textsc{np}$_{\@3}$,  \ldots \>
+		arg-st & \<\rm \textit{synsem}\> \,$\oplus$ \<\textsc{np}$_{\@3}$,  \ldots \>
 		\]
 	\end{avm}
 	}
@@ -576,13 +580,13 @@ The first constraint, in (\ref{act-vb-linking}), links the value of \attrib{act}
 The second, in (\ref{und-vb-linking}), merely links the value of \attrib{und} (again, when not embedded within another attribute) to some NP on \argst.
 Given this understanding of how the values of \attrib{act} and \attrib{und} are determined, these constraints cover the linking patterns of a wide range of transitive verbs: \word{throw} (\attrib{act} causes motion of \attrib{und}), \word{slice} (\attrib{act} causes change of state in \attrib{und}), \word{frighten} (\attrib{act} causes emotion in \attrib{und}), \word{imagine} (\attrib{act} has a notion of \attrib{und}), \word{traverse} (\attrib{act} ``measures out'' \attrib{und} as an incremental theme), and \word{outnumber} (\attrib{act} is superior to \attrib{und} on a scale).
 
-The third constraint, in (\ref{emb-act-vb-linking}), links the value of an \attrib{act} attribute embedded within a \attrib{soa} (State of Affairs) \isfeat{SOA (State of Affairs)} attribute to an NP that is second on \argst.
+The third constraint, in (\ref{emb-act-vb-linking}), links the value of an \attrib{act} attribute embedded within a \attrib{soa} (`state of affairs') \isfeat{SOA (State of Affairs)} attribute to an NP that is second on \argst.
 This constraint accounts for the linking of the (primary) object of ditransitives.\is{ditransitive}
 In English, these verbs (\word{give}, \word{hand}, \word{send}, \word{earn}, \word{owe}, etc.) involve (prospective) causing of possession \citep{Pinker1989,Goldberg1995}, and the possessor is represented as the value of the embedded \attrib{act} in (\ref{emb-act-vb-linking}).
-There could be additional constraints of a similar form in langages with a wider range of ditransitive constructions; conversely, such a constraint might be absent in languages that lack ditransitives entirely.
+There could be additional constraints of a similar form in languages with a wider range of ditransitive constructions; conversely, such a constraint might be absent in languages that lack ditransitives entirely.
 As mentioned earlier in this section, the range of subcategorization options varies somewhat from one language to another.
 
-The \attrib{key} attribute in (\ref{act-vb-linking}) -- (\ref{emb-act-vb-linking}) also requires further explanation.\is{KEY}
+The \attrib{key} attribute in (\ref{act-vb-linking})--(\ref{emb-act-vb-linking}) also requires further explanation.\is{KEY}
 The formulation of linking constraints here employs the architecture used in \citet{KoenigandDavis2006}, in which the semantics represented in \content values is expressed as a set of \emph{elementary predications}, formalized within Minimal Recursion Semantics \citep{Copestakeetal2001,Copestakeetal2005}.
 Each elementary predication is a simple relation, but the relationships among them may be left unspecified.
 For linking, one of the elementary predications is designated the \attrib{key}, and it serves as the locus of linking.
@@ -609,42 +613,41 @@ Other formulations are possible, such as that of \citet{KoenigandDavis2003}, whe
 In addition to the linking constraints, there may be some very general well-formedness conditions on linking.  We rarely find verbs that obligatorily map one semantic role to two distinct members of the \argst list, both expressed overtly.  A verb meaning `eat', but with that disallowed property, could appear in a ditransitive sentence like (\ref{rah-a}), with the meaning that Pat ate dinner, and his dinner was a large steak.  
 
 \begin{exe}
-\label{rah-a} 
-\ex[*]{
+\ex[*]{\label{rah-a} 
 Pat ate dinner a large steak.
 }
 \end{exe}
 
 \noindent
-Typically, semantic arguments map to at most one (overtly expressed) \argst list item \citep[262-268]{Davis2001}.
+Typically, semantic arguments map to at most one (overtly expressed) \argst list item \citep[262--268]{Davis2001}.
 
 % TD 10 Jan. 20: added the following:
 % JPK 13 Jan.2020: slightly reworded
 Having set out some general principles of linking and their implementation in HPSG, we now briefly discuss linking of oblique arguments.\is{oblique argument}
 We also return in the remainder of this section to issues relating to lexical semantic representations as they pertain to linking.
 To what extent are the elements of \argst determined by lexical semantics?
-Do HPSG lexical semantic representations require thematics roles?
+Do HPSG lexical semantic representations require thematic roles?
 And how does other information in these representations, such as modality and modifier scope, affect linking?
 \is{ARG-ST!as locus of linking|see{linking}|)}
 
 \subsection{Linking oblique arguments}
 \is{oblique argument}
 %We have not yet discussed 
-In this section we discuss linking of oblique arguments, that is, PP's and oblique case marked NP's.
+In this section we discuss linking of oblique arguments, that is, PPs and oblique case marked NPs.
 In some instances, a verb's selection of a particular preposition appears at least partly arbitrary;
 it is hard to explain why English speakers accept \word{hanker after} and \word{yearn for}, but  not \word{*yearn after}.
 In these cases, the choice of preposition may be stipulated by the individual lexical entry.
 But as \citet{Gawron1986} and \citet{Wechsler1995} have shown, many prepositions selected by a verb have semantic content.
-\word{For} in the above-mentioned cases, and in \word{look for}, \word{wait for}, and \word{aim for} is surely not a lexical accident.
+\word{For} in the above-mentioned cases, and in \word{look for}, \word{wait for}, and \word{aim for}, is surely not a lexical accident.
 And in  cases like \word{cut with}, \word{with} is used in an instrumental sense, denoting a \type{use-rel} relation, as with verbs that either allow (\word{eat}) or require (\word{cut}) an instrument \citep{KoenigandDavis2006}.
-\citet{Davis1996,Davis2001} adopts the position of Gawron and Wechsler in his treatment of linking to PPs
+\citet{Davis1996} and \citet{Davis2001} adopt the position of Gawron and Wechsler in his treatment of linking to PPs.
 As an example of this kind of account, the linking type in (\ref{with-linking}) characterizes a verb selecting a \word{with}-PP. 
 The PP argument is linked from the \rels list \isfeat{RELS} rather than the \attrib{key}. \is{KEY}
 
 \begin{exe}\ex\label{with-linking}
 {\avmoptions{center}\begin{avm}
 \[content & \[key & \@1 \\
-              relations & \<\@1, 
+              rels & \<\@1, 
                                    \@2\[\asort{use-rel} \\
                                     act & a \\
                                     und & u  \\
@@ -657,7 +660,7 @@ The PP argument is linked from the \rels list \isfeat{RELS} rather than the \att
 
 
 Apart from the details of individual linking constraints, we have endeavored here to describe how linking can be modeled in HPSG using the same kinds of constraints used ubiquitously in the framework.
-Within the hierarchical lexicon (see \crossrefchapteralt{lexicon}), constraints between semantically defined classes and syntactically defined ones, can furnish an account of linking patterns, and there is no resort to additional mechanisms such as a thematic hierarchy \is{thematic hierarchy|see{thematic roles}} or numerical comparison of entailments.\is{entailments!lexical}
+Within the hierarchical lexicon (see \crossrefchapteralt{lexicon}), constraints between semantically defined classes and syntactically defined ones can furnish an account of linking patterns, and there is no resort to additional mechanisms such as a thematic hierarchy \is{thematic hierarchy|see{thematic roles}} or numerical comparison of entailments.\is{entailments!lexical}
 
 
 
@@ -676,19 +679,19 @@ but debate continues about how much, and which components of semantics are invol
 %We will examine this in more detail in Section \ref{extended-arg-st}.
 %Even with regard to core, syntactically realized, arguments, we can ask how closely subcategorization mirrors lexical semantics.
 %Here as well, 
-Views have ranged from the strict, highly constrained relationship in which lexical semantics essentially determines syntactic argument structure, to a looser one in which some elements of subcategorization may be stipulated.
-Among  the first camp are those who espouse the \isi{Uniformity of Theta Assignment Hypothesis}  proposed in \citet[46]{Baker1988} or \citet{Baker1997}, which maintains that ``identical thematic relationships between items are represented by identical structural relationships'' in the syntax.
-With regard to the source of \is{alternation!diathesis} diathesis alternations, \citet[12-13]{Levin1993} notes that ``studies of these properties suggest that argument structures might in turn be derivable to a large extent from the meaning of words'', and accordingly ``pursues the hypothesis of semantic determinism seriously to see just how far it can be taken.''
+Views have ranged from the strict, highly constrained relationship in which lexical semantics essentially determines syntactic argument structure to a looser one in which some elements of subcategorization may be stipulated.
+Among  the first camp are those who espouse the \isi{Uniformity of Theta Assignment Hypothesis}  proposed in \citet[46]{Baker1988} which maintains that ``identical thematic relationships between items are represented by identical structural relationships'' in the syntax (see also \citealt{Baker1997}).
+With regard to the source of \is{alternation!diathesis} diathesis alternations, \citet[12--13]{Levin1993} notes that ``studies of these properties suggest that argument structures might in turn be derivable to a large extent from the meaning of words'', and accordingly ``pursues the hypothesis of semantic determinism seriously to see just how far it can be taken''.
 
-Others, including \citet{pollard+sag:1987} (Section 5.3) and \citet{Davis2001} (Section 5.1), have expressed caution, pointing out cases where subcategorization and diathesis alternations \is{alternation!diathesis} seem to be at least partly arbitrary.
-Pollard \& Sag note contrasts like these:
+Others, including \citet[Section 5.3]{pollard+sag:1987} and \citet[Section 5.1]{Davis2001}, have expressed caution, pointing out cases where subcategorization and diathesis alternations \is{alternation!diathesis} seem to be at least partly arbitrary.
+Pollard and Sag note contrasts like these:
 
 \begin{exe}
 \ex \label{ps-subcat-ex}
 \begin{xlist}
 \ex    Sandy spared/*deprived Kim a second helping.
 \ex    Sandy *spared/deprived Kim of a second helping.
-(\citet{pollard+sag:1987}, ex. 214-215)
+\citep[ex.\ 214--215]{pollard+sag:1987}
 \end{xlist}
 \end{exe}
 
@@ -701,7 +704,7 @@ And Davis provides these pairs of semantically similar verbs with differing subc
 \ex    Few passengers waited for/awaited the train.
 \ex    Homer opted for/chose a chocolate frosted donut.
 \ex    The music grated on/irritated the critics.
-(\citet{Davis2001} ex. 5.4)
+\citep[ex.\ 5.4]{Davis2001}
 \end{xlist}
 \end{exe}
 
@@ -713,7 +716,7 @@ Another point against strict semantic determination of argument structure comes 
 It is evident, for example, that not all languages display the same range of direct argument mappings.
 Some lack ditransitive \is{ditransitive} constructions entirely (Halkomelem), some allow them across a limited semantic range (English), some quite generally (Georgian), and a few permit tritransitives (Kinyarwanda and Moro).
 \citet{Gerdts1992} surveys about twenty languages and describes consistent patterns like these.
-The range of phenomena such as causative and applicative formation in a language is constrained by what she terms its ``relational profile;'' this includes, in HPSG terms, the number of direct NP arguments permitted on its \argst lists.
+The range of phenomena such as causative and applicative formation in a language is constrained by what she terms its ``relational profile''; this includes, in HPSG terms, the number of direct NP arguments permitted on its \argst lists.
 Again, it is unclear that underlying semantic differences across languages in the semantics of verbs meaning \word{give} or \word{write} would be responsible for these general patterns.
 
 %Summarizing, there is much evidence tempting us to derive the contents of \argst solely from lexical semantics.
@@ -731,16 +734,15 @@ Again, it is unclear that underlying semantic differences across languages in th
 
 \is{thematic role|see{semantic role, participant role, thematic hierarchy}|(}
 
-The \textsc{arg-st} list constitutes the syntactic side of the mapping between semantic roles and syntactic dependents.  As \argst is merely an ordered list of arguments, without any semantic ``labels,'' it contains no counterparts to thematic role types, such as \textsc{agent}, \textsc{patient}, \textsc{theme}, or \textsc{goal}.  Thematic roles like these, however, have been a mainstay of linking in generative grammar since \citet{Fillmore1968} and have antecedents going back to P\={a}\d{n}ini.
+The \textsc{arg-st} list constitutes the syntactic side of the mapping between semantic roles and syntactic dependents.  As \argst is merely an ordered list of arguments, without any semantic ``labels'', it contains no counterparts to thematic role types, such as \textsc{agent}, \textsc{patient}, \textsc{theme}, or \textsc{goal}.  Thematic roles like these, however, have been a mainstay of linking in generative grammar since \citet{Fillmore1968} and have antecedents going back to P\={a}\d{n}ini.
 Ranking them in a \is{thematic hierarchy|see{thematic roles}} \emph{thematic hierarchy}, and labeling each of a predicator's semantic roles with a unique thematic role, then yields an ordering of roles analogous to the ordering on the \argst list.  Indeed, it would not be difficult to import this kind of system into HPSG, as a means of determining the order of elements on the \argst list.  However, HPSG researchers have generally avoided using a thematic hierarchy, for reasons we now briefly set out.
 
-\citet{Fillmore1968} and many others thereafter have posited a small set of disjoint, thematic roles, with each semantic role of a predicator assigned exactly one thematic role.
-Thematic hierarchies depend on these properties for a consistent linking theory.
-But they do not hold up well to formal scrutiny.
+\citet{Fillmore1968} and many others thereafter have posited a small set of disjoint thematic roles, with each semantic role of a predicator assigned exactly one thematic role.
+Thematic hierarchies depend on these properties for a consistent linking theory, but they do not hold up well to formal scrutiny.
 \citet{Jackendoff1987} and \citet{Dowty1991} note (from somewhat different perspectives) that numerous verbs have arguments not easily assigned a thematic role from the typically posited inventory (e.g., the objects of \word{risk}, \word{blame}, and \word{avoid}), that more than one argument might sensibly be assigned the same role (e.g., the subjects and objects of \word{resemble}, \word{border}, and some alternants of commercial transaction verbs), and that multiple roles can be sensibly assigned to a single argument (the subjects of verbs of volitional motion are like both an \textsc{agent} and a \textsc{theme}).
 In addition, consensus on the inventory of thematic roles has proven elusive, and some, notoriously \textsc{theme}, have resisted clear definition.
 Work in formal semantics, including \citet{LadusawandDowty1988}, \citet{Dowty1989}, \citet{Landman2000}, and \cite{Schein2002}, casts doubt on the prospects of assigning formally defined thematic roles to all of a predicator's arguments, at least in a manner that would allow them to play a crucial part in linking.
-Thematic role types seem to pose problems, and there are alternatives that avoid those problems.  As \citet{Carlson1998} notes about thematic roles, ``It is easy to conceive of how to write a lexicon, a syntax, a morphology, a semantics, or a pragmatics without them.''
+Thematic role types seem to pose problems, and there are alternatives that avoid those problems.  As \citet{Carlson1998} notes about thematic roles: ``It is easy to conceive of how to write a lexicon, a syntax, a morphology, a semantics, or a pragmatics without them''.
 
 %
 %Moreover, it is not clear how an ordered hierarchy of thematic roles could be modeled elegantly within HPSG's typed feature structure formalism, though it is certainly not impossible to achieve in some fashion.  Equally unclear is how to compute and compare total numbers of proto-agent and proto-patient entailments for each of a predicator's semantic roles, as \citet{Dowty1991} suggests, because no mechanisms are available for numerical calculations. As a constraint-based formalism, HPSG has led researchers to seek other ways of incorporating insights from these approaches into the framework.
@@ -766,12 +768,13 @@ Instead of thematic role types, lexical decomposition is typically used in HPSG 
 \item \textit{Sublexical scope.}  Certain modifiers can scope over a part of the situation denoted by a verb \citep{Dowty:1979a}.  
 \end{itemize}
 
+Consider sentence (\ref{again}).
+
 \begin{exe}
-\label{again}
-\ex John sold the car, and then he bought it again.
+\ex \label{again} John sold the car, and then he bought it again.
 \end{exe}
 
-In this sentence the adverb \textit{again} either adds the presupposition that John bought it before, or, in the more probable interpretation, it adds the presupposition that \textit{the result of buying the car} obtained previously.  The result of buying a car is owning it, so this sentence presupposes that John previously owned the car. Thus the decomposition of the verb \textit{buy} in (\ref{buy-lex}) below includes the \textit{possess-rel} (`possession relation') holding between the buyer and the goods.  This is available for modification by adverbials like \textit{again}.
+In this sentence, the adverb \textit{again} either adds the presupposition that John bought it before, or, in the more probable interpretation, it adds the presupposition that \textit{the result of buying the car} obtained previously.  The result of buying a car is owning it, so this sentence presupposes that John previously owned the car. Thus the decomposition of the verb \textit{buy} includes a \textit{possess-rel} (`possession relation') holding between the buyer and the goods.  This is available for modification by adverbials like \textit{again}.
 
 \begin{itemize}
 \item \textit{Argument alternations.}  Some argument alternations can be modeled as the highlighting of different portions of a single lexical decomposition.  See Section \ref{alternations}.  \is{alternation}
@@ -785,7 +788,7 @@ The \argst list lies on the syntax side of linking.  Just as the roles and predi
 
 Some implicit arguments can also participate in the syntax, for example, by acting as controllers of adjunct clauses.  This could plausibly be viewed as evidence that such arguments are present on the \argst list.
 English rationale clauses,\is{rational clause} like the infinitival phrase in (\ref{mka}), are controlled \is{controlled argument} by the agent argument in the clause, \textit{the hunter} in this example.
-The implicit agent of a short passive \is{passive} can likewise control the rationale clause as shown in(\ref{mkb}).
+The implicit agent of a short passive \is{passive} can likewise control the rationale clause as shown in (\ref{mkb}).
 But control is not possible in the middle construction (\ref{mkc}) even though loading a gun requires some agent.
 This contrast was observed by \citet{KeyserandRoeper1984} and confirmed in experimental work by \citet{MaunerandKoenig2000}.  
 
@@ -816,8 +819,8 @@ If the syntax of control  is specified such that the controller of the rationale
 \is{modal transparency|(}
 Another observation concerning lexical entailments \is{entailments!lexical} and linking was developed by \citet{KoenigandDavis2001}, who point out that linking appears to ignore modal elements of lexical semantics, even when those elements invalidate entailments (expanding on an observation implicit in \citealt{Goldberg1995}).
 For instance, there are various English verbs that display linking patterns like the ditransitive \is{ditransitive} verbs of possession transfer \word{give} and \word{hand}, but which denote situations in which the transfer need not, or does not, take place.
-Thus, \word{offer} describes a situation where the transferor is willing to effect the transfer, \word{owe} one in which the transferor should effect the transfer but has not yet, \word{promise} describes a situation where the transferor commits to effect the transfer, and \word{deny} one in which the transferor does not effect the contemplated transfer. 
-Koenig and Davis argue that modal elements should be clearly separated in \content values from the representations of predicators and their arguments.  (\ref{promise-sem}) exemplifies this factoring out of sublexical modal information from core situational information. This pattern of linking functioning independently of sublexical modal information applies not only to these ditransitive cases, but also to verbs involving possession (cf. \word{own} and \word{obtain}, vs. \word{lack}, \word{covet} and \word{lose}), perception (\word{see} vs. \word{ignore} and \word{overlook}), and carrying out an action (\word{manage} vs. \word{fail} and \word{try}).  Whatever the role of lexical entailments in linking, then, the modal components should be factored out, since the entailments that determine, e.g., the ditransitive linking patterns of verbs like \word{give} and \word{hand}, do not hold of \word{offer}, \word{owe}, or \word{deny}, which display the same linking patterns. The constraints in (\ref{act-vb-linking})-(\ref{emb-act-vb-linking}) need only be minimally altered to target the value of \attrib{sit-core}, representing the ``situational core'' of a relation.
+Thus, \word{offer} describes a situation where the transferrer is willing to effect the transfer, \word{owe} one in which the transferor should effect the transfer but has not yet, \word{promise} describes a situation where the transferor commits to effect the transfer, and \word{deny} one in which the transferor does not effect the contemplated transfer. 
+Koenig and Davis argue that modal elements should be clearly separated in \content values from the representations of predicators and their arguments.  (\ref{promise-sem}) exemplifies this factoring out of sublexical modal information from core situational information. This pattern of linking functioning independently of sublexical modal information applies not only to these ditransitive cases, but also to verbs involving possession (cf.\ \word{own} and \word{obtain} vs.\ \word{lack}, \word{covet}, and \word{lose}), perception (\word{see} vs.\ \word{ignore} and \word{overlook}), and carrying out an action (\word{manage} vs.\ \word{fail} and \word{try}).  Whatever the role of lexical entailments in linking, then, the modal components should be factored out, since the entailments that determine, e.g., the ditransitive linking patterns of verbs like \word{give} and \word{hand} do not hold for \word{offer}, \word{owe}, or \word{deny}, which display the same linking patterns. The constraints in (\ref{act-vb-linking})--(\ref{emb-act-vb-linking}) need only be minimally altered to target the value of \attrib{sit-core}, representing the `situational core' of a relation.
 
 \begin{exe}
 \ex\label{promise-sem} The lexical semantic representation of \word{promise} 
@@ -838,7 +841,7 @@ Koenig and Davis argue that modal elements should be clearly separated in \conte
  
 % TD 10 Jan. 20: addded the following, including the summary subsection
 %JPK 13 Jan 20: rewordinf the very end of the sentence to make it crisper.
-This kind of semantic decomposition preserves the simplicity of linking constraints, while representing the differences between verbs that straightforwardly entail the relation between the arguments in the situational core, and verbs for which those entailments do not hold, because their meaning contains a modal component restricting those entailments to a subset of possible worlds.
+This kind of semantic decomposition preserves the simplicity of linking constraints, while representing the differences between verbs that straightforwardly entail the relation between the arguments in the situational core and verbs for which those entailments do not hold, because their meaning contains a modal component restricting those entailments to a subset of possible worlds.
 \is{modal transparency|)}
 
 \is{lexical decomposition|)}
@@ -848,7 +851,7 @@ This kind of semantic decomposition preserves the simplicity of linking constrai
 In this section we have examined HPSG approaches to linking.
 HPSG constrains the mapping between participant roles \is{participant roles|see{thematic role, semantic role, proto-role}}  in \attrib{content} and their syntactic realizations on \argst based on entailments of the semantic relations in \attrib{content}.
 These constraints do not require a set of thematic roles arranged in a hierarchy.
-Nor do they require a numerical comparison of entailments holding of each participant role, which has been an influential alternative to a thematic hierarchy.
+Nor do they require a numerical comparison of entailments holding for each participant role, which has been an influential alternative to a thematic hierarchy.
 Rather, they reference the types of relations wthin a lexical entry's \attrib{content}, and the subcategorization requirements of its \argst.
 Information from both is necessary because, although semantics is a strong determinant of argument realization, independent stipulations of subcategorization appear to be needed, too.
 Finally, we have examined the role of modal information in lexical semantics, which seem not to interact much with linking, and described mechanisms proposed within HPSG that separate this information from the situational core that drives linking.
@@ -864,8 +867,8 @@ A single verb can often alternate between
 %in varied syntactic contexts, 
  various alternative patterns of dependent phrases, situations called either 
 %which are termed 
-\emph{argument alternations}, a
-\emph{valence alternations} or \emph{diathesis alternations}.
+\emph{argument alternations},
+\emph{valence alternations}, or \emph{diathesis alternations}.
 \citet{Levin1993} lists around 50 kinds of alternations in English, and English is not untypical in this regard.
 
 %TD 14 Jan 20: I suggest removing the following, which is not referenced later and has nothing in particular to do with HPSG
@@ -898,13 +901,13 @@ Lastly, we consider active-passive voice alternations, which are distinct from o
 
 \subsection{Meaning-based argument alternations}
 
-One well studied alternation, the locative alternation, is exemplified by the two uses of \word{spray} in (\ref{spray}).
+One well-studied alternation, the locative alternation, is exemplified by the two uses of \word{spray} in (\ref{spray}).
 
 \begin{exe}
 \ex \label{spray}
 \begin{xlist}
-\ex \label{spraya} \textit{spray$_{loc}$}: Joan sprayed the paint onto the statue.
-\ex \label{sprayb} \textit{spray$_{with}$}: Joan sprayed the statue with paint.
+\ex \label{spraya} \textit{spray$_{\text{loc}}$}: Joan sprayed the paint onto the statue.
+\ex \label{sprayb} \textit{spray$_{\text{with}}$}: Joan sprayed the statue with paint.
  \end{xlist}
  \end{exe}
 
@@ -912,7 +915,7 @@ One well studied alternation, the locative alternation, is exemplified by the tw
 It is typically assumed that these two different uses of \textit{spray} in (\ref{spray}) have slightly different meanings, with the statue being in some sense more affected in the \word{with} alternant.
 This exemplifies the ``holistic'' effect of direct objecthood, \is{holistic effect of direct objecthood} which we will return to.
 Here, we will examine how semantic differences between alternants relate to their linking patterns.
-The semantic side of linking has often been devised with an eye to syntax (e.g., \citet{Pinker1989}, and see \citet{KoenigandDavis2006} for more examples).
+The semantic side of linking has often been devised with an eye to syntax (e.g., \citealt{Pinker1989}, and see \citealt{KoenigandDavis2006} for more examples).
 There is a risk of stipulation here, without independent evidence for these semantic differences.
 In the case of locative alternations, though, the meaning difference between (\ref{spraya}) and (\ref{sprayb}) is easily stated (and Pinker's intuition seems correct), as (\ref{sprayb}) entails (\ref{spraya}), but not conversely.
 Informally, (\ref{spraya}) describes a particular kind of caused motion situation, while  (\ref{sprayb}) describes a situation in which this kind of caused motion additionally results in a caused change of state.
@@ -927,19 +930,19 @@ The difference is depicted in the two structures in (\ref{spray-sem}).
 
 This description of the semantic difference between sentences (\ref{spraya}) and (\ref{sprayb}) provides a strong basis for predicting their different argument structures.
 But we still need to explain how linking principles give rise to this difference.
-Pinker's account rests on semantic structures like (\ref{spray-sem}), in which depth of embedding reflects sequence of causation, with ordering on \argst stemming from depth of semantic embedding, a strategy adopted in \citet{Davis1996,Davis2001}.
+Pinker's account rests on semantic structures like (\ref{spray-sem}), in which depth of embedding reflects sequence of causation, with ordering on \argst stemming from depth of semantic embedding, a strategy adopted in \citet{Davis1996} and \citet{Davis2001}.
 This is one reasonable alternative, although the resulting complexity of some of the semantic representations raises valid questions about what independent evidence supports them.
 An alternative appears in \citet{KoenigandDavis2006}, who borrow from \isi{Minimal Recursion Semantics} (see \crossrefchapteralt{semantics} for an introduction to MRS).
 MRS ``flattens'' semantic relations, rather than embedding them in one another, so the configuration of these \emph{elementary predications} \is{elementary predication} with respect to one another is of less import.
 It posits a \attrib{relations} (or \rels) \isfeat{RELS} attribute that collects a set of elementary predications, each representing some part of the predicator's semantics.
-In Koenig \& Davis' analysis, a \attrib{key} attribute specifies a particular member of \rels as the relevant one for linking (of direct syntactic arguments). \is{KEY}
-In the case of (\ref{sprayb}) the \attrib{key} is the caused change of state description.
+In Koenig and Davis' analysis, a \attrib{key} attribute specifies a particular member of \rels as the relevant one for linking (of direct syntactic arguments). \is{KEY}
+In the case of (\ref{sprayb}), the \attrib{key} is the caused change of state description.
 These MRS-style representations of the two alternants of \word{spray}, with different \attrib{key} values, are shown in (\ref{spray-on}) and (\ref{spray-with}).
 
 \begin{exe}
 \ex\label{spray-on}
 {\avmoptions{center}\begin{avm}\[key & \@5 \\
-                    relations & \<\@5\[\asort{$\textit{spray-ch-of-loc-rel}$} 
+                    rels & \<\@5\[\asort{$\textit{spray-ch-of-loc-rel}$} 
                                     act & \@1 \\
                                     und & \@4 \\
                                     soa & \[\asort{\textit{ch-of-loc-rel}} 
@@ -955,7 +958,7 @@ These MRS-style representations of the two alternants of \word{spray}, with diff
                                     soa & \[\asort{ch-of-st-rel} 
                                                 und & \@2\] 
                       \] \\
-                   relations & \<\@3, 
+                   rels & \<\@3, 
                                    \[\asort{$\textit{use-rel}$}
                                     act & \@1 \\
                                     und & \@4  \\
@@ -980,7 +983,7 @@ Consider another case; (\ref{caus-inch}) illustrates the causative-inchoative al
 \end{xlist}	
 \end{exe}
 
-Under a MRS representation, the change of state relation is a separate member of \rels; it is also included in the \rels of the transitive alternant, which contains a cause relation as well.
+Under an MRS representation, the change of state relation is a separate member of \rels; it is also included in the \rels of the transitive alternant, which contains a cause relation as well.
 Again, the \rels value of one member of each pair of related entries is a subset of the \rels value of the other.
 
 Many other alternations involve one argument shifting from direct to oblique.\is{oblique argument}
@@ -995,13 +998,13 @@ Some English examples include conative, locative preposition drop, and \word{wit
 \end{exe}
 
 \noindent
-The direct object argument in \ref{altexa} is interpreted as more ``affected'' than its oblique counterparts:  if Rover clawed Spot, we infer that Spot was subjected to direct contact with Rover's claws and may have been injured by them, while if Rover merely clawed \word{at} Spot, no such inference can be made.
-Similarly, to say that one has hiked the Appalachian Trail as in the transitive variant of \ref{altexb} suggests that one has hiked its entire length, while the prepositional variants merely suggest one hiked along some portion of it.  In still other cases like (\ref{altexc}), the two variants seem to differ very little in meaning.  
+The direct object argument in (\ref{altexa}) is interpreted as more ``affected'' than its oblique counterparts:  if Rover clawed Spot, we infer that Spot was subjected to direct contact with Rover's claws and may have been injured by them, while if Rover merely clawed \word{at} Spot, no such inference can be made.
+Similarly, to say that one has hiked the Appalachian Trail as in the transitive variant of (\ref{altexb}) suggests that one has hiked its entire length, while the prepositional variants merely suggest one hiked along some portion of it.  In still other cases like (\ref{altexc}), the two variants seem to differ very little in meaning.  
 
 %How might these varying intuitions related to ``affectedness'' relate to lexical semantic representations like those in the (\ref{spray-on}) and (\ref{spray-with})?  
 
 \citet{Beavers2010} observes the following generalization over direct-oblique alternations:  the direct variant entails the oblique one, and can have an additional entailment that the oblique variant lacks.  
-His \emph{Morphosyntactic Alignment Principle} \is{Morphosyntactic Alignment Principle} states this generalization in terms ``L-thematic roles'', which are defined as sets of entailments associated with individual thematic roles:\is{thematic role|see{semantic role, participant role, thematic hierarchy}}   
+His \emph{Morphosyntactic Alignment Principle} \is{Morphosyntactic Alignment Principle} states this generalization in terms of ``L-thematic roles'', which are defined as sets of entailments associated with individual thematic roles:\is{thematic role|see{semantic role, participant role, thematic hierarchy}}   
 
 \begin{exe}
 \ex\label{beavers-map}
@@ -1016,15 +1019,15 @@ Here, $Q$ and $R$ are roles, defined as sets of individual entailments, and  $Q\
 Thus, the substantive claim is essentially that the MAP rules out ``verbs where the alternating participant has \textsc{MORE} lexical entailments as an oblique than the corresponding object realization'' \citep[849]{Beavers2010}.
 % \citet{beavers:2005} presents this generalization in the HPSG framework, using MRS semantic representations similar to those employed above.  
 % TD 31 Jan. 20: I've now looked at Beavers (2005) -- thanks for tracking that down -- and I think there are some substantive differences worth noting briefly here, so I've revived some of the stuff that was commented out below, putting it here in a revised form.  
-The notion of a stronger role in Beavers' analysis has a rough analog in terms of whether a particular elementary predication is present in the semantics of a particular alternant.
+The notion of a stronger role in Beavers' analysis has a rough analogue in terms of whether a particular elementary predication is present in the semantics of a particular alternant.
 \citet{Beavers2005} describes a version of the Morphosyntactic Alignment Principle implemented in HPSG, which posits a separate \attrib{roles} attribute within \attrib{content}, containing a list of labeled roles.
 The roles are ordered on the \attrib{roles} list, determined at least partly by direction of causality, although this is not fully worked out.
 Each role can be regarded as a bundle of entailments.
-The bundle of entailments varies slightly between different alternants of verbs like those in \ref{altex}, and the Morphosyntactic Alignment Principle comes into play, comparing the sets of entailments constituting each role.
+The bundle of entailments varies slightly between different alternants of verbs like those in (\ref{altex}), and the Morphosyntactic Alignment Principle comes into play, comparing the sets of entailments constituting each role.
 Assessing which of two roles is stronger, according to this principle, requires some additional mechanisms within HPSG that are not spelled out.
 
 Beavers notes the resemblance between his account and numerical comparison approaches such as those of \citet{Dowty1991} and \citet{AckermanandMoore2001}.
-He points out that the direct object bears an additional entailment in each alternant  However, the specific entailment involved depends on the verb; the entailments involved in each of the examples in \ref{altex}, for instance, are all different.  Thus, comparing the numbers of entailments holding of a verb's arguments in each alternant is crucial.
+He points out that the direct object bears an additional entailment in each alternant. However, the specific entailment involved depends on the verb; the entailments involved in each of the examples in (\ref{altex}), for instance, are all different.  Thus, comparing the numbers of entailments holding for a verb's arguments in each alternant is crucial.
 
 %The entailments Beavers employs differ somewhat from those we have discussed here, involving quantized change, nonquantized change, potential for change (where change can refer to change in location, possession, state, or something more abstract), furnishing the clear ordering by strength that is central to his proposal.
 %But they do resemble entailments of semantic relations we have represented as elementary predications, such as incremental theme, change of state, and possession, along with the modal effects described in \citet{KoenigandDavis2001}.
@@ -1044,16 +1047,16 @@ Having outlined the semantic basis of the different linking patterns of alternat
 First is the question of how the alternants are related to one another.
 Second is how \attrib{key} selection has been used to account not just for alternants of the same verb, but for (nearly) synonymous verbs whose semantics contain the same set of elementary predications.
 
-The hypothesis pursued in \citet{Davis1996,Davis2001}  is that 
+The hypothesis pursued in \citet{Davis1996} and \citet{Davis2001}  is that 
 most alternations are the consequence of classes of lexical entries having
 two related meanings. This follows researchers such as \citet{Pinker1989} and \citet{Levin1993} in modeling subcategorization alternations as underlyingly meaning alternations. 
-This change in meaning is crucial to the \citet{KoenigandDavis2006} \attrib{key} shifts as well. In some cases, the value of the \rels attribute of the two valence alternates differ (as in the two alternates of \word{spray} in the\word{spray/load} alternation we discussed earlier).
+This change in meaning is crucial to the \citet{KoenigandDavis2006} \attrib{key} shifts as well. In some cases, the value of the \rels attribute of the two valence alternates differ (as in the two alternates of \word{spray} in the so-called \word{spray/load} alternation we discussed earlier).
 In some cases, the alternation might be different construals of the same event for some verbs, but not others, as \citet{RappaportandLevin2008} claim for the English ditransitive \is{ditransitive} alternations, which adds the meaning of transfer for verbs like \word{send}, but not for verbs like \word{promise}; a \attrib{key} change would be involved (with the addition of a \type{cause-possess-rel}) for the first verb only. But \attrib{key} shifts and diathesis alternations do not always involve a change in meaning. The same elementary predications can be present in the \attrib{content} values of two alternants, with each alternant designating a different elementary predication as the \attrib{key}. \is{KEY}
 
-Koenig \& Davis propose this not only for cases in which there is no obvious meaning difference betwen two alternants of a single verb, but also for different verbs that appear to be truth-conditionally equivalent.
+Koenig and Davis propose this not only for cases in which there is no obvious meaning difference between two alternants of a single verb, but also for different verbs that appear to be truth-conditionally equivalent.
 % TD 31 Jan 20: revisions made throughout this paragraph to checnge from buy/sell to substitute/replace
 The verbs \word{substitute} and \word{replace} are one such pair.
-The two sentences in \ref{subrep} illustrate this equivalence.
+The two sentences in (\ref{subrep}) illustrate this equivalence.
 
 \begin{exe}
 \ex\label{subrep}
@@ -1065,7 +1068,7 @@ The two sentences in \ref{subrep} illustrate this equivalence.
 
 These two verbs denote a type of event in which a new entity takes the place of an old one, through (typically intentional) causal action.
 %Koenig \& Davis suggest that both the removal of the old entity and the placement of the new one are represented as elementary predications in the \attrib{content} values of these verbs.
-Koenig \& Davis decompose both verb meanings into two simpler actions of removal and placement: `x removes y (from g)' and `x places z (at g)', each represented as an elementary predication in the \attrib{content} values of these verbs.  
+Koenig and Davis decompose both verb meanings into two simpler actions of removal and placement: `x removes y (from g)' and `x places z (at g)', each represented as an elementary predication in the \attrib{content} values of these verbs.  
 
 
 % one famous example being the verbs of commercial exchange \word{buy} and \word{sell} (but see \citet[387-388]{VanValin1999}, \citet[20]{LevinandRappaport2005}, and \citet{Wechsler:2005} for arguments that \word{buy} and \word{sell} are not equivalent). 
@@ -1165,7 +1168,7 @@ Koenig \& Davis decompose both verb meanings into two simpler actions of removal
                                     und & \@3 (z) \\
                                     soa & \[\textit{\rm \textit{motion-sem}} \\
                                                   sit-core & \@4\[{\rm\textit{motion-rel}} \\
-                                                                     fig & \@32 \\
+                                                                     fig & \@3 \\
                                                                       grnd & g\]\\
                                                   modal-base & \<\[{\rm\textit{neg-rel}} \\
                                                                                   soa & \@4\] \> \] \]                                                                                   
@@ -1184,7 +1187,7 @@ In both cases, the same linking constraints apply between the  \attrib{key} and 
 {
 \avmoptions{center} 
 \begin{avm}\[\textsc{key} &  \@a \\
-                   \textsc{relations} & \< \@a, \@b \> \]
+                   \textsc{rels} & \< \@a, \@b \> \]
                   \end{avm}
 }
 \end{exe}
@@ -1195,17 +1198,12 @@ In both cases, the same linking constraints apply between the  \attrib{key} and 
 {
 \avmoptions{center} 
 \begin{avm}\[\textsc{key} &  \@b \\
-                   \textsc{relations} & \< \@a, \@b \> \]
+                   \textsc{rels} & \< \@a, \@b \> \]
                   \end{avm}
 }
 \end{exe}
 
-As a final example of the effect of alternations on fine-grained aspects of verb meaning, we consider the source-final product alternation exemplified in (\ref{carve}), where the direct object can be either the final product or the material source of the final product. Davis proposes that the (\ref{carve-a}) sentences involve an alternation between the two meanings represented in (\ref{carve-sem}), each associated with a distinct entry. We adapt \citet{Davis2001} to make it consistent with \citet{KoenigandDavis2006} and also treat the alternation as an alternation of \emph{entries} with distinct meanings. 
-%Note that in the alternation described in (\ref{carve-sem}), we use, informally, a double-headed arrow. 
-Lexical rules are a frequent analytical tool used to model to alternations between two related meanings of a single entry illustrated in (\ref{carve-sem}) One of the potential drawbacks of a lexical rule approach to valence alternations is that it requires selecting one alternant as basic and the other as derived. This is not always an easy decision (e.g., is the inchoative or the causative basic?), as \citet{Goldberg1995} or \citet{LevinandRappaport1994} have pointed out. Sometimes, morphology provides a clue, although in different languages the clues may point in different directions.  French, and other Romance languages, use a ``reflexive'' clitic as a detransitivizing affix.  In English, though, there is no obvious ``basic'' form or directionality. It is to avoid committing ourselves to a directionality in the relation between the semantic contents described in (\ref{carve-sem}) that we eschew treating it as a lexical rule.
-
-% TD 10 Jan. 20: the arrow in this figure is pretty ugly; can we change it, perhaps to the sort of arrows that are in figure \ref{fig:over}?  We might consider orienting it vertically as well, rather than horizontally
-%JPK 1-13-20: I removed the arrows and reworded the last sentence in the preceding paragraph.
+As a final example of the effect of alternations on fine-grained aspects of verb meaning, we consider the source-final product alternation exemplified in (\ref{carve}), where the direct object can be either the final product or the material source of the final product. 
 
 \begin{exe}
 \ex\label{carve}
@@ -1214,6 +1212,15 @@ Lexical rules are a frequent analytical tool used to model to alternations betwe
 	\ex\label{carve-b} Kim made/carved/sculpted/crafted the wood into a toy.
 \end{xlist}
 \end{exe}
+
+Davis proposes that the (\ref{carve-a}) sentences involve an alternation between the two meanings represented in (\ref{carve-sem}), each associated with a distinct entry. We adapt \citet{Davis2001} to make it consistent with \citet{KoenigandDavis2006} and also treat the alternation as an alternation of \emph{entries} with distinct meanings. 
+%Note that in the alternation described in (\ref{carve-sem}), we use, informally, a double-headed arrow. 
+Lexical rules are a frequent analytical tool used to model to alternations between two related meanings of a single entry illustrated in (\ref{carve-sem}). One of the potential drawbacks of a lexical rule approach to valence alternations is that it requires selecting one alternant as basic and the other as derived. This is not always an easy decision, as \citet{Goldberg1995} or \citet{LevinandRappaport1994} have pointed out (e.g., is the inchoative or the causative basic?). Sometimes, morphology provides a clue, although in different languages the clues may point in different directions.  French, and other Romance languages, use a ``reflexive'' clitic as a detransitivizing affix.  In English, though, there is no obvious ``basic'' form or directionality. It is to avoid committing ourselves to a directionality in the relation between the semantic contents described in (\ref{carve-sem}) that we eschew treating it as a lexical rule.
+
+% TD 10 Jan. 20: the arrow in this figure is pretty ugly; can we change it, perhaps to the sort of arrows that are in figure \ref{fig:over}?  We might consider orienting it vertically as well, rather than horizontally
+%JPK 1-13-20: I removed the arrows and reworded the last sentence in the preceding paragraph.
+
+
 
 \begin{exe}
 	\ex\label{carve-sem}
@@ -1271,28 +1278,49 @@ The semantics of actives and corresponding long passives, as in (\ref{act-pass})
 In this section, we outline two possible approaches to 
 %this question.
 the passive.  
-Both of them treat the crucial characteristic of passivization as subject demotion (see \citealt{Blevins2003} for a thorough exposition of this characterization), rather than object advancement, as proposed, e.g., in Relational Grammar \citep{PerlmutterandPostal1983b}.
+Both of them treat the crucial characteristic of passivization as subject demotion (see \citealt{Blevins2003} for a thorough exposition of this characterization), rather than object advancement, as proposed, e.g., in \isi{Relational Grammar} \citep{PerlmutterandPostal1983b}.
 As we will see, there are various options for implementing this general idea of demotion within HPSG.
 
 % TD 14 Jan. 20: new material inserted here
 The first approach, which goes back to \citet{pollard+sag:1987}, assumes that passivization targets the first member of a \attrib{subcat} list and either removes it or optionally puts it last on the list, but as a PP.
-This approach is illustrated in (\ref{pass-lr}), a possible formulation of a lexical rule for transitive verbs adapted to a theory that replaces \attrib{subcat} with \argst, as discussed in \citet[67]{Manning+Sag:1999}.
-See \citealt{Mueller2000h} for a  more refined formulation of the passive lexical rule for German that accounts for impersonal passives, and \citet{Blevins2003} for a similar analysis.
-The first NP is demoted and either does not appear on the output's \argst or is a PP coindexed with the input's first NP's index (see \crossrefchapteralt{binding} and \crossrefchapteralt{diachronic} for scholars who assume such a view within this handbook).
-Linking in passives thus violates the constraints in (\ref{act-vb-linking})--(\ref{emb-act-vb-linking}), specifically (\ref{act-vb-linking}), which links the value of \attrib{act} to the first element of \argst. (We use one possible feature-based representation for lexical rules to help comparing approaches to passives. See \crossrefchaptert{lexicon} for a discussion of various approaches to lexical rules.) 
+This approach is illustrated in (\ref{pass-lr}), a possible formulation of a lexical rule for transitive verbs adapted to a theory that replaces \attrib{subcat} with \argst, as discussed in \citet[67]{Manning+Sag:1999}. 
+See \citew{Mueller2003e} for a  more refined formulation of the passive lexical rule for German that accounts for impersonal passives, and \citet{Blevins2003} for a similar analysis.
+The first NP is demoted and either does not appear on the output's \argst or is a PP coindexed with the input's first NP's index (see \crossrefchapteralt{binding} 
+%and \crossrefchapteralt{diachronic} 
+for scholars who assume the latter view within this handbook).
+Linking in passives thus violates the constraints in (\ref{act-vb-linking})--(\ref{emb-act-vb-linking}), specifically (\ref{act-vb-linking}), which links the value of \attrib{act} to the first element of \argst. (We use one possible feature-based representation for lexical rules to help comparing approaches to passives.) See \citet{Meurers2001} and \crossrefchaptert{lexicon} for a discussion of various approaches to lexical rules.
+Note that we use the attribute \attrib{lex-dtr} rather than the \attrib{in(put)} attribute used in the representation of lexical rules in \citet[76]{Meurers2001} to avoid any procedural implications; nothing substantial hinges on this labeling change.
 
- \begin{exe}
- \ex \label{pass-lr}
- {\avmoptions{center}\begin{avm}
+%\avmsetup{columnsep=.3ex}
+
+ \ea
+\label{pass-lr}
+ %% {\avmoptions{center}\begin{avm}
  
- \[\asort{passive-verb}
- arg-st & \@2\textup{(}$\oplus$\<PP[\textit{by}$]$$_{i}$\>\textup{)} \\
- input & \[\asort{active-verb}
- arg-st & \<\@1 $_{i}$\> $\oplus$ \@2
- \]
- \]
- \end{avm}}
- \end{exe}
+ %% \[\asort{passive-verb}
+ %% arg-st & \@2\textup{(}$\oplus$\<PP[\type{by}$]$$_{i}$\>\textup{)} \\
+ %% lex-dtr & \[\asort{stem}
+ %%             head & \type{verb}\\
+ %%             arg-st & \<\@1 $_{i}$\> $\oplus$ \@2\<np, \ldots\>
+ %%           \]
+ %% \]
+ %% \end{avm}}
+\avmtmp{
+[\type*{passive-verb}
+ arg-st  & \2 ( \+ < ! PP[\type{by}]$_i$ ! > )\\
+ lex-dtr & [\type*{stem}
+            head   & verb\\
+            arg-st & < \1$_i$ > \+ \2 < NP, \ldots > ]]  
+}
+\avmtmp[columnsep=.3ex]{
+[\multicolumn{2}{@{}l@{}}{\raisebox{0.7ex}{\type{passive-verb}}}\\
+ arg-st  & \2 ! \upshape ~( $\oplus$ \sliste{ PP[\type{by}]$_i$  } ) !\smallskip\\
+ lex-dtr & [\raisebox{1.1ex}{\type{stem}}\\
+            head   & verb\\
+            arg-st & \sliste{ \1$_i$ } \+ \2 \sliste{ NP, \ldots } ]]  
+}
+
+\z
 % ALERT:  should the attribute be INPUT instead of IN?
 % TD 28 Jan. 20: I'm fine with either
 %JPK 1-29-20: I used "IN" because this is what Meurers (2001) uses and we cite in the lexicon chapter, i.e. for consistency across chapters. That said, if you both want INPUT, fine with me.
@@ -1303,15 +1331,15 @@ Second, what other predictions, such as changes in binding behavior, control con
 Third, what is the status of the \word{by}-phrase in long passives, and how is it represented on the \argst list?
 
 Another approach maintains the \argst list of the active verb in its passive counterpart, thereby preserving linking constraints.
-Passives differ from actives under this account in their non-canonical mapping from \argst to \val lists; the subject is not the first element of the \argst list. This analysis bears some resemblance to the distinction between macro-roles and syntactic pivots in RRG, with passives having a marked mapping from macro-roles to syntactic pivot \citep{VanValinandLapolla1997}.  
+Passives differ from actives under this account in their non-canonical mapping from \argst to \val lists; the subject is not the first element of the \argst list. This analysis bears some resemblance to the distinction between macro-roles and syntactic pivots in Role and Reference Grammar, with passives having a marked mapping from macro-roles to syntactic pivot \citep{VanValinandLapolla1997}.  
 In this kind of approach, the passive subject might be the second element of the \argst list, as in a typical personal passive, or an expletive element, as in impersonal passives.
-In a long passive, the first element of \argst is coindexed with a PP on the \attrib{comps} list.
+In a long passive, the first element of \argst is coindexed with a PP on the \attrib{comps} list or an adjunct.
 This analysis is reminiscent of the account of Balinese objective voice presented in Section \ref{ergativity} in that the account of both phenomena uses a non-canonical mapping between \argst and \val lists.
 % ALERT:  We argued in some detail that passive differs from OV and can't work this way.  cp. binding "They don't seem to mind being insulted by each other."    Balinese would be:  "Each other insulted-OV them."
 % TD 28 Jan. 20: Yes, I don't wish to imply that passive and OV are the same, just that the non-canonical mapping between arg-st abd valence in this treatment of passives resembles the account of OV presented earlier.  If that isn't clear, we should reword this so that it is.
 %JPK 1-29-20 You are right, Steve, that our wording was unclear. I added something to the end of the sentence to make the parallel clearer. Hopefully, that clarifies things.
 %SW 1-29-20.  Sorry, but it doesn't help. I'll email about it.
-A version of this view is proposed in \citet[241]{Davis2001} who proposes the representation in (\ref{pass-lxm}) for passive lexemes.
+A version of this view is proposed in \citet[241]{Davis2001}, who proposes the representation in (\ref{pass-lxm}) for passive lexemes (as before, we substitute the attribute name \attrib{lex-dtr} for \attrib{in}).
 
 \begin{exe}
 \ex\label{pass-lxm}
@@ -1320,8 +1348,8 @@ A version of this view is proposed in \citet[241]{Davis2001} who proposes the re
 \[\asort{passive-verb}
 subj & \@2  \\
 comps & \@3 \\
-arg-st & \@1(\<xp\>$\oplus$\@2$\oplus$\@3 \\
-in & \[\asort{trans-stem}
+arg-st & \@1$($\<xp\>$\textup{)}\oplus$\@2$\oplus$\@3 \\
+lex-dtr & \[\asort{trans-stem}
 			arg-st & \@1 \\
 			content & \@4 \]\\
 content & \@4
@@ -1366,37 +1394,39 @@ The money was donated to himself. (\word{himself} intended to refer to the donor
 
 Certain control constructions also illustrate this point.
 While the unexpressed logical subject can control rationale clauses in English, as exemplified above in (\ref{mkb}), not all cases of control exhibit parallel behavior.
-The Italian consecutive \word{da} + infinitive construction \citep{Perlmutter1984, Sanfilippo1998} appears to be controlled by the surface subject, as shown in \ref{italian-da}.\il{Italian}
+The Italian consecutive \word{da} + infinitive construction \citep{Perlmutter1984, Sanfilippo1998} appears to be controlled by the surface subject, as shown in (\ref{italian-da}).\il{Italian}
 
 % TD 18 Jan. 20: these examples are from Sanfilippo (1998), (49a) and  (51)
 
 \begin{exe}
 \ex     \label{italian-da}
 \begin{xlist}
-\ex             \gll Gino ha rimproverato Eva tante volte da arrabbiarsi.  \\
-                Gino has scolded Eva so-many times so-as to-get-angry  \\
-                \glt `Gino scolded Eva so many times that he/*she got angry.'
-\ex             \gll Eva fu rimproverata da Gino tante volte da arrabbiarsi.  \\
-                Eva was scolded by Gino so-many times so-as to-get-angry  \\
-                \glt `Eva was scolded by Gino so many times that *he/she got angry.'
+\ex
+\gll Gino ha  rimproverato Eva tante   volte da    arrabbiarsi.  \\
+     Gino has scolded      Eva so.many times so.as to.get.angry  \\
+\glt `Gino scolded Eva so many times that he/*she got angry.'
+\ex
+\gll Eva fu  rimproverata da Gino tante   volte da    arrabbiarsi.  \\
+     Eva was scolded      by Gino so.many times so.as to.get.angry  \\
+\glt `Eva was scolded by Gino so many times that *he/she got angry.'
 \end{xlist}
 \end{exe}
 
 Although there are other factors involved in the choice of controller of consecutive \word{da} infinitive constructions, it is clear that the logical subject in the passivized main clause cannot control the infinitive.
-Thus, even if it remains the initial element of the passsive verb's \argst, it must be blocked as a controller.
+Thus, even if it remains the initial element of the passive verb's \argst, it must be blocked as a controller.
 Sanfilippo argues from these kinds of examples that the passive \word{by}-phrase should be regarded as a ``thematically bound'' (i.e., linked) adjunct that does
 not appear on the passive verb's \argst list, but on the \attrib{slash} list.
-However, this would require some additional mechanism to explain the involvement of the \word{by}-phrase in binding, noted below, and possibly with respect to other evidence for including adjuncts on \argst, as discussed in the following section.
+However, this would require some additional mechanism to explain the involvement of the \word{by}-phrase in binding, noted below, and possibly with respect to other evidence for including adjuncts on \argst, as discussed in the Section \ref{sec:extended-arg-st}.
 
 In addition, the implicit agent of short passives is ``inert'' in discourse, as discussed in \citet{KoenigandMauner1999}.
-It cannot serve as an antecedent of cross"=sentential pronouns without additional inferences, as shown in (\ref{a-def}), where the referent of \word{he} cannot without additional inference be tied to the logical subject argument of \word{killed}.
+It cannot serve as an antecedent of cross"=sentential pronouns without additional inferences, as shown in (\ref{a-def}), where the referent of \word{he} cannot without additional inference be tied to the logical subject argument of \word{killed}, i.e., the killer.
 
 \begin{exe}
 \ex\label{a-def}
 \# The president was killed. He$_{i}$ was from Iowa.
 \end{exe}
 
-Note that the discourse inertness of the implicit agent in (\ref{a-def}) does not follow from its being unexpressed, as shown by the indefinite use of the subject pronoun \word{on} in \ili{French} \citep{Koenig1998c} or \ili{Hungarian} bare singular objects \citep{FarkasandDeSwart2003}.
+Note that the discourse inertness of the implicit agent in (\ref{a-def}) does not follow from its being unexpressed, as shown by the indefinite use of the subject pronoun \word{on} in \ili{French} \citep[241--244]{Koenig1998c} or \ili{Hungarian} bare singular objects \citep[89--108]{FarkasandDeSwart2003}.
 These, though syntactically expressed, do not introduce discourse referents either.
 In such cases, as well as in passives under the non-canonical argument realization analysis, the first member of the \argst list must therefore be distinguished from indices that introduce discourse referents.
 % TD 17 Jan. 20: Here's a bit that might be added to the paragraph above, with a brief mention of how ``inertness'' might be handled, and maybe Kathol's idea of two different kinds of indices (cross-ref to Agreement chapter for that as well).
@@ -1407,7 +1437,7 @@ One possibility is to introduce a special subtype of the type \type{index}, whic
 This is also one way to treat the inertness of expletive pronouns, so it has some plausible independent motivation.
 Unlike expletive pronouns, the logical subject of passives is linked to an index in \attrib{content}.
 Its person and number features therefore cannot be assigned as defaults (e.g., third person singular \word{it} and \word{there} in English), but must correspond to those of the entity playing the relevant semantic role in \attrib{content}.
-\citet{Davis2001}, offers a slightly different alternative using the dual indices \attrib{index} and \attrib{a-index} proposed for different varieties of agreement in \citet{Kathol1999b}.
+\citet[251--253]{Davis2001} offers a slightly different alternative using the dual indices \attrib{index} and \attrib{a-index}, following the distinction between \attrib{agr} and \attrib{index} used in \citet[240--250]{Kathol1999b} to model different varieties of agreement.
 The \attrib{a-index} of a passive verb's logical subject is of type \type{null}, which, by stipulation, can neither o-command other members of \argst nor appear on \val lists.
 %This would be the case for both personal and impersonal passives.
 In both impersonal and short personal passives, the logical subject is coindexed with a role in \attrib{content} representing an unspecified human (or animate).
@@ -1446,7 +1476,8 @@ Finally, we turn to \word{by}-phrases in long passives.
 In languages like English, a \word{by}-phrase can express the lexeme's logical subject.
 Under both the non-canonical linking and non-canonical argument realization analyses, this might be represented as an optional oblique complement on \argst, as indicated in (\ref{pass-lr}) and (\ref{pass-lxm}), respectively.
 As noted, the non-canonical argument realization analysis would then posit that the \argst of passives includes two members that correspond to the same argument, which again shows the need for an inert first element of \argst.
-Another possibility is to treat such \word{by}-phrases as adjuncts (and therefore not part of the \argst list) or not targeting the logical subject per se \citep{Jackendoff1990}.
+Another possibility is to treat such \word{by}-phrases as adjuncts (and therefore not part of the \argst list), see \citet[Chapter 7]{Hoehle78a} and \citet[292--294]{Mueller2003e} for German and \citet[180]{Jackendoff1990} for English. 
+%or not targeting the logical subject per se \citep{Jackendoff1990}.
 There is evidence, however, that \word{by}-phrases can serve as antecedents of anaphors in at least some languages.
 \citet[111]{Collins2005} cites sentences like (\ref{by-bind}), which suggest that the complement of \word{by}-phrases can bind a reciprocal.
 
@@ -1454,18 +1485,18 @@ There is evidence, however, that \word{by}-phrases can serve as antecedents of a
 \ex\label{by-bind}The packages were sent by the children to each other.
 \end{exe} 
 
-Acceptability judgements of this and similar examples vary, but they are certainly not outright unacceptable.  Likewise, \citet{Perlmutter1984}, furnishes \ili{Russian} examples in which the logical subject (realized as an instrumental case NP) binds a reflexive (note that the English translation of it is also fairly acceptable).
+Acceptability judgements of this and similar examples vary, but they are certainly not outright unacceptable.  Likewise, \citet[10]{Perlmutter1984} furnishes \ili{Russian} examples in which the logical subject (realized as an instrumental case NP) binds a reflexive (note that the English translation of it is also fairly acceptable).
 
 \begin{exe}
 \ex     \label{russian-pass}
-             \gll Eta kniga byla kuplena Borisom dlja sebja.  \\
-             this book was bought Boris-\textsc{instr} for self  \\
+             \gll Eta kniga byla kuplena Boris-om dlja sebja.  \\
+             this book was bought Boris-\textsc{ins} for self  \\
              \glt `This book was bought by Boris$_{i}$ for himself$_{i}$.'
 \end{exe}
 
 Given that binding is a relation between members of the \argst list, such data would seem problematic for an approach that does not include \word{by}-phrases on the \argst list.
-Interestingly, Perlmutter also argues that Russian \word{sebja} is subject-oriented (see \crossrefchapteralt{binding}).
-The intrumental NP \word{Borisom} can bind \word{sebja}, only because it corresponds to the subject of active \word{kupit'}, 'buy'.
+Interestingly, Perlmutter also argues that Russian \word{sebja} is subject-oriented (see \crossrefchapteralt[Section~\ref{binding-sec-passive}]{binding}).
+The intrumental NP \word{Borisom} can bind \word{sebja}, only because it corresponds to the subject of active \word{kupit'}, `buy'.
 Assuming that is correct, an HPSG account of Russian passives would need some means of representing the logical subjecthood of these instrumental NPs; this might involve some way of accessing their active counterpart's \subj value, or of referencing the first element of the passive verb's \argst list, despite its inertness.
 
 The interaction of binding and control with passivization across languages appears to be varied, and as we have noted, we are not aware of systematic investigations into this variation and possible accounts of it within HPSG.
@@ -1477,12 +1508,12 @@ Further work is required to assure that these can be preserved in a meaningful w
 
 \subsection{Summary}
 
-We've examined in this section several approaches to argument alternations in HPSG and their implications for \argst.
+We have examined in this section several approaches to argument alternations in HPSG and their implications for \argst.
 For alternations based on semantic differences, different alternants will have different \attrib{content} values, and linking principles like those we outlined in the previous section account for their syntactic differences.
 Even where such meaning differences are small, there are differing semantic entailments that can affect linking.
 For some cases where there seems to be no discernible meaning difference between alternants, it is still possible for linking principles to yield syntactic differences, if the alternants select different \attrib{key} predications in \attrib{content}.
 The active/passive alternation, however, cannot be accounted for in such a fashion, as it applies to verbs with widely varying \attrib{content} values.
-HPSG accounts of passives therefore resort to lexical entries that are non-canonical, either in their linking or in their mapping between \argst and \val.
+HPSG accounts of passives therefore resort to lexical items that are non-canonical, either in their linking or in their mapping between \argst and \val.
 Both of these are ways of modeling the demotion of the logical subject.
 But there is as yet no consensus within the HPSG community on the correct analysis of passives.
 
@@ -1522,9 +1553,9 @@ But there is as yet no consensus within the HPSG community on the correct analys
 \label{sec:extended-arg-st}
 \is{ARG-ST!extended|see{resultative, clause union}|(}
 
-Most of this chapter focuses on cases where semantic roles linked to the \argst list are arguments of the verb's core meaning. But in quite a few cases, complements (or even subjects) of a verb are not part of this basic meaning; consequently, the \argst list must be extended to include elements beyond the basic meaning. We consider three cases here, illustrated in (\ref{fish})-(\ref{adj}).  
+Most of this chapter focuses on cases where semantic roles linked to the \argst list are arguments of the verb's core meaning. But in quite a few cases, complements (or even subjects) of a verb are not part of this basic meaning; consequently, the \argst list must be extended to include elements beyond the basic meaning. We consider three cases here, illustrated in (\ref{fish})--(\ref{adj}).  
 
-Resultatives, \is{resultative} illustrated in (\ref{fish}), express an effect, which is caused by an action of the type denoted by the basic meaning of the verb. The verb \textit{fischen} `to fish' is a simple intransitive verb (\ref{fish}a) that does not entail that any fish were caught, or any other specific effect of the fishing (see \citealt{Mueller2002b,Wechsler2005result}).  
+Resultatives, \is{resultative} illustrated in (\ref{fish}), express an effect, which is caused by an action of the type denoted by the basic meaning of the verb. The verb \textit{fischen} `to fish' is a simple intransitive verb (\ref{fish}a) that does not entail that any fish were caught, or any other specific effect of the fishing (see \citealt[219--220]{Mueller2002b}).  
 \il{German}
 
 \begin{exe}
@@ -1541,12 +1572,12 @@ Resultatives, \is{resultative} illustrated in (\ref{fish}), express an effect, w
 \ex 
 \gll wegen der Leerfischung der Nordsee \\
      because.of the empty.fishing of.the North.See.\textsc{gen} \\
-\glt `because of the North Sea being fished empty'
+\glt `because of the North Sea being fished empty' (\word{die tageszeitung}, 06.20.1996, p.\,6)
 \end{xlist}
 \end{exe}
 
 \noindent
- In (\ref{fish}b) we see a resultative construction, with an object NP and a secondary predicate AP.  The meaning is that he is fishing, causing it (the body of water) to become empty of fish.  \citet{Mueller2002b} posits a German lexical rule applying to the verb that augments the \argst list with an NP and AP, and adds the causal semantics to the \content (see \cite{Wechsler2005result} for a similar analysis of English resultatives).     The existence of deverbal nouns like \textit{Leerfischung} `fishing empty', which takes the body of water as an argument in genitive case (see \ref{fish}c) confirms that the addition of the object is a lexical process, as noted by \citealt{Mueller2002b}).  
+ In (\ref{fish}b) we see a resultative construction, with an object NP and a secondary predicate AP.  The meaning is that he is fishing, causing it (the body of water) to become empty of fish.  \citet[241]{Mueller2002b} posits a German lexical rule applying to the verb that augments the \argst list with an NP and AP, and adds the causal semantics to the \content (see \citealt{Wechsler2005result} for a similar analysis of English resultatives).     The existence of deverbal nouns like \textit{Leerfischung} `fishing empty', which takes the body of water as an argument in genitive case (see \ref{fish}c) confirms that the addition of the object is a lexical process, as noted by \citet{Mueller2002b}.  
 
 %any effect or change of state due to the hammering. Since there is evidence th
 Romance clause-union structures as in (\ref{faire}) have long been analyzed as cases where the complements of the complements of a clause-union verb (\word{faire} in (\ref{faire})) are complements of the clause-union verb itself \citep{Aissen1979}.
@@ -1560,20 +1591,20 @@ Johanna has made eat the children \\
 \end{exe}
 
 \noindent
-Within HPSG, the ``union'' of the two verbs' dependents is modeled via the composition of \argst lists of the \isi{clause union} verb, following \citet{HinrichsandNakazawa1994} (this is a slight simplification, see  \crossrefchapteralt{complex-predicates} for details). 
+Within HPSG, the ``union'' of the two verbs' dependents is modeled via the composition of \argst lists of the \isi{clause union} verb, following \citet{HinrichsandNakazawa1994} (this is a slight simplification; see  \crossrefchapteralt{complex-predicates} for details). 
 
 
 
 %JPK 1-14-2020: The following paragraph has been changed
 
-\citet{AbeilleandGodard1997} have argued that many adverbs \is{adverbs as complements} including \word{souvent} in (\ref{adj}) and negative adverbs and negation in French are complements of the verb and \citet{KimandSag2002} extended that view to some uses of negation in English. Such analyses hypothesize that some semantic modifiers are realized as complements, and thus should be added as members of \argst (or members of the \deps list if one countenances such an additional list). In contrast to resultatives, \is{resultative} which affect the meaning of the verb, or to clause union, where one verb co-opts the argument structure of another verb, what is added to the \argst list in these cases is typically considered a semantic adjunct and a modifier in HPSG (thus it selects the verb or VP via the \attrib{mod} attribute). 
+\citet{AbeilleandGodard1997} have argued that many adverbs \is{adverbs as complements} including \word{souvent} in (\ref{adj}) and negative adverbs and negation in French are complements of the verb, and \citet{KimandSag2002} extended that view to some uses of negation in English. Such analyses hypothesize that some semantic modifiers are realized as complements, and thus should be added as members of \argst (or members of the \deps list, if one countenances such an additional list; see below). In contrast to resultatives, \is{resultative} which affect the meaning of the verb, or to clause union, where one verb co-opts the argument structure of another verb, what is added to the \argst list in these cases is typically considered a semantic adjunct and a modifier in HPSG (thus it selects the verb or VP via the \attrib{mod} attribute). 
 \il{French}
 
 \begin{exe}
 \ex\label{adj}
  \gll
 	Mes amis m’ ont souvent aidé. \\
-	My friends me have often helped \\
+	my friends me have often helped \\
 	\glt `My friends often helped me.'
 \end{exe}
 
@@ -1583,12 +1614,12 @@ Another case of an adjunct that behaves like a complement is found in (\ref{mour
 \begin{exe}
 	\ex\label{mourir}
 	\gll Il en est mort. \\
-	 He of.it is dead.\textsc{perf.past} \\
-	 \glt `He died of it.' (Koenig \& Davis 2006, ex. 12a)
+	 he of.it is dead.\textsc{pfv.pst} \\
+	 \glt `He died of it.' \citep[ex.\ 12a]{KoenigandDavis2006}
 \end{exe}
 
 \noindent
-On the widespread assumption (at least within HPSG) that pronominal clitics are verbal affixes \citep{MillerandSag1997}, the adjunct cause of the verb \word{mourir} must be represented within the entry for \word{mourir}, so as to trigger affixation by \word{en}. \citet{Boumaetal2001} discuss cases where ``adverbials'', as they call them, can be part of a verb's lexical entry. To avoid mixing those adverbials with the argument structure list (and having to address their relative obliqueness with syntactic arguments of verbs), they introduce  an additional list, the dependents list (abbreviated as \deps) which includes the \argst list but also a list of adverbials. Each adverbial selects for the verb on whose \deps list it appears as an argument, as shown in (\ref{deps}). But, of course, not all verb modifiers can be part of the \deps list and Bouma, Malouf \& Sag discuss at length some of the differences between the two kinds of ``adverbials.''
+On the widespread assumption (at least within HPSG) that pronominal clitics are verbal affixes \citep{MillerandSag1997}, the adjunct cause of the verb \word{mourir} must be represented within the entry for \word{mourir}, so as to trigger affixation by \word{en}. \citet{Boumaetal2001} discuss cases where ``adverbials'', as they call them, can be part of a verb's lexical entry. To avoid mixing those adverbials with the argument structure list (and having to address their relative obliqueness with syntactic arguments of verbs), they introduce  an additional list, the dependents list (abbreviated as \deps) which includes the \argst list but also a list of adverbials. Each adverbial selects for the verb on whose \deps list it appears as an argument, as shown in (\ref{deps}). But, of course, not all verb modifiers can be part of the \deps list, and Bouma, Malouf, and Sag discuss at length some of the differences between the two kinds of ``adverbials''.
 
 \begin{exe}
 \ex\label{deps}	\type{verb} $\Rightarrow$
@@ -1597,7 +1628,7 @@ On the widespread assumption (at least within HPSG) that pronominal clitics are 
 	\[cont$|$key & \@2 \\
 	  head & \@3 \\
 	  deps & \@1 $\oplus$ $\textit{list}$(\[\textup{\textsc{mod}} & \[\textup{\textsc{head}} & \@3 \\
-	  									 \textup{key} & \@2\]\]) \\
+	  									 \textsc{key} & \@2\]\]) \\
 	  arg-st & \@1
 	\]
 \end{avm}}
@@ -1615,9 +1646,9 @@ The entries of the \isi{clause union} verbs are simply stipulated to include on 
 The symbol $\bigcirc$ \is{$bigcirc$|see{shuffle}} in this rule is known as ``shuffle''\is{shuffle}; it represents any list 
 % in which the elements of the two lists are intermixed
 containing the combined elements of the two lists, but with the relative ordering of elements on each list preserved.
-In (\ref{faire-ent}), shuffling the members of the verbal complement's \argst list with those of the main verb's \argst list allows us represent a possible reordering of them (for example in passivization -- depending on one's approach to passivization in HPSG, see \crossrefchaptert{complex-predicates}).
+In (\ref{faire-ent}), shuffling the members of the verbal complement's \argst list with those of the main verb's \argst list allows us represent a possible reordering of them (for example in passivization -- depending on one's approach to passivization in HPSG; see \crossrefchaptert{complex-predicates}).
 %JPK 13 Jan 2020: Added a definition of the shuffle operation
-Finally, (negative) adverbs that select for a verb (VP) are added to the \argst of the verb they select. A simplified representation of all three processes is provided in (\ref{res-lr})-(\ref{neg-lr}). 
+Finally, (negative) adverbs that select for a verb (VP) are added to the \argst of the verb they select. A simplified representation of all three processes is provided in (\ref{res-lr})--(\ref{neg-lr}). 
 
 
 \begin{exe}
@@ -1684,21 +1715,21 @@ objects in the entry for a verb lexeme, and is used to model the following gramm
 
 \begin{itemize}
 \item The verb selects grammatical features such as part of speech
-category, case marking, and preposition forms, of its dependent
+category, case marking, and preposition forms of its dependent
 phrases.
 \item \argst list items:
 \begin{enumerate}
 \item are unified with \val list items
 representing grammatical properties of phrasal dependents (subject and
-complements);
+complements),
 \item determine verbal morphology, or
-\item are left unexpressed
+\item are left unexpressed.
 \end{enumerate}
-\item The different contexts of occurrence of a verb correspond to distinct \argst values
+\item The different contexts of occurrence of a verb correspond to distinct \argst values.
 \item The inflected verb can indicate agreement features on both phrasal
-and affixal arguments
+and affixal arguments.
 \item Binding conditions on arguments are defined on \argst, making
-crucial use of the ordering relation (‘obliqueness’).
+crucial use of the ordering relation (``obliqueness'').
 \end{itemize}
 
 \citet{KoenigandMichelson2014,KoenigandMichelson2015a,KoenigandMichelson2015b} argue that the grammatical encoding of semantic arguments in Oneida (Northern Iroquoian) \il{Oneida} does not display any of these properties.  In fact, the only function of the
@@ -1706,14 +1737,14 @@ corresponding intermediate representation in Oneida is to distinguish
 the arguments of a verb for the purpose of determining verbal
 prefixes indicating semantic person, number, and gender
 features of animate arguments.  
-For example,  the prefix \word{lak-} occurs if a third singular masculine proto-agent argument is acting on a first singular proto-patient argument as in \word{lak-hlo·lí-he\textipa{P}}  `he tells me’ (habitual aspect), whereas  the prefix \word{li-} occurs if a first singular proto-agent argument is acting on a third masculine singular argument, as in \word{li-hlo·lí-he\textipa{P}} `I tell him’ (habitual aspect).
+For example,  the prefix \word{lak-} occurs if a third-person singular masculine proto-agent argument is acting on a first-person singular proto-patient argument as in \word{lak-hlo·lí-he\textipa{P}}  `he tells me’ (habitual aspect), whereas  the prefix \word{li-} occurs if a first singular proto-agent argument is acting on a third masculine singular argument, as in \word{li-hlo·lí-he\textipa{P}} `I tell him’ (habitual aspect).
  As there is no syntactic agreement, these verbal prefixes encode purely semantic features.
 \type{Synsem} objects are therefore not appropriate for this intermediate
 representation; all that is needed are semantic argument indices to
 distinguish between (a maximum of two) animate co-arguments
 distinguished for fixed argument roles for each verb.
-Koenig and Michelson use the attribute \attrib{infl-str},\isfeat{INFL-STR} which is a list of referential indices for animate arguments, within the morphological information associated with each verb (within the value of \attrib{morph}, see \crossrefchapteralt{morphology}) for this highly restricted
-Oneida feature that replaces \argst. If Koenig and Michelson are correct, the \argst list may thus not a universal attribute of words, though present in the overwhelming majority of languages.
+Koenig and Michelson use the attribute \attrib{infl-str},\isfeat{INFL-STR} which is a list of referential indices for animate arguments, within the morphological information associated with each verb (within the value of \attrib{morph}; see \crossrefchapteralt{morphology}) for this highly restricted
+Oneida feature that replaces \argst. If Koenig and Michelson are correct, the \argst list may thus not be a universal attribute of words, though present in the overwhelming majority of languages.
 Linking, understood as constraints between semantic roles and members of the \argst list, is then but one possibility; constraints that relate semantic roles to an \attrib{infl-str} list of semantic indices is also an option.
 In languages that exclusively exploit that latter possibility, syntax is indeed simpler.
 
@@ -1771,18 +1802,18 @@ In languages that exclusively exploit that latter possibility, syntax is indeed 
 \section{The lexical approach to argument structure}
 \label{lexicalapproach}
 
-We end this chapter with a necessarily brief comparison between the approach to argument structure we have described here with other approaches to argument structure that have developed since the 1990's.
+We end this chapter with a necessarily brief comparison between the approach to argument structure we have described here and other approaches to argument structure that have developed since the 1990s.
 This chapter describes a \textit{lexical approach to argument structure}, which is typical of research in HPSG.  The basic tenet of such approaches is that lexical items include argument structures, which represent essential information about potential argument selection and expression, but
 abstract away from the actual local phrasal structure.  In contrast, \emph{phrasal approaches}, which
-are common both in Construction Grammar \is{Construction Grammar} and in transformational approaches such as Distributed Morphology,\is{Distributed Morphology} reject such lexical argument structures.   Let us briefly review the reasons for preferring a lexical approach. (This section is drawn from \citet{MWArgSt}, which may be consulted for more detailed and extensive argumentation.) 
+are common both in Construction Grammar \is{Construction Grammar} and in transformational approaches such as Distributed Morphology,\is{Distributed Morphology} reject such lexical argument structures.   Let us briefly review the reasons for preferring a lexical approach. (This section is drawn from \citealt{MWArgSt}, which may be consulted for more detailed and extensive argumentation.) 
 
-In phrasal approaches \is{argument realization!phrasal approaches to|(} to argument structure, components of a verb's apparent meaning are actually `constructional meaning' contributed directly by the phrasal structure.  The linking constraints of the sort discussed above are then said to arise from the interaction of the verb meaning with the constructional meaning.  For example, agentive arguments tend to be realized as subjects, not objects, of transitive verbs.  On the theory presented above, that generalization is captured by the linking constraint (\ref{act-vb-linking}), which states that the \textsc{actor} argument of an \textit{act-und-rel} (`actor-undergoer relation') is mapped to the initial item in the \argst list.  In a phrasal approach, the agentive semantics is directly associated with the subject position in the phrase structure.  In transformational theories, a silent `light verb' (usually called ``little \textit{v}'') heads a projection in the phrase structure and assigns the agent role to its specifier (the subject).  In constructional theories, the phrase structure itself assigns the agent role.  In either type of phrasal approach, the agentive component of the verb meaning is actually expressed by the phrasal structure into which the verb is inserted.  
+In phrasal approaches \is{argument realization!phrasal approaches to|(} to argument structure, components of a verb's apparent meaning are actually ``constructional meaning'' contributed directly by the phrasal structure.  The linking constraints of the sort discussed above are then said to arise from the interaction of the verb meaning with the constructional meaning.  For example, agentive arguments tend to be realized as subjects, not objects, of transitive verbs.  On the theory presented above, that generalization is captured by the linking constraint (\ref{act-vb-linking}), which states that the \textsc{actor} argument of an \textit{act-und-rel} (`actor-undergoer relation') is mapped to the initial item in the \argst list.  In a phrasal approach, the agentive semantics is directly associated with the subject position in the phrase structure.  In transformational theories, a silent ``light verb'' (usually called ``little \textit{v}'') heads a projection in the phrase structure and assigns the agent role to its specifier (the subject).  In constructional theories, the phrase structure itself assigns the agent role.  In either type of phrasal approach, the agentive component of the verb meaning is actually expressed by the phrasal structure into which the verb is inserted.  
 
 
 The lexicalist’s approach to argument structure provides essential information for a verb's potential
 combination with argument phrases.   If a given lexical entry could only  combine with the particular set of phrases specified in a single \val feature, then the lexical and phrasal approaches would be difficult to distinguish: whatever information the lexicalist specifies for each \val list item could, on the phrasal view, be specified instead for the phrases realizing those list items.  
 But crucially, the verb need not immediately combine with its specified
-arguments.  Alternatively it can meet other fates: it can serve as the input to a lexical rule; it
+arguments.  Alternatively, it can meet other fates: it can serve as the input to a lexical rule; it
 can combine first with a modifier in an adjunction structure; it can be coordinated with another
 word with the same predicate argument structure; instead of being realized locally, one or more of
 its arguments can be effectively transferred to another head’s valence feature (raising or argument
@@ -1809,8 +1840,8 @@ across different syntactic expressions of the arguments of a given root.
 
 \noindent
 Verbs undergo  morpholexical operations like passive
-(\ref{nibble}d), as well as antipassive, causative, and applicative in other languages.  They have cognates in
-other parts of speech such as adjectives  (\ref{nibble}c,d) and nouns  (\ref{nibble}e,f,g).  
+(\ref{nibble}b), as well as antipassive, causative, and applicative in other languages.  They have cognates in
+other parts of speech such as adjectives  (\ref{nibble}c, d) and nouns  (\ref{nibble}e, f, g).  
 Verbs have been argued to form complex predicates with resultative secondary predicates (\ref{nibble}h), and with serial verbs in other languages.\is{resultative}   
 
 The same root lexical entry \emph{nibble}, with the same meaning, appears in all of these contexts.
@@ -1822,11 +1853,11 @@ the referential index of Arg1 is optionally assigned to a \emph{by}-phrase.  The
 syntax dictate the position of the subject, whether the verb is active or passive.  When adjectives
 are derived from verbal participles, whether active (\emph{a nibbling rabbit}) or passive (\emph{a
   nibbled carrot}), the rule is that whichever role would have been expressed as the subject of the
-verb is assigned by the participial adjective to the referent of the noun that it modifies, see \citet{Bresnan:1982passive} 
+verb is assigned by the participial adjective to the referent of the noun that it modifies; see \citet{Bresnan:1982passive} 
 and \citet[Chapter~3]{Bresnan+etal:2015}.  
 The phrasal approach, in which the agent role is assigned to the subject position, is too rigid.  
 
-Nor could this be solved by associating each syntactic environment with a different meaningful phrasal construction: an active construction with agent role in the subject position; a passive construction with agent in the \textit{by}-phrase position; etc.  The problem for that view is that one lexical rule can feed another.  In the example above, the output of the verbal passive rule (see (\ref{nibble}d)) feeds the adjective formation rule (see (\ref{nibble}e)).  
+Nor could this be solved by associating each syntactic environment with a different meaningful phrasal construction: an active construction with agent role in the subject position, a passive construction with agent in the \textit{by}-phrase position, etc.  The problem for that view is that one lexical rule can feed another.  In the example above, the output of the verbal passive rule (see (\ref{nibble}d)) feeds the adjective formation rule (see (\ref{nibble}e)).  
  
 A verb can also be coordinated with another verb with the same valence requirements.  The two verbs then share their dependents.  This causes problems for the phrasal view, especially when a given dependent receives different semantic roles from the two verbs.  For example, in an influential phrasal analysis, \citet{hale+keyser:1993}
 derived denominal verbs like \textit{to saddle} through noun incorporation out of a structure akin to
@@ -1841,9 +1872,9 @@ become legendary.\footnote{\url{http://www.jouetthouse.org/index.php?option=com_
 \end{exe}
 
 \noindent
-Under the phrasal analysis the two verbs place contradictory demands on a single phrase structure.  But on the lexical analysis, this is simple V$^0$ coordination.  \is{argument realization!phrasal approaches to|)} 
+Under the phrasal analysis, the two verbs place contradictory demands on a single phrase structure.  But on the lexical analysis, this is simple V$^0$ coordination.  \is{argument realization!phrasal approaches to|)} 
  
-To summarize, a lexical argument structure is an abstraction or generalization over various occurrences of the verb in syntactic contexts. To be sure, one key use of that argument structure is simply to indicate what sort of phrases the verb must (or can) combine with, and the result of semantic composition; if that were the whole story then the phrasal theory would be viable. But it is not. As it turns out, lexically encoded valence structure, once abstracted, can alternatively be used in other ways: among other possibilities, the verb (crucially including its valence structure) can be coordinated with other verbs that have a similar valence structure; or it can serve as the input to lexical rules specifying a new word bearing a systematic relation to the input word.   The phrasal approach prematurely commits to a single phrasal position for the realization of 
+To summarize, a lexical argument structure is an abstraction or generalization over various occurrences of the verb in syntactic contexts. To be sure, one key use of that argument structure is simply to indicate what sort of phrases the verb must (or can) combine with, and the result of semantic composition; if that were the whole story, then the phrasal theory would be viable. But it is not. As it turns out, lexically-encoded valence structure, once abstracted, can alternatively be used in other ways: among other possibilities, the verb (crucially including its valence structure) can be coordinated with other verbs that have a similar valence structure, or it can serve as the input to lexical rules specifying a new word bearing a systematic relation to the input word.   The phrasal approach prematurely commits to a single phrasal position for the realization of 
 a semantic argument.  In contrast, a lexical argument structure gives a word the appropriate flexibility to account for the full range of expressions found in natural language.   
  
 
