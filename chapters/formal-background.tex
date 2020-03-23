@@ -92,7 +92,7 @@ of HPSG. Some of them have to do with the long publication history of relevant p
 with the considerable influence of grammar implementation platforms, which have
 their own formalisms and shape the way in which
 linguists think and talk about grammars with their platform-specific terminology
-and notational conventions. % book chapter? 
+and notational conventions. % (see \crossrefchaptert{cl}). % book chapter? 
 Salient examples include convenient
 notations for phrase structure rules, the treatment of lexical
 representations or the lexicon, mechanisms for lexical rules, and
@@ -178,9 +178,7 @@ the differences to its 1987 precursor where
 the older terminology is still present in current HPSG papers and
 may be confusing to an audience unaware of the different
 usages of terms. Similarly, it does not cover SBCG (Sign-Based
-Construction Grammar) and its characterization
-of linguistic signs as sets of structures not necessarily linked by
-attributes (\crossrefchaptert{cxg}).
+Construction Grammar, \crossrefchaptert{cxg}).
 
 %I will clarify parallel terminological traditions and
 
@@ -239,7 +237,8 @@ A single underspecified description can therefore
 describe many distinct linguistic objects. Grammatical descriptions
 often describe an infinity of objects. Again considering plural nouns,
 English can be thought of as having a very large number or an infinity
-of them due to its productive morphology.
+of them due to morphological processes such as compounding, depending on
+the choice of morphological analysis.
 
 Descriptions are couched in a (language of a) feature logic rather
 than in English for precision. Linguistic objects as the subject of linguistic study
@@ -250,7 +249,7 @@ of description logics. With this architecture, HPSG is a
 \emph{model-theoretic} grammar framework as opposed to
 \emph{generative-enumerative} grammar frameworks, which
 have rewrite systems that generate expressions
-from some start symbol(s).
+from some start symbol(s) \citep{PS2001a}.
 
 A small digression might be in order to prevent confusion arising from
 the co-existence of different versions of feature logics.  Varieties
@@ -265,12 +264,12 @@ notation they are written as AVMs just like the descriptions of the
 formalism we are presently concerned with, and this notational
 similarity contributes to obscuring substantial differences.  When two
 partial feature structures carry compatible information they are said
-to be unifyable. Their unification returns a unique third feature
+to be unifiable. Their unification returns a unique third feature
 structure in the given algebra that carries the more specific
 information that is obtained when combining the previous two pieces of
 information (supposing they were not the same to begin with). These ideas and the
 properties of algebras of feature logics of partial information are
-still essential for all current HPSG implementation platforms, which
+still essential for all current HPSG implementation platforms (see \crossrefchaptert{cl}), which
 is presumably one of the reasons why the terminology of unification
 and unification-based grammars is still popular in the HPSG
 community. Returning to \cite{PollardSag1994}, in a certain
@@ -288,9 +287,9 @@ technical interpretation of the term in this context.\footnote{This
   relational expressions.}
 
 HPSG employs partial descriptions in all areas of grammar, comprising
-at least syntax, semantics (\crossrefchaptert{semantics}), pragmatics (\crossrefchaptert{pragmatics}) and morphology (\crossrefchaptert{morphology}). The
+at least syntax, semantics \crossrefchapterp{semantics}, pragmatics \crossrefchapterp{pragmatics} and morphology \crossrefchapterp{morphology}. The
 descriptions are normally notated as AVMs and contain sort symbols (by
-convention in italics with lower case letters), attribute symbols
+convention in italics with lower case letters), and attribute symbols
 (in small caps). These are augmented by the standard
 logical connectives (conjunction, disjunction, negation and
 implication) and relation symbols. So-called \emph{tags}, boxed
@@ -482,7 +481,12 @@ description. Moreover, the only \type{object}s with \attrib{case}
 (\ref{ex-o-o}) are nouns, but since that leaves exactly the two possible
 \attrib{prd} values \type{plus} and \type{minus}, (\ref{ex-o-o}) is
 yet another way to underspecify the two structures which
-({\ref{ex-n-full}) describes exhaustively. Finally, the disjunction
+({\ref{ex-n-full}) describes exhaustively. Omitting the sort
+  symbol \type{object} in the upper left-hand corner of (\ref{ex-o-o})
+  would in fact be one more way to describe all nouns to the exclusion of
+  everything else,
+  because saying that something is an \type{object} does not restrict
+  the range of choices. Finally, the disjunction
   embedded in the AVM in (\ref{ex-n-full}) can be lifted to
 the top level of the description, yielding (\ref{ex-n-sfull}).
 
@@ -504,7 +508,7 @@ is not described by \type{hd-ph} still satisfies
 the Head Feature Principle as an implicational statement. For example,
 the \attrib{synsem} value of each phrase is usually assumed to be an
 object of sort \type{synsem}, i.e.\ it is not a phrase of sort
-\type{hd-ph}. But as a
+\type{hd-ph}. As a
 \type{synsem} object it is not described by the antecedent of
 (\ref{ex-hfp}), thereby still fulfilling the principle. In classical
 logic, $A \rightarrow B$ is equivalent to $\neg A \vee B$, so something
@@ -518,7 +522,9 @@ structure is licensed by not being described by the antecedent of the
 given principle.
 
 The tag \idx{1} signals the identity of the value found at the end of
-the two distinct attribute paths leading to its occurrences. In the Head Feature Principle, the tag notation
+the two distinct attribute paths leading to its occurrences. This state
+of affairs is often referred to as \emph{token identity}. In
+the Head Feature Principle, the tag notation
 could be an informal notation for a \emph{path equation}, or it could mean
 that \idx{1} plays the role of a variable. The description language of
 Sections~\ref{sec-signatures}--\ref{sec-meaning} offers both options for
@@ -541,7 +547,7 @@ rendering such occurrences of tags in the syntax of RSRL.
     \end{avm}
     
     \ex\label{ex-word-principle}
-    \type{word} $\Rightarrow$ $\left(LE_1 \vee LE_2 \vee \ldots  \vee LE_n \right)$
+    \type{word} $\Rightarrow$ $\left(\mbox{LE$_1$} \vee \mbox{LE$_2$} \vee \ldots  \vee \mbox{LE$_n$} \right)$
     
 \ex\label{ex-semantics}
 \type{sign} $\Rightarrow$ {\avmoptions{center}\begin{avm}
@@ -551,7 +557,7 @@ rendering such occurrences of tags in the syntax of RSRL.
 										\end{avm}} \\
 \hspace*{1.1cm}	$\wedge$ \texttt{set-of-elements} (\avmbox{3},\avmbox{4})
 			$\wedge$ \avmbox{4} $\subseteq$ \avmbox{2}
-$\wedge$ \avmbox{1} = \avmbox{2} - \avmbox{4}
+$\wedge$ \avmbox{1} $=$ \avmbox{2} $-$ \avmbox{4}
 
 \ex\label{ex-complex-ante}
 \begin{avm}
@@ -584,10 +590,10 @@ connection with lists and sets, and so do the relations here: the
 binary relation \texttt{set-of-elements} relates the \attrib{retrieved} value
 (a list) to a set \idx{4} containing the elements on list \idx{3} such
 that the set value \idx{2} of \attrib{pool} is a superset of \idx{4}
-(subset relation), and the set value \idx{1} of \attrib{qstore}
+(using the subset relation), and the set value \idx{1} of \attrib{qstore}
 contains those elements of \idx{2} which are not on the
 \attrib{retrieved} list (using set difference). In other words,
-each element of \attrib{pool} is either in \attrib{qstore} or
+each element of \attrib{pool} is either in \mbox{\attrib{qstore}} or
 a list element on \attrib{retrieved}, and nothing else is in \attrib{qstore}
 or on the \attrib{retrieved} list.\footnote{One
   additional interesting property of this principle concerns the set
@@ -630,8 +636,11 @@ structure licensed by an HPSG grammar of English.
 All HPSG
 model theories after \cite{PollardSag1994} give up the idea of
 postulating types as objects in the intended
-grammar model and do not construct models with feature
-structures. \citet{King99a-u} suggests \emph{exhaustive models},
+grammar model and do not construct models which are populated with feature
+structures.\footnote{\cite[294]{Pollard99a} still uses the term \emph{feature
+    structure}, but it is applied to a special kind of \emph{interpretation}
+  in the sense of Definition~\ref{def-initial-int}. See the
+  more detailed characterization of these structures in Section~6 below.} \citet{King99a-u} suggests \emph{exhaustive models},
 collections of possible language tokens. Whereas two types are always
 distinct, linguistic tokens in
 exhaustive models can be isomorphic when they are different token
@@ -648,18 +657,21 @@ of structural isomorphism, for the latter it is only a conventional
 notion of correspondence. Moreover, Pollard's models avoid an
 ontological commitment to the reality of types. \citet{Richter2007a}
 points out shortcomings with the postulated one-to-one correspondence
-between linguistics types \citep{PollardSag1994} and mathematical
-idealizations \citep{Pollard99a} and the linguistic utterances they
-are supposed to represent. The failure of achieving the intended
+between linguistic types \citep{PollardSag1994} or mathematical
+idealizations \citep{Pollard99a} and the groups of
+linguistically indistinguishable utterances they
+are supposed to represent (e.g.\ the group of realizations of
+\emph{Breakfast is ready}). The failure of achieving the intended
 one-to-one correspondence
 is due to technical properties of the structure of the respective models
 and to imprecisions of actual HPSG grammar
-specifications, where the two factors are partially
+specifications, and the two factors are partially
 independent. \citet{Richter2007a} suggests schematic amendments to
 grammars (by a small set of axioms and an extended signature),
 leading to \emph{normal form grammars} whose \emph{minimal exhaustive
   models} exhibit the intended one-to-one correspondence
-between structural configurations in the model and empirically
+between structural configurations in the model and (groups of linguistically
+indistinguishable) empirically
 observable utterance events. Despite being a certain kind of
 exhaustive model, minimal exhaustive models are not token models and
 do not suffer from the problematic concept of \emph{potential token} models
@@ -875,7 +887,7 @@ their regular explicit encoding in HPSG.
 RSRL adds chains to all signatures.
 Informally, the extra symbols act very much like sorts and attributes for
 lists: \type{chain} for \type{list}, \type{echain} and \type{nechain} for
-\type{nelist} and \type{elist}, respectively, and the reserved symbols
+\type{elist} and \type{nelist}, respectively, and the reserved symbols
 $\dagger$ and $\triangleright$ for \attrib{first} and \attrib{rest}.
 In order to integrate the reserved new sort symbols with any
 signature a linguist might specify, a distinguished sort \textit{metatop} serves as unique
@@ -901,7 +913,9 @@ new pseudo-sorts into the given relation by ordering \type{echain} and
 and ordering every sort and pseudo-sort under the new top element of the
 partial order, \type{metatop}. Corresponding to \type{elist} and \type{nelist}
 above, \type{echain} and \type{nechain} are treated as maximally specific
-by including them in the extension of $S_{max}$, designated as $\Aug{S}_{max}$.
+by including them in the extension of $S_{max}$, designated as $\Aug{S}_{max}$.\footnote{Extending the appropriateness function, $F$, is unnecessary since the
+  relevant effects follow immediately from the semantics of the new reserved symbols in
+Definition~\ref{def-expanded-interpretation}.}
 An AVM describing a chain with two \type{synsem} objects corresponding to the description
 of a list with two \type{synsem} objects in (\ref{list-w2-eles}) now looks as
 follows:
@@ -1133,7 +1147,7 @@ $\Reli$ finally interprets $n$-ary
 relation symbols as sets of $n$-tuples of objects. However, there is
 an additional option, which makes the definition look more complex: an
 object in an $n$-tuple may in fact not be an atomic object, it can
-alternatively be an $n$-tuple of objects itself. These $n$-tuples in
+alternatively be a tuple of objects itself. These tuples in
 argument positions of relations will be described as \emph{chains}
 with the extra symbols, pseudo-sort and pseudo-attributes, which were
 added to signatures in
@@ -1148,7 +1162,7 @@ defined separately. This is very simple, since these
 symbols behave essentially analogous to the conventional sort and attribute
 symbols of HPSG's list encoding.
 
-\begin{mydef}
+\begin{mydef}\label{def-expanded-interpretation}
   For each signature $\Sigma=\left<S,\sqsubseteq,S_{max},A,F,R,Ar\right>$,
   for each initial $\Sigma$ interpretation $\Inte=\Interpretation$,\\
   $\Aug\Speci$ is the total function from $\overline\Unive$ to $\Aug{S}$
@@ -1178,8 +1192,8 @@ $\left<u_0,\ldots,u_n\right>\in\Unive^{+}$,\\
 \hspace*{1cm} $\Aug{\Atti}\left(\triangleright\right)\left(\left<u_0,\ldots,u_n\right>\right)=\left<u_1,\ldots,u_n\right>$.
 \end{mydef}
 
-$\Aug{S}$ is the \emph{expanded species assignment function}, and
-$\Aug{A}$ is the  \emph{expanded attribute interpretation function}.
+$\Aug{\Speci}$ is the \emph{expanded species assignment function}, and
+$\Aug{\Atti}$ is the  \emph{expanded attribute interpretation function}.
 The pseudo-species symbols \textit{echain} and \textit{nechain} label
 empty chains and non-empty chains, respectively. Given a non-empty
 chain, the pseudo-attribute $\dagger$ picks out its first member,
@@ -1497,8 +1511,9 @@ objects in the universe of $\Inte$ that are described by
 $\delta$. With $\Sigma$ descriptions and their denotation as sets of
 objects we have everything in place to symbolize all grammar
 principles of a grammar such as the one presented by
-\citet{PollardSag1994} in logical notation and to receive and
-interpretation as intended by the authors. A comprehensive logical
+\citet{PollardSag1994} in logical notation, and the grammar principles
+receive an interpretation along the lines
+informally characterized by Pollard and Sag. A comprehensive logical
 rendering of their grammar of English can be found in Appendix~C of
 \citet{Richter2004a-u}. It includes the treatments of (finite) sets
 and of parametric sorts (such as \type{list(synsem)}), which are not
@@ -1577,7 +1592,7 @@ is a \emph{$\Gamma$ model} iff
 \end{mydef}
 
 A $\Gamma$ model is an interpretation $\Inte=\Interpretation$ in which
-every description in the theory of grammar $\Gamma$ is true of every object
+every description in the theory of grammar $\Gamma$ describes every object
 in the interpretation's universe $\Unive$. In other words, each object
 in the interpretation fulfills all conditions which are imposed by
 the grammar principles. There is no object in a $\Gamma$ model that
@@ -1588,27 +1603,29 @@ denotation of relational formul\ae. Assume we want to define a unary
 relation \texttt{synsem-rel} which contains all objects of sort
 \type{synsem} of a typical HPSG grammar. To achieve this we declare the
 relation symbol \texttt{synsem-rel} in the signature and we add the
-description in (\ref{synsem-rel}) to the theory of the grammar:
+description in (\ref{synsem-rel}) to the theory of the grammar $\Gamma$:
 
 \begin{exe}
   \ex\label{synsem-rel}
   $\forall x \left(\texttt{synsem-rel}(x)\leftrightarrow x\sim\mbox{\type{synsem}}\right)$
 \end{exe}
 
-Consider a non-empty grammar model $\Inte$ containing words and
-phrases. Since (\ref{synsem-rel}) is in the theory, and we look
-at a \emph{model}, (\ref{synsem-rel}) describes every object in the
-universe of $\Inte$.  By the bi-implication, every component object of every
-object $u$ in $\Inte$ which is of sort \type{synsem} is in
-$\Reli$(\texttt{synsem-rel}) (right to left), and every element of
-$\Reli$(\texttt{synsem-rel}) is a \type{synsem} object (left to
-right). But that means that $\exists x\,\texttt{synsem-rel}(x)$
-describes every object in $\Inte$ which has a component that is in the
-\texttt{synsem-rel} relation, and $\forall
+Consider a non-empty $\Gamma$ model $\Inte$ containing words and
+phrases. Since by assumption (\ref{synsem-rel}) is in the theory of
+$\Gamma$, and we consider a \emph{model}, (\ref{synsem-rel}) describes
+every object in the universe of $\Inte$.  By the bi-implication, every
+component object of every object $u$ in $\Inte$ which is of sort
+\type{synsem} is in $\Reli$(\texttt{synsem-rel}) (right to left), and
+every element of $\Reli$(\texttt{synsem-rel}) is a \type{synsem}
+object (left to right). But if the bi-implication in
+(\ref{synsem-rel}) holds in both directions in $\Inte$, it follows
+that the expression $\exists x\,\texttt{synsem-rel}(x)$ describes
+every object $u$ in $\Inte$ which has a component that is in the
+\texttt{synsem-rel} relation. The expression $\forall
 x\,\texttt{synsem-rel}(x)$ describes every object in $\Inte$ all of
-whose components are in that relation.\footnote{Of which there are
-  none, given the usual structure of signs where synsem objects always
-  have components of other sorts.}
+whose components are in the \texttt{synsem-rel} relation.\footnote{Of
+  which there are none, given the usual structure of signs where
+  \type{synsem} objects always have components of other sorts.}
 
 Now assume we have a description much like (\ref{synsem-rel})
 in our grammar theory, but instead of defining the meaning of
@@ -1665,23 +1682,25 @@ grammar undergenerates if there are grammatical structures it does not
 capture. It overgenerates if it permits structures that are deemed
 ungrammatical. It is uncontroversial that an appropriate notion of the
 meaning of a grammar should support linguists in making such
-predictions with their grammars. However, the previous notion of
-$\Gamma$ models is not strong enough for this purpose. To see this,
-suppose there is a signature $\Sigma$ which is fit to describe the
-entire English language, and there is a theory $\theta$ which
-expresses correctly all and only what there is to say about English.
-Interestingly, a 
-$\left< \Sigma, \theta \right>$ model of this perfect grammar
-of English may consist of nothing but a structure
-of the single sentence \emph{Elon is going to Mars}. This follows from
+predictions with their grammars. However, the notion of $\Gamma$
+models in Definition~\ref{def-rsrl-model} is not strong enough for
+this purpose. To see this, suppose there is a signature $\Sigma$ which
+is fit to describe the entire English language, and there is a theory
+$\theta$ which expresses correctly all and only what there is to say
+about English.  Interestingly, a $\left< \Sigma, \theta \right>$ model
+$\Inte$ of this perfect grammar of English can be arbitrarily small as
+long as every object in the $\Sigma$ interpretation $\Inte$ is
+described by every grammar principle in $\theta$, as this is condition
+on models of a grammar. Therefore a $\left< \Sigma, \theta \right>$
+model of our perfect grammar may consist of nothing but a structure of
+the single sentence \emph{Elon is going to Mars}. This follows from
 the definition of $\Gamma$ models, because any appropriate grammar of
-English describes all objects of which this well-formed sentence consists. But
-this one-sentence-model of the grammar of English is obviously too
-small for counting as a good
-candidate for the English language, because English contains much more
-than this single sentence. We conclude that in arbitrarily chosen
-models it cannot be detected if
-a grammar undergenerates or overgenerates.
+English must describe all objects that together make up this
+well-formed sentence.  But this one-sentence-model of the grammar of
+English is obviously too small for counting as a good candidate for
+the English language, because English contains much more than this
+single sentence. We conclude that in arbitrarily chosen models it
+cannot be detected if a grammar undergenerates or overgenerates.
 
 
 \citeauthor{King99a-u}'s (\citeyear{King99a-u}) \emph{exhaustive models} are a possibility to
@@ -1771,7 +1790,7 @@ overgeneration or undergeneration (Section~\ref{sec-grammar-meaning}):
 all and only the grammatical structures of $\mathcal{L}$ are supposed
 to be in the intended model or to find a corresponding counterpart in
 it. The significant differences between T1, T2, T3 and T4 reside in
-their assumptions about the nature of the model. The decision what
+their assumptions about the nature of the model. The decision of what
 kind of entities populate the model determines the ontological and
 structural properties of the entities in the model, which in turn leads
 to substantial technical differences in the construction of the
@@ -1821,9 +1840,11 @@ of \emph{types} of linguistic events. The main idea is that the object
 types abstract away from individual circumstances of token
 occurrences, because for T1 a grammar of a language is assumed not to
 be concerned with individual linguistic events or tokens.  The object
-types represent linguistic token expressions in the sense that an
-object type conventionally corresponds to one grammatical expression
-of the language $\mathcal{L}$ that $\left< \Sigma, \theta\right>$
+types capture individual linguistic token events in the sense that an
+object type conventionally corresponds to ``those imaginable linguistic
+objects that are actually predicted to be possible ones''
+\citep[7]{PollardSag1994} in
+the language $\mathcal{L}$ that $\left< \Sigma, \theta\right>$
 describes.  The postulated intuitive correspondence is not explicated
 further, but it is expected that a trained linguist will recognize
 which object type a linguistic token encountered in the real world
@@ -1860,10 +1881,11 @@ T1 is implemented by constructing linguistic object types as abstract
 feature structures. In first approximation -- to be refined presently
 -- these can be thought of as rooted directed graphs, or, in terms of
 our previous grammar models, as configurations of objects under a root
-node. Here a root node corresponds to the object $u$ in
-$\CInt_{\Inte}^u$, the sets of components of an $u$ in an
-interpretation $\Inte$ introduced in
-Definition~\ref{def-components-of-u}.  The abstract feature structures
+node. Definition~\ref{def-components-of-u} introduced $\CInt_{\Inte}^u$
+as the set of components of an object $u$ in an
+interpretation $\Inte$.
+The root node of  the directed graph corresponds to the distinguished object $u$ in a set
+$\CInt_{\Inte}^u$.  The abstract feature structures
 used as mathematical representations of object types, however, are not
 graph-like objects, as two distinct graphs could be isomorphic, in
 violation of the core idea of proposing unique object types for
@@ -1895,7 +1917,7 @@ intended exhaustive model populated with actual and non-actual
 linguistic tokens.  With T3 \cite{Pollard99a} is firmly opposed to
 token models and sees mathematical idealizations as fundamental to
 grammatical meaning.  The concept of non-actual tokens is deemed
-inacceptable and self-contradictory. However, \cite{Pollard99a} also
+unacceptable and self-contradictory. However, \cite{Pollard99a} also
 rejects T1's ontological commitment to object types and wants to
 strengthen the relationship between the structures in the denotation
 of a grammar and empirically observable token expressions.  According
@@ -1943,7 +1965,8 @@ A central tenet of theories T1 and T3 of the meaning of grammars as
 sets of abstract feature structures and as mathematical idealizations
 in the strong generative capacity is the one-to-one
 correspondence either of object types or of mathematical idealizations
-to grammatical utterances in a language. \citet{Richter2007a}
+to (linguistically indistinguishable groups of) grammatical utterances
+in a language. \citet{Richter2007a}
 investigates the models of existing HPSG grammars such as the fragment
 of English developed in \cite{PollardSag1994} and notes that
 T1 and T3 necessarily trigger an unintended one-to-many
@@ -1963,7 +1986,7 @@ structures which can occur in grammatical utterances at all.\footnote{See
   \cite[Section 4]{Richter2007a} for extensive discussion and 
   examples.} While the abstract feature structures
 of T1 do not have substructures, the abstract feature structure admission
-relation relies on a mechanism with exactly the same effect: Admitting
+relation relies on a mechanism with exactly the same effect: admitting
 the unique type of \emph{Elon must be on his way to Mars} entails the existence
 of many other types, so-called reducts of the intended
 type, and these reducts do not have empirical counterparts in linguistic
@@ -2022,17 +2045,39 @@ shares the avoidance of mathematical entities representing linguistic
 facts.
 
 HPSG is among a small group of grammar formalisms with a very precise
-outline of its formal foundations. It is exceptional with its
-alternative characterizations of the meaning of grammars based on one
-and the same set of core definitions of the syntax and semantics of
-its descriptive devices. This common core of philosophically different
-approaches to the scientific description of human languages makes their
-respective advantages and disadvantages comparable within one single
-framework, and it renders the discussion of very abstract concepts
-unusually concrete.  Alternative approaches to grammatical meaning
-based on different views of the nature of scientific description of an
-empirical domain can be investigated and compared with a degree of
-detail that is hardly achieved elsewhere in linguistics.
+outline of its formal foundations. This high degree of precision
+extends up to different but closely related ways of characterizing the
+meaning of grammars. The differences are in part of a very technical nature,
+but under the technical surface they are due to different opinions of
+what grammars ought to describe. It is an advantage of HPSG as a
+grammar framework that all these approaches are built on the same
+explicit logical foundations. As a consequence their relationships can
+be studied with the rigorous tools of mathematical logic. The
+philosophical debate regarding the adequacy of each interpretation of
+the nature and purpose of grammars is thus grounded in concrete
+mathematical structures. Finally, independent of 
+philosophical arguments and preferences, proposal T1, enlisting typed feature
+structures as canonical structures in models, provides a bridge to the
+rich literature on feature logics, connecting linguistic theory to an
+interesting set of efficient computational methods, pursued in other
+chapters of the present handbook \crossrefchapterp{cl}. This connection
+to computation and the rich literature on feature structures is untouched
+by whether these models are deemed adequate for linguistic theory.
+
+
+
+%HPSG is among a small group of grammar formalisms with a very precise
+%outline of its formal foundations. It is exceptional with its
+%alternative characterizations of the meaning of grammars based on one
+%and the same set of core definitions of the syntax and semantics of
+%its descriptive devices. This common core of philosophically different
+%approaches to the scientific description of human languages makes their
+%respective advantages and disadvantages comparable within one single
+%framework, and it renders the discussion of very abstract concepts
+%unusually concrete.  Alternative approaches to grammatical meaning
+%based on different views of the nature of scientific description of an
+%empirical domain can be investigated and compared with a degree of
+%detail that is hardly achieved elsewhere in linguistics.
 
 }
 
@@ -2069,9 +2114,9 @@ detail that is hardly achieved elsewhere in linguistics.
 %--------------------------------------------------------------
 \section*{Acknowledgements}
 
-I would like to thank the reviewers Jean-Pierre Koenig, Stefan
-M\"uller and Manfred Sailer for their helpful suggestions which
-helped improve this chapter considerably.
+I would like to thank Adam Przepi\'orkowski and the reviewers
+Jean-Pierre Koenig, Stefan M\"uller and Manfred Sailer for their
+helpful suggestions which helped improve this chapter considerably.
 
 
 \printbibliography[heading=subbibliography,notkeyword=this]
