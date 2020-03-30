@@ -119,7 +119,7 @@ In particular, this is what allows coordination to apply recursively:
 \begin{exe}
 \ex
 \begin{xlista}
-\ex \,[[Tom and Mary]\subl{np} or [Mia and Sue]\subl{np}]\subl{np} got married.
+\ex {}[[Tom and Mary]\subl{np} or [Mia and Sue]\subl{np}]\subl{np} got married.
 \ex I can either [[sing and dance]\subl{vp} or [sing and play the guitar]\subl{vp}]\subl{vp}.
 \ex Either [[John went to Paris and Kim went to Brussels]\subl{s} or
 [none of them ever left home]\subl{s}]\subl{s}.
@@ -282,7 +282,7 @@ special features at all, as (\ref{flat}) illustrates.
 \ex X  $\rightarrow$ X$^1$ \ldots{} X$^n$ \emph{Coord} \, X$_{n+1}$
 \end{exe}\label{flat}
 
-That said, there are some reasons for assuming that the coordinator does in fact combine with the coordinand, as in (\ref{ok}). First, in some  languages of the world the coordinator is a bound morpheme instead of a free morpheme. For example,  verbs are coordinated by adding one of a set of suffixes to one of the coordinands in Abelam (Papua New Guinea),  usually the prior one.  Similarly, in Kanuri (Nilo-Saharan), verb phrases are coordinated by marking the first verb with a conjunctive form affix, and
+That said, there are some reasons for assuming that the coordinator does in fact combine with the coordinand, as in (\ref{ok}). First, in some  languages of the world the coordinator is a bound morpheme instead of a free morpheme. For example,  verbs are coordinated by adding one of a set of suffixes to one of the coordinands in \ili{Abelam} (Papua New Guinea),  usually the prior one.  Similarly, in Kanuri (Nilo-Saharan), verb phrases are coordinated by marking the first verb with a conjunctive form affix, and
  in languages like Telugu (Dravidian), the coordination of proper names is marked  by the lengthening of their final vowels \citep{Bender05}. The latter is illustrated in (\ref{telugu}).
 
 \begin{exe}
@@ -293,7 +293,7 @@ That said, there are some reasons for assuming that the coordinator does in fact
 
 
 
-Second, as \citet{ross67}\addpages originally noted, the natural intonation break occurs before the coordination lexeme rather than between the coordinator and the coordinand, so that a  prosodic constituent is formed.
+Second, as \citet[165]{ross67} originally noted, the natural intonation break occurs before the coordination lexeme rather than between the coordinator and the coordinand, so that a  prosodic constituent is formed.
 Although prosodic phrasing is not generally believed to always align with syntactic phrasing, the fact that the coordinator prosodifies with the  coordinand suggests that it forms a unit with it.
 
  The analysis in Figure~\ref{ok} can be formalized in HPSG as
@@ -316,18 +316,18 @@ The constraint forcing all daughters to be of the same category is excessive, as
 and this will have to undergo a revision. For now, we are focusing on standard coordinations.
 
 In order to  account for the fact that different kinds of coordination strategies are possible, \citet{Mouret:05} 
-defines three subtypes of \type{coord-phr}, assuming a lexical feature \textsc{coord} to distinguish between   coordination types:\footnote{Mouret's formulation is slightly different in that the relevant feature is instead called \textsc{conj}, and a slightly different type hierarchy is assumed, with negative constraints like  \textsc{conj} $\not=$ \type{nil} are employed instead of \textsc{coord} \type{crd}. The current formulation   avoids negative constraints, though nothing much hinges on this. Similar liberty is taken in subsequent constraints, for exposition purposes.}
+defines three subtypes of \type{coord-phr}, assuming a lexical feature \textsc{coord} to distinguish between   coordination types:\footnote{Mouret's formulation is slightly different in that the relevant feature is instead called \textsc{conj}, and a slightly different type hierarchy is assumed, with negative constraints like  \textsc{conj} $\not=$ \type{none} are employed instead of \textsc{coord} \type{crd}. The current formulation   avoids negative constraints, though nothing much hinges on this. Similar liberty is taken in subsequent constraints, for exposition purposes.}
 
 \begin{exe}
 \ex
  \begin{avm}\type{simple-coord-phr} \impl
- \[dtrs &  \type{ne-list}\(\<\[coord &  nil\]\>\) \, $\oplus$ \type{ne-list}\(\[coord \type{crd}\]\)\]\end{avm}
+ \[dtrs &  \type{ne-list}\(\<\[coord &  none\]\>\) \, $\oplus$ \type{ne-list}\(\[coord \type{crd}\]\)\]\end{avm}
 
  \begin{avm}\type{omnisyndetic-coord}  \impl 
  \[dtrs  \type{ne-list}\(\[coord \type{crd} \]\)\]\end{avm}\label{omni}
 
  \begin{avm}\type{asyndetic-coord}  \impl 
-\[dtrs   \type{ne-list}\(\[coord &  nil\]\)\]\end{avm}
+\[dtrs   \type{ne-list}\(\[coord &  none\]\)\]\end{avm}
 \end{exe}
 
 \noindent
@@ -336,7 +336,7 @@ and that the latter has various sub-types as shown in Figure~\ref{fig:mlabelc}.
 
 \begin{figure}
     \centering
-    \Tree[.\type{coord} \type{nil} [.\type{crd} \type{and} \type{or} \type{but} {\ldots{}} ] ]
+    \Tree[.\type{coord} \type{none} [.\type{crd} \type{and} \type{or} \type{but} {\ldots{}} ] ]
     \caption{Coordinator sub-types}\label{fig:mlabelc}
 \end{figure}
 
@@ -387,10 +387,39 @@ Since the second daughter is the head, the value of the mother's \textsc{head} f
 the mother's \textsc{head} feature is identical to that of the head daughter's \textsc{head}
 feature. See also \crossrefchaptert{basic-properties}.}\addpages
 
+\inlinetodostefan{The second version was still wrong since the head-dtr pointed to the \synsemv. I fixed it for you. I hope the topmost AVM is
+  correct now.}
+
 \eas 
 \type{head-func-cxt} \impl
 
 \begin{avm}
+ \[synsem & \[loc & \[cat & \[subj  & \@{1}\\ 
+                              comps & \@{2}\\
+                              coord & \@{3}\\
+                              mrgk  & \@{4}\]\]\]\\
+ hd-dtr & \@{5}\\
+ dtrs & \<\[synsem \[loc & \[cat & \[sel   & \@{6}\\
+                                     coord & \@{3}\\ 
+                                     mrkg  & \@{4}\]\]\]\],
+        \@{5} \[synsem \@{6}\[loc \[ cat \[ subj  & \@{1}\\ 
+                                      comps & \@{2}\]\]\]\]\>\]
+
+\end{avm}
+
+\begin{avm}
+ \[synsem & \[loc & \[cat & \[subj & \@{3}\\ comps & \@{4}\\
+ coord & \@{1}\\
+ mrgk & \@{3}\]\]\]\\
+ hd-dtr & \@{2}\\
+ dtrs & \<\[synsem \[loc & \[cat & \[sel & \@{2}\\
+               coord & \@{1}\\ mrkg & \@{3}\]\]\]\],
+        \[synsem \@{2}\[loc \[ cat \[ subj & \@{3}\\ comps & \@{4}\]\]\]\]\>\]
+
+\end{avm}
+
+\begin{avm}
+
  \[synsem & \[loc & \[cat & \[val & \@{0}\\
  coord & \@{1}\\
  mrgk & \@{3}\]\]\]\\
@@ -569,9 +598,9 @@ See \citet{Bilbiie:08} for arguments that both types are attested in Romanian.
 
 \begin{figure}
     \hfill
-    \Tree[.X [.{Adv} \emph{both} ]  [.X X [.X [.{Coord} \emph{and} ]  X ] ] ]
+    \Tree[.X [.{Adv} both ]  [.X X [.X [.{Coord} and ]  X ] ] ]
 \hfill
-    \Tree[.X [.X [.{Coord} \emph{et} ]  X ] [.X [.{Coord} \emph{et} ]  X ] ]
+    \Tree[.X [.X [.{Coord} et ]  X ] [.X [.{Coord} et ]  X ] ]
 \hfill\mbox{}
 \caption{Two possible structures for correlative coordination}\label{f2}
 \end{figure}
@@ -897,8 +926,8 @@ are not auxiliary:
 \begin{exe}
 \ex
 \begin{xlista}
-\ex \,[I stayed home]$_{\textup{\scriptsize AUX} -}$ but [Fred could have gone fishing]$_{\textup{\scriptsize AUX} +}$.
-\ex \,[Tom went to NY yesterday]$_{\textup{\scriptsize AUX} -}$ and [he will return next Tuesday]$_{\textup{\scriptsize AUX} +}$.
+\ex {}[I stayed home]$_{\textup{\scriptsize AUX} -}$ but [Fred could have gone fishing]$_{\textup{\scriptsize AUX} +}$.
+\ex {}[Tom went to NY yesterday]$_{\textup{\scriptsize AUX} -}$ and [he will return next Tuesday]$_{\textup{\scriptsize AUX} +}$.
 \ex Fred [sang well]$_{\textup{\scriptsize AUX} -}$ and [will keep on singing]$_{\textup{\scriptsize AUX} +}$.
 \end{xlista}\label{aux}
 \end{exe}
@@ -933,10 +962,10 @@ different \textsc{pform} values as shown in (\ref{pp2}).
 \begin{exe}
 \ex
 \begin{xlista}
-\ex[] {*Kim depends  $[$[on Sandy]$_{\textup{\scriptsize PFORM} \,\, \textit{on}}$
+\ex[*] {Kim depends  $[$[on Sandy]$_{\textup{\scriptsize PFORM} \,\, \textit{on}}$
                        or [to Fred]$_{\textup{\scriptsize PFORM} \,\, \textit{to}}$ $]$.}
 
-\ex[] {*Kim is afraid  $[[$of Sandy$]_{\textup{\scriptsize PFORM} \,\, \textit{of}}$
+\ex[*] {Kim is afraid  $[[$of Sandy$]_{\textup{\scriptsize PFORM} \,\, \textit{of}}$
                        and $[$to Fred$]_{\textup{\scriptsize PFORM} \,\, \textit{to}} ]$.}
 \end{xlista}\label{pp2}
 \end{exe}
@@ -972,8 +1001,8 @@ the coordination construction.
 
 
 Mispredictions also exist. We already discussed one, concerning the feature \textsc{inv}, but there are others. For example, requiring that the \textsc{gap} value of the coordinands be the same readily predicts Coordinate Structure Constraint effects like 
-(\ref{cs1}) and (\ref{cs2}), but it incorrectly rules out asymmetric coordination violation cases like (\ref{assym}). 
-See \citet{goldsmith}, \citet{lakoff86}, and  \citet{levinprince86} for more examples and discussion.
+(\ref{cs1}), but it incorrectly rules out asymmetric coordination violation cases like (\ref{assym}). 
+See \citet{goldsmith}, \citet{lakoff86}, \citet{levinprince86}, and \citet{kehler} for more examples and discussion.
 
 
 
@@ -990,31 +1019,31 @@ See \citet{goldsmith}, \citet{lakoff86}, and  \citet{levinprince86} for more exa
 \end{xlista}\label{cs1}
 \end{exe}
 
-\inlinetodostefan{The gap is bound off within the relative clause. In PS94 and in
-  \citet[\page 456]{Sag97a}. Please fix this. (\mex{1}b) is not ruled out because of non-matching
-  \slashvs but because the relative clause is internally not well-formed: a head-filler phrase needs
-a gap and \emph{that every kid wants it} does not have a gap and hence the relative pronoun cannot
-be integrated. I guess you should just remove the example in (\mex{1}).}
+%% \inlinetodostefan{The gap is bound off within the relative clause. In PS94 and in
+%%   \citet[\page 456]{Sag97a}. Please fix this. (\mex{1}b) is not ruled out because of non-matching
+%%   \slashvs but because the relative clause is internally not well-formed: a head-filler phrase needs
+%% a gap and \emph{that every kid wants it} does not have a gap and hence the relative pronoun cannot
+%% be integrated. I guess you should just remove the example in (\mex{1}).}
+
+%% \begin{exe}
+%% \ex \begin{xlista}
+%% \ex[] {It offers something$_{i}$  [that every kid wants \trace]$_{\textup{\textsc{slash}} \langle \textup{\textsc{np}}_i \rangle}$ and
+%% [that every parent tries to help their child to achieve \trace]$_{\textup{\textsc{slash}} \langle \textup{\textsc{np}}_i \rangle}$.}
+
+%% \ex[*] {It offers something$_i$ [that every kid wants \trace]$_{\textup{\textsc{slash}} \langle 
+%% \textup{\textsc{np}}_i \rangle}$ and
+%% [that every parent tries to help their child to achieve it]$_{\textup{\textsc{slash}} \langle \, \rangle}$} 
+
+%% \ex[*] {It offers something$_i$  [that every kid wants it]$_{\textup{\textsc{slash}} \langle \, \rangle}$ and
+%% [that every parent tries to help their child to achieve \trace]$_{\textup{\textsc{slash}} \langle
+%% \textup{\textsc{np}}_i \rangle}$}
+%% \end{xlista}\label{cs2}
+%% \end{exe}
+
 
 \begin{exe}
 \ex \begin{xlista}
-\ex[] {It offers something$_{i}$  [that every kid wants \trace]$_{\textup{\textsc{slash}} \langle \textup{\textsc{np}}_i \rangle}$ and
-[that every parent tries to help their child to achieve \trace]$_{\textup{\textsc{slash}} \langle \textup{\textsc{np}}_i \rangle}$.}
-
-\ex[*] {It offers something$_i$ [that every kid wants \trace]$_{\textup{\textsc{slash}} \langle 
-\textup{\textsc{np}}_i \rangle}$ and
-[that every parent tries to help their child to achieve it]$_{\textup{\textsc{slash}} \langle \, \rangle}$} 
-
-\ex[*] {It offers something$_i$  [that every kid wants it]$_{\textup{\textsc{slash}} \langle \, \rangle}$ and
-[that every parent tries to help their child to achieve \trace]$_{\textup{\textsc{slash}} \langle
-\textup{\textsc{np}}_i \rangle}$}
-\end{xlista}\label{cs2}
-\end{exe}
-
-
-\begin{exe}
-\ex \begin{xlista}
-\ex \,[Who]\sub{\avmbox{1}NP} did Sam [[pick up the phone]$_{\textup{\textsc{slash}} \langle \, \rangle}$ and [call \trace]$_{\textup{\textsc{slash}} \langle \avmbox{1} \rangle}$?
+\ex {}[Who]\sub{\avmbox{1}NP} did Sam [[pick up the phone]$_{\textup{\textsc{slash}} \langle \, \rangle}$ and [call \trace]$_{\textup{\textsc{slash}} \langle \avmbox{1} \rangle}$?
 \ex What was the maximum amount$_{\avmbox{1}}$ that
 I can [contribute \trace]$_{\textup{\textsc{slash}} \langle \avmbox{1} \rangle}$ and [still get a tax deduction]$_{\textup{\textsc{slash}} \langle \, \rangle}$?
 \end{xlista}\label{assym}
@@ -1033,17 +1062,15 @@ in coordination. Hence, case mismatches like (\ref{gapcase}) are
 correctly ruled out.
 
 
-\begin{exe}
-\ex
-\begin{xlista}
-\ex[*] {[Him]$_{acc}$,  [all the critics like to praise \trace]$_{\textup{\textsc{slash}} \langle \textup{\scriptsize NP}\emph{acc} \rangle}$
+\ea[*]{
+\label{gapcase}
+{}[Him]$_{acc}$,  [all the critics like to praise \trace]$_{\textup{\textsc{slash}} \langle \textup{\scriptsize NP}\emph{acc} \rangle}$
 but [I think \trace would probably not be present at the awards]$_{\textup{\textsc{slash}} \langle \textup{\scriptsize NP}\emph{nom} \rangle}$}
-\end{xlista}\label{gapcase}
-\end{exe}
+\z
 
 \noindent
 There are, however, cases where the case of the ATB-extracted phrase can be syncretic as in (\ref{syn}), 
-due to \citet{levineetal}.\addpages 
+due to \citet[46]{levineetal}. 
 
 \begin{exe}
 \ex
@@ -1085,8 +1112,7 @@ the  hierarchy  in Figure~\ref{qwsa}.
 
 
 %\pagebreak
-\noindent
- Verbs subcategorize for structurally nominative (\emph{snom}) NP subjects and 
+Verbs subcategorize for structurally nominative (\emph{snom}) NP subjects and 
  structurally accusative (\emph{sacc}) NP complements. Most nouns and some pronouns like \emph{who} and \emph{what} are underspecified for case, and thus typed as \emph{case}, 
  which makes them consistent with both nominative and accusative positions. Hence, \emph{a movie}
  can be simultaneously be required to be  consistent with \emph{snom} and \emph{sacc}, by resolving
@@ -1396,18 +1422,19 @@ Some apparent cases of lexical coordination may be analyzed as Right-Node Raisin
 
 
 
-No such boundary occurs before the conjunction in lexical coordination. Thus, in French,  clitic articles or weak prepositions can be conjoined, with a shared argument \citep{Abeille:06}:
+No such boundary occurs before the conjunction in lexical coordination. Thus, in French,  clitic
+articles or weak prepositions can be conjoined, with a shared argument \citep[\page 14]{Abeille:06}:
 
 
 \eal
 \judgewidth{??}
 \ex[]{
-\gll Paul cherche le ou la responsable\\
-     Paul looks for the.\textsc{m.sg} or the.\textsc{m.sg} responsible\\
+\gll Paul cherche   le                ou la                responsable\\
+     Paul looks.for the.\textsc{m.sg} or the.\textsc{m.sg} responsible\\
 \glt `Paul is looking for the man or woman in charge'
 }
 \ex[]{
-\gll Un film de et avec Woody Allen\\
+\gll un film de et avec Woody Allen\\
      a film by and with Woody Allen\\
 }
 \ex[??]{
@@ -1646,16 +1673,33 @@ This can be achieved by adding the constraints in (\ref{lpec}) to the coordinati
 
 \begin{exe}
 \ex
+
 \begin{avm}
-\textup{ \emph{coord-phr} \impl
-\[phon \@{1}$\oplus$\@{2}$\oplus$\@{3}%\\
+%\textup{ 
+\emph{coord-phr} \impl
+\[phon \@{1}$\oplus$\@{2}$\oplus$\@{0}$\oplus$\@{3}%\\
     \\
- dtrs \< \[phon \@{1}$\oplus$\@{2}$_{ne-list}$\],
- \[phon  \@{1}$\oplus$\@{3}$_{ne-list}$\\
-   synsem|loc|cat|coord & crd\]
- \> \]}
-\end{avm}\label{lpec}
+ dtrs \< \[phon \@{1}$\oplus$\@{2}$_{ne-list}$\\
+             synsem \| loc \| cat \| coord & none\],
+ \[phon  \@{0}$\langle$(crd)$\rangle\oplus$\@{1}$\oplus$\@{3}$_{ne-list}$\\
+   synsem \| loc \| cat \| coord  crd\]
+ \> \]
+%}
+\end{avm}
+
+%% \begin{avm}
+%% \textup{ \emph{coord-phr} \impl
+%% \[phon \@{1}$\oplus$\@{2}$\oplus$\@{3}%\\
+%%     \\
+%%  dtrs \< \[phon \@{1}$\oplus$\@{2}$_{ne-list}$\],
+%%  \[phon  \@{1}$\oplus$\@{3}$_{ne-list}$\\
+%%    synsem|loc|cat|coord & crd\]
+%%  \> \]}
+%%\end{avm}
+\label{lpec}
 \end{exe}
+\inlinetodostefan{What does CRD stand for? Formally? It is small caps so this seems to point to a
+  feature name. But this cannot be right. What is it?}
 
 \noindent
 If \avmbox{1} is resolved as the empty list then no ellipsis occurs, but if \avmbox{1} is non-empty then ellipsis occurs, as illustrated in Figure~\ref{lpe}. 
@@ -1667,15 +1711,15 @@ See \crossrefchaptert{order} for more discussion about linearization theory.
 \begin{figure}
     \centering
     
-\Tree[.{VP\begin{avm}\[phon & \@{1}$\oplus$\@{2}$\oplus$\@{3}\]\end{avm}} 
+\Tree[.{VP\begin{avm}\[phon & \@{1}$\oplus$\@{2}$\oplus$\@{0}$\oplus$\@{3}\]\end{avm}} 
           {VP\begin{avm}
              \[phon & \@{1}$\langle$give$\rangle\oplus$\@{2}$\langle$a,book,to,Mary$\rangle$\]\end{avm}}
-          {VP\begin{avm}
-             \[phon & \@{1}$\langle$give$\rangle\oplus$\@{3}$\langle$a,magazine,to,Sue$\rangle$\]\end{avm}} ]
-
+         [.{VP\begin{avm}
+             \[phon & \@{0}$\langle$and$\rangle\oplus$\@{1}$\langle$give$\rangle\oplus$\@{3}$\langle$a,magazine,to,Sue$\rangle$\]\end{avm}}
+          {Coord}
+             {VP} ] ]
     \caption{Analysis of \emph{give a book to Mary and} \sout{\emph{give}} \emph{a magazine to Sue}}\label{lpe}
 \end{figure}
-\inlinetodostefan{The conjunction is missing in the figure and in the constraint.}
 
 \noindent
 This approach is motivated by the existence of ambiguity in 
@@ -1736,6 +1780,7 @@ This approach is motivated by non clausal conjunctions (\textit{as well as, ains
 \citep{Abeille:Godard:1996}\addpages}
 \end{xlista}
 \end{exe}
+\inlinetodostefan{This example is not in \citet{Abeille:Godard:1996}. Please provide correct reference.}
 
 Another argument is the placement of correlative conjunctions: the first conjunction in (a) must be postverbal; this shows that Argument Cluster Coordination does not include the first verb. The examples below are from \citet[254]{Mouret:06}.
 
@@ -1744,7 +1789,8 @@ Another argument is the placement of correlative conjunctions: the first conjunc
 \ex 
 \begin{xlista}
 \ex[] {
-Jean a donné et un livre à Marie et un magazine à Sue.\\
+\gll Jean a donné et un livre à Marie et un magazine à Sue.\\
+     Jean has given  and a book to Marie and a magazine to Sue\\
 \glt `Jean has given both a book to Marie and a magazine to Sue'
 }
 
@@ -1916,20 +1962,20 @@ Note that this is a unary-branching rule, which means that it can in principle a
 
 \begin{figure}
     \centering
-    
+
     \scalebox{1}{
     {\begin{avm}
 S\[\type{phrase}\\
 mp \<
-\[phon \[$I$\\
+\[phon \<\[$I$\\
     \[$\phi$\\
-       /\textipa{kIm} \textipa{lAIks} /\]\]\\
+       /\textipa{kIm} \textipa{lAIks} /\]\]\>\\
        lid \ldots{}\],
-    \[phon \[$I$\\
+    \[phon \<\[$I$\\
      \[$\phi$\\
-            /\textipa{\ae nd} \textipa{mij@} \textipa{heIts}/\]\]\\
+            /\textipa{\ae nd} \textipa{mij@} \textipa{heIts}/\]\]\>\\
             lid \ldots{}\],
-         \[phon \[$I$\\ \[$\phi$\\  /\textipa{beIg@lz}/\]\]\\
+         \[phon \<\[$I$\\ \[$\phi$\\  /\textipa{beIg@lz}/\]\]\>\\
          lid \ldots{} \]\>  \]\end{avm}}}
          
       $|$   
@@ -1938,18 +1984,52 @@ mp \<
 \begin{avm}
 S\[\type{phrase}\\
 mp
-\<  \[phon \[$I$\\
+\<  \[phon \< \[$I$\\
     \[$\phi$\\
-       /\textipa{kIm} \textipa{lAIks} /\] \]\\
+       /\textipa{kIm} \textipa{lAIks} /\] \]\>\\
       lid ..\],
-        \[phon    \[$I$\\ \[$\phi$\\  /\textipa{beIg@lz}/\]\]\\
+        \[phon    \<\[$I$\\ \[$\phi$\\  /\textipa{beIg@lz}/\]\]\>\\
               lid \ldots{}\],\\
-     \[phon \[$I$\\
+     \[phon \<\[$I$\\
      \[$\phi$\\
-            /\textipa{\ae nd} \textipa{mij@} \textipa{heIts}/\]\]\\
+            /\textipa{\ae nd} \textipa{mij@} \textipa{heIts}/\]\]\>\\
           lid \ldots{}\],
-         \[phon \[$I$\\ \[$\phi$\\  /\textipa{beIg@lz}/ \]\]\\
+         \[phon \<\[$I$\\ \[$\phi$\\  /\textipa{beIg@lz}/ \]\]\>\\
               lid \ldots{}\]   \>  \]\end{avm}}
+    
+%%     \scalebox{1}{
+%%     {\begin{avm}
+%% S\[\type{phrase}\\
+%% mp \<
+%% \[phon \[$I$\\
+%%     \[$\phi$\\
+%%        /\textipa{kIm} \textipa{lAIks} /\]\]\\
+%%        lid \ldots{}\],
+%%     \[phon \[$I$\\
+%%      \[$\phi$\\
+%%             /\textipa{\ae nd} \textipa{mij@} \textipa{heIts}/\]\]\\
+%%             lid \ldots{}\],
+%%          \[phon \[$I$\\ \[$\phi$\\  /\textipa{beIg@lz}/\]\]\\
+%%          lid \ldots{} \]\>  \]\end{avm}}}
+         
+%%       $|$   
+      
+%%     \scalebox{1}{
+%% \begin{avm}
+%% S\[\type{phrase}\\
+%% mp
+%% \<  \[phon \[$I$\\
+%%     \[$\phi$\\
+%%        /\textipa{kIm} \textipa{lAIks} /\] \]\\
+%%       lid ..\],
+%%         \[phon    \[$I$\\ \[$\phi$\\  /\textipa{beIg@lz}/\]\]\\
+%%               lid \ldots{}\],\\
+%%      \[phon \[$I$\\
+%%      \[$\phi$\\
+%%             /\textipa{\ae nd} \textipa{mij@} \textipa{heIts}/\]\]\\
+%%           lid \ldots{}\],
+%%          \[phon \[$I$\\ \[$\phi$\\  /\textipa{beIg@lz}/ \]\]\\
+%%               lid \ldots{}\]   \>  \]\end{avm}}
               
                
                          \scalebox{0.9}{
@@ -1991,7 +2071,7 @@ voted  \textsc{for} [my father's motion].\\
 \ex If there are people who \textsc{oppose} then maybe there are also some
   people who actually \textsc{support}  [the hiring of unqualified
   workers].\\
-  \citep{chavesrnr}\addpages
+  \citep[\page 840]{chavesrnr}
 
 \end{xlista}
 
@@ -2087,7 +2167,7 @@ widespread assumption.   Thus, the Gapping rule proposed by \citet{sangheepark} 
 \ex The keynote of their relationship was set when Victoria, already a reigning queen,
 had to propose to Albert, rather than he -- to her.
 \ex The public remembers all that and usually recognizes us before we -- them.\\
-\citep{sangheepark}\addpages
+\citep[\page 31]{sangheepark}
 \end{xlista}\label{gnc}
 \end{exe}
 
