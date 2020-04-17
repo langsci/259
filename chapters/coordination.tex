@@ -251,7 +251,7 @@ for a formalization.
 \end{exe}
 
 \noindent
-\citet{Kayne:94}\addpages and  \citet{johann}\addpages  argue that coordination follows X-bar theory and that the conjunction is the head of the construction; see \crossrefchaptert[Section~\ref{sec-coordination-minimalism}]{minimalism}. But in HPSG, even though one of the conjuncts (or more) may combine with a conjunction, this subconstituent is not the head of the construction, which is considered as unheaded.
+\citet[Chpter~6]{Kayne:94} and  \citet{johann}\addpages  argue that coordination follows X-bar theory and that the conjunction is the head of the construction; see \crossrefchaptert[Section~\ref{sec-coordination-minimalism}]{minimalism}. But in HPSG, even though one of the conjuncts (or more) may combine with a conjunction, this subconstituent is not the head of the construction, which is considered as unheaded.
 The two analyses are contrasted in Figure~\ref{f10}.
 
 \begin{figure}
@@ -271,7 +271,7 @@ rules as well (where $n \geq 1$):
 \label{ok}
 \ex X$_{crd+}$ $\rightarrow$ \, \emph{Coord} \, X$_{crd-}$
  
-\ex X $\rightarrow$ \, X$^1_{crd-}$  \,\, \ldots \,\, X$^n_{crd-}$ \,\, X$_{crd+}$
+\ex\label{coordination:rule-several-x} X $\rightarrow$ \, X$^1_{crd-}$  \,\, \ldots \,\, X$^n_{crd-}$ \,\, X$_{crd+}$
 \zl
 
 \noindent
@@ -297,11 +297,9 @@ That said, there are some reasons for assuming that the coordinator does in fact
 Second, as \citet[165]{ross67} originally noted, the natural intonation break occurs before the coordination lexeme rather than between the coordinator and the coordinand, so that a  prosodic constituent is formed.
 Although prosodic phrasing is not generally believed to always align with syntactic phrasing, the fact that the coordinator prosodifies with the  coordinand suggests that it forms a unit with it.
 
- The analysis in (\ref{flat}) can be formalized in HPSG as
-\inlinetodostefan{This reference went to Figure~3 but this did not make sense. Did you mean example (\ref{flat})? If so, your statement is not true since the coordination Coord is not covered by the schema.
-}
+ Apects of the phrase structure rule in (\ref{coordination:rule-several-x}) can be formalized in HPSG as
  shown in  (\ref{coordparam2}),  using parametric lists  \citep[\page 396, Fn.\,2]{pollardsag} to enforce
- that all conjuncts structure-share the morphosyntactic information. The type \textit{n$($on$)$e$($mpty$)$-list} corresponds
+ that all conjuncts structure-share the morphosyntactic information. The type \type{ne-list} (\textit{non-empty-list}) corresponds
  to a list that has at least one member, and when used parametrically as in (\ref{coordparam2}) it in addition requires that
  every member of the list must bear the features $[$\textsc{synsem}$|$""\textsc{loc}$|$""\textsc{cat}  \avmbox{1}$]$.
 
@@ -318,9 +316,10 @@ dtrs \<\[synsem \| loc \| cat \@{1}\]\>$\oplus$
 The constraint forcing all daughters to be of the same category is excessive, as we shall see below, 
 and this will have to undergo a revision. For now, we are focusing on standard coordinations.
 
-In order to  account for the fact that different kinds of coordination strategies are possible, \citet[\page 89]{Mouret:05} 
-\inlinetodostefan{Mouret has the first two implications but not the third one. I do not speak French, so maybe there is something in the paper. But I guess you misquoted him, please adapt text}
-defines three subtypes of \type{coord-phr}, assuming a lexical feature \textsc{coord} to distinguish between   coordination types:\footnote{Mouret's formulation is slightly different in that the relevant feature is instead called \textsc{conj}, and a slightly different type hierarchy is assumed, with negative constraints like  \textsc{conj} $\not=$ \type{none} are employed instead of \textsc{coord} \type{crd}. The current formulation   avoids negative constraints, though nothing much hinges on this. Similar liberty is taken in subsequent constraints, for exposition purposes.}
+In order to  account for the fact that different kinds of coordination strategies are possible,
+\citet[\page 260]{Mouret:06} and \citet[\page 205]{Bilbiie:17} define three subtypes of
+\type{coord-phr}, assuming a lexical feature \textsc{coord} to distinguish between   coordination
+types:\footnote{Mouret's and Bı̂lbı̂ie's formulations are slightly different in that the relevant feature is instead called \textsc{conj}, and a slightly different type hierarchy is assumed, with negative constraints like  \textsc{conj} $\not=$ \type{nil} are employed instead of \textsc{coord} \type{crd}. The current formulation   avoids negative constraints, though nothing much hinges on this. Similar liberty is taken in subsequent constraints, for exposition purposes.}
 
 \eal
 \ex
@@ -363,7 +362,6 @@ in particular \citet[Section~6.7]{mrs},  \citet{jfast},
 Chaves (\citeyear[Chapters~4--6]{chavesthesis}; \citeyear[Section~5.3]{chavesextr}; \citeyear{chavessubjexp}; \citeyear{Chaves:09}), 
 and \citet[Chapters~4--5]{sangheepark} for HPSG work that specifically focuses on the semantics of coordination.}
 
-
 \begin{exe}
  \ex \begin{avm}
  %\type{coordinator} \impl
@@ -388,8 +386,6 @@ Since the second daughter is the head, the value of the mother's \textsc{head} f
 the mother's \textsc{head} feature is identical to that of the head daughter's \textsc{head}
 feature. See also \crossrefchaptert[\page \pageref{page-hfp}]{properties}.}
 
-\inlinetodostefan{I redid (\mex{1}). Please check.}
-
 \ea
 \label{rulem}
 \type{head-func-cxt} \impl
@@ -398,7 +394,7 @@ feature. See also \crossrefchaptert[\page \pageref{page-hfp}]{properties}.}
  \[synsem & \[loc & \[cat & \[subj  & \@{1}\\ 
                               comps & \@{2}\\
                               coord & \@{3}\\
-                              mrgk  & \@{4}\]\]\]\\
+                              mrkg  & \@{4}\]\]\]\\
  hd-dtr & \@{5}\\
  dtrs & \<\[synsem \[loc & \[cat & \[sel   & \@{6}\\
                                      coord & \@{3}\\ 
@@ -446,6 +442,7 @@ Since it is a weak head, it inherits most of  its syntactic features (\textsc{he
 coordinator lexemes is shown in (\ref{lexcoordentry}).
 
 
+\inlinetodostefan{17.04.2020: Just noticed that the general type implies a \phonv, which is probably wrong. It is way to general also the COORD value of \type{and} seems wrong. I guess \phon and COORD have to be removed.}
 \begin{exe}
 \ex 
 \begin{avm}
@@ -543,7 +540,8 @@ and \emph{both \ldots{} and \ldots{}}. See \citet{hof} for an account  in HPSG. 
 
 
 \noindent
-In French, as in other Romance languages, the conjunction itself can be reduplicated, and it is obligatory for some conjunctions (\emph{soit} `or' in French) \citep{Mouret:07, Bilbiie:17}:\todostefan{This is French, I cannot find the place. Please add page numbers.} 
+In French, as in other Romance languages, the conjunction itself can be reduplicated, and it is
+obligatory for some conjunctions (\emph{soit} `or' in French) \parencites{Mouret:05}[\page 205--206]{Bilbiie:17}:
 
 \begin{exe}
  \ex
@@ -567,7 +565,6 @@ In French, as in other Romance languages, the conjunction itself can be reduplic
 }
 \end{xlista}
 \end{exe}
-\inlinetodostefan{check (\mex{0}c,d). I took them appart. Check translation.}
 
 \noindent
 Thus, there are  different structures for different types of correlative, as Figure~\ref{f2} illustrates. The one on the left is for correlatives that exhibit adverbial properties and the one on the right is for correlatives that do not.
@@ -604,14 +601,11 @@ When there is no overt conjunction, it is not always clear whether a binary clau
 On the semantic side, the interpretation is something like: `if I read more, I understand
 more'. \citet{Abeille:06} and \citet{Abeille:Borsley:08} propose that they are  coordinate in some languages, 
  and subordinate in others. In English, one can add the adverb \emph{then}, whereas in French, one can add the conjunction \emph{et} (`and'). In English, the first clause can also be used as a standard adjunct (\ref{adjcc}).
- \inlinetodostefan{I reinserted the \emph{then}. We had a long discussion about this. I think it is
-   correct with \emph{then}. Please check.}
- 
  
  \begin{exe}
  \ex
 \begin{xlista}
-\ex The more I read, then the more I understand.
+\ex The more I read, (then) the more I understand.
 \ex 
 \gll Plus je lis (et) plus je comprends.\\
      more I read \hspaceThis{(}and more I understand\\
@@ -620,7 +614,7 @@ more'. \citet{Abeille:06} and \citet{Abeille:Borsley:08} propose that they are  
 \end{xlista}\label{adjcc}
 \end{exe}
 
-As shown by \citet[549--550]{culijack}, the second clause show matrix clause properties, not the first one:
+As shown by \citet[549--550]{culijack}, the second clause shows matrix clause properties, not the first one:
 
 \begin{exe}
  \ex
@@ -702,14 +696,13 @@ hierarchy analogous to that of \type{coord} in Figure~\ref{fig:mlabelc} above.
 The construction in (\ref{correlphrr}) thus states that all correlative
 constructions have in common the fact that both daughters are marked by a special expression. 
 
-\inlinetodostefan{Is finite a subtype of \type{verb} or should there be a \vform feature?}
+\inlinetodostefan{Check my modification.}
 \ea
 \label{correlphrr}
 \type{correl-construction} \impl\\
 \oneline{%
 \avmtmp{
-[synsem|loc|cat [head   & finite\\
-                 correl & none ]\\
+[synsem|loc|cat|correl  \type{none}\\
  dtrs < [synsem|loc|cat|correl \type{corr-mrk} ], %\smallskip\\
         [synsem|loc|cat|correl \type{corr-mrk} ] > ]
 }}
@@ -859,11 +852,10 @@ I expect [to be there]\sub{\vform \type{inf}} and [that you will be there too]\s
 See Section~\ref{unlikessec} for more discussion about such cases.}
 
 
-\inlinetodostefan{What is \type{prs} in (\mex{1}b)? Present? This is tense information, usually not \vform. Do you mean \type{inf}?}
 \eal
 \label{vform}
 \ex[*]{Tom [whistled]\sub{\vform \type{fin}}      and [singing]\sub{\vform \type{prp}}.}
-\ex[*]{Sue [buy something]\sub{\vform \type{prs}} and [came home]\sub{\vform \type{fin}}.}
+\ex[*]{Sue [buy something]\sub{\vform \type{inf}} and [came home]\sub{\vform \type{fin}}.}
 \zl
 
 
@@ -1021,7 +1013,7 @@ I can [contribute \trace]$_{\textup{\textsc{slash}} \langle \avmbox{1} \rangle}$
 
 
 \citet{chavesextr} argues that there are no independent grounds to assume that asymmetric coordination is anything other than coordination, and therefore the coordination construction must not impose \textsc{slash}\todostefan{changed this to \slasch} identity across conjuncts (\gap identity in his version of the theory). Rather, the Coordinate Structure Constraint, and its asymmetric exceptions are best analyzed as
-pragmatic in nature, as \citet{kehler}\addpages argues. 
+pragmatic in nature, as \citet[Chapter~5]{kehler} argues. 
 See \crossrefchapterw{udc} for more discussion.\todostefan{Please tell me which area you refer to
   and I add the section/pages.}
 In practice, this means that the coordination construction should impose identity of some of the features in \textsc{cat}, though not all, despite the fact that one of the prime motivations for \textsc{cat} was
@@ -1161,9 +1153,7 @@ morbidity.\textsc{f.sg} and death.\textsc{f.sg} premature.\textsc{f.pl}\\
 \end{exe}
 
 
-
-\inlinetodostefan{You got the hierarchy wrong. 3rd is the top-most type.}
- \citet[\page 281]{Sag:03} proposes that 1st person is a supertype of 2nd person which is itself a supertype of 3rd person. This way, person resolution in coordination amounts to type unification. Addressing gender resolution, \citet{Aguila:Crysmann:18} propose a list-based encoding of person and gender values, and list concatenation as a combining operation, as shown in (\ref{aguila}). For gender, they propose a \textsc{m}(\textsc{asculine}) feature that has an empty list value for feminine words, and a non empty list value for masculine words.  The coordination of a masculine noun (\emph{chevaux} `horses') with a feminine noun (\emph{\^{a}nesses} `female donkey')  yields a masculine NP with a non-empty list value for \textsc{m}. Only the coordination of two feminine nouns yields a feminine NP with an empty list value \textsc{m}.
+\citet[\page 281]{Sag:03} proposes that 1st person is a subtype of 2nd person which is itself a subtype of 3rd person. This way, person resolution in coordination amounts to type unification. Addressing gender resolution, \citet{Aguila:Crysmann:18} propose a list-based encoding of person and gender values, and list concatenation as a combining operation, as shown in (\ref{aguila}). For gender, they propose a \textsc{m}(\textsc{asculine}) feature that has an empty list value for feminine words, and a non empty list value for masculine words.  The coordination of a masculine noun (\emph{chevaux} `horses') with a feminine noun (\emph{\^{a}nesses} `female donkey')  yields a masculine NP with a non-empty list value for \textsc{m}. Only the coordination of two feminine nouns yields a feminine NP with an empty list value \textsc{m}.
  
 \begin{exe}
 \ex 
@@ -1191,7 +1181,7 @@ conjuncts.
 
 
 As observed by \citet{Corbet91},\addpages many languages including \ili{Romance}, \ili{Celtic}, \ili{Semitic} and \ili{Bantu} languages, also have another strategy, namely partial agreement with only one conjunct, the one closest to the target, called \emph{closest conjunct agreement} (CCA)\is{agreement!closes conjunct}. 
-In the following example, again from \ili{Portuguese}, the determiner and prenominal adjective agree with the first Noun\todostefan{noun?} (\ref{fo}a) and the postnominal adjective with the last Noun\todostefan{noun?} (\ref{fo}b).
+In the following example, again from \ili{Portuguese}, the determiner and prenominal adjective agree with the first noun (\ref{fo}a) and the postnominal adjective with the last noun (\ref{fo}b).
 
 \begin{exe}
  \ex
@@ -1209,7 +1199,7 @@ his.\textsc{f.pl} own.\textsc{f.pl} reactions.\textsc{f.pl} or judgements.\texts
 
 For \ili{French} determiners and attributive adjectives, \citet{An:Abeille:17} and \citet{Abeille:An:Shiraishi:18} show on the basis of corpus data and experiments that number agreement may also obey CCA. As far as gender is concerned, prenominal adjectives always obey CCA while postnominal ones half of the time (in contemporary French). In (\ref{ft}a), the determiner can be singular (CCA) or plural (resolution), while in (\ref{ft}b), CCA (feminine Det) is obligatory. In (\ref{ft}c), the postnominal adjective can be masculine (resolution) or feminine (CCA), with the same meaning.
 
-\inlinetodostefan{(\mex{1}b,c) are not in \citet{Abeille:An:Shiraishi:18}, no source for (\mex{1}c). State sources in main text or provide source below (\mex{1}c).}
+\inlinetodostefan{no source for (\mex{1}c). State sources in main text or provide source below (\mex{1}c).}
 \begin{exe}
  \ex
 \begin{xlista}
@@ -1219,9 +1209,9 @@ For \ili{French} determiners and attributive adjectives, \citet{An:Abeille:17} a
 \glt `your name and first name' \citep[\page 34]{An:Abeille:17}
 
 \ex 
-\gll certaines          / *   certains           r\'{e}gions          et  d\'{e}partements \\
-     certain.\fem.\pl{} {} {} certain.\mas.\pl{} region.\textsc{f.pl} and department.\textsc{m.pl} \\
-\glt `certain regions and departments' \citep{Abeille:An:Shiraishi:18}\todostefan{This example is not in the paper. Chose one from the paper.}
+\gll certaines          / *   certaines collectivités et organismes publics \\
+     certain.\fem.\pl{} {} {} certain.\fem.\pl{} collectivity.\fem.\pl{} and organism.\mas.\pl{} public.\mas.\pl{} \\
+\glt `certain public collectivities and organisms' \citep[\page 17]{Abeille:An:Shiraishi:18}
 
 \ex 
 \gll des d\'{e}partements et r\'{e}gions importants/importantes\\
@@ -1308,7 +1298,7 @@ In the absence of coordination, these constraints apply vacuously, since CONCORD
 
 %(including coordination of word parts, Abeill\'{e} 2006, Chaves 2008)
 
-While conjuncts have often been assumed to be phrasal (see for example \citet{Kayne:94}\addpages and \citet[Section~5.2]{bruening} a.o.), \citet{Abeille:06} gives several arguments in favor of lexical coordination.
+While conjuncts have often been assumed to be phrasal (see for example \citet[Section~6.2]{Kayne:94} and \citet[Section~5.2]{bruening} a.o.), \citet{Abeille:06} gives several arguments in favor of lexical coordination.
 In some contexts, words (or phrases with a premodifier) are allowed but not full phrases. In English, it is the case with prenominal adjectives and postverbal particles. See \citet[Section~4]{Abeille:06} for similar examples with various categories in different languages. Most English attributive adjectives are prenominal unless they have a complement. Although complex adjectival expressions with complements are not licit in prenominal position,  it is possible to have complex adjectival expressions if they are coordinate.
 
 \begin{exe}
@@ -1321,17 +1311,15 @@ In some contexts, words (or phrases with a premodifier) are allowed but not full
 \end{xlista}
 \end{exe}
 
-\inlinetodostefan{\citet{hpsg1} talk about particles on p.\,176--177 and on p.\,181. They talk about the part of speech Part and its \lexv, not about projecting PPs. Do you mean a PartP? Maybe split (\mex{1}) into (\mex{1}a,b) and (\mex{1}c) as separate examples and mention them to make clear that (\mex{1}a,b) are based on PS claims and (\mex{1}c) is new.}
-As observed by \citet{hpsg1}, a particle may project a PP after the nominal complement, but not before; but coordination is possible, at least for some speakers.
-
-\begin{exe}
- \ex
-\begin{xlista}
-\ex Paul turned (*completely) off the radio.
-\ex Paul turned the radio (completely) off.
+\inlinetodostefan{I changed the order of the examples and referenced them in the text. Hope this is OK. Please check.}
+As observed by \citet[\page 176--177]{hpsg1}, a particle may project a phrase after the nominal
+complement (\mex{1}a), but not before (\mex{1}b); but coordination is possible, at least for some
+speakers as the example in (\mex{1}c) from \citew[\page 23]{Abielle2006a} shows.
+\eal
+\ex Paul turned the radio [(completely) off].
+\ex Paul turned [(*completely) off] the radio.
 \ex Paul was turning [on and off] the radio all the time.
-\end{xlista}
-\end{exe}
+\zl
 
 While phrasal coordination can conjoin unlike categories (see below), it is not the case with lexical coordination:
 
@@ -1368,9 +1356,8 @@ Semantically, lexical coordination is more constrained than phrasal coordination
 }
 \zl
 
-Some apparent cases of lexical coordination may be analyzed as Right-Node Raising \citep{Beavers}. They differ semantically and prosodically, however: with typical Right-Node Raising, the two conjuncts must stand in contrast to one another, and do not have to refer to the same event. With Right-Node Raising there must be a prosodic boundary at the ellipsis site (see \citet{chavesrnr}\addpages and \crossrefchaptert{ellipsis}\todostefan{add a label to the page/esection in ellipsis.tex}). In French, the first conjunct cannot end with a clitic article or with a weak preposition as in (\ref{fr1}b,c),
+Some apparent cases of lexical coordination may be analyzed as Right-Node Raising \citep{Beavers}. They differ semantically and prosodically, however: with typical Right-Node Raising, the two conjuncts must stand in contrast to one another, and do not have to refer to the same event. With Right-Node Raising there must be a prosodic boundary at the ellipsis site (see \citet{chavesrnr}\addpages and \crossrefchaptert{ellipsis}\todostefan{add a label to the page/esection in ellipsis.tex}). In French, the first conjunct cannot end with a clitic article or with a weak preposition as in (\ref{fr1}b,c), quoted from \citep[\page 14]{Abeille:06}.
 
-\inlinetodostefan{Your sentence ended in the middle. I guess you wanted to cite \citep[\page 14]{Abeille:06} here too.}
 \eal
 \label{fr1}
 \ex[]{  
@@ -1413,8 +1400,8 @@ articles or weak prepositions can be conjoined, with a shared argument \citep[\p
 
 \noindent
 Not all conjunctions are felicitous with lexical coordination; \textit{but}, for example is less felicitous than \textit{and} or \textit{or}.
-Analyzing the conjunction as a weak head (see above), the sub-type for lexical coordination has to allow for the coordination of items waiting for complements: the conjunction (this is done by concatenation of 
-\textsc{arg-st} lists as it is for complex predicates, see \crossrefchaptert[Section~\ref{complex-predicates-sec-argument-attraction}]{complex-predicates}). It thus inherits all the dependents of the word it combines with.
+Analyzing the conjunction as a weak head (see above), the sub-type for lexical coordination has to allow for the coordination of items waiting for complements (this is done by concatenation of 
+\textsc{arg-st} lists as it is for complex predicates, see \crossrefchaptert[Section~\ref{complex-predicates-sec-argument-attraction}]{complex-predicates}): the conjunction thus inherits all the dependents of the word it combines with. 
 
 
 \ea
@@ -1428,7 +1415,11 @@ Analyzing the conjunction as a weak head (see above), the sub-type for lexical c
     arg-st \@{1} $\oplus$ \@{2}\]\> $\oplus$ 
     \@{2}\]\end{avm}
 \z
-\inlinetodostefan{please give an example}
+\inlinetodostefan{please give an example.\\
+17.04.2020 Figure~\ref{light} does not explain what is going on here. The whole \argst trick has to be explained. And note that the lexical item is multiple ways ambiguous since the \argst of the embedded head can be split in various ways. The last paper you cite here is \citet{Abeille:06}, but Abielle does not work with \argst. She works with \subj and \comps. If you do this with \argst a lot of questions are open: How does linking work? The category of the head is not known. Do all arguments go to \ibox{1}? All to \ibox{2}? A lot of things are open here. Did somebody else do this in the literature before? If so cite her/him.}
+
+\inlinetodostefan{I cannot fill in Anne's text here, since (16) is not a lexical entry. Do you mean (13)? This has to be revised.}
+The entry for the conjunction \emph{and} in (\ref) will be revised as follows (with \type{lex-coord-lexeme} type instead of of \type{coord-lexeme}):
 
                                                     
 The construct resulting from the coordination of lexical elements has hybrid properties: as a syntactic construct, it must be a phrase, but it also behaves as a word: coordinate verbs behave as lexical heads, coordinate adjectives may occur in positions ruled out for phrases. To overcome this apparent paradox, \citet[Section~5.1]{Abeille:06} analyses it as an instance of ``light'' phrase, following the \textsc{weight} account of \citet{Abeille:Godard:2000} and \citet{Abeille:Godard:2004}. Light elements can be words or phrases, and can have a restricted mobility (see \crossrefchaptert{order}). For example prenominal modifiers can be constrained to be [\textsc{weight} \emph{light}]. In this theory, light phrases can be coordinate phrases or head-adjunct phrases, provided all their daughters are light as Figure~\ref{light} illustrates.
@@ -1532,7 +1523,7 @@ of type `NP' to lead a double life as an `NP $\vee$ PP' expression,
 or the type `AP' to be taken as an `AP $\vee$ PP $\vee$ NP' and so
 on. This kind of approach has been adopted in various forms into HPSG, see for example \citet{Daniels02} and  \citet{Yatabe:04}.
 Related work aims to achieve the same result using type-underspecification, such as 
- \citet{sag}. Other, more exploratory work, views coordination of unlike categories as the result of   parts-of-speech being gradient and  epiphenomenal rather than hard-coded into the type signature  \citep{bookivan}.
+ \citet{Sag:03}. Other, more exploratory work, views coordination of unlike categories as the result of   parts-of-speech being gradient and  epiphenomenal rather than hard-coded into the type signature  \citep{bookivan}.
  Finally,  
  \citet{berthold0}, \citet{yatabe},  \citet{Beavers},
  \citet{chaves06}  argue that
@@ -1641,7 +1632,7 @@ some of which were already discussed above. We refer the reader to \crossrefchap
 \end{exe}
 
 Some authors regard Argument Cluster Coordination as elliptical \citep{yatabe01,Crysmann:04,Beavers} others
-regard such phenomena as base-generated\todostefan{strange term in a constraint-based paper} \citep{Mouret:06}.
+regard such phenomena as non-elliptical sequences \citep{Mouret:06}.
 In the former,  phonological material in the left periphery of the non-initial conjunct that is identical to
 phonological material in the left periphery of the initial conjunct is allowed to be not present in the mother node.
 This can be achieved by adding the constraints in (\ref{lpec}) to the coordination construction, here shown in the binary-branching format, for perspicuity.
@@ -1754,28 +1745,29 @@ This approach is motivated by non clausal conjunctions (\textit{as well as, ains
 \begin{xlista}
 \ex[] {John gave a book to Mary as well as a magazine to Sue.}
 \ex[*] {John gave a book to Mary as well as gave a magazine to Sue.}
-\ex[] {Paul offrira un disque à Marie ainsi qu'un livre à Jean.\\ 
-`Paul will.offer a record to Mary as well as a  book to Jean'\\
-\citep{Abeille:Godard:1996}\addpages}
+\ex[] {
+\gll Paul offrira           un disque à  Marie ainsi      qu'un livre à Jean.\\ 
+     Paul offer.\fut.3\sg{} a  record to Marie as.well.as a     book  to Jean\\
+\glt `Paul will offer a record to Mary as well as a  book to Jean.'\\
+\citep[\page 253]{Mouret:06}}
 \end{xlista}
 \end{exe}
-\inlinetodostefan{(\mex{0}c) example is not in \citet{Abeille:Godard:1996}. Please provide correct reference. And translate/gloss.}
 
 Another argument is the placement of correlative conjunctions: the first conjunction in (a) must be postverbal; this shows that Argument Cluster Coordination does not include the first verb. The examples below are from \citet[254]{Mouret:06}.
 
-\inlinetodostefan{add glosses and translations to all (!) examples}
 \begin{exe}
 \ex 
 \begin{xlista}
 \ex[] {
 \gll Jean a donné et un livre à Marie et un magazine à Sue.\\
      Jean has given  and a book to Marie and a magazine to Sue\\
-\glt `Jean has given both a book to Marie and a magazine to Sue'
+\glt `Jean has given both a book to Marie and a magazine to Sue.'
 }
 
 \ex[] {
-\gll Paul compte         offrir et  un disque à  Marie et  un livre à Jean.\\
-     Paul is.planning.to offer  and a  record to Marie and a  book  to Jean\\
+\gll Paul compte      offrir et  un disque à  Marie et  un livre à Jean.\\
+     Paul plan.3\sg{} offer  and a  record to Marie and a  book  to Jean\\
+\glt `Paul is planning to offer a record to Marie and a book to Jean.\\
 }
 \ex[*] {
 \gll Paul compte et offrir un disque à Marie et un livre à Jean.\\
@@ -1787,12 +1779,15 @@ Another argument is the placement of correlative conjunctions: the first conjunc
 Another argument is negation placement, which is a case of constituent negation
 \citep[253]{Mouret:06}: 
 
-\inlinetodostefan{add glosses and translations to all (!) examples}
+\inlinetodostefan{add glosses and translations to all (!) examples what is \emph{pas}? Is it `not'?}
 \begin{exe}
  \ex 
  \begin{xlista}
-\ex[] {Paul offrira un disque à Marie et (non) pas un livre à Jean.\\
-`Paul will offer a record to Marie and not a book to Jean'}
+\ex[] {
+\gll Paul offrira           un disque à Marie  et  (non) pas un livre à Jean.\\
+     Paul offer.\fut.3\sg{} a  record to Marie and \hspaceThis{(}not not a  book  to Jean\\
+\glt `Paul will offer a record to Marie and not a book to Jean.'
+}
 \ex[] {Paul gave a record to Mary and not a book to Bill. }
 \ex[*] {Paul gave a record to Mary and not gave a book to Bill.}
 % is it true in English? John gave not a book to Sue but a record to Bob
