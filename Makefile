@@ -2,6 +2,11 @@
 SOURCE=  main.tex $(wildcard local*.tex) $(wildcard chapters/*.tex) $(wildcard Bibliographies/*.bib) \
 langsci/langscibook.cls
 
+# MacBook Pro 16" (2019) time make main.pdf  9:40 min  9:14 min                       554 sec
+#                                           16:40 min 16:24 min (ohne Turboboost)     984 sec
+# MacBook Pro 15" (2016) time make main.pdf 11:23 min                                 683 sec
+
+
 # specify your main target here:
 pdf:  main.bbl main.pdf  #by the time main.pdf, bib assures there is a newer aux file
 
