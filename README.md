@@ -5,21 +5,33 @@ Please compile check-hpsg.tex after commenting in your chapter and maybe chapter
 
 xelatex check-hpsg.tex; biber check-hpsg
 
+If you are just interested in single chapters, you can go to the directory "chapters" and compile them standalone:
+
+xelatex order; biber order
+
+
+You can compile the whole book by calling:
+
+xelatex main; biber main
+
+make main.pdf
+
+compiles the book several times and creates the reference and indices.
+
 You may not be able to compile the whole book due to memory limitations.
 
 -------------------------------
 Edit your texmf.cnf file. This file can be found at e.g. /usr/local/texlive/2017/texmf.cnf (for TeXLive/MacTeX 2017). Change its contents to contain something like:
 
-main_memory=5000000
-extra_mem_bot=5000000
-font_mem_size=5000000
-pool_size=5000000
-buf_size=5000000
+main_memory=8000000
+extra_mem_top=5000000
+font_mem_bot=4000000
 
 Afterwards, call texhash to update the LaTeX format files.
 ------------------------------- 
 
 We are working on externalization of the graphics. With externalization it my work again. Sorry for this. You are part of a huge project. =:-)
+
 
 
 ## Contributors
