@@ -297,4 +297,109 @@ instance/.style={edge=dotted},
      empty nodes/.style={
      delay={where content={}{shape=coordinate,for siblings={anchor=north}}{}}
      }
+   }
+
+\forestset{
+  % Easy extra edges
+  edge to'/.style 2 args={
+    tikz+={\path[#2](#1.parent anchor)--(.child anchor);}
+  },
+  edge to/.style={
+    edge to'/.expanded={\unexpanded{#1}}{\forestoption{edge}},
+  },
+  edge from'/.style 2 args={
+    tikz+={\path[#2](.parent anchor)--(#1.child anchor);}
+  },
+  edge from/.style={
+    edge from'/.process=_O{#1}{#1.edge},
+  },
+  % Identify two (adjacent, vertically aligned) nodes
+  forget@node@boundary/.code={%
+    \forestolet{positive@edge@#1}\relax
+    \forestolet{negative@edge@#1}\relax
+  },
+  identify/.style={
+    phantom,
+    temptoksa/.option=#1.name,
+    before typesetting nodes/.process=Rw1{temptoksa}{
+      content/.option=##1.content,
+      content format/.option=##1.content format,
+      node format/.option=##1.node format,
+    },
+    for parent/.process=Ow1{n}{
+      after packing node={
+        for ##1={
+          ignore,ignore edge,forget@node@boundary/.option=grow,
+        },
+      },
+    },
+    for nodewalk/.process=Rw1Ow1{temptoksa}{name=##1}{!u.name}{edge to={##1}},
+  },
+  % Uniformly spread any sequence of nodes
+  spread/.style n args=4{
+    % #1 = coordinate (x,y,s,l)
+    % #2 = nodewalk to spread
+    % #3 = relative node name of the node with the final coordinate
+    % #4 = final coordinate shift
+    for nodewalk={
+      tempcounta'=-1,
+      #2,
+      tempdima/.pgfmath={(#1("#3")+#4-#1(""))/tempcounta()}
+    }{tempcounta'+=1},
+    tempdimb'=0pt,
+    for nodewalk={#2}{
+      #1'+/.register=tempdimb,
+      tempdimb'+/.register=tempdima,
+    },
+  },
+}
+
+
+% Type hierarchy
+\forestset{
+  type hierarchy/.style={
+    for tree={
+      anchor=base,
+      content format={\noexpand\type{\unexpanded{#1}\forestoption{content}}},
+    },
+  },
+  attrib/.style={
+    content format={\noexpand\attrib{\forestoption{content}}},
+    draw,
+  },
+}
+
+% AVM helper
+\forestset{
+  avm/.style={
+    content format={%
+      \noexpand\avmoptions{#1}%
+      \noexpand\begin{avm}%
+        \forestoption{content}%
+      \noexpand\end{avm}%
+    },
+  },
+}
+
+
+% Temporary: an addition to forest
+\forestset{
+  calign/1/.style={calign=child, calign primary child=1},
+  calign/2/.style={calign=child, calign primary child=2},
+  calign/3/.style={calign=child, calign primary child=3},
+  calign/4/.style={calign=child, calign primary child=4},
+  calign/5/.style={calign=child, calign primary child=5},
+  calign/6/.style={calign=child, calign primary child=6},
+  calign/7/.style={calign=child, calign primary child=7},
+  calign/8/.style={calign=child, calign primary child=8},
+  calign/9/.style={calign=child, calign primary child=9},
+  calign/-1/.style={calign=child, calign primary child=-1},
+  calign/-2/.style={calign=child, calign primary child=-2},
+  calign/-3/.style={calign=child, calign primary child=-3},
+  calign/-4/.style={calign=child, calign primary child=-4},
+  calign/-5/.style={calign=child, calign primary child=-5},
+  calign/-6/.style={calign=child, calign primary child=-6},
+  calign/-7/.style={calign=child, calign primary child=-7},
+  calign/-8/.style={calign=child, calign primary child=-8},
+  calign/-9/.style={calign=child, calign primary child=-9},
 }

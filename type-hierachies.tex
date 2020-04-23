@@ -55,56 +55,161 @@
 % Uncomment the chapter(s) you would like to check
 
 \begin{forest}
-[{\footnotesize\textit{object}}
-[{{\avmoptions{center}\begin{avm}\[\asort{substantive}
-						prd & boolean\]\end{avm}}}
-  [{{\avmoptions{center}\begin{avm}\[\asort{verb} vform & vform\\
-                                                  prd & plus\]\end{avm}}}]
-  [{{\avmoptions{center}\begin{avm}\[\asort{noun} case & case\]\end{avm}}}] ]
-[{\footnotesize\textit{case}}]
-[{\footnotesize\textit{vform}}]
-[{\footnotesize\textit{boolean}}
-  [{\footnotesize\textit{plus}}]
-  [{\footnotesize\textit{minus}}] ]
-]
+  [{\footnotesize\textit{object}}
+    [{{\avmoptions{center}\begin{avm}\[\asort{substantive}
+              prd & boolean\]\end{avm}}}
+      [{{\avmoptions{center}\begin{avm}\[\asort{verb} vform & vform\\
+                prd & plus\]\end{avm}}}]
+      [{{\avmoptions{center}\begin{avm}\[\asort{noun} case & case\]\end{avm}}}] ]
+    [{\footnotesize\textit{case}}]
+    [{\footnotesize\textit{vform}}]
+    [{\footnotesize\textit{boolean}}
+      [{\footnotesize\textit{plus}}]
+      [{\footnotesize\textit{minus}}] ]
+  ]
 \end{forest}
 
+\bigskip
 
+\begin{forest}
+  delay={for nodewalk={c2n,fake=n,tree}{content={\footnotesize\type{#1}}}},
+  [object,
+    calign=midpoint, calign children={2}{3},
+    [{\[\asort{substantive} prd & boolean\]},avm=center
+      [{\[\asort{verb} vform & vform\\prd & plus\]},avm=center]
+      [{\[\asort{noun} case & case\]},avm=center]
+    ]
+    [case]
+    [vform]
+    [boolean
+      [plus]
+      [minus]
+    ]
+  ]
+\end{forest}
+
+\bigskip
+
+\begin{forest} type hierarchy
+  [object,
+    calign=midpoint, calign children={2}{3},
+    [{\[\asort{substantive} prd & boolean\]},avm=center
+      [{\[\asort{verb} vform & vform\\prd & plus\]},avm=center]
+      [{\[\asort{noun} case & case\]},avm=center]
+    ]
+    [case]
+    [vform]
+    [boolean
+      [plus]
+      [minus]
+    ]
+  ]
+\end{forest}
+
+\newpage
 
 \begin{forest}
 [{\footnotesize\textit{list}}
   [{{\avmoptions{center}\begin{avm}\[\asort{nelist} first & object\\
                                                     rest & list\]\end{avm}}}]
   [{\footnotesize\textit{elist}} ]]
-    \end{forest}
+\end{forest}
+
+\bigskip
+
+\begin{forest} type hierarchy
+  [list
+    [{\[\asort{nelist} first & object\\rest & list\]}, avm=center]
+    [elist]
+  ]
+\end{forest}
+
+
+
+\newpage
 
 \oneline{%
+  \begin{forest}
+    [{\type{univ-pas-bas-lci}}
+      [{\type{univ-do-pas-lci}}, name=D
+        [{\type{german-zuinf-pas-lci}}, name=Z
+          [{\type{german-pers-zuinf-pas-lci}} 
+            [{\type{german-long-pers-neutral-zuinf-pas-lci}}, name=PZ
+              [{\type{german-long-pers-zuinf-pas-lci}} ]
+              [{\type{german-long-attr-zuinf-pas-lci}} ]
+            ]		
+          ]
+        ]
+      ]
+      [{\type{german-pas-lci}}, name=G
+        [ , no edge ]
+        [{\type{german-long-pas-lci}}, name=L
+          [ , no edge ]  ]
+        [{\type{german-io-pas-lci}} ]	
+      ]
+      [ {\type{univ-imp-pas-lci}} ]
+      [ {\ldots} ]
+    ]
+    \draw(G.south) -- (Z.north); 
+    \draw(L.south) -- (PZ.north);
+  \end{forest}}
 
-	\begin{forest}
-		[{\type{univ-pas-bas-lci}}
-		[{\type{univ-do-pas-lci}}, name=D
-		[{\type{german-zuinf-pas-lci}}, name=Z
-		[{\type{german-pers-zuinf-pas-lci}} 
-		[{\type{german-long-pers-neutral-zuinf-pas-lci}}, name=PZ
-		[{\type{german-long-pers-zuinf-pas-lci}} ]
-		[{\type{german-long-attr-zuinf-pas-lci}} ]
-		]		
-		]
-		]
-		]
-		[{\type{german-pas-lci}}, name=G
-		[ , no edge ]
-		[{\type{german-long-pas-lci}}, name=L
-		[ , no edge ]  ]
-		[{\type{german-io-pas-lci}} ]	
-		]
-		[ {\type{univ-imp-pas-lci}} ]
-		[ {\ldots} ]
-		]
-		\draw(G.south) -- (Z.north); 
-		\draw(L.south) -- (PZ.north);
-	\end{forest}}
+\bigskip
 
+%\oneline{%
+  \begin{forest} type hierarchy
+    [univ-pas-bas-lci
+      [univ-do-pas-lci
+        [german-zuinf-pas-lci, edge to=!un
+          [german-pers-zuinf-pas-lci 
+            [german-long-pers-neutral-zuinf-pas-lci, edge to=!r21,
+              calign=first % maybe?
+              [german-long-pers-zuinf-pas-lci ]
+              [german-long-attr-zuinf-pas-lci ]
+            ]		
+          ]
+        ]
+      ]
+      [german-pas-lci, calign with current, calign=first
+        [german-long-pas-lci]
+        [german-io-pas-lci ]	
+      ]
+      [ univ-imp-pas-lci ]
+      [ \ldots, fit=band % maybe?
+      ]
+    ]
+  \end{forest}
+%}
+
+\bigskip
+
+%\oneline{%
+  \begin{forest} type hierarchy
+    [univ-pas-bas-lci
+      [univ-do-pas-lci
+        [german-zuinf-pas-lci, edge to=!un
+          [german-pers-zuinf-pas-lci]
+        ]
+      ]
+      [german-pas-lci, calign with current, calign=first
+        [german-long-pas-lci
+          [german-long-pers-neutral-zuinf-pas-lci, l*=2, edge to=!r111,
+            [german-long-pers-zuinf-pas-lci ]
+            [german-long-attr-zuinf-pas-lci ]
+          ]		
+        ]
+        [german-io-pas-lci ]	
+      ]
+      [ univ-imp-pas-lci ]
+      [ \ldots, fit=band % maybe?
+      ]
+    ]
+  \end{forest}
+%}
+
+
+
+\newpage
 
 \begin{forest}
 [{\type{head}}
@@ -120,6 +225,30 @@
 \draw(R.south) -- (G.north);
 \end{forest}
 
+\bigskip
+
+\begin{forest}
+  [head
+    [func
+      [det]
+      [marker]
+    ]
+    [subst
+      [noun
+        [c-noun]
+        [gerund, edge to=!un]
+      ]
+      [relational, calign children={1}{2}
+        [verb]
+        [adj]
+        [prep]
+      ]
+    ]
+  ]
+\end{forest}
+
+
+\newpage
 
 	\begin{forest}
        [{\type{verb}} 
@@ -145,6 +274,68 @@
       				\draw[style=dashed,gray] (B1.south)-- (C.north);
       				\draw[style=dashed,gray] (A1.south)-- (D.north);
 \end{forest}
+
+\bigskip
+
+\begin{forest}
+  type hierarchy,
+  for level=2{tier=2},
+  for level=3{l*=1.5,gray,edge={gray,dashed}},
+  [verb 
+    [\attrib{vform},draw,
+      before computing xy={for relative level=2{s-=3em}},
+      [fin, name=A1
+        [fin+intrans, name=A, edge to=!r21]
+      ]
+      [base, name=B1
+        [base+trans, name=B, edge to=!r22]
+      ]
+    ]
+    [\attrib{arg-st},draw,
+      before computing xy={for relative level=2{s+=3em}},
+      [intrans, name=C1
+        [base+intrans, name=C, edge to=!r12]
+      ]
+      [trans, name=D1
+        [fin+trans, name=D, edge to=!r11]
+      ]
+    ]
+  ]
+\end{forest}
+
+\bigskip
+
+\begin{forest}
+  type hierarchy,
+  for level=2{tier=2},
+  for level=3{l*=1.5,gray,edge={gray,dashed}},
+  [verb 
+    [\attrib{vform},draw,
+      [fin, name=A1
+        [fin+intrans, name=A, edge to=!r21,
+          before drawing tree={
+            for nodewalk={cNNN}{x-=3em},
+            spread=x{cNNN}{!r22}{3em},
+          },
+        ]
+      ]
+      [base, name=B1
+        [base+trans, name=B, edge to=!r22]
+      ]
+    ]
+    [\attrib{arg-st},draw,
+      [intrans, name=C1
+        [base+intrans, name=C, edge to=!r12]
+      ]
+      [trans, name=D1
+        [fin+trans, name=D, edge to=!r11]
+      ]
+    ]
+  ]
+\end{forest}
+
+
+\newpage
 
 \oneline{%
 \begin{forest}
@@ -206,6 +397,57 @@ for tree={inner sep=-1pt,l=50pt}
 \draw[style=dashed,gray](L.south) -- (A3.north);
 \end{forest}}
 
+\bigskip
+
+%\oneline{%
+  \begin{forest}
+    type hierarchy,
+    for tree={
+      s sep=0,
+      if n children=0{
+        gray,
+        edge={dashed,gray},
+      }{},
+    },
+    [aller
+      [aller-entries,draw
+	[``fit'', name=F, l*=4, for children={l*=2},
+          [``fit''+all-, edge to=A]
+          [``fit''+v-, edge to=V]
+        ]
+	[``go''
+          [``go.to'', name=G, l*=2, for children={l*=4},
+            [``go.to''+all-, edge to=A, ignore edge]
+            [,coordinate,edge'={}]
+            [``go.to''+v-, edge to=V]
+          ]
+          [``leave'', name=L, for children={l*=6},
+            [``leave''+all-, edge to=A, ignore edge]
+            [,coordinate,edge'={}]
+            [``leave''+v-, edge to=V,ignore edge]
+          ]
+        ]
+      ]
+      [aller-stems, calign children=34, draw, where n children=0{l*=4.5}{},
+  	[all-, name=A, before computing xy={s-=3em} [,phantom,ignore,ignore edge]]
+  	[v-, name=V, before computing xy={s-=1.5em} [,phantom,ignore,ignore edge]]
+  	[i-, name=I, l*=2,
+          [``fit''+i-, edge to=F]
+          [``go.to''+i-, edge to=G, ignore edge]
+          [``leave''+i-,  edge to=L, ignore edge]
+  	]
+  	[aill-, name=AI,
+          [``fit''+aill-, edge to=F]
+          [``go.to''+aill-, edge to=G]
+          [``leave''+aill-, edge to=L]  	
+	]
+      ]
+    ]
+  \end{forest}
+%}
+
+\newpage
+
 \hspace*{-1em}\begin{tikzpicture}[text height=1.5ex,text depth=.25ex,
   % inner sep=2pt,
   node distance=5em,
@@ -247,6 +489,36 @@ for tree={inner sep=-1pt,l=50pt}
 \draw (lexical.south) -- (lacc.north);
 \end{tikzpicture}
 
+\bigskip
+
+\begin{forest}
+  type hierarchy,
+  [case
+    [morph-case, name=M
+      [nom]
+      [gen]
+      [dat]
+      [acc]
+    ]
+    [syn-case
+      [structural]
+      [lexical, calign=last, l sep*=3, 
+        [snom, edge to=!up, edge to=M!1, no edge]
+        [sgen, edge to=!up, edge to=M!2, no edge]
+        [sacc, edge to=!up, edge to=M!4, no edge]
+        [lgen, edge to=M!2]
+        [ldat, edge to=M!3]
+        [lacc, edge to=M!4,
+          before drawing tree={
+            spread=x{current and preceding siblings reversed}{M!1}{0}
+          },
+        ]
+      ]
+    ]
+  ]
+\end{forest}
+
+\newpage
 
 \begin{tikzpicture}[text height=1.5ex,text depth=.25ex,
   % inner sep=2pt,
@@ -268,6 +540,24 @@ for tree={inner sep=-1pt,l=50pt}
 \draw (nom.south) -- (p-nom.north);
 \draw (nom.south) -- (p-nom-acc.north);
 \end{tikzpicture}
+
+\bigskip
+
+\begin{forest}
+  type hierarchy,
+  [case
+    [acc
+      [p-acc]
+      [p-nom-acc]
+    ]
+    [nom
+      [,identify=!P]
+      [p-nom]
+    ]
+  ]
+\end{forest}
+
+\newpage
 
 \begin{tikzpicture}[text height=1.5ex,text depth=.25ex,
   % inner sep=2pt,
@@ -291,6 +581,26 @@ for tree={inner sep=-1pt,l=50pt}
 \draw (nom.south) -- (p-nom-acc.north);
 \end{tikzpicture}
 
+\bigskip
+
+\begin{forest}
+  type hierarchy,
+  [case,
+    [acc
+      [p-acc]
+      [,identify=!N]
+    ]
+    [p-nom+acc, calign with current
+      [p-nom-acc, delay=no edge]
+    ]
+    [nom
+      [,identify=!P]
+      [p-nom]
+    ]
+  ]
+\end{forest}
+
+\newpage
 
 \begin{tikzpicture}[text height=1.5ex,text depth=.25ex,
   % inner sep=2pt,
@@ -307,9 +617,22 @@ for tree={inner sep=-1pt,l=50pt}
 \draw (nom.south) -- (nom-acc.north);
 \end{tikzpicture}
 
+\bigskip
 
+\begin{forest}
+  type hierarchy
+  [nom+acc
+    [acc
+      [nom-acc, edge to=!un, before drawing tree={x/.option=!r.x},
+      ]
+    ]
+    [nom]
+  ]
+\end{forest}
 
-\hfill\hfill\begin{tikzpicture}[text height=1.5ex,text depth=.25ex,
+\newpage
+
+\begin{tikzpicture}[text height=1.5ex,text depth=.25ex,
   % inner sep=2pt,
   node distance=6.5em,
   baseline=8em]\small\it
@@ -363,7 +686,49 @@ for tree={inner sep=-1pt,l=50pt}
 \draw (a-d+a-g+d-g.south) -- (a-g+d-g.north);
 \end{tikzpicture}\hfill\mbox{}
 
+\bigskip
 
+\begin{forest} type hierarchy
+  [a+d+g
+    [a+d
+      [a+g-d, edge to=!un
+        [a, name=a
+          [a-d+a-g
+            [a-d, edge to=d!1]
+          ]
+        ]
+      ]
+    ]
+    [a+g, calign with current
+      [d+a-g, edge to=!up, edge to=!un, no edge
+        [d, name=d
+          [a-d+d-g
+            [a-g, edge to=a!1, edge to=g!1, no edge
+              [a-d-g, edge to=a!11, edge to=g!11]
+            ]
+          ]
+        ]
+      ]
+    ]
+    [d+g
+      [g+d-a, edge to=!up,
+        calign=child, calign child=1,
+        [g, name=g, 
+          [a-g+d-g
+            [d-g, edge to=d!1]
+          ]
+        ]
+        [a-d+a-g+d-g,
+          edge to=a!u, edge to=d!u, edge to=g!u,
+          edge from=a!1, edge from=d!1, edge from=g!1,
+          before computing xy={s+=2em},
+        ]
+      ]
+    ]
+  ]
+\end{forest}
+
+\newpage
 
 \begin{forest}
 %sm edges
@@ -380,7 +745,30 @@ for tree={inner sep=-1pt,l=50pt}
 \draw (B1.south) -- (B2.north);
 \end{forest}
 
+\bigskip
 
+\begin{forest} type hierarchy
+  [phrase
+    [\normalfont\textsc{headedness}
+      [headed-phrase
+        [head-subject-phrase
+          [nonfin-head-subj-cx, edge to=C!1]
+        ]
+        [\dots, calign with current]
+        [head-spr-phrase
+          [noun-poss-cx, edge to=C!2]
+        ]
+      ]
+    ]
+    [\normalfont\textsc{clausality}, name=C
+      [clause]
+      [non-clause]
+    ]
+  ]
+\end{forest}
+
+
+\newpage
 
 \begin{forest}
 %sm edges
@@ -398,6 +786,33 @@ for tree={inner sep=-1pt,l=50pt}
 \draw (B1.south) -- (B2.north);
 \end{forest}
 
+\bigskip
+
+\begin{forest} type hierarchy
+  [phrase
+    [\normalfont\textsc{headedness}
+      [headed-phrase
+        [head-nonargument-phrase
+          [head-functor-phr
+            [regular-nominal-phrase, edge to=!NNu]
+          ]
+          [head-independent-phr]
+        ]
+      ]
+    ]
+    [\normalfont\textsc{clausality}
+      [non-clause
+        [nominal-parameter
+          [intersective-modification
+            [big-mess-phrase, edge to=!P]
+          ]
+        ]
+      ]
+    ]
+  ]
+\end{forest}
+
+\newpage
 
 	\begin{forest}
        [{\type{lexeme}} 
@@ -429,7 +844,37 @@ for tree={inner sep=-1pt,l=50pt}
       	\draw (B2) to [bend left= 6] (A1);
 \end{forest}
 
+\bigskip
 
+
+\begin{forest}
+  type hierarchy
+  [lexeme
+    [part-of-speech, attrib, calign=2
+      [verb-lx, name=vlx] 
+      [adj-lx]
+      [noun-lx] 
+      [\ldots]   		
+    ] 
+    [arg-selection, attrib, calign children=12
+      [intr-lx
+        [subj-rsg-lx
+          [srv-lx, edge to=vlx]
+        ]
+        [\ldots]
+      ]
+      [tr-lx
+        [obj-rsg-lx
+          [orv-lx, edge to=vlx]
+        ]
+        [\ldots]
+      ]
+      [\ldots]
+    ]  
+  ]
+\end{forest}
+
+\newpage
 
 
 
@@ -451,6 +896,27 @@ for tree={inner sep=-1pt,l=50pt}
 \bcdiag{decl}{top}
 \bcdiag{hf}{the}
 \bcdiag{decl}{the}
+
+\bigskip
+
+\begin{forest} type hierarchy
+  [,phantom, for children={!1.l*=1.5}
+    [head-filler-ph
+      [wh-interr-cl, edge to=!r2]
+    ]
+    [interr-cl
+      [wh-rel-cl, edge to=!r1, edge to=!r3, no edge]
+    ]
+    [rel-cl
+      [top-cl, edge to=!r1, edge to=!r4, no edge]
+    ]
+    [decl-cl
+      [the-cl, edge to=!r1]
+    ]
+  ]
+\end{forest}
+
+\newpage
 
 \begin{tabular}{ccccc}
 \multicolumn{2}{c}{\tnode{hf}{head-filler-ph}} & \tnode{itrr}{interr-cl} & \tnode{rel}{rel-cl} & \tnode{decl}{decl-cl}\\[1em]
@@ -477,15 +943,109 @@ for tree={inner sep=-1pt,l=50pt}
 \bcdiag{whr}{fwh}
 \bcdiag{whr}{iwh}
 
+\bigskip
 
-  \includegraphics[scale=1.2]{figures/Riehemann-crop.pdf}
+\begin{forest} type hierarchy
+  [,phantom, 
+    [head-filler-ph,
+      for siblings={!1.l*=2.5}, !11.l*=1.5,
+      [standard-head-fill-ph, anchor=base east
+        [wh-interr-cl, edge to=!r2]
+      ]
+    ]
+    [interr-cl
+      [wh-rel-cl, edge to=!r11, edge to=!r3, no edge
+        [fin-wh-rel-cl]
+        [inf-wh-rel-cl]
+      ]
+    ]
+    [rel-cl
+      [top-cl, edge to=!r11, edge to=!r4, no edge]
+    ]
+    [decl-cl
+      [the-cl, edge to=!r1]
+    ]
+  ]
+\end{forest}
 
+\newpage
+\includegraphics[scale=1.2]{figures/Riehemann-crop.pdf}
 
-  \includegraphics[scale=.84]{figures/OTC-crop.pdf}
+\bigskip
 
+\begin{forest}
+  type hierarchy
+  [lexeme, for tree={s sep=0.1em},
+    [structure, attrib
+      [complex
+        [compound]
+        [derived
+          [compositionality, attrib
+            [compositional
+              [syntype, attrib
+                [externalized, name=ext]
+                [\ldots]
+              ]
+              [semtype, attrib
+                [possibility, name=poss]
+                [\ldots]
+              ]
+            ]
+            [noncomp]
+          ]
+          [dertype, attrib
+            [affixed
+              [prefixed]
+              [suffixed, name=suff]
+            ]
+            [\ldots]
+          ]
+        ]
+      ]
+      [simple]
+    ]
+    [pos, attrib, calign=2
+      [adjective
+        [bar-adj, l*=6, calign=2, edge to=suff,
+          [poss-bar-adj, calign children=23, edge to=poss,
+            for children={s sep=0},
+            [trans-bar-adj, calign=2, edge to=ext,
+              [reg-bar-adj]
+              [essbar]
+              [\ldots]
+            ]
+            [dative-bar-adj
+              [unentrinnbar]
+              [\ldots]
+            ]
+            [prep-bar-adj
+              [verfügbar]
+              [\ldots]
+            ]
+            [intr-bar-adj
+              [brennbar]
+              [\ldots]
+            ]
+          ]
+          [fruchtbar]
+          [\ldots]
+        ]
+        [bar-adj, l*=6, phantom]
+      ]
+      [verb]
+      [\ldots]
+    ]
+  ]
+\end{forest}
+
+\newpage
+\includegraphics[scale=.84]{figures/OTC-crop.pdf}
+
+\newpage
   \includegraphics[scale=.63]{figures/pretyping-crop.pdf}
 
 
+\newpage
 
 \begin{forest}
 [\emph{verb-infl}
@@ -513,7 +1073,35 @@ for tree={inner sep=-1pt,l=50pt}
 \draw (1sg.south) to (neg.north);
 \end{forest}
 
+\bigskip
 
+\begin{forest} type hierarchy
+  [verb-infl, calign=2
+    [2nd-slot,attrib
+      [1sg,name=1sg
+        [1sg-pos]
+      ]
+      [3pl]
+    ]
+    [1st-slot,attrib
+      [neg
+        [1sg-neg,edge to=!Pp]
+        [¬1sg-neg]
+      ]
+      [pos]
+    ]
+    [3rd-slot,attrib
+      [pst
+        [pos-pst]
+        [neg-pst]
+      ]
+      [fut]
+    ]
+  ]
+\end{forest}
+
+
+\newpage
 
 %% This does not compile ....
 
@@ -573,6 +1161,7 @@ for tree={inner sep=-1pt,l=50pt}
 \end{forest}
 }    
 
+\newpage
 
   \begin{tabular}{lcc}
     \rnode{u1}{\textsc{beak}} & \rnode{u2}{\textsc{gen}} & \rnode{u3}{\textsc{pl}}\\[2ex]
@@ -583,6 +1172,24 @@ for tree={inner sep=-1pt,l=50pt}
       \ncdiag{u1}{l1} \ncdiag{u1}{l2} \ncdiag{u2}{l1} \ncdiag{u2}{l3}
       \ncdiag{u3}{l1} \ncdiag{u3}{l2} \ncdiag{u3}{l3}
 
+\bigskip
+
+\begin{forest}
+  [,phantom,
+    for children={font=\sc},
+    [beak
+      [nokk, edge to=!r2, edge to=!r3]
+    ]
+    [gen
+      [-a, edge to=!r1, edge to=!r3, no edge]
+    ]
+    [pl
+      [-de, edge to=!r2]
+    ]
+  ]
+\end{forest}
+
+\newpage
 
 \begin{forest}
 [\emph{realisation-rule}
@@ -658,3 +1265,9 @@ for tree={inner sep=-1pt,l=50pt}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %%%                  END                         %%% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-engine: xetex
+%%% End:
