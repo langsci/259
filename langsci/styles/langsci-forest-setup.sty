@@ -268,15 +268,6 @@ no word baseline/.style={for tree={parent anchor=south, child anchor=north,align
 substitution/.style={edge={<-,dashed},l+=\baselineskip},
 %
 %
-%
-typehierarchy/.style={for tree={parent anchor=south, child
-% old version:
-%    anchor=north,align=center,base=top,font=\itshape,fit=rectangle}},
-% to get parallel lines:
-    anchor=north,align=center,base=top,font=\itshape,calign=fixed angles}},
-% if there are instances as leaves in the hiarchy
-instance/.style={edge=dotted},
-%
 % auxiliary nodes without node label
 %empty nodes/.style={
 %  delay={where content={}{shape=coordinate,for parent={for children={anchor=north}}}{}}}
@@ -354,6 +345,16 @@ instance/.style={edge=dotted},
   },
 }
 
+% The old type hierarchy style
+\forestset{
+typehierarchy/.style={for tree={parent anchor=south, child
+% old version:
+%    anchor=north,align=center,base=top,font=\itshape,fit=rectangle}},
+% to get parallel lines:
+    anchor=north,align=center,base=top,font=\itshape,calign=fixed angles}},
+% if there are instances as leaves in the hiarchy
+instance/.style={edge=dotted}
+}
 
 % Type hierarchy
 \forestset{
@@ -384,6 +385,7 @@ instance/.style={edge=dotted},
 
 % Temporary: an addition to forest
 \forestset{
+calign children/.style 2 args={calign primary child={#1}, calign secondary child={#2}},
   calign/1/.style={calign=child, calign primary child=1},
   calign/2/.style={calign=child, calign primary child=2},
   calign/3/.style={calign=child, calign primary child=3},
