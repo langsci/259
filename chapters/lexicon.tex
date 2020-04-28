@@ -16,6 +16,9 @@
 \IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
   \input{../localpackages}
   \input{../localcommands}
+  \tikzset{external/prefix={../hpsg-handbook.for.dir/}}
+  \forestset{external/master dir={../}}
+  \tikzexternalize
   \input{../localhyphenation}
   \bibliography{../Bibliographies/stmue,
                 ../localbibliography,
@@ -222,13 +225,17 @@ Since there are indefinitely many \attrib{synsem} values, on the assumption that
 But each of these fully instantiated entries for \word{expect} -- one for each clausal sentence that corresponds to the tree in Figure \ref{expect-b-tree} -- corresponds to a single abstract description, and it is this description that the lexicon contains. 
 %But each of these fully instantiated entries for \word{expect}, one for each clausal sentence that corresponds to the tree in (\ref{expect-b-tree}) corresponds to a single abstract description, and it is this description that the lexicon contains. 
 
+{\tikzexternaldisable
+  %%% There is a problem with \@1, probably having to do with catcode of
+  %%% "@": The tree is remade (in an embedded process) at every compilation.
+  %%% Let's disable externalization until we figure out how to fix this.
 \begin{figure}
 	\begin{forest}
 	[ [{\begin{avm}\[comps & \< \@1 \>\]\end{avm}} ] 
 	[{\begin{avm}\[synsem & \@1 \]\end{avm}} ] ]
 \end{forest}	
 \caption{\label{expect-b-tree} A head-complement phrase}
-\end{figure}  
+\end{figure}}
 
 
 The formal status of lexical entries has engendered a fair amount of theoretical work and some debate.
@@ -848,6 +855,7 @@ The pertinent linguistic facts here are as follows: English past and passive par
 In YADU, each type is represented with a nondefeasible typed feature structure, plus a set of defeasible feature structures, each with an associated type.
 The type hierarchy in Figure \ref{def-verb-hier} provides an example (here, the nondefeasible information comes first, and the set of defeasible structures follows the slash.\is{irregular morphology}
 
+{\tikzexternaldisable %%% same problem as above
 % Lascarides \& Copestake figure 3 (p. 61) goes here
 \begin{figure}
 \begin{forest}
@@ -869,7 +877,7 @@ past & $\top$\]/\{\<\[past & +t\], \type{pst-t-verb}\>\}
 ]
 \end{forest}
 \caption{\label{def-verb-hier} A hierarchy of past-tense formation ``rules'' from \citet[61]{LascaridesandCopestake1999}}
-\end{figure}
+\end{figure}}
 
 
 

@@ -1576,14 +1576,16 @@ width=.8\textwidth
 \IfFileExists{{\localepath langsci-hyphenation-pt}}{\input{\localepath langsci-hyphenation-pt}}{}
 \fi
 
-% \AtBeginDocument{% FK 16-Jan-19: It is unclear why this was set. It conflicts with TikZ externalisation.
+\AtBeginDocument{% 
+% FK 16-Jan-19: It is unclear why this was set. It conflicts with TikZ externalisation.
+% SZ 28-Apr-20: Fixed in another way, by "\tikzifexternalizing".
 	\makeindex
 	\newindex{lan}{ldx}{lnd}{\lsLanguageIndexTitle}
 	\newindex{sbj}{sdx}{snd}{\lsSubjectIndexTitle}
-	\renewindex{default}{adx}{and}{\lsNameIndexTitle} %biblatex can only deal with the default index
+        \tikzifexternalizing{\expandafter\newindex}{\expandafter\renewindex}{default}{adx}{and}{\lsNameIndexTitle} %biblatex can only deal with the default index
 % 	\newindex{wrd}{wdx}{wnd}{Expression index}
 % 	\newindex{rwrd}{rdx}{rnd}{Reverse expression index}
-% }
+}
 
 \indexproofstyle{\setlength{\overfullrule}{0pt}\raggedright\footnotesize}
 
