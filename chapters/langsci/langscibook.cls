@@ -1683,7 +1683,7 @@ width=.8\textwidth
 	\makeindex
 	\newindex{lan}{ldx}{lnd}{\lsLanguageIndexTitle}
 	\newindex{sbj}{sdx}{snd}{\lsSubjectIndexTitle}
-	\renewindex{default}{adx}{and}{\lsNameIndexTitle} %biblatex can only deal with the default index
+        \tikzifexternalizing{\expandafter\newindex}{\expandafter\renewindex}{default}{adx}{and}{\lsNameIndexTitle} %biblatex can only deal with the default index
 % 	\newindex{wrd}{wdx}{wnd}{Expression index}
 % 	\newindex{rwrd}{rdx}{rnd}{Reverse expression index}
 }
