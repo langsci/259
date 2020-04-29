@@ -357,7 +357,7 @@ biosketch.html: blurb.md
 
 #housekeeping	
 clean:
-	rm -f *.bak *~ *.backup *.tmp \
+	rm -f *.bak *~ *.backup \
 	*.adx *.and *.idx *.ind *.ldx *.lnd *.sdx *.snd *.rdx *.rnd *.wdx *.wnd \
 	*.log *.blg *.bcf *.aux.copy *.ilg \
 	*.aux *.toc *.cut *.out *.tpm *.bbl *-blx.bib *_tmp.bib \
