@@ -14,9 +14,6 @@
 \IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
   \input{../localpackages}
   \input{../localcommands}
-  \tikzset{external/prefix={hpsg-handbook.for.dir/}}
-  \forestset{external/master dir={./}}
-  \tikzexternalize
   \input{../localhyphenation}
   \bibliography{../Bibliographies/stmue,
                 ../localbibliography,
@@ -51,6 +48,7 @@ collection.bib}
 
   \togglepaper[17]
 }{}
+
 
 
 \author{Anne Abeillé\affiliation{Laboratoire de Linguistique Formelle, University of Paris} \lastand Rui P. Chaves\affiliation{Linguistics Department, University at Buffalo, The State University of New York}}
@@ -159,8 +157,7 @@ Thus, no conjunct can usually be said to be a dependent. For example,  reversing
 
 \noindent
 To be sure, there are certain coordination structures which do not have such symmetric 
-interpretations, as noted by \citet{ross67};\todostefan{check these} see also
-\citet{goldsmith}, \citet{lakoff86}, and \citet{levinprince86}.
+interpretations \citep{goldsmith,lakoff86,levinprince86}.
 Regardless, such constructions retain many of the properties that characterize coordinate structures, and therefore are likely 
 coordinate just the same \citep[Chapter~5]{kehler}.
 
@@ -222,14 +219,13 @@ and \emph{te} is used for other coordinations.
 
 In what follows we start by focusing on monosyndenton coordination. There are three possible structures one can assign to such coordinations, as Figure~\ref{f1} illustrates. The binary branching approach goes back to \citet{yngve}, and is used in HPSG work such as
 \citet{pollardsag}, \citet{Yatabe:03}, \citet{berthold03},
-\citet{Beavers}, \citet{Drellishak:Bender:05}, \citet{Abeille:05}, and
-\ \citet{chavesthesis}, \citet{chavesextr}, among others.\addpages The flat branching approach has also been  assumed in HPSG, albeit less frequently. See for example
- \citet{sagwasowbender} and  \citet{Sag:03}.\footnote{See \citet{Borsley2005a} for criticism of 
+\citet{Beavers}, \citet{Drellishak:Bender:05},  and
+\ \citet{chavesthesis}, \citet{chavesextr}, among others.\addpages The flat branching approach has also been  assumed in HPSG
+\citep{Abeille:05,Abeille06,Mouret:05,Mouret:06,Bilbiie:17}, and the totally flat approach much less frequently  \citep{sagwasowbender,Sag:03}.\footnote{See \citet{Borsley2005a} for criticism of 
 ConjP and of binary branching analysis of coordinate structures with three conjuncts.}
 
  
 \begin{figure}
-\tikzexternaldisable
 \hfill
     \Tree[.X X [.X X [.X {Coord}  X ] ] ]
 \hfill
@@ -255,11 +251,10 @@ for a formalization.
 \end{exe}
 
 \noindent
-\citet[Chpter~6]{Kayne:94} and  \citet{johann}\addpages  argue that coordination follows X-bar theory and that the conjunction is the head of the construction; see \crossrefchaptert[Section~\ref{sec-coordination-minimalism}]{minimalism}. But in HPSG, even though one of the conjuncts (or more) may combine with a conjunction, this subconstituent is not the head of the construction, which is considered as unheaded.
+\citet[Chapter~6]{Kayne:94} and  \citet{johann}\addpages  argue that coordination follows X-bar theory and that the conjunction is the head of the construction; see \crossrefchaptert[Section~\ref{sec-coordination-minimalism}]{minimalism}. But in HPSG, even though one of the conjuncts (or more) may combine with a conjunction, this subconstituent is not the head of the construction, which is considered as unheaded.
 The two analyses are contrasted in Figure~\ref{f10}.
 
 \begin{figure}
-\tikzexternaldisable
 \hfill
     \Tree[.ConjP NP1 [.Conj$'$  Coord NP2 ] ]
 \hfill
@@ -269,7 +264,7 @@ The two analyses are contrasted in Figure~\ref{f10}.
 \end{figure}
 
 
-Similarly, the flat analysis where the coordinator and the coordinand attach to each other  requires two  
+Similarly, the flat branching analysis where the coordinator and the coordinand attach to each other  requires two  
 rules as well (where $n \geq 1$):
 
 \eal
@@ -343,7 +338,6 @@ types:\footnote{Mouret's and Bı̂lbı̂ie's formulations are slightly different
 Here, we assume that the value of \textsc{coord} must be typed as \type{coord},
 and that the latter has various sub-types as shown in Figure~\ref{fig:mlabelc}.
 \begin{figure}
-\tikzexternaldisable
     \centering
     \Tree[.\type{coord} \type{none} [.\type{crd} \type{and} \type{or} \type{but} {\ldots{}} ] ]
     \caption{Coordinator sub-types}\label{fig:mlabelc}
@@ -417,7 +411,6 @@ feature. See also \crossrefchaptert[\page \pageref{page-hfp}]{properties}.}
 Thus, the conjunction projects an NP when combined with an NP, an AP when combined with an AP, etc., as Figure~\ref{coordphr} illustrates.
 
 \begin{figure}
-\tikzexternaldisable
 \hfill
 \Tree[.{NP$[$\textsc{coord} \type{and}$]$}	
 [.{C$[$\textsc{coord} \type{and}$]$}  {and} ] [.N {Mary} ] ]
@@ -445,35 +438,33 @@ It  preserves the \textsc{marking} feature when conjuncts are themselves marked.
 \zl
 
 \noindent
-Since it is a weak head, it inherits most of  its syntactic features (\textsc{head}, \textsc{marking}, \textsc{xarg}) from its complement, and adds its own  \textsc{coord} feature. The relevant constraint over all such 
-coordinator lexemes is shown in (\ref{lexcoordentry}).
+Since it is a weak head, it inherits most of  its syntactic features (\textsc{head}, \textsc{marking}, \textsc{xarg}) from its complement, and adds its own  \textsc{coord} feature. The lexical entry for the coordinator `and' is shown in (\ref{lexcoordentry}).
 
 
-\inlinetodostefan{17.04.2020: Just noticed that the general type implies a \phonv, which is probably wrong. It is way to general also the COORD value of \type{and} seems wrong. I guess \phon and COORD have to be removed.}
+\inlinetodostefan{17.04.2020: Just noticed that the general type implies a \phonv, which is probably wrong. It is way to general also the COORD value of \type{and} seems wrong. I guess \phon and COORD have to be removed. answer: it is the entry for and just like 13}
 \begin{exe}
 \ex 
 \begin{avm}
-\type{coord-lexeme} \impl
 \[phon & $\langle$\emph{and}$\rangle$\\
 synsem & \[loc & \[cat & \[head & \@{0}\\
-                           coord & and\\
-                           xarg & \@{1}\\
-                           mrkg & \@{2}\]\]\]\\
-          arg-st & \@{1} $\oplus$
-                         \<\[synsem \[loc \[cat \[head & \@{0}\\
-                         xarg & \@{1}\\
-                         mrkg  & \@{2}\]\]\]\]\>\]
+                           coord & and\\  
+                           mrkg & \@{2}\\
+                           subj & \@{1}\\
+    %          comps & \<\[synsem \[loc \[cat \[head & \@{0}\\
+    %                     subj & \@{1}\\
+    %                    comps  & \@{3}\\
+                          mrkg  & \@{2}\]\]\]\]\> $\oplus$ \@{3} \]\]\]
+                         \]
                          \end{avm}\label{lexcoordentry}
 \end{exe}
 
 \noindent
 The weak head analysis is illustrated in
 Figure~\ref{coordphr2}. Here, the category of the coordinator, the conjunct and of the mother node are the same, because the coordinator's head value is lexically required
-to be structure-shared with the head value of its valents.
+to be structure-shared with the head value of the conjunct it combines with (which is its first complement; see the section on lexical coordination to see why the conjunciton may inherit some complements expected by the conjunct).
 
 
 \begin{figure}
-\tikzexternaldisable
 \hfill
 \Tree[.{NP$[$\textsc{coord} \emph{and}$]$}	
 [.{N$[$\textsc{coord} \emph{and}$]$}  {and} ] [.NP {Mary} ] ]
@@ -582,7 +573,6 @@ See \citet{Bilbiie:08}\addpages for arguments that both types are attested in \i
 
 
 \begin{figure}
-\tikzexternaldisable
     \hfill
     \Tree[.X [.{Adv} both ]  [.X X [.X [.{Coord} and ]  X ] ] ]
 \hfill
@@ -692,10 +682,10 @@ define a \textsc{correl} feature which is a \textsc{left edge} feature (see the 
 feature in \citet{Bonami:2004} for \ili{French} \isi{liaison}).
 \inlinetodostefan{actually it is a
   \textsc{left} feature in ABE2006 and an \textsc{edge} feature in Borsley. Borsley cites
-  \citet{Miller92d-u}} Assuming a degree word \textit{the}, which can only appear as a specifier of
+  \citet{Miller92d-u}; answer:This is fine, LEFT was an abreviation for EDGE LEFT} Assuming a degree word \textit{the}, which can only appear as a specifier of
 a comparative word, \citet[\page 13]{Borsley:11}  defines \textit{the}-clause as a subtype of \type{head-filler-phrase} with [\textsc{correl} \type{the}]; see also \citet[\page 527]{fgsag08}.
 
-\inlinetodostefan{Cannot parse the following sentence. Why \emph{in}? Do they belong to this class or is Borsley claiming they do?}
+\inlinetodostefan{Cannot parse the following sentence. Why \emph{in}? Do they belong to this class or is Borsley claiming they do? answer:both: Borsley is claiming that and he is right}
 Comparative correlatives belong to a more general class of (binary) correlative constructions, including \emph{as \ldots{} so \ldots{}},
 and \emph{if \ldots{} then  \ldots{}} constructions in 
 \parencites[Section~3.2]{Borsley:04}[\page 17--18]{Borsley:11}.\footnote{This does not handle \ili{Hindi} type correlatives, which differ in that  only the first clause is introduced by a correlative word, and the first clause is mobile and optional; see \citet[228]{pollardsag} for an analysis.}
@@ -706,7 +696,7 @@ hierarchy analogous to that of \type{coord} in Figure~\ref{fig:mlabelc} above.
 The construction in (\ref{correlphrr}) thus states that all correlative
 constructions have in common the fact that both daughters are marked by a special expression. 
 
-\inlinetodostefan{Check my modification.}
+\inlinetodostefan{Check my modification. fine}
 \ea
 \label{correlphrr}
 \type{correl-construction} \impl\\
@@ -751,7 +741,7 @@ Naturally, \type{correl-construction} has various sub-types, each imposing parti
 
 
 Thus,  asymmetric English comparative correlatives  can be defined as
-in (\ref{ecc}), where \type{the} is a sub-type of \type{corr-mrk} (i.e.\ is a coordinate marker).
+in (\ref{ecc}), where \type{the} is a sub-type of \type{corr-mrk} (i.e.\ is a correlative marker).
 
 \ea
 \label{ecc}
@@ -795,7 +785,6 @@ For example, this entails that all valence constraints are identical. Thus, in V
 
 \COMMENT{
 \begin{figure}
-\tikzexternaldisable
 {\small \Tree[.{{S}\\
 \begin{avm}\[subj \hspace{5pt} $\langle$ \@{2} $\rangle$\\
                comps  $\langle$ $\rangle$\]
@@ -956,11 +945,9 @@ coordinated with  \textsc{pred}$-$ adjectives, without stipulation:
 
 
 \noindent
-Since case information is also part of \textsc{cat}, it follows that conjuncts must be consistent as in (\ref{ex-case-match-coordination}).\footnote{There are nonetheless collocational cases where the distribution of pronouns defies this pattern, due to presumably prescriptive forces; see \citet{grano} and \citet{binomial}.}
-\inlinetodostefan{\citet{binomial} is a book. I tried to find the place you refer to. I could not
-  find it. Please provide a page number.}
-\inlinetodostefan{
-The conjuncts in (\ref{ex-case-match-coordination}) are \textbf{not} consistent.}
+Since case information is also part of \textsc{cat}, it follows that conjuncts must be consistent as the unacceptability of  (\ref{ex-case-match-coordination}) shows.\footnote{There are nonetheless collocational cases where the distribution of pronouns defies this pattern, due to presumably prescriptive forces; see \citet{grano} and \citet{binomial}.}
+\inlinetodostefan{\citet{binomial} is a book. I tried to find the place you refer to. I could not find it. Please provide a page number.}
+\inlinetodostefan{The conjuncts in (\mex{1}) are \textbf{not} consistent.}
  Many other examples of \textsc{cat} mismatches exist, but the  list above suffices to
 illustrate the breadth of predictions that follow from the feature geometry of \textsc{cat} and the constraints imposed by
 the coordination construction.
@@ -980,7 +967,7 @@ Mispredictions also exist. We already discussed one, concerning the feature \tex
 See \citet{goldsmith}, \citet{lakoff86}, \citet{levinprince86}, and \citet{kehler} for more examples and discussion.
 
 
-\inlinetodostefan{Isn't (\ref{cs1}b) grammatical if you see \emph{To him Fred gave a football} as a sentence that is coordinated with \emph{Kim gave me a book}? To indicate the problem, I would suggest brackets around the conjuncts like [X and Y].}
+\inlinetodostefan{Isn't (\mex{1}b) grammatical if you see \emph{To him Fred gave a football} as a sentence that is coordinated with \emph{Kim gave me a book}? To indicate the problem, I would suggest brackets around the conjuncts like [X and Y].}
 \begin{exe}
 \ex \begin{xlista}
 \ex[] {[To him]\sub{\avmbox{1}NP}  [Fred gave a football \trace]$_{\textup{\textsc{slash}} \langle \avmbox{1} \rangle}$ and
@@ -1047,7 +1034,7 @@ but [I think \trace would probably not be present at the awards]$_{\textup{\text
 There are, however, cases where the case of the ATB-extracted phrase can be syncretic as in (\ref{syn}), 
 due to \citet[205]{levineetal}. 
 
-\inlinetodostefan{I fixed the page number in \citet[205]{levineetal}. (\ref{syn}b) is not in this paper and it doesn't seems to be an example for what you are claiming. The NP is not the filler of the gap. \emph{which} is the gap and the other relative clause does not have a filler since you say that \emph{that} is not a relative pronoun.}
+\inlinetodostefan{I fixed the page number in \citet[205]{levineetal}. (\mex{1}b) is not in this paper and it doesn't seems to be an example for what you are claiming. The NP is not the filler of the gap. \emph{which} is the gap and the other relative clause does not have a filler since you say that \emph{that} is not a relative pronoun.}
 \eal
 \label{syn}
 \ex{Robin is someone who$_i$ even [good friends of \trace$_i$]
@@ -1134,8 +1121,7 @@ Since (morphosyntacic) agreement is not recorded in \textsc{cat}, it follows tha
 
 
 
-
-\subsection{Agreement}
+\subsection{Agreement strategies with coordinate phrases}
 
 
 In case of conjuncts with conflicting agreement values, resolution strategies are observed 
@@ -1150,7 +1136,7 @@ crosslinguistically. For example, a coordination with a 1st person is 1st, and a
 \end{exe}
 
 In gender marking languages, coordination with conflicting gender values is often resolved to 
-masculine, at least for animates \citep{Corbet91}\todostefan{This is a book. You have to add a page here.}. This is illustrated in (\ref{pt}), for Portuguese.
+masculine, at least for animates \citep[186]{Corbet91}\todostefan{This is a book. You have to add a page here.}. This is illustrated in (\ref{pt}), for Portuguese.
 
 \begin{exe}
  \ex
@@ -1193,7 +1179,7 @@ conjuncts.
 \subsubsection{Closest Conjunct agreement}
 
 
-As observed by \citet{Corbet91},\addpages many languages including \ili{Romance}, \ili{Celtic}, \ili{Semitic} and \ili{Bantu} languages, also have another strategy, namely partial agreement with only one conjunct, the one closest to the target, called \emph{closest conjunct agreement} (CCA)\is{agreement!closes conjunct}. 
+As observed by \citet[186]{Corbet91},\addpages many languages including \ili{Romance}, \ili{Celtic}, \ili{Semitic} and \ili{Bantu} languages, also have another strategy, namely partial agreement with only one conjunct, the one closest to the target, called \emph{closest conjunct agreement} (CCA)\is{agreement!closes conjunct}. 
 In the following example, again from \ili{Portuguese}, the determiner and prenominal adjective agree with the first noun (\ref{fo}a) and the postnominal adjective with the last noun (\ref{fo}b).
 
 \begin{exe}
@@ -1212,7 +1198,7 @@ his.\textsc{f.pl} own.\textsc{f.pl} reactions.\textsc{f.pl} or judgements.\texts
 
 For \ili{French} determiners and attributive adjectives, \citet{An:Abeille:17} and \citet{Abeille:An:Shiraishi:18} show on the basis of corpus data and experiments that number agreement may also obey CCA. As far as gender is concerned, prenominal adjectives always obey CCA while postnominal ones half of the time (in contemporary French). In (\ref{ft}a), the determiner can be singular (CCA) or plural (resolution), while in (\ref{ft}b), CCA (feminine Det) is obligatory. In (\ref{ft}c), the postnominal adjective can be masculine (resolution) or feminine (CCA), with the same meaning.
 
-\inlinetodostefan{no source for (\ref{ft}c). State sources in main text or provide source below (\ref{ft}c).}
+\inlinetodostefan{no source for (\mex{1}c answer: no need to put a source for every example). State sources in main text or provide source below (\mex{1}c).}
 \begin{exe}
  \ex
 \begin{xlista}
@@ -1236,7 +1222,7 @@ For \ili{French} determiners and attributive adjectives, \citet{An:Abeille:17} a
 
 As proposed by \citet[Chapter~2]{wechsler}, HPSG distinguishes two agreement features: \textsc{concord} is used for
 morphosyntactic agreement and \textsc{index} is used for semantic agreement (see
-\crossrefchapterw[Section~\ref{agreement-sec-index-concord}]{agreement}). \citet{Moosally}\todostefan{Do not have this paper, please add page numbers} proposes an account
+\crossrefchapterw[Section~\ref{agreement-sec-index-concord}]{agreement}). \citet{Moosally}\todostefan{Do not have this paper, please add page numbers; dont have it either, sorry} proposes an account
 of single conjunct predicate-argument agreement in \ili{Ndebele}, which she analyses as  \textsc{index} agreement. She has  a version of the following 
 constraint that shares the \textsc{index} value of the (nominal) coordinate mother with that of the last conjunct:
 
@@ -1255,7 +1241,7 @@ structure is resolved, even though predicate-argument agreement is controlled by
 \begin{exe}
 \ex \gll Dw i a Gwenllian heb gael ein talu. \\
 be.1\textsc{sg} I and Gwenllian.3\textsc{sg} without get \textsc{cl}.1\textsc{sg} pay \\
-\glt  `Gwenllian and I have not been paid.' \citep[\page 12]{Sadler2003a-u}\todostefan{It is example 12 but cannot be page 12. Add real page number, I do not have the paper.}
+\glt  `Gwenllian and I have not been paid.' \citep[\page 12]{Sadler2003a-u}\todostefan{It is example 12 but cannot be page 12. Add real page number, I do not have the paper.CAN we say ex. 12 ?}
 \end{exe}
 
 \inlinetodostefan{Add citation of \citet{Reape94a}. Crossref to order chapter: \crossrefchaptert{order}, I crossref from order to here.}
@@ -1312,7 +1298,7 @@ In the absence of coordination, these constraints apply vacuously, since CONCORD
 %(including coordination of word parts, Abeill\'{e} 2006, Chaves 2008)
 
 While conjuncts have often been assumed to be phrasal (see for example \citet[Section~6.2]{Kayne:94} and \citet[Section~5.2]{bruening} a.o.), \citet{Abeille:06} gives several arguments in favor of lexical coordination.
-In some contexts, words (or phrases with a premodifier) are allowed but not full phrases. In English, it is the case with prenominal adjectives and postverbal particles. See \citet[Section~4]{Abeille:06} for similar examples with various categories in different languages. Most English attributive adjectives are prenominal unless they have a complement. Although complex adjectival expressions with complements are not licit in prenominal position,  it is possible to have complex adjectival expressions if they are coordinate.
+In some contexts, words (or phrases with a premodifier) are allowed but not full phrases. In English, it is the case with prenominal adjectives and postverbal particles. See \citet[Section~4]{Abeille:06} for similar examples with various categories in different languages. Most English attributive adjectives are prenominal unless they have a complement. Although  adjectival phrases with complements are not licit in prenominal position,  it is possible to have complex adjectival expressions if they are coordinate.
 
 \begin{exe}
  \ex
@@ -1326,10 +1312,9 @@ In some contexts, words (or phrases with a premodifier) are allowed but not full
 
 \inlinetodostefan{I changed the order of the examples and referenced them in the text. Hope this is OK. Please check.}
 As observed by \citet[\page 176--177]{hpsg1}, a particle may project a phrase after the nominal
-complement (\ref{ex-turn-off}a), but not before (\ref{ex-turn-off}b); but coordination is possible, at least for some
-speakers as the example in (\ref{ex-turn-off}c) from \citew[\page 23]{Abielle2006a} shows.
+complement (\mex{1}a), but not before (\mex{1}b); but coordination is possible, at least for some
+speakers as the example in (\mex{1}c) from \citew[\page 23]{Abeille2006a} shows.
 \eal
-\label{ex-turn-off}
 \ex Paul turned the radio [(completely) off].
 \ex Paul turned [(*completely) off] the radio.
 \ex Paul was turning [on and off] the radio all the time.
@@ -1345,7 +1330,7 @@ While phrasal coordination can conjoin unlike categories (see below), it is not 
 \end{xlista}
 \end{exe}
 
-Semantically, lexical coordination is more constrained than phrasal coordination. With \textit{and}, two lexical verbs, sharing a preverbal clitic in French, must share the same verbal root, and in Spanish, they must refer to the same event \citep{Bosque:86}.\todostefan{Could not find paper. Please add page numbers.}
+Semantically, lexical coordination is more constrained than phrasal coordination. With \textit{and}, two lexical verbs, sharing a preverbal clitic in French, must share the same verbal root, and in Spanish, they must refer to the same event \citep{Bosque:86}.\todostefan{Could not find paper. Please add page numbers. answer:I dont have ot}
 
 \eal
 \ex[]{
@@ -1370,15 +1355,10 @@ Semantically, lexical coordination is more constrained than phrasal coordination
 }
 \zl
 
-Some apparent cases of lexical coordination may be analyzed as Right-Node Raising \citep{Beavers}. They differ semantically and prosodically, however: with typical Right-Node Raising, the two conjuncts must stand in contrast to one another, and do not have to refer to the same event. With Right-Node Raising there must be a prosodic boundary at the ellipsis site (see \citet{chavesrnr}\addpages and \crossrefchaptert{ellipsis}\todostefan{add a label to the page/esection in ellipsis.tex}). In French, the first conjunct cannot end with a clitic article or with a weak preposition as in (\ref{fr1}b,c), quoted from \citep[\page 14]{Abeille:06}.
+Some apparent cases of lexical coordination may be analyzed as Right-Node Raising \citep{Beavers}. They differ semantically and prosodically, however: with typical Right-Node Raising, the two conjuncts must stand in contrast to one another, and do not have to refer to the same event. With Right-Node Raising there usually is a prosodic boundary at the ellipsis site (see \citet[843,844]{chavesrnr}\addpages and \crossrefchaptert{ellipsis}\todostefan{add a label to the page/esection in ellipsis.tex}). In French, the first conjunct cannot end with a clitic article or with a weak preposition as in (\ref{fr1}b,c), quoted from \citep[\page 14]{Abeille:06}.
 
 \eal
 \label{fr1}
-\ex[]{  
-\gll Tout le monde dit et je te promets que tu as tort.\\
-     all the world says and I you promise that you are wrong\\\hfill(French)
-\glt `Everyone says and I promise you that you are wrong.'
-}
 \ex[*]{ \gll Paul cherche le, et Marie conna{\^{i}t} la responsable.\\
  Paul searches the and Marie knows the responsible\\
 \glt `Paul looks for the.\textsc{m.sg} and Marie knows the.\textsc{f.sg}  responsible.'
@@ -1413,40 +1393,50 @@ articles or weak prepositions can be conjoined, with a shared argument \citep[\p
 \zl
 
 \noindent
-Not all conjunctions are felicitous with lexical coordination; \textit{but}, for example is less felicitous than \textit{and} or \textit{or}.
-Analyzing the conjunction as a weak head (see above), the sub-type for lexical coordination has to allow for the coordination of items waiting for complements (this is done by concatenation of 
-\textsc{arg-st} lists as it is for complex predicates, see \crossrefchaptert[Section~\ref{complex-predicates-sec-argument-attraction}]{complex-predicates}): the conjunction thus inherits all the dependents of the word it combines with. 
+The functor analysis of coordinands in (13) is compatible with lexical coordination, since the head-functor phrase in (14) has the same valence features as the head. The weak head analysis in (16) is also compatible since the conjunction inherits the complements expected byt the conjunct (this is done by concatenation of 
+\textsc{arg-st} lists as it is for complex predicates, see \crossrefchaptert[Section~\ref{complex-predicates-sec-argument-attraction}]{complex-predicates}) 
 
 
-\ea
-\begin{avm}
-\type{ lex-coord} \impl
-   \[synsem|loc|cat  \[head &  \@{0}\\
-                       weight &  \@{3}light\]\\
-    arg-st  \@{1} $\oplus$ 
-    \< \[synsem|loc|cat \[head & \@{0}\\
-                          weight & \@{3}\]\\
-    arg-st \@{1} $\oplus$ \@{2}\]\> $\oplus$ 
-    \@{2}\]\end{avm}
+%\ea
+%\begin{avm}
+%\type{ lex-coord} \impl
+ %  \[synsem|loc|cat  \[head &  \@{0}\\
+  %                     weight &  \@{3}light\]\\
+  %  arg-st  \@{1} $\oplus$ 
+  %  \< \[synsem|loc|cat \[head & \@{0}\\
+  %                        weight & \@{3}\\
+   %                       arg-st \@{1} $\oplus$ \@{2} \]\]\> $\oplus$ 
+  %  \@{2}\]\end{avm}
 \z
 \inlinetodostefan{please give an example.\\
-17.04.2020 Figure~\ref{light} does not explain what is going on here. The whole \argst trick has to be explained. And note that the lexical item is multiple ways ambiguous since the \argst of the embedded head can be split in various ways. The last paper you cite here is \citet{Abeille:06}, but Abielle does not work with \argst. She works with \subj and \comps. If you do this with \argst a lot of questions are open: How does linking work? The category of the head is not known. Do all arguments go to \ibox{1}? All to \ibox{2}? A lot of things are open here. Did somebody else do this in the literature before? If so cite her/him.}
+17.04.2020 Figure~\ref{light} does not explain what is going on here. The whole \argst trick has to be explained. And note that the lexical item is multiple ways ambiguous since the \argst of the embedded head can be split in various ways. The last paper you cite here is \citet{Abeille:06}, but Abeille does not work with \argst. She works with \subj and \comps. If you do this with \argst a lot of questions are open: How does linking work? The category of the head is not known. Do all arguments go to \ibox{1}? All to \ibox{2}? A lot of things are open here. Did somebody else do this in the literature before? If so cite her/him. Answer: we go back to subj and comps now; no need for a special entry for lexical coordination}
 
-\inlinetodostefan{I cannot fill in Anne's text here, since (16) is not a lexical entry. Do you mean (13)? This has to be revised.}
-The entry for the conjunction \emph{and} in (\ref) will be revised as follows (with \type{lex-coord-lexeme} type instead of of \type{coord-lexeme}):
 
                                                     
-The construct resulting from the coordination of lexical elements has hybrid properties: as a syntactic construct, it must be a phrase, but it also behaves as a word: coordinate verbs behave as lexical heads, coordinate adjectives may occur in positions ruled out for phrases. To overcome this apparent paradox, \citet[Section~5.1]{Abeille:06} analyses it as an instance of ``light'' phrase, following the \textsc{weight} account of \citet{Abeille:Godard:2000} and \citet{Abeille:Godard:2004}. Light elements can be words or phrases, and can have a restricted mobility (see \crossrefchaptert{order}). For example prenominal modifiers can be constrained to be [\textsc{weight} \emph{light}]. In this theory, light phrases can be coordinate phrases or head-adjunct phrases, provided all their daughters are light as Figure~\ref{light} illustrates.
+The construct resulting from the coordination of lexical elements has hybrid properties: as a syntactic construct, it must be a phrase, but it also behaves as a word: coordinate verbs behave as lexical heads, coordinate adjectives may occur in positions ruled out for phrases. To overcome this apparent paradox, \citet[Section~5.1]{Abeille:06} analyses it as an instance of ``light'' phrase, following the \textsc{weight} account of \citet{Abeille:Godard:2000} and \citet{Abeille:Godard:2004}. Light elements can be words or phrases, and can have a restricted mobility (see \crossrefchaptert{order}). For example prenominal modifiers can be constrained to be [\textsc{weight} \emph{light}]. In this theory, light phrases can be coordinate phrases or head-adjunct phrases, provided all their daughters are light as Figure~\ref{light} illustrates, assuming a functor analysis.
 
 
 \begin{figure}
-\tikzexternaldisable
     \hfill
-\Tree[.VP [.{VP$[$\emph{light}$]$} [.V {likes} ] ] 
-[.{VP$[$\emph{light}$]$}  [.Coord {and} ]  [.V {approves } ]	 ] ]
+\Tree[.{VP\begin{avm}
+        \[spr & \< NP$_x$ \>\\
+         comps & \<NP$_y$\>\\
+         weight & light \]
+        \end{avm} [.{V\begin{avm}
+        \[spr & \< NP$_x$ \>\\
+         comps & \<NP$_y$\> \]
+        \end{avm} {likes} ] 
+[.{VP\begin{avm}
+        \[spr & \< NP$_x$ \>\\
+         comps & \<NP$_y$\>\\
+         weight & light \]
+        \end{avm}}  [.Coord {and} ]  [.{V\begin{avm}
+        \[spr & \< NP$_x$ \>\\
+         comps & \<NP$_y$\> \]
+        \end{avm} {approves } ]	 ] ]
 \hfill
-\Tree[.AP [.{AP$[$\emph{light}$]$}  [.A {big} ] ] 
-[.{AP$[$\emph{light}$]$} [.Coord {and} ] [.A  {tall} ]  ] ]
+\Tree[.AP$[$\emph{light}$]$  [.A {big} ]  
+[.{AP$[$\emph{light}$]$} [.Coord {and} ] [.A$[$\emph{light}$]$  {tall} ]  ] ]
 \hfill\mbox{}
     \caption{Examples of lexical coordination}
     \label{light}
@@ -1457,14 +1447,12 @@ The construct resulting from the coordination of lexical elements has hybrid pro
 
 \inlinetodostefan{This section is largely identical in text to parts of \citet[Section~1.1 and 1.2]{Chaves2013b-u}. This is self plagiarism, which is scientifically unethical. Apart from this there are copyright issues. The material is copyrighted by CSLI Publications. I noticed this by chance, but there may be issues with other parts in this chapter.}
 
-The coordination construction in (\ref{coordparam2}) requires that the categories being coordinated are the same.
-However, there is some evidence that this requirement is excessive.  Consider the coordinations in (\ref{unlk1}), from
-\citet{gpsg}, % none
+The categories of conjuncts are required to be the same as per the the coordination construction in (\ref{coordparam2}).
+But this requirement is excessive, as illustrated by  the coordinations in (\ref{unlk1}), from
 \citet[\page 580]{bayer}, % Republican & proud of it
 \citet[\page 1327]{rodney}, % four month trip to Africa
-among  others.
- Such data pose a classic syntactic problem: 
-what is the part of speech and categorial status of the bracketed constituents?
+among  others; see \citet{bookivan}.
+ Such data pose the  problem of determining  what should be the part of speech and categorial status of the coordinate phrase?
 
 \inlinetodostefan{I could not find any of these examples in \citet{GKPS85a}. \citet{GKPS85a} discuss asymmetric coordination on page 174 though. I found the Africa example in \citet[\page 1327]{rodney}. The \emph{republican} is in Bayer. Where are the other examples from?}
 \begin{exe}
@@ -1493,7 +1481,8 @@ what is the part of speech and categorial status of the bracketed constituents?
 
 \inlinetodostefan{I would read the following paragraph as if this is what Jacobson showed. But she did not discuss the examples you are discussing here. So this is misleading. Maybe cite her with page 417 and then explain that you are dicussing something else.}
 \noindent
-As  \citet{jacobson} pointed out, it is clear that the features of the mother are not simply the intersection of the features of the conjuncts. Verbs like \emph{remain} are compatible with both
+As  \citet[417]{jacobson}, \citet{Sag:03} and others point out, the features of the mother are not simply the intersection of the features of the conjuncts. 
+For example, verbs like \emph{remain} are compatible with both
 AdjP and NP complements whereas \emph{grew}
 is only compatible with AdjPs.
 This is shown in  (\ref{republican}).
@@ -1528,10 +1517,9 @@ are coordinated, as in (\ref{show2}b--d).
 
 
 A number of influential accounts in \isi{Type-Logical Grammar}
-\citep{morrill90,morrill94,bayer}\addpages have used one of the rules of
+\citep{morrill90,morrill94,bayer}\addpages  use one of the rules of
 inference from propositional calculus in order to deal with
-coordination of unlikes phenomena, namely, disjunction introduction
-(or addition): from $P$ one can infer $P \vee Q$. 
+coordination of unlikes phenomena, namely, disjunction introduction, which allows  one to infer $P \vee Q$ from  $P$.
 Thus, by assuming that categories like NP, PP
 and so on can also be disjunctive, the grammar allows an expression
 of type `NP' to lead a double life as an `NP $\vee$ PP' expression,
@@ -1547,7 +1535,7 @@ a deletion operation that omits the left periphery of
 non-initial conjuncts, illustrated in   (\ref{unlk}).
 
 
-\inlinetodostefan{Where is (\ref{unlk}a) from? The URL of (\ref{unlk}c) from 2010 did not work any more. I got you a working one.}
+\inlinetodostefan{Where is (\mex{1}a) from? The URL of (\mex{1}c) from 2010 did not work any more. I got you a working one.}
 \begin{exe}
 \ex
 \begin{xlista}
@@ -1680,7 +1668,7 @@ This can be achieved by adding the constraints in (\ref{lpec}) to the coordinati
 \label{lpec}
 \end{exe}
 \inlinetodostefan{What does CRD stand for? Formally? It is small caps so this seems to point to a
-  feature name. But this cannot be right. What is it?}
+  feature name. But this cannot be right. What is it? answer: crd is the same as in (12): the COORD value of any coordinand}
 
 \noindent
 If \avmbox{1} is resolved as the empty list then no ellipsis occurs, but if \avmbox{1} is non-empty then ellipsis occurs, as illustrated in Figure~\ref{lpe}. 
@@ -1703,7 +1691,7 @@ See \crossrefchaptert[Section~\ref{sec-domains}]{order} for more discussion abou
     \caption{Analysis of \emph{give a book to Mary and} \sout{\emph{give}} \emph{a magazine to Sue}}\label{lpe}
 \end{figure}
 
-\inlinetodostefan{The sentences in (\ref{treesa}) are neither in \citet{Beavers} nor in \citet{chaves06} contrary to the claim.}
+\inlinetodostefan{The sentences in (\mex{1}) are neither in \citet{Beavers} nor in \citet{chaves06} contrary to the claim.}
 \noindent
 This approach is motivated by the existence of ambiguity in 
 sentences like (\ref{treesa}), from \citet{Beavers} and \citet{chaves06}. Because (\ref{treesa}a) involves a one-time predicate, the ellipsis must include the subject phrase, otherwise
@@ -1869,7 +1857,8 @@ presently in a state of rapid development
 (\ldots{})\footnote{\url{http://opinionator.blogs.nytimes.com/2011/12/25/the-future-of-moral-machines/?hp},
   accessed 2020-03-09.}
 
-\ex Are you talking about \textsc{a new}  or about \textsc{an ex}-[boyfriend]?
+\ex Are you talking about \textsc{a new}  or about \textsc{an ex}-[boyfriend]?\\
+\citep[867]{chavesrnr}
 
 \end{xlista}\label{rnrex2}
 \end{exe}
@@ -1878,7 +1867,7 @@ presently in a state of rapid development
 
 Elliptical accounts of Right-Node Raising are proposed by \citet{Beavers},
 \citet{Yatabe:04}, \citet{chavesrnr} and others. The rule in (\ref{rnrcx}) illustrates the account adopted by 
- \citet{chavesrnr}\todostefan{add pages, could not find them}  and \citet[\page 19]{aoi}
+ \citet[874]{chavesrnr}\todostefan{add pages, could not find them}  and \citet[\page 19]{aoi}
   in simplified format.\footnote{See \citet{chavesrnr} for more details about how ``cumulative'' Right-Node Raising is modeled by this rule, i.e.\
  cases like \emph{Mia lost -- and Fred spent -- $($a total of$)$ \$10.000}.}
 In a nutshell, the \textsc{m(orpho-)p(honology)} feature introduces two list-valued features, namely \textsc{phon}(\textsc{ology}) and \textsc{l(exical-)id(entifier)}. The former encodes phonological content, including phonological phrasing information,  whereas the latter is used to individuate lexical items semantically (i.e.\  the value
@@ -1925,10 +1914,12 @@ See \citet{swingle} for more discussion.
 By requiring  \textsc{lid} identity, the rule prevents homophonous strings that have fundamentally different semantics from being Right-Node Raised, as in (\ref{badp2}). In such cases,  oddness arises because in general the same phrase cannot simultaneously have  two meanings, except in puns  \citep[316]{zaenenkart}. 
 
 \inlinetodostefan{\citet[\page 936]{Milward94} contains the sentence \emph{*[John will] and [Mary built the] drive}, that is, with different proper names and without small caps.
-\citet{buitelaar1998corelex} does not contain the cited example. I added Artstein's page number. But the example in Artstein is longer and without caps. The example (\ref{badp2}f) from \citet[274]{chaveslp} starts with \emph{I} not with \emph{we}. I changed this.}
+\citet{buitelaar1998corelex} does not contain the cited example. I added Artstein's page number. But the example in Artstein is longer and without caps. The example (\mex{1}f) from \citet[274]{chaveslp} starts with \emph{I} not with \emph{we}. I changed this.}
 \begin{exe}
 \ex \begin{xlista} 
 \ex[*] {Randy \textsc{saw} and Rene has \textsc{been} [flying planes].}\todostefan{give source?}
+\citep{booij:85}
+
 \ex[*] {Jo \textsc{will} and Sandy \textsc{built the} [drive].\\
 \citep{Milward94}
 }
@@ -1961,14 +1952,14 @@ Note that this is a unary-branching rule, which means that it can in principle a
 S\[\type{phrase}\\
 mp \<
 \[phon \<\[$I$\\
-    \[$\phi$\\
+    \[$\phi$ &
        /\textipa{kIm} \textipa{lAIks} /\]\]\>\\
        lid \ldots{}\],
-    \[phon \<\[$I$\\
-     \[$\phi$\\
+    \[phon \<\[$I$ &
+     \[$\phi$ &
             /\textipa{\ae nd} \textipa{mij@} \textipa{heIts}/\]\]\>\\
             lid \ldots{}\],
-         \[phon \<\[$I$\\ \[$\phi$\\  /\textipa{beIg@lz}/\]\]\>\\
+         \[phon \<\[$I$ & \[$\phi$ &  /\textipa{beIg@lz}/\]\]\>\\
          lid \ldots{} \]\>  \]\end{avm}}}
          
       $|$   
@@ -1977,17 +1968,17 @@ mp \<
 \begin{avm}
 S\[\type{phrase}\\
 mp
-\<  \[phon \< \[$I$\\
-    \[$\phi$\\
+\<  \[phon \< \[$I$ &
+    \[$\phi$ &
        /\textipa{kIm} \textipa{lAIks} /\] \]\>\\
       lid ..\],
-        \[phon    \<\[$I$\\ \[$\phi$\\  /\textipa{beIg@lz}/\]\]\>\\
+        \[phon    \<\[$I$ & \[$\phi$ &  /\textipa{beIg@lz}/\]\]\>\\
               lid \ldots{}\],\\
-     \[phon \<\[$I$\\
-     \[$\phi$\\
+     \[phon \<\[$I$ &
+     \[$\phi$ &
             /\textipa{\ae nd} \textipa{mij@} \textipa{heIts}/\]\]\>\\
           lid \ldots{}\],
-         \[phon \<\[$I$\\ \[$\phi$\\  /\textipa{beIg@lz}/ \]\]\>\\
+         \[phon \<\[$I$ & \[$\phi$ &  /\textipa{beIg@lz}/ \]\]\>\\
               lid \ldots{}\]   \>  \]\end{avm}}
     
 %%     \scalebox{1}{
@@ -2026,7 +2017,6 @@ mp
               
                
                          \scalebox{0.9}{
-\tikzexternaldisable
          \Tree[.{    
 \qroof{Kim
 \textsc{likes} bagels and Mia \textsc{hates} bagels}.{\,}} ] }
@@ -2075,10 +2065,9 @@ voted  \textsc{for} [my father's motion].\\
 
 
 
-In the example in Figure~\ref{rnrt}  the sub-list \avmbox{R$_3$} is resolved as the empty list, but this need not be so. When the latter sublist is not resolved as the empty list, we obtain discontinuous Right-Node Raising cases like (\ref{disrnr}), 
-where the RNRaised expression is followed by extra material.
-
-\inlinetodostefan{The examples in (\ref{disrnr})  are from \citep[\page 868]{chavesrnr}. You may want to add this information.}
+In the example in Figure~\ref{rnrt}  the sub-list \avmbox{R$_3$} is resolved as the empty list, but this need not be so. When the latter sublist is not resolved as the empty list, we obtain discontinuous Right-Node Raising cases like (\ref{disrnr}), due to  \citet[238--240]{Whitman:09}
+and \citet[868]{chavesrnr}, where the RNRaised expression is followed by extra material. 
+\inlinetodostefan{The examples in (\mex{1})  are from \citep[\page 868]{chavesrnr}. You may want to add this information.}
 \begin{exe}
 \ex \begin{xlista}
 \ex The blast \textsc{upended} and \underline{\textsc{nearly sliced}} [an armored Chevrolet Suburban] \underline{in half}.
@@ -2091,6 +2080,8 @@ where the RNRaised expression is followed by extra material.
 
 \ex The troops that \textsc{occupied} ended up \underline{\textsc{burning}}
 [the town] \underline{to the ground}.
+
+
 
 \end{xlista}\label{disrnr}
 \end{exe}
@@ -2153,7 +2144,7 @@ This allows the second conjunct to combine the two NPs with the verbal semantics
 Like RNR, Gapping is not restricted to coordinate structures as (\ref{gnc}) illustrates, contrary to
 widespread assumption.   Thus, the Gapping rule proposed by \citet{sangheepark}  that allows a gapped clause to follow a non-gapped clause, is not specific to coordination. 
 
-\inlinetodostefan{Where are these examples from? (\ref{gnc}b) is from Park (page 30) but Park is not cited. (\ref{gnc}c) is also from Park p. 31. The example by Park is an attested example, the source should be given and the attested example does not contain a dash!}
+\inlinetodostefan{Where are these examples from? (\mex{1}b) is from Park (page 30) but Park is not cited. (\mex{1}c) is also from Park p. 31. The example by Park is an attested example, the source should be given and the attested example does not contain a dash!}
 \begin{exe}
 \ex 
 \begin{xlista}
