@@ -16,8 +16,8 @@
   \input{../localcommands}
   \tikzset{external/prefix={hpsg-handbook.for.dir/}}
   \forestset{external/master dir={./}}
-%  \tikzexternalize
-\tikzexternaldisable
+  \tikzexternalize
+%\tikzexternaldisable
 
   \input{../localhyphenation}
   \bibliography{../Bibliographies/stmue,
@@ -230,13 +230,46 @@ In what follows we start by focusing on monosyndenton coordination. There are th
 ConjP and of binary branching analysis of coordinate structures with three conjuncts.}
 
  
+% \begin{figure}
+% %did not work in main.tex
+% %\tikzexternaldisable
+% \hfill
+%     \Tree[.X X [.X X [.X {Coord}  X ] ] ]
+% \hfill
+%     \Tree[.X X  X  [.X {Coord} X ] ]
+% \hfill
+%     \Tree[.X X  X {Coord}  X ] 
+% \hfill\mbox{}
+% \caption{Three possible headless analyses of coordination}\label{f1}
+% \end{figure}
 \begin{figure}
 \hfill
-    \Tree[.X X [.X X [.X {Coord}  X ] ] ]
+\begin{forest}
+[X, baseline
+ [X] 
+ [X 
+  [X] 
+  [X 
+   [Coord]  
+   [X] ] ] ]
+\end{forest}
 \hfill
-    \Tree[.X X  X  [.X {Coord} X ] ]
+\begin{forest}
+[X,baseline 
+  [X]
+  [X]
+  [X 
+    [Coord]
+    [X] ] ]
+\end{forest}
 \hfill
-    \Tree[.X X  X {Coord}  X ] 
+\begin{forest}
+[X,baseline 
+  [X]
+  [X]
+  [Coord]
+  [X] ]
+\end{forest} 
 \hfill\mbox{}
 \caption{Three possible headless analyses of coordination}\label{f1}
 \end{figure}
@@ -259,11 +292,31 @@ for a formalization.
 \citet[Chapter~6]{Kayne:94} and  \citet{johann}\addpages  argue that coordination follows X-bar theory and that the conjunction is the head of the construction; see \crossrefchaptert[Section~\ref{sec-coordination-minimalism}]{minimalism}. But in HPSG, even though one of the conjuncts (or more) may combine with a conjunction, this subconstituent is not the head of the construction, which is considered as unheaded.
 The two analyses are contrasted in Figure~\ref{f10}.
 
+% \begin{figure}
+% \hfill
+%     \Tree[.ConjP NP1 [.Conj$'$  Coord NP2 ] ]
+% \hfill
+%     \Tree[.NP NP1 [.NP  Coord NP2 ] ]
+% \hfill\mbox{}
+% \caption{Binary-branching analyses of coordination, headed and non"=headed}\label{f10}
+% \end{figure}
 \begin{figure}
 \hfill
-    \Tree[.ConjP NP1 [.Conj$'$  Coord NP2 ] ]
+\begin{forest}
+[ConjP 
+  [NP1] 
+  [Conj$'$  
+    [Coord]
+    [NP2] ] ]
+\end{forest}
 \hfill
-    \Tree[.NP NP1 [.NP  Coord NP2 ] ]
+\begin{forest}
+[NP 
+  [NP1]
+  [NP  
+    [Coord]
+    [NP2] ] ]
+\end{forest}
 \hfill\mbox{}
 \caption{Binary-branching analyses of coordination, headed and non"=headed}\label{f10}
 \end{figure}
@@ -342,9 +395,23 @@ types:\footnote{Mouret's and Bı̂lbı̂ie's formulations are slightly different
 \noindent
 Here, we assume that the value of \textsc{coord} must be typed as \type{coord},
 and that the latter has various sub-types as shown in Figure~\ref{fig:mlabelc}.
+% \begin{figure}
+%     \centering
+%     \Tree[.\type{coord} \type{none} [.\type{crd} \type{and} \type{or} \type{but} {\ldots{}} ] ]
+%     \caption{Coordinator sub-types}\label{fig:mlabelc}
+% \end{figure}
 \begin{figure}
     \centering
-    \Tree[.\type{coord} \type{none} [.\type{crd} \type{and} \type{or} \type{but} {\ldots{}} ] ]
+\begin{forest}
+type hierarchy
+[coord 
+   [none]
+   [crd 
+     [and]
+     [or]
+     [but]
+     [\ldots] ] ]
+\end{forest}
     \caption{Coordinator sub-types}\label{fig:mlabelc}
 \end{figure}
 Thus, simple (monosyndenton and polysyndenton) coordinations are those where all but the first coordinand are allowed to combine with a coordinator,  omnisyndenton coordinations are those where all coordinands
@@ -416,6 +483,7 @@ feature. See also \crossrefchaptert[\page \pageref{page-hfp}]{properties}.}
 Thus, the conjunction projects an NP when combined with an NP, an AP when combined with an AP, etc., as Figure~\ref{coordphr} illustrates.
 
 \begin{figure}
+\tikzexternaldisable
 \hfill
 \Tree[.{NP$[$\textsc{coord} \type{and}$]$}	
 [.{C$[$\textsc{coord} \type{and}$]$}  {and} ] [.N {Mary} ] ]
@@ -472,6 +540,7 @@ to be structure-shared with the head value of the conjunct it combines with (whi
 
 \begin{figure}
 \hfill
+\tikzexternaldisable
 \Tree[.{NP$[$\textsc{coord} \emph{and}$]$}	
 [.{N$[$\textsc{coord} \emph{and}$]$}  {and} ] [.NP {Mary} ] ]
 \hfill
@@ -579,6 +648,8 @@ See \citet{Bilbiie:08}\addpages for arguments that both types are attested in \i
 
 
 \begin{figure}
+\tikzexternaldisable
+
     \hfill
     \Tree[.X [.{Adv} both ]  [.X X [.X [.{Coord} and ]  X ] ] ]
 \hfill
@@ -791,6 +862,8 @@ For example, this entails that all valence constraints are identical. Thus, in V
 
 \COMMENT{
 \begin{figure}
+\tikzexternaldisable
+
 {\small \Tree[.{{S}\\
 \begin{avm}\[subj \hspace{5pt} $\langle$ \@{2} $\rangle$\\
                comps  $\langle$ $\rangle$\]
@@ -1423,6 +1496,8 @@ The construct resulting from the coordination of lexical elements has hybrid pro
 
 
 \begin{figure}
+\tikzexternaldisable
+
     \hfill
 \Tree[.{VP\begin{avm}
         \[spr & \< NP$_x$ \>\\
@@ -1951,6 +2026,7 @@ Note that this is a unary-branching rule, which means that it can in principle a
 
 
 \begin{figure}
+\tikzexternaldisable
     \centering
 
     \scalebox{1}{

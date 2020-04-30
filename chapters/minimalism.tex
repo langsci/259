@@ -1048,6 +1048,8 @@ in Figure~\ref{fig-architecture-phases}. Both phonology and semantics are read o
 produced by syntax.
 \begin{figure}
 \hfill
+% works in minimalism.tex but not in check-hpsg.tex
+\tikzexternaldisable
 \scalebox{.92}{%
 \begin{tikzpicture}[scale=.8,baseline=(current bounding box.center)]
 %\draw (-2.9,-5.8) to[grid with coordinates] (2.7,-0.6);
@@ -1065,38 +1067,38 @@ produced by syntax.
 \end{tikzpicture}
 }
 \hfill
-\scalebox{.92}{%
-\begin{forest} 
-for tree={nice empty nodes,% every conditional anchor=north adapts the specific node to this setting.
-                            if n children={3}{for children={
-                                anchor=north,
-                                if n=1{inner sep=0pt,child anchor=north east,edge=-{Triangle[]}}{
-                                if n=3{inner sep=0pt,child anchor=north west,edge=-{Triangle[]}}{}}}
-                            }{
-                                if n children={2}{for children={
-                                anchor=north,
-                                if n=1{child anchor=north east,edge=-{Triangle[]}}{
-                                if n=2{child anchor=north west,edge=-{Triangle[]}}{}}}
-                                }{}
-                            },
-                            },
-                    delay={where content={...}{for parent={for children={anchor=north}}}{}},
-                    transfer/.style={yshift=5mm,tikz={\node[gray,right=3cm of .east] (stefanstransfer) {Transfer};\path[{Latex[]}-,gray] (.east) edge[] (stefanstransfer);}},
-                    lexicon/.style={tikz={\node[left=1.5cm of .base west,anchor=base] (stefanslexicon) {\strut lexicon};\path[-{Latex[]}] (stefanslexicon) edge (.west);}}
-[numeration,lexicon[,transfer
-    [PHON][,transfer
-        [PHON][,transfer
-            [PHON,baseline][,transfer
-                [PHON][...[,transfer
-                        [PHON][SEM]
-                        ]
-                    ][SEM]]
-            [SEM]]
-        [SEM]]
-    [SEM]]
-]
-\end{forest}
-}
+% \scalebox{.92}{%
+% \begin{forest} 
+% for tree={nice empty nodes,% every conditional anchor=north adapts the specific node to this setting.
+%                             if n children={3}{for children={
+%                                 anchor=north,
+%                                 if n=1{inner sep=0pt,child anchor=north east,edge=-{Triangle[]}}{
+%                                 if n=3{inner sep=0pt,child anchor=north west,edge=-{Triangle[]}}{}}}
+%                             }{
+%                                 if n children={2}{for children={
+%                                 anchor=north,
+%                                 if n=1{child anchor=north east,edge=-{Triangle[]}}{
+%                                 if n=2{child anchor=north west,edge=-{Triangle[]}}{}}}
+%                                 }{}
+%                             },
+%                             },
+%                     delay={where content={...}{for parent={for children={anchor=north}}}{}},
+%                     transfer/.style={yshift=5mm,tikz={\node[gray,right=3cm of .east] (stefanstransfer) {Transfer};\path[{Latex[]}-,gray] (.east) edge[] (stefanstransfer);}},
+%                     lexicon/.style={tikz={\node[left=1.5cm of .base west,anchor=base] (stefanslexicon) {\strut lexicon};\path[-{Latex[]}] (stefanslexicon) edge (.west);}}
+% [numeration,lexicon[,transfer
+%     [PHON][,transfer
+%         [PHON][,transfer
+%             [PHON,baseline][,transfer
+%                 [PHON][...[,transfer
+%                         [PHON][SEM]
+%                         ]
+%                     ][SEM]]
+%             [SEM]]
+%         [SEM]]
+%     [SEM]]
+% ]
+% \end{forest}
+% }
 \hfill\mbox{}
 \caption{Syntax-centric architecture in Minimalism before the Phase model (left) and in the Phase
 model (right) according to \citet[\page 812, 830]{Richards2015a}}\label{fig-architecture-phases}

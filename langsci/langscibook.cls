@@ -364,23 +364,23 @@
 % Generates the content of the back cover
 % Argument 1: Text width, corresponding to Argument 1 of \podfrontcovertoptext
 \newcommand{\podbackcover}[1]{
-  \node [ font=\fontsize{25pt}{10mm}\selectfont,
-          right,
-          below right = 10mm and 7.5mm of CoverColouredRectangleBack.north west,
-          text width=#1
-         ] (lspcls_backtitle) {\color{white}\lsBackTitleFont{\raggedright\lsBackTitle\par}};
-  \node [ below = 10mm of lspcls_backtitle,
-          text width=#1,
-          align=justify
-        ] {\color{white}\lsBackBodyFont{\parindent=15pt\lsBackBody}};
- \node [  below right = 192.5mm and 97.5mm of CoverColouredRectangleBack.north west,
-          text width=4cm] {%
-    \colorbox{white}{
-      \begin{pspicture}(0,0)(4.1,1in)
-        \psbarcode[transx=.4,transy=.3]{\lsISBNcover}{includetext height=.7}{isbn}%
-      \end{pspicture}
-      }
-    };
+ %  \node [ font=\fontsize{25pt}{10mm}\selectfont,
+ %          right,
+ %          below right = 10mm and 7.5mm of CoverColouredRectangleBack.north west,
+ %          text width=#1
+ %         ] (lspcls_backtitle) {\color{white}\lsBackTitleFont{\raggedright\lsBackTitle\par}};
+ %  \node [ below = 10mm of lspcls_backtitle,
+ %          text width=#1,
+ %          align=justify
+ %        ] {\color{white}\lsBackBodyFont{\parindent=15pt\lsBackBody}};
+ % \node [  below right = 192.5mm and 97.5mm of CoverColouredRectangleBack.north west,
+ %          text width=4cm] {%
+ %    \colorbox{white}{
+ %      \begin{pspicture}(0,0)(4.1,1in)
+ %        \psbarcode[transx=.4,transy=.3]{\lsISBNcover}{includetext height=.7}{isbn}%
+ %      \end{pspicture}
+ %      }
+ %    };
 }
 
 % Generates the content on the front cover, including title, author, subtitle. See below for remaining commands
@@ -809,7 +809,7 @@
 %    Cover
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage{pst-barcode}          % for generating bar codes
+%\usepackage{pst-barcode}          % for generating bar codes
 \newcommand{\lsCoverFontColor}{white}
 \newcommand{\lsCoverBlockColor}{\lsSeriesColor}
 
@@ -1169,6 +1169,7 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 
 \usepackage{datetime}
 \usepackage{scrpage2}
+%\usepackage{scrlayer-scrpage}
 \ohead{\headmark}
 \ihead{}
 \cfoot{}

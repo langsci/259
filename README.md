@@ -1,6 +1,8 @@
 # hpsg-handbook
 The very cool open access handbook for HPSG that will end all handbook attempts.
 
+Tested with texlive 2019 (ghostscript 9.27) and texlive 2020. If externalization of tikz figures causes problems, comment out the command \tikzexternalize by adding a % before it.
+
 Please compile check-hpsg.tex after commenting in your chapter and maybe chapters you cite.
 
 xelatex check-hpsg.tex; biber check-hpsg
