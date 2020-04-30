@@ -20,6 +20,10 @@ clean:
 	*.glg *.glo *.gls *.wrd *.wdv *.xdv *.mw *.clr \
 	*.run.xml 
 
+git-add:
+	git add hpsg-handbook.for.dir/*.pdf
+	git add hpsg-handbook.for
+
 
 cleanfor: # These files are precious, as it takes a long time to produce them all.
 	rm -f *.for *.for.tmp hpsg-handbook.for.dir/*
