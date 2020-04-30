@@ -300,7 +300,11 @@ main.snd: FORCE
 	makeindex -o main.snd main.sdx 
 	xelatex main 
 
+chapters:
+	(cd chapters; make all)
 
+externalization: clean chapters
+	xelatex -shell-escape main
 
 
 #create a png of the cover
@@ -377,6 +381,7 @@ realclean: clean
 
 chapterlist:
 	grep chapter main.toc|sed "s/.*numberline {[0-9]\+}\(.*\).newline.*/\\1/"
+
 
 
 FORCE:

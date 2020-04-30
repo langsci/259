@@ -171,7 +171,32 @@
 \usepackage{eqparbox} % Andy
 \usepackage{enumitem} % Andy
 \usepackage{longtable} % Andy
-\usepackage{tabu} % Andy
+\usepackage{tabu} % Andy              needs to be loaded before hyperref as of texlive 2020
+
+% tabu-fix
+% to make "spread 0pt" work
+% -----------------------------
+\RequirePackage{etoolbox}
+\makeatletter
+\patchcmd
+	\tabu@startpboxmeasure
+	{\bgroup\begin{varwidth}}%
+	{\bgroup
+	 \iftabu@spread\color@begingroup\fi\begin{varwidth}}%
+	{}{}
+\def\@tabarray{\m@th\def\tabu@currentgrouptype
+    {\currentgrouptype}\@ifnextchar[\@array{\@array[c]}}
+%
+%%% \pdfelapsedtime bug 2019-12-15
+\patchcmd
+	\tabu@message@etime
+	{\the\pdfelapsedtime}%
+	{\pdfelapsedtime}%
+	{}{}
+%
+%
+\makeatother
+% -----------------------------
 
 
 % Manfred's packages
