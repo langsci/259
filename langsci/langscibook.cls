@@ -1457,17 +1457,17 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 \renewcommand{\dblfloatpagefraction}{0.7}	% require fuller float pages
 
 \usepackage{setspace}
-\usepackage{caption}
-% \captionsetup{labelfont=bf}
-\captionsetup{%
-font={%
-stretch=.8%
-,small%
-},%
-width=.8\textwidth
-}
+% \usepackage{caption}
+% % \captionsetup{labelfont=bf}
+% \captionsetup{%
+% font={%
+% stretch=.8%
+% ,small%
+% },%
+% width=.8\textwidth
+% }
 
-\setcapindent{0pt}
+% \setcapindent{0pt}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
