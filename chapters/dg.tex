@@ -50,32 +50,20 @@ HPSG is firmly embedded, both theoretically and historically, in the phrase"=str
 The basis for PS analysis is the part-whole relation between smaller units (including words) and larger phrases, so the most iconic notation uses boxes \citep[6]{MuellerGT-Eng2}. In contrast, the basis for DS analysis is the asymmetrical dependency relation between two words, so in this case an iconic notation inserts arrows between words. (Although the standard notation in both traditions uses trees, these are less helpful because the lines are open to different interpretations.) The two analyses of a very simple sentence are juxtaposed in Figure~\ref{fig:1}. As in HPSG attribute-value matrices (AVMs), each rectangle represents a unit of analysis.
 
 \begin{figure}
-	\centering
-%	
-{
-% If I externalieze this one it gives me a wrong picture.
-\tikzexternaldisable
-\TZbox{%
-\TZbox{%
-       \TZbox{many} 
-       \TZbox{students}}
-\TZbox{%
-       \TZbox{enjoy}
-       \TZbox{syntax}}}
-}
-
-% \begin{pspicture}(-2.7,0)(12,1.8)
-% \rput[bl](0,0){%
-% 	\psset{framesep=5pt,linewidth=.5\pslinewidth}
-% 	\psframebox{%
-% 		\psframebox{%
-% 			\psframebox{\strut{many}}
-% 			\psframebox{\strut{students}}}
-% 		\psframebox{%
-% 			\psframebox{\strut{enjoy}}
-% 			\psframebox{\strut{syntax}}}}}
-% \end{pspicture}
-%%
+  \centering
+  \begin{tikzpicture}[
+      every node/.style=frbox,
+      node distance=0.5em,
+      font=\strut,
+    ]
+    \node(many) {many};
+    \node(students) [base right=of many]{students};
+    \node(enjoy) [base right=1.5em of students]{enjoy};
+    \node(syntax) [base right=of enjoy]{syntax};
+    \node(ms)[fit=(many)(students)]{};
+    \node(es)[fit=(enjoy)(syntax)]{};
+    \node[fit=(ms)(es)]{};
+  \end{tikzpicture}
 
 \begin{tikzpicture}[node distance=.2cm]
 \node[draw](many) at (0,0){\strut{many}};
@@ -1256,3 +1244,9 @@ I would like to take this opportunity to thank Stefan Müller for his unflagging
 \printbibliography[heading=subbibliography,notkeyword=this] 
 }
 \end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-engine: xetex
+%%% End:
