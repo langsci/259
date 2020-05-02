@@ -7606,15 +7606,15 @@
     \ifforest@externalize@tree@
       \tikzexternaldisable
       \eappto\forest@externalize@checkimages{%
-        \noexpand\forest@includeexternal@check{\forest@externalize@filename}%
+        \noexpand\forestIncludeExternalCheck{\forest@externalize@filename}%
       }%
       \expandafter\ifstrequal\expandafter{\forest@drawtreebox}{\pgfkeysnovalue}{%
         \eappto\forest@externalize@loadimages{%
-          \noexpand\forest@includeexternal{\forest@externalize@filename}%
+          \noexpand\forestIncludeExternal{\forest@externalize@filename}%
         }%
       }{%
         \eappto\forest@externalize@loadimages{%
-          \noexpand\forest@includeexternal@box\forest@drawtreebox{\forest@externalize@filename}%
+          \noexpand\forestIncludeExternalBox\forest@drawtreebox{\forest@externalize@filename}%
         }%
       }%
     \fi
@@ -8528,7 +8528,7 @@
     }%
     \IfFileExists{\forest@external@masterdir\forest@external@master{\tikzexternalrealjob}.for}{%
       {%
-        \makehashother\makeatletter
+        \makehashother
         \input\forest@external@masterdir\forest@external@master{\tikzexternalrealjob}.for\relax
       }%
     }{}%
@@ -8643,7 +8643,7 @@
     \forest@begin{#1}%
     \ifcsdef{forest@externalize@@\forest@externalize@id}{}{%
       \immediate\write\forest@auxout{%
-        \noexpand\forest@external
+        \noexpand\forestLoadExternal
         {\forest@externalize@outer@n}%
         {\expandafter\detokenize\expandafter{\forest@externalize@id}}%
         {\expandonce\forest@externalize@checkimages}%
@@ -8653,7 +8653,7 @@
   \fi
   \tikzexternalenable
 }
-\def\forest@includeexternal@check#1{%
+\def\forestIncludeExternalCheck#1{%
   \tikzsetnextfilename{#1}%
   \IfFileExists{\tikzexternal@filenameprefix/#1}{\tikzexternal@file@isuptodatetrue}{\tikzexternal@file@isuptodatefalse}%
 }
@@ -8685,7 +8685,7 @@
 \newcount\forest@externalize@max@outer@n
 \global\forest@externalize@max@outer@n=0
 \newcount\forest@externalize@inner@n
-\long\def\forest@external#1#2#3#4{% #1=n,#2=context+source code,#3=update check code, #4=load code
+\long\def\forestLoadExternal#1#2#3#4{% #1=n,#2=context+source code,#3=update check code, #4=load code
   \ifnum\forest@externalize@max@outer@n<#1
     \global\forest@externalize@max@outer@n=#1
   \fi
@@ -8694,14 +8694,14 @@
   \global\csdef{forest@externalload@#1}{#4}%
   \tikzifexternalizing{}{%
     \immediate\write\forest@auxout{%
-      \noexpand\forest@external{#1}%
+      \noexpand\forestLoadExternal{#1}%
       {\expandafter\detokenize\expandafter{#2}}%
       {\unexpanded{#3}}%
       {\unexpanded{#4}}%
     }%
   }%
 }
-\def\forest@includeexternal#1{%
+\def\forestIncludeExternal#1{%
   \edef\forest@temp{\pgfkeysvalueof{/forest/external/context}}%
   %\typeout{forest: Including external picture '#1' for forest context+code: '\expandafter\detokenize\expandafter{\forest@externalize@id}'}%
   {%
@@ -8711,8 +8711,8 @@
     \tikz{}%
   }%
 }
-\def\forest@includeexternal@box#1#2{%
-  \global\setbox#1=\hbox{\forest@includeexternal{#2}}%
+\def\forestIncludeExternalBox#1#2{%
+  \global\setbox#1=\hbox{\forestIncludeExternal{#2}}%
 }
 \long\def\forest@begin#1{%
   \iffalse{\fi\forest@parsebracket#1}%
