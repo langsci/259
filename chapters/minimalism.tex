@@ -1012,10 +1012,17 @@ morphology are simple reflections of syntax. The basic architiecture assumed in 
 in Figure~\ref{fig-architecture-phases}. Both phonology and semantics are read off the structures
 produced by syntax.
 \begin{figure}
-\hfill
+  % I have tried to put the figures side-by-side without shrinking
+  % them. Where does the horizontal space come from?  Most of it comes
+  % from setting "overlay" on node "lexicon".  I have also used
+  % "inner xsep=0" on "covert syntax" and "Transfer" nodes --- both to get a
+  % bit of space, and to achieve alignment to margins.  The macro below is used
+  % to compensate "inner xsep=0" on one side of the node.
+\edef\innerxsep{\noexpand\hspace*{\pgfkeysvalueof{/pgf/inner xsep}}}%
+%\hfill
 % works in minimalism.tex but not in check-hpsg.tex
 \tikzexternaldisable
-\scalebox{.92}{%
+%\scalebox{.92}{%
 \begin{tikzpicture}[scale=.8,baseline=(current bounding box.center)]
 %\draw (-2.9,-5.8) to[grid with coordinates] (2.7,-0.6);
 \draw[->] node[anchor=east] {lexicon} (-1,-1) -- (0,-1); 
@@ -1026,47 +1033,46 @@ produced by syntax.
 %\draw (-2.9,-2) node[anchor=west] {overt syntax};
 %\draw (-2.9,-4) node[anchor=west] {covert syntax};
 \draw (-.0,-2) node[anchor=east] {overt syntax};
-\draw (-.0,-4) node[anchor=east] {covert syntax};
+\draw (-.0,-4) node[anchor=east,inner xsep=0  % saving horizontal space
+] {covert syntax\innerxsep};
 %\draw (0,-6.5) node[align=center] {LF/CI\\(meaning)};
 %\draw (2,-5.5) node[align=center] {PF/AP\\(sound)};
 \end{tikzpicture}
-}
+%}
 \hfill
-%! Dimension too large.
-% <recently read> \pgf@x
 % \scalebox{.92}{%
-% \begin{forest} 
-% for tree={nice empty nodes,% every conditional anchor=north adapts the specific node to this setting.
-%                             if n children={3}{for children={
-%                                 anchor=north,
-%                                 if n=1{inner sep=0pt,child anchor=north east,edge=-{Triangle[]}}{
-%                                 if n=3{inner sep=0pt,child anchor=north west,edge=-{Triangle[]}}{}}}
-%                             }{
-%                                 if n children={2}{for children={
-%                                 anchor=north,
-%                                 if n=1{child anchor=north east,edge=-{Triangle[]}}{
-%                                 if n=2{child anchor=north west,edge=-{Triangle[]}}{}}}
-%                                 }{}
-%                             },
-%                             },
-%                     delay={where content={...}{for parent={for children={anchor=north}}}{}},
-%                     transfer/.style={yshift=5mm,tikz={\node[gray,right=3cm of .east] (stefanstransfer) {Transfer};\path[{Latex[]}-,gray] (.east) edge[] (stefanstransfer);}},
-%                     lexicon/.style={tikz={\node[left=1.5cm of .base west,anchor=base] (stefanslexicon) {\strut lexicon};\path[-{Latex[]}] (stefanslexicon) edge (.west);}}
-% [numeration,lexicon[,transfer
-%     [PHON][,transfer
-%         [PHON][,transfer
-%             [PHON,baseline][,transfer
-%                 [PHON][...[,transfer
-%                         [PHON][SEM]
-%                         ]
-%                     ][SEM]]
-%             [SEM]]
-%         [SEM]]
-%     [SEM]]
-% ]
-% \end{forest}
-% }
-\hfill\mbox{}
+% The default preamble makes trouble with anchor=north and align=center.
+\forestset{default preamble'={}}
+\begin{forest}
+  transfer/.style={
+    coordinate,
+    calign=fixed edge angles,
+    tikz={\node[gray,right=3cm of .east, % I would go for 2.5cm
+        inner xsep=0,  % saving horizontal space
+      ] (stefanstransfer) {\innerxsep Transfer};
+      \path[{Latex[]}-,gray] (.east) edge[] (stefanstransfer);},
+    prepend={[PHON, l+=5ex,
+        anchor=base east, child anchor=north east,
+        edge=-{Triangle[]},
+      ]},
+    append={[SEM, l+=5ex,
+        anchor=base west, child anchor=north west,
+        edge=-{Triangle[]}
+      ]},
+  },
+  lexicon/.style={tikz={\node[left=1.5cm of .base west,anchor=base,
+        overlay, % saving horizontal space
+      ]
+      (stefanslexicon) {\strut lexicon};
+      \path[-{Latex[]}] (stefanslexicon) edge (.west);}},
+  [numeration,lexicon
+    [,transfer[,transfer[,transfer
+          [,transfer,baseline,
+            [\dots,
+              [,transfer]]]]]]]
+\end{forest}
+%}
+%\hfill\mbox{}
 \caption{Syntax-centric architecture in Minimalism before the Phase model (left) and in the Phase
 model (right) according to \citet[\page 812, 830]{Richards2015a}}\label{fig-architecture-phases}
 \end{figure}
