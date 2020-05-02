@@ -16,40 +16,6 @@
 \IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
   \input{../localpackages}
   \input{../localcommands}
-  \tikzset{external/prefix={hpsg-handbook.for.dir/}}
-  \forestset{external/master dir={./}}
-  \tikzexternalize
-  \input{../localhyphenation}
-  \bibliography{../Bibliographies/stmue,
-                ../localbibliography,
-../Bibliographies/formal-background,
-../Bibliographies/understudied-languages,
-../Bibliographies/phonology,
-../Bibliographies/case,
-../Bibliographies/evolution,
-../Bibliographies/agreement,
-../Bibliographies/lexicon,
-../Bibliographies/np,
-../Bibliographies/negation,
-../Bibliographies/argst,
-../Bibliographies/binding,
-../Bibliographies/complex-predicates,
-../Bibliographies/coordination,
-../Bibliographies/relative-clauses,
-../Bibliographies/udc,
-../Bibliographies/processing,
-../Bibliographies/cl,
-../Bibliographies/dg,
-../Bibliographies/islands,
-../Bibliographies/gesture,
-../Bibliographies/semantics,
-../Bibliographies/pragmatics,
-../Bibliographies/information-structure,
-../Bibliographies/idioms,
-../Bibliographies/cg,
-../Bibliographies/udc,
-collection.bib}
-
   \togglepaper[33]
 }{}
 
@@ -70,7 +36,7 @@ collection.bib}
 
 
 \begin{document}
-	\maketitle
+\maketitle
 \label{chap-dg}
 
 
@@ -86,18 +52,31 @@ The basis for PS analysis is the part-whole relation between smaller units (incl
 \begin{figure}
 	\centering
 %	
-\begin{pspicture}(-2.7,0)(12,1.8)
-\rput[bl](0,0){%
-	\psset{framesep=5pt,linewidth=.5\pslinewidth}
-	\psframebox{%
-		\psframebox{%
-			\psframebox{\strut{many}}
-			\psframebox{\strut{students}}}
-		\psframebox{%
-			\psframebox{\strut{enjoy}}
-			\psframebox{\strut{syntax}}}}}
-\end{pspicture}
+{
+% If I externalieze this one it gives me a wrong picture.
+\tikzexternaldisable
+\TZbox{%
+\TZbox{%
+       \TZbox{many} 
+       \TZbox{students}}
+\TZbox{%
+       \TZbox{enjoy}
+       \TZbox{syntax}}}
+}
+
+% \begin{pspicture}(-2.7,0)(12,1.8)
+% \rput[bl](0,0){%
+% 	\psset{framesep=5pt,linewidth=.5\pslinewidth}
+% 	\psframebox{%
+% 		\psframebox{%
+% 			\psframebox{\strut{many}}
+% 			\psframebox{\strut{students}}}
+% 		\psframebox{%
+% 			\psframebox{\strut{enjoy}}
+% 			\psframebox{\strut{syntax}}}}}
+% \end{pspicture}
 %%
+
 \begin{tikzpicture}[node distance=.2cm]
 \node[draw](many) at (0,0){\strut{many}};
 \node[draw](students) [right=of many]{\strut students};
