@@ -44,7 +44,7 @@
 %% - LICENCE
 %% To use the package, only the files marked with + need to be installed.
 %%
-\ProvidesPackage{forest}[2020/04/29 v2.1.5+wip Drawing (linguistic) trees]
+\ProvidesPackage{forest}[2020/05/02 v2.1.5+wip Drawing (linguistic) trees]
 
 \RequirePackage{tikz}[2013/12/13]
 \usetikzlibrary{shapes}
@@ -8460,6 +8460,7 @@
   master dir/.store in=\forest@external@masterdir,
   master={#1},
   master dir={},
+  readonly/.is if=forest@external@readonly,
 }
 \def\forest@file@copy#1#2{%
   \IfFileExists{#1}{%
@@ -8491,15 +8492,16 @@
 }
 \newif\ifforest@external@optimize@
 \forest@external@optimize@true
+\newif\ifforest@external@readonly
 \ifforest@install@keys@to@tikz@path@
-\tikzset{
-  fit to/.style={
-    /forest/for nodewalk=%
-      {TeX={\def\forest@fitto{}},#1}%
-      {TeX={\eappto\forest@fitto{(\forestove{name})}}},
-    fit/.expanded={\forest@fitto}
-  },
-}
+  \tikzset{
+    fit to/.style={
+      /forest/for nodewalk=%
+        {TeX={\def\forest@fitto{}},#1}%
+        {TeX={\eappto\forest@fitto{(\forestove{name})}}},
+      fit/.expanded={\forest@fitto}
+    },
+  }
 \fi
 \ifforest@external@
   \ifdefined\tikzexternal@tikz@replacement\else
@@ -8523,6 +8525,7 @@
       \typeout{forest externalization master: \forest@external@master{\tikzexternalrealjob}}%
       \typeout{forest externalization master dir: \forest@external@masterdir}%
       \typeout{tikz externalization prefix: \tikzexternal@filenameprefix}%
+      \typeout{forest readonly externalization: \ifforest@external@readonly true\else false\fi}%
       \newwrite\forest@auxout
       \immediate\openout\forest@auxout=\forest@external@masterdir\forest@external@master{\tikzexternalrealjob}.for.tmp
     }%
@@ -8536,7 +8539,9 @@
   \AtEndDocument{%
     \tikzifexternalizing{}{%
       \immediate\closeout\forest@auxout
-      \forest@file@copy{\forest@external@masterdir\forest@external@master{\jobname}.for.tmp}{\forest@external@masterdir\forest@external@master{\jobname}.for}%
+      \ifforest@external@readonly\else
+        \forest@file@copy{\forest@external@masterdir\forest@external@master{\jobname}.for.tmp}{\forest@external@masterdir\forest@external@master{\jobname}.for}%
+      \fi
     }%
   }%
 \fi
@@ -8633,29 +8638,40 @@
   \iftikzexternal@file@isuptodate
     \setbox0=\hbox{%
       \csname forest@externalcheck@\forest@externalize@outer@n\endcsname
-    }%
+      % smuggle \iftikzexternal@file@isuptodate
+      \expandafter
+    }\expandafter
   \fi
   \iftikzexternal@file@isuptodate
     \csname forest@externalload@\forest@externalize@outer@n\endcsname
+    \let\forest@external@next\@gobble
   \else
-    \forest@externalize@tree@true
-    \forest@externalize@inner@n=-1
-    \forest@begin{#1}%
-    \ifcsdef{forest@externalize@@\forest@externalize@id}{}{%
-      \immediate\write\forest@auxout{%
-        \noexpand\forestLoadExternal
-        {\forest@externalize@outer@n}%
-        {\expandafter\detokenize\expandafter{\forest@externalize@id}}%
-        {\expandonce\forest@externalize@checkimages}%
-        {\expandonce\forest@externalize@loadimages}%
-      }%
-    }%
+    \ifforest@external@readonly
+      \let\forest@external@next\forest@begin
+    \else
+      \let\forest@external@next\forest@begin@externalize@a
+    \fi
   \fi
+  \forest@external@next{#1}%
   \tikzexternalenable
+}
+\long\def\forest@begin@externalize@a#1{%
+  \forest@externalize@tree@true
+  \forest@externalize@inner@n=-1
+  \forest@begin{#1}%
+  \ifcsdef{forest@externalize@@\forest@externalize@id}{}{%
+    \immediate\write\forest@auxout{%
+      \noexpand\forestLoadExternal
+      {\forest@externalize@outer@n}%
+      {\expandafter\detokenize\expandafter{\forest@externalize@id}}%
+      {\expandonce\forest@externalize@checkimages}%
+      {\expandonce\forest@externalize@loadimages}%
+    }%
+  }%
 }
 \def\forestIncludeExternalCheck#1{%
   \tikzsetnextfilename{#1}%
-  \IfFileExists{\tikzexternal@filenameprefix/#1}{\tikzexternal@file@isuptodatetrue}{\tikzexternal@file@isuptodatefalse}%
+  \IfFileExists{\tikzexternal@filenameprefix#1.pdf}{\tikzexternal@file@isuptodatetrue}{\tikzexternal@file@isuptodatefalse}%
 }
 \def\makehashother{\catcode`\#=12}%
 \long\def\forest@external@setup#1{%
@@ -8705,7 +8721,8 @@
   \edef\forest@temp{\pgfkeysvalueof{/forest/external/context}}%
   %\typeout{forest: Including external picture '#1' for forest context+code: '\expandafter\detokenize\expandafter{\forest@externalize@id}'}%
   {%
-    %\def\pgf@declaredraftimage##1##2{\def\pgf@image{\hbox{}}}%
+    % \def\pgf@declaredraftimage##1##2{\def\pgf@image{\hbox{}}}%
+    \tikzset{external/up to date check=simple}%
     \tikzsetnextfilename{#1}%
     \tikzexternalenable
     \tikz{}%

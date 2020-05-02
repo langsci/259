@@ -14,43 +14,6 @@
 \IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
   \input{../localpackages}
   \input{../localcommands}
-  \tikzset{external/prefix={hpsg-handbook.for.dir/}}
-  \forestset{external/master dir={./}}
-  \tikzexternalize
-%\tikzexternaldisable
-
-  \input{../localhyphenation}
-  \bibliography{../Bibliographies/stmue,
-                ../localbibliography,
-../Bibliographies/formal-background,
-../Bibliographies/understudied-languages,
-../Bibliographies/phonology,
-../Bibliographies/case,
-../Bibliographies/evolution,
-../Bibliographies/agreement,
-../Bibliographies/lexicon,
-../Bibliographies/np,
-../Bibliographies/negation,
-../Bibliographies/argst,
-../Bibliographies/binding,
-../Bibliographies/complex-predicates,
-../Bibliographies/coordination,
-../Bibliographies/relative-clauses,
-../Bibliographies/udc,
-../Bibliographies/processing,
-../Bibliographies/cl,
-../Bibliographies/dg,
-../Bibliographies/islands,
-../Bibliographies/diachronic,
-../Bibliographies/gesture,
-../Bibliographies/semantics,
-../Bibliographies/pragmatics,
-../Bibliographies/information-structure,
-../Bibliographies/idioms,
-../Bibliographies/cg,
-../Bibliographies/udc,
-collection.bib}
-
   \togglepaper[17]
 }{}
 
@@ -482,15 +445,32 @@ feature. See also \crossrefchaptert[\page \pageref{page-hfp}]{properties}.}
 \noindent
 Thus, the conjunction projects an NP when combined with an NP, an AP when combined with an AP, etc., as Figure~\ref{coordphr} illustrates.
 
+% \begin{figure}
+% \tikzexternaldisable
+% \hfill
+% \Tree[.{NP$[$\textsc{coord} \type{and}$]$}	
+% [.{C$[$\textsc{coord} \type{and}$]$}  {and} ] [.N {Mary} ] ]
+% \hfill
+% \Tree [.{AP$[$\textsc{coord} \emph{or}$]$}  
+% [.{C$[$\textsc{coord} \emph{or}$]$}   {or} ]
+% [.AP {tall} ] ]
+% \hfill\mbox{}
+% \caption{Coordinate marking constructions}\label{coordphr}
+% \end{figure}
+
 \begin{figure}
-\tikzexternaldisable
 \hfill
-\Tree[.{NP$[$\textsc{coord} \type{and}$]$}	
-[.{C$[$\textsc{coord} \type{and}$]$}  {and} ] [.N {Mary} ] ]
+\begin{forest}
+[{NP[\textsc{coord} \type{and}]}	
+  [{C[\textsc{coord} \type{and}]} [and] ] 
+  [N [Mary] ] ]
+\end{forest}
 \hfill
-\Tree [.{AP$[$\textsc{coord} \emph{or}$]$}  
-[.{C$[$\textsc{coord} \emph{or}$]$}   {or} ]
-[.AP {tall} ] ]
+\begin{forest}
+[{AP[\textsc{coord} \type{or}]}  
+  [{C[\textsc{coord} \type{or}]} [or] ]
+  [AP [tall] ] ]
+\end{forest}
 \hfill\mbox{}
 \caption{Coordinate marking constructions}\label{coordphr}
 \end{figure}
@@ -514,7 +494,7 @@ It  preserves the \textsc{marking} feature when conjuncts are themselves marked.
 Since it is a weak head, it inherits most of  its syntactic features (\textsc{head}, \textsc{marking}, \textsc{xarg}) from its complement, and adds its own  \textsc{coord} feature. The lexical entry for the coordinator `and' is shown in (\ref{lexcoordentry}).
 
 
-\inlinetodostefan{17.04.2020: Just noticed that the general type implies a \phonv, which is probably wrong. It is way to general also the COORD value of \type{and} seems wrong. I guess \phon and COORD have to be removed. answer: it is the entry for and just like 13}
+\inlinetodostefan{17.04.2020: Just noticed that the general type implies a \phonv, which is probably wrong. It is way to general also the \coord value of \type{and} seems wrong. I guess \phon and \coord have to be removed. answer: it is the entry for and just like 13}
 \begin{exe}
 \ex 
 \avmtmp{
@@ -538,18 +518,35 @@ Figure~\ref{coordphr2}. Here, the category of the coordinator, the conjunct and 
 to be structure-shared with the head value of the conjunct it combines with (which is its first complement; see the section on lexical coordination to see why the conjunciton may inherit some complements expected by the conjunct).
 
 
+% \begin{figure}
+% \hfill
+% \tikzexternaldisable
+% \Tree[.{NP$[$\textsc{coord} \emph{and}$]$}	
+% [.{N$[$\textsc{coord} \emph{and}$]$}  {and} ] [.NP {Mary} ] ]
+% \hfill
+% \Tree [.{AP$[$\textsc{coord} \emph{or}$]$}  
+% [.{A$[$\textsc{coord} \emph{or}$]$}   {or} ]
+% [.AP {tall} ] ]
+% \hfill\mbox{}
+% \caption{Coordinate weak-head constructions}\label{coordphr2}
+% \end{figure}
 \begin{figure}
 \hfill
-\tikzexternaldisable
-\Tree[.{NP$[$\textsc{coord} \emph{and}$]$}	
-[.{N$[$\textsc{coord} \emph{and}$]$}  {and} ] [.NP {Mary} ] ]
+\begin{forest}
+[{NP[\textsc{coord} \emph{and}]}	
+  [{N$[$\textsc{coord} \emph{and}]}  [and] ] 
+  [NP [Mary] ] ]
+\end{forest}
 \hfill
-\Tree [.{AP$[$\textsc{coord} \emph{or}$]$}  
-[.{A$[$\textsc{coord} \emph{or}$]$}   {or} ]
-[.AP {tall} ] ]
+\begin{forest}
+[{AP[\textsc{coord} \emph{or}]}  
+  [{A[\textsc{coord} \emph{or}]}   [or] ]
+  [AP [tall] ] ]
+\end{forest}
 \hfill\mbox{}
 \caption{Coordinate weak-head constructions}\label{coordphr2}
 \end{figure}
+
 
 
 Before moving on, we note that the weak head analysis of coordinators makes certain problematic predictions that the marker analysis in (\ref{le-coord-lexeme-marker}) does not make. Since coordinands are selected as arguments in the former approach,  additional assumptions need to be made in
@@ -647,19 +644,45 @@ See \citet{Bilbiie:08}\addpages for arguments that both types are attested in \i
 
 
 
-\begin{figure}
-\tikzexternaldisable
+% \begin{figure}
+% \tikzexternaldisable
 
+%     \hfill
+%     \Tree[.X [.{Adv} both ]  [.X X [.X [.{Coord} and ]  X ] ] ]
+% \hfill
+%     \Tree[.X [.X [.{Coord} et ]  X ] [.X [.{Coord} et ]  X ] ]
+% \hfill\mbox{}
+% \caption{Two possible structures for correlative coordination}\label{f2}
+% \end{figure}
+\begin{figure}
+% here is a problem with externalization, trees are not aligned to the baseline 02.05.2020
+\tikzexternaldisable
     \hfill
-    \Tree[.X [.{Adv} both ]  [.X X [.X [.{Coord} and ]  X ] ] ]
+\begin{forest}
+%baseline
+[X [Adv [both] ]  
+   [X  
+     [X] 
+     [X 
+       [Coord [and] ]  
+       [X] ] ] ]
+\end{forest}
 \hfill
-    \Tree[.X [.X [.{Coord} et ]  X ] [.X [.{Coord} et ]  X ] ]
+\begin{forest}
+%baseline
+[X 
+  [X 
+    [Coord [et] ]  
+    [X] ] 
+  [X [Coord [et] ]  
+     [X] ] ]
+\end{forest}
 \hfill\mbox{}
 \caption{Two possible structures for correlative coordination}\label{f2}
 \end{figure}
 
 
-The correlative coordinate structure on the right is covered by (\ref{omni}), since it requires the COORD feature to be the same for all conjuncts. 
+The correlative coordinate structure on the right is covered by (\ref{omni}), since it requires the \coord feature to be the same for all conjuncts. 
 
 %See  \S\ref{correlphr} for more discussion of correlative constructions in a broader context, beyond coordinate correlatives.
 
@@ -860,32 +883,32 @@ See also  \citet{Borsley:11} for a comparison with a tentative Minimalist\is{Min
 The coordination construction in (\ref{coordparam2}) requires the value of \textsc{cat} to be structure-shared across the coordinands and the mother node. Given the large number of features within \textsc{cat}, such a constraint makes a series of predictions and mispredictions.
 For example, this entails that all valence constraints are identical. Thus, in VP coordination all nodes have an empty \textsc{comps} list and share exactly the same singleton \textsc{subj} list, as illustrated in Figure~\ref{valenceif}. Thus, nothing needs to be said from the semantic composition side: the verbs will have to share exactly the same referent for their subject. The same goes for any other combination of categories, of whatever part-of-speech.
 
-\COMMENT{
-\begin{figure}
-\tikzexternaldisable
+% \COMMENT{
+% \begin{figure}
+% \tikzexternaldisable
 
-{\small \Tree[.{{S}\\
-\begin{avm}\[subj \hspace{5pt} $\langle$ \@{2} $\rangle$\\
-               comps  $\langle$ $\rangle$\]
-               \end{avm}}
-\qroof\emph{Sam}.{
-\avmbox{2}NP}
-[.{VP\\
-\begin{avm}
-\[subj \hspace{5pt} $\langle$ \@{2} $\rangle$\\
-               comps  $\langle$ $\rangle$\]
-\end{avm}} \qroof\emph{ate cheese pizza }.{VP\\
-\begin{avm}
-\[subj \hspace{5pt} $\langle$ \@{2} $\rangle$\\
-               comps  $\langle$ $\rangle$\]
-\end{avm}} \qroof\emph{and drank soda}.{VP\\
-\begin{avm}
-\[subj \hspace{5pt} $\langle$ \@{2} $\rangle$\\
-               comps  $\langle$ $\rangle$\]
-\end{avm}} ] ]}
-\caption{Valence identity in  coordination}\label{valenceif}
-\end{figure}
-}
+% {\small \Tree[.{{S}\\
+% \begin{avm}\[subj \hspace{5pt} $\langle$ \@{2} $\rangle$\\
+%                comps  $\langle$ $\rangle$\]
+%                \end{avm}}
+% \qroof\emph{Sam}.{
+% \avmbox{2}NP}
+% [.{VP\\
+% \begin{avm}
+% \[subj \hspace{5pt} $\langle$ \@{2} $\rangle$\\
+%                comps  $\langle$ $\rangle$\]
+% \end{avm}} \qroof\emph{ate cheese pizza }.{VP\\
+% \begin{avm}
+% \[subj \hspace{5pt} $\langle$ \@{2} $\rangle$\\
+%                comps  $\langle$ $\rangle$\]
+% \end{avm}} \qroof\emph{and drank soda}.{VP\\
+% \begin{avm}
+% \[subj \hspace{5pt} $\langle$ \@{2} $\rangle$\\
+%                comps  $\langle$ $\rangle$\]
+% \end{avm}} ] ]}
+% \caption{Valence identity in  coordination}\label{valenceif}
+% \end{figure}
+% }
 
 
 \begin{figure}
@@ -1369,7 +1392,7 @@ Attributive adjectives constrain the agreement features of the noun they modify 
 \end{exe}
 
 \noindent
-In the absence of coordination, these constraints apply vacuously, since CONCORD, LAGR and RAGR all share the same values. 
+In the absence of coordination, these constraints apply vacuously, since \textsc{concord}, \textsc{lagr} and \textsc{ragr} all share the same values. 
 
 
 \section{Lexical coordination}\label{lexcoord}
@@ -1494,30 +1517,64 @@ The functor analysis of coordinands in (13) is compatible with lexical coordinat
                                                     
 The construct resulting from the coordination of lexical elements has hybrid properties: as a syntactic construct, it must be a phrase, but it also behaves as a word: coordinate verbs behave as lexical heads, coordinate adjectives may occur in positions ruled out for phrases. To overcome this apparent paradox, \citet[Section~5.1]{Abeille:06} analyses it as an instance of ``light'' phrase, following the \textsc{weight} account of \citet{Abeille:Godard:2000} and \citet{Abeille:Godard:2004}. Light elements can be words or phrases, and can have a restricted mobility (see \crossrefchaptert{order}). For example prenominal modifiers can be constrained to be [\textsc{weight} \emph{light}]. In this theory, light phrases can be coordinate phrases or head-adjunct phrases, provided all their daughters are light as Figure~\ref{light} illustrates, assuming a functor analysis.
 
+\inlinetodostefan{What does VP mean in Figure~\ref{light}? Shouldn't it read V instead?}
 
+% \begin{figure}
+% \tikzexternaldisable
+%     \hfill
+% \Tree[.{VP\begin{avm}
+%         \[spr & \< NP$_x$ \>\\
+%          comps & \<NP$_y$\>\\
+%          weight & light \]
+%         \end{avm}} [.{V\begin{avm}
+%         \[spr & \< NP$_x$ \>\\
+%          comps & \<NP$_y$\> \]
+%         \end{avm}} {likes} ] 
+% [.{VP\begin{avm}
+%         \[spr & \< NP$_x$ \>\\
+%          comps & \<NP$_y$\>\\
+%          weight & light \]
+%         \end{avm}}  [.Coord {and} ]  [.{V\begin{avm}
+%         \[spr & \< NP$_x$ \>\\
+%          comps & \<NP$_y$\> \]
+%         \end{avm}} {approves } ]	 ] ]
+% \hfill
+% \Tree[.AP$[$\emph{light}$]$  [.A {big} ]  
+% [.{AP$[$\emph{light}$]$} [.Coord {and} ] [.A$[$\emph{light}$]$  {tall} ]  ] ]
+% \hfill\mbox{}
+%     \caption{Examples of lexical coordination}
+%     \label{light}
+% \end{figure}
 \begin{figure}
-\tikzexternaldisable
-
     \hfill
-\Tree[.{VP\begin{avm}
+\begin{forest}
+[{VP\begin{avm}
         \[spr & \< NP$_x$ \>\\
          comps & \<NP$_y$\>\\
          weight & light \]
-        \end{avm}} [.{V\begin{avm}
+        \end{avm}} 
+  [{V\begin{avm}
         \[spr & \< NP$_x$ \>\\
          comps & \<NP$_y$\> \]
-        \end{avm}} {likes} ] 
-[.{VP\begin{avm}
+        \end{avm}} [likes] ] 
+[{VP\begin{avm}
         \[spr & \< NP$_x$ \>\\
          comps & \<NP$_y$\>\\
          weight & light \]
-        \end{avm}}  [.Coord {and} ]  [.{V\begin{avm}
+        \end{avm}}  [Coord [and] ]  
+  [{V\begin{avm}
         \[spr & \< NP$_x$ \>\\
          comps & \<NP$_y$\> \]
-        \end{avm}} {approves } ]	 ] ]
+        \end{avm}} [approves] ]	 ] ]
+\end{forest}
 \hfill
-\Tree[.AP$[$\emph{light}$]$  [.A {big} ]  
-[.{AP$[$\emph{light}$]$} [.Coord {and} ] [.A$[$\emph{light}$]$  {tall} ]  ] ]
+\begin{forest}
+[{AP[\emph{light}]} 
+  [A [big] ]  
+  [{AP[\emph{light}]} 
+    [Coord [and] ] 
+    [{A[\emph{light}]}  [tall] ]  ] ]
+\end{forest}
 \hfill\mbox{}
     \caption{Examples of lexical coordination}
     \label{light}
@@ -1749,7 +1806,7 @@ This can be achieved by adding the constraints in (\ref{lpec}) to the coordinati
 \label{lpec}
 \end{exe}
 \inlinetodostefan{What does CRD stand for? Formally? It is small caps so this seems to point to a
-  feature name. But this cannot be right. What is it? answer: crd is the same as in (12): the COORD value of any coordinand}
+  feature name. But this cannot be right. What is it? answer: crd is the same as in (12): the \coord value of any coordinand}
 
 \noindent
 If \avmbox{1} is resolved as the empty list then no ellipsis occurs, but if \avmbox{1} is non-empty then ellipsis occurs, as illustrated in Figure~\ref{lpe}. 
@@ -2026,11 +2083,11 @@ Note that this is a unary-branching rule, which means that it can in principle a
 
 
 \begin{figure}
-\tikzexternaldisable
     \centering
 
-    \scalebox{1}{
-    {\begin{avm}
+\oneline{%
+\begin{forest}
+[ {\begin{avm}
 S\[\type{phrase}\\
 mp \<
 \[phon \<\[$I$\\
@@ -2042,12 +2099,8 @@ mp \<
             /\textipa{\ae nd} \textipa{mij@} \textipa{heIts}/\]\]\>\\
             lid \ldots{}\],
          \[phon \<\[$I$ & \[$\phi$ &  /\textipa{beIg@lz}/\]\]\>\\
-         lid \ldots{} \]\>  \]\end{avm}}}
-         
-      $|$   
-      
-    \scalebox{1}{
-\begin{avm}
+         lid \ldots{} \]\>  \]\end{avm}}
+[{\begin{avm}
 S\[\type{phrase}\\
 mp
 \<  \[phon \< \[$I$ &
@@ -2062,7 +2115,7 @@ mp
           lid \ldots{}\],
          \[phon \<\[$I$ & \[$\phi$ &  /\textipa{beIg@lz}/ \]\]\>\\
               lid \ldots{}\]   \>  \]\end{avm}}
-    
+%    
 %%     \scalebox{1}{
 %%     {\begin{avm}
 %% S\[\type{phrase}\\
@@ -2077,9 +2130,9 @@ mp
 %%             lid \ldots{}\],
 %%          \[phon \[$I$\\ \[$\phi$\\  /\textipa{beIg@lz}/\]\]\\
 %%          lid \ldots{} \]\>  \]\end{avm}}}
-         
+%         
 %%       $|$   
-      
+%      
 %%     \scalebox{1}{
 %% \begin{avm}
 %% S\[\type{phrase}\\
@@ -2096,19 +2149,14 @@ mp
 %%           lid \ldots{}\],
 %%          \[phon \[$I$\\ \[$\phi$\\  /\textipa{beIg@lz}/ \]\]\\
 %%               lid \ldots{}\]   \>  \]\end{avm}}
-              
-               
-                         \scalebox{0.9}{
-         \Tree[.{    
-\qroof{Kim
-\textsc{likes} bagels and Mia \textsc{hates} bagels}.{\,}} ] }
-
+%               
+[{Kim \textsc{likes} bagels and Mia \textsc{hates} bagels.},roof ]]]
+\end{forest}}
                
     \caption{Analysis of \emph{Kim likes, and Mia hates, bagels}}\label{rnrt}
 \end{figure}
 \inlinetodostefan{I and phi are strange in Figure~\ref{rnrt}. There is no feature but a bracket for embedding. This needs
   explanation. It is formally incoherent.}
-
 
 
 \inlinetodostefan{\emph{Politicians who fought \textsc{for}} was \emph{Politicians who have fought \textsc{for}}. I fixed this.}

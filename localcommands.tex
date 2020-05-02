@@ -833,7 +833,10 @@ $}}
 %\let\theauthor\@author 
 \makeatletter
 \newcommand{\togglepaper}[1][0]{ 
-  \bibliography{../Bibliographies/stmue,../localbibliography,
+  \bibliography{../Bibliographies/stmue,
+                ../localbibliography,
+../Bibliographies/formal-background,
+../Bibliographies/understudied-languages,
 ../Bibliographies/phonology,
 ../Bibliographies/case,
 ../Bibliographies/evolution,
@@ -844,17 +847,25 @@ $}}
 ../Bibliographies/argst,
 ../Bibliographies/binding,
 ../Bibliographies/complex-predicates,
+../Bibliographies/coordination,
+../Bibliographies/relative-clauses,
+../Bibliographies/udc,
 ../Bibliographies/processing,
 ../Bibliographies/cl,
 ../Bibliographies/dg,
 ../Bibliographies/islands,
-../Bibliographies/diachronic,
 ../Bibliographies/gesture,
 ../Bibliographies/semantics,
 ../Bibliographies/pragmatics,
 ../Bibliographies/information-structure,
-../Bibliographies/idioms}
+../Bibliographies/idioms,
+../Bibliographies/cg,
+../Bibliographies/udc,
+collection.bib}
   \input{../localhyphenation}
+  \tikzset{external/prefix={hpsg-handbook.for.dir/}}
+  \forestset{external/master dir={./}}
+  \tikzexternalize
   \papernote{\scriptsize\normalfont
     \@author.
     \@title. 
@@ -1075,3 +1086,15 @@ $}}
 \newcommand{\addpagesunless}{\todostefan{add pages unless you cite the
  work as such}}
 
+% dg.tex
+% framed boxes as used in dg.tex
+% http://tex.stackexchange.com/questions/230300/doing-something-like-psframebox-in-tikz#230306
+\tikzset{
+frbox/.style={
+  rounded corners,
+  draw,
+  thick,
+  inner sep=5pt
+  }
+}
+\newcommand\TZbox[1]{\tikz\node[frbox,baseline] {#1};}
