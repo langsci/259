@@ -20,7 +20,6 @@
 }{}
 
 
-
 \author{%
 	Robert D.\ Borsley\affiliation{University of Essex and Bangor University}%
 	\lastand Stefan Müller\affiliation{Humboldt-Universität zu Berlin}%
@@ -37,6 +36,8 @@
 \begin{document}
 \maketitle
 \label{chap-minimalism}
+\tikzexternaldisable
+
 
 \section{Introduction}
 \label{sec:min-intro}
@@ -661,15 +662,15 @@ combines two expressions, either words or phrases, to form a larger expression w
 as one of the expressions \parencites[244]{Chomsky95a-u}[\page 140]{Chomsky2008a}. Its operation can be presented as shown in Figure~\ref{fig:min-merge}.
 \begin{figure}
 \centering
-	X, Y $\Rightarrow$
-	\hspace{1em}
-	\begin{forest} for tree={anchor=base}
+	X, Y \hspace{1ex} $\Rightarrow$
+	\hspace{1ex}
+	\begin{forest}
 		[X [X,baseline] [Y]]
 	\end{forest}
 \hspace{1em}
 {or}
 \hspace{1em}
-	\begin{forest} for tree={anchor=base}
+	\begin{forest}
 		[Y [X,baseline] [Y]]
 	\end{forest}
 	\caption{\label{fig:min-merge}Merge}\is{Merge}
@@ -1011,70 +1012,70 @@ As emphasized above, a further important feature of Minimalism is the view that 
 morphology are simple reflections of syntax. The basic architiecture assumed in Minimalism is shown
 in Figure~\ref{fig-architecture-phases}. Both phonology and semantics are read off the structures
 produced by syntax.
-\begin{figure}
-  % I have tried to put the figures side-by-side without shrinking
-  % them. Where does the horizontal space come from?  Most of it comes
-  % from setting "overlay" on node "lexicon".  I have also used
-  % "inner xsep=0" on "covert syntax" and "Transfer" nodes --- both to get a
-  % bit of space, and to achieve alignment to margins.  The macro below is used
-  % to compensate "inner xsep=0" on one side of the node.
-\edef\innerxsep{\noexpand\hspace*{\pgfkeysvalueof{/pgf/inner xsep}}}%
-%\hfill
-% works in minimalism.tex but not in check-hpsg.tex
-\tikzexternaldisable
-%\scalebox{.92}{%
-\begin{tikzpicture}[scale=.8,baseline=(current bounding box.center)]
-%\draw (-2.9,-5.8) to[grid with coordinates] (2.7,-0.6);
-\draw[->] node[anchor=east] {lexicon} (-1,-1) -- (0,-1); 
-\draw[->] (0,-1) node[anchor=south] {numeration} --(0,-5) node[anchor=north, align=center] {LF/CI\\(meaning)};
-\draw[->] (0,-3)--(2,-5) node[anchor=north,align=center] {PF/AP\\(sound)};
-\draw[<-] (.4,-3)--(1.2,-3) node[anchor=west] {Spell-Out};
-%\draw (0,-0.5) node {lexicon};
-%\draw (-2.9,-2) node[anchor=west] {overt syntax};
-%\draw (-2.9,-4) node[anchor=west] {covert syntax};
-\draw (-.0,-2) node[anchor=east] {overt syntax};
-\draw (-.0,-4) node[anchor=east,inner xsep=0  % saving horizontal space
-] {covert syntax\innerxsep};
-%\draw (0,-6.5) node[align=center] {LF/CI\\(meaning)};
-%\draw (2,-5.5) node[align=center] {PF/AP\\(sound)};
-\end{tikzpicture}
-%}
-\hfill
-\hspace{-3em}%
-% \scalebox{.92}{%
-% The default preamble makes trouble with anchor=north and align=center.
-\forestset{default preamble'={}}
-\begin{forest}
-  transfer/.style={
-    coordinate,
-    calign=fixed edge angles,
-    tikz={\node[gray,right=3cm of .east, % I would go for 2.5cm
-        inner xsep=0,  % saving horizontal space
-      ] (stefanstransfer) {\innerxsep Transfer};
-      \path[{Latex[]}-,gray] (.east) edge[] (stefanstransfer);},
-    prepend={[PHON, l+=5ex,
-        anchor=base east, child anchor=north east,
-        edge=-{Triangle[]},
-      ]},
-    append={[SEM, l+=5ex,
-        anchor=base west, child anchor=north west,
-        edge=-{Triangle[]}
-      ]},
-  },
-  lexicon/.style={tikz={\node[left=1.5cm of .base west,anchor=base]
-      (stefanslexicon) {\strut lexicon};
-      \path[-{Latex[]}] (stefanslexicon) edge (.west);}},
-  [numeration,lexicon
-    [,transfer[,transfer[,transfer
-          [,transfer,baseline,
-            [\dots,
-              [,transfer]]]]]]]
-\end{forest}
-%}
-%\hfill\mbox{}
-\caption{Syntax-centric architecture in Minimalism before the Phase model (left) and in the Phase
-model (right) according to \citet[\page 812, 830]{Richards2015a}}\label{fig-architecture-phases}
-\end{figure}
+% \begin{figure}
+%   % I have tried to put the figures side-by-side without shrinking
+%   % them. Where does the horizontal space come from?  Most of it comes
+%   % from setting "overlay" on node "lexicon".  I have also used
+%   % "inner xsep=0" on "covert syntax" and "Transfer" nodes --- both to get a
+%   % bit of space, and to achieve alignment to margins.  The macro below is used
+%   % to compensate "inner xsep=0" on one side of the node.
+% \edef\innerxsep{\noexpand\hspace*{\pgfkeysvalueof{/pgf/inner xsep}}}%
+% %\hfill
+% % works in minimalism.tex but not in check-hpsg.tex
+% \tikzexternaldisable
+% %\scalebox{.92}{%
+% \begin{tikzpicture}[scale=.8,baseline=(current bounding box.center)]
+% %\draw (-2.9,-5.8) to[grid with coordinates] (2.7,-0.6);
+% \draw[->] node[anchor=east] {lexicon} (-1,-1) -- (0,-1); 
+% \draw[->] (0,-1) node[anchor=south] {numeration} --(0,-5) node[anchor=north, align=center] {LF/CI\\(meaning)};
+% \draw[->] (0,-3)--(2,-5) node[anchor=north,align=center] {PF/AP\\(sound)};
+% \draw[<-] (.4,-3)--(1.2,-3) node[anchor=west] {Spell-Out};
+% %\draw (0,-0.5) node {lexicon};
+% %\draw (-2.9,-2) node[anchor=west] {overt syntax};
+% %\draw (-2.9,-4) node[anchor=west] {covert syntax};
+% \draw (-.0,-2) node[anchor=east] {overt syntax};
+% \draw (-.0,-4) node[anchor=east,inner xsep=0  % saving horizontal space
+% ] {covert syntax\innerxsep};
+% %\draw (0,-6.5) node[align=center] {LF/CI\\(meaning)};
+% %\draw (2,-5.5) node[align=center] {PF/AP\\(sound)};
+% \end{tikzpicture}
+% %}
+% \hfill
+% \hspace{-3em}%
+% % \scalebox{.92}{%
+% % The default preamble makes trouble with anchor=north and align=center.
+% \forestset{default preamble'={}}
+% \begin{forest}
+%   transfer/.style={
+%     coordinate,
+%     calign=fixed edge angles,
+%     tikz={\node[gray,right=3cm of .east, % I would go for 2.5cm
+%         inner xsep=0,  % saving horizontal space
+%       ] (stefanstransfer) {\innerxsep Transfer};
+%       \path[{Latex[]}-,gray] (.east) edge[] (stefanstransfer);},
+%     prepend={[PHON, l+=5ex,
+%         anchor=base east, child anchor=north east,
+%         edge=-{Triangle[]},
+%       ]},
+%     append={[SEM, l+=5ex,
+%         anchor=base west, child anchor=north west,
+%         edge=-{Triangle[]}
+%       ]},
+%   },
+%   lexicon/.style={tikz={\node[left=1.5cm of .base west,anchor=base]
+%       (stefanslexicon) {\strut lexicon};
+%       \path[-{Latex[]}] (stefanslexicon) edge (.west);}},
+%   [numeration,lexicon
+%     [,transfer[,transfer[,transfer
+%           [,transfer,baseline,
+%             [\dots,
+%               [,transfer]]]]]]]
+% \end{forest}
+% %}
+% %\hfill\mbox{}
+% \caption{Syntax-centric architecture in Minimalism before the Phase model (left) and in the Phase
+% model (right) according to \citet[\page 812, 830]{Richards2015a}}\label{fig-architecture-phases}
+% \end{figure}
 The idea that semantics is a simple reflection of
 syntax goes back to the early years of Transformational Grammar. One aspect of this idea was
 formalized as the \isi{Uniform Theta Assignment Hypothesis (UTAH)} by \citet[46]{Baker88a}. 
