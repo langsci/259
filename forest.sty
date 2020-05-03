@@ -44,7 +44,7 @@
 %% - LICENCE
 %% To use the package, only the files marked with + need to be installed.
 %%
-\ProvidesPackage{forest}[2020/05/02 v2.1.5+wip Drawing (linguistic) trees]
+\ProvidesPackage{forest}[2020/05/03 v2.1.5+wip Drawing (linguistic) trees]
 
 \RequirePackage{tikz}[2013/12/13]
 \usetikzlibrary{shapes}
@@ -7584,8 +7584,8 @@
     \fi
     \ifforest@externalize@tree@
       \typeout{forest: Invoking a recursive call to generate the external picture
-        '\forest@externalize@filename' for the following context+code:
-        '\expandafter\detokenize\expandafter{\forest@externalize@id}'}%
+        '\forest@externalize@filename' for the following context+code: '\expandafter\detokenize\expandafter{\forest@externalize@id}'
+        on input line \the\inputlineno}%
     \fi
   \fi
   %
@@ -8719,7 +8719,9 @@
 }
 \def\forestIncludeExternal#1{%
   \edef\forest@temp{\pgfkeysvalueof{/forest/external/context}}%
-  %\typeout{forest: Including external picture '#1' for forest context+code: '\expandafter\detokenize\expandafter{\forest@externalize@id}'}%
+  \typeout{forest: Including external picture '#1'
+    %for forest context+code: '\expandafter\detokenize\expandafter{\forest@externalize@id}'
+    on input line \the\inputlineno}%
   {%
     % \def\pgf@declaredraftimage##1##2{\def\pgf@image{\hbox{}}}%
     \tikzset{external/up to date check=simple}%
