@@ -1784,6 +1784,10 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 	\renewcommand{\lsCollectionPaperCitationText}{\fullciteFooter{#1footer}}
 
 	\include{#1}%
+        % The copy of .aux is needed for Forest's externalization.
+        \ifdefined\forest
+          \forest@file@copy{#1.aux}{#1.aux.copy}%
+        \fi
         \if@partsw\relax\else% This switch controls whether the included chapter is in the range of \includeonly. It's from source2e.
           \addtocounter{page}{-1}
 	  \edef\lsCollectionPaperLastPage{\thepage}	% \lsCollectionPaperFirstPage is defined in \lsPaper
