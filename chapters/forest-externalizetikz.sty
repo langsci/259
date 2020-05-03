@@ -43,20 +43,26 @@
   }}
 
 \def\forestTakeOverExternalization{%
-  \forest@et@save@tikz@commands
-  \renewcommand\tikz[2][]{\forest@et{##2}{##1}}%
-  \RenewEnviron{tikzpicture}[1][]{\expandafter\forest@et\expandafter{\BODY}{##1}}%
-  \let\endtikzpicture\relax
-  \forestconfigset{
-    defaults/.code={%
-      \forest@et@restore@tikz@commands
-      \let\tikzexternalenable\forest@et@tikzexternalenable
-      \let\tikzexternaldisable\forest@et@tikzexternaldisable
+  \if\tikzexternalize@hasbeencalled1%
+    \forest@et@save@tikz@commands
+    \renewcommand\tikz[2][]{\forest@et{##2}{##1}}%
+    \RenewEnviron{tikzpicture}[1][]{\expandafter\forest@et\expandafter{\BODY}{##1}}%
+    \let\endtikzpicture\relax
+    \forestconfigset{
+      defaults/.code={%
+        \forest@et@restore@tikz@commands
+        \let\tikzexternalenable\forest@et@tikzexternalenable
+        \let\tikzexternaldisable\forest@et@tikzexternaldisable
+      }%
     }%
-  }%
+  \fi
 }
 
-\def\forestGiveBackExternalization{\forest@et@restore@tikz@commands}
+\def\forestGiveBackExternalization{%
+  \if\tikzexternalize@hasbeencalled1%
+    \forest@et@restore@tikz@commands
+  \fi
+}
 
 \let\forest@et@tikzexternalenable\tikzexternalenable
 \let\forest@et@tikzexternaldisable\tikzexternaldisable
