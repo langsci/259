@@ -63,6 +63,10 @@ prepublish-commit: prepublish-pdfs
 	git push -u origin
 
 
+forest-commit:
+	git add chapters/hpsg-handbook.for.dir/*.pdf
+	git commit -m "forest trees" chapters/hpsg-handbook.for.dir/*.pdf chapters/hpsg-handbook.for
+	git push -u origin
 
 FINALIZED= chapters/evolution.tex chapters/lexicon.tex chapters/case.tex chapters/idioms.tex
 
