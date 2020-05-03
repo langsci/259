@@ -1021,20 +1021,20 @@ produced by syntax.
 \edef\innerxsep{\noexpand\hspace*{\pgfkeysvalueof{/pgf/inner xsep}}}%
 %\hfill
 % works in minimalism.tex but not in check-hpsg.tex
-\tikzexternaldisable
 %\scalebox{.92}{%
-\begin{tikzpicture}[scale=.8,baseline=(current bounding box.center)]
+\begin{tikzpicture}[scale=.8,baseline=(current bounding box.center),>={Triangle[]}]
 %\draw (-2.9,-5.8) to[grid with coordinates] (2.7,-0.6);
-\draw[->] node[anchor=east] {lexicon} (-1,-1) -- (0,-1); 
-\draw[->] (0,-1) node[anchor=south] {numeration} --(0,-5) node[anchor=north, align=center] {LF/CI\\(meaning)};
+\draw[->] (0,-1) node[anchor=south](num){numeration} --(0,-5) node[anchor=north, align=center] {LF/CI\\(meaning)};
+\node[base left=1.7em of num,,inner xsep=0  % saving horizontal space
+](lex) {lexicon\innerxsep};
+\draw[->] (lex) -- (num);
 \draw[->] (0,-3)--(2,-5) node[anchor=north,align=center] {PF/AP\\(sound)};
 \draw[<-] (.4,-3)--(1.2,-3) node[anchor=west] {Spell-Out};
 %\draw (0,-0.5) node {lexicon};
 %\draw (-2.9,-2) node[anchor=west] {overt syntax};
 %\draw (-2.9,-4) node[anchor=west] {covert syntax};
 \draw (-.0,-2) node[anchor=east] {overt syntax};
-\draw (-.0,-4) node[anchor=east,inner xsep=0  % saving horizontal space
-] {covert syntax\innerxsep};
+\draw (-.0,-4) node[anchor=east] {covert syntax};
 %\draw (0,-6.5) node[align=center] {LF/CI\\(meaning)};
 %\draw (2,-5.5) node[align=center] {PF/AP\\(sound)};
 \end{tikzpicture}
@@ -1048,7 +1048,7 @@ produced by syntax.
   transfer/.style={
     coordinate,
     calign=fixed edge angles,
-    tikz={\node[gray,right=3cm of .east, % I would go for 2.5cm
+    tikz={\node[gray,right=2.3cm of .east, % I would go for 2.5cm
         inner xsep=0,  % saving horizontal space
       ] (stefanstransfer) {\innerxsep Transfer};
       \path[{Latex[]}-,gray] (.east) edge[] (stefanstransfer);},
@@ -1061,7 +1061,7 @@ produced by syntax.
         edge=-{Triangle[]}
       ]},
   },
-  lexicon/.style={tikz={\node[left=1.5cm of .base west,anchor=base]
+  lexicon/.style={tikz={\node[left=1.4cm of .base west,anchor=base]
       (stefanslexicon) {\strut lexicon};
       \path[-{Latex[]}] (stefanslexicon) edge (.west);}},
   [numeration,lexicon
