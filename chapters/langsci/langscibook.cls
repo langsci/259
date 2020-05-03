@@ -1169,6 +1169,7 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 
 \usepackage{datetime}
 \usepackage{scrpage2}
+%\usepackage{scrlayer-scrpage}
 \ohead{\headmark}
 \ihead{}
 \cfoot{}
@@ -1456,17 +1457,17 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 \renewcommand{\dblfloatpagefraction}{0.7}	% require fuller float pages
 
 \usepackage{setspace}
-\usepackage{caption}
-% \captionsetup{labelfont=bf}
-\captionsetup{%
-font={%
-stretch=.8%
-,small%
-},%
-width=.8\textwidth
-}
+% \usepackage{caption}
+% % \captionsetup{labelfont=bf}
+% \captionsetup{%
+% font={%
+% stretch=.8%
+% ,small%
+% },%
+% width=.8\textwidth
+% }
 
-\setcapindent{0pt}
+% \setcapindent{0pt}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1783,6 +1784,10 @@ width=.8\textwidth
 	\renewcommand{\lsCollectionPaperCitationText}{\fullciteFooter{#1footer}}
 
 	\include{#1}%
+        % The copy of .aux is needed for Forest's externalization.
+        \ifdefined\forest
+          \forest@file@copy{#1.aux}{#1.aux.copy}%
+        \fi
         \if@partsw\relax\else% This switch controls whether the included chapter is in the range of \includeonly. It's from source2e.
           \addtocounter{page}{-1}
 	  \edef\lsCollectionPaperLastPage{\thepage}	% \lsCollectionPaperFirstPage is defined in \lsPaper
