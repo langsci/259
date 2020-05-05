@@ -367,11 +367,11 @@ biosketch.html: blurb.md
 clean:
 	rm -f *.bak *~ *.backup \
 	*.adx *.and *.idx *.ind *.ldx *.lnd *.sdx *.snd *.rdx *.rnd *.wdx *.wnd \
-	*.log *.blg *.bcf *.aux.copy *.ilg \
+	*.log *.blg *.bcf *.aux.copy *.auxlock *.ilg \
 	*.aux *.toc *.cut *.out *.tpm *.bbl *-blx.bib *_tmp.bib \
 	*.glg *.glo *.gls *.wrd *.wdv *.xdv *.mw *.clr \
 	*.run.xml \
-	chapters/*.aux chapters/*.aux.copy chapters/*.old chapters/*~ chapters/*.bak chapters/*.backup chapters/*.blg\
+	chapters/*.aux chapters/*.auxlock chapters/*.aux.copy chapters/*.old chapters/*~ chapters/*.bak chapters/*.backup chapters/*.blg\
 	chapters/*.log chapters/*.out chapters/*.mw chapters/*.ldx  chapters/*.bbl chapters/*.bcf chapters/*.run.xml\
 	chapters/*.blg chapters/*.idx chapters/*.sdx chapters/*.run.xml chapters/*.adx chapters/*.ldx\
 	langsci/*/*.aux langsci/*/*~ langsci/*/*.bak langsci/*/*.backup \
@@ -381,7 +381,9 @@ cleanfor: # These files are precious, as it takes a long time to produce them al
 	rm -f *.for *.for.tmp chapters/*.for chapters/*.for.tmp hpsg-handbook.for.dir/*
 
 realclean: clean
-	rm -f *.dvi *.ps *.pdf
+	rm -f *.dvi *.ps *.pdf chapters/*.pdf
+
+brutal-clean: realclean cleanfor
 
 chapterlist:
 	grep chapter main.toc|sed "s/.*numberline {[0-9]\+}\(.*\).newline.*/\\1/"
