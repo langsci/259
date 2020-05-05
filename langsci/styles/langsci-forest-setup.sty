@@ -23,7 +23,8 @@
 % http://en.wikibooks.org/wiki/LaTeX/Linguistics#Syntactic_trees
 \usepackage{tikz-dependency}
 
-\usetikzlibrary{tikzmark} % saves positions in tikz pictures, allows to connect arbitrary text
+% dangerous, use at own risk
+%\usetikzlibrary{tikzmark} % saves positions in tikz pictures, allows to connect arbitrary text
 
 
 % http://tex.stackexchange.com/questions/256280/drawing-complex-dependency-diagrams-with-tikz-forest
@@ -45,7 +46,10 @@
 % specification for all trees, "default preamble" appends to existing specification.
 % The version with apostrophe replaces it.
 \forestset{default preamble'={
-    for tree={align=center,parent anchor=south, child anchor=north,anchor=north,base=bottom},
+    for tree={align=center,parent anchor=south, child anchor=north,anchor=north,base=bottom},   
+% anchor=north was introduced to get alignments of AVMs right.
+% used to be anchor=north but this fails on trees in \ea \z examples, St. Mü. 02.05.2020 or may be not
+%
 % This would align trees to the baseline. We do not want this for TAG
 % where several trees have to be aligned with respect to their center.
 %    before drawing tree={
