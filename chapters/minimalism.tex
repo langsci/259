@@ -20,6 +20,8 @@
 }{}
 
 
+%\forestset{external/readonly}
+
 
 \author{%
 	Robert D.\ Borsley\affiliation{University of Essex and Bangor University}%
@@ -663,13 +665,13 @@ as one of the expressions \parencites[244]{Chomsky95a-u}[\page 140]{Chomsky2008a
 \centering
 	X, Y $\Rightarrow$
 	\hspace{1em}
-	\begin{forest} for tree={anchor=base}
+	\begin{forest} %for tree={anchor=base}
 		[X [X,baseline] [Y]]
 	\end{forest}
 \hspace{1em}
 {or}
 \hspace{1em}
-	\begin{forest} for tree={anchor=base}
+	\begin{forest} %for tree={anchor=base}
 		[Y [X,baseline] [Y]]
 	\end{forest}
 	\caption{\label{fig:min-merge}Merge}\is{Merge}
@@ -1021,6 +1023,11 @@ produced by syntax.
 \edef\innerxsep{\noexpand\hspace*{\pgfkeysvalueof{/pgf/inner xsep}}}%
 %\hfill
 % works in minimalism.tex but not in check-hpsg.tex
+% this does not externalize after one clean run without externalization and a second run
+% with externalization as minimalism.tex 
+% fail 04.05.2020 9:01
+% Dimension too large
+\tikzexternaldisable
 %\scalebox{.92}{%
 \begin{tikzpicture}[scale=.8,baseline=(current bounding box.center),>={Triangle[]}]
 %\draw (-2.9,-5.8) to[grid with coordinates] (2.7,-0.6);
@@ -1246,11 +1253,14 @@ The cat chased the dog.
    [VP
      [V [chase-,name=chase]]
      [DP [the dog,roof]]]]]
-\begin{pgfinterruptboundingbox}% otherwise the picture gets larger due to the control points
-\draw[->,dotted] (chase.south west) .. controls +(225:1cm) and +(south:0.4cm) .. (ed.south);
-\end{pgfinterruptboundingbox}
+\draw[->,dotted,overlay] (chase.south west) .. controls +(225:1cm) and
++(south:0.4cm) .. (ed.south);
+\path ([yshift=-1.2ex]chase.south);
+% see the bounding box:
+%\draw (current bounding box.north east) rectangle (current bounding box.south west);
 \end{forest}
 }\is{category!functional!T}
+\vspace{-1.2ex}
 \caption{\label{abb-tp-vp-morphology}TP/VP analysis of simple English sentences}
 \end{figure}%
 The verbal stem moves to the T head to pick up the \suffix{ed} suffix.
