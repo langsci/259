@@ -41,6 +41,32 @@
 %\usepackage{morewrites}
 
 
+% For setups where each \include creates an .aux file. When externalizing
+% graphics, read ".aux.copy" files instead.  We do this by redefining \@input
+% for the duration of "\begin{document}" --- this is where the .aux files are
+%   read.
+\AtEndPreamble{%
+  \tikzifexternalizing{%
+    \let\orig@input\@input
+    \def\@input#1{\orig@input{#1.copy}}
+  }{}%
+}
+\AtBeginDocument{%
+  \tikzifexternalizing{%
+    \let\@input\orig@input
+  }{}%
+}
+
+% After including a file with its own ".aux", this ".aux" file must be copied
+% to ".aux.copy".  I patched "\include" to do this, but if it turns out it does
+% more harm than good, just use "\forest@file@copy" manually wherever
+% necessary.
+\let\orig@include\include
+\def\include#1{%
+ \orig@include{#1}%
+ \forest@file@copy{#1.aux}{#1.aux.copy}% No worry, Forest tests for existence.
+}
+
 
 
 % specification for all trees, "default preamble" appends to existing specification.
