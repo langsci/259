@@ -45,6 +45,12 @@ chop: stable.pdf
 # does not work on mac	
 #	bash chopchapters.sh `grep "mainmatter starts" main.log|egrep -o "[0-9]*"`
 
+
+trees:
+	xelatex -shell-escape main
+	xelatex -shell-escape trees
+
+
 commit-stable: chop 
 	git commit -m "automatic creation of stable.pdf and chapters" stable.pdf chapters/collection.bib chapters-pdfs/
 	git push -u origin

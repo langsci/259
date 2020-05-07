@@ -44,7 +44,7 @@
 %% - LICENCE
 %% To use the package, only the files marked with + need to be installed.
 %%
-\ProvidesPackage{forest}[2020/05/03 v2.1.5+wip Drawing (linguistic) trees]
+\ProvidesPackage{forest}[2020/05/06 v2.1.5+wip Drawing (linguistic) trees]
 
 \RequirePackage{tikz}[2013/12/13]
 \usetikzlibrary{shapes}
@@ -8461,7 +8461,9 @@
   master={#1},
   master dir={},
   readonly/.is if=forest@external@readonly,
+  extract/.store in=\forest@extract@filename,
 }
+\def\forest@extract@filename{}
 \def\forest@file@copy#1#2{%
   \IfFileExists{#1}{%
     \pgfkeysgetvalue{/forest/external/copy command}\forest@copy@command
@@ -8515,6 +8517,10 @@
     \forest@file@copy{\jobname.aux}{\jobname.aux.copy}%
   }%
   \AtBeginDocument{%
+    \ifdefempty\forest@extract@filename{}{%
+      \newwrite\forest@extract@out
+      \immediate\openout\forest@extract@out=\forest@extract@filename.tex
+    }%
     \tikzifexternalizing{%
       \IfFileExists{\tikzexternalrealjob.aux.copy}{%
         \makeatletter
@@ -8537,6 +8543,8 @@
     }{}%
   }%
   \AtEndDocument{%
+    \ifdefempty\forest@extract@filename{}{%
+      \immediate\closeout\forest@extract@out}%
     \tikzifexternalizing{}{%
       \immediate\closeout\forest@auxout
       \ifforest@external@readonly\else
@@ -8546,11 +8554,17 @@
   }%
 \fi
 \NewDocumentEnvironment{forest}{D(){}}{%
+  \ifdefempty\forest@extract@filename{}{%
+    \immediate\write\forest@extract@out{%
+      \noexpand\begin{forest}(\unexpanded{#1})}}%
   \forest@config{#1}%
   \Collect@Body
   \forest@env
 }{}
 \NewDocumentCommand{\Forest}{s D(){} m}{%
+  \ifdefempty\forest@extract@filename{}{%
+    \immediate\write\forest@extract@out{%
+      \noexpand\begin{forest}(\unexpanded{#2})}}%
   \forest@config{#2}%
   \IfBooleanTF{#1}{\let\forest@next\forest@env}{\let\forest@next\forest@group@env}%
   \forest@next{#3}%
@@ -8600,6 +8614,8 @@
     \fi
   \fi
   \forest@standardnode@calibrate
+  \ifdefempty\forest@extract@filename{}{%
+    \mbox{}\let\forest@external@next\forest@extract@body}%
   \forest@external@next{#1}%
 }
 \def\forest@env@{%
@@ -8701,6 +8717,16 @@
 \newcount\forest@externalize@max@outer@n
 \global\forest@externalize@max@outer@n=0
 \newcount\forest@externalize@inner@n
+\long\def\forest@extract@body#1{%
+  \setbox0=\hbox{\makehashother\makeatletter
+    \scantokens{\forest@temp@toks{#1}}\expandafter
+  }%
+  \expandafter\forest@temp@toks\expandafter{\the\forest@temp@toks}%
+  \immediate\write\forest@extract@out{%
+    \detokenize\expandafter{\the\forest@temp@toks}%
+    \noexpand\end{forest}%
+  }%
+}
 \long\def\forestLoadExternal#1#2#3#4{% #1=n,#2=context+source code,#3=update check code, #4=load code
   \ifnum\forest@externalize@max@outer@n<#1
     \global\forest@externalize@max@outer@n=#1
