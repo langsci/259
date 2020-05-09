@@ -47,7 +47,7 @@
 
 {\avmoptions{center}
 
-
+\if0
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %%%             Chapters                         %%% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -105,6 +105,32 @@
     ]
   ]
 \end{forest}
+
+Stefan: The AVMs should come out north and the atomic types (case, vform, \ldots) too. You did this in the
+second example. This is nice. Can this be done in the type hierarchy style?
+
+% New AVM package:\\
+% \begin{forest} type hierarchy
+%   [object,
+%     calign=midpoint, calign children={2}{3},
+%     [\avmtmp{[\type*{substantive} 
+%            prd & boolean]}
+%       [\avmtmp{[\type*{verb}
+%              vform & vform\\
+%              prd & plus]}]
+%       [\avmtmp{[\type*{noun} 
+%              case & case]}]
+%     ]
+%     [case]
+%     [vform]
+%     [boolean
+%       [plus]
+%       [minus]
+%     ]
+%   ]
+% \end{forest}
+
+
 
 \newpage
 
@@ -207,6 +233,7 @@
   \end{forest}
 %}
 
+Stefan: Very nice. How does this work?
 
 
 \newpage
@@ -247,9 +274,10 @@
   ]
 \end{forest}
 
+Stefan: What does this do?
+
 
 \newpage
-
 	\begin{forest}
        [{\type{verb}} 
       					[{\fbox{\attrib{vform}}}
@@ -334,8 +362,84 @@
   ]
 \end{forest}
 
+Stefan: Wow! Could you explain why tier=2 i needed? What does the ``before drawing tree'' magic do?
+
+The lines should not touch the boxes as with the type in other trees.
+
+I introduced the styles ``,partition'' and ``,instance'' for the boxed and the grey nodes. This is
+really cool! Thanks! Here is my version:
+
+\begin{forest}
+  type hierarchy,
+  for level=2{tier=2},
+  for level=3{l*=1.5},
+  [verb 
+    [vform,partition,
+      [fin,
+        [fin+intrans, instance, edge to=!r21,
+          before drawing tree={
+            for nodewalk={cNNN}{x-=3em},
+            spread=x{cNNN}{!r22}{3em},
+          },
+        ]
+      ]
+      [base,
+        [base+trans, instance, edge to=!r22]
+      ]
+    ]
+    [arg-st,partition,
+      [intrans, 
+        [base+intrans, instance, edge to=!r12]
+      ]
+      [trans,
+        [fin+trans, instance, edge to=!r11]
+      ]
+    ]
+  ]
+\end{forest}
+
+I cannot figure out what \verb+!r12+ does. I saw the nodes description in the manual once but could
+not refind it.
+
+% how to: just draw the tree without multiple inheritance.
+% every type will have exactly one subtype
+% fin+intrans is a subtype of fin, we need another edge to intrans, which is ??? the root
+% node (r)   = !r21
+\begin{forest}
+  type hierarchy,
+%  for level=2{tier=2},
+  for level=3{l*=1.5}, % increases the distance to the second level by a factor of 1.5
+  [verb 
+    [vform,partition,
+      [fin,
+        [fin+intrans, instance, edge to=!r21,
+           before drawing tree={
+             for nodewalk={cNNN}{x-=3em},
+             spread=x{cNNN}{!r22}{3em},
+           },
+        ]
+      ]
+      [base,
+        [base+trans, instance, edge to=!r22]
+      ]
+    ]
+    [arg-st,partition,
+      [intrans, 
+        [base+intrans, instance, edge to=!r12]
+      ]
+      [trans,
+        [fin+trans, instance, edge to=!r11]
+      ]
+    ]
+  ]
+\end{forest}
+
+
+
 
 \newpage
+\fi
+
 
 \oneline{%
 \begin{forest}
@@ -445,6 +549,58 @@ for tree={inner sep=-1pt,l=50pt}
     ]
   \end{forest}
 %}
+
+Here I would prefer if the dashed lines would not cross any black nodes. So edges from ``all-''
+should not cross ``leave''. I guess this could be reached by shifting ``all-'' to the right or
+putting it on the same line as ``leave''. But I do not understand the code. Maybe there are better
+ways.
+
+The n children=0 stuff is cool. I turned this into a style. =:-)
+
+  \begin{forest}
+    type hierarchy,
+    instances,
+    for tree={
+      s sep=0,
+    },
+    [aller
+      [aller-entries,draw
+	[``fit'', name=F, l*=4, for children={l*=2},
+          [``fit''+all-, edge to=A]
+          [``fit''+v-, edge to=V]
+        ]
+	[``go''
+          [``go.to'', name=G, l*=2, for children={l*=4},
+            [``go.to''+all-, edge to=A, ignore edge]
+            [,coordinate,edge'={}]
+            [``go.to''+v-, edge to=V]
+          ]
+          [``leave'', name=L, for children={l*=6},
+            [``leave''+all-, edge to=A, ignore edge]
+            [,coordinate,edge'={}]
+            [``leave''+v-, edge to=V,ignore edge]
+          ]
+        ]
+      ]
+      [aller-stems, calign children=34, draw, where n children=0{l*=4.5}{},
+  	[all-, name=A, before computing xy={s-=3em} [,phantom,ignore,ignore edge]]
+  	[v-, name=V, before computing xy={s-=1.5em} [,phantom,ignore,ignore edge]]
+  	[i-, name=I, l*=2,
+          [``fit''+i-, edge to=F]
+          [``go.to''+i-, edge to=G, ignore edge]
+          [``leave''+i-,  edge to=L, ignore edge]
+  	]
+  	[aill-, name=AI,
+          [``fit''+aill-, edge to=F]
+          [``go.to''+aill-, edge to=G]
+          [``leave''+aill-, edge to=L]  	
+	]
+      ]
+    ]
+  \end{forest}
+
+
+\if0
 
 \newpage
 
@@ -850,13 +1006,13 @@ for tree={inner sep=-1pt,l=50pt}
 \begin{forest}
   type hierarchy
   [lexeme
-    [part-of-speech, attrib, calign=2
+    [part-of-speech, partition, calign=2
       [verb-lx, name=vlx] 
       [adj-lx]
       [noun-lx] 
       [\ldots]   		
     ] 
-    [arg-selection, attrib, calign children=12
+    [arg-selection, partition, calign children=12
       [intr-lx
         [subj-rsg-lx
           [srv-lx, edge to=vlx]
@@ -976,24 +1132,24 @@ for tree={inner sep=-1pt,l=50pt}
 \begin{forest}
   type hierarchy
   [lexeme, for tree={s sep=0.1em},
-    [structure, attrib
+    [structure, partition
       [complex
         [compound]
         [derived
-          [compositionality, attrib
+          [compositionality, partition
             [compositional
-              [syntype, attrib
+              [syntype, partition
                 [externalized, name=ext]
                 [\ldots]
               ]
-              [semtype, attrib
+              [semtype, partition
                 [possibility, name=poss]
                 [\ldots]
               ]
             ]
             [noncomp]
           ]
-          [dertype, attrib
+          [dertype, partition
             [affixed
               [prefixed]
               [suffixed, name=suff]
@@ -1004,7 +1160,7 @@ for tree={inner sep=-1pt,l=50pt}
       ]
       [simple]
     ]
-    [pos, attrib, calign=2
+    [pos, partition, calign=2
       [adjective
         [bar-adj, l*=6, calign=2, edge to=suff,
           [poss-bar-adj, calign children=23, edge to=poss,
@@ -1077,20 +1233,20 @@ for tree={inner sep=-1pt,l=50pt}
 
 \begin{forest} type hierarchy
   [verb-infl, calign=2
-    [2nd-slot,attrib
+    [2nd-slot,partition
       [1sg,name=1sg
         [1sg-pos]
       ]
       [3pl]
     ]
-    [1st-slot,attrib
+    [1st-slot,partition
       [neg
         [1sg-neg,edge to=!Pp]
         [¬1sg-neg]
       ]
       [pos]
     ]
-    [3rd-slot,attrib
+    [3rd-slot,partition
       [pst
         [pos-pst]
         [neg-pst]
@@ -1254,7 +1410,7 @@ for tree={inner sep=-1pt,l=50pt}
 
 
 
-
+\fi
 
 
 }

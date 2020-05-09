@@ -23,6 +23,7 @@
 % http://en.wikibooks.org/wiki/LaTeX/Linguistics#Syntactic_trees
 \usepackage{tikz-dependency}
 
+% dangerous, use at own risk
 %\usetikzlibrary{tikzmark} % saves positions in tikz pictures, allows to connect arbitrary text
 
 
@@ -72,7 +73,8 @@
 % The version with apostrophe replaces it.
 \forestset{default preamble'={
     for tree={align=center,parent anchor=south, child anchor=north,anchor=north,base=bottom},   
-% used to be anchor=north but this fails on trees in \ea \z examples, St. Mü. 02.05.2020
+% anchor=north was introduced to get alignments of AVMs right.
+% used to be anchor=north but this fails on trees in \ea \z examples, St. Mü. 02.05.2020 or may be not
 %
 % This would align trees to the baseline. We do not want this for TAG
 % where several trees have to be aligned with respect to their center.
@@ -386,12 +388,16 @@ instance/.style={edge=dotted}
   type hierarchy/.style={
     for tree={
       anchor=base,
+%anchor=north,
       content format={\noexpand\type{\unexpanded{#1}\forestoption{content}}},
     },
   },
-  attrib/.style={
-    content format={\noexpand\attrib{\forestoption{content}}},
+  partition/.style={
+    content format={\noexpand\textsc{\forestoption{content}}},
     draw,
+  },
+  instance/.style={
+    gray,edge={gray,dashed}
   },
 }
 
@@ -408,25 +414,3 @@ instance/.style={edge=dotted}
 }
 
 
-% Temporary: an addition to forest
-\forestset{
-calign children/.style 2 args={calign primary child={#1}, calign secondary child={#2}},
-  calign/1/.style={calign=child, calign primary child=1},
-  calign/2/.style={calign=child, calign primary child=2},
-  calign/3/.style={calign=child, calign primary child=3},
-  calign/4/.style={calign=child, calign primary child=4},
-  calign/5/.style={calign=child, calign primary child=5},
-  calign/6/.style={calign=child, calign primary child=6},
-  calign/7/.style={calign=child, calign primary child=7},
-  calign/8/.style={calign=child, calign primary child=8},
-  calign/9/.style={calign=child, calign primary child=9},
-  calign/-1/.style={calign=child, calign primary child=-1},
-  calign/-2/.style={calign=child, calign primary child=-2},
-  calign/-3/.style={calign=child, calign primary child=-3},
-  calign/-4/.style={calign=child, calign primary child=-4},
-  calign/-5/.style={calign=child, calign primary child=-5},
-  calign/-6/.style={calign=child, calign primary child=-6},
-  calign/-7/.style={calign=child, calign primary child=-7},
-  calign/-8/.style={calign=child, calign primary child=-8},
-  calign/-9/.style={calign=child, calign primary child=-9},
-}
