@@ -19,6 +19,10 @@
   \togglepaper[4]
 }{}
 
+% you may switch off externalization of changed files here:
+\forestset{external/readonly}
+
+
 \author{%
 Anthony Davis\affiliation{Southern Oregon University}%
 \lastand Jean-Pierre Koenig\affiliation{University at Buffalo}%
@@ -132,7 +136,7 @@ In many cases, endoclitics appear at morphological boundaries, as in the well-st
 
 \ea
 \label{udi-endo}
-\gll q'a\v{c}aɣ-ɣ-on bez t\"{a}nginax ba\v{s}=\textbf{q'un}-q'-e \\
+\gll q'a\v{c}aɣ-ɣ-on bez t\"{a}nginax ba\v{s}=\textbfemph{q'un}-q'-e \\
      thief-\ig{pl-erg} my money.\ig{dat} steal$_{1}$-\ig{3pl}-steal$_{2}$-\ig{aorII} \\
 \glt `Thieves stole my money.' (root \word{ba\v{s}q'}, 'steal') (Harris, op.cit., (18))
 \zcont
@@ -140,12 +144,12 @@ In many cases, endoclitics appear at morphological boundaries, as in the well-st
 \ealcont
 \label{pashto-endo}
 \ex\label{pashto-endo-a}
-\gll ʈəlwɑhə́=\textbf{me} \\
+\gll ʈəlwɑhə́=\textbfemph{me} \\
      push.\ig{impf.pst.3sg}-cl.\ig{1sg} \\
 \glt 'I was pushing it.' (from \citealt{Tegey1977,Dost2007})
 
 \ex\label{pashto-endo-b}
-\gll ʈə́l=\textbf{me}-wɑhə \\
+\gll ʈə́l=\textbfemph{me}-wɑhə \\
      push$_{1}$-cl.\ig{1sg}-push$_{2}$.\ig{pf.pst.3sg} \\
 \glt `I pushed it.' (from \citealt{Tegey1977,Dost2007})
 \zl
@@ -195,8 +199,8 @@ But each of these fully instantiated entries for \word{expect} -- one for each c
 
 \begin{figure}
 	\begin{forest}
-	[ [{\begin{avm}\[comps & \< \@1 \>\]\end{avm}} ] 
-	[{\begin{avm}\[synsem & \@1 \]\end{avm}} ] ]
+	[ [{\avmtmp{[comps & < \1 >]}} ] 
+	[{\avmtmp{[synsem & \1 ]}} ] ]
 \end{forest}	
 \caption{\label{expect-b-tree} A head-complement phrase}
 \end{figure}
@@ -234,43 +238,44 @@ We illustrate the second leading idea behind HPSG or LFG's lexicalism \is{LFG|se
 	\end{xlist}	
 \end{exe}
 
-\begin{exe}
-	\ex\label{va-lx}
-	\begin{avm}
-		\[ morph & \[form & \@5 \\ i-form & \@5 va \\
-		stem & v- \] \\
-		cat & \[head & \[\asort{verb} 
-		vform & \[mood & indic \\
-		tns & pres \\
-		agr & 3rdsing \] \] \\
-		val & \[subj & \<\@1\> \\
-		comps & \<\@2\> \] \\
-		arg-st & \<\@1NP$_{\@3,3rd sg}$, \@2PP[\rm{\type{à}]$_{\@4}$}\> \] \\
-		cont & \[\asort{go-rel}  
-		theme &\@3 \\
-		goal & \@4 \]
-		\]
-	\end{avm}
-\end{exe}
+\ea
+% todo avm issue #17
+\label{va-lx}
+	\avmtmp{
+		[ morph & [form & \5 \\ 
+                           i-form & \5 va \\
+		           stem & v- ] \\
+		cat & [head & [\type*{verb} 
+		               vform & [mood & indic \\
+		                        tns & pres \\
+		                        agr & 3rdsing ] ] \\
+		       val & [subj  & <\1> \\
+		              comps & <\2> ] \\
+		       arg-st & <\1 NP$_{\3,3rd sg}$, \2 !PP[\type{à}]$_{\4}$ ! > ] \\
+		cont & [\type*{go-rel}  
+		        theme & \3 \\ 
+		        goal  & \4 ] ]
+	}
+\z
 
-\begin{exe}
-	\ex\label{y-va-lx}
-	\begin{avm}
-		\[ morph & \[form & {\color{red}y-va} \\ i-form & va \\
-		stem & v- \] \\
-		cat & \[head & \[\asort{verb}
-		vform & \[mood & indic \\
+\ea
+\label{y-va-lx}
+	\avmtmp{
+		[ morph & [form & {\color{red}y-va} \\ i-form & va \\
+		stem & v- ] \\
+		cat & [head & [\type*{verb}
+		vform & [mood & indic \\
 		tns & pres \\
-		agr & 3rdsing \] \] \\
-		val & \[subj & \<\@1\> \\
-		comps & {\color{red}\<\>} \] \\
-		arg-st & \<\@1NP$_{\@3,3rdsg}$, {\color{red}PP[\rm{\type{p-aff,loc}}]$_{\@4}$}\> \] \\
-		cont & \[\asort{go-rel}  
-		theme & \@3 \\
-		goal & \@4 \]
-		\]
-	\end{avm}
-\end{exe}
+		agr & 3rdsing ] ] \\
+		val & [subj & <\1> \\
+		comps & {\color{red}<>} ] \\
+		arg-st & <\1 NP$_{\3,3rdsg}$, {\color{red}PP[\rm{\type{p-aff,loc}}]$_{\4}$}> ] \\
+		cont & [\type*{go-rel}  
+		theme & \3 \\
+		goal & \4 ]
+		]
+	}
+\z
 
 
 \attrib{cat}egory information in both entries contains part of speech information (including morphologically relevant features of verb forms), \attrib{arg}ument-\attrib{st}ructure information and \attrib{val}ence information. \attrib{morph} information includes both stem form information, inflected form information (\attrib{i-form}) and, in case so-called clitics are present, the combination of the clitic and inflected form information. Both entries illustrate how informationally rich lexical entries are in HPSG. But, postulating informationally rich entries does not mean stipulating all of the information within every entry. In fact, only the stem form and the relation denoted by the semantic content of the verb \word{aller} need to be stipulated within either entry. All the other information can be inferred once it is known which classes of verbs these entries belong to. In other words, most of the information included in the entries in (\ref{va-lx}) and (\ref{y-va-lx}) is not specific to these individual entries, an issue we take up in Section \ref{sec:hier-lex}.  As mentioned above, the informational difference between the two entries for \word{va} and \word{y va} is indicated in red in (\ref{y-va-lx}). The first difference between the two variants of \word{va} `goes' is in the list of complements: the entry for \word{y va} does not subcategorize for a locative PP, since the affix \word{y} satisfies the relevant argument structure requirement. This difference in the realization of syntactic arguments (via phrases and pronominal affixes) is recorded in the types of the PP members of \attrib{arg-st}, \type{p-aff} in (\ref{y-va-lx}), but a PP headed by \word{\`a} in (\ref{va-lx}). Finally, the two entries differ in the \attrib{form} of the verb, which is the same as the inflected form of the verb in (\ref{va-lx}) (as indicated by the identically numbered \avmbox{5}), but not in (\ref{y-va-lx}), whose \attrib{form} includes the prefix \word{y}.  
@@ -317,15 +322,15 @@ The three argument structures in (\ref{a-st-bind}) illustrate permissible and un
 \eal
 \label{a-st-bind}
 \ex[]{\label{a-st-bind-a} 
-	\begin{avm}\[arg-st & \<NP$_{i, + ana}$, \ldots \>\]
-\end{avm}}
+	\avmtmp{[arg-st & <NP$_{i, + ana}$, \ldots >]
+}}
 \ex[]{\label{a-st-bind-b}
-	\begin{avm}\[arg-st & \<NP$_{i, - ana}$, \ldots, NP$_{i, + ana}$, \ldots \>\]
-	\end{avm}
+	\avmtmp{[arg-st & <NP$_{i, - ana}$, \ldots, NP$_{i, + ana}$, \ldots >]
+	}
 }
 \ex[*]{\label{a-st-bind-c}
-	\begin{avm}\[arg-st & \<XP$_{j}$, \ldots, NP$_{i, +ana}$, \ldots \>\]
-	\end{avm}	
+	\avmtmp{[arg-st & <XP$_{j}$, \ldots, NP$_{i, +ana}$, \ldots >]
+	}	
 }
 \zl
 
@@ -398,10 +403,14 @@ Basic part of speech information is one obvious case.
 This high-level classification is present in HPSG, too, as part of the hierarchy of types of heads. That information is recorded in the value of the \attrib{head} feature. A simple hierarchy of types of heads is depicted in Figure \ref{pos-hier}.
 
 \begin{figure}
-	\begin{forest}
-	[{\type{head}} [{\type{noun}} ] [{\type{verb}} ] [{\ldots} ] ]
-	\end{forest}
-	\caption{\label{pos-hier}A hierarchy of types of \type{head}}
+\begin{forest}
+type hierarchy
+[head 
+  [noun] 
+  [verb]
+  [\ldots] ]
+\end{forest}
+\caption{\label{pos-hier}A hierarchy of types of \type{head}}
 \end{figure}
 
 Each of these types is a partial specification of a lexical entry's head properties. Typing of \attrib{head} information allows the ascription of appropriate properties to different classes of lexical entries. For example, case information is only relevant to nouns and adjectives, and whether a verb is an auxiliary or not is only relevant to verbs. 
@@ -439,7 +448,7 @@ Typing of parts of speech thus lets us specify what it means for a part of speec
 % However, to the extent that expressing such generalizations makes reference to these features, it may be warranted to reify them as subtypes of \type{word} in the type hierarchy.
 % We will examine some ways of expressing contentful generalizations in the following section.
 
-% More technically, each type of head imposes some constraint on lexical entries of that type. Thus, (\ref{pos-def-a}) requires all noun lexemes to be eligible for case information. Here, the constraint on each type specifies the value of \attrib{synsem$|$loc$|$cat$|$head}, as the atomic value \type{noun}, \type{verb}, etc. Since these atomic values are disjoint, and since the \attrib{head} value is unique for each lexical entry, the types in (\ref{pos-hier}) are also disjoint. If there's a type corresponding to each possible \attrib{head} value, then they constitute a partition of lexical entries as well. Lexical entries for particular lexemes make use of the  definitions of types like (\ref{pos-def}) to abstract information that is shared across classes of entries. Thus, the pronoun \word{him} need only include the fact that its \attrib{head} is of type \word{noun}; the fact that it might bear case can be inferred. Similarly, the entry for the verb \word{can} need only include information that its head information include the specification [\attrib{aux} \, +] for us to be able to infer that it is a \type{verb}. 
+% More technically, each type of head imposes some constraint on lexical entries of that type. Thus, (\ref{pos-def-a}) requires all noun lexemes to be eligible for case information. Here, the constraint on each type specifies the value of \attrib{synsem|loc|cat|head}, as the atomic value \type{noun}, \type{verb}, etc. Since these atomic values are disjoint, and since the \attrib{head} value is unique for each lexical entry, the types in (\ref{pos-hier}) are also disjoint. If there's a type corresponding to each possible \attrib{head} value, then they constitute a partition of lexical entries as well. Lexical entries for particular lexemes make use of the  definitions of types like (\ref{pos-def}) to abstract information that is shared across classes of entries. Thus, the pronoun \word{him} need only include the fact that its \attrib{head} is of type \word{noun}; the fact that it might bear case can be inferred. Similarly, the entry for the verb \word{can} need only include information that its head information include the specification [\attrib{aux} \, +] for us to be able to infer that it is a \type{verb}. 
 
 The statements in (\ref{pos-def}) are in some sense merely definitional, as noted.
 % Their usefulness arises from two sources.
@@ -449,7 +458,7 @@ The statements in (\ref{pos-def}) are in some sense merely definitional, as note
 %JPK July29: Well it's part of the signature technically, I revised the wording above to reflect that
 But they allow us to state just once the general information that applies to whole classes of lexical entries.
 Thus, the pronoun \word{him} need only include the fact that its \attrib{head} is of type \word{noun}; the fact that it might bear case can be inferred. 
-Similarly, the entry for the verb \word{can} need only include the head information \begin{avm}\[aux & $+$\]\end{avm} for us to be able to infer that it is a \type{verb} (assuming \attrib{aux} is not an appropriate attribute for another type).
+Similarly, the entry for the verb \word{can} need only include the head information \avmtmp{[aux & $+$]} for us to be able to infer that it is a \type{verb} (assuming \attrib{aux} is not an appropriate attribute for another type).
 
 \subsection{Representing lexical generalizations}
 
@@ -486,12 +495,12 @@ The following statement expresses this generalization in English as well as more
 \begin{exe}
 \ex 
 \begin{xlist}
-\ex If a \type{category} object has a \attrib{head} of type \type{prep}, then the value of its \attrib{val $|$ comps} is a list that contains at most one element.
-\ex \begin{avm}
-\[\asort{cat}
-head & prep \]~\impl~
-\[val$|$comps & elist $\vee$ \< \type{synsem} \>\]
-\end{avm}
+\ex If a \type{category} object has a \attrib{head} of type \type{prep}, then the value of its \attrib{val | comps} is a list that contains at most one element.
+\ex \avmtmp{
+[\type*{cat}
+head & prep ]~\impl~
+[val|comps & elist $\vee$ < \type{synsem} >]
+}
 \end{xlist}
 \end{exe}
 
@@ -518,13 +527,13 @@ First, we require that the causer, denoted in (\ref{cm-trans-verb-lc}) by the va
 \begin{exe}
 \ex 
 \begin{xlist}
-\ex If a \type{synsem} object's \attrib{cat$|$head} value is of type \type{verb}, and its \attrib{cont} value is of type \type{cause-rel}, then its value of \attrib{cont$|$act} is token identical to the index of the first element of its \attrib{arg-st} list.
+\ex If a \type{synsem} object's \attrib{cat|head} value is of type \type{verb}, and its \attrib{cont} value is of type \type{cause-rel}, then its value of \attrib{cont|act} is token identical to the index of the first element of its \attrib{arg-st} list.
 	\ex\label{cm-trans-verb-lc}
-	\begin{avm}\[cat$|$head & verb \\
-	cont & cause-rel \]\end{avm}
-	\impl \begin{avm}\[cont & \[act & \@1\] \\
-		arg-st & \<NP$_{\@1}$, \ldots\>\]
-	\end{avm}
+	\avmtmp{[cat|head & verb \\
+	cont & cause-rel ]}
+	\impl \avmtmp{[cont & [act & \1] \\
+		arg-st & <NP$_{\1}$, \ldots>]
+	}
 	\end{xlist}
 \end{exe}
 % TD, 30 July: I think the left-hand side of this needs to be fixed;
@@ -536,13 +545,13 @@ Then, we link the moving entity in a caused motion verb, denoted in (\ref{move-l
 \begin{exe}
 \ex 
 \begin{xlist}
-\ex If a \type{synsem} object's \attrib{cat $|$ head} value is of type \type{verb}, and its \attrib{cont} value is of type \type{move-rel}, then its value of \attrib{cont | und} is token identical to the index of some NP element of its \attrib{arg-st} list.
+\ex If a \type{synsem} object's \attrib{cat | head} value is of type \type{verb}, and its \attrib{cont} value is of type \type{move-rel}, then its value of \attrib{cont | und} is token identical to the index of some NP element of its \attrib{arg-st} list.
 	\ex \label{move-link}
-	\begin{avm}\[cat$|$head & verb \\
-	cont & move-rel \]\end{avm}
-	\impl \begin{avm}\[cont & \[und & \@1\] \\
-		arg-st & \<\ldots, NP$_{\@1}$, \ldots\>\]
-	\end{avm}
+	\avmtmp{[cat|head & verb \\
+	cont & move-rel ]}
+	\impl \avmtmp{[cont & [und & \1] \\
+		arg-st & <\ldots, NP$_{\1}$, \ldots>]
+	}
 	\end{xlist}
 \end{exe}
 % TD, 30 July: Here, to be picky (and consistent with the wording in (26), the left-hand side should have two lines, the first with CAT | HEAD verb, and the second is what we have here already, CONT move-rel
@@ -578,13 +587,13 @@ We could represent this identity using another constraint, solely within \attrib
 
 \begin{exe}
 \ex \begin{xlist}
-\ex If a \type{synsem} object's \attrib{cat $|$ head} value is of type \type{verb}, and its \attrib{cont} value is of type \type{self-move-rel}, then its values of \attrib{cont | act} and \attrib{cont | und} are token identical.
+\ex If a \type{synsem} object's \attrib{cat | head} value is of type \type{verb}, and its \attrib{cont} value is of type \type{self-move-rel}, then its values of \attrib{cont | act} and \attrib{cont | und} are token identical.
 	\ex
-	\begin{avm}\[cat$|$head & verb \\
-	cont & self-move-rel \]\end{avm}
-	\impl \begin{avm}\[cont & \[act & \@1\\
-                                          und & \@1 \]\] 
-	\end{avm}
+	\avmtmp{[cat|head & verb \\
+	cont & self-move-rel ]}
+	\impl \avmtmp{[cont & [act & \1\\
+                                          und & \1 ]] 
+	}
 	\end{xlist}
 \end{exe}
 % TD, 30 July: Here too, the left-hand side should have two lines, the first with CAT | HEAD verb, and the second is what we have here already, CONT self-move-rel
@@ -643,7 +652,7 @@ Interactions among these statements provide a way for classes of lexical items t
 
 %JPK 5 Aug: I assumed the following was supposed to be greyed out too as it makes little sense in the new context.
 %Typically, this means that each subtype specifies an atomic value for a particular attribute, out of a set of mutually disjoint values, as in the part of speech types above.
-%Thus \type{main-verb} and \type{aux-verb} are disjoint subtypes of \type{verb}, with the values + and -- for the attribute \attrib{synsem$|$loc$|$cat$|$head$|$aux}.
+%Thus \type{main-verb} and \type{aux-verb} are disjoint subtypes of \type{verb}, with the values + and -- for the attribute \attrib{synsem|loc|cat|head|aux}.
 
 
 %In general, types are posited in the hierarchy when there is some additional constraint to state about them.
@@ -654,11 +663,11 @@ Interactions among these statements provide a way for classes of lexical items t
 
 %\begin{exe}
 	%\ex\label{trans-verb}
-	%\begin{avm}
-	%	\[\asort{trans-vb}
+	%\avmtmp{
+	%	[\type*{trans-vb}
 	%	head & main \\
-	%	arg-st & \< NP, NP, \ldots \> \]
-	%\end{avm}
+	%	arg-st & < NP, NP, \ldots > ]
+	%}
 	
 %\end{exe}
 
@@ -666,14 +675,14 @@ Interactions among these statements provide a way for classes of lexical items t
 
 %\begin{exe}
 %	\ex\label{cm-trans-verb}
-%	\begin{avm}
-%		\[\asort{caused-mot-trans-vb} 
-%		content & \[\asort{caused-motion-rel} 
-%		causer & \@1 \\
-%		moved & \@2 \]\\
-%		arg-st & \<NP$_{\@1}$, NP$_{\@2}$\> 
-%		\]
-%	\end{avm}
+%	\avmtmp{
+%		[\type*{caused-mot-trans-vb} 
+%		content & [\type*{caused-motion-rel} 
+%		causer & \1 \\
+%		moved & \2 ]\\
+%		arg-st & <NP$_{\1}$, NP$_{\2}$> 
+%		]
+%	}
 %\end{exe}
 
 
@@ -737,30 +746,53 @@ Ackerman \& Webelhuth's account of German passives posits a multiple inheritance
 
 
 \begin{figure}\footnotesize
-	\begin{forest}
-		[{\type{univ-pas-bas-lci}}
-		[{\type{univ-do-pas-lci}}, name=D
-		[{\type{german-zuinf-pas-lci}}, name=Z
-		[{\type{german-pers-zuinf-pas-lci}} 
-		[{\type{german-long-pers-neutral-zuinf-pas-lci}}, name=PZ
-		[{\type{german-long-pers-zuinf-pas-lci}} ]
-		[{\type{german-long-attr-zuinf-pas-lci}} ]
-		]		
-		]
-		]
-		]
-		[{\type{german-pas-lci}}, name=G
-		[ , no edge ]
-		[{\type{german-long-pas-lci}}, name=L
-		[ , no edge ]  ]
-		[{\type{german-io-pas-lci}} ]	
-		]
-		[ {\type{univ-imp-pas-lci}} ]
-		[ {\ldots} ]
-		]
-		\draw(G.south) -- (Z.north); 
-		\draw(L.south) -- (PZ.north);
-	\end{forest}
+	% \begin{forest}
+	% 	[{\type{univ-pas-bas-lci}}
+	% 	[{\type{univ-do-pas-lci}}, name=D
+	% 	[{\type{german-zuinf-pas-lci}}, name=Z
+	% 	[{\type{german-pers-zuinf-pas-lci}} 
+	% 	[{\type{german-long-pers-neutral-zuinf-pas-lci}}, name=PZ
+	% 	[{\type{german-long-pers-zuinf-pas-lci}} ]
+	% 	[{\type{german-long-attr-zuinf-pas-lci}} ]
+	% 	]		
+	% 	]
+	% 	]
+	% 	]
+	% 	[{\type{german-pas-lci}}, name=G
+	% 	[ , no edge ]
+	% 	[{\type{german-long-pas-lci}}, name=L
+	% 	[ , no edge ]  ]
+	% 	[{\type{german-io-pas-lci}} ]	
+	% 	]
+	% 	[ {\type{univ-imp-pas-lci}} ]
+	% 	[ {\ldots} ]
+	% 	]
+	% 	\draw(G.south) -- (Z.north); 
+	% 	\draw(L.south) -- (PZ.north);
+	% \end{forest}
+\begin{forest}
+type hierarchy
+    [univ-pas-bas-lci
+      [univ-do-pas-lci
+        [german-zuinf-pas-lci, edge to=!un
+          [german-pers-zuinf-pas-lci]
+        ]
+      ]
+      [german-pas-lci, calign with current, calign=first
+        [german-long-pas-lci
+          [german-long-pers-neutral-zuinf-pas-lci, l*=2, edge to=!r111,
+            [german-long-pers-zuinf-pas-lci ]
+            [german-long-attr-zuinf-pas-lci ]
+          ]		
+        ]
+        [german-io-pas-lci ]	
+      ]
+      [ univ-imp-pas-lci ]
+      [ \ldots, fit=band % maybe?
+      ]
+    ]
+\end{forest}
+
 		\caption{\label{fig:pass-hier}A portion of the hierarchy of passive lexical types according to \citet[244]{AckermanandWebelhuth1998}}	
 \end{figure}
 
@@ -822,19 +854,19 @@ The type hierarchy in Figure \ref{def-verb-hier} provides an example (here, the 
 % Lascarides \& Copestake figure 3 (p. 61) goes here
 \begin{figure}
 \begin{forest}
-[{\begin{avm}\[\asort{verb}
+[{\avmtmp{[\type*{verb}
 past & $\top$ \\
-pastp & \@2\\
-passp & \@2
-\]/\{\<\[past & \@1 \\ pastp & \@1\], \type{verb}\>,
-\<\[past & \@1 \\ pastp & \@1\], \type{verb}\>\}
-\end{avm}} 
-	[{\begin{avm}\[\asort{regverb}
-past & $\top$\]/\{\<\[past & +ed\], \type{regverb}\>\}
-\end{avm}} 
-		[ {\begin{avm}\[\asort{pst-tverb}
-past & $\top$\]/\{\<\[past & +t\], \type{pst-t-verb}\>\}
-\end{avm}} 
+pastp & \2\\
+passp & \2
+]/\{<[past & \1 \\ pastp & \1], \type{verb}>,
+<[past & \1 \\ pastp & \1], \type{verb}>\}
+}} 
+	[{\avmtmp{[\type*{regverb}
+past & $\top$]/\{<[past & +ed], \type{regverb}>\}
+}} 
+		[ {\avmtmp{[\type*{pst-tverb}
+past & $\top$]/\{<[past & +t], \type{pst-t-verb}>\}
+}} 
 		]
 	]
 ]
@@ -899,19 +931,19 @@ The former constrains the \attrib{head} value to \type{relational} and the first
 \begin{exe}
 \ex\label{ext-ss}
 \begin{tabular}{@{}l@{~}ll@{~}l}
-a. &\begin{avm}
-\[ \asort{ext-subj}
-head & relational \\
-val & \[subj & \<\@1\>\] \\
-arg-st & \<\@1, \ldots\> \] 
-\end{avm}
+a. &\avmtmp{
+[\type*{ext-subj}
+ head & relational \\
+ val & [subj & <\1>] \\
+ arg-st & <\1, \ldots> ] 
+}
 & b. &
-\begin{avm}
-\[\asort{ext-spr}
-head & noun \\
-val & \[spr & \<\@1\>\] \\
-arg-st & \<\@1, \ldots\>\] 
-\end{avm}
+\avmtmp{
+[\type*{ext-spr}
+ head   & noun \\
+ val    & [spr & <\1>] \\
+ arg-st & <\1, \ldots>] 
+}
 \end{tabular}
 \end{exe}
 
@@ -919,18 +951,38 @@ Malouf then specifies default \attrib{head} values for the lexical classes \type
 
 
 \begin{figure}
+% \begin{forest}
+% [{\type{head}}
+% [{\type{func}}  [{\type{det}} ] [{\type{marker}} ] ]
+% [{\type{subst}} [{\type{noun}} 
+% 					[{\type{c-noun}} ] [{\type{gerund}}, name=G ]
+% 				  ]
+% 				 [{\type{relational}}, name=R
+% 				 [, no edge ] 
+% 				 [{\type{verb}} ] [{\type{adj}} ] [{\type{prep}} ]
+% 				 ] ]
+% ]
+% \draw(R.south) -- (G.north);
+% \end{forest}
 \begin{forest}
-[{\type{head}}
-[{\type{func}}  [{\type{det}} ] [{\type{marker}} ] ]
-[{\type{subst}} [{\type{noun}} 
-					[{\type{c-noun}} ] [{\type{gerund}}, name=G ]
-				  ]
-				 [{\type{relational}}, name=R
-				 [, no edge ] 
-				 [{\type{verb}} ] [{\type{adj}} ] [{\type{prep}} ]
-				 ] ]
-]
-\draw(R.south) -- (G.north);
+type hierarchy
+  [head
+    [func
+      [det]
+      [marker]
+    ]
+    [subst
+      [noun
+        [c-noun]
+        [gerund, edge to=!un]
+      ]
+      [relational, calign children={1}{2}
+        [verb]
+        [adj]
+        [prep]
+      ]
+    ]
+  ]
 \end{forest}
 \caption{\label{ger-hier}A cross-cutting hierarchy of types of \type{head} according to \citet[65]{Malouf2000a}}
 \end{figure}
@@ -938,11 +990,11 @@ Malouf then specifies default \attrib{head} values for the lexical classes \type
 
 \begin{exe}
 \ex\label{v-def}
-\begin{avm}
-\[\asort{v}
+\avmtmp{
+[\type*{v}
 head & relational /verb \\
-cont & psoa \]
-\end{avm}
+cont & psoa ]
+}
 \end{exe}
 
 
@@ -952,13 +1004,13 @@ The type \type{vger} is shown in (\ref{vger}); where \type{f-ing} is a function 
 
 \begin{exe}
 \ex\label{vger}
-\begin{avm}
-\[\asort{vger}
-morph & \[
-          root & \@1 \\
-          i-form & f-ing(\@1) \]\\
-head & gerund \]
-\end{avm}
+\avmtmp{
+[\type*{vger}
+morph & [
+          root & \1 \\
+          i-form & f-ing(\1) ]\\
+head & gerund ]
+}
 \end{exe}
 
 
@@ -1000,21 +1052,21 @@ In a slight variant of the representation of lexical rules proposed by Copestake
 \ex \label{two-lex}
 \begin{xlist}
 \ex \label{two-lex-a}
-\begin{avm}
-\[in & \[synsem & a \\
-			phon & b \] \\
-out & \[synsem & c \\
-			phon & d \] 		
-\]
-\end{avm}
+\avmtmp{
+[in & [synsem & a \\
+			phon & b ] \\
+out & [synsem & c \\
+			phon & d ] 		
+]
+}
 \ex \label{two-lex-b}
-\begin{avm}
-\[synsem & c \\
+\avmtmp{
+[synsem & c \\
 			phon & d  	 \\
-in & \[synsem & a \\
-			phon & b \]
-\]
-\end{avm}
+in & [synsem & a \\
+			phon & b ]
+]
+}
 \end{xlist}
 \end{exe}
 
@@ -1041,18 +1093,18 @@ Because of this extra layer, the local information in the base (\type{local$_{1}
 	     they notice the change the change is noticeable \\
 \end{exe}    
 
-\begin{exe}
-	\ex\label{bar-der}
-	\begin{avm}
-		\[\asort{reg-bar-adj}
-		phon & \@1 $\oplus$ \<\rm bar\> \\
-		morph-b & \<\[\asort{trans-verb}
-		phon & \@1 \\
-		local & local$_{1}$ \]\> \\
-		synsem$|$local & local$_{2}$ \]					
-	\end{avm}
-	
-\end{exe}
+\ea
+\label{bar-der}
+% todo avm phonliste
+\avmtmp{
+[\type*{reg-bar-adj}
+ phon    & \1 \+ \phonliste{ bar } \\
+ morph-b & <[\type*{trans-verb}
+            phon  & \1 \\
+            local & local$_{1}$ ]> \\
+            \punk{synsem|local}{local$_{2}$} ]					
+}
+\z
 
 
 
@@ -1071,41 +1123,41 @@ We begin with the Complement Extraction Lexical Rule (hereafter, CELR) \is{extra
 
 \begin{exe}
 	\ex\label{celr}
-	\begin{avm}
-		\[arg-st & \< \ldots, \@3, \ldots \>\\
-		comps & \<\ldots, \@3\[loc & \@1\], \ldots \>\\
-		slash & \@2
-		\]
-	\end{avm}
+	\avmtmp{
+		[arg-st & < \ldots, \3, \ldots >\\
+		comps & <\ldots, \3[loc & \1], \ldots >\\
+		slash & \2
+		]
+	}
 	$\mapsto$
-	\begin{avm}
-		\[arg-st & \< \ldots \@3\[loc \@1\\ slash & \@1\], \ldots \>\\
-		comps & \<\ldots \>\\
-		slash & \{ \@1 \}\, $\cup$ \@2
-		\]
-	\end{avm}
+	\avmtmp{
+		[arg-st & < \ldots \3[loc \1\\ slash & \1], \ldots >\\
+		comps & <\ldots >\\
+		slash & \{ \1 \}\, $\cup$ \2
+		]
+	}
 \end{exe}
 
 
-A similar use of lexical rules to model alternative realizations of arguments can be found in \citew{Monachesi1993}, \is{clitics!in Romance languages} who analyzes alternations between complements and pronominal object affixes (traditionally called object clitics) in Italian in a way that parallels the French examples in (\ref{va}). $\bigcirc$ \is{$bigcirc$|see{shuffle}} in the rule, shown in (\ref{cl-lr}), a.k.a. the ``shuffle'' \is{shuffle} operation, stands for the unordered concatenation of two lists, since any member of the input's \attrib{comps} list can be realized as a clitic and therefore not included in the output's \attrib{comps} list (see \crossrefchaptert{order} for a more formal explanation of $\bigcirc$). In the output of the lexical rule in (\ref{cl-lr}), a subset of the list of complements in the input (\avmbox{2}) corresponds to a list of clitic \attrib{synsem}s, realized as prefixes through inflectional rules not shown here. 
+A similar use of lexical rules to model alternative realizations of arguments can be found in \citew{Monachesi1993}, \is{clitics!in Romance languages} who analyzes alternations between complements and pronominal object affixes (traditionally called object clitics) in Italian in a way that parallels the French examples in (\ref{va}). \shuffle\is{$\bigcirc$|see{shuffle}} in the rule, shown in (\ref{cl-lr}), a.k.a. the ``shuffle''\is{shuffle} operation, stands for the unordered concatenation of two lists, since any member of the input's \attrib{comps} list can be realized as a clitic and therefore not included in the output's \attrib{comps} list (see \crossrefchaptert{order} for a more formal explanation of \shuffle). In the output of the lexical rule in (\ref{cl-lr}), a subset of the list of complements in the input (\avmbox{2}) corresponds to a list of clitic \attrib{synsem}s, realized as prefixes through inflectional rules not shown here. 
 %JPK 10 Aug: Define the shuffle operation
 
 \begin{exe}
 	\ex\label{cl-lr}
-	\begin{avm}
-		\[\asort{word}
+	\avmtmp{
+		[\type*{word}
 		head & verb \\
-		val$|$comps & \@1 $\bigcirc$ \@2 \\
+		val|comps & \1 \shuffle \2 \\
 		clts & elist
-		\]
-	\end{avm}
+		]
+	}
 	$\mapsto$
-	\begin{avm}
-		\[\asort{word}
-		val$|$comps & \@1  \\
-		clts & \@2list(cl-ss)
-		\]
-	\end{avm}
+	\avmtmp{
+		[\type*{word}
+		val|comps & \1  \\
+		clts & \2 list(cl-ss)
+		]
+	}
 \end{exe}
 
 Here as well, a lexical rule is employed in an analysis of what might well be considered a syntactic phenomenon.
@@ -1122,55 +1174,56 @@ In constrast, the alternatives to lexical rules described in the following secti
 In this section we briefly examine two alternatives to lexical rules, each involving underspecification. The types of members of the \attrib{arg-st} list might be underspecified so that a single lexical description can correspond to more than one subcategorization frame. Or the type of the entry itself may be underspecified, so that it subsumes multiple inflectional or derivational forms. In both cases, the intent is that sufficiently underspecified information covers multiple entries that would otherwise have to be specified and related by lexical rules. We begin with alternatives to the complement extraction and clitic lexical rules in (\ref{celr}) and (\ref{cl-lr}), proposed in \citew{Boumaetal2001} and \citew{MillerandSag1997}. 
 \is{\textsc{arg-st}} \is{valence}
 
-In both cases, the idea is to distinguish between ``canonical'' and ``non"=canonical'' \is{canonical \textsc{synsem}} realizations of syntactic arguments, as shown in the hierarchy of \type{synsem} types in Figure \ref{synsem}. ``Canonical'' means local realization as a complement or subject/""specifier, and ``non-canonical'' means realization as an affix or filler of an unbounded dependency. Linking constraints between semantic roles (values of argument positions) \is{linking} \is{argument realization|see{linking}} and syntactic arguments (members of \attrib{arg-st}) do not specify whether the realization is canonical or not; thus they retain their original form. Only canonical members of \attrib{arg-st} must be structure-shared with members of valence lists. The two constraints that determine the non-canonical realization of fillers are shown in (\ref{fillers}). (\ref{gap}) specifies what it means to be a \type{gap-ss}, namely that the argument is extracted (its local information is ``slashed'') whereras (\ref{wd-bouma}) prohibits any \type{gap-ss} member from being a member of the \attrib{comps} list (see \citealt[23]{Boumaetal2001}). As these two constraints are compatible with either a canonical or extracted object, there is no need for the lexical rule in (\ref{celr}). (\attrib{deps} in (\ref{wd-bouma}) is an attribute Bouma et al. introduce that includes not only syntactic arguments, the value of \attrib{arg-st}, but also some syntactic adjuncts; $\ominus$ stands for list substraction)
+In both cases, the idea is to distinguish between ``canonical'' and ``non"=canonical'' \is{canonical \textsc{synsem}} realizations of syntactic arguments, as shown in the hierarchy of \type{synsem} types in Figure \ref{synsem}. ``Canonical'' means local realization as a complement or subject/""specifier, and ``non-canonical'' means realization as an affix or filler of an unbounded dependency. Linking constraints between semantic roles (values of argument positions) \is{linking} \is{argument realization|see{linking}} and syntactic arguments (members of \attrib{arg-st}) do not specify whether the realization is canonical or not; thus they retain their original form. Only canonical members of \attrib{arg-st} must be structure-shared with members of valence lists. The two constraints that determine the non-canonical realization of fillers are shown in (\ref{fillers}). (\ref{gap}) specifies what it means to be a \type{gap-ss}, namely that the argument is extracted (its local information is ``slashed'') whereras (\ref{wd-bouma}) prohibits any \type{gap-ss} member from being a member of the \attrib{comps} list (see \citealt[23]{Boumaetal2001}). As these two constraints are compatible with either a canonical or extracted object, there is no need for the lexical rule in (\ref{celr}). (\attrib{deps} in (\ref{wd-bouma}) is an attribute Bouma et al. introduce that includes not only syntactic arguments, the value of \attrib{arg-st}, but also some syntactic adjuncts; \- stands for list substraction)
 % TD, 1 Aug: Is this from Bouma, et al.?  If so we should indicate that more clearly in this paragraph (and the following examples).
 %JPK 5 Aug I now make that clear and give the page number. Added stuff about DEPs
 
 \begin{figure}
-	\begin{forest}
-	[{\type{synsem}} [\type{canon-ss} ] [{\type{non-canon-ss}} 
-																		[{\type{gap-ss}} ]
-																		[{\type{aff-ss}}  ]
-									]
-	 ]	
-	\end{forest}
+\begin{forest}
+type hierarchy
+[synsem
+  [canon-ss] 
+  [non-canon-ss
+    [gap-ss]
+    [aff-ss]]]	
+\end{forest}
 \caption{\label{synsem} Types of \type{synsem}}
 \end{figure}
 
-\begin{exe}
-	\ex\label{fillers}
-	\begin{xlist}
-		\ex\label{gap}
+\ea
+\label{fillers}
+\label{gap}
+% todo avm list(gap-ss) should not produce list(GAP-SS)
+% #23 too much space after \+ and \-
 		\type{gap-ss} \impl
-		\begin{avm}
-			\[loc & \@1 \\
-			slash & \@1 \]
-		\end{avm}
+		\avmtmp{
+			[loc & \1 \\
+			slash & \1 ]
+		}
 		\ex\label{wd-bouma}
 		\type{word} \impl
-		\begin{avm}
-			\[subj & \@1 \\
-			comps & \@2$\ominus$list(gap-ss) \\
-			deps & \< \@1 \> $\oplus$ \@2
-			\]
-		\end{avm}
-	\end{xlist}
-\end{exe}
+		\avmtmp{
+			[subj  & \1 \\
+			 comps & \2 \- list(gap-ss) \\
+			 deps  & < \1 > \+ \2
+			]
+		}
+\z
 
 \citet{MillerandSag1997} \is{clitics!in Romance languages} make a similar use of non-canonical relations between the \attrib{arg-st} list and the valence lists, eschewing lexical rules to model French pronominal object affixes (traditionally called clitics) and proposing instead the constraint in (\ref{cl-wd}), where a subset of \attrib{arg-st} members, those that are realized as affixes (of type \type{aff}), are not also subcategorized for as complements. 
 
-\begin{exe}
-	\ex\label{cl-wd}
-	\begin{avm}
-		\[morph & \[form & F$_{PRAF}$(\@1, \ldots) \\
-		i-form \@1 \] \\
-		synsem & \[loc$|$cat & \[head & verb \\
-		val & \[subj & \@2 \\
-		comps & 
-		\@3list(non-aff) \] \\
-		arg-st & $($\@2$\oplus$\@3$)$ $\bigcirc$ nelist(aff)\]\]\]
-	\end{avm}
-\end{exe} 
+
+\ea
+\label{cl-wd}
+\avmtmp{
+  [morph & [form   & F\sub{PRAF}(\1, \ldots) \\
+            i-form & \1 ] \\
+   synsem & [loc|cat & [head & verb \\
+                        val  & [subj  & \2 \\
+                                comps & \3 list(non-aff) ] \\
+         		arg-st & (\2 \+ \3) \shuffle nelist(aff)]]]
+	}
+\z 
 
 % TD, 1 Aug: I think it's worth reminding the reader a bit more how these do the same work the lexical rules do, so I've added the following; let me know what you think:
 %JPK 5 Aug. Sounds good, I added one sentence that alluded to what we say later.
@@ -1188,30 +1241,59 @@ Figure~\ref{fig-verb-hier2} is a simplified  hierarchy of verb lexemes we use fo
 
 
 \begin{figure}
-	\begin{forest}
-       [{\type{verb}} 
-      					[{\fbox{\attrib{vform}}}
-      						[{\type{fin}}, name=A1  
-      						 [{\tc{gray}{\type{fin+intrans}}}, name=A,edge={gray,dashed}   ]    		
-      							[, no edge ] ]
-      						[{\type{base}}, name=B1       							[{\tc{gray}{\type{base+trans}}}, name=B,
-      								edge={gray,dashed}  ]   		 
-      							[, no edge ] ]
-      						] 
-      					[{\fbox{\attrib{arg-st}}} 
-      					    [{\type{intrans}}, name=C1 
-      					 		[, no edge ]
-      					 		[{\tc{gray}{\type{base+intrans}}}, name=C,edge={gray,dashed}  ] ]
-      						[{\type{trans}}, name=D1 
-      						     [, no edge ]
-      						     [{\tc{gray}{\type{fin+trans}}}, name=D,edge={gray,dashed} ]   ]
-      					]  
-      	]
-      				\draw[style=dashed,gray] (C1.south) -- (A.north);
-      				\draw[style=dashed,gray] (D1.south)-- (B.north);
-      				\draw[style=dashed,gray] (B1.south)-- (C.north);
-      				\draw[style=dashed,gray] (A1.south)-- (D.north);
+% 	\begin{forest}
+%        [{\type{verb}} 
+%       					[{\fbox{\attrib{vform}}}
+%       						[{\type{fin}}, name=A1  
+%       						 [{\tc{gray}{\type{fin+intrans}}}, name=A,edge={gray,dashed}   ]    		
+%       							[, no edge ] ]
+%       						[{\type{base}}, name=B1       							[{\tc{gray}{\type{base+trans}}}, name=B,
+%       								edge={gray,dashed}  ]   		 
+%       							[, no edge ] ]
+%       						] 
+%       					[{\fbox{\attrib{arg-st}}} 
+%       					    [{\type{intrans}}, name=C1 
+%       					 		[, no edge ]
+%       					 		[{\tc{gray}{\type{base+intrans}}}, name=C,edge={gray,dashed}  ] ]
+%       						[{\type{trans}}, name=D1 
+%       						     [, no edge ]
+%       						     [{\tc{gray}{\type{fin+trans}}}, name=D,edge={gray,dashed} ]   ]
+%       					]  
+%       	]
+%       				\draw[style=dashed,gray] (C1.south) -- (A.north);
+%       				\draw[style=dashed,gray] (D1.south)-- (B.north);
+%       				\draw[style=dashed,gray] (B1.south)-- (C.north);
+%       				\draw[style=dashed,gray] (A1.south)-- (D.north);
+% \end{forest}
+\begin{forest}
+  type hierarchy,
+%  for level=2{tier=2},
+  for level=3{l*=1.5}, % increases the distance to the second level by a factor of 1.5
+  [verb 
+    [vform,partition,
+      [fin,
+        [fin+intrans, instance, edge to=!r21,
+           before drawing tree={
+             for nodewalk={cNNN}{x-=3em},
+             spread=x{cNNN}{!r22}{3em},
+           },
+        ]
+      ]
+      [base,
+        [base+trans, instance, edge to=!r22]
+      ]
+    ]
+    [arg-st,partition,
+      [intrans, 
+        [base+intrans, instance, edge to=!r12]
+      ]
+      [trans,
+        [fin+trans, instance, edge to=!r11]
+      ]
+    ]
+  ]
 \end{forest}
+
 \caption{\label{fig-verb-hier2}An example of on-line type construction}
 \end{figure}
 
