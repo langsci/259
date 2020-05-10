@@ -26,9 +26,9 @@ You may not be able to compile the whole book due to memory limitations.
 Edit your texmf.cnf file. This file can be found at e.g. /usr/local/texlive/2017/texmf.cnf (for TeXLive/MacTeX 2017). Change its contents to contain something like:
 
 <code>
-main_memory=8000000
-extra_mem_top=5000000
-font_mem_bot=4000000
+main_memory=8000000<br>
+extra_mem_top=5000000<br>
+font_mem_bot=4000000<br>
 </code>
 
 
