@@ -47,12 +47,13 @@
 
 {\avmoptions{center}
 
-\if0
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %%%             Chapters                         %%% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Uncomment the chapter(s) you would like to check
+
 
 \begin{forest}
   [{\footnotesize\textit{object}}
@@ -109,6 +110,8 @@
 Stefan: The AVMs should come out north and the atomic types (case, vform, \ldots) too. You did this in the
 second example. This is nice. Can this be done in the type hierarchy style?
 
+What does ``calign children'' do?
+
 % New AVM package:\\
 % \begin{forest} type hierarchy
 %   [object,
@@ -150,7 +153,7 @@ second example. This is nice. Can this be done in the type hierarchy style?
   ]
 \end{forest}
 
-
+Stefan: Both AVMs and types should come out north.
 
 \newpage
 
@@ -207,8 +210,12 @@ second example. This is nice. Can this be done in the type hierarchy style?
   \end{forest}
 %}
 
+Stefan: Do you know what one can do about the black bars? The figure is scaled to fit the linewidth,
+so there should not be any black bars.
+
 \bigskip
 
+\newpage
 %\oneline{%
   \begin{forest} type hierarchy
     [univ-pas-bas-lci
@@ -233,8 +240,40 @@ second example. This is nice. Can this be done in the type hierarchy style?
   \end{forest}
 %}
 
-Stefan: Very nice. How does this work?
+Stefan: Very nice. See my comments in the code. Did I get these right?
 
+\begin{forest}
+type hierarchy
+    [univ-pas-bas-lci
+      [univ-do-pas-lci
+        [german-zuinf-pas-lci, edge to=!un  % draw an edge to the node up (!u) and the next siebling
+                                            % of this node (!un) = german-pas-lci
+          [german-pers-zuinf-pas-lci]
+        ]
+      ]
+      [german-pas-lci, calign with current, 
+                       calign=first         % the center of the children is exactly below german-pas-lci
+                                            % this is so since we have two daughters in the tree,
+                                            % but three in the hiarchy. There will be a further edge
+                                            % from german-zuinf-pas-lci.
+        [german-long-pas-lci
+          [german-long-pers-neutral-zuinf-pas-lci, l*=2, edge to=!r111, % draw an edge to the node (!r111),
+                                % which is found by going to the first child of the root node (!r1)
+                                % = univ-do-pas-lci and the first child of this node (!r11) =
+                                % german-zuinf-pas-lci and the first child of this node (!r111) = german-pers-zuinf-pas-lci
+            [german-long-pers-zuinf-pas-lci ]
+            [german-long-attr-zuinf-pas-lci ]
+          ]		
+        ]
+        [german-io-pas-lci ]	
+      ]
+      [ univ-imp-pas-lci ]
+      [ \ldots, fit=band % maybe?
+      ]
+    ]
+\end{forest}
+
+Stefan: It works even without ``calign with current'', doesn't it?
 
 \newpage
 
@@ -252,9 +291,12 @@ Stefan: Very nice. How does this work?
 \draw(R.south) -- (G.north);
 \end{forest}
 
+
 \bigskip
 
+
 \begin{forest}
+type hierarchy
   [head
     [func
       [det]
@@ -263,7 +305,8 @@ Stefan: Very nice. How does this work?
     [subst
       [noun
         [c-noun]
-        [gerund, edge to=!un]
+        [gerund, edge to=!un] % draw an edge to the node one up (u) and the next siebling (n), which
+                              % is "relational"
       ]
       [relational, calign children={1}{2}
         [verb]
@@ -274,7 +317,33 @@ Stefan: Very nice. How does this work?
   ]
 \end{forest}
 
-Stefan: What does this do?
+Stefan: What does ``calign children'' do? ``identify'' seems to be even better here:
+
+\begin{forest}
+type hierarchy
+  [head
+    [func
+      [det]
+      [marker]
+    ]
+    [subst
+      [noun
+        [c-noun]
+        [gerund]
+      ]
+      [relational,
+        [,identify=!P] % The previous leaf is identical.        
+        [verb]
+        [adj]
+        [prep]
+      ]
+    ]
+  ]
+\end{forest}
+
+
+
+
 
 
 \newpage
@@ -362,57 +431,37 @@ Stefan: What does this do?
   ]
 \end{forest}
 
-Stefan: Wow! Could you explain why tier=2 i needed? What does the ``before drawing tree'' magic do?
+Stefan: Wow! Could you explain why tier=2 is needed? What does the ``before drawing tree'' magic do?
 
 The lines should not touch the boxes as with the type in other trees.
 
 I introduced the styles ``,partition'' and ``,instance'' for the boxed and the grey nodes. This is
 really cool! Thanks! Here is my version:
 
-\begin{forest}
-  type hierarchy,
-  for level=2{tier=2},
-  for level=3{l*=1.5},
-  [verb 
-    [vform,partition,
-      [fin,
-        [fin+intrans, instance, edge to=!r21,
-          before drawing tree={
-            for nodewalk={cNNN}{x-=3em},
-            spread=x{cNNN}{!r22}{3em},
-          },
-        ]
-      ]
-      [base,
-        [base+trans, instance, edge to=!r22]
-      ]
-    ]
-    [arg-st,partition,
-      [intrans, 
-        [base+intrans, instance, edge to=!r12]
-      ]
-      [trans,
-        [fin+trans, instance, edge to=!r11]
-      ]
-    ]
-  ]
-\end{forest}
 
-I cannot figure out what \verb+!r12+ does. I saw the nodes description in the manual once but could
-not refind it.
+
 
 % how to: just draw the tree without multiple inheritance.
 % every type will have exactly one subtype
-% fin+intrans is a subtype of fin, we need another edge to intrans, which is ??? the root
-% node (r)   = !r21
+% fin+intrans is a subtype of fin, we need another edge to intrans, which is drawn by "edge to" with
+% the node specifeid by a path starting at the root node (r). We go to the second daughter of the
+% root node, which is ARG-ST (!r2) and take the first duaghter of it, which is intr (!r21).
+% magic code 
+%
+% before drawing tree={
+%             for nodewalk={cNNN}{x-=3em},
+%             spread=x{cNNN}{!r22}{3em},
+%           },
+%
+% is added to spread the last line by ...
 \begin{forest}
-  type hierarchy,
+  type hierarchy, instances,
 %  for level=2{tier=2},
-  for level=3{l*=1.5}, % increases the distance to the second level by a factor of 1.5
+  for level=3{l*=1.5}, % increases the distance to the third level (the instances) by a factor of 1.5
   [verb 
     [vform,partition,
       [fin,
-        [fin+intrans, instance, edge to=!r21,
+        [fin+intrans, edge to=!r21,
            before drawing tree={
              for nodewalk={cNNN}{x-=3em},
              spread=x{cNNN}{!r22}{3em},
@@ -420,15 +469,15 @@ not refind it.
         ]
       ]
       [base,
-        [base+trans, instance, edge to=!r22]
+        [base+trans, edge to=!r22]
       ]
     ]
     [arg-st,partition,
       [intrans, 
-        [base+intrans, instance, edge to=!r12]
+        [base+intrans, edge to=!r12]
       ]
       [trans,
-        [fin+trans, instance, edge to=!r11]
+        [fin+trans, edge to=!r11]
       ]
     ]
   ]
@@ -438,7 +487,7 @@ not refind it.
 
 
 \newpage
-\fi
+
 
 
 \oneline{%
@@ -564,7 +613,7 @@ The n children=0 stuff is cool. I turned this into a style. =:-)
       s sep=0,
     },
     [aller
-      [aller-entries,draw
+      [aller-entries, partition
 	[``fit'', name=F, l*=4, for children={l*=2},
           [``fit''+all-, edge to=A]
           [``fit''+v-, edge to=V]
@@ -582,7 +631,7 @@ The n children=0 stuff is cool. I turned this into a style. =:-)
           ]
         ]
       ]
-      [aller-stems, calign children=34, draw, where n children=0{l*=4.5}{},
+      [aller-stems, partition, calign children=34, where n children=0{l*=4.5}{},
   	[all-, name=A, before computing xy={s-=3em} [,phantom,ignore,ignore edge]]
   	[v-, name=V, before computing xy={s-=1.5em} [,phantom,ignore,ignore edge]]
   	[i-, name=I, l*=2,
@@ -600,7 +649,7 @@ The n children=0 stuff is cool. I turned this into a style. =:-)
   \end{forest}
 
 
-\if0
+
 
 \newpage
 
@@ -647,6 +696,7 @@ The n children=0 stuff is cool. I turned this into a style. =:-)
 
 \bigskip
 
+
 \begin{forest}
   type hierarchy,
   [case
@@ -658,21 +708,28 @@ The n children=0 stuff is cool. I turned this into a style. =:-)
     ]
     [syn-case
       [structural]
-      [lexical, calign=last, l sep*=3, 
-        [snom, edge to=!up, edge to=M!1, no edge]
-        [sgen, edge to=!up, edge to=M!2, no edge]
-        [sacc, edge to=!up, edge to=M!4, no edge]
-        [lgen, edge to=M!2]
-        [ldat, edge to=M!3]
+      [lexical, calign=last, % We just make all the cases subtypes of "lexical", even the structural
+                             % ones and align the last child to "lexical". It will be right below "lexical".
+                l sep*=3,    % The distance between "lexical" and the nodes below it is multiplied
+                             % by three.
+        [snom, edge to=!up,  % There is an edge to the previous node (p) of the node up (u) (!pu) = "structural"
+               edge to=M!1,  % There is an edge to the first child of M (M!1) = "morph-case".
+               no edge]      % and there is no edge to the original mother.
+        [sgen, edge to=!up, edge to=M!2, no edge ]
+        [sacc, edge to=!up, edge to=M!4, no edge ]
+        [lgen, edge to=M!2 ]
+        [ldat, edge to=M!3 ]
         [lacc, edge to=M!4,
-          before drawing tree={
-            spread=x{current and preceding siblings reversed}{M!1}{0}
-          },
+           before drawing tree={
+             spread=x{current and preceding siblings reversed}{M!1}{0}
+           },
         ]
       ]
     ]
   ]
 \end{forest}
+
+What does the magic code ``before drawing tree'' do?
 
 \newpage
 
@@ -707,7 +764,7 @@ The n children=0 stuff is cool. I turned this into a style. =:-)
       [p-nom-acc]
     ]
     [nom
-      [,identify=!P]
+      [,identify=!P] % The previous leaf is identical.
       [p-nom]
     ]
   ]
@@ -744,17 +801,20 @@ The n children=0 stuff is cool. I turned this into a style. =:-)
   [case,
     [acc
       [p-acc]
-      [,identify=!N]
+      [,identify=!N] % Identify this node with the next leaf = p-nom-acc.
     ]
-    [p-nom+acc, calign with current
-      [p-nom-acc, delay=no edge]
+    [p-nom+acc, calign with current % Align this node with its mother (case).
+      [p-nom-acc, delay=no edge]    % p-nom-acc is a fake daughter of p-nom+acc.
     ]
     [nom
-      [,identify=!P]
+      [,identify=!P] % Identify this node with the previous leaf = p-nom-acc.
       [p-nom]
     ]
   ]
 \end{forest}
+
+What does the ``delay'' do? Is it the case that without the ``delay'', ``identify'' would not know
+that p-nom-acc is a leaf?
 
 \newpage
 
@@ -785,6 +845,9 @@ The n children=0 stuff is cool. I turned this into a style. =:-)
     [nom]
   ]
 \end{forest}
+
+
+What is ``before drawing tree'' doing?
 
 \newpage
 
@@ -884,6 +947,8 @@ The n children=0 stuff is cool. I turned this into a style. =:-)
   ]
 \end{forest}
 
+Is ``edge to'' the counter part of ``edge from''?
+
 \newpage
 
 \begin{forest}
@@ -923,6 +988,52 @@ The n children=0 stuff is cool. I turned this into a style. =:-)
   ]
 \end{forest}
 
+
+\begin{forest} type hierarchy
+  [phrase
+    [headedness, partition
+      [headed-phrase
+        [head-subject-phrase
+          [nonfin-head-subj-cx, edge to=C!1,tier=nonfin-head-subj-cx]
+        ]
+        [\dots, calign with current]
+        [head-spr-phrase
+          [,identify=!N]
+        ]
+      ]
+    ]
+    [clausality, partition, name=C
+      [clause]
+      [non-clause
+        [noun-poss-cx,tier=nonfin-head-subj-cx]]
+    ]
+  ]
+\end{forest}
+
+identify=!N doesn't seem to work.
+
+\begin{forest} type hierarchy
+  [phrase
+    [headedness, partition
+      [headed-phrase
+        [head-subject-phrase
+          [nonfin-head-subj-cx, edge to=C!1,tier=nonfin-head-subj-cx]
+        ]
+        [\dots, calign with current]
+        [head-spr-phrase
+        ]
+      ]
+    ]
+    [clausality, partition, name=C
+      [clause]
+      [non-clause
+        [noun-poss-cx,edge to=!r113,tier=nonfin-head-subj-cx]]
+    ]
+  ]
+\end{forest}
+
+This works without crossing branches, but maybe it would be nicer if noun-poss-cx would be in the
+midlle of head-spr-phrase and non-clause.
 
 \newpage
 
@@ -1030,6 +1141,7 @@ The n children=0 stuff is cool. I turned this into a style. =:-)
   ]
 \end{forest}
 
+The original did apply a bend to the edge. Would this be possible to avoid the overlap?
 \newpage
 
 
@@ -1071,6 +1183,26 @@ The n children=0 stuff is cool. I turned this into a style. =:-)
     ]
   ]
 \end{forest}
+
+
+% \begin{forest} type hierarchy
+%   [,phantom, for children={!1.l*=1.5}
+%     [head-filler-ph
+%       [wh-interr-cl]
+%     ]
+%     [interr-cl
+%       [wh-rel-cl]
+%     ]
+%     [rel-cl
+%       [top-cl]
+%     ]
+%     [decl-cl
+%       [the-cl]
+%     ]
+%   ]
+% \end{forest}
+
+What does ``for children'' do?
 
 \newpage
 
@@ -1123,6 +1255,8 @@ The n children=0 stuff is cool. I turned this into a style. =:-)
     ]
   ]
 \end{forest}
+
+What does ``for siblings'' do? What does ``anchor'' do?
 
 \newpage
 \includegraphics[scale=1.2]{figures/Riehemann-crop.pdf}
@@ -1194,6 +1328,8 @@ The n children=0 stuff is cool. I turned this into a style. =:-)
   ]
 \end{forest}
 
+Wow!
+
 \newpage
 \includegraphics[scale=.84]{figures/OTC-crop.pdf}
 
@@ -1241,7 +1377,7 @@ The n children=0 stuff is cool. I turned this into a style. =:-)
     ]
     [1st-slot,partition
       [neg
-        [1sg-neg,edge to=!Pp]
+        [1sg-neg,edge to=!Pp] % Draw edge to ??? previous leaf (P) 
         [¬1sg-neg]
       ]
       [pos]
@@ -1256,6 +1392,8 @@ The n children=0 stuff is cool. I turned this into a style. =:-)
   ]
 \end{forest}
 
+What does ``Pp'' mean? Isn't P the previous leaf and p the previous sibling. But the previous leaf
+is 1sg-pos and it does not have a previous sibling.
 
 \newpage
 
@@ -1410,7 +1548,7 @@ The n children=0 stuff is cool. I turned this into a style. =:-)
 
 
 
-\fi
+
 
 
 }
