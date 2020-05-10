@@ -38,5 +38,8 @@ We are working on externalization of the graphics. With externalization it my wo
 
 ## Contributors
 
-This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
-<a href="https://github.com/badges/langsci/hpsg-handbook/contributors"><img src="https://opencollective.com/shields/contributors.svg?width=890" /></a>
+This project exists thanks to all the people who contribute. 
+
+<a href="https://github.com/badges/langsci/hpsg-handbook/graph/contributors">Contributers</a>
+
+<!-- img src="https://opencollective.com/shields/contributors.svg?width=890" />
