@@ -297,7 +297,7 @@ One property that is almost trivial concerns suffixation of
 exclusive property of \textit{-bar} adjectives, so this property can
 be abstracted out into the supertype \textit{suffixed} in
 (\ref{fig:riehemannSuff}): the type \textit{bar-adj} in
-Figure~\ref{gig:Riehemann} inherits this property and specifies the
+Figure~\ref{fig:Riehemann} inherits this property and specifies the
 concrete shape of the list appended to the morphological base.
 
 \begin{exe}
@@ -376,12 +376,92 @@ type from one dimension with exactly one leaf type from the other.
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[scale=.84]{figures/OTC-crop.pdf}
-  
+
+  \footnotesize
+  \avmoptions{bottom}
+  \psset{angleA=-90,angleB=90,arm=0pt}
+
+  \resizebox{\textwidth}{!}{%
+    \tabcolsep.2\tabcolsep
+  \begin{tabular}{ccccccc}
+    \multicolumn{4}{c}{\tnode{lexeme}} \\[2ex]
+    \multicolumn{2}{c}{\dnode{ROOT}}  & \multicolumn{2}{c}{\dnode{VALENCE}}\\[2ex]
+    \multicolumn{2}{c}{\rnode{verbs} {
+    \begin{avm}
+      \[\asort{verbs}
+      cat & V\]
+    \end{avm}
+}}\\     \rnode{kill}{
+    \begin{avm}
+      \[\asort{kill-lxm} ph & kill\\
+      cont & \[reln & kill-rel\\
+      act & index\\
+      und & index\]\] 
+    \end{avm}
+}  & \rnode{resurrect}{\begin{avm}
+      \[\asort{resurrect-lxm} ph & resurrect\\
+      cont & \[reln & resurrect-rel\\
+      act & index\\
+      und & index\]\] 
+    \end{avm}
+}  & \rnode{trans}{\begin{avm}
+      \[\asort{trans-lxm}
+      cat & \[hd & v\\
+        subj & \< NP$_{\@x}$ \>\\
+      comps & \< NP$_{\@y}$ \>\]\\
+      cont & \[act & \@x\\
+      und & \@y\]
+      \]
+    \end{avm}
+            }
+        & 
+       \rnode{pass}{\begin{avm}
+        \[\asort{pass-lxm}
+          cat & \[hd & v\\
+            subj & \< NP$_{\@y}$ \>\\
+            comps & \< PP$_{\@x}$ \>\]\\
+          cont & \[act & \@x\\
+              und & \@y\]
+          \]
+         \end{avm}}
+    \\[6em] 
+             
+             
+    \rnode{kill-act}{\colorbox[gray]{.7}{\textit{kill-lxm} $\wedge$ \textit{trans-lxm}}} &
+    \rnode{kill-pass}{\colorbox[gray]{.7}{\textit{kill-lxm} $\wedge$ \textit{pass-lxm}}} &
+    \rnode{resurrect-act}{\colorbox[gray]{.7}{\textit{resurrect-lxm} $\wedge$ \textit{trans-lxm}}} &
+    \rnode{resurrect-pass}{\colorbox[gray]{.7}{\textit{resurrect-lxm} $\wedge$ \textit{pass-lxm}}}
+    
+     
+    \ncdiag{lexeme}{ROOT}
+    \ncdiag{lexeme}{VALENCE}
+    \ncdiag{ROOT}{verbs}
+    \ncdiag{VALENCE}{trans}
+    \ncdiag{VALENCE}{pass}
+
+    \ncdiag[linestyle=dashed]{kill}{kill-act}
+    \ncdiag[linestyle=dashed]{resurrect}{resurrect-act}
+    \ncdiag[linestyle=dashed]{kill}{kill-pass}
+    \ncdiag[linestyle=dashed]{resurrect}{resurrect-pass}
+    \ncdiag[linestyle=dashed]{trans}{kill-act}
+    \ncdiag[linestyle=dashed]{trans}{resurrect-act}
+    \ncdiag[linestyle=dashed]{pass}{kill-pass}
+    \ncdiag[linestyle=dashed]{pass}{resurrect-pass}
+%    \ncdiag{pass}{rumored}
+
+    \ncdiag{verbs}{kill}
+    \ncdiag{verbs}{resurrect}
+    % \ncdiag{verbs}{hate}
+ %   \ncdiag{verbs}{rumored}
+
+    
+    
+  \end{tabular}
+ } 
+
   \caption{Online type construction}
   \label{fig:KoenigDyn}
 \end{figure}
-% Ex. love/hate -> kill/resurrect 
 
 An important aspect of this integration of alternations
 into the hierarchical lexicon is that it becomes quite straightforward 
@@ -395,14 +475,77 @@ type in both dimensions.
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[scale=.63]{figures/pretyping-crop.pdf}
+
+
+\resizebox{\textwidth}{!}{%  
+  \psset{angleA=-90,angleB=90,arm=0pt}
+    \tabcolsep.2\tabcolsep
+  \begin{tabular}{ccccccc}
+    \multicolumn{4}{c}{\tnode{lexeme}} \\[2ex]
+    \multicolumn{2}{c}{\dnode{ROOT}}  & \multicolumn{2}{c}{\dnode{VALENCE}}\\[2ex]
+    \multicolumn{2}{c}{\rnode{verbs}{
+    \begin{avm}
+      \[\asort{verbs}
+      cat & \[hd & v\]\]
+    \end{avm}
+}} & \rnode{trans}{\begin{avm}
+      \[  \asort{trans}
+        cat & \[hd & v\\
+          subj & \< NP$_{\@x}$ \>\\
+          comps & \< NP$_{\@y}$ \>
+                \]\\
+       cont & \[act & {\@x}\\
+       und & {\@y} \]
+      \]
+    \end{avm}}
+        &
+      \rnode{pass}{\begin{avm}
+       \[\asort{pass}
+
+       cat & \[hd & v\\subj & \< NP$_{\@y}$ \>\\
+       comps & \< PP$_{\@x}$ \>\]\\
+     cont & \[act & {\@x}\\
+       und & {\@y}\]
+       \]
+    \end{avm}}  \\[6em] 
+    \rnode{own}{
+    \begin{avm}
+      \[ph & own\\
+      cont & \[\asort{own-rel}
+      act & index\\
+      und & index\]\] 
+    \end{avm}
+}  & \rnode{have}{\begin{avm}
+      \[ph & have\\
+            cont & \[\asort{have-rel}
+      act & index\\
+      und & index\]
+\] 
+    \end{avm}
+}  &
+    \tnode{reg-trans} & \tnode{reg-pass}\\
+     
+    \ncdiag{lexeme}{ROOT}
+    \ncdiag{lexeme}{VALENCE}
+    \ncdiag{ROOT}{verbs}
+    \ncdiag{VALENCE}{trans}
+    \ncdiag{VALENCE}{pass}
+
+    \ncdiag{trans}{reg-trans}
+    \ncdiag{trans}{have}
+    \ncdiag{pass}{reg-pass}
+%    \ncdiag{pass}{rumored}
+
+    \ncdiag{verbs}{own}
+    \ncdiag{verbs}{have}
+ %   \ncdiag{verbs}{rumored}
+    
+  \end{tabular}
+}
 
   \caption{Exceptions via pre-typing}
   \label{fig:KoenigPre}
 \end{figure}
-
-% Ex. pretyping
-
 
 
 Online Type Construction successfully integrates systematic
@@ -416,17 +559,18 @@ morphology.\footnote{\citet{Blevins2003a} discusses the interaction
   between passives and impersonals in Baltic and Slavic languages and
   shows that at least a three-fold distinction of argument structure
   is needed in purely inheritance-based approaches. See
-  \citet{ASU99a-u} for an account along these lines. \citew[\page
+  \citet{ASU99a-u} for an account along these lines.  \citew[\page
   925--927]{MuellerUnifying} and \citew[Section~8.1]{MWArgSt} take a
   highly skeptical stance, arguing that interactions in grammatical
   function change depend on the possibility for one lexical rule to
   apply to the output of another, or, as in the case of Turkish
-  causatives a rule may even apply more than once. Since
-  \citet{Koenig99} already recognises recursive lexeme types for
-  derivational morphology, there is no reason why lexical rules thus
-  conceived should not be embraced for grammatical function change as
-  well, ultimately yielding an approach that can scale up to more
-  complex interactions.  } % \footnote{%
+  causatives a rule may even apply more than
+  once. See also \citew[Section~7.5.2.2]{MuellerLehrbuch1} for  extensive
+  discussion fo this issue. Since \citet{Koenig99} already recognises
+  recursive lexeme types for derivational morphology, there is no
+  reason why lexical rules thus conceived should not be embraced for
+  grammatical function change as well, ultimately yielding an approach
+  that can scale up to more complex interactions.  } % \footnote{%
   % It should be noted that the OTC approach did not go unchallenged. A
   % detailed discussion can be found in
   % \citew[Section~7.5.2.2]{MuellerLehrbuch1}. See also \citew[\page
