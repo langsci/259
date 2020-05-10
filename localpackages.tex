@@ -8,7 +8,6 @@
 \usepackage{xunicode} % Provide tipa macros (BC)
 
 \usepackage{multicol}
-\usepackage{lipsum}
 
 % Berthold morphology
 \usepackage{relsize}
@@ -17,9 +16,23 @@
 
 \usepackage{./langsci/styles/langsci-optional} 
 \usepackage{./langsci/styles/langsci-lgr}
+
+\newcommand{\MAS}{\textsc{m}\xspace} % \M is taken by somebody
+
 %\usepackage{./styles/forest/forest}
 \usepackage{./langsci/styles/langsci-forest-setup}
-\usepackage{morewrites}
+% will be overwritten in chapters when compiled standalone:
+\tikzset{external/prefix={chapters/hpsg-handbook.for.dir/}}
+% all the forest figures
+\forestset{external/master=hpsg-handbook}
+% will be overwritten in chapters when compiled standalone:
+\forestset{external/master dir={chapters/}}
+
+%\tikzset{external/figure name={hpsg-handbook-tikz}}
+
+% Does not work when loaded here. Has to be loaded in main and other compile files
+%\usepackage{./styles/forest-externalizetikz}
+
 
 \usepackage{tikz-cd}
 
@@ -27,13 +40,14 @@
 \usetikzlibrary{shadows}
 
 
-%\usepackage{pgfplots} % for data/theory figure in minimalism.tex
-% fix some issue with Mod https://tex.stackexchange.com/a/330076
-\makeatletter
-\let\pgfmathModX=\pgfmathMod@
-\usepackage{pgfplots}%
-\let\pgfmathMod@=\pgfmathModX
-\makeatother
+% removed with texlive 2020 06.05.2020
+% %\usepackage{pgfplots} % for data/theory figure in minimalism.tex
+% % fix some issue with Mod https://tex.stackexchange.com/a/330076
+% \makeatletter
+% \let\pgfmathModX=\pgfmathMod@
+% \usepackage{pgfplots}%
+% \let\pgfmathMod@=\pgfmathModX
+% \makeatother
 
 \usepackage{subcaption}
 
@@ -45,7 +59,6 @@
 
 \usepackage{./styles/abbrev}
 
-\usepackage{./langsci/styles/jambox}
 
 % Has to be loaded late since otherwise footnotes will not work
 
@@ -73,6 +86,11 @@
 \let\zlcont\z
 \def\ealcont{\exnrfont\ex\begin{xlist}[iv.]\raggedright}
 
+% original version of \z
+%\def\z{\ifnum\@xnumdepth=1\end{exe}\else\end{xlist}\fi}
+% \zcont just removes \end{exe}
+%\def\zcont{\ifnum\@xnumdepth=1\else\end{xlist}\fi}
+\def\zcont{}
 
 % Crossing out text
 % uncomment when needed
@@ -82,7 +100,10 @@
 
 % this is the completely redone avm package
 \usepackage{./styles/langsci-avm}
-\avmsetup{columnsep=.3ex}
+\avmsetup{columnsep=.3ex,style=narrow}
+
+%\let\asort\type*
+
 
 \usepackage{./styles/avm+}
 
@@ -160,7 +181,32 @@
 \usepackage{eqparbox} % Andy
 \usepackage{enumitem} % Andy
 \usepackage{longtable} % Andy
-\usepackage{tabu} % Andy
+\usepackage{tabu} % Andy              needs to be loaded before hyperref as of texlive 2020
+
+% tabu-fix
+% to make "spread 0pt" work
+% -----------------------------
+\RequirePackage{etoolbox}
+\makeatletter
+\patchcmd
+	\tabu@startpboxmeasure
+	{\bgroup\begin{varwidth}}%
+	{\bgroup
+	 \iftabu@spread\color@begingroup\fi\begin{varwidth}}%
+	{}{}
+\def\@tabarray{\m@th\def\tabu@currentgrouptype
+    {\currentgrouptype}\@ifnextchar[\@array{\@array[c]}}
+%
+%%% \pdfelapsedtime bug 2019-12-15
+\patchcmd
+	\tabu@message@etime
+	{\the\pdfelapsedtime}%
+	{\pdfelapsedtime}%
+	{}{}
+%
+%
+\makeatother
+% -----------------------------
 
 
 % Manfred's packages
@@ -211,7 +257,7 @@
 
 
 
-%\usepackage{pst-node}
+\usepackage{pst-node}
 
 
 % fmr: additional packages
@@ -222,7 +268,7 @@
 \usepackage{./styles/lfg/dalrymple}
 
 \RequirePackage{graphics}
-\RequirePackage{./styles/lfg/trees}
+%\RequirePackage{./styles/lfg/trees}
 %% \RequirePackage{avm}
 %% \avmoptions{active}
 %% \avmfont{\sc}

@@ -16,41 +16,11 @@
 \IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
   \input{../localpackages}
   \input{../localcommands}
-  \input{../localhyphenation}
-  \bibliography{../Bibliographies/stmue,
-                ../localbibliography,
-../Bibliographies/formal-background,
-../Bibliographies/understudied-languages,
-../Bibliographies/phonology,
-../Bibliographies/case,
-../Bibliographies/evolution,
-../Bibliographies/agreement,
-../Bibliographies/lexicon,
-../Bibliographies/np,
-../Bibliographies/negation,
-../Bibliographies/argst,
-../Bibliographies/binding,
-../Bibliographies/complex-predicates,
-../Bibliographies/coordination,
-../Bibliographies/relative-clauses,
-../Bibliographies/udc,
-../Bibliographies/processing,
-../Bibliographies/cl,
-../Bibliographies/dg,
-../Bibliographies/islands,
-../Bibliographies/diachronic,
-../Bibliographies/gesture,
-../Bibliographies/semantics,
-../Bibliographies/pragmatics,
-../Bibliographies/information-structure,
-../Bibliographies/idioms,
-../Bibliographies/cg,
-../Bibliographies/udc,
-collection.bib}
-
   \togglepaper[30]
 }{}
 
+
+%\forestset{external/readonly}
 
 
 \author{%
@@ -65,10 +35,9 @@ collection.bib}
 
 % \chapterDOI{} %will be filled in at production
 
-\maketitle
 
 \begin{document}
-
+\maketitle
 \label{chap-minimalism}
 
 \section{Introduction}
@@ -694,16 +663,16 @@ combines two expressions, either words or phrases, to form a larger expression w
 as one of the expressions \parencites[244]{Chomsky95a-u}[\page 140]{Chomsky2008a}. Its operation can be presented as shown in Figure~\ref{fig:min-merge}.
 \begin{figure}
 \centering
-	\raisebox{1\baselineskip}{X, Y $\Rightarrow$}
+	X, Y $\Rightarrow$
 	\hspace{1em}
-	\begin{forest}
-		[X [X] [Y]]
+	\begin{forest} %for tree={anchor=base}
+		[X [X,baseline] [Y]]
 	\end{forest}
 \hspace{1em}
-\raisebox{1\baselineskip}{or}
+{or}
 \hspace{1em}
-	\begin{forest}
-		[Y [X] [Y]]
+	\begin{forest} %for tree={anchor=base}
+		[Y [X,baseline] [Y]]
 	\end{forest}
 	\caption{\label{fig:min-merge}Merge}\is{Merge}
 \end{figure}
@@ -1045,12 +1014,27 @@ morphology are simple reflections of syntax. The basic architiecture assumed in 
 in Figure~\ref{fig-architecture-phases}. Both phonology and semantics are read off the structures
 produced by syntax.
 \begin{figure}
-\hfill
-\scalebox{.92}{%
-\begin{tikzpicture}[scale=.8,baseline=(current bounding box.center)]
+  % I have tried to put the figures side-by-side without shrinking
+  % them. Where does the horizontal space come from?  Most of it comes
+  % from setting "overlay" on node "lexicon".  I have also used
+  % "inner xsep=0" on "covert syntax" and "Transfer" nodes --- both to get a
+  % bit of space, and to achieve alignment to margins.  The macro below is used
+  % to compensate "inner xsep=0" on one side of the node.
+\edef\innerxsep{\noexpand\hspace*{\pgfkeysvalueof{/pgf/inner xsep}}}%
+%\hfill
+% works in minimalism.tex but not in check-hpsg.tex
+% this does not externalize after one clean run without externalization and a second run
+% with externalization as minimalism.tex 
+% fail 04.05.2020 9:01
+% Dimension too large
+\tikzexternaldisable
+%\scalebox{.92}{%
+\begin{tikzpicture}[scale=.8,baseline=(current bounding box.center),>={Triangle[]}]
 %\draw (-2.9,-5.8) to[grid with coordinates] (2.7,-0.6);
-\draw[->] node[anchor=east] {lexicon} (-1,-1) -- (0,-1); 
-\draw[->] (0,-1) node[anchor=south] {numeration} --(0,-5) node[anchor=north, align=center] {LF/CI\\(meaning)};
+\draw[->] (0,-1) node[anchor=south](num){numeration} --(0,-5) node[anchor=north, align=center] {LF/CI\\(meaning)};
+\node[base left=1.7em of num,,inner xsep=0  % saving horizontal space
+](lex) {lexicon\innerxsep};
+\draw[->] (lex) -- (num);
 \draw[->] (0,-3)--(2,-5) node[anchor=north,align=center] {PF/AP\\(sound)};
 \draw[<-] (.4,-3)--(1.2,-3) node[anchor=west] {Spell-Out};
 %\draw (0,-0.5) node {lexicon};
@@ -1061,41 +1045,40 @@ produced by syntax.
 %\draw (0,-6.5) node[align=center] {LF/CI\\(meaning)};
 %\draw (2,-5.5) node[align=center] {PF/AP\\(sound)};
 \end{tikzpicture}
-}
+%}
 \hfill
-\scalebox{.92}{%
-\begin{forest} 
-for tree={nice empty nodes,% every conditional anchor=north adapts the specific node to this setting.
-                            if n children={3}{for children={
-                                anchor=north,
-                                if n=1{inner sep=0pt,child anchor=north east,edge=-{Triangle[]}}{
-                                if n=3{inner sep=0pt,child anchor=north west,edge=-{Triangle[]}}{}}}
-                            }{
-                                if n children={2}{for children={
-                                anchor=north,
-                                if n=1{child anchor=north east,edge=-{Triangle[]}}{
-                                if n=2{child anchor=north west,edge=-{Triangle[]}}{}}}
-                                }{}
-                            },
-                            },
-                    delay={where content={...}{for parent={for children={anchor=north}}}{}},
-                    transfer/.style={yshift=5mm,tikz={\node[gray,right=3cm of .east] (stefanstransfer) {Transfer};\path[{Latex[]}-,gray] (.east) edge[] (stefanstransfer);}},
-                    lexicon/.style={tikz={\node[left=1.5cm of .base west,anchor=base] (stefanslexicon) {\strut lexicon};\path[-{Latex[]}] (stefanslexicon) edge (.west);}}
-[numeration,lexicon[,transfer
-    [PHON][,transfer
-        [PHON][,transfer
-            [PHON,baseline][,transfer
-                [PHON][...[,transfer
-                        [PHON][SEM]
-                        ]
-                    ][SEM]]
-            [SEM]]
-        [SEM]]
-    [SEM]]
-]
+\hspace{-3em}%
+% \scalebox{.92}{%
+% The default preamble makes trouble with anchor=north and align=center.
+\forestset{default preamble'={}}
+\begin{forest}
+  transfer/.style={
+    coordinate,
+    calign=fixed edge angles,
+    tikz={\node[gray,right=2.3cm of .east, % I would go for 2.5cm
+        inner xsep=0,  % saving horizontal space
+      ] (stefanstransfer) {\innerxsep Transfer};
+      \path[{Latex[]}-,gray] (.east) edge[] (stefanstransfer);},
+    prepend={[PHON, l+=5ex,
+        anchor=base east, child anchor=north east,
+        edge=-{Triangle[]},
+      ]},
+    append={[SEM, l+=5ex,
+        anchor=base west, child anchor=north west,
+        edge=-{Triangle[]}
+      ]},
+  },
+  lexicon/.style={tikz={\node[left=1.4cm of .base west,anchor=base]
+      (stefanslexicon) {\strut lexicon};
+      \path[-{Latex[]}] (stefanslexicon) edge (.west);}},
+  [numeration,lexicon
+    [,transfer[,transfer[,transfer
+          [,transfer,baseline,
+            [\dots,
+              [,transfer]]]]]]]
 \end{forest}
-}
-\hfill\mbox{}
+%}
+%\hfill\mbox{}
 \caption{Syntax-centric architecture in Minimalism before the Phase model (left) and in the Phase
 model (right) according to \citet[\page 812, 830]{Richards2015a}}\label{fig-architecture-phases}
 \end{figure}
@@ -1270,11 +1253,14 @@ The cat chased the dog.
    [VP
      [V [chase-,name=chase]]
      [DP [the dog,roof]]]]]
-\begin{pgfinterruptboundingbox}% otherwise the picture gets larger due to the control points
-\draw[->,dotted] (chase.south west) .. controls +(225:1cm) and +(south:0.4cm) .. (ed.south);
-\end{pgfinterruptboundingbox}
+\draw[->,dotted,overlay] (chase.south west) .. controls +(225:1cm) and
++(south:0.4cm) .. (ed.south);
+\path ([yshift=-1.2ex]chase.south);
+% see the bounding box:
+%\draw (current bounding box.north east) rectangle (current bounding box.south west);
 \end{forest}
 }\is{category!functional!T}
+\vspace{-1.2ex}
 \caption{\label{abb-tp-vp-morphology}TP/VP analysis of simple English sentences}
 \end{figure}%
 The verbal stem moves to the T head to pick up the \suffix{ed} suffix.

@@ -14,40 +14,12 @@
 \IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
   \input{../localpackages}
   \input{../localcommands}
-  \input{../localhyphenation}
-  \bibliography{../Bibliographies/stmue,
-                ../localbibliography,
-../Bibliographies/formal-background,
-../Bibliographies/understudied-languages,
-../Bibliographies/phonology,
-../Bibliographies/case,
-../Bibliographies/evolution,
-../Bibliographies/agreement,
-../Bibliographies/lexicon,
-../Bibliographies/np,
-../Bibliographies/negation,
-../Bibliographies/argst,
-../Bibliographies/binding,
-../Bibliographies/complex-predicates,
-../Bibliographies/coordination,
-../Bibliographies/relative-clauses,
-../Bibliographies/udc,
-../Bibliographies/processing,
-../Bibliographies/cl,
-../Bibliographies/dg,
-../Bibliographies/islands,
-../Bibliographies/diachronic,
-../Bibliographies/gesture,
-../Bibliographies/semantics,
-../Bibliographies/pragmatics,
-../Bibliographies/information-structure,
-../Bibliographies/idioms,
-../Bibliographies/cg,
-../Bibliographies/udc,
-collection.bib}
-
   \togglepaper[3]
 }{}
+
+% you may switch off externalization of changed files here:
+%\forestset{external/readonly}
+
 
 \author{%
  Frank Richter\affiliation{Goethe Universität Frankfurt}%
@@ -68,9 +40,6 @@ collection.bib}
 \begin{document}
 \maketitle
 \label{chap-formal-background}
-
-{
-\avmoptions{center}
 
 %--------------------------------------------------------------
 \section{Introduction}
@@ -300,15 +269,24 @@ in which \type{word}, \type{noun} and \type{plural} are sorts and
 \attrib{synsem}, \attrib{local}, \attrib{category}, etc.\ are attributes.\footnote{Tags, relations and logical connectives in descriptions will be illustrated later, in (\ref{ex-more-avms}).}
 The AVM is a description of plural nouns.
 
-\begin{exe}
-  \ex\label{ex-noun}
-  \begin{avm}
-    \[\asort{word}
-    synsem$|$local & \[category & \hspace{-1.9cm}\[head & noun\]\\
-                     content$|$index$|$number & plural\]
-    \]
-  \end{avm}
-\end{exe}
+% \begin{exe}
+%   \ex\label{ex-noun}
+%   \begin{avm}
+%     \[\asort{word}
+%     synsem$|$local & \[category & \hspace{-1.9cm}\[head & noun\]\\
+%                      content$|$index$|$number & plural\]
+%     \]
+%   \end{avm}
+% \end{exe}
+% todo avm: type should be unnecessary
+\ea
+\label{ex-noun}
+\avmtmp{
+[\type*{word}
+ synsem|local & [category [ head & noun ]\\
+                 content|index|number \type{plural} ] ]
+}
+\z
 
 A description such as (\ref{ex-noun}) presupposes a declaration of the
 admissible nonlogical symbols: as in any formal logical theory, the
@@ -336,19 +314,39 @@ feature appropriateness of \cite{PollardSag1994} shown in
 Figure~\ref{ex-hier-decl}.
 
 \begin{figure}
-\begin{forest}
-[{\footnotesize\textit{object}}
-[{{\avmoptions{center}\begin{avm}\[\asort{substantive}
-						prd & boolean\]\end{avm}}}
-  [{{\avmoptions{center}\begin{avm}\[\asort{verb} vform & vform\\
-                                                  prd & plus\]\end{avm}}}]
-  [{{\avmoptions{center}\begin{avm}\[\asort{noun} case & case\]\end{avm}}}] ]
-[{\footnotesize\textit{case}}]
-[{\footnotesize\textit{vform}}]
-[{\footnotesize\textit{boolean}}
-  [{\footnotesize\textit{plus}}]
-  [{\footnotesize\textit{minus}}] ]
-]
+% \begin{forest}
+% [{\footnotesize\textit{object}}
+% [{{\avmoptions{center}\begin{avm}\[\type*{substantive}
+% 						prd & boolean\]}}}
+%   [{{\avmoptions{center}\begin{avm}\[\type*{verb} vform & vform\\
+%                                                   prd & plus\]}}}]
+%   [{{\avmoptions{center}\begin{avm}\[\type*{noun} case & case\]}}}] ]
+% [{\footnotesize\textit{case}}]
+% [{\footnotesize\textit{vform}}]
+% [{\footnotesize\textit{boolean}}
+%   [{\footnotesize\textit{plus}}]
+%   [{\footnotesize\textit{minus}}] ]
+% ]
+% \end{forest}
+% todo alignment of AVMs and type north
+\begin{forest} type hierarchy
+  [object,
+    calign=midpoint, calign children={2}{3},
+    [\avmtmp{[\type*{substantive} 
+           prd & boolean]}
+      [\avmtmp{[\type*{verb}
+             vform & vform\\
+             prd & plus]}]
+      [\avmtmp{[\type*{noun} 
+             case & case]}]
+    ]
+    [case]
+    [vform]
+    [boolean
+      [plus]
+      [minus]
+    ]
+  ]
 \end{forest}
 \caption{\label{ex-hier-decl}Example of sort hierarchy with feature declarations}
 \end{figure}
@@ -434,37 +432,70 @@ there are a number of ways to underspecify the description of structures
 of sort \type{noun}. All following AVMs describe the same structures
 but differ in their degree of explicitness:
 
-\begin{exe}\label{ex-desc-n}
-  \ex
-  \begin{xlist}
-         \ex\label{ex-n-full} \begin{avm}
-        \[\asort{noun}
-        case & case\\
-        prd & plus $\vee$ minus\]
-        \end{avm}
-    \ex\label{ex-n-n} \begin{avm}
-        \[\asort{noun}\]
-        \end{avm}
-    \ex\label{ex-n-o}  \begin{avm}
-      \[\asort{noun}
-        case & object\]
-    \end{avm}
-    \ex\label{ex-o-o} \begin{avm}
-      \[\asort{object}
-        case & object\]
-        \end{avm}
-         \ex\label{ex-n-sfull} \begin{avm}
-        \[\asort{noun}
-        case & case\\
-        prd & plus\]
-         \end{avm}  $\vee$ \begin{avm}
-        \[\asort{noun}
-        case & case\\
-        prd & minus\]
-         \end{avm} 
+% \begin{exe}\label{ex-desc-n}
+%   \ex
+%   \begin{xlist}
+%          \ex\label{ex-n-full} \begin{avm}
+%         \[\type*{noun}
+%         case & case\\
+%         prd & plus $\vee$ minus]
+%         }
+%     \ex\label{ex-n-n} \begin{avm}
+%         \[\type*{noun}]
+%         }
+%     \ex\label{ex-n-o}  \begin{avm}
+%       \[\type*{noun}
+%         case & object]
+%     }
+%     \ex\label{ex-o-o} \begin{avm}
+%       \[\type*{object}
+%         case & object]
+%         }
+%          \ex\label{ex-n-sfull} \begin{avm}
+%         \[\type*{noun}
+%         case & case\\
+%         prd & plus]
+%          }  $\vee$ \begin{avm}
+%         \[\type*{noun}
+%         case & case\\
+%         prd & minus]
+%          } 
          
-  \end{xlist}
-\end{exe}
+%   \end{xlist}
+% \end{exe}
+\eal
+\label{ex-desc-n}
+\ex\label{ex-n-full} 
+\avmtmp{
+       [\type*{noun}
+        case & case\\
+        prd & plus $\lor$ minus]
+    }
+\ex\label{ex-n-n}
+ \avmtmp{
+        [\type*{noun}]
+    }
+\ex\label{ex-n-o}
+  \avmtmp{
+      [\type*{noun}
+       case & object]
+    }
+\ex\label{ex-o-o} 
+  \avmtmp{
+      [\type*{object}
+        case & object]
+        }
+\ex\label{ex-n-sfull} 
+   \avmtmp{
+   [\type*{noun}
+        case & case\\
+        prd & plus]
+   }  $\lor$ \avmtmp{
+        [\type*{noun}
+         case & case\\
+         prd & minus]
+        } 
+\zl
 
 All AVMs in (\ref{ex-desc-n}) denote the same two configurations as
 the fully specific AVM description in (\ref{ex-n-full}): two
@@ -537,38 +568,37 @@ rendering such occurrences of tags in the syntax of RSRL.
   \begin{xlist}
     \ex\label{ex-hfp}
     \type{hd-ph}
-%    \begin{avm}
-%      \[\asort{phrase}
-%        dtrs & headed-struc\]
-%    \end{avm}
+%    \avmtmp{
+%      [\type*{phrase}
+%        dtrs & headed-struc]
+%    }
     $\Rightarrow$
-    \begin{avm}
-      \[synsem$|$local$|$category$|$head & \@1\\
-        head-dtr$|$synsem$|$local$|$category$|$head & \@1
-      \]
-    \end{avm}
+    \avmtmp{
+      [synsem$|$local$|$category$|$head & \1\\
+       head-dtr$|$synsem$|$local$|$category$|$head & \1
+      ]
+    }
     
     \ex\label{ex-word-principle}
     \type{word} $\Rightarrow$ $\left(\mbox{LE$_1$} \vee \mbox{LE$_2$} \vee \ldots  \vee \mbox{LE$_n$} \right)$
     
 \ex\label{ex-semantics}
-\type{sign} $\Rightarrow$ {\avmoptions{center}\begin{avm}
-										\[synsem$|$loc & \[qstore & \@1 \\
-																	pool & \@2\]\\
-										 retrieved & \@3\]
-										\end{avm}} \\
+\type{sign} $\Rightarrow$ \avmtmp{
+			[synsem$|$loc & [qstore & \@1 \\
+			 		 pool & \@2]\\
+					 retrieved & \@3] } \\
 \hspace*{1.1cm}	$\wedge$ \texttt{set-of-elements} (\avmbox{3},\avmbox{4})
 			$\wedge$ \avmbox{4} $\subseteq$ \avmbox{2}
 $\wedge$ \avmbox{1} $=$ \avmbox{2} $-$ \avmbox{4}
 
 \ex\label{ex-complex-ante}
-\begin{avm}
-  \[retrieved & nelist\]
-\end{avm}
+\avmtmp{
+  [retrieved & nelist]
+}
 $\Rightarrow$
-\begin{avm}
-  \[synsem$|$local$|$content & psoa\]
-\end{avm}
+\avmtmp{
+  [synsem$|$local$|$content & psoa]
+}
 
   \end{xlist}
 \end{exe}
@@ -837,12 +867,14 @@ A fragment of the sort hierarchy which declares the sorts and attributes
 for regular lists is shown in Figure~\ref{ex-list-decl}.
 
 \begin{figure}
-  \begin{forest}
-[{\footnotesize\textit{list}}
-  [{{\avmoptions{center}\begin{avm}\[\asort{nelist} first & object\\
-                                                    rest & list\]\end{avm}}}]
-  [{\footnotesize\textit{elist}} ]]
-    \end{forest}
+\begin{forest}
+type hierarchy
+[list
+  [\avmtmp{
+    [\type*{nelist} first & object\\
+     rest & list]}]
+  [elist ]]
+\end{forest}
 \caption{\label{ex-list-decl}Fragment of a sort hierarchy for encoding lists}
 \end{figure}
 
@@ -859,16 +891,16 @@ the existence of a sort hierarchy fragment like in Figure~\ref{ex-list-decl}.
   \ex
   \begin{xlist}
   \ex\label{list-w2-eles}
-  \begin{avm}
-    \[\asort{nelist}
+  \avmtmp{
+    [\type*{nelist}
     first & synsem\\
-    rest & \[\asort{nelist}
+    rest & [\type*{nelist}
              first & synsem\\
-             rest & elist\]
-    \]
-  \end{avm}
+             rest & elist]
+    ]
+  }
   \ex\label{list-w2-brackets}
-  $\left<\mbox{\begin{avm}\[\asort{synsem}\]\end{avm}, \begin{avm}\[\asort{synsem}\]\end{avm}}\right>$
+  $\left<\mbox{\avmtmp{[\type*{synsem}]}, \avmtmp{[\type*{synsem}]}}\right>$
 
   \end{xlist}
 \end{exe}
@@ -925,14 +957,14 @@ follows:
 
 \begin{exe}
   \ex
-  \begin{avm}
-    \[\asort{nechain}
+  \avmtmp{
+    [\type*{nechain}
     $\dagger$ & synsem\\
-    $\triangleright$ & \[\asort{nechain}
+    $\triangleright$ & [\type*{nechain}
              $\dagger$ & synsem\\
-             $\triangleright$ & echain\]
-    \]
-  \end{avm}
+             $\triangleright$ & echain]
+    ]
+  }
 \end{exe}
 
 Apart from the non-logical constants from (expanded) signatures and
@@ -1645,17 +1677,17 @@ grammar principle as follows:%
   $\left(\its\mbox{\attrib{phon}}\approx x_3\wedge\its\mbox{\attrib{head-dtr phon}}\approx x_2\wedge\its\mbox{\attrib{non-hd-dtrs first phon}}\approx x_1\wedge\mbox{\texttt{append}}(x_1,x_2,x_3)\right)$
 }
 
-\begin{exe}
-  \ex\label{ex-word-order}
+\ea
+% todo avm remove &
+\label{ex-word-order}
   \type{head-fill-ph}  $\Rightarrow$ $\exists \idx{1}\; \exists \idx{2}\; \exists \idx{3}$ $\left(\mbox{
-  \begin{avm}
-    \[phon & \hspace{-2.6cm} \idx{3}\\
-    non-hd-dtrs first phon & \idx{1}\\
-    head-dtr phon & \hspace{-1.3cm} \idx{2}
-    \]
-  \end{avm}
+  \avmtmp{
+    [phon \3\\
+     non-hd-dtrs|first|phon \1 &\\
+     head-dtr|phon \2 ]
+  }
   } \wedge \mbox{\texttt{append}}(\idx{1},\idx{2},\idx{3})\right)$
-\end{exe}
+\z
 
 The filler daughter is the only non-head daughter in a head-filler phrase.
 In English, the phonology of the filler daughter precedes the phonology
@@ -2122,8 +2154,8 @@ Jean-Pierre Koenig, Stefan M\"uller and Manfred Sailer for their
 helpful suggestions which helped improve this chapter considerably.
 
 
+{\sloppy
 \printbibliography[heading=subbibliography,notkeyword=this]
-
 }
 \end{document}
 

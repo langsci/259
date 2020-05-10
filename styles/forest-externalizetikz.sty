@@ -1,0 +1,70 @@
+% forest-externalizetikz.sty
+% 
+% This is a very hacky package which submits the "tikzpicture" environment and
+% "\tikz" command to Forest's externalization mechanism.  Load it after
+% \usepackage[external]{forest}, but BEFORE you say "\tikzexternalize".
+% 
+% 
+% Copyright (c) 2020 Saso Zivanovic (saso.zivanovic@guest.arnes.si)
+% 
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+% 
+%   http://www.latex-project.org/lppl.txt
+%   
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+% 
+% 
+% In principle, you simply load the package as described above, and that's it.
+% There's probably tons of situations where this will not work.  This is a
+% quick&dirty package, so don't complain.  Nevertheless, able to use
+% "\tikzexternalenable" and "\tikzexternaldisable" should work.
+
+
+\def\forest@et@save@tikz@commands{%
+  \let\forest@et@tikzpicture\tikzpicture
+  \let\forest@et@endtikzpicture\endtikzpicture
+  \let\forest@et@tikz\tikz
+}
+\def\forest@et@restore@tikz@commands{%
+  \let\tikzpicture\forest@et@tikzpicture
+  \let\endtikzpicture\forest@et@endtikzpicture
+  \let\tikz\forest@et@tikz
+}
+
+\long\def\forest@et#1#2{%
+  {\Forest(stages={process keylist=given options,draw tree stage})%
+    % IF YOU CHANGE ANYTHING --- INCLUDING SPACES! --- IN THE NEXT LINE, YOU'LL
+    % HAVE TO EXTERNALIZE AGAIN!
+    {[,begin draw/.append code={[#2]},draw tree method/.style={for root'=draw tree tikz'},tikz={#1}]}%
+  }}
+
+\def\forestTakeOverExternalization{%
+  \if\tikzexternalize@hasbeencalled1%
+    \forest@et@save@tikz@commands
+    \renewcommand\tikz[2][]{\forest@et{##2}{##1}}%
+    \RenewEnviron{tikzpicture}[1][]{\expandafter\forest@et\expandafter{\BODY}{##1}}%
+    \let\endtikzpicture\relax
+    \forestconfigset{
+      defaults/.code={%
+        \forest@et@restore@tikz@commands
+        \let\tikzexternalenable\forest@et@tikzexternalenable
+        \let\tikzexternaldisable\forest@et@tikzexternaldisable
+      }%
+    }%
+  \fi
+}
+
+\def\forestGiveBackExternalization{%
+  \if\tikzexternalize@hasbeencalled1%
+    \forest@et@restore@tikz@commands
+  \fi
+}
+
+\let\forest@et@tikzexternalenable\tikzexternalenable
+\let\forest@et@tikzexternaldisable\tikzexternaldisable
+\appto\tikzexternalenable{\forestTakeOverExternalization}
+\preto\tikzexternaldisable{\forestGiveBackExternalization}

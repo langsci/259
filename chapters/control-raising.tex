@@ -16,39 +16,10 @@
 \IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
   \input{../localpackages}
   \input{../localcommands}
-  \input{../localhyphenation}
-  \bibliography{../Bibliographies/stmue,
-                ../localbibliography,
-../Bibliographies/formal-background,
-../Bibliographies/understudied-languages,
-../Bibliographies/phonology,
-../Bibliographies/case,
-../Bibliographies/evolution,
-../Bibliographies/agreement,
-../Bibliographies/lexicon,
-../Bibliographies/np,
-../Bibliographies/negation,
-../Bibliographies/argst,
-../Bibliographies/binding,
-../Bibliographies/complex-predicates,
-../Bibliographies/coordination,
-../Bibliographies/relative-clauses,
-../Bibliographies/udc,
-../Bibliographies/processing,
-../Bibliographies/cl,
-../Bibliographies/dg,
-../Bibliographies/islands,
-../Bibliographies/diachronic,
-../Bibliographies/gesture,
-../Bibliographies/semantics,
-../Bibliographies/pragmatics,
-../Bibliographies/information-structure,
-../Bibliographies/idioms,
-../Bibliographies/cg,
-../Bibliographies/udc}
-
   \togglepaper[13]
 }{}
+%\forestset{external/readonly}
+
 
 \author{%
 	Anne Abeillé\affiliation{Université de Paris}%
@@ -441,65 +412,142 @@ Thus a subject-raising verb (\word{seem}) and a subject-control verb (\word{want
 
 The corresponding simplified trees are as follows. Notice that the syntactic structures are the same.
 \begin{figure}
- \begin{tikzpicture}[baseline, sibling distance=2pt, level distance=60pt, scale=.9]
-	\Tree
-	[.{\begin{avm}
-		\[phon & \phonliste{ Paul seems to sleep }\\
-			subj & \eliste \\
-			comps & \eliste\]
-		\end{avm}}
-		{\begin{avm}\[phon & \phonliste{ Paul } \\
-			synsem & \@1 \]
-		\end{avm}}
-		[.{\begin{avm}
-			\[phon & \phonliste{ seems to sleep }\\
-			subj & \<\@1\>\]
-			\end{avm}}
-		 {\begin{avm}
-			\[phon & \phonliste{ seems } \\
-			subj & \<\@1\>\\
-			comps & \<\@2 \[subj & \< \@1 \>\]\>\\
-			\]
-			\end{avm}} 
-		{\begin{avm}
-			\[phon \phonliste{ to sleep }\\
-				synsem \@2 \]	
-			\end{avm}}  
-		]
-	]
-\end{tikzpicture}
+% \begin{tikzpicture}[baseline, sibling distance=2pt, level distance=60pt, scale=.9]
+% 	\Tree
+% 	[.{\begin{avm}
+% 		\[phon & \phonliste{ Paul seems to sleep }\\
+% 			subj & \eliste \\
+% 			comps & \eliste\]
+% 		\end{avm}}
+% 		{\begin{avm}\[phon & \phonliste{ Paul } \\
+% 			synsem & \@1 \]
+% 		\end{avm}}
+% 		[.{\begin{avm}
+% 			\[phon & \phonliste{ seems to sleep }\\
+% 			subj & \<\@1\>\]
+% 			\end{avm}}
+% 		 {\begin{avm}
+% 			\[phon & \phonliste{ seems } \\
+% 			subj & \<\@1\>\\
+% 			comps & \<\@2 \[subj & \< \@1 \>\]\>\\
+% 			\]
+% 			\end{avm}} 
+% 		{\begin{avm}
+% 			\[phon \phonliste{ to sleep }\\
+% 				synsem \@2 \]	
+% 			\end{avm}}  
+% 		]
+% 	]
+% \end{tikzpicture}
+\begin{forest}
+[{\begin{avm}
+    \[phon & \phonliste{ Paul seems to sleep }\\
+      subj & \eliste \\
+      comps & \eliste\]
+  \end{avm}}
+  [{\begin{avm}\[phon & \phonliste{ Paul } \\
+         	 synsem & \@1 \]
+    \end{avm}}]
+  [{\begin{avm}
+      \[phon & \phonliste{ seems to sleep }\\
+        subj & \<\@1\>\]
+    \end{avm}}
+    [{\begin{avm}
+        \[phon & \phonliste{ seems } \\
+          subj & \<\@1\>\\
+          comps & \<\@2 \[subj & \< \@1 \>\]\>\\
+        \]
+      \end{avm}}]
+    [{\begin{avm}
+        \[phon \phonliste{ to sleep }\\
+          synsem \@2 \]	
+      \end{avm}}] ] ]
+\end{forest}
 \caption{\label{happy4}A sentence with a subject-raising verb}
 \end{figure}
 
 
 \begin{figure}
- \begin{tikzpicture}[baseline, sibling distance=2pt, level distance=60pt, scale=.9]
-	\Tree
-	[.{\begin{avm}
-		\[phon & \phonliste{ Paul wants to sleep }\\
-			subj & \eliste \\
-			comps & \eliste\]
-		\end{avm}}
-		{\begin{avm}\[phon \phonliste{ Paul } \\
-			synsem \@1 \]
-		\end{avm}}
-		[.{\begin{avm}
-			\[phon & \phonliste{ wants to sleep }\\
-			subj & \<\@1\>\]
-			\end{avm}}
-		 {\begin{avm}
-			\[phon & \phonliste{ wants } \\
-			subj & \<\@1 \[ cont|ind  \type{i} \] \>\\
-			comps & \<\@2 \[subj & \< \normalfont NP_{i} \> \]\>\\
-			\]
-			\end{avm}} 
-		{\begin{avm}
-			\[phon & \phonliste{ to sleep }\\
-				synsem & \@2  \]	
-			\end{avm}}  
-		]
-	]
-\end{tikzpicture}
+% fails 03.05.2020 23:23
+% \tikzexternaldisable
+%  \begin{tikzpicture}[baseline, sibling distance=2pt, level distance=60pt, scale=.9]
+% 	\Tree
+% 	[.{\begin{avm}
+% 		\[phon & \phonliste{ Paul wants to sleep }\\
+% 			subj & \eliste \\
+% 			comps & \eliste\]
+% 		\end{avm}}
+% 		{\begin{avm}\[phon \phonliste{ Paul } \\
+% 			synsem \@1 \]
+% 		\end{avm}}
+% 		[.{\begin{avm}
+% 			\[phon & \phonliste{ wants to sleep }\\
+% 			subj & \<\@1\>\]
+% 			\end{avm}}
+% 		 {\begin{avm}
+% 			\[phon & \phonliste{ wants } \\
+% 			subj & \<\@1 \[ cont|ind  \type{i} \] \>\\
+% 			comps & \<\@2 \[subj & \< \normalfont NP_{i} \> \]\>\\
+% 			\]
+% 			\end{avm}} 
+% 		{\begin{avm}
+% 			\[phon & \phonliste{ to sleep }\\
+% 				synsem & \@2  \]	
+% 			\end{avm}}  
+% 		]
+% 	]
+% \end{tikzpicture}
+% This one fails forest even without externalization
+\begin{forest}
+[{\begin{avm}
+    \[phon & \phonliste{ Paul wants to sleep }\\
+      subj & \eliste \\
+      comps & \eliste\]
+  \end{avm}}
+  [{\begin{avm}
+    \[phon \phonliste{ Paul } \\
+      synsem \@1 \]
+    \end{avm}}]
+  [{\begin{avm}
+      \[phon & \phonliste{ wants to sleep }\\
+        subj & \<\@1\>\]
+    \end{avm}}
+    [{\begin{avm}
+        \[phon & \phonliste{ wants } \\
+          subj & \<\@1 \[ cont|ind  \type{i} \] \>\\
+          comps & \<\@2 \[subj & \< \normalfont NP$_{i}$ \> \]\>\\
+        \]
+      \end{avm}}] 
+    [{\begin{avm}
+        \[phon & \phonliste{ to sleep }\\
+          synsem & \@2  \]	
+      \end{avm}}] ] ]
+\end{forest}
+% \begin{forest}
+% [\avmtmp{
+%    [phon & \phonliste{ Paul wants to sleep }\\
+%     subj & \eliste \\
+%     comps & \eliste ]
+%   }
+%   [\avmtmp{
+%     [phon \phonliste{ Paul } \\
+%      synsem \1 ]
+%     }]
+%   [\avmtmp{
+%       [phon & \phonliste{ wants to sleep }\\
+%        subj & < \1 >]
+%     }
+%     [\avmtmp{
+%       [phon  & \phonliste{ wants } \\
+%        subj  & < \1 [ cont|ind  \type{i} ] >\\
+%        comps & < \2 [ subj & < \normalfont NP$_{i}$ > ] >\\
+%         \]
+%       }] 
+%     [\avmtmp{
+%         [phon   & \phonliste{ to sleep }\\
+%          synsem & \2  ]	
+%      }] ] ]
+% \end{forest}
 \caption{\label{happy3}A sentence with a subject-control verb}
 \end{figure}
 
@@ -536,73 +584,132 @@ An object-raising verb (\word{expect}) and an object-control verb (\word{persuad
 The corresponding trees are given in Figure~\ref{cons2} and~\ref{cons3}. Notice that the syntactic structures are the same.
 
 \begin{figure}
-\begin{tikzpicture}[baseline, sibling distance=2pt, level distance=60pt, scale=.9]
-	\Tree
-	[.{\begin{avm}
-\[phon & \phonliste{ Mary expected Paul to work }\\
-subj & \eliste\\
-comps & \eliste\]		
-\end{avm}}
-	{\begin{avm} \[phon & \phonliste{ Mary } \\
+% \begin{tikzpicture}[baseline, sibling distance=2pt, level distance=60pt, scale=.9]
+% 	\Tree
+% 	[.{\begin{avm}
+% \[phon & \phonliste{ Mary expected Paul to work }\\
+% subj & \eliste\\
+% comps & \eliste\]		
+% \end{avm}}
+% 	{\begin{avm} \[phon & \phonliste{ Mary } \\
+% 			synsem & \@3 \]
+% 		\end{avm}}
+% 	[.{\begin{avm}
+% \[phon & \phonliste{ expected Paul to work }\\
+% subj & \<\@3 NP\>\\
+% comps & \eliste\]		
+% \end{avm}}
+% 	{\begin{avm}
+% \[phon & \phonliste{ expected } \\
+% subj & \<\@3 NP\>\\
+% comps & \<\@1, \@2 \[
+% 		 subj & \@1 \]\>\]		
+% \end{avm}}
+% 	{\begin{avm} \[phon & \phonliste{ Paul } \\
+% 			synsem & \@1 \]
+% 		\end{avm}}
+% 	{\begin{avm}
+% 			\[phon & \phonliste{ to work }\\
+% 				synsem & \@2 \]	
+% 			\end{avm}}
+% 	] ]
+% \end{tikzpicture}	
+\begin{forest}
+  [{\begin{avm}
+      \[phon & \phonliste{ Mary expected Paul to work }\\
+        subj & \eliste\\
+        comps & \eliste\]		
+    \end{avm}}
+	[{\begin{avm} \[phon & \phonliste{ Mary } \\
 			synsem & \@3 \]
-		\end{avm}}
-	[.{\begin{avm}
-\[phon & \phonliste{ expected Paul to work }\\
-subj & \<\@3 NP\>\\
-comps & \eliste\]		
-\end{avm}}
-	{\begin{avm}
-\[phon & \phonliste{ expected } \\
-subj & \<\@3 NP\>\\
-comps & \<\@1, \@2 \[
-		 subj & \@1 \]\>\]		
-\end{avm}}
-	{\begin{avm} \[phon & \phonliste{ Paul } \\
+		\end{avm}}]
+	[{\begin{avm}
+            \[phon & \phonliste{ expected Paul to work }\\
+              subj & \<\@3 NP\>\\
+              comps & \eliste\]		
+          \end{avm}}
+	[{\begin{avm}
+            \[phon & \phonliste{ expected } \\
+              subj & \<\@3 NP\>\\
+              comps & \<\@1, \@2 \[
+                subj & \@1 \]\>\]		
+          \end{avm}}]
+	[{\begin{avm} \[phon & \phonliste{ Paul } \\
 			synsem & \@1 \]
-		\end{avm}}
-	{\begin{avm}
-			\[phon & \phonliste{ to work }\\
-				synsem & \@2 \]	
-			\end{avm}}
+		\end{avm}}]
+	[{\begin{avm}
+            \[phon & \phonliste{ to work }\\
+              synsem & \@2 \]	
+          \end{avm}}]
 	] ]
-\end{tikzpicture}	
+\end{forest}	
 \caption{\label{cons2}A sentence with an object-raising verb}
 \end{figure}
 
 
 \begin{figure}
-
-\begin{tikzpicture}[baseline, sibling distance=2pt, level distance=60pt, scale=.9]
-	\Tree
-	[.{\begin{avm}
-\[phon & \phonliste{ Mary persuaded Paul to work }\\
-subj & \eliste\\
-comps & \eliste\]		
-\end{avm}}
-	{\begin{avm}\[phon & \phonliste{ Mary } \\
+% fails 04.05.2020 06:30
+% \tikzexternaldisable
+% \begin{tikzpicture}[baseline, sibling distance=2pt, level distance=60pt, scale=.9]
+% 	\Tree
+% 	[.{\begin{avm}
+% \[phon & \phonliste{ Mary persuaded Paul to work }\\
+% subj & \eliste\\
+% comps & \eliste\]		
+% \end{avm}}
+% 	{\begin{avm}\[phon & \phonliste{ Mary } \\
+% 	synsem & \@3
+% 			\]
+% 		\end{avm}}
+% 	[.{\begin{avm}
+% \[phon & \phonliste{ persuaded Paul to work }\\
+% subj & \<\@3 NP\>\\
+% comps & \eliste\]		
+% \end{avm}}
+% 	{\begin{avm}
+% \[phon & \phonliste{ persuaded } \\
+% subj & \<\@3 NP\>\\
+% comps & \<\@1 \[cont|ind \type{i} \], \@2 \[
+% 		 subj & \< NP$_{i}$ \> \]\>\]		
+% \end{avm}}
+% 	{\begin{avm}\[phon  \phonliste{ Paul } \\
+% 		synsem \@1 \]
+% 		\end{avm}}
+% 	{\begin{avm}
+% 			\[phon & \phonliste{ to work }\\
+% 				synsem & \@2  \]	
+% 			\end{avm}}
+% 	] ]
+% \end{tikzpicture}	
+\begin{forest}
+[{\begin{avm}
+    \[phon & \phonliste{ Mary persuaded Paul to work }\\
+      subj & \eliste\\
+      comps & \eliste\]		
+  \end{avm}}
+  [{\begin{avm}\[phon & \phonliste{ Mary } \\
 	synsem & \@3
-			\]
-		\end{avm}}
-	[.{\begin{avm}
-\[phon & \phonliste{ persuaded Paul to work }\\
-subj & \<\@3 NP\>\\
-comps & \eliste\]		
-\end{avm}}
-	{\begin{avm}
-\[phon & \phonliste{ persuaded } \\
-subj & \<\@3 NP\>\\
-comps & \<\@1 \[cont|ind \type{i} \], \@2 \[
-		 subj & \< NP_{i} \> \]\>\]		
-\end{avm}}
-	{\begin{avm}\[phon  \phonliste{ Paul } \\
-		synsem \@1 \]
-		\end{avm}}
-	{\begin{avm}
-			\[phon & \phonliste{ to work }\\
-				synsem & \@2  \]	
-			\end{avm}}
-	] ]
-\end{tikzpicture}	
+      \]
+    \end{avm}}]
+  [{\begin{avm}
+      \[phon & \phonliste{ persuaded Paul to work }\\
+        subj & \<\@3 NP\>\\
+        comps & \eliste\]		
+    \end{avm}}
+    [{\begin{avm}
+        \[phon & \phonliste{ persuaded } \\
+          subj & \<\@3 NP\>\\
+          comps & \<\@1 \[cont|ind \type{i} \], \@2 \[
+            subj & \< NP$_{i}$ \> \]\>\]		
+      \end{avm}}]
+    [{\begin{avm}\[phon  \phonliste{ Paul } \\
+          synsem \@1 \]
+      \end{avm}}]
+    [{\begin{avm}
+        \[phon & \phonliste{ to work }\\
+          synsem & \@2  \]	
+      \end{avm}}] ] ]
+\end{forest}	
 \caption{\label{cons3}A sentence with an object-control verb}
 \end{figure}
 
@@ -808,7 +915,7 @@ defined above, verbs like \word{kontign} `continue' and \word{sey} `try' inherit
 			arg & \@2\]\}\]
 	\]
 \end{avm}
-\ex \word{sey} `try':\\
+\ex \word{sey} `try':\\*
 \begin{avm}
 	\[subj & \<NP$_{\@i}$ \> \\
 	comps & \<VP\[%head & verb \\
@@ -1221,69 +1328,122 @@ shared with the \subj feature of \word{seem} and the first element of the \comps
 
 
 \begin{figure}
-\begin{tikzpicture}[baseline, sibling distance=2pt, level distance=60pt, scale=.9]
-	\Tree
-	[.{\begin{avm}
-		\[phon & \phonliste{ Paul seems happy }\\
-			subj & \eliste \\
-			comps & \eliste\]
-		\end{avm}}
-		{\begin{avm} \[phon & \phonliste{ Paul } \\
-			synsem & \@1 \]
-		\end{avm}}
-		[.{\begin{avm}
-			\[phon & \phonliste{ seems happy }\\
-			subj & \<\@1\>\]
-			\end{avm}}
-		 {\begin{avm}
-			\[phon & \phonliste{ seems } \\
-			subj & \<\@1\>\\
-			comps & \<\@2 \[subj & \<\@1\>\]\>\\
-			\]
-			\end{avm}} 
-		{\begin{avm}
-			\[phon & \phonliste{ happy }\\
-				synsem & \@2  \]	
-			\end{avm}}  
-		]
-	]
-\end{tikzpicture}
+% \begin{tikzpicture}[baseline, sibling distance=2pt, level distance=60pt, scale=.9]
+% 	\Tree
+% 	[.{\begin{avm}
+% 		\[phon & \phonliste{ Paul seems happy }\\
+% 			subj & \eliste \\
+% 			comps & \eliste\]
+% 		\end{avm}}
+% 		{\begin{avm} \[phon & \phonliste{ Paul } \\
+% 			synsem & \@1 \]
+% 		\end{avm}}
+% 		[.{\begin{avm}
+% 			\[phon & \phonliste{ seems happy }\\
+% 			subj & \<\@1\>\]
+% 			\end{avm}}
+% 		 {\begin{avm}
+% 			\[phon & \phonliste{ seems } \\
+% 			subj & \<\@1\>\\
+% 			comps & \<\@2 \[subj & \<\@1\>\]\>\\
+% 			\]
+% 			\end{avm}} 
+% 		{\begin{avm}
+% 			\[phon & \phonliste{ happy }\\
+% 				synsem & \@2  \]	
+% 			\end{avm}}  
+% 		]
+% 	]
+% \end{tikzpicture}
+\begin{forest}
+[{\begin{avm}
+    \[phon & \phonliste{ Paul seems happy }\\
+      subj & \eliste \\
+      comps & \eliste\]
+  \end{avm}}
+   [{\begin{avm} 
+     \[phon & \phonliste{ Paul } \\
+       synsem & \@1 \]
+     \end{avm}}]
+   [{\begin{avm}
+       \[phon & \phonliste{ seems happy }\\
+         subj & \<\@1\>\]
+     \end{avm}}
+     [{\begin{avm}
+         \[phon & \phonliste{ seems } \\
+           subj & \<\@1\>\\
+           comps & \<\@2 \[subj & \<\@1\>\]\>\\
+         \]
+       \end{avm}}] 
+     [{\begin{avm}
+         \[phon & \phonliste{ happy }\\
+           synsem & \@2  \]	
+       \end{avm}} ]]]
+\end{forest}
 \caption{\label{fig-happy}A sentence with an intransitive copular verb}
 \end{figure}
 
 
 
 \begin{figure}
-\begin{tikzpicture}[baseline, sibling distance=2pt, level distance=60pt, scale=.9]
-	\Tree
-	[.{\begin{avm}
-\[phon & \phonliste{ Mary considers Paul happy }\\
-subj & \eliste\\
-comps & \eliste\]		
-\end{avm}}
-	{\begin{avm}\[phon & \phonliste{ Mary }\\
+% \begin{tikzpicture}[baseline, sibling distance=2pt, level distance=60pt, scale=.9]
+% 	\Tree
+% 	[.{\begin{avm}
+% \[phon & \phonliste{ Mary considers Paul happy }\\
+% subj & \eliste\\
+% comps & \eliste\]		
+% \end{avm}}
+% 	{\begin{avm}\[phon & \phonliste{ Mary }\\
+% 			synsem & \@3 \]
+% 		\end{avm}}
+% 	[.{\begin{avm}
+% \[phon & \phonliste{ considers Paul happy }\\
+% subj & \<\@3 NP\>\\
+% comps & \eliste\]		
+% \end{avm}}
+% 	{\begin{avm}
+% \[phon & \phonliste{ considers } \\
+% subj & \<\@3 NP\>\\
+% comps & \<\@1, \@2 \[
+% 		 subj & \<\@1\> \]\>\]		
+% \end{avm}}
+% 	{\begin{avm} \[phon & \phonliste{ Paul } \\
+% 			synsem & \@1 \]
+% 		\end{avm}}
+% 	{\begin{avm}
+% 			\[phon & \phonliste{ happy }\\
+% 				synsem & \@2 \]	
+% 			\end{avm}}
+% 	] ]
+% \end{tikzpicture}
+\begin{forest}
+[{\begin{avm}
+    \[phon & \phonliste{ Mary considers Paul happy }\\
+      subj & \eliste\\
+      comps & \eliste\]		
+  \end{avm}}
+   [{\begin{avm}\[phon & \phonliste{ Mary }\\
 			synsem & \@3 \]
-		\end{avm}}
-	[.{\begin{avm}
-\[phon & \phonliste{ considers Paul happy }\\
-subj & \<\@3 NP\>\\
-comps & \eliste\]		
-\end{avm}}
-	{\begin{avm}
-\[phon & \phonliste{ considers } \\
-subj & \<\@3 NP\>\\
-comps & \<\@1, \@2 \[
-		 subj & \<\@1\> \]\>\]		
-\end{avm}}
-	{\begin{avm} \[phon & \phonliste{ Paul } \\
+		\end{avm}}]
+   [{\begin{avm}
+       \[phon & \phonliste{ considers Paul happy }\\
+         subj & \<\@3 NP\>\\
+         comps & \eliste\]		
+     \end{avm}}
+	[\avmtmp{
+            [phon  & < considers > \\
+             subj  & < \3 NP >\\
+             comps & < \1, \2 [ subj & < \1 >  ] > ]		
+          }]
+	[{\begin{avm} \[phon & \phonliste{ Paul } \\
 			synsem & \@1 \]
-		\end{avm}}
-	{\begin{avm}
+		\end{avm}}]
+	[{\begin{avm}
 			\[phon & \phonliste{ happy }\\
 				synsem & \@2 \]	
-			\end{avm}}
+			\end{avm}}]
 	] ]
-\end{tikzpicture}	
+\end{forest}	
 \caption{\label{fig-cons}A sentence with a transitive copular verb}
 \end{figure}
 

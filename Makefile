@@ -2,6 +2,11 @@
 SOURCE=  main.tex $(wildcard local*.tex) $(wildcard chapters/*.tex) $(wildcard Bibliographies/*.bib) \
 langsci/langscibook.cls
 
+# MacBook Pro 16" (2019) time make main.pdf  9:40 min  9:14 min                       554 sec
+#                                           16:40 min 16:24 min (ohne Turboboost)     984 sec
+# MacBook Pro 15" (2016) time make main.pdf 11:23 min                                 683 sec
+
+
 # specify your main target here:
 pdf:  main.bbl main.pdf  #by the time main.pdf, bib assures there is a newer aux file
 
@@ -40,6 +45,15 @@ chop: stable.pdf
 # does not work on mac	
 #	bash chopchapters.sh `grep "mainmatter starts" main.log|egrep -o "[0-9]*"`
 
+
+% make all (in chapters) on texlive 2019 to create the trees = 32:43
+
+
+trees:
+	xelatex -shell-escape main
+	xelatex -shell-escape trees
+
+
 commit-stable: chop 
 	git commit -m "automatic creation of stable.pdf and chapters" stable.pdf chapters/collection.bib chapters-pdfs/
 	git push -u origin
@@ -58,6 +72,10 @@ prepublish-commit: prepublish-pdfs
 	git push -u origin
 
 
+forest-commit:
+	git add chapters/hpsg-handbook.for.dir/*.pdf
+	git commit -m "forest trees" chapters/hpsg-handbook.for.dir/*.pdf chapters/hpsg-handbook.for
+	git push -u origin
 
 FINALIZED= chapters/evolution.tex chapters/lexicon.tex chapters/case.tex chapters/idioms.tex
 
@@ -295,7 +313,11 @@ main.snd: FORCE
 	makeindex -o main.snd main.sdx 
 	xelatex main 
 
+chapters:
+	(cd chapters; make all)
 
+externalization: clean chapters
+	xelatex -shell-escape main
 
 
 #create a png of the cover
@@ -352,24 +374,29 @@ biosketch.html: blurb.md
 
 #housekeeping	
 clean:
-	rm -f *.bak *~ *.backup *.tmp \
+	rm -f *.bak *~ *.backup \
 	*.adx *.and *.idx *.ind *.ldx *.lnd *.sdx *.snd *.rdx *.rnd *.wdx *.wnd \
-	*.log *.blg *.bcf *.for *.aux.copy *.ilg \
+	*.log *.blg *.bcf *.aux.copy *.auxlock *.ilg \
 	*.aux *.toc *.cut *.out *.tpm *.bbl *-blx.bib *_tmp.bib \
 	*.glg *.glo *.gls *.wrd *.wdv *.xdv *.mw *.clr \
 	*.run.xml \
-	chapters/*.aux chapters/*.aux.copy chapters/*.old chapters/*~ chapters/*.bak chapters/*.backup chapters/*.blg\
-	chapters/*.log chapters/*.out chapters/*.mw chapters/*.ldx  chapters/*.for  chapters/*.bbl chapters/*.bcf chapters/*.run.xml\
-	chapters/*.blg chapters/*.idx chapters/*.sdx chapters/*.run.xml chapters/*.for.tmp chapters/*.adx chapters/*.ldx\
+	chapters/*.aux chapters/*.auxlock chapters/*.aux.copy chapters/*.old chapters/*~ chapters/*.bak chapters/*.backup chapters/*.blg\
+	chapters/*.log chapters/*.out chapters/*.mw chapters/*.ldx  chapters/*.bbl chapters/*.bcf chapters/*.run.xml\
+	chapters/*.blg chapters/*.idx chapters/*.sdx chapters/*.run.xml chapters/*.adx chapters/*.ldx\
 	langsci/*/*.aux langsci/*/*~ langsci/*/*.bak langsci/*/*.backup \
 	chapter-pdfs/* cuts.txt
 
+cleanfor: # These files are precious, as it takes a long time to produce them all.
+	rm -f *.for *.for.tmp chapters/*.for chapters/*.for.tmp hpsg-handbook.for.dir/*
 
 realclean: clean
-	rm -f *.dvi *.ps *.pdf
+	rm -f *.dvi *.ps *.pdf chapters/*.pdf
+
+brutal-clean: realclean cleanfor
 
 chapterlist:
 	grep chapter main.toc|sed "s/.*numberline {[0-9]\+}\(.*\).newline.*/\\1/"
+
 
 
 FORCE:

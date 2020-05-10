@@ -34,13 +34,6 @@
 \input{localhyphenation.tex}
 \input{localcommands.tex} 
 
-% fix, remove once forest is updated
-% should work with texlive 2017
-%% \makeatletter
-%% \apptocmd\forest@pgfmathhelper@attribute@dimen{\global\pgfmathunitsdeclaredtrue}{\typeout{patching succeeded}}{patching failed}
-%% \apptocmd\forest@pgfmathhelper@register@dimen{\global\pgfmathunitsdeclaredtrue}{\typeout{patching succeeded}}{patching failed}
-%% \makeatother 
-
 
 \input{bibliographies-include}
 
@@ -51,12 +44,28 @@
   \stepcounter{realpage}
 }
 
+\usepackage{./styles/forest-externalizetikz}
+
+
+% if you want externalize graphics, compile files in chapters directly
+\forestset{external/readonly}
+% you may switch this off in the final run since eternalization may cut off overlays.
+%\tikzexternalize
+
+% Enable this to extract "forest" and forest-externalized "tikzpicture" environments.
+\forestset{external/extract=extracted-trees}
+% 
+% To externalize, compile "trees.tex" after extraction.
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%                                              %%%
 %%%             Frontmatter                      %%%
 %%%                                              %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{document}         
+
+\begin{document}
+
 \maketitle                
 \frontmatter
 % %% uncomment if you have preface and/or acknowledgements
@@ -97,7 +106,7 @@
 \includepaper{chapters/np}
 \includepaper{chapters/arg-st}
 \includepaper{chapters/order}
-\includepaper{chapters/clitics}
+%\includepaper{chapters/clitics}
 \includepaper{chapters/complex-predicates}
 \includepaper{chapters/control-raising}
 \includepaper{chapters/udc}
