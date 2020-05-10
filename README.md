@@ -25,9 +25,12 @@ You may not be able to compile the whole book due to memory limitations.
 -------------------------------
 Edit your texmf.cnf file. This file can be found at e.g. /usr/local/texlive/2017/texmf.cnf (for TeXLive/MacTeX 2017). Change its contents to contain something like:
 
+<code>
 main_memory=8000000
 extra_mem_top=5000000
 font_mem_bot=4000000
+</code>
+
 
 Afterwards, call texhash to update the LaTeX format files.
 ------------------------------- 
@@ -38,8 +41,7 @@ We are working on externalization of the graphics. With externalization it my wo
 
 ## Contributors
 
-This project exists thanks to all the people who contribute. 
+This project exists thanks to <a href="https://github.com/langsci/hpsg-handbook/graphs/contributors">all the people who contributed</a>. Some contributed via github directly, work of others was checked in by Stefan Müller.
 
-<a href="https://github.com/badges/langsci/hpsg-handbook/graph/contributors">Contributers</a>
 
 <!-- img src="https://opencollective.com/shields/contributors.svg?width=890" />
