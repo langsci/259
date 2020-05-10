@@ -2,14 +2,12 @@
 
 \usepackage{ifxetex}
 \usepackage{newtxmath}
-\usepackage{faux-tree-dvips}
+%\usepackage{faux-tree-dvips}
 \usepackage{relsize}
 
 \usepackage{fontspec}
 
-\setmainfont[Ligatures={TeX,Common}]{FreeSerif}
-\setsansfont[Ligatures={TeX,Common}]{FreeSans}
-\setmonofont{FreeMono}
+\setmainfont[Ligatures={TeX,Common}]{Linux Libertine B}
 \usepackage{polyglossia}
 \setdefaultlanguage{british}
 
@@ -39,7 +37,7 @@
 \usepackage{gb4e}
 \noautomath
 
-\usepackage{rtrees}
+\usepackage{pstricks,rtrees}
 \psset{angleA=-90,angleB=90,arm=0pt}
 
 \bibliographystyle{OUP-ling}
@@ -60,12 +58,14 @@
 \pagestyle{empty}
 \begin{document}
 
+\psset{linewidth=.6pt,nodesep=2pt}
+
 \textit{
 \begin{tree}
+\psset{linewidth=.2pt,nodesep=2pt}
 \relsize{-2}
-\psset{linewidth=.6pt,nodesep=0}
 \br{lexeme}{
-	\psset{treefit=tight,levelsep=5ex,treesep=4em}
+	\psset{treefit=tight,levelsep=7ex,treesep=4em}
 	\br{\dimension{STRUCTURE}}{
 		\br{complex}{
 			\lf{compound}
@@ -73,11 +73,11 @@
 				\br{\dimension{COMPOSITIONALITY}}{	
 					\br{compositional}{
 						\br{\dimension{SYNTYPE}}{
-							\lf{\node{d}{externalized}}
+							\lf{\rnode{d}{externalized}}
 							\lf{$\cdots$}
 							}
 						\br{\dimension{SEMTYPE}}{
-							\lf{\node{c}{possibility}}
+							\lf{\rnode{c}{possibility}}
 							\lf{$\cdots$}	
 						   }
 					  }
@@ -86,7 +86,7 @@
 				 \br{\dimension{DERTYPE}}{
 				 	\br{affixed}{
 						\lf{prefixed}
-						\lf{\node{a}{suffixed}}
+						\lf{\rnode{a}{suffixed}}
 						}
 					\lf{$\cdots$}
 					}
@@ -95,7 +95,7 @@
 		\br{simple}{}
 		}
 	\br{\dimension{POS}}{
-		\lf{\node{b}{adjective}}
+		\lf{\rnode{b}{adjective}}
 		\lf{verb}
 		\lf{$\cdots$}
 	   }
@@ -103,16 +103,15 @@
 \end{tree}
 }
 
-\vspace*{-1ex}
 \textit{
 \begin{tree}
-\hspace*{3em}
 \relsize{-2}
-\psset{linewidth=.6pt,nodesep=0}
-\psset{treefit=tight,levelsep=5ex,treesep=4em}
-\br{\node{ab}{bar-adj}}{
-	\br{\node{cx}{poss-bar-adj}}{
-		\br{\node{dx}{trans-bar-adj}}{
+\psset{linewidth=.2pt,nodesep=2pt}
+\hspace*{3em}
+\psset{treefit=tight,levelsep=6ex,treesep=4em}
+\br{\rnode{ab}{bar-adj}}{
+	\br{\rnode{cx}{poss-bar-adj}}{
+		\br{\rnode{dx}{trans-bar-adj}}{
 			\lf{reg-bar-adj}
 			\lf{\alert{essbar}}
 			\lf{$\ldots$}
@@ -133,10 +132,9 @@
 	\lf{\alert{fruchtbar}}
 	\lf{$\ldots$}
 	}		
-\end{tree}
+\ncdiag{a}{ab}\ncdiag{b}{ab}
+\ncdiag{c}{cx}\ncdiag{d}{dx}
+      \end{tree}
 }
-\psset{linewidth=.6pt}
-\nc{a}{ab}\nc{b}{ab}
-\nc{c}{cx}\nc{d}{dx}
 
 \end{document}
