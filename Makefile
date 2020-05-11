@@ -386,8 +386,8 @@ clean:
 	langsci/*/*.aux langsci/*/*~ langsci/*/*.bak langsci/*/*.backup \
 	chapter-pdfs/* cuts.txt
 
-cleanfor: # These files are precious, as it takes a long time to produce them all.
-	rm -f *.for *.for.tmp chapters/*.for chapters/*.for.tmp hpsg-handbook.for.dir/*
+cleanmemo:
+	rm -f chapters/hpsg-handbook.mmz chapters/hpsg-handbook.memo.dir/*
 
 cleanmemo:
 	rm -f chapters/*.mmz chapters/hpsg-handbook.memo.dir/*

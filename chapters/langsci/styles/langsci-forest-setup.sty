@@ -321,21 +321,29 @@ substitution/.style={edge={<-,dashed},l+=\baselineskip},
     },
     for nodewalk/.process=Rw1Ow1{temptoksa}{name=##1}{!u.name}{edge to={##1}},
   },
-  % Uniformly spread any sequence of nodes
-  spread/.style n args=4{
-    % #1 = coordinate (x,y,s,l)
-    % #2 = nodewalk to spread
-    % #3 = relative node name of the node with the final coordinate
-    % #4 = final coordinate shift
-    for nodewalk={
-      tempcounta'=-1,
-      #2,
-      tempdima/.pgfmath={(#1("#3")+#4-#1(""))/tempcounta()}
-    }{tempcounta'+=1},
-    tempdimb'=0pt,
-    for nodewalk={#2}{
-      #1'+/.register=tempdimb,
-      tempdimb'+/.register=tempdima,
+  % "distribute space": Uniformly distribute the given amoung of space (#1) in
+  % the given dimension (#2: "x", "y", "s" or "l") to the gaps between the
+  % nodes of the given nodewalk (#3).
+  distribute space/.style n args=3{
+    % #1 = how much space to add, in total?
+    % #2 = coordinate (x,y,s,l)
+    % #3 = nodewalk to spread
+    % 
+    % Forest register (forest manual, section 3.6) "tempcounta" will hold the
+    % number of nodes in nodewalk "#3". ".count" is the key handler version of
+    % aggregate function "count".  For aggregate functions, see section 3.14 of
+    % the forest manual; for (pgfkey) key handlers, see section 88 of PGF
+    % manual.
+    tempcounta/.count={#3},
+    % Divide the given amount of space by the number of gaps. Any pgfmath
+    % expression (PGF manual, part VIII) can be used here. Forest defines extra
+    % pgfmath functions to access its register; below, "tempcounta()".
+    tempdima={(#1)/(tempcounta()-1)},
+    tempdimb=0pt,
+    for nodewalk={#3}{
+      % Execute these two lines for every node visited by nodewalk #3:
+      #2+/.register=tempdimb,  % move the node in "#2" dimension
+      tempdimb+/.register=tempdima, % increase the amount the next node will be moved
     },
   },
 }
@@ -356,7 +364,6 @@ instance/.style={edge=dotted}
   type hierarchy/.style={
     for tree={
       anchor=base,
-%anchor=north,
       content format={\noexpand\type{\unexpanded{#1}\forestoption{content}}},
     },
   },
@@ -370,13 +377,11 @@ instance/.style={edge=dotted}
   % if all leaves in the hierarchy are instances, we can declare this as follows:
   % nodes which do not have children (n children=0) are drawn in gray and edges leading to them are dashed 
   instances/.style={
-      for tree={
+    for tree={
       s sep=0,
-      if n children=0{
-        gray,
-        edge={dashed,gray},
-      }{},
-  }},
+      if n children=0{instance}{},
+    }
+  },
 }
 
 % AVM helper
