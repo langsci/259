@@ -387,7 +387,7 @@ clean:
 	chapter-pdfs/* cuts.txt
 
 cleanfor: # These files are precious, as it takes a long time to produce them all.
-	rm -f *.for *.for.tmp chapters/*.for chapters/*.for.tmp hpsg-handbook.for.dir/*
+	rm -f *.for *.for.tmp chapters/*.for chapters/*.for.tmp chapters/hpsg-handbook.for.dir/*
 
 realclean: clean
 	rm -f *.dvi *.ps *.pdf chapters/*.pdf
