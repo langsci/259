@@ -1,0 +1,355 @@
+% todo:
+% \item context dependency
+% \item named memos
+% \item error handling
+%   \begin{itemize}
+%   \item delete .mmz after right now, it seeem we try to split twice if there was an error
+%   \end{itemize}
+% \item An option to remove memo pages from the \jobname.pdf after splitting
+%   --- no recompilation of the main document, but no hyperlinks
+%   either. (\pdfdraftmode and \pdflastximagepages will be useful here.)
+
+
+
+\ProvidesPackage{memoize}
+
+\RequirePackage{pgfkeys} % for UI
+\RequirePackage{etoolbox}
+\RequirePackage{graphics} % for including externalized graphics
+\RequirePackage{xparse} % for command handler definitions
+\RequirePackage{environ} % for environment handler definitions
+
+\ifdef\pdftexversion{\input memoize-pdftex.def}{%
+  \ifdef\XeTeXversion{\input memoize-xetex.def}{%
+    \PackageError{memoize}{Support for this TeX engine is not implemented.}{}%
+  }}
+
+% Registers and such
+\newif\ifmmz@active
+\newif\ifmmz@readonly
+\newwrite\mmz@main@out
+\newwrite\mmz@memo@out
+\newbox\mmz@box
+\newcount\mmz@realpage
+\def\mmz@valueof#1{\pgfkeysvalueof{/memoize/#1}}
+
+%%%%%%%%%%%%%%%%%%%%% UI
+% There are two UI commands, \memoizeset for settings and \memoize for manual
+% memoization. 
+% 
+% If you are writing a package or a complicated preamble, and you want to be
+% able to comment out \usepackage{memoize} at will, define the stubs for these
+% two commands as follows.
+% 
+% \ProvideDocumentCommand\memoize{om}{{#2}}
+% \ProvideDocumentCommand\memoizeset{m}{}
+% or
+% \providecommand\memoize[2][]{{#2}}
+% \providecommand\memoizeset[1][]{}
+%
+\let\memoizeset\relax
+\def\memoizeset#1{\pgfqkeys{/memoize}{#1}}
+\memoizeset{%
+  % When the TeX job starts, \jobname contains the basename of the PDF that
+  % will be created.  If memoization is enabled, we store the name of this PDF
+  % (\jobname.pdf) into \memoize@output@pdf, and set \jobname using key "real
+  % job". This way, LaTeX will be using and writing the auxiliary files of the
+  % real job.  By default, real job equals \jobname, i.e. we memoize "inline".
+  real job/.code={%
+    \edef\memoize@output@pdf{\jobname.pdf}%
+    \edef\jobname{#1}%
+  },
+  real job=\jobname,
+  % 
+  % After each compilation, this file will contain the list of memoized
+  % stuff. On the next run, tex will split the memo PDFs off the big PDF we
+  % have generated in the first compilation.  For example, if we have a setup
+  % where we can compile individual chapters of a book, this option should be
+  % set so that both book and chapter compilations read and write to the same
+  % .mmz file.
+  mmz filename/.initial={\jobname.mmz},
+  % 
+  % The key "memo filename" tells the package where to store the separate
+  % externalized pictures (memos).  "#1" in the value will be replaced by the
+  % md5sum of the memoized code.  For example, say
+  % "memo={\jobname.memo.dir/#1}", to store memos in the "\jobname.memo.dir"
+  % folder --- where \jobname is the name of the real job.
+  memo filename/.code={\def\mmz@memo@filename##1{#1}},
+  % Default: We store the externalized files in the same folder, because we
+  % don't know if we can write elsewhere.
+  memo filename={\jobname.#1.memo},
+  % System call for embedded *La*TeX compilations. The engine (pdftex, xetex
+  % etc.) is chosen automatically.
+  latex system call/.initial={\mmz@latex@binary\space
+    -halt-on-error
+    -interaction=batchmode
+    \mmz@valueof{latex system call options}\space
+    -jobname "\detokenize\expandafter{\mmz@syscall@jobname}"
+    "\detokenize\expandafter{\mmz@syscall@commands}"},
+  % Additional options for the LaTeX system call
+  latex system call options/.initial={},
+  % Enable (default) / disable memoization:
+  enable/.code=\AfterPreamble{\mmz@activetrue},
+  disable/.code=\AfterPreamble{\mmz@activefalse},
+  enable,
+  % When we say "readonly" (or "readonly=true"), we will use whatever is
+  % already memoized, but not memoize any new stuff.
+  readonly/.is if=mmz@readonly,
+}
+
+% manual memoization: \memoize[memoization key]{the code to be memoized}.  In a
+% manual invocation, the optional argument should usually be unnecessary.  So,
+% #1 is the memoization key (what md5sum is computed from), and #2 is the code
+% to be executed for memoization.
+\let\memoize\relax
+\newcommand\memoize[2][]{%
+  \mmz@leavevmode
+  \ifmmz@active
+    \ifstrempty{#1}{%
+      \edef\mmz@ID{\expandafter\mmz@mdfivesum\expandafter{\detokenize{#2}}}%
+    }{%
+      \edef\mmz@ID{\expandafter\mmz@mdfivesum\expandafter{\detokenize{#1}}}%
+    }%
+    \mmz@ifmemoized{%
+      \let\mmz@next\mmz@use@memoized
+    }{%
+      \ifmmz@readonly
+        \let\mmz@next\memoize@compile
+      \else
+        \let\mmz@next\mmz@memoize
+      \fi
+    }%
+  \else
+    \let\mmz@next\memoize@compile
+  \fi
+  \mmz@next{#2}%
+  % In all cases, we are left with \mmz@box.
+  \box\mmz@box
+}% todo: flexibility, optimization
+
+%%%%%%%%%%%%%%%%%%%% The core
+
+\def\memoize@compile#1{%
+  % We compile in a \hbox, so that the situation is the same as when
+  % memoization is active --- both in terms of the typeset output and the
+  % content of registers etc.
+  \setbox\mmz@box=\hbox{\mmz@activefalse#1}%
+}
+
+% \mmz@ifmemoized{true code}{false code}
+% Is there memoized data for \mmz@ID? If yes, leave it in various macros (see
+% \memoized) and execute {true code}. If no, \mmz@filename will be undefined
+% and we run {false code}.
+\def\mmz@ifmemoized{%
+  % If inputing <id>.memo sets the filename, we found it!
+  \undef\mmz@filename
+  \@input{\mmz@memo@filename\mmz@ID}%
+  \ifdef\mmz@filename{%
+    % Well ... if that file exists.
+    \IfFileExists{\mmz@filename}{%
+      % Yes! Unless ...
+      \edef\mmz@marshal{\noexpand\ifstrequal{\mmz@id}{\mmz@ID}}%
+      \mmz@marshal{}{%
+        \PackageWarning{memoize}{Something is wrong here. I found
+          data for "\mmz@id" in file "\mmz@memo@filename\mmz@ID"}%
+      }%
+      % Yes:
+      \@firstoftwo
+      % No:
+    }{\@secondoftwo}}{\@secondoftwo}%
+}
+
+% We use the "graphics" package, so we don't have to deal with various TeX
+% engines.
+\def\mmz@use@memoized#1{%
+  \PackageInfo{memoize}{Using \mmz@id\space}%
+  \setbox\mmz@box=\hbox{\lower\mmz@dp\hbox{\includegraphics{\mmz@filename}}}%
+}
+
+% Memoize and leave the box in \mmz@box.
+\def\mmz@memoize#1{%
+  % If there was no memoized data:
+  \PackageInfo{memoize}{Memoizing \mmz@ID\space}%
+  % Typeset the code.
+  \mmz@activefalse
+  \setbox\mmz@box=\hbox{#1}% todo: smuggle \mmz@toks and \mmz@global@toks!
+  \mmz@activetrue
+  {%
+    % Debug PDF: \pdfcompresslevel=0 \pdfobjcompresslevel=0
+    \mmz@prepare@memo@page
+    % Use the original \shipout here, otherwise we can get in trouble with other
+    % packages like pdfpages.  Let's just hope that (i) some other package
+    % doesn't count shipouts as well (then, they are in trouble), or (ii) doesn't
+    % use the primitive \shioput (then, we are in trouble).
+    \global\advance\mmz@realpage1
+    \mmz@primitive\shipout\copy\mmz@box
+  }%
+  % Store memoized data.
+  \immediate\openout\mmz@memo@out=\mmz@memo@filename\mmz@ID
+  \immediate\write\mmz@memo@out{%
+    \noexpand\memoized{\mmz@ID}{\memoize@output@pdf}{\the\mmz@realpage}{\the\dp\mmz@box}\@percentchar
+    % todo: an option to write out the memoized code, for debugging or manual
+    % inspection.
+  }%
+  \immediate\closeout\mmz@memo@out
+  \immediate\write\mmz@main@out{\noexpand\justmemoized{\mmz@ID}\@percentchar}%
+}
+
+%%%%%%%%%%%%%%%%%%%%% Commands used in generated files
+
+% A .memo file consists of a series of calls to \memoized containing, for each
+% md5 id, the memoized information and the link to the correct page of the PDF.
+\def\memoized#1#2#3#4{%
+  % todo: If there's several \memoized calls with the same md5 id, find the
+  % right one --- dependencies!
+  \def\mmz@id{#1}%
+  \def\mmz@filename{#2}%
+  \def\mmz@page{#3}%
+  \def\mmz@dp{#4}%
+}
+
+% Used when processing .mmz to split the resulting big PDF into individual
+% externalized pictures.
+\def\justmemoizedto#1{\def\mmz@justmemoizedto{#1}}
+\def\justmemoized#1{%
+  \def\mmz@ID{#1}%
+  \undef\mmz@filename
+  \@input{\mmz@memo@filename\mmz@ID}%
+  \ifdef\mmz@filename{%
+    % Split the relevant page off to the memo pdf.
+    \edef\mmz@syscall@jobname{\mmz@memo@filename{#1}}%
+    % todo: test: \mmz@filename matches \mmz@justmemoizedto?
+    \edef\mmz@marshal{%
+      \noexpand\justmemoized@prepare@syscall@commands{\mmz@filename}{\mmz@page}%
+    }\mmz@marshal
+    \immediate\write18{\mmz@valueof{latex system call}}%
+    % Relink the memo .memo from the previous "\jobname pdf" to the memo pdf
+    % (\mmz@memo@filename{#1}.pdf).
+    \IfFileExists{\mmz@memo@filename{#1}}{%
+      \immediate\openout\mmz@memo@out=\mmz@syscall@jobname
+      \immediate\write\mmz@memo@out{%
+        \noexpand\memoized{#1}{\mmz@syscall@jobname.pdf}{1}{\mmz@dp}\@percentchar}%
+      \immediate\closeout\mmz@memo@out
+    }{}%
+  }{\justmemoized@error}%
+}
+\def\justmemoized@prepare@syscall@commands#1#2{%
+  % By using pdfpages, we don't care about the engine we use.  And we're bound
+  % to LaTeX anyway ...
+  \def\mmz@syscall@commands{%
+    \documentclass{minimal}
+    \nofiles
+    \usepackage{pdfpages}
+    \begin{document}
+    \includepdf[pages=#2,fitpaper]{#1}
+    \end{document}
+  }%
+}%
+
+\def\justmemoized@error{%
+  \PackageWarning{memoize}{Cannot find \mmz@memo@filename\mmz@ID,
+    which I supposedly generated in the previous run, or
+    \mmz@memo@filename\mmz@ID.pdf, which I should have created just now.}%
+}
+
+% Split.
+\AtEndPreamble{\@input{\mmz@valueof{mmz filename}}}
+
+% Hijack TeX's \shipout. Do it at the beginning of the document, in case some
+% other package mucked with it as well.
+\def\memoizePatchShipout{%
+  \let\mmz@orig@shipout\shipout
+  \def\shipout{%
+    \global\advance\mmz@realpage1
+    \mmz@orig@shipout
+  }%
+}
+% todo: For funky situation: an option to not do it, and instruct the user to
+% use \memoizePatchShipout in an appropriate place instead.
+\AtBeginDocument{\memoizePatchShipout}
+% We only need this to count pages. Can it be done otherwise?
+% Actually, this could be used to supress normal output as well.
+
+% Open and close .mmz file.
+\AtBeginDocument{%
+  \immediate\openout\mmz@main@out=\mmz@valueof{mmz filename}
+  \immediate\write\mmz@main@out{%
+    \noexpand\justmemoizedto{\memoize@output@pdf}\@percentchar}%
+}
+\AtEndDocument{\immediate\closeout\mmz@main@out}
+
+
+%%%% Automatically memoizing commands and environments
+% todo: a lighter approach (without xparse) for easy stuff
+
+\def\mmz@orig#1{mmz@orig@\string#1}
+\def\mmz@repl#1{mmz@repl@\string#1}
+\def\mmz@args#1{mmz@args@\string#1}
+
+% Commands:
+\def\memoizeNewCommandHandler#1#2#3{%
+  \expandafter\NewDocumentCommand\csname\mmz@repl{#1}\endcsname{#2}{%
+    \edef\mmz@temp{#3}%
+    \edef\mmz@marshal{%
+      \noexpand\memoize
+        [{\noexpand#1\expandonce{\mmz@temp}}]%
+        {\expandonce{\csname\mmz@orig{#1}\endcsname}\expandonce{\mmz@temp}}%
+    }\mmz@marshal
+  }%
+}
+\def\memoizeInstallCommandHandler#1{%
+  \cslet{\mmz@orig{#1}}#1%
+  \letcs#1{\mmz@repl{#1}}}
+\def\memoizeUninstallCommandHandler#1{%
+  \letcs#1{\mmz@orig{#1}}}
+
+% Environments:
+% \item todo: environment hooks (etoolbox)
+\DeclareRobustCommand\mmz@begin{%
+  \ifmmz@active
+    \expandafter\mmz@begin@active
+  \else
+    \expandafter\mmz@orig@begin
+  \fi
+}
+\def\mmz@begin@active#1{%
+  \ifnum0\csuse{\mmz@env{#1}}=1
+    \expandafter\mmz@begin@active@b
+  \else
+    \expandafter\mmz@orig@begin
+  \fi
+  {#1}%
+}
+\def\mmz@begin@active@a#1{%
+  \def\mmz@marshal{\mmz@begin@active@b{#1}}%
+  \Collect@Body\mmz@marshal
+}
+\def\mmz@begin@active@b#1#2\end#3{%
+  \memoize{\begin{#1}#2\end{#1}}%
+}
+\AtBeginDocument{%
+  \let\mmz@orig@begin\begin
+  \let\begin\mmz@begin
+}
+\def\mmz@env#1{mmz@env@#1}
+\def\memoizeEnableEnvironment#1{\csdef{\mmz@env{#1}}{1}}
+\def\memoizeDisableEnvironment#1{\csdef{\mmz@env{#1}}{0}}
+
+% Predefined command handlers:
+\memoizeNewCommandHandler\tikz{O{} m}{%
+  [\unexpanded{#1}]{\unexpanded{#2}}}
+\memoizeNewCommandHandler\Forest{s D(){} m}{%
+  \IfBooleanTF{#1}{*}{}(\unexpanded{#2}){\unexpanded{#3}}}
+% idea: preinstall only env handlers, so that the user has a easy choice to
+% "enable" or "disable" externalization
+
+% Install handlers:
+\memoizeInstallCommandHandler\tikz
+\memoizeEnableEnvironment{tikzpicture}
+\memoizeInstallCommandHandler\Forest
+\memoizeEnableEnvironment{forest}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "test1"
+%%% End:
