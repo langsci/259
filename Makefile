@@ -389,6 +389,9 @@ clean:
 cleanfor: # These files are precious, as it takes a long time to produce them all.
 	rm -f *.for *.for.tmp chapters/*.for chapters/*.for.tmp hpsg-handbook.for.dir/*
 
+cleanmemo:
+	rm -f chapters/*.mmz chapters/hpsg-handbook.memo.dir/*
+
 realclean: clean
 	rm -f *.dvi *.ps *.pdf chapters/*.pdf
 
