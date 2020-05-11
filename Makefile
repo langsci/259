@@ -46,7 +46,7 @@ chop: stable.pdf
 #	bash chopchapters.sh `grep "mainmatter starts" main.log|egrep -o "[0-9]*"`
 
 
-% make all (in chapters) on texlive 2019 to create the trees = 32:43
+# make all (in chapters) on texlive 2019 to create the trees = 32:43
 
 
 trees:

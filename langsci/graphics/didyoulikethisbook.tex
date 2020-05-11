@@ -1,5 +1,6 @@
 \thispagestyle{empty}
-\ifcsname tikz@library@external@loaded\endcsname\tikzexternaldisable\fi%Disable Externalisation if external library is loaded
+\begingroup % to properly restore the state of memoization (SZ)
+\memoizeset{disable}
 \pgfdeclarelayer{lspadvert_bg} % Please make sure to never use lspadvert_... PGF layers in any document
 \pgfsetlayers{lspadvert_bg,main}
 \begin{tikzpicture}[remember picture, overlay,bg/.style={outer sep=0}]
@@ -14,4 +15,4 @@
 	\node [above right = 48.8mm and -.1mm of lspadvert_bg1.south west, rectangle, fill=white, minimum size=17pt] (lspadvert_square) {};
 	\path let \p1 = (lspadvert_square.north east), \p2 = (lspadvert_covertitle.west) in node at (\x2,\y1) (lspadvert_seriesinfo) [font=\fontsize{17pt}{7.5mm}\selectfont, right, align=flush left, text width=90mm, anchor=north west] {\color{black}\lsCoverSeriesFont{\nohyphens{Please help us in providing free access to linguistic research worldwide. Visit \url{http://www.langsci-press.org/donate} to provide financial support or register as a community proofreader or typesetter \mbox{at \url{http://www.langsci-press.org/register}.}}\par}};
 \end{tikzpicture}%
-\ifcsname tikz@library@external@loaded\endcsname\tikzexternalenable\fi
+\endgroup

@@ -832,7 +832,8 @@
 \pgfsetlayers{lspcls_bg,main}  % Order the background layer behind the main layer of TikZ.
 
 \newcommand{\lsFrontPage}{% Front page
-  \ifcsname tikz@library@external@loaded\endcsname\tikzexternaldisable\fi
+  \begingroup % to properly restore the state of memoization (SZ)
+  \memoizeset{disable}
   \pgfdeclarelayer{lspcls_bg}    % Create a background layer that serves as the canvas for the coloured rectangles.
   \pgfsetlayers{lspcls_bg,main}  % Order the background layer behind the main layer of TikZ.
   \thispagestyle{empty}
@@ -854,11 +855,12 @@
   \iflsOpenReview \node [rotate=45,align=center,scale=1.5,color=white,text opacity=.75] at (current page.center) {\lsCoverTitleFont Open Review\\Version of \today, \currenttime}; \fi
 %   \iflsUndecapitalize \node [rotate=45,scale=1.5,color=white,text opacity=.75] at (current page.center) {\lsCoverTitleFont Undecapitalized}; \fi
 \end{tikzpicture}
-\ifcsname tikz@library@external@loaded\endcsname\tikzexternalenable\fi
+\endgroup
 }
 
 \newcommand{\lsSchmutztitel}{% Schmutztitel
-  \ifcsname tikz@library@external@loaded\endcsname\tikzexternaldisable\fi
+  \begingroup % to properly restore the state of memoization (SZ)
+  \memoizeset{disable}
   \pgfdeclarelayer{lspcls_bg}    % Create a background layer that serves as the canvas for the coloured rectangles.
   \pgfsetlayers{lspcls_bg,main}  % Order the background layer behind the main layer of TikZ.
   \thispagestyle{empty}
@@ -877,7 +879,7 @@
   \podfrontcovertoptext[\lsSeriesColor]{140mm}{51pt}
   \node [ above left = 10mm and 7.5mm of CoverColouredRectangleFront.south east] {\color{\lsSeriesColor}\includepublisherlogo}; % Print the Language Science press Logo
 \end{tikzpicture}
-\ifcsname tikz@library@external@loaded\endcsname\tikzexternalenable\fi
+\endgroup
 }
 
 %\usepackage{pdfpages}
@@ -886,7 +888,8 @@
 }
 
 \newcommand{\lsBackPage}{%
-  \ifcsname tikz@library@external@loaded\endcsname\tikzexternaldisable\fi
+  \begingroup % to properly restore the state of memoization (SZ)
+  \memoizeset{disable}
   \pgfdeclarelayer{lspcls_bg}    % Create a background layer that serves as the canvas for the coloured rectangles.
   \pgfsetlayers{lspcls_bg,main}  % Order the background layer behind the main layer of TikZ.
   \pagestyle{empty}
@@ -905,7 +908,7 @@
   \end{pgfonlayer}
   \podbackcover{137mm}
   \end{tikzpicture}
-  \ifcsname tikz@library@external@loaded\endcsname\tikzexternalenable\fi
+  \endgroup
   }
 
 
@@ -1580,10 +1583,11 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 \AtBeginDocument{% 
 % FK 16-Jan-19: It is unclear why this was set. It conflicts with TikZ externalisation.
 % SZ 28-Apr-20: Fixed in another way, by "\tikzifexternalizing".
+% SZ 11-May-20: Switched to memoize, the conflict should go away.
 	\makeindex
 	\newindex{lan}{ldx}{lnd}{\lsLanguageIndexTitle}
 	\newindex{sbj}{sdx}{snd}{\lsSubjectIndexTitle}
-        \tikzifexternalizing{\expandafter\newindex}{\expandafter\renewindex}{default}{adx}{and}{\lsNameIndexTitle} %biblatex can only deal with the default index
+        \renewindex{default}{adx}{and}{\lsNameIndexTitle} %biblatex can only deal with the default index
 % 	\newindex{wrd}{wdx}{wnd}{Expression index}
 % 	\newindex{rwrd}{rdx}{rnd}{Reverse expression index}
 }

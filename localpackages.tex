@@ -21,18 +21,14 @@
 
 %\usepackage{./styles/forest/forest}
 \usepackage{./langsci/styles/langsci-forest-setup}
-% will be overwritten in chapters when compiled standalone:
-\tikzset{external/prefix={chapters/hpsg-handbook.for.dir/}}
-% all the forest figures
-\forestset{external/master=hpsg-handbook}
-% will be overwritten in chapters when compiled standalone:
-\forestset{external/master dir={chapters/}}
 
-%\tikzset{external/figure name={hpsg-handbook-tikz}}
-
-% Does not work when loaded here. Has to be loaded in main and other compile files
-%\usepackage{./styles/forest-externalizetikz}
-
+\providecommand\memoize[2][]{{#2}}
+\providecommand\memoizeset[1][]{}
+\usepackage{memoize} % this is safe to comment out because of the stubs defined above
+\memoizeset{
+  mmz filename=chapters/hpsg-handbook.mmz,
+  memo filename=chapters/\jobname.memo.dir/#1.memo,
+}
 
 \usepackage{tikz-cd}
 
@@ -328,4 +324,5 @@
 \let\rightangle\rangle
 
 %\newcommand{\pslabel}[1]{}
+
 
