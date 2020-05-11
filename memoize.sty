@@ -153,7 +153,6 @@
 \def\mmz@ifmemoized{%
   % If inputing <id>.memo sets the filename, we found it!
   \undef\mmz@filename
-  \typeout{DEBUG: \mmz@ID, \meaning\mmz@memo@filename, \mmz@memo@filename\mmz@ID}%
   \@input{\mmz@memo@filename\mmz@ID}%
   \ifdef\mmz@filename{%
     % Well ... if that file exists.
@@ -325,18 +324,20 @@
 }
 \def\mmz@begin@active#1{%
   \ifnum0\csuse{\mmz@env{#1}}=1
-    \expandafter\mmz@begin@active@b
+    \expandafter\mmz@begin@active@a
   \else
     \expandafter\mmz@orig@begin
   \fi
   {#1}%
 }
 \def\mmz@begin@active@a#1{%
-  \def\mmz@marshal{\mmz@begin@active@b{#1}}%
+  \edef\mmz@marshal{\noexpand\mmz@begin@active@b{\@currenvir}{#1}}%
+  \def\@currenvir{#1}%
   \Collect@Body\mmz@marshal
 }
-\def\mmz@begin@active@b#1#2\end#3{%
-  \memoize{\begin{#1}#2\end{#1}}%
+\def\mmz@begin@active@b#1#2#3\end#4{%
+  \memoize{\begin{#2}#3\end{#2}}%
+  \def\@currenvir{#1}%
 }
 \AtBeginDocument{%
   \let\mmz@orig@begin\begin
@@ -359,7 +360,6 @@
 \memoizeEnableEnvironment{tikzpicture}
 \memoizeInstallCommandHandler\Forest
 \memoizeEnableEnvironment{forest}
-
 
 %%% Local Variables:
 %%% mode: latex
