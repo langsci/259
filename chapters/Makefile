@@ -37,6 +37,9 @@ git-add:
 cleanfor: # These files are precious, as it takes a long time to produce them all.
 	rm -f *.for *.for.tmp hpsg-handbook.for.dir/*
 
+cleanmemo:
+	rm -f *.mmz hpsg-handbook.memo.dir/*
+
 brutal-clean: realclean cleanfor
 
 
