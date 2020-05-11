@@ -37,7 +37,7 @@ git-add:
 cleanmemo:
 	rm -f hpsg-handbook.mmz hpsg-handbook.memo.dir/*
 
-brutal-clean: realclean cleanfor
+brutal-clean: realclean cleanmemo
 
 
 realclean: clean

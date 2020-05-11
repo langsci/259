@@ -387,15 +387,12 @@ clean:
 	chapter-pdfs/* cuts.txt
 
 cleanmemo:
-	rm -f chapters/hpsg-handbook.mmz chapters/hpsg-handbook.memo.dir/*
-
-cleanmemo:
 	rm -f chapters/*.mmz chapters/hpsg-handbook.memo.dir/*
 
 realclean: clean
 	rm -f *.dvi *.ps *.pdf chapters/*.pdf
 
-brutal-clean: realclean cleanfor
+brutal-clean: realclean cleanmemo
 
 chapterlist:
 	grep chapter main.toc|sed "s/.*numberline {[0-9]\+}\(.*\).newline.*/\\1/"
