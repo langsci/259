@@ -33,6 +33,10 @@ main.pdf: $(SOURCE)
 	makeindex -o main.snd main.sdx 
 	xelatex -shell-escape main
 
+trees:
+	xelatex main.tex
+	memoize-split.py main.mmz
+
 stable.pdf: main.pdf
 	cp main.pdf stable.pdf
 	cp collection_tmp.bib chapters/collection.bib
@@ -72,9 +76,10 @@ prepublish-commit: prepublish-pdfs
 	git push -u origin
 
 
-forest-commit:
-	git add chapters/hpsg-handbook.for.dir/*.pdf
-	git commit -m "forest trees" chapters/hpsg-handbook.for.dir/*.pdf chapters/hpsg-handbook.for
+memo-commit:
+	# add all PDFs and all memo|s.
+	git add -A chapters/hpsg-handbook.memo.dir/*.pdf chapters/hpsg-handbook.memo.dir/*.memo
+	git commit -a -m "momoized figures" 
 	git push -u origin
 
 FINALIZED= chapters/evolution.tex chapters/lexicon.tex chapters/case.tex chapters/idioms.tex
