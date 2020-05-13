@@ -14,8 +14,7 @@ localpackages.tex
 
 You may have to add the searchpath /langci to your TEXINPUT:
 
-setenv TEXINPUTS ./langsci//:${TEXINPUTS}
-
+setenv TEXINPUTS ${TEXINPUTS}:./langsci/:
 
 Please compile check-hpsg.tex after commenting in your chapter and maybe chapters you cite.
 
