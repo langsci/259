@@ -33,6 +33,10 @@ main.pdf: $(SOURCE)
 	makeindex -o main.snd main.sdx 
 	xelatex -shell-escape main
 
+trees:
+	xelatex main.tex
+	memoize-split.py main.mmz
+
 stable.pdf: main.pdf
 	cp main.pdf stable.pdf
 	cp collection_tmp.bib chapters/collection.bib
@@ -46,7 +50,7 @@ chop: stable.pdf
 #	bash chopchapters.sh `grep "mainmatter starts" main.log|egrep -o "[0-9]*"`
 
 
-% make all (in chapters) on texlive 2019 to create the trees = 32:43
+# make all (in chapters) on texlive 2019 to create the trees = 32:43
 
 
 trees:
@@ -72,10 +76,14 @@ prepublish-commit: prepublish-pdfs
 	git push -u origin
 
 
-forest-commit:
-	git add chapters/hpsg-handbook.for.dir/*.pdf
-	git commit -m "forest trees" chapters/hpsg-handbook.for.dir/*.pdf chapters/hpsg-handbook.for
-	git push -u origin
+memo-commit:
+	# add all PDFs and all memo|s.
+	git add -A chapters/hpsg-handbook.memo.dir/*.pdf chapters/hpsg-handbook.memo.dir/*.memo
+	# -a option deltes files that disappeared
+	git commit -a -m "momoized figures" 
+
+# add this here and push everything that was staged or do it via gui
+#	git push -u origin
 
 FINALIZED= chapters/evolution.tex chapters/lexicon.tex chapters/case.tex chapters/idioms.tex
 
@@ -386,13 +394,13 @@ clean:
 	langsci/*/*.aux langsci/*/*~ langsci/*/*.bak langsci/*/*.backup \
 	chapter-pdfs/* cuts.txt
 
-cleanfor: # These files are precious, as it takes a long time to produce them all.
-	rm -f *.for *.for.tmp chapters/*.for chapters/*.for.tmp chapters/hpsg-handbook.for.dir/*
+cleanmemo:
+	rm -f chapters/*.mmz chapters/hpsg-handbook.memo.dir/*
 
 realclean: clean
 	rm -f *.dvi *.ps *.pdf chapters/*.pdf
 
-brutal-clean: realclean cleanfor
+brutal-clean: realclean cleanmemo
 
 chapterlist:
 	grep chapter main.toc|sed "s/.*numberline {[0-9]\+}\(.*\).newline.*/\\1/"

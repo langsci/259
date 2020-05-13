@@ -1,7 +1,15 @@
 # hpsg-handbook
 The very cool open access handbook for HPSG that will end all handbook attempts.
 
-Tested with texlive 2019 (ghostscript 9.27) and texlive 2020. If externalization of tikz figures causes problems, comment out the command \tikzexternalize by adding a % before it.
+
+Tested with texlive 2019 (ghostscript 9.27) and texlive 2020. 
+
+The project uses memoize, a new package for externalizing figures. Since the book is in the hot
+phase now, we decided not to maintain styles and chapters/styles any longer as two identical
+copies. We use a symbolic link now. If you use Windows or any other operating system that does not
+deal with symbolic links, please copy all files from styles to chapter/styles manually.
+
+If you run into problems with memoize, please uncomment the line \usepackage{./styles/memoize} in localpackages.tex
 
 Please compile check-hpsg.tex after commenting in your chapter and maybe chapters you cite.
 
@@ -15,6 +23,8 @@ xelatex order; biber order
 You can compile the whole book by calling:
 
 xelatex main; biber main
+
+The command
 
 make main.pdf
 
@@ -35,7 +45,6 @@ font_mem_bot=4000000<br>
 Afterwards, call texhash to update the LaTeX format files.
 ------------------------------- 
 
-We are working on externalization of the graphics. With externalization it my work again. Sorry for this. You are part of a huge project. =:-)
 
 
 
