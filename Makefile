@@ -79,6 +79,7 @@ prepublish-commit: prepublish-pdfs
 memo-commit:
 	# add all PDFs and all memo|s.
 	git add -A chapters/hpsg-handbook.memo.dir/*.pdf chapters/hpsg-handbook.memo.dir/*.memo
+	# -a option deltes files that disappeared
 	git commit -a -m "momoized figures" 
 	git push -u origin
 

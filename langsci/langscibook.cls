@@ -376,9 +376,10 @@
  \node [  below right = 192.5mm and 97.5mm of CoverColouredRectangleBack.north west,
           text width=4cm] {%
     \colorbox{white}{
-      \begin{pspicture}(0,0)(4.1,1in)
-        \psbarcode[transx=.4,transy=.3]{\lsISBNcover}{includetext height=.7}{isbn}%
-      \end{pspicture}
+      \EANisbn
+      %\begin{pspicture}(0,0)(4.1,1in)
+      %\psbarcode[transx=.4,transy=.3]{\lsISBNcover}{includetext height=.7}{isbn}%
+      %\end{pspicture}
       }
     };
 }
@@ -809,7 +810,8 @@
 %    Cover
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage{pst-barcode}          % for generating bar codes
+%\usepackage{pst-barcode}          % for generating bar codes
+%\usepackage{ean13isbn}  % loaded in localpackages with the correct ISBN as value
 \newcommand{\lsCoverFontColor}{white}
 \newcommand{\lsCoverBlockColor}{\lsSeriesColor}
 
