@@ -81,7 +81,9 @@ memo-commit:
 	git add -A chapters/hpsg-handbook.memo.dir/*.pdf chapters/hpsg-handbook.memo.dir/*.memo
 	# -a option deltes files that disappeared
 	git commit -a -m "momoized figures" 
-	git push -u origin
+
+# add this here and push everything that was staged or do it via gui
+#	git push -u origin
 
 FINALIZED= chapters/evolution.tex chapters/lexicon.tex chapters/case.tex chapters/idioms.tex
 
