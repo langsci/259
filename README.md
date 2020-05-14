@@ -12,9 +12,9 @@ deal with symbolic links, please copy all files from styles to chapter/styles ma
 If you run into problems with memoize, please uncomment the line \usepackage{./styles/memoize} in
 localpackages.tex
 
-You may have to add the searchpath /langci to your TEXINPUT:
+You have to add the searchpath "./langci//" to your TEXINPUT:
 
-setenv TEXINPUTS ${TEXINPUTS}:./langsci/:
+setenv TEXINPUTS ${TEXINPUTS}:./langsci//:
 
 Please compile check-hpsg.tex after commenting in your chapter and maybe chapters you cite.
 
@@ -59,3 +59,20 @@ This project exists thanks to <a href="https://github.com/langsci/hpsg-handbook/
 
 
 <!-- img src="https://opencollective.com/shields/contributors.svg?width=890" />
+
+
+
+
+## Externalization
+
+Externalization works by compiling the chapters or main.tex with the -shell-escape directive. A much fast way is to use a python script. To do this, you need to install python3 and a python module for manipulating PDFs:
+
+brew cask install python
+
+and you have to install the pdfrw module:
+
+python3 -m pip install pdfrw
+
+After having done this, you can call the script like this (assuming that you xelatexed main.tex once):
+
+python3 memomanager.py split main.mmz

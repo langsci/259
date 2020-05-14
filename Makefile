@@ -395,7 +395,7 @@ clean:
 	chapter-pdfs/* cuts.txt
 
 cleanmemo:
-	rm -f chapters/*.mmz chapters/hpsg-handbook.memo.dir/*
+	rm -f *.mmz chapters/*.mmz chapters/*.memo.dir/*
 
 realclean: clean
 	rm -f *.dvi *.ps *.pdf chapters/*.pdf
