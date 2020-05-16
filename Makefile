@@ -1,6 +1,6 @@
 # specify thh main file and all the files that you are including
 SOURCE=  main.tex $(wildcard local*.tex) $(wildcard chapters/*.tex) $(wildcard Bibliographies/*.bib) \
-langsci/langscibook.cls
+langscibook.cls langsci-unified.bbx langsci-forest-setup.sty
 
 # MacBook Pro 16" (2019) time make main.pdf  9:40 min  9:14 min                       554 sec
 #                                           16:40 min 16:24 min (ohne Turboboost)     984 sec
@@ -24,9 +24,9 @@ index:  main.snd
 
 
 main.pdf: $(SOURCE)
-	xelatex -no-pdf -shell-escape main
+	xelatex -shell-escape main
 	biber main
-	xelatex -no-pdf -shell-escape main
+	xelatex -shell-escape main
 	sed -i.backup s/.*\\emph.*// main.adx #remove titles which biblatex puts into the name index
 	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.sdx # ordering of references to footnotes
 	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.adx
@@ -40,7 +40,7 @@ main.pdf: $(SOURCE)
 
 trees:
 	xelatex main.tex
-	memoize-split.py main.mmz
+	python3 memomanager.py split main.mmz
 
 stable.pdf: main.pdf
 	cp main.pdf stable.pdf
@@ -402,10 +402,11 @@ clean:
 cleanmemo:
 	rm -f *.mmz chapters/*.mmz chapters/*.memo.dir/*
 
-realclean: clean
-	rm -f *.dvi *.ps *.pdf chapters/*.pdf
+# do not use this, we have to keep langsci's ccby.pdf
+#realclean: clean
+#	rm -f *.dvi *.ps *.pdf chapters/*.pdf
 
-brutal-clean: realclean cleanmemo
+brutal-clean: clean cleanmemo
 
 chapterlist:
 	grep chapter main.toc|sed "s/.*numberline {[0-9]\+}\(.*\).newline.*/\\1/"
