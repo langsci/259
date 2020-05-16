@@ -228,7 +228,7 @@ more general supertypes from which individual subclasses may inherit.
   \begin{avm}
     [\asort{externalised}
     ss & [l|cat|val|subj &  <NP:@1>]\\
-    morph-b  & <[ss|l|cat|val|comps & <NP\[\textit{acc}\]:@1,...>]>]
+    morph-b  & <[ss|l|cat|val|comps & <NP\[\type{acc}\]:@1,...>]>]
   \end{avm}
 }
 
@@ -239,7 +239,7 @@ more general supertypes from which individual subclasses may inherit.
     ph & @1 + \textit{bar}\\
     morph-b & <[\asort{trans-verb}
     ph & @1\\
-      ss|l & [cat|val|comps  <NP\[acc\]$_{@2}$> ~$\oplus$ @3]\\
+      ss|l & [cat|val|comps  <NP\[\type{acc}\]$_{@2}$> ~$\oplus$ @3]\\
       cont|nuc & @4[act & \textit{nom-obj}\\
       und & @2]]>\\
     ss|loc & [cat & [head & \textit{adj}\\
@@ -771,7 +771,7 @@ As a reaction to \citet{Matthews72}, new approaches to inflectional
 morphology were developed taking the notion of paradigms much more
 seriously. Theories, such as A-Morphous Morphology \citep{Anderson92}
 or Paradigm Function Morphology \citep{Stump01} have been classified
-into the Word-and-Paradigm (WP) category. Crucially, such models
+into the Word"=and"=Paradigm (WP) category. Crucially, such models
 locate inflectional meaning at the level of the word and rely on
 realisation rules that associate the word's inflectional properties
 with exponents that serve to express them. WP approaches contrast with
@@ -842,7 +842,7 @@ clusters.
 \subsubsection{Word-based approaches}
 
 \paragraph*{\citet{Krieger:Nerbonne:93}}
-As stated earlier, probably one of the first approaches to morphology
+As stated above, probably one of the first approach\-es to morphology
 in HPSG has been developed by \citet{Krieger:Nerbonne:93}. What they
 propose is essentially an instance of a WP model, since they use
 distributed disjunctions to directly represent entire paradigms,
@@ -984,31 +984,58 @@ constructions as given in Figure~\ref{fig:KoenigSwahili}.
 
 \begin{figure}[htb]
   \centering
+% \begin{forest}
+% [\emph{verb-infl}
+% 	[2ND-SLOT,draw
+%     	[\emph{1sg},name=1sg
+%     		[\emph{1sg-pos}]
+%     	]
+%     	[\emph{3pl}]
+%    ]
+% 	[1ST-SLOT,draw
+% 		[\emph{neg}
+% 			[\emph{1sg-neg},name=neg]
+% 			[\emph{¬1sg-neg}]
+% 		]
+% 		[\emph{pos}]
+% 	]
+% 	[3RD-SLOT,draw
+% 		[\emph{pst}
+% 			[\emph{pos-pst}]
+% 			[\emph{neg-pst}]
+% 		]
+% 		[\emph{fut}]
+% 	]
+% ]
+% \draw (1sg.south) to (neg.north);
+% \end{forest}
 \begin{forest}
-[\emph{verb-infl}
-	[2ND-SLOT,draw
-    	[\emph{1sg},name=1sg
-    		[\emph{1sg-pos}]
+type hierarchy
+[verb-infl
+	[2nd-slot,partition
+    	[1sg
+    		[1sg-pos]
+%                [,identify=!N] % The next leaf is identical.
     	]
-    	[\emph{3pl}]
+    	[3pl]
    ]
-	[1ST-SLOT,draw
-		[\emph{neg}
-			[\emph{1sg-neg},name=neg]
-			[\emph{¬1sg-neg}]
+	[1st-slot,partition
+		[neg
+			[1sg-neg, edge to=!r11]
+			[¬1sg-neg]
 		]
-		[\emph{pos}]
+		[pos]
 	]
-	[3RD-SLOT,draw
-		[\emph{pst}
-			[\emph{pos-pst}]
-			[\emph{neg-pst}]
+	[3rd-slot,partition
+		[pst
+			[pos-pst]
+			[neg-pst]
 		]
-		[\emph{fut}]
+		[fut]
 	]
 ]
-\draw (1sg.south) to (neg.north);
 \end{forest}
+
   \caption{Koenig's (\citeyear{Koenig99}) constructional approach to Swahili position
     classes}\label{fig:KoenigSwahili}
 \end{figure}
@@ -1150,9 +1177,10 @@ prior expansion of the type underspecified lexicon in order to give
 sound results under restriction, a point made in
 \citet{crysmann_b03book}.
 
-\bigskip\noindent To summarise, several WP proposals have been made to
+%\bigskip\noindent 
+To summarise, several WP proposals have been made to
 replace the IP model tacitly assumed by many HPSG syntacticians, which
-merely attaches some morpho-phonological function to a lexical rule.
+merely attaches some morpho"=phonological function to a lexical rule.
 Bonami \citep{Bonami08f,Bonami06,Bonami07e,Bonami11f} proposed to
 directly plug-in a credible external framework, namely Paradigm
 Function Morphology \citep{Stump01}, \citet{Koenig99} suggested a
@@ -1580,7 +1608,7 @@ vs. absence of the prefixal part (\textit{ge-}).
   \[mud & \{\[tma & ppp\]\}\\
     mph & \< ..., \[pc & 1\] \>\]
 \end{avm}}
-	[PREF,draw
+	[pref,partition
 		[{\begin{avm}
 			\[mph & \< \[ph & ge\\pc & -1\], \[ ~ \]\>\]
 		\end{avm}}]
@@ -1588,7 +1616,7 @@ vs. absence of the prefixal part (\textit{ge-}).
 			\[mph & \< \[ ~ \] \> \]
 		\end{avm}}]
 	]
-	[SUFF,draw
+	[suff,partition
 		[{\begin{avm}
             \[mph & \<..., \[ph & t\]\>\]
           \end{avm}}]
@@ -2059,7 +2087,7 @@ in Figure \ref{fig:Nyanja}.
 \scalebox{.8}{
 \begin{forest}for tree={l=2cm}
 [\emph{realisation-rule}
-	[MORPHOTACTICS,draw, name=morph
+	[morphotactics,partition, name=morph
 		[{\begin{avm}
 			\[
 			mud & \{\normalfont\textit{agr} \}\\
@@ -2075,8 +2103,8 @@ in Figure \ref{fig:Nyanja}.
 			mph & \< \[pc & -1\]\>\]
 		\end{avm}}, name=2, tier=word]
 	]
-	[EXPONENCE,draw
-		[QUAL,draw, name=qual
+	[exponence,partition
+		[qual,partition, name=qual
 			[{\begin{avm}
 				\[mud & \{ \[\normalfont\textit{agr}\\cl & 7\]\}\\
 				mph & \< ... \[ph & \<\normalfont ca\>\\
@@ -2085,7 +2113,7 @@ in Figure \ref{fig:Nyanja}.
 			\end{avm}}, tier=word]
 			[\dots]
 		]
-		[CONC,draw, name=conc
+		[conc,partition, name=conc
 			[{\begin{avm}
 				\[mud & \{ \[\normalfont\textit{agr}\\cl & 7\]\}\\
 				mph & \< ... \[ph & \<\normalfont ci\>\\
@@ -2304,11 +2332,11 @@ mud & \@1 set\\
 ms & \@1 $~\cup$ set\\
 mph &set\]
 \end{avm}}
-	[MORPHOTACTICS,draw
+	[morphotactics,partition
 		[{\rnode{a}{\rr{\normalfont\textit{rel}}{\[pc & $4$\]}}}]
 		[{\rnode{b}{\rrr{\normalfont\textit{rel}}{\normalfont \textit{aff, def, ...}}{\[pc & $7$\]}}}]
 	]
-	[EXPONENCE,draw
+	[exponence,partition
 		[{\rnode{X1}{\rr{ \[\asort{rel} per & {3}\\num & {sg}\\cl &
 		{ki-vi}\]}{\[ph & <\normalfont cho> \]}}}]
 		[{\rnode{X2}{\rr{ \[\asort{rel} per & {3}\\num & {pl}\\cl &
@@ -2736,7 +2764,7 @@ must be evaluated twice.
   \smaller\smaller
 \begin{forest}
 [\emph{realisation-rule}
-	[SHAPE,draw
+	[shape,partition
 		[{\begin{avm}
 			\[ mph & \{\[ph &  \<\normalfont ni\>\]\}\\
 			mud & \{\[per & 1\\ num & sg\]\}
@@ -2760,7 +2788,7 @@ must be evaluated twice.
 			\end{avm}}, name=b, no edge, tier=word, l=3cm]
 		]
 	]
-	[POSITION,draw
+	[position,partition
 		[{\begin{avm}
 			\[ mph & \{\[pc & 2\]\}\\
 			mud & \{subj\}
