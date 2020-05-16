@@ -12,10 +12,6 @@ deal with symbolic links, please copy all files from styles to chapter/styles ma
 If you run into problems with memoize, please uncomment the line \usepackage{./styles/memoize} in
 localpackages.tex
 
-You have to add the searchpath "./langci//" to your TEXINPUT:
-
-setenv TEXINPUTS ${TEXINPUTS}:./langsci//:
-
 Please compile check-hpsg.tex after commenting in your chapter and maybe chapters you cite.
 
 xelatex check-hpsg.tex; biber check-hpsg

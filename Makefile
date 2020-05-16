@@ -6,6 +6,11 @@ langsci/langscibook.cls
 #                                           16:40 min 16:24 min (ohne Turboboost)     984 sec
 # MacBook Pro 15" (2016) time make main.pdf 11:23 min                                 683 sec
 
+# MacBook Pro 16" time biber main                             0:39.16/0:39.56 min
+#                 \rm -rf `biber --cache`; time biber main    0:45.65 min
+# 0:38.45 0:40.55
+# removed 147 non-referenced papers out of 1582
+
 
 # specify your main target here:
 pdf:  main.bbl main.pdf  #by the time main.pdf, bib assures there is a newer aux file
