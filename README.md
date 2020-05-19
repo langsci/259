@@ -77,6 +77,8 @@ and you have to install the pdfrw module:
 
 python3 -m pip install pdfrw
 
+python3 -m pip install pyparsing
+
 After having done this, you can call the script like this (assuming that you xelatexed main.tex once):
 
-python3 memomanager.py split main.mmz
+python3 ./styles/memoize/memomanager.py split main.mmz

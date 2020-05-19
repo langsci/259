@@ -37,7 +37,7 @@
 %% ------------------------------------------------------------------------------
 \RequirePackage{xparse,array}
 \ProvidesExplPackage {langsci-avm}
-  {2020-03-11} {0.1.0-beta}
+  {2020-05-15} {0.2.0}
   {AVMs and feature structures in LaTeX3}
 \NewDocumentCommand{\avmtmp}{ O{} +m }
   {
@@ -69,13 +69,22 @@
     values .initial:n      = {\itshape},
     tags .code:n           = {\cs_set:Nn \__avm_font_tag: {#1}},
     tags .initial:n        = {\footnotesize},
+    apptovalues .code:n    = {\cs_set:Nn \__avm_deinit_second_column: {#1}},
+    apptovalues .initial:n = {\/},
     switch .code:n         = {\tl_set:Nn \__avm_mode_switch_character {#1}},
     switch .initial:n      = { ! },
     extraskip .dim_set:N   = \l__avm_extra_skip_dim,
     extraskip .initial:n   = {\smallskipamount},
     style .choice:,
     style / narrow .code:n = {\delimiterfactor=997\delimitershortfall5pt},
-    style / wide .code:n = {\delimiterfactor=1000\delimitershortfall0pt},
+  }
+
+\NewDocumentCommand{\avmdefinestyle}{ m m }
+  {
+    \keys_define:nn { avm }
+      {
+        style / #1 .code:n = { \keys_set:nn { avm } { #2 } }
+      }
   }
 
 \bool_new:N \l__avm_mode_bool
@@ -114,6 +123,7 @@
     \begin{tabular}{@{}
                     >{\__avm_init_first_column:}l
                     >{\__avm_init_second_column:}l
+                    <{\__avm_deinit_second_column:}
                     @{}}
   }
 \cs_new:Nn \__avm_module_end:
@@ -181,7 +191,8 @@
 \cs_new_protected:Npn \__avm_controls_type_starred:n #1
   {
     \bool_set_false:N \l__avm_in_first_column
-    \normalfont\__avm_font_type: #1\span\hspace*{-2\tabcolsep}
+    \normalfont\__avm_font_type: #1
+    \__avm_deinit_second_column:\span\hspace*{-2\tabcolsep}
     \peek_meaning_ignore_spaces:NTF \\ {} {\\}
   }
 \cs_new_protected:Npn \__avm_controls_punk:nn #1 #2
@@ -190,7 +201,8 @@
     \normalfont\c_group_begin_token\__avm_font_attribute:#1%
     \c_group_end_token\hspace{2\tabcolsep}%
     \c_group_begin_token\__avm_font_type: #2\c_group_end_token%
-    \span\peek_meaning_ignore_spaces:NTF \\ {} {\\}
+    \__avm_deinit_second_column:\span\hspace*{-2\tabcolsep}
+    \peek_meaning_ignore_spaces:NTF \\ {} {\\}
   }
 
 \cs_new:Nn \__avm_initialise_document_commands:

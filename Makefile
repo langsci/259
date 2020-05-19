@@ -60,7 +60,7 @@ chop: stable.pdf
 
 
 commit-stable: chop 
-	git commit -m "automatic creation of stable.pdf and chapters" stable.pdf chapters/collection.bib chapters-pdfs/
+	git commit -m "automatic creation of stable.pdf and chapters" chapters/collection.bib chapters-pdfs/
 	git push -u origin
 
 stable-commit: commit-stable
