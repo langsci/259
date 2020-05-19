@@ -9,8 +9,8 @@ phase now, we decided not to maintain styles and chapters/styles any longer as t
 copies. We use a symbolic link now. If you use Windows or any other operating system that does not
 deal with symbolic links, please copy all files from styles to chapter/styles manually.
 
-If you run into problems with memoize, please uncomment the line \usepackage{./styles/memoize} in
-localpackages.tex
+If you run into problems with memoize, please change the line `\usepackage{memoize}` in
+localpackages.tex to `\usepackage{nomemoize}`.
 
 Please compile check-hpsg.tex after commenting in your chapter and maybe chapters you cite.
 
