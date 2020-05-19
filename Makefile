@@ -40,7 +40,7 @@ main.pdf: $(SOURCE)
 
 trees:
 	xelatex main.tex
-	python3 memomanager.py split main.mmz
+	python3 styles/memoize/memomanager.py split main.mmz
 
 stable.pdf: main.pdf
 	cp main.pdf stable.pdf
@@ -57,10 +57,6 @@ chop: stable.pdf
 
 # make all (in chapters) on texlive 2019 to create the trees = 32:43
 
-
-trees:
-	xelatex -shell-escape main
-	xelatex -shell-escape trees
 
 
 commit-stable: chop 
@@ -329,9 +325,6 @@ main.snd: FORCE
 chapters:
 	(cd chapters; make all)
 
-externalization: clean chapters
-	xelatex -shell-escape main
-
 
 #create a png of the cover
 cover: FORCE
@@ -384,6 +377,11 @@ biosketch.tex: blurb.md
 
 biosketch.html: blurb.md
 	pandoc -f markdown -t html biosketch.md>biosketch.html
+
+
+memo-install:
+	\rm -rf styles/memoize
+	cp -pr ~/Documents/Dienstlich/Projekte/memoize styles/
 
 #housekeeping	
 clean:
