@@ -11,7 +11,7 @@
                 ,colorlinks, citecolor=brown 
                 ,draftmode
 % 	        ,coverus
-		  ]{./langsci/langscibook}                              
+		  ]{langscibook}                              
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % put all additional commands you need in the 
@@ -23,6 +23,24 @@
 \input{localhyphenation.tex}
 \input{localcommands.tex} 
 
+\renewcommand{\oneline}[1]{%
+  \begingroup
+    \sbox0{\ignorespaces#1\unskip}%
+    \noindent
+    \ifdim\wd0>\linewidth
+      \hbox to\linewidth{%
+        \hss\resizebox{\linewidth}{!}{\copy0 }\hss
+      }%
+    \else
+      \copy0 %
+    \fi
+  \endgroup
+}
+
+% just for this document:
+\usepackage{shortvrb}
+\MakeShortVerb{\|}
+\newcommand\meta[1]{$\left<\text{#1}\right>$}
 
 % udc stuff
 % \newcommand{\tnode}[2]{
@@ -107,10 +125,18 @@
   ]
 \end{forest}
 
-Stefan: The AVMs should come out north and the atomic types (case, vform, \ldots) too. You did this in the
-second example. This is nice. Can this be done in the type hierarchy style?
+Stefan: The AVMs should come out north and the atomic types (case, vform, \ldots) too. You did this in
+the second example. This is nice. Can this be done in the type hierarchy style?
 
-What does ``calign children'' do?
+Sašo: In the second example, it only seems it works at first sight. In fact, the alignment is not
+perfect, and the problem is the AVMs.  How are we on that front?
+
+Stefan: What does ``calign children'' do?
+
+Sašo: It sets ``calign primary child'' and ``calign secondary child'' at the same time.
+
+
+
 
 % New AVM package:\\
 % \begin{forest} type hierarchy
@@ -155,6 +181,8 @@ What does ``calign children'' do?
 
 Stefan: Both AVMs and types should come out north.
 
+Sašo: ditto.
+
 \newpage
 
 \oneline{%
@@ -185,7 +213,7 @@ Stefan: Both AVMs and types should come out north.
 
 \bigskip
 
-%\oneline{%
+\oneline{%
   \begin{forest} type hierarchy
     [univ-pas-bas-lci
       [univ-do-pas-lci
@@ -207,11 +235,14 @@ Stefan: Both AVMs and types should come out north.
       [ \ldots, fit=band % maybe?
       ]
     ]
-  \end{forest}
-%}
+  \end{forest}%
+}
 
-Stefan: Do you know what one can do about the black bars? The figure is scaled to fit the linewidth,
-so there should not be any black bars.
+Stefan: Do you know what one can do about the black bars? The figure is scaled
+to fit the linewidth, so there should not be any black bars.
+
+Sašo: well, they will be gone once the draft mode is off, but I know what you mean \dots\@ So I replaced
+|\leavevmode| in the definition of |\oneline| for |\noindent|.
 
 \bigskip
 
@@ -242,19 +273,22 @@ so there should not be any black bars.
 
 Stefan: Very nice. See my comments in the code. Did I get these right?
 
+Sašo: Yes!
+
 \begin{forest}
 type hierarchy
     [univ-pas-bas-lci
       [univ-do-pas-lci
-        [german-zuinf-pas-lci, edge to=!un  % draw an edge to the node up (!u) and the next siebling
-                                            % of this node (!un) = german-pas-lci
+        [german-zuinf-pas-lci, edge to=!un  % draw an edge to the "uncle": !un = first go "u"p, then to
+                                            % the "n"ext node = german-pas-lci ("!" means we will not
+                                            % give a node name but a nodewalk)
           [german-pers-zuinf-pas-lci]
         ]
       ]
       [german-pas-lci, calign with current, 
                        calign=first         % the center of the children is exactly below german-pas-lci
                                             % this is so since we have two daughters in the tree,
-                                            % but three in the hiarchy. There will be a further edge
+                                            % but three in the hierarchy. There will be a further edge
                                             % from german-zuinf-pas-lci.
         [german-long-pas-lci
           [german-long-pers-neutral-zuinf-pas-lci, l*=2, edge to=!r111, % draw an edge to the node (!r111),
@@ -268,12 +302,14 @@ type hierarchy
         [german-io-pas-lci ]	
       ]
       [ univ-imp-pas-lci ]
-      [ \ldots, fit=band % maybe?
+      [ \ldots, fit=band
       ]
     ]
 \end{forest}
 
 Stefan: It works even without ``calign with current'', doesn't it?
+
+Sašo: No, because of the dots on the right.
 
 \newpage
 
@@ -305,7 +341,7 @@ type hierarchy
     [subst
       [noun
         [c-noun]
-        [gerund, edge to=!un] % draw an edge to the node one up (u) and the next siebling (n), which
+        [gerund, edge to=!un] % draw an edge to the node one up (u) and the next sibling (n), which
                               % is "relational"
       ]
       [relational, calign children={1}{2}
@@ -318,6 +354,14 @@ type hierarchy
 \end{forest}
 
 Stefan: What does ``calign children'' do? ``identify'' seems to be even better here:
+
+Sašo: The result is different, so it's up to you what you prefer.  |calign children| does nothing but set
+the children which the default calign method |midpoint| will work with.  This is why above, ``verb'' and
+``adj'' are symmetric --- child alignment is to their midpoint.  And what happens below, with |identify|?
+a) With |identify|, we pretend that ``gerund'' is a child of ``relational''.  So we have four children.
+The default calign method, |midpoint| is again in effect, but by default it works on the first and the
+last child, so it is now ``gerund'' and ``prep'' which are symmetric. (In other words, this is normal
+  centering.)
 
 \begin{forest}
 type hierarchy
@@ -332,7 +376,7 @@ type hierarchy
         [gerund]
       ]
       [relational,
-        [,identify=!P] % The previous leaf is identical.        
+        [,identify=!P] % The previous leaf is identical.
         [verb]
         [adj]
         [prep]
@@ -341,7 +385,24 @@ type hierarchy
   ]
 \end{forest}
 
+How does |identify| work?  We have two nodes: the ``identified'' node where we apply this key, and the
+``other'' node that we point to when we say |identify=|\meta{relative node name}.
 
+So what happens? We copy the content of the other node into the identified node (that's why it makes no
+  sense to have content in the identified node) and phantomize it.  When forest is doing its job
+(arranging the nodes so that they fit together nicely --- this is called packing), the parent of our
+identified node (``relational'') really has four children: the invisible ``gerund'', and visible
+``verb'', ``adj'' and ``prep''.  But after packing these four children under ``relational'' (normally,
+  and this is why ``gerund'' looks like a normal child of ``relational''), we make it ``forget'' about
+the invisible ``gerund'' completely (we |ignore| it, plus do some black magic to forget about any
+  descendants it might have).  So, when it comes to packing the children of ``subst'', the phantom
+``gerund'' is completely ignored, and forest is really putting together ``[noun[c-noun][gerund]]'' and
+``[relational[verb][adj][prep]]''.
+
+Effectively, we get a child which is ``shared'' between two parents.  Crucially, during packing
+(including positioning according to |calign|), the shared child was taken into account for both parents.
+Note that if we want uniform distances between ``c-noun'' \dots ``prep'', three |s sep|s must be equal:
+of nodes ``noun'', ``relational'' and also ``subst''.
 
 
 
@@ -376,7 +437,7 @@ type hierarchy
 
 \begin{forest}
   type hierarchy,
-  for level=2{tier=2},
+  %for level=2{tier=2},
   for level=3{l*=1.5,gray,edge={gray,dashed}},
   [verb 
     [\attrib{vform},draw,
@@ -402,12 +463,24 @@ type hierarchy
 
 \bigskip
 
+\forestset{
+  attrib/.style={
+    % People usually say "delay={ content=\attrib{#1} }" but I don't like that.  First, out of principle,
+    % as the form and content are not separated ;-) but sometimes there's also a practical reason.
+    % Assume you want to detect empty nodes (we do this often to turn them into coordinates).  Well, if
+    % you say "content=\attrib{#1}", then the node is not empty anymore. So, I prefer "content format".
+    content format={\attrib{\forestoption{content}}},
+    draw,
+    outer ysep=0.5ex,  % outer sep (tikz) means how much a node is padded outside the border.
+  },
+}
+
 \begin{forest}
   type hierarchy,
-  for level=2{tier=2},
+  % for level=2{tier=2},
   for level=3{l*=1.5,gray,edge={gray,dashed}},
   [verb 
-    [\attrib{vform},draw,
+    [vform, attrib,
       [fin, name=A1
         [fin+intrans, name=A, edge to=!r21,
           before drawing tree={
@@ -420,7 +493,7 @@ type hierarchy
         [base+trans, name=B, edge to=!r22]
       ]
     ]
-    [\attrib{arg-st},draw,
+    [arg-st, attrib,
       [intrans, name=C1
         [base+intrans, name=C, edge to=!r12]
       ]
@@ -431,9 +504,36 @@ type hierarchy
   ]
 \end{forest}
 
-Stefan: Wow! Could you explain why tier=2 is needed? What does the ``before drawing tree'' magic do?
+Stefan: Wow! Could you explain why tier=2 is needed?
 
-The lines should not touch the boxes as with the type in other trees.
+Sašo: Umm ... it is not.
+
+
+Stefan: What does the ``before drawing tree'' magic do?
+
+Sašo: The idea in the final tree is to have the bottom nodes uniformly distanced from one another (note
+  that this is not the case in the second tree).  So we let forest position the bottom nodes directly
+under their parents and then spread them out using |spread| (we define this in langsci-forest-setup).
+But the point here is that we can only reposition the nodes once when are positioned.  So here's a crash
+course on forest \emph{stages} (manual 3.4.1).
+
+Forest first reads in the input (simplifying a lot here), then enters |typeset nodes stage| where each
+node is typeset in limbo and measured.  Then comes the stage that forest was made for: |pack stage|
+nicely and tightly positions the nodes.  In detail, this determines the so-called |l| (level) and |s|
+(sibling) coordinates of nodes --- |l| and |s| are relative to the parent; |l| axis is in the direction
+of tree growth, here down; |s| is orthogonal to it.  But before we can think of finally putting the tree
+on paper, we must compute the |x| and |y| coordinates of nodes: this is done in |compute xy stage|.  Only
+then, forest enters |draw tree stage|.
+
+Now above, we want to adjust the |x| coordinate of some nodes. Clearly, we have to do this after |x| (and
+  |y|) were computed.  And also clearly, before the tree is drawn.  So |before drawing tree|.
+
+
+Stefan: The lines should not touch the boxes as with the type in other trees.
+
+Sašo: Ah! Well, then use either the original |\fbox| idea, or if you need more flexibility (in the first
+  tree, there is actually too much space above the box for my taste), I made an |attrib| style where you
+can set the exact amount of spacing. Look at the third tree.
 
 I introduced the styles ``,partition'' and ``,instance'' for the boxed and the grey nodes. This is
 really cool! Thanks! Here is my version:
@@ -599,41 +699,61 @@ for tree={inner sep=-1pt,l=50pt}
   \end{forest}
 %}
 
-Here I would prefer if the dashed lines would not cross any black nodes. So edges from ``all-''
+Stefan: Here I would prefer if the dashed lines would not cross any black nodes. So edges from ``all-''
 should not cross ``leave''. I guess this could be reached by shifting ``all-'' to the right or
 putting it on the same line as ``leave''. But I do not understand the code. Maybe there are better
 ways.
 
-The n children=0 stuff is cool. I turned this into a style. =:-)
+Sašo: Yes, I didn't know how much it would bother you.  Personally, I dislike resized (shrunk) figures.
+What I did now is a) Moved ``all-'' to the right and then, to avoid overfull box or shrinking, b) reduce
+the horizontal spacing between nodes.  But if they are too close now, we search for another solution.
+
 
   \begin{forest}
     type hierarchy,
     instances,
     for tree={
-      s sep=0,
+      % reduce horizontal spacing
+      inner xsep=0,    % in comparison to s sep=0, this makes the left- and right-most node touch the
+                       % margins of the page precisely
+      s sep=0.275em,
     },
-    [aller
+    [aller, s sep=3em, % push "all-" a bit to the right, so that dashed edges avoid "leave"
       [aller-entries, partition
-	[``fit'', name=F, l*=4, for children={l*=2},
-          [``fit''+all-, edge to=A]
+	[``fit'', name=F, l*=4, for children={l*=2},   % "l*=<n>" pushes the node <n> 'levels' down.
+          [``fit''+all-, edge to=A]   % "edge to" can also take a node name, that's why there is no "!"
           [``fit''+v-, edge to=V]
         ]
 	[``go''
           [``go.to'', name=G, l*=2, for children={l*=4},
-            [``go.to''+all-, edge to=A, ignore edge]
+            [``go.to''+all-, edge to=A, ignore edge] % if there was no "ignore edge", "fit" and children
+                                                     % would be pushed more to the left
             [,coordinate,edge'={}]
             [``go.to''+v-, edge to=V]
           ]
           [``leave'', name=L, for children={l*=6},
-            [``leave''+all-, edge to=A, ignore edge]
+            [``leave''+all-, edge to=A, ignore edge]  % if there was no "ignore edge", "go.to" and
+                                                      % children would be pushed more to the left
             [,coordinate,edge'={}]
-            [``leave''+v-, edge to=V,ignore edge]
+            [``leave''+v-, edge to=V,ignore edge]   % if there was no "ignore edge", "i-" and children
+                                                    % would be pushed more to the right
           ]
         ]
       ]
-      [aller-stems, partition, calign children=34, where n children=0{l*=4.5}{},
-  	[all-, name=A, before computing xy={s-=3em} [,phantom,ignore,ignore edge]]
-  	[v-, name=V, before computing xy={s-=1.5em} [,phantom,ignore,ignore edge]]
+      [aller-stems, partition,
+        calign children=34, % align to the midpoint between the third and the fourh child
+                            % "calign children={3}{4}" would be more understandable, right? ;-)
+        where n children=0{l*=4.5}{},   % push all the leaves of "aller-stems" 4.5 levels down
+        % Forest does a bad job nicely positioning the children of "aller-stems", because we have pushed
+        % "i-" down.  "all-" and "v-" end up too close to "i-" and each other, so we push them to the
+        % left by "before computing xy={s-=...}".  (I explained "before computing xy" somewhere above.)
+        % 
+        % The weird "[,phantom,red,ignore,ignore edge]" children have a single function: "all-" and "v-"
+        % should not be leaves of the tree, because of "instances" at the top and "where n
+        % children=0{l*=4.5}{}" above.  So we give them a child which is both invisible and completely
+        % ignored in packing. :D
+  	[all-, name=A, before computing xy={s-=3em} [,phantom,red,ignore,ignore edge]]
+  	[v-, name=V, before computing xy={s-=1.5em} [,phantom,red,ignore,ignore edge]]
   	[i-, name=I, l*=2,
           [``fit''+i-, edge to=F]
           [``go.to''+i-, edge to=G, ignore edge]
@@ -648,6 +768,9 @@ The n children=0 stuff is cool. I turned this into a style. =:-)
     ]
   \end{forest}
 
+Stefan: The n children=0 stuff is cool. I turned this into a style. =:-)
+
+Saso: :-)
 
 
 
@@ -729,7 +852,9 @@ The n children=0 stuff is cool. I turned this into a style. =:-)
   ]
 \end{forest}
 
-What does the magic code ``before drawing tree'' do?
+Stefan: What does the magic code ``before drawing tree'' do?
+
+Sašo: explained above.
 
 \newpage
 
@@ -804,7 +929,9 @@ What does the magic code ``before drawing tree'' do?
       [,identify=!N] % Identify this node with the next leaf = p-nom-acc.
     ]
     [p-nom+acc, calign with current % Align this node with its mother (case).
-      [p-nom-acc, delay=no edge]    % p-nom-acc is a fake daughter of p-nom+acc.
+      [p-nom-acc, % p-nom-acc is a fake daughter of p-nom+acc.
+        delay=no edge
+      ]    
     ]
     [nom
       [,identify=!P] % Identify this node with the previous leaf = p-nom-acc.
@@ -813,8 +940,21 @@ What does the magic code ``before drawing tree'' do?
   ]
 \end{forest}
 
-What does the ``delay'' do? Is it the case that without the ``delay'', ``identify'' would not know
-that p-nom-acc is a leaf?
+Stefan: What does the ``delay'' do? Is it the case that without the ``delay'', ``identify'' would not
+know that p-nom-acc is a leaf?
+
+Sašo: It is related to |identify|, but it's not about being a leaf. It's about the edges.  |identify| is
+implemented so that the edge between ``p-nom-acc'' and ``nom'' is \emph{not} the ``original'' edge
+between the identified node (!r21) and its parent.  What you see is the extra edge drawn by |edge to|.
+And this key picks up the style of the edge (by default, |draw|) from the node we're identifying with
+(``p-nom+acc'').  So if we empty out the |edge| option of ``p-nom+acc'' to soon, there will be no
+(visible) edge between ``p-nom-acc'' and ``nom''.  (The funny thing is that the edge between from
+  ``p-nom-acc'' to ``acc'' would be there. This is because of the processing order: the children of
+  ``acc'' are processed, edge is good and drawn, ``p-nom+acc'' is processed, edge is removed, the
+  children of ``nom'' are processed, upst the edge of ``p-nom+acc'' is gone!)  Given that |identify|
+draws the extra edge ``immediately'', a |delay| is ``enough''; in other cases, we sometimes need to use
+one of the |before ...| black magic keys.
+
 
 \newpage
 
@@ -847,7 +987,10 @@ that p-nom-acc is a leaf?
 \end{forest}
 
 
-What is ``before drawing tree'' doing?
+Stefan: What is ``before drawing tree'' doing?
+
+Sašo: Same as always :D
+
 
 \newpage
 
@@ -949,6 +1092,10 @@ What is ``before drawing tree'' doing?
 
 Is ``edge to'' the counter part of ``edge from''?
 
+Sašo: Yes!  And there are also |edge to'| and |edge from'|, which allow you to draw the extra edges in a
+different style, e.g. replacing |edge from=g!1| by |edge from'={g!1}{draw,red}| would make the edge from
+``a-d+a-g+d-g'' to ``a-g+d-g'' red (don't forget the |draw| in there!).
+
 \newpage
 
 \begin{forest}
@@ -998,7 +1145,7 @@ Is ``edge to'' the counter part of ``edge from''?
         ]
         [\dots, calign with current]
         [head-spr-phrase
-          [,identify=!N]
+          [,identify=!NN]
         ]
       ]
     ]
@@ -1010,7 +1157,9 @@ Is ``edge to'' the counter part of ``edge from''?
   ]
 \end{forest}
 
-identify=!N doesn't seem to work.
+Stefan: identify=!N doesn't seem to work.
+
+Sašo: We need |identify=!NN| here.  |!N|, the next leaf, is ``clause''.
 
 \begin{forest} type hierarchy
   [phrase
@@ -1032,8 +1181,37 @@ identify=!N doesn't seem to work.
   ]
 \end{forest}
 
-This works without crossing branches, but maybe it would be nicer if noun-poss-cx would be in the
+Stefan: This works without crossing branches, but maybe it would be nicer if noun-poss-cx would be in the
 midlle of head-spr-phrase and non-clause.
+
+Sašo: Hmm, what is the easiest (but precise!) way of doing this?  Got it, see the comments in the code!
+
+\label{trick-for-later}
+\begin{forest} type hierarchy
+  [phrase
+    [headedness, partition
+      [headed-phrase
+        [head-subject-phrase
+          [nonfin-head-subj-cx, edge to=C!1,tier=nonfin-head-subj-cx]
+        ]
+        [\dots, calign with current]
+        [head-spr-phrase
+        ]
+      ]
+    ]
+    [clausality, partition, name=C
+      [clause]
+      [noun-poss-cx,              % new location: we have a fake parent now
+        tier=nonfin-head-subj-cx, % vertical position
+        edge to=!r113, edge to=!r23, % draw the edges before we say "no edge"
+        ignore, no edge,          % pretend we're not there, so that our siblings are positioned as before
+        before computing xy={s=0}, % horizontal position directly below the fake parent "clausality"; if
+                                   % we don't do this, the node ends up directly below "clause"
+      ]
+      [non-clause]
+    ]
+  ]
+\end{forest}
 
 \newpage
 
@@ -1132,16 +1310,20 @@ midlle of head-spr-phrase and non-clause.
       ]
       [tr-lx
         [obj-rsg-lx
-          [orv-lx, edge to=vlx]
+          [orv-lx, name=orv-lx]
         ]
         [\ldots]
       ]
       [\ldots]
     ]  
   ]
+  \draw (orv-lx) to [bend left=6] (vlx);
 \end{forest}
 
-The original did apply a bend to the edge. Would this be possible to avoid the overlap?
+Stefan: The original did apply a bend to the edge. Would this be possible to avoid the overlap?
+
+Sašo: Not with |edge to|, so we do it by hand, as in the original.
+
 \newpage
 
 
@@ -1202,7 +1384,27 @@ The original did apply a bend to the edge. Would this be possible to avoid the o
 %   ]
 % \end{forest}
 
-What does ``for children'' do?
+Stefan: What does ``for children'' do?
+
+Sašo: Looks complicated, right? :D I have no idea why I did it this way, probably I was toying with
+various ways and you get the strange leftovers.  |for level=2{l*=1.5}| has the same effect. But as we
+have the beast, let me explain how it works.  I'm assuming that |for children| is clear, but that
+|!1.l*=...| is not.
+
+The construct \meta{relative node name}|.|\meta{option name} sets option \meta{option name} for the node
+given by \meta{relative node name}.  Above, \meta{relative node name} is |!1|, so the first child.  Thus
+the entire |!1.l*=1.5| multiplies |l| of the first child by 1.5.  Amazing!  (And as we are under %
+  |for children| anyway, and each child has a single child \dots\ |for level=2{...}|.)
+
+At first sight, |!1.l*=|\meta{value} seems equivalent to |for 1={l*=|\meta{value}|}|. And in our case, it
+is.  But if we were referring to the value of the current node in \meta{value}, things would be
+different.  In |!1.l*=|\meta{value}, \meta{value} is evaluated in the context of the original node where
+you write down the entire thing (so the parent).  In the |for 1| case, \meta{value} would be evaluated in
+the context of the node that receives the value (so the child).  For example, |[A,!1.l*=n_children()[]]|
+would leave the |l| of the child unchanged, because the parent has a single child.  But %
+|[A,for 1={l*=n_children()}[]]| would set the |l| of the child to |0pt|, because the child has no
+children.  Yiiihaa!
+
 
 \newpage
 
@@ -1237,7 +1439,7 @@ What does ``for children'' do?
   [,phantom, 
     [head-filler-ph,
       for siblings={!1.l*=2.5}, !11.l*=1.5,
-      [standard-head-fill-ph, anchor=base east
+      [standard-head-fill-ph, anchor=base east, inner xsep=0
         [wh-interr-cl, edge to=!r2]
       ]
     ]
@@ -1256,7 +1458,26 @@ What does ``for children'' do?
   ]
 \end{forest}
 
-What does ``for siblings'' do? What does ``anchor'' do?
+Stefan: What does ``for siblings'' do?
+
+Sašo: I get off easy here, I explained it in the previous example!
+
+Stefan: What does ``anchor'' do?
+
+Sašo: In short, it pushes ``standard-head-fill-ph'' to the left.  The long version:
+
+In forest, the horizontal ``part'' of the anchor is used to align siblings; the vertical, to align
+the child and the parent.  Above, we are interested in the vertical part, because we have changed the
+default |anchor=base| into |anchor=base east|. 
+
+The vertical part of the anchor of the ``standard-head-fill-ph'' is |east|, and the vertical part of the
+anchor of ``head-filler-ph'' is center (because |base| is really |base center|).  So the center of the
+parent is aligned to the east of the child, effectively pushing the child to the west. 
+
+In fact, I added |inner xsep=0| to ``standard-head-fill-ph'' right now.  Before, the centering was to the
+west part of the (invisible) border around ``standard-head-fill-ph'' (you can see this if you say |draw|
+  on the original version), so the alignment was not perfect.
+
 
 \newpage
 \includegraphics[scale=1.2]{figures/Riehemann-crop.pdf}
@@ -1392,8 +1613,13 @@ Wow!
   ]
 \end{forest}
 
-What does ``Pp'' mean? Isn't P the previous leaf and p the previous sibling. But the previous leaf
-is 1sg-pos and it does not have a previous sibling.
+Stefan: What does ``Pp'' mean? Isn't P the previous leaf and p the previous sibling.
+
+Sašo: Correct.
+
+Stefan: But the previous leaf is 1sg-pos and it does not have a previous sibling.
+
+Sašo: Incorrect. The previous leaf is ``3pl.''
 
 \newpage
 
@@ -1454,6 +1680,68 @@ is 1sg-pos and it does not have a previous sibling.
 \draw (3.north) to (morph.south);
 \end{forest}
 }    
+
+
+
+\scalebox{.8}{%
+\begin{forest}for tree={l=2cm}
+[\emph{realisation-rule}
+	[MORPHOTACTICS,draw, name=morph
+		[{\begin{avm}
+			\[
+			mud & \{\normalfont\textit{agr} \}\\
+			ms & \{ \[\asort{pid}
+			cat & verb\], ...\}\\
+			mph & \< \[pc & $-4$\]\> \]
+		\end{avm}}, name= 1, tier=word]
+		[{\begin{avm}
+			\[mud & \{\normalfont\textit{agr}\}\\
+			 ms & \{ \[\asort{pid}
+			cat & \[\asort{adj}
+			type & A\]\], ...\}\\
+			mph & \< \[pc & -1\]\>\]
+		\end{avm}}, name=2, tier=word]
+	]
+	[EXPONENCE,draw
+		[QUAL,draw, name=qual
+			[{\begin{avm}
+				\[mud & \{ \[\normalfont\textit{agr}\\cl & 7\]\}\\
+				mph & \< ... \[ph & \<\normalfont ca\>\\
+				pc & $-1$ $\vee$ $-2$
+				\] ... \>\]
+			\end{avm}}, tier=word]
+			[\dots]
+		]
+		[CONC,draw, name=conc
+			[{\begin{avm}
+				\[mud & \{ \[\normalfont\textit{agr}\\cl & 7\]\}\\
+				mph & \< ... \[ph & \<\normalfont ci\>\\
+				pc & $-1$ $\vee$ $-4$
+				\] ... \>\]
+			\end{avm}}, tier=word]
+			[\dots]
+		]
+	]
+]
+%% sorry this is an ugly workaround but even on stackexchange, no one could help me :/
+%% saso: do you want to achieve the same as I did in \ref{trick-for-later}?
+\node[below of=morph, node distance= 8cm](3){%
+	{\begin{avm}
+			\[mud & \{\normalfont\textit{agr}\}\\
+			ms & \{ \[\asort{pid}
+			cat & \[\asort{adj}
+			type & B\]\], ...\}\\
+			mph & \<\[pc & $-2$\], \[pc & $-1$\]\>\]
+	\end{avm}}%
+};
+\draw (1.north) to (qual.south);
+\draw (2.north) to (conc.south);
+\draw (3.north) to (morph.south);
+\end{forest}
+}    
+
+
+
 
 \newpage
 

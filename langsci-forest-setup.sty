@@ -301,11 +301,8 @@ substitution/.style={edge={<-,dashed},l+=\baselineskip},
   edge from/.style={
     edge from'/.process=_O{#1}{#1.edge},
   },
-  % Identify two (adjacent, vertically aligned) nodes
-  forget@node@boundary/.code={%
-    \forestolet{positive@edge@#1}\relax
-    \forestolet{negative@edge@#1}\relax
-  },
+  % Identify two (adjacent, vertically aligned) nodes.  See the explanation of
+  % how this works in "type-hierarchies.tex"
   identify/.style={
     phantom,
     temptoksa/.option=#1.name,
@@ -322,6 +319,10 @@ substitution/.style={edge={<-,dashed},l+=\baselineskip},
       },
     },
     for nodewalk/.process=Rw1Ow1{temptoksa}{name=##1}{!u.name}{edge to={##1}},
+  },
+  forget@node@boundary/.code={%
+    \forestolet{positive@edge@#1}\relax
+    \forestolet{negative@edge@#1}\relax
   },
   % Uniformly spread any sequence of nodes
   spread/.style n args=4{
@@ -375,8 +376,7 @@ instance/.style={edge=dotted}
       for tree={
       s sep=0,
       if n children=0{
-        gray,
-        edge={dashed,gray},
+        instance   % easier to maintain if we use the style than repeat the definition of the style
       }{},
   }},
 }
