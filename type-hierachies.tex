@@ -23,6 +23,15 @@
 \input{localhyphenation.tex}
 \input{localcommands.tex} 
 
+% This is copied from avm+, which I disabled.
+\def\asort#1{\avmspan{\avmjsortfont #1}\\}
+\def\avmspan#1{\multispan2\avmjfont\strut #1\expandafter\hfil}%
+\def\avmjfont{}
+\def\avmjsortfont{}
+\newcommand{\attrib}[1]{\textsc{#1}}
+
+
+
 \renewcommand{\oneline}[1]{%
   \begingroup
     \sbox0{\ignorespaces#1\unskip}%
@@ -47,24 +56,24 @@
 %  \rnode{#1}{\emph{#2}}
 % }
 
+
+
 \newcommand{\bcdiag}[2]{
   \ncdiag{#1}{#2}
 }
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %%%             Frontmatter                      %%% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{document}         
+\begin{document}
+
+
 \maketitle                
 \frontmatter
 
 \currentpdfbookmark{Contents}{name} % adds a PDF bookmark
 %%
 \mainmatter          
-
-{\avmoptions{center}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %%%             Chapters                         %%% 
@@ -73,48 +82,50 @@
 % Uncomment the chapter(s) you would like to check
 
 
-\begin{forest}
-  [{\footnotesize\textit{object}}
-    [{{\avmoptions{center}\begin{avm}\[\asort{substantive}
-              prd & boolean\]\end{avm}}}
-      [{{\avmoptions{center}\begin{avm}\[\asort{verb} vform & vform\\
-                prd & plus\]\end{avm}}}]
-      [{{\avmoptions{center}\begin{avm}\[\asort{noun} case & case\]\end{avm}}}] ]
-    [{\footnotesize\textit{case}}]
-    [{\footnotesize\textit{vform}}]
-    [{\footnotesize\textit{boolean}}
-      [{\footnotesize\textit{plus}}]
-      [{\footnotesize\textit{minus}}] ]
-  ]
-\end{forest}
+% \begin{forest}
+%   [{\footnotesize\textit{object}}
+%     [\{{\avmoptions{center}\begin{avm}\[\asort{substantive}
+%               prd & boolean\]\end{avm}}}
+%       [{{\avmoptions{center}\begin{avm}\[\asort{verb} vform & vform\\
+%                 prd & plus\]\end{avm}}}]
+%       [{{\avmoptions{center}\begin{avm}\[\asort{noun} case & case\]\end{avm}}}] ]
+%     [{\footnotesize\textit{case}}]
+%     [{\footnotesize\textit{vform}}]
+%     [{\footnotesize\textit{boolean}}
+%       [{\footnotesize\textit{plus}}]
+%       [{\footnotesize\textit{minus}}] ]
+%   ]
+% \end{forest}
 
-\bigskip
+% \bigskip
 
-\begin{forest}
-  delay={for nodewalk={c2n,fake=n,tree}{content={\footnotesize\type{#1}}}},
-  [object,
-    calign=midpoint, calign children={2}{3},
-    [{\[\asort{substantive} prd & boolean\]},avm=center
-      [{\[\asort{verb} vform & vform\\prd & plus\]},avm=center]
-      [{\[\asort{noun} case & case\]},avm=center]
-    ]
-    [case]
-    [vform]
-    [boolean
-      [plus]
-      [minus]
-    ]
-  ]
-\end{forest}
+% \begin{forest}
+%   delay={for nodewalk={c2n,fake=n,tree}{content={\footnotesize\type{#1}}}},
+%   [object,
+%     calign=midpoint, calign children={2}{3},
+%     [{\[\asort{substantive} prd & boolean\]},avm=center
+%       [{\[\asort{verb} vform & vform\\prd & plus\]},avm=center]
+%       [{\[\asort{noun} case & case\]},avm=center]
+%     ]
+%     [case]
+%     [vform]
+%     [boolean
+%       [plus]
+%       [minus]
+%     ]
+%   ]
+% \end{forest}
 
-\bigskip
+% \bigskip
+
+
 
 \begin{forest} type hierarchy
   [object,
     calign=midpoint, calign children={2}{3},
-    [{\[\asort{substantive} prd & boolean\]},avm=center
-      [{\[\asort{verb} vform & vform\\prd & plus\]},avm=center]
-      [{\[\asort{noun} case & case\]},avm=center]
+    [\avm{[\asort{substantive} prd & boolean]}
+      [\avm{[\asort{verb} vform & vform\\prd & plus]}]
+      [\avm{[\asort{noun} case & case]}]
     ]
     [case]
     [vform]
@@ -124,6 +135,9 @@
     ]
   ]
 \end{forest}
+
+
+
 
 Stefan: The AVMs should come out north and the atomic types (case, vform, \ldots) too. You did this in
 the second example. This is nice. Can this be done in the type hierarchy style?
@@ -165,8 +179,8 @@ Sašo: It sets ``calign primary child'' and ``calign secondary child'' at the sa
 
 \begin{forest}
 [{\footnotesize\textit{list}}
-  [{{\avmoptions{center}\begin{avm}\[\asort{nelist} first & object\\
-                                                    rest & list\]\end{avm}}}]
+  [{\avm{[\asort{nelist} first & object\\
+                                                    rest & list]}}]
   [{\footnotesize\textit{elist}} ]]
 \end{forest}
 
@@ -174,7 +188,7 @@ Sašo: It sets ``calign primary child'' and ``calign secondary child'' at the sa
 
 \begin{forest} type hierarchy
   [list
-    [{\[\asort{nelist} first & object\\rest & list\]}, avm=center]
+    [\avm{[\asort{nelist} first & object\\rest & list]}]
     [elist]
   ]
 \end{forest}
@@ -1629,51 +1643,51 @@ Sašo: Incorrect. The previous leaf is ``3pl.''
 \begin{forest}for tree={l=2cm}
 [\emph{realisation-rule}
 	[MORPHOTACTICS,draw, name=morph
-		[{\begin{avm}
-			\[
+		[\avm{
+			[
 			mud & \{\normalfont\textit{agr} \}\\
-			ms & \{ \[\asort{pid}
-			cat & verb\], ...\}\\
-			mph & \< \[pc & $-4$\]\> \]
-		\end{avm}}, name= 1, tier=word]
-		[{\begin{avm}
-			\[mud & \{\normalfont\textit{agr}\}\\
-			 ms & \{ \[\asort{pid}
-			cat & \[\asort{adj}
-			type & A\]\], ...\}\\
-			mph & \< \[pc & -1\]\>\]
-		\end{avm}}, name=2, tier=word]
+			ms & \{ [\asort{pid}
+			cat & verb], ...\}\\
+			mph & < [pc & $-4$]> ]
+		}, name= 1, tier=word]
+		[\avm{
+			[mud & \{\normalfont\textit{agr}\}\\
+			 ms & \{ [\asort{pid}
+			cat & [\asort{adj}
+			type & A]], ...\}\\
+			mph & < [pc & -1]>]
+		}, name=2, tier=word]
 	]
 	[EXPONENCE,draw
 		[QUAL,draw, name=qual
-			[{\begin{avm}
-				\[mud & \{ \[\normalfont\textit{agr}\\cl & 7\]\}\\
-				mph & \< ... \[ph & \<\normalfont ca\>\\
+			[\avm{
+				[mud & \{ [\normalfont\textit{agr}\\cl & 7]\}\\
+				mph & < ... [ph & <\normalfont ca>\\
 				pc & $-1$ $\vee$ $-2$
-				\] ... \>\]
-			\end{avm}}, tier=word]
+				] ... >]
+			}, tier=word]
 			[\dots]
 		]
 		[CONC,draw, name=conc
-			[{\begin{avm}
-				\[mud & \{ \[\normalfont\textit{agr}\\cl & 7\]\}\\
-				mph & \< ... \[ph & \<\normalfont ci\>\\
+			[\avm{
+				[mud & \{ [\normalfont\textit{agr}\\cl & 7]\}\\
+				mph & < ... [ph & <\normalfont ci>\\
 				pc & $-1$ $\vee$ $-4$
-				\] ... \>\]
-			\end{avm}}, tier=word]
+				] ... >]
+			}, tier=word]
 			[\dots]
 		]
 	]
 ]
 %% sorry this is an ugly workaround but even on stackexchange, no one could help me :/
 \node[below of=morph, node distance= 8cm](3){%
-	{\begin{avm}
-			\[mud & \{\normalfont\textit{agr}\}\\
-			ms & \{ \[\asort{pid}
-			cat & \[\asort{adj}
-			type & B\]\], ...\}\\
-			mph & \<\[pc & $-2$\], \[pc & $-1$\]\>\]
-	\end{avm}}%
+	\avm{
+			[mud & \{\normalfont\textit{agr}\}\\
+			ms & \{ [\asort{pid}
+			cat & [\asort{adj}
+			type & B]], ...\}\\
+			mph & <[pc & $-2$], [pc & $-1$]>]
+	}%
 };
 \draw (1.north) to (qual.south);
 \draw (2.north) to (conc.south);
@@ -1687,38 +1701,38 @@ Sašo: Incorrect. The previous leaf is ``3pl.''
 \begin{forest}for tree={l=2cm}
 [\emph{realisation-rule}
 	[MORPHOTACTICS,draw, name=morph
-		[{\begin{avm}
-			\[
+		[\avm{
+			[
 			mud & \{\normalfont\textit{agr} \}\\
-			ms & \{ \[\asort{pid}
-			cat & verb\], ...\}\\
-			mph & \< \[pc & $-4$\]\> \]
-		\end{avm}}, name= 1, tier=word]
-		[{\begin{avm}
-			\[mud & \{\normalfont\textit{agr}\}\\
-			 ms & \{ \[\asort{pid}
-			cat & \[\asort{adj}
-			type & A\]\], ...\}\\
-			mph & \< \[pc & -1\]\>\]
-		\end{avm}}, name=2, tier=word]
+			ms & \{ [\asort{pid}
+			cat & verb], ...\}\\
+			mph & < [pc & $-4$]> ]
+		}, name= 1, tier=word]
+		[\avm{
+			[mud & \{\normalfont\textit{agr}\}\\
+			 ms & \{ [\asort{pid}
+			cat & [\asort{adj}
+			type & A]], ...\}\\
+			mph & < [pc & -1]>]
+		}, name=2, tier=word]
 	]
 	[EXPONENCE,draw
 		[QUAL,draw, name=qual
-			[{\begin{avm}
-				\[mud & \{ \[\normalfont\textit{agr}\\cl & 7\]\}\\
-				mph & \< ... \[ph & \<\normalfont ca\>\\
+			[\avm{
+				[mud & \{ [\normalfont\textit{agr}\\cl & 7]\}\\
+				mph & < ... [ph & <\normalfont ca>\\
 				pc & $-1$ $\vee$ $-2$
-				\] ... \>\]
-			\end{avm}}, tier=word]
+				] ... >]
+			}, tier=word]
 			[\dots]
 		]
 		[CONC,draw, name=conc
-			[{\begin{avm}
-				\[mud & \{ \[\normalfont\textit{agr}\\cl & 7\]\}\\
-				mph & \< ... \[ph & \<\normalfont ci\>\\
+			[\avm{
+				[mud & \{ [\normalfont\textit{agr}\\cl & 7]\}\\
+				mph & < ... [ph & <\normalfont ci>\\
 				pc & $-1$ $\vee$ $-4$
-				\] ... \>\]
-			\end{avm}}, tier=word]
+				] ... >]
+			}, tier=word]
 			[\dots]
 		]
 	]
@@ -1726,13 +1740,13 @@ Sašo: Incorrect. The previous leaf is ``3pl.''
 %% sorry this is an ugly workaround but even on stackexchange, no one could help me :/
 %% saso: do you want to achieve the same as I did in \ref{trick-for-later}?
 \node[below of=morph, node distance= 8cm](3){%
-	{\begin{avm}
-			\[mud & \{\normalfont\textit{agr}\}\\
-			ms & \{ \[\asort{pid}
-			cat & \[\asort{adj}
-			type & B\]\], ...\}\\
-			mph & \<\[pc & $-2$\], \[pc & $-1$\]\>\]
-	\end{avm}}%
+	\avm{
+			[mud & \{\normalfont\textit{agr}\}\\
+			ms & \{ [\asort{pid}
+			cat & [\asort{adj}
+			type & B]], ...\}\\
+			mph & <[pc & $-2$], [pc & $-1$]>]
+	}%
 };
 \draw (1.north) to (qual.south);
 \draw (2.north) to (conc.south);
@@ -1776,51 +1790,51 @@ Sašo: Incorrect. The previous leaf is ``3pl.''
 \begin{forest}
 [\emph{realisation-rule}
 	[SHAPE,draw
-		[{\begin{avm}
-			\[ mph & \{\[ph &  \<\normalfont ni\>\]\}\\
-			mud & \{\[per & 1\\ num & sg\]\}
-			\]
-		\end{avm}}, name=1
-			[{\begin{avm}
-				\[ mph & \{\[ph &  \<\normalfont ni\>\\ pc & 2\]\}\\
-				mud & \{ \[\asort{subj} per & 1\\ num & sg\] \}
-				\]
-			\end{avm}}, name=a, no edge, tier=word, l=3cm]
+		[\avm{
+			[ mph & \{[ph &  <\normalfont ni>]\}\\
+			mud & \{[per & 1\\ num & sg]\}
+			]
+		}, name=1
+			[\avm{
+				[ mph & \{[ph &  <\normalfont ni>\\ pc & 2]\}\\
+				mud & \{ [\asort{subj} per & 1\\ num & sg] \}
+				]
+			}, name=a, no edge, tier=word, l=3cm]
 		]
-		[{\begin{avm}
-			\[ mph & \{\[ph &  \<\normalfont wa\>\]\}\\
-			mud & \{\[per & 3\\ num & pl\]\}
-			\]
-		\end{avm}}, name=2
-			[{\begin{avm}
-				\[ mph & \{\[ph &  \<\normalfont wa\>\\ pc & 5\]\}\\
-				mud & \{ \[\asort{obj} per & 3\\ num & pl\] \}
-				\]
-			\end{avm}}, name=b, no edge, tier=word, l=3cm]
+		[\avm{
+			[ mph & \{[ph &  <\normalfont wa>]\}\\
+			mud & \{[per & 3\\ num & pl]\}
+			]
+		}, name=2
+			[\avm{
+				[ mph & \{[ph &  <\normalfont wa>\\ pc & 5]\}\\
+				mud & \{ [\asort{obj} per & 3\\ num & pl] \}
+				]
+			}, name=b, no edge, tier=word, l=3cm]
 		]
 	]
 	[POSITION,draw
-		[{\begin{avm}
-			\[ mph & \{\[pc & 2\]\}\\
+		[\avm{
+			[ mph & \{[pc & 2]\}\\
 			mud & \{subj\}
-			\]
-		\end{avm}}, name=3
-			[{\begin{avm}
-				\[ mph & \{\[ph &  \<\normalfont wa\>\\ pc & 2\]\}\\
-				mud & \{ \[\asort{subj} per & 3\\ num & pl\] \}
-				\]
-			\end{avm}}, name=c, no edge, tier=word, l=3cm]
+			]
+		}, name=3
+			[\avm{
+				[ mph & \{[ph &  <\normalfont wa>\\ pc & 2]\}\\
+				mud & \{ [\asort{subj} per & 3\\ num & pl] \}
+				]
+			}, name=c, no edge, tier=word, l=3cm]
 		]
-		[{\begin{avm}
-			\[ mph & \{\[pc & 5\]\}\\
+		[\avm{
+			[ mph & \{[pc & 5]\}\\
 			mud & \{ obj \}
-			\]
-		\end{avm}}, name=4
-			[{\begin{avm}
-				\[ mph & \{\[ph &  \<\normalfont ni\>\\ pc & 5\]\}\\
-				mud & \{\[\asort{obj} per & 1\\ num & sg\]\}
-				\]
-			\end{avm}}, name=d, no edge, tier=word, l=3cm]
+			]
+		}, name=4
+			[\avm{
+				[ mph & \{[ph &  <\normalfont ni>\\ pc & 5]\}\\
+				mud & \{[\asort{obj} per & 1\\ num & sg]\}
+				]
+			}, name=d, no edge, tier=word, l=3cm]
 		]
 	]
 ]
@@ -1837,9 +1851,6 @@ Sašo: Incorrect. The previous leaf is ``3pl.''
 
 
 
-
-
-}
 
 
 \end{document} 
