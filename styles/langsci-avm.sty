@@ -45,7 +45,18 @@
     \__avm_initialise_document_commands:
     \bool_set_true:N \l__avm_mode_bool
     \keys_set:nn { avm } { #1 }
-    \__avm_wrap:n { #2 }
+    \str_if_eq:VnT \l__avm_align_tl {tc}
+      { \tl_set:Nx \l__avm_align_tl { \mode_if_math:TF {c} {t} } }
+    \hbox_set:Nn \l_tmpa_box { \__avm_wrap:n { #2 } }
+    \str_if_eq:VnTF \l__avm_align_tl {c}
+      { \box_use_drop:N \l_tmpa_box }
+      {
+        \tl_set:Nn \l__avm_align_tl {c}
+        \box_move_down:nn
+          { (\box_dp:N \l_tmpa_box - \box_ht:N \l_tmpa_box)
+            / 2 + \fontdimen22 \textfont2 }
+          { \hbox:n { \__avm_wrap:n { #2 } } }
+      }
     \c_group_end_token
   }
 \NewDocumentCommand{\avmsetup}{ m }
@@ -77,6 +88,8 @@
     extraskip .initial:n   = {\smallskipamount},
     style .choice:,
     style / narrow .code:n = {\delimiterfactor=997\delimitershortfall5pt},
+    align .tl_set:N        = \l__avm_align_tl,
+    align .initial:n       = {tc},
   }
 
 \NewDocumentCommand{\avmdefinestyle}{ m m }
@@ -93,6 +106,8 @@
 \cs_generate_variant:Nn \seq_set_split:Nnn { NVn }
 
 \bool_new:N \l__avm_in_first_column
+
+\tl_new:N \tl__avm_left_tl
 
 \cs_new:Nn \__avm_init_first_column:
   {
@@ -118,58 +133,65 @@
     \peek_meaning_ignore_spaces:NTF \\ {\vspace*{\l__avm_extra_skip_dim}} {}
   }
 
-\cs_new:Nn \__avm_module_begin:
+\cs_new:Nn \__avm_module_begin:n
   {
-    \begin{tabular}{@{}
+    \tl_set:Nn \tl__avm_left_tl {#1}
+    \begin{tabular}[\l__avm_align_tl]{@{}
                     >{\__avm_init_first_column:}l
                     >{\__avm_init_second_column:}l
                     <{\__avm_deinit_second_column:}
                     @{}}
   }
-\cs_new:Nn \__avm_module_end:
+\cs_new:Nn \__avm_module_end:n
   {
     \__avm_kern_unused_columns:
     \end{tabular}
+    \box_set_to_last:N \l_tmpa_box
+    \box_move_down:nn
+      { (\box_dp:N \l_tmpa_box - \box_ht:N \l_tmpa_box) / 2
+        + \fontdimen22 \textfont2 }
+      {
+        \hbox:n
+        {
+          \c_math_toggle_token \left \tl__avm_left_tl
+            \vcenter {                                 % What is the LaTeX3 way?
+              \box_use_drop:N \l_tmpa_box
+            }
+          \right #1 \c_math_toggle_token
+        }
+      }
   }
 \cs_new:Nn \__avm_replace_lbrace:
   {
-    \__avm_parse_output:nw
-      { \c_math_toggle_token\left\lbrace\__avm_module_begin: }
+    \__avm_parse_output:nw { \__avm_module_begin:n \lbrace }
   }
 \cs_new:Nn \__avm_replace_rbrace:
   {
-    \__avm_parse_output:nw
-      { \__avm_module_end:\right\rbrace\c_math_toggle_token\__avm_extra_skip: }
+    \__avm_parse_output:nw { \__avm_module_end:n \rbrace }
   }
 \cs_new:Nn \__avm_replace_lbrack:
   {
-    \__avm_parse_output:nw
-      { \c_math_toggle_token\left\lbrack\__avm_module_begin: }
+    \__avm_parse_output:nw { \__avm_module_begin:n \lbrack }
   }
 \cs_new:Nn \__avm_replace_rbrack:
   {
-    \__avm_parse_output:nw
-      { \__avm_module_end:\right\rbrack\c_math_toggle_token\__avm_extra_skip: }
+    \__avm_parse_output:nw { \__avm_module_end:n \rbrack }
   }
 \cs_new:Nn \__avm_replace_lparen:
   {
-    \__avm_parse_output:nw
-      { \c_math_toggle_token\left(\__avm_module_begin: }
+    \__avm_parse_output:nw { \__avm_module_begin:n ( }
   }
 \cs_new:Nn \__avm_replace_rparen:
   {
-    \__avm_parse_output:nw
-      { \__avm_module_end:\right)\c_math_toggle_token\__avm_extra_skip: }
+    \__avm_parse_output:nw { \__avm_module_end:n ) }
   }
 \cs_new:Nn \__avm_replace_langle:
   {
-    \__avm_parse_output:nw
-      { \c_math_toggle_token\left<\__avm_module_begin: }
+    \__avm_parse_output:nw { \__avm_module_begin:n < }
   }
 \cs_new:Nn \__avm_replace_rangle:
   {
-    \__avm_parse_output:nw
-      { \__avm_module_end:\right>\c_math_toggle_token\__avm_extra_skip: }
+    \__avm_parse_output:nw { \__avm_module_end:n > }
   }
 \cs_new:Nn \__avm_replace_plus:
   {
