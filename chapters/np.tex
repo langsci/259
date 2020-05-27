@@ -1,21 +1,54 @@
 %% -*- coding:utf-8 -*-
-
 \documentclass[output=paper
+                ,modfonts
+                ,nonflat
 	        ,collection
 	        ,collectionchapter
+	        ,collectiontoclongg
  	        ,biblatex
                 ,babelshorthands
                 ,newtxmath
                 ,draftmode
                 ,colorlinks, citecolor=brown
-]{langscibook}
+]{./langsci/langscibook}
 
 \IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
   \input{../localpackages}
   \input{../localcommands}
+  \input{../localhyphenation}
+  \bibliography{../Bibliographies/stmue,
+                ../localbibliography,
+../Bibliographies/formal-background,
+../Bibliographies/understudied-languages,
+../Bibliographies/phonology,
+../Bibliographies/case,
+../Bibliographies/evolution,
+../Bibliographies/agreement,
+../Bibliographies/lexicon,
+../Bibliographies/np,
+../Bibliographies/negation,
+../Bibliographies/argst,
+../Bibliographies/binding,
+../Bibliographies/complex-predicates,
+../Bibliographies/coordination,
+../Bibliographies/relative-clauses,
+../Bibliographies/udc,
+../Bibliographies/processing,
+../Bibliographies/cl,
+../Bibliographies/dg,
+../Bibliographies/islands,
+../Bibliographies/diachronic,
+../Bibliographies/gesture,
+../Bibliographies/semantics,
+../Bibliographies/pragmatics,
+../Bibliographies/information-structure,
+../Bibliographies/idioms,
+../Bibliographies/cg,
+../Bibliographies/udc}
+
   \togglepaper[8]
 }{}
-\author{Frank {Van Eynde}\affiliation{University of Leuven}}
+\author{Frank Van Eynde\affiliation{University of Leuven}}
 \title{Nominal structures}
 
 % \chapterDOI{} %will be filled in at production
@@ -168,8 +201,8 @@ and \citet{NerbonneMullen00}. We will call it the \emph{DP treatment}.
 The third adopts the NP approach, but neutralizes the distinction between adjuncts and specifiers, 
 treating them both as functors. It is first proposed in \citet{VanEynde98a} and 
 \citet{Allegranza98} and further developed in \citet{VanEynde03}, \citet{VanEynde06} 
-and \citet{Allegranza06}. It is also adopted in Sign-Based Construction Grammar (\citealp{Sag2012};
-see also \crossrefchapteralp[Section~\ref{sec-sbcg}]{cxg}). 
+and \citet{Allegranza06}. It is also adopted in Sign-Based Construction Grammar (\citealp{Sag2012}
+and \crossrefchapteralp[Section~\ref{sec-sbcg}]{cxg}). 
 We will call it the \emph{functor treatment}. This chapter presents the three treatments and 
 compares them wherever this seems appropriate.  
 
@@ -177,8 +210,8 @@ We first focus on ordinary nominals (Section~\ref{ordi}) and then on nominals wi
 properties (Section~\ref{idio}). For exemplification we use English and a number of other Germanic 
 and Romance languages, including Dutch, German, Italian and French.  
 We assume familiarity with the typed feature description notation and with such basic notions 
-as unification, inheritance and token-identity (see \crossrefchaptert{formal-background} on formal
-foundations and \crossrefchaptert{properties} on basic properties of HPSG).\footnote{This chapter does not treat relative clauses,
+as unification, inheritance and token-identity (see \crossrefchaptert{formal-background} 
+and \crossrefchaptert{properties}).\footnote{This chapter does not treat relative clauses,
 since they are the topic of a separate chapter \crossrefchapterp{relative-clauses}.}
     
 \section{Ordinary nominals} 
@@ -262,7 +295,7 @@ in the case of adjuncts and of type \type{none} otherwise.
 
 \begin{exe} 
 \ex   \type{substantive}: \begin{avm} 
-                          [mod \type{synsem} $\vee$ \type{none}]  
+                          [mod ~ \type{synsem} $\vee$ \type{none}]  
                           \end{avm} 
 \end{exe} 
 
@@ -299,11 +332,11 @@ and the AP which it projects. As a consequence, the \textsc{mod(ified)} value of
 sm edges
 [{[\textsc{head} \avmbox{1} \type{noun}, {\sc spr} \eliste]}
 	[\avmbox{2} [that]]
-	[{[\textsc{head} \avmbox{1}, \textsc{spr} \liste{\avmbox{2}}]}
+	[{[\textsc{head} \avmbox{1} , \textsc{spr} \liste{\avmbox{2}}]}
 		[{[\textsc{head} \avmbox{4}]}
 			[{[\textsc{head} \type{adv}]} [very]]
 			[{[\textsc{head} \avmbox{4} [\type{adj} \textsc{mod} \avmbox{3}]]} [tall]]]
-		[{\avmbox{3} [\textsc{head} \avmbox{1}, \textsc{spr} \liste{\avmbox{2} Det}]}, before drawing tree={x+=2em} [sister of Leslie, roof, before drawing tree={x+=2em}]]]]
+		[{\avmbox{3} [\textsc{head} \avmbox{1} , \textsc{spr} \liste{\avmbox{2} Det}]}, before drawing tree={x+=2em} [sister of Leslie, roof, before drawing tree={x+=2em}]]]]
 \end{forest}
 \caption{\label{lea} Adnominal modifiers}
 \end{figure}
@@ -346,9 +379,9 @@ denotation of the index, as in the \textsc{content} value of the noun \emph{box}
 \ex\label{red} 
 \begin{avm}
 [\type{scope-object}   \\
- index @1 \type{index} \\
- restr \{[\type{box}   \\
-            arg @1 ]\}]
+ index & @1 \type{index} \\
+ restr & \{[\type{box}   \\
+            arg & @1 ]\}]
 \end{avm} 
 \end{exe}
 
@@ -374,17 +407,17 @@ is one in which the indices of the adjective and the noun are identical, as in
 (\ref{redbox}).\footnote{This is an example of intersective modification. 
 The semantic contribution of other types of adjectives, such as  
 \emph{alleged} and \emph{fake}, are modeled differently \citep[330--331]{ps2}. See also
-\citegen{Kasper97a} work on scopal adjuncts and the discussion of it in \crossrefchaptert[Section~\ref{semantics-sec-adjunct-scope}]{semantics}.}   
+\crossrefchaptert[Section~\ref{semantics-sec-adjunct-scope}]{semantics}.}   
 
 \begin{exe} 
 \ex\label{redbox} 
 \begin{avm}
 [\type{scope-object}     \\
- index @1                \\
- restr \{ [\type{red}    \\
-             arg @1 ],
+ index & @1                \\
+ restr & \{ [\type{red}    \\
+             arg & @1 ] ~,
             [\type{box}  \\
-             arg @1 ]\}]
+             arg & @1 ]\}]
 \end{avm}
 \end{exe}
 
@@ -402,11 +435,11 @@ type \type{set} \citep[\page 23]{GS00}.}
 \begin{avm}
 [category|head [\type{adjective}                            \\
                 mod|loc|content [\type{scope-object}        \\
-                                 index @1                   \\
-                                 restr \avmbox{$\Sigma$} ]] \\
- content [index @1                                          \\
-          restr \{[\type{red}                               \\
-                   arg @1 ]\} ~$\cup$~ \avmbox{$\Sigma$} ]]
+                                 index & @1                   \\
+                                 restr & \avmbox{$\Sigma$} ]] \\
+ content [index & @1                                          \\
+          restr & \{[\type{red}                               \\
+                     arg & @1 ]\} ~$\cup$~ \avmbox{$\Sigma$} ]]
 \end{avm}
 \end{exe}
 
@@ -427,7 +460,7 @@ feature was also assigned to other function words, such as complementizers,
 and its value was of type \type{synsem}.}   
 
 \begin{exe} 
-\ex   \type{determiner}: \begin{avm} [spec \type{semantic-object}] \end{avm}  
+\ex   \type{determiner}: \begin{avm} [spec ~ \type{semantic-object}] \end{avm}  
 \end{exe} 
 
 \noindent
@@ -442,11 +475,11 @@ of \emph{every} in (\ref{every}) \citep[204]{GS00}.
 \begin{avm}
 [category|head [\type{determiner}        \\
                 spec [\type{parameter}   \\
-                      index @1           \\
-                      restr \avmbox{$\Sigma$} ]] \\
+                      index & @1           \\
+                      restr & \avmbox{$\Sigma$} ]] \\
  content @2 [\type{every-rel}          \\
-             index @1                  \\
-             restr \avmbox{$\Sigma$} ] \\
+             index & @1                  \\
+             restr & \avmbox{$\Sigma$} ] \\
  store \{ @2 \}]
 \end{avm}
 \end{exe}
@@ -479,13 +512,13 @@ would be affixed to the head noun \emph{Queen}, as in *\emph{the Queen's of Engl
 \centering
 \begin{forest}
 sm edges
-[{[\textsc{head} \avmbox{1} \type{noun}, \textsc{spr} \eliste]}
-	[{\avmbox{2} [\textsc{head} \avmbox{3} \type{det}, \textsc{spr} \eliste]}
-		[{\avmbox{4} [\textsc{head} \type{noun}, \textsc{spr} \eliste]} [the Queen of England, roof]]
-		[{[\textsc{head} \avmbox{3}, \textsc{spr} \liste{\avmbox{4}}]} ['s]]]
-	[{[\textsc{head} \avmbox{1}, \textsc{spr} \liste{\avmbox{2}}]} [sister]]]
+[{[\textsc{head} \avmbox{1} \type{noun} , \textsc{spr} \eliste]}
+	[{\avmbox{2} [\textsc{head} \avmbox{3} \type{det} , \textsc{spr} \eliste]}
+		[{\avmbox{4} [\textsc{head} \type{noun} , \textsc{spr} \eliste]} [the Queen of England, roof]]
+		[{[\textsc{head} \avmbox{3} , \textsc{spr} \liste{\avmbox{4}}]} ['s]]]
+	[{[\textsc{head} \avmbox{1} , \textsc{spr} \liste{\avmbox{2}}]} [sister]]]
 \end{forest}
-\caption{\label{cousin} Phrasal specifiers }  
+\caption{\label{cousin} A phrasal specifier }  
 \end{figure}
 
 In this anaysis the specifier of \emph{sister} is a DetP that is headed by \emph{'s} 
@@ -502,14 +535,14 @@ sense \citep[\page 8--9]{Nerbonne92}.}
 \begin{avm}
 [category [head [\type{determiner}                \\
                  spec [\type{parameter}           \\
-                       index @1                   \\
-                       restr \avmbox{$\Sigma$} ]] \\
-           spr <[index @3]> ]                     \\
+                       index & @1                   \\
+                       restr & \avmbox{$\Sigma$} ]] \\
+           spr  <[index & @3]> ]                     \\
  content @2 [\type{the-rel}                       \\
-               index @1                           \\
-               restr \{[\type{poss-rel}           \\
-                          possessor @3            \\
-                          possessed @1 ]\} $\cup$ \avmbox{$\Sigma$} ] \\
+               index & @1                           \\
+               restr & \{[\type{poss-rel}           \\
+                          possessor & @3            \\
+                          possessed & @1 ]\} ~ $\cup$~ \avmbox{$\Sigma$} ] \\
  store \{ @2 \}]  
 \end{avm}
 \end{exe}
@@ -544,10 +577,10 @@ result of the combination is a DP with an empty \textsc{comps} list, as in Figur
 \centering
 \begin{forest}
 sm edges
-[{[\textsc{head} \avmbox{1} \type{det}, \textsc{comps} \eliste]}
-	[{[\textsc{head} \avmbox{1}, \textsc{comps} \liste{\avmbox{4} NP}]} [that]]
-	[{\avmbox{4} [\textsc{head} \avmbox{2} \type{noun}, \textsc{comps} \eliste]}
-		[{[\textsc{head} \avmbox{2}, \textsc{comps} \liste{\avmbox{3} PP}]} [sister]]
+[{[\textsc{head} \avmbox{1} \type{det} , \textsc{comps} \eliste]}
+	[{[\textsc{head} \avmbox{1} ~, \textsc{comps} \liste{\avmbox{4} NP}]} [that]]
+	[{\avmbox{4} [\textsc{head} \avmbox{2} \type{noun} ~, \textsc{comps} \eliste]}
+		[{[\textsc{head} \avmbox{2} ~, \textsc{comps} \liste{\avmbox{3} PP}]} [sister]]
 		[\avmbox{3} [of Leslie, roof]]]]
 \end{forest}
 \caption{\label{net} Propagation of the \textsc{head} and \textsc{comps} values}
@@ -560,8 +593,8 @@ between major and minor \textsc{head} features:
 
 \begin{exe} 
 \ex    \begin{avm}
-       [head [major [n \type{boolean}   \\
-                     v \type{boolean} ] \\
+       [head [major [n & \type{boolean}   \\
+                     v & \type{boolean} ] \\
               minor|fcompl \type{boolean}]]
        \end{avm} 
 \end{exe} 
@@ -595,22 +628,21 @@ determiners, negative for singular count nouns and underspecified for plurals an
 Determiners take a nominal complement with a negative \textsc{fcompl} value, but their 
 own \textsc{fcompl} value is positive and since they are the head, they share this value with 
 the mother, as in Figure~\ref{netter}. 
+
 \begin{figure}
 \centering
 \begin{forest}
 sm edges
-[{[\textsc{major} \avmbox{1} [--V, +N[\type{sing}]], \textsc{minor$|$fcompl} +]}
-		[{[\textsc{major} \avmbox{1}, \textsc{minor$|$fcompl} +]} [that]]
-		[{[\textsc{major} \avmbox{1}, \textsc{minor$|$fcompl} --]} [sister of Leslie, roof]]]
+[{[\textsc{major} \avmbox{1} ~ , \textsc{minor} \avmbox{2}]}
+		[{[\textsc{major} \avmbox{1} ~ , \textsc{minor} \avmbox{2} \textsc{fcompl} +]} [that]]
+		[{[\textsc{major} \avmbox{1} [--V, +N[\type{sing}]] , \textsc{minor$|$fcompl} --]} [sister of Leslie, roof]]]
 \end{forest}
-\caption{\label{netter} Propagation of the \textsc{head} values}
+\caption{\label{netter} Propagation of the \textsc{major} and \textsc{minor} values}
 \end{figure}
+
 In this analysis, a nominal is complete, if it is both saturated 
 (empty \textsc{comps} list) and functionally complete (positive \textsc{fcompl}), as 
-spelled out in (\ref{min}) \citep[312]{Netter94}.\inlinetodostefan{The MINOR features should be shared
-  otherwise it is unclear why it is both + at the determiner and at the top node. \citet[\page 136]{Netter96a}
-  shared the HEAD features along the head path. MINOR features are shared between det and NP via
-  selection. Please change as adviced in earlier mail.}
+spelled out in (\ref{min}) \citep[312]{Netter94}.
 
 \begin{exe} 
 \ex\label{min} Functional Completeness Constraint: Every maximal projection is marked  
@@ -635,6 +667,7 @@ number, gender and case as the adjectives and which are subject to
 the same requirement on concord with the noun as the adnominal adjectives. 
 Since such determiners have more in common with adjectives than with (pro)nouns,  
 it would be more plausible to treat them as members of [+N, +V].  
+
 The problem also affects the associated agreement features, i.e. \textsc{case}, 
 \textsc{number} and \textsc{gender}. If a determiner 
 is required to share the values of these features with its nominal complement,
@@ -647,23 +680,20 @@ The assumption that the latter shares the case and number of its nominal sister
 is, hence, problematic.
 
 Another problem concerns the assumption ``that all substantive categories will 
-require the complement they combine with to be both saturated and 
-functionally complete'' \citep[311]{Netter94}. Complements of verbs and 
-prepositions must, hence, be positively specified for \textsc{fcompl}.\inlinetodostefan{this is not a problem} 
-This, however, is contradicted by the existence of 
-prepositions which require their complement to be functionally incomplete.
-The Dutch \emph{te} and \emph{per}, for instance, are not compatible with nominals 
-that contain a determiner, also if the nominal is singular and count, 
-as in \emph{te (*het/een) paard} `on horse' and \emph{per (*de/een) trein} `by train'.   
-In this respect, they differ from most of the other Dutch prepositions, which 
-require their nominal complement to have a determiner if it is singular and count,   
-as in \emph{ze viel van *(het) paard} `she fell from *(the) horse' 
-and \emph{ze zit op *(de) trein naar Londen} `she is on *(the) train to London'.  
-This shows that there are prepositions which require their complement to be 
-functionally complete, such as \emph{van} and \emph{op}, 
-and prepositions which requitre it to be functionally incomplete, such as 
-\emph{per} and \emph{te}. This distinction, though, cannot be made in 
-an analysis that does not allow functionally incomplete complements. 
+require the complement they combine with to be both saturated and functionally complete''
+\citep[311]{Netter94}. Complements of verbs and prepositions must, hence, be positively 
+specified for \textsc{fcompl}. This is contradicted by the existence of
+prepositions which require their complement to be functionally incomplete. 
+The Dutch \emph{te} and \emph{per}, for instance, require a determinerless nominal,
+also if the nominal is singular and count, as in \emph{te (*het) paard} `on horse' 
+and \emph{per (*de) trein} `by train'. A reviewer points out that this is 
+not necessarily a problem for the DP approach, but only for Netter's version of it. 
+Technically, it may indeed suffice to drop the erroneous assumption, but 
+conceptually the existence of adpositions which require a determinerless nominal 
+does suggest that the NP approach is more plausible, especially since 
+there are no adpositions (nor verbs) which require a nounless nominal.\footnote{NP 
+treatments of adpositions with a determinerless nominal are provided in \citet{Tseng00}
+for French, in \citet{VanEynde04} for Dutch and in \citet{Kiss08} for German.}    
 
 
 \subsection{The functor treatment} 
@@ -714,7 +744,7 @@ Dutch determiners come in (at least) two kinds. On the one hand, there are those
 which show the same inflectional variation and the same concord with the noun as the 
 prenominal adjectives: they take the affix \emph{-e} in combination with plural 
 and singular non-neuter nominals, but not in combination with singular 
-neuter nominals, as shown for the adjective \emph{zwart} in (\ref{wit}), 
+neuter nominals, as shown for the adjective \emph{zwart} `black' in (\ref{wit}), 
 for the possessive determiner \emph{ons} `our' in (\ref{ons}) and for the 
 interrogative determiner \emph{welk} `which' in (\ref{welk}).\footnote{If the adjective 
 is preceded by a definite determiner, 
@@ -844,19 +874,19 @@ does not show any inflectional variation and does not show concord with the noun
 \end{exe}
 
 \noindent
-Confirming evidence for the distinction is provided by the fact that 
-\emph{loro} is also used as a personal pronoun, whereas the other 
-possessive determiners are not. 
+Confirming evidence for the distinction between adjectival and pronominal possessives
+is provided by the fact that \emph{loro} is also used as a personal pronoun, 
+whereas the other possessives are not.\footnote{In this context one has to use 
+the pronoun \emph{noi} `us' instead.} 
 
 \begin{exe} 
 \ex 
 \gll   Enrico ha dato una scatola a loro/*nostro. \\
-       Enrico has given a box to them/*our \\
+       Enrico has given a box to them/*our        \\
 \trans `Enrico gave them a box.'
 \end{exe} 
 
 \noindent
-In this context one has to use the pronoun \emph{noi} `us' instead. 
 Besides, there are determiners with adverbial properties. 
 \citet{Abeilleetal04}, for instance, 
 assign adverbial status to the quantifying determiner in the French 
@@ -871,7 +901,6 @@ category for them.
 
 \subsubsection{Basics} 
 \label{sec-basics}
-
 
 
 Technically, the elimination of the distinction between specifiers and adjuncts
@@ -919,16 +948,16 @@ and with the nonhead daughter in head-nonargument phrases, as spelled out in
 \ea\label{mark1} 
 \type{head-argument-phrase}  ~ \impl ~
 \begin{avm}
-[synsem|loc|category|marking @1 \type{marking}  \\
- head-dtr|synsem|loc|category|marking @1] 
+[synsem|loc|category|marking ~ @1 \type{marking}  \\
+ head-dtr|synsem|loc|category|marking ~ @1] 
 \end{avm}
 \z
 \ea\label{mark2} 
 \type{head-nonarg-phrase} ~ \impl ~
 \begin{avm}
-[synsem|loc|category|marking @1 \type{marking}   \\
- dtrs <[synsem|loc|category|marking @1], @2 > \\
- head-dtr @2 ]
+[synsem|loc|category|marking ~ @1 \type{marking}   \\
+ dtrs ~ <[synsem|loc|category|marking @1] ~ , @2 > \\
+ head-dtr ~ @2 ]
 \end{avm}
 \z
 
@@ -944,8 +973,7 @@ in (\ref{hefu}).
 \ex\label{hefu} 
 \type{head-functor-phrase} ~ \impl ~ 
 \begin{avm}
-[dtrs <[synsem|loc|category|head|select @1], @2 > \\
- head-dtr @2 [synsem @1]]
+[dtrs ~ <[synsem|loc|category|head|select ~ @1] ~ , [synsem ~ @1 ]>] 
 \end{avm}
 \end{exe} 
 
@@ -961,27 +989,26 @@ Construction.} In that case the \textsc{select} value of the nonhead daughter is
 \ex\label{hein} 
 \type{head-independent-phrase} ~ \impl ~\\
 \begin{avm}
-[dtrs <[synsem|loc|category|head|select \type{none}], @1> \\
- head-dtr @1 ]
+[dtrs ~ <[synsem|loc|category|head|select ~ \type{none}] ~ , X >]
 \end{avm}
 \end{exe}    
 
+An illustration of the functor treatment is given in Figure~\ref{markyy}.
 
-An illustration of the functor treatment is given in Figure~\ref{markyy}.\inlinetodostefan{add a more
-  telling title. What is the functor? Check my addition to caption}
 \begin{figure}
 \centering
 \oneline{%
 \begin{forest}
 sm edges
-[{[\textsc{head} \avmbox{1} \type{noun}, \textsc{mark} \avmbox{2} \type{marked}]}
-	[{[\textsc{head$|$sel} \avmbox{4}, \textsc{mark} \avmbox{2}]} [that]]
-	[{\avmbox{4} [\textsc{head} \avmbox{1}, \textsc{mark} \avmbox{5} \type{unmarked}]}
-		[{[\textsc{head$|$sel} \avmbox{3}, \textsc{mark} \avmbox{5}]} [long]]
-		[{\avmbox{3} [\textsc{head} \avmbox{1}, \textsc{mark} \avmbox{5}]} [bridge]]]]
+[{[\textsc{head} \avmbox{1} \type{noun} ~ , \textsc{mark} \avmbox{2} \type{marked}]}
+	[{[\textsc{head$|$sel} \avmbox{4} ~ , \textsc{mark} \avmbox{2}]} [that]]
+	[{\avmbox{4} [\textsc{head} \avmbox{1} ~ , \textsc{mark} \avmbox{5} \type{unmarked}]}
+		[{[\textsc{head$|$sel} \avmbox{3} ~ , \textsc{mark} \avmbox{5}]} [long]]
+		[{\avmbox{3} [\textsc{head} \avmbox{1} ~ , \textsc{mark} \avmbox{5}]} [bridge]]]]
 \end{forest}}
-\caption{\label{markyy} Adnominal functors: both \emph{that} and \emph{long} select nominal projections}
+\caption{\label{markyy} Marking and selection in nominal projections}
 \end{figure}
+
 The combination of the noun with the adjective is an instance of \type{head-functor-phrase}, 
 in which the adjective selects an unmarked nominal \iboxb{3},  
 shares its \textsc{marking} value \iboxb{5}, and, being a non-argument, 
@@ -1021,20 +1048,19 @@ has a left branching structure in which the indefinite article selects
 the unmarked singular noun \emph{hundred} -- its plural counterpart is \emph{hundreds} --  
 and in which the resulting NP selects the unmarked plural noun 
 \emph{pages}, as spelled out in Figure~\ref{glorie}. 
-\inlinetodostefan{add a more telling caption. Why is functors in plural? Check my modification of the caption}
  
 \begin{figure}
 \centering
 \oneline{%
 \begin{forest}
 sm edges
-[{[\textsc{head} \avmbox{1} \type{noun}, \textsc{mark} \avmbox{2}]}
-	[{[\textsc{head} \avmbox{4} [\type{noun} \textsc{sel} \avmbox{3}], \textsc{mark} \avmbox{2}]}
-		[{[\textsc{head$|$sel} \avmbox{5}, \textsc{mark} \avmbox{2} \type{marked}]} [a]]
-		[{\avmbox{5} [\textsc{head} \avmbox{4}, \textsc{mark} \type{unmarked}]} [hundred]]]
-	[{\avmbox{3} [\textsc{head} \avmbox{1}, \textsc{mark} \type{unmarked}]} [pages]]]
+[{[\textsc{head} \avmbox{1} \type{noun} ~ , \textsc{mark} \avmbox{2}]}
+	[{[\textsc{head} \avmbox{4} \type{noun} [\textsc{sel} \avmbox{3}] ~ , \textsc{mark} \avmbox{2}]}
+		[{[\textsc{head$|$sel} \avmbox{5} ~ , \textsc{mark} \avmbox{2} \type{marked}]} [a]]
+		[{\avmbox{5} [\textsc{head} \avmbox{4} ~ , \textsc{mark} \type{unmarked}]} [hundred]]]
+	[{\avmbox{3} [\textsc{head} \avmbox{1} ~ , \textsc{mark} \type{unmarked}]} [pages]]]
 \end{forest}}
-\caption{\label{glorie} Phrasal functors: \emph{a hundred} selecting \emph{pages}}
+\caption{\label{glorie} A phrasal functor}
 \end{figure}
 
 The \textsc{head} value of the entire NP is identified with that 
@@ -1065,14 +1091,15 @@ the latter simply captures the difference between nominals with and without
 determiner, the former can be used to capture finer-grained distinctions.  
 To illustrate the need for such finer-grained distinctions 
 let us take another look at the attributive adjectives of Dutch. 
-As already pointed out in Section~\ref{sec-basics}, they take the form without affix in  
-singular neuter nominals, as in \emph{zwart zand} `black sand'. A complication, 
-though, is that they canonically take the form with the affix if the nominal is  
-introduced by a definite determiner, as in \emph{het zwarte zand} `the black sand'. 
+As already pointed out in Section~\ref{sec-basics}, they take the  
+affix \emph{e} in combination with plural and singular non-neuter nominals, 
+but not in combination with singular neuter nominals, as in \emph{zwart huis} 
+`black house'.  
+A complication, though, is that they also take the affix in singular neuter nominals 
+if they are introduced by a definite determiner, as in \emph{het zwarte huis} `the black house'. 
 This has consequences for the status of nominals with a singular neuter head: 
-\emph{zwart zand} and *\emph{zwarte zand}, for instance, are both unmarked, 
-but while the former is well-formed as it is, the latter is only 
-well-formed if it is preceded by a definite determiner. 
+\emph{zwart huis} and \emph{zwarte huis}, for instance, are both unmarked, 
+but put different constraints on the combination with a determiner. 
 To model this \citet{VanEynde06} differentiates between two types 
 of \type{unmarked} nominals, as shown in Figure~\ref{bare}. 
 
@@ -1090,18 +1117,18 @@ of \type{unmarked} nominals, as shown in Figure~\ref{bare}.
 \end{figure}
 
 Employing the more specific subtypes, the adjectives without affix which select a singular 
-neuter nominal have the \textsc{marking} value \type{bare}, while their declined counterparts 
+neuter nominal have the \textsc{marking} value \type{bare}, while the adjectives with the affix
 which select a singular neuter nominal have the value \type{incomplete}. 
 Since this \textsc{marking} value is shared with the mother, the \textsc{marking} value 
-of \emph{zwart zand} is \type{bare}, while that of *\emph{zwarte zand} is \type{incomplete}. 
-The fact that the latter must be preceded by a definite determiner
-is modeled in the \textsc{select} value of the determiner: 
-while definite determiners select an unmarked nominal, which implies that 
-they are compatible with both bare and incomplete nominals,
-non-definite determiners select a bare nominal and are, hence, not compatible 
-with an incomplete one, as in *\emph{een zwarte huis} `a black house'. 
-The \textsc{marking} feature is, hence, useful to differentiate bare 
-nominals from incomplete nominals.
+of \emph{zwart huis} is \type{bare}, while that of \emph{zwarte huis} is \type{incomplete}. 
+This interacts with the \textsc{select} value of the determiner. 
+Non-definite determiners select a bare nominal, licensing \emph{een zwart huis}
+`a black house', but not *\emph{een zwarte huis}.  
+Definite determiners, by contrast, select an unmarked nominal, which implies that 
+they are compatible with both bare and incomplete nominals, licensing 
+both \emph{het zwarte huis} and \emph{het zwart huis}.\footnote{Normative grammars 
+recommend the use of the form with the affix, but also point out that the form without affix 
+is widely used, especially when the adjective froms a tight semantic unit with the noun.}
   
 In a similar way, one can make finer-grained distinctions in the hierarchy of  
 \type{marked} values to capture co-occurrence restrictions between determiners and 
@@ -1134,7 +1161,8 @@ has also been adopted in Sign-Based Construction Grammar \citep[155--157]{Sag201
 
 This section focusses on the analysis of nominals with idiosyncratic properties. 
 Since their analysis often requires a relaxation of the strictly lexicalist approach 
-of early HPSG, we first introduce some basic notions of Constructional HPSG (Section~\ref{cohp}). Then we present analyses of nominals with a verbal core (Section~\ref{geru}), 
+of early HPSG, we first introduce some basic notions of Constructional HPSG (Section~\ref{cohp}). 
+Then we present analyses of nominals with a verbal core (Section~\ref{geru}), 
 of the Big Mess Construction (Section~\ref{bime}) and of idiosyncratic [P + Nom] combinations 
 (Section~\ref{prep}). Finally, we provide pointers to analyses of other nominals with 
 idiosyncratic properties (Section~\ref{other}). 
@@ -1190,7 +1218,7 @@ Clauses, for instance, are required to denote an object of type \type{message}
 \begin{exe}
 \ex \type{clause} ~ \impl ~ 
 \begin{avm}
-[synsem|loc|content \type{message}] 
+[synsem|loc|content ~ \type{message}] 
 \end{avm}
 \end{exe}
 
@@ -1248,6 +1276,7 @@ To model this mixture of nominal and verbal properties \citep[65]{Malouf00}
 develops an analysis along the lines of the specifier treatment, in which 
 the hierarchy of part-of-speech values is given more internal structure, as in 
 Figure~\ref{ger}. 
+
 \begin{figure}
 \centering
 \begin{forest}
@@ -1264,6 +1293,7 @@ Figure~\ref{ger}.
 \end{forest}
 \caption{ \label{ger} The gerund as a mixed category }
 \end{figure} 
+
 Instead of treating \type{noun}, \type{verb}, \type{adjective} etc. as 
 immediate subtypes of \type{part-of-speech}, they are grouped in terms of 
 intermediate types, such as \type{relational}, which subsumes a.o. verbs and adjectives, 
@@ -1282,7 +1312,7 @@ which derives gerunds from the homophonous present participles \citep[66]{Malouf
  subj  & <@1 np>               \\
  comps & @A                    \\
  spr   & < >]
-\end{avm} $\mapsto$ \begin{avm} 
+\end{avm} ~ \impl ~ \begin{avm} 
                             [head  & \type{gerund}  \\
                              subj  & <@1>           \\
                              comps & @A             \\
@@ -1325,17 +1355,17 @@ bidimensional hierarchy of phrase types in Figure~\ref{bido}.
 
 The combination with an accusative subject is subsumed by \type{nonfin-head-subj-cx}, 
 which is a subtype of \type{head-subject-phrase} and \type{clause}. 
-Its defining properties are spelled out in (\ref{acccx}) \citep[16]{Malouf00}.\inlinetodostefan{head-dtr
-  structure sharing inherited? hence redundant?}
+Its defining properties are spelled out in (\ref{acccx}) 
+\citep[16]{Malouf00}.\footnote{Malouf uses the feature {\sc non-hd-dtr} to single out
+the non-head daughter.}  
 
 \begin{exe}
 \ex\label{acccx} 
 \type{nonfin-head-subj-cx} ~ \impl ~ 
 \begin{avm} 
-[synsem|loc|category|head|root --                \\
- dtrs <[synsem|loc|category|head [\type{noun}   \\
-                                  case \type{acc}]], @1 > \\
- head-dtr @1 ] 
+[synsem|loc|category|head|root ~ --                \\
+ non-hd-dtr|synsem|loc|category|head [\type{noun}   \\
+                                      case ~ \type{acc}]]  
 \end{avm}
 \end{exe} 
 
@@ -1348,18 +1378,16 @@ This accounts for the fact that its external distribution is that of an NP.
 By contrast, the combination with a possessive subject is subsumed by 
 \type{noun-poss-cx}, which is a subtype of \type{head-specifier-phrase} and 
 \type{non-clause} \citep[16]{Malouf00}.\footnote{Malouf treats 
-the English possessive as a genitive, differently from \citet{SagWasow03}.}\inlinetodostefan{head-dtr
-  structure sharing inherited? hence redundant?}  
+the English possessive as a genitive, differently from \citet{SagWasow03}.}
 
 \begin{exe} 
 \ex\label{gencx} 
 \type{noun-poss-cx} ~ \impl ~ 
 \begin{avm} 
-[synsem|loc [category|head \type{noun}                    \\
-             content \type{scope-object}]                 \\
- dtrs <[synsem|loc|category|head [\type{noun}             \\
-                                  case \type{gen}]], @1 > \\
- head-dtr @1 ] 
+[synsem|loc [category|head ~ \type{noun}                \\
+             content ~ \type{scope-object}]             \\
+ non-hd-dtr|synsem|loc|category|head [\type{noun}       \\
+                                      case ~ \type{gen}]] 
 \end{avm}
 \end{exe}
  
@@ -1431,22 +1459,23 @@ It is, hence, preferable to assign a structure in which the AP and the NP are si
 \subsubsection{A functor treatment} 
 
 
-A structure in which the AP and the NP are sisters 
-is adopted in \citet{VanEynde07}, \citet{KimSells11}, \citet{KaySag12}, 
+A structure in which the AP and the NP are sisters is adopted in 
+\citet{VanEynde07}, \citet{KimSells11}, \citet{KaySag12}, 
 \citet{ArnoldSadler14} and \citet{VanEynde18}, all of which are functor treatments. 
 They also share the assumption that the combination is an NP and that its head daughter is 
 the lower NP. The structure of the latter is spelled out in Figure~\ref{aprob}. 
-\inlinetodostefan{check caption}
+
 \begin{figure}
 \centering
 \begin{forest}
 sm edges
-[{[\textsc{head} $\avmbox{1}$ \type{noun}, \textsc{mark} $\avmbox{2}$ \type{a}]}
-		[{[\textsc{head$|$sel} $\avmbox{3}$, \textsc{mark} $\avmbox{2}$]} [a]]
-		[{$\avmbox{3}$ [\textsc{head} $\avmbox{1}$, \textsc{mark} \type{unmarked}]} [bargain]]]
+[{[\textsc{head} $\avmbox{1}$ \type{noun} ~, \textsc{mark} $\avmbox{2}$ \type{a}]}
+		[{[\textsc{head$|$sel} $\avmbox{3}$ ~, \textsc{mark} $\avmbox{2}$]} [a]]
+		[{$\avmbox{3}$ [\textsc{head} $\avmbox{1}$ ~, \textsc{mark} \type{unmarked}]} [bargain]]]
 \end{forest}
-\caption{\label{aprob} The lower NP of \emph{so good a bargain}}
+\caption{\label{aprob} The NP \emph{a bargain}}
 \end{figure}
+
 The article has a \textsc{marking} value of type \type{a} which is a subtype of \type{marked} and which it
 shares with the mother.\footnote{The \textsc{marking} value of the article looks similar to its 
 \textsc{phonology} value, but it is not the same. The \textsc{phonology} values of \emph{a} and \emph{an}, 
@@ -1456,17 +1485,18 @@ The AP is also treated as an instance of the head-functor type
 in \citet{VanEynde07}, \citet{KimSells11} and \citet{VanEynde18}. 
 The adverb has a \textsc{marking} value of type \type{marked}, 
 so that the AP is marked as well, as shown in Figure~\ref{sohow}.   
-\inlinetodostefan{check caption}
+
 \begin{figure}
 \centering
 \begin{forest}
 sm edges
-[{[\textsc{head} $\avmbox{3}$ \type{adj}, \textsc{mark} $\avmbox{1}$ \type{marked}]}
-		[{[\textsc{head$|$sel} $\avmbox{2}$, \textsc{mark} $\avmbox{1}$]} [so]]
-		[{$\avmbox{2}$ [\textsc{head} $\avmbox{3}$, \textsc{mark} \type{unmarked}]} [good]]]
+[{[\textsc{head} $\avmbox{3}$ \type{adj} ~, \textsc{mark} $\avmbox{1}$ \type{marked}]}
+		[{[\textsc{head$|$sel} $\avmbox{2}$ ~, \textsc{mark} $\avmbox{1}$]} [so]]
+		[{$\avmbox{2}$ [\textsc{head} $\avmbox{3}$ ~, \textsc{mark} \type{unmarked}]} [good]]]
 \end{forest}
-\caption{\label{sohow} The marked AP of \emph{so good a bargain}}
+\caption{\label{sohow} The AP \emph{so good}}
 \end{figure}
+
 In combination with the fact that the article selects an unmarked nominal, 
 this accounts for the ill-formedness of (\ref{ster}). 
 
@@ -1529,14 +1559,14 @@ in \citet{GS00}. One of the non-clausal phrase types is \type{nominal-parameter}
 \ex\label{param} 
 \type{nominal-parameter} ~ \impl ~
 \begin{avm}
-[synsem|loc [category|head \type{noun}                              \\
+[synsem|loc [category|head ~ \type{noun}                              \\
              content [\type{parameter}                               \\
-                      index @1                                       \\
-                      restr \ibox{\Sigma_{1}} $\cup$ \ibox{\Sigma_{2}}]] \\
- dtrs <[synsem|loc|content|restr \ibox{\Sigma_{1}} ], @2>     \\
+                      index ~ @1                                       \\
+                      restr ~ \ibox{\Sigma_{1}} $\cup$ \ibox{\Sigma_{2}}]] \\
+ dtrs <[synsem|loc|content|restr \ibox{\Sigma_{1}} ] ~, @2>     \\
  head-dtr @2 [synsem|loc|content [\type{parameter}                  \\
-                                    index @1                         \\
-                                    restr \ibox{\Sigma_{2}} ]]]
+                                    index ~ @1                         \\
+                                    restr ~ \ibox{\Sigma_{2}} ]]]
 \end{avm}
 \end{exe}
 
@@ -1554,9 +1584,8 @@ the quantified nominals, which have a \textsc{content} value of type
 \ex\label{mononom} 
 \type{intersective-modification} ~ \impl ~ 
 \begin{avm}
-[synsem|loc|content|index @1      \\
- dtrs <[synsem|loc|content|index @1 ], @2 > \\
- head-dtr @2  ]
+[synsem|loc|content|index ~ @1      \\
+ dtrs <[synsem|loc|content|index ~ @1 ] ~, X > ]
 \end{avm}
 \end{exe}
 
@@ -1583,27 +1612,23 @@ being a subtype of \type{head-independent-phrase},
 its nonhead daughter does not select the head daughter. Its \textsc{select} 
 value is, hence, of type \type{none}. 
 Beside the inherited properties the BMC has some properties of its own.   
-They are spelled out in (\ref{bigmess2}).\inlinetodostefan{If this is the definition, the structure
-  sharing is redundant since it is inherited from the supertype. You should at least add a footnote
-  saying that this structure sharing does not have to be given but is here for explanatory purposes
-  only.
-}
+They are spelled out in (\ref{bigmess2}).
 
 \begin{exe}
 \ex\label{bigmess2} 
 \type{big-mess-phr} ~ \impl ~ 
 \begin{avm}
- [ dtrs <[\type{head-functor-phrase}                             \\
-          synsem|loc|category [head    & \type{adjective}      \\
-                               marking & \type{marked}]], @1>  \\
- head-dtr @1 [\type{regular-nominal-phrase}                    \\
-                synsem|loc|category|marking \type{a}]]
+ [ dtrs ~ <[\type{head-functor-phrase}                           \\
+            synsem|loc|category [head    & \type{adjective}      \\
+                                 marking & \type{marked}]] ~ , X > \\
+ head-dtr [\type{regular-nominal-phrase}                         \\
+           synsem|loc|category|marking ~ \type{a}]]
 \end{avm}
 \end{exe}
 
 \noindent
 The head daughter is required to be a regular nominal phrase 
-whose \textsc{marking} value is of type \type{a}, and the nonhead daughter 
+whose \textsc{marking} value is of type \type{a}, and the other daughter 
 is required to be an adjectival head-functor phrase
 with a \textsc{marking} value of type \type{marked}. 
 This licenses APs which are introduced by a marked adverb, 
@@ -1645,7 +1670,7 @@ The French \emph{de} `of', for instance, heads a PP in
 \emph{je viens de Roubaix} `I come from Roubaix'. 
 In \emph{beaucoup de farine} `much flour', by contrast, \emph{de} has 
 a rather different role, as argued in \citet{Abeilleetal04}. 
-Similar contrasts can be found in other languages. The English \emph{of}, for instance, 
+Similar contrasts are found in other languages. The English \emph{of}, for instance, 
 heads a PP in \emph{the dog of the neighbors}, but its role in \emph{these sort of problems} 
 is rather different, as argued in \citet{Maekawa15}.  
 
@@ -1692,7 +1717,7 @@ the value of \textsc{spec} is of type \type{synsem}, as in \citet{ps2}, and not 
 \begin{avm} 
 [category|head [\type{adverb}                                 \\
                 spec|loc [category [head    & \type{noun}     \\
-                                    spr     & <X>             \\
+                                    spr     & \type{nelist}   \\
                                     marking & \type{de}]      \\
                           content [index @1                    \\
                                    restr \avmbox{$\Sigma$} ]]] \\ 
@@ -1705,51 +1730,41 @@ the value of \textsc{spec} is of type \type{synsem}, as in \citet{ps2}, and not 
 
 \noindent
 The selected nominal is required to be unsaturated for \textsc{spr} and to have a 
-\textsc{marking} value of type \type{de}. The determiner itself is treated as an adverb that  
+\textsc{marking} value of type \type{de}. \emph{Beaucoup} is treated as an adverb that  
 shares the index and the restrictions of its nominal head sister. Conversely, the latter
 also selects its specifier via its \textsc{spr} value, following the mutual 
 selection regime of the specifier treatment, see Section~\ref{semco}.
-
-Technically, there is a similarity between the weak head treatment and the 
-definition of functional complementation in \citet{Netter94}, see Section~\ref{compl}. 
-In both cases the head, whether weak or functional, inherits the properties of its 
-complement, except for those that are captured by a special feature, such as  
-\textsc{marking} or \textsc{minor}. There are also differences, of course, for 
-while \citet{Netter94} applies the functional head analysis to the determiners,  
-\citet{Abeilleetal04} apply the weak head analysis to \emph{de}, but not to 
-\emph{beaucoup}. That is why the former is an instance of the DP approach and the 
-latter of the NP approach.  
 
 
 \subsubsection{A functor treatment} 
 
 
-In a functor treatment of \emph{beaucoup de farine} `much flour' both \emph{de} and 
-\emph{beaucoup} are functors. The former selects a nominal of type \type{bare} and 
+In a functor treatment of \emph{beaucoup de farine} `much flour' \emph{de} and 
+\emph{beaucoup} are both functors. The former selects a nominal of type \type{bare} and 
 has a \textsc{marking} value of \type{de} which it shares with the mother. 
 The latter selects a nominal with the \textsc{marking} value 
 \type{de} and has a \textsc{marking} value of type \type{marked} which it 
-shares with the NP as a whole, as spelled out in Figure~\ref{beau}.\inlinetodostefan{add glosses to de in figure} 
+shares with the NP as a whole, as spelled out in Figure~\ref{beau}.
 
 \begin{figure}
 \centering
 \oneline{%
 \begin{forest}
 sm edges
-[{[\textsc{head} \avmbox{1} \type{noun}, \textsc{mark} \avmbox{2} \type{marked}]}
-	[{[\textsc{head$|$sel} \avmbox{4}, \textsc{mark} \avmbox{2}]} [beaucoup;much]]
-	[{\avmbox{4} [\textsc{head} \avmbox{1}, \textsc{mark} \avmbox{5} \type{de}]}
-		[{[\textsc{head$|$sel} \avmbox{3}, \textsc{mark} \avmbox{5}]} [de;gloss]]
-		[{\avmbox{3} [\textsc{head} \avmbox{1}, \textsc{mark} \type{bare}]} [farine;flour]]]]
+[{[\textsc{head} \avmbox{1} \type{noun} ~ , \textsc{mark} \avmbox{2} \type{marked}]}
+	[{[\textsc{head$|$sel} \avmbox{4} ~ , \textsc{mark} \avmbox{2}]} [beaucoup;much]]
+	[{\avmbox{4} [\textsc{head} \avmbox{1} ~ , \textsc{mark} \avmbox{5} \type{de}]}
+		[{[\textsc{head$|$sel} \avmbox{3} ~ , \textsc{mark} \avmbox{5}]} [de;of]]
+		[{\avmbox{3} [\textsc{head} \avmbox{1} ~ , \textsc{mark} \type{bare}]} [farine;flour]]]]
 \end{forest}}
-\caption{\label{beau} A prepositional functor}
+\caption{\label{beau} An adverbial functor and a prepositional functor}
 \end{figure}
 
 Since the noun is the head daughter of \emph{de farine}, the latter's 
 part-of-speech, valence and meaning are shared directly with \emph{farine}, 
 rather than via the AVM of \emph{de}, as in the weak head treatment. 
 
-Comparing the functor treatment with the weak head specifier treatment,  
+Comparing the functor treatment with the weak head treatment,  
 a major difference concerns the status of \emph{de}. In the former it is 
 unifomly treated as a semantically vacuous preposition; in the latter it shares 
 the part-of-speech and \textsc{content} value of its complement, so that it is 
@@ -1760,7 +1775,7 @@ an infinitival VP as its complement.
 
 \begin{exe} 
 \ex\label{sorti}   
-\gll   De sortir un peu te ferait du bien. \\
+\gll   De sortir un peu te ferait du bien.  \\
        to go.out a bit you would.do {} good \\
 \trans `Going out a bit would do you some good.'
 \end{exe}  
@@ -1837,7 +1852,7 @@ Both types are compared and analyzed in \citet{Kim12} and \citet{Kim14}.
 \citet{VanEyndeKim16} provides an analysis of loose apposition in the 
 Sign-Based Construction Grammar framework. 
 
-Idiosyncratic are also the nominals with an extracted determiner, as in 
+Idiosyncratic are also the nominals with an extracted \emph{wh}-word, as in 
 the French (\ref{combi}) and the Dutch (\ref{gelu}). 
 
 \begin{exe} 
@@ -1864,10 +1879,7 @@ Over time three treatments have taken shape, i.e. the specifier treatment,
 the DP treatment and the functor treatment. 
 Each was presented and applied to ordinary nominals in Section~\ref{ordi}. 
 A comparison showed that the treatments which adopt the NP approach fit in better with 
-the surface-oriented monostratal character of HPSG than the DP treatment.\inlinetodostefan{Add:
-  While the functor-based analysis has simpler syntactic structures for determinerless structures, additional assumptions have to
-  be made regarding the semantics of such structures (not discussed in this chapter).}
-
+the surface-oriented monostratal character of HPSG than the DP treatment.
 We then turned to nominals with idiosyncratic properties in Section~\ref{idio}.
 Since their analysis often requires a relaxation of the strictly lexicalist stance of early HPSG, 
 we first introduced some basic notions of Constructional HPSG and then applied them to 
@@ -1884,9 +1896,10 @@ and discontinuous NPs.
 \section*{Acknowledgements}
 
 
-For their comments on earlier versions of this chapter I would like to thank Bob Borsley, Stefan
-Müller, Liesbeth Augustinus and two anonymous reviewers. My contributions to the HPSG framework span
-nearly three decades now, starting with work on a EU-financed project to which
+For their comments on earlier versions of this chapter I would like to thank 
+Liesbeth Augustinus, the editors of the handbook and two anonymous reviewers. 
+My contributions to the HPSG framework span nearly three decades now, 
+starting with work on a EU-financed project to which
 also Valerio Allegranza, Doug Arnold and Louisa Sadler contributed \citep{VanEyndeSchmidt98}. 
 Beside the EU-funding, it was conversations with Dani\`ele Godard and Ivan Sag that convinced me 
 of the merits and the potential of the HPSG approach.  
@@ -1899,3 +1912,13 @@ environment to work in.
 }
 \end{document}
 
+
+Technically, there is a similarity between the weak head treatment and the 
+definition of functional complementation in \citet{Netter94}, see Section~\ref{compl}. 
+In both cases the head, whether weak or functional, inherits the properties of its 
+complement, except for those that are captured by a special feature, such as  
+\textsc{marking} or \textsc{minor}. There are also differences, of course, for 
+while \citet{Netter94} applies the functional head analysis to the determiners,  
+\citet{Abeilleetal04} apply the weak head analysis to \emph{de}, but not to 
+\emph{beaucoup}. That is why the former is an instance of the DP approach and the 
+latter of the NP approach.  
