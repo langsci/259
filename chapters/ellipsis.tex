@@ -1,16 +1,51 @@
 \documentclass[output=paper
+                ,modfonts
+                ,nonflat
 	        ,collection
 	        ,collectionchapter
+	        ,collectiontoclongg
  	        ,biblatex
                 ,babelshorthands
                 ,newtxmath
                 ,draftmode
                 ,colorlinks, citecolor=brown
-]{langscibook}
+]{./langsci/langscibook}
 
 \IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
   \input{../localpackages}
   \input{../localcommands}
+  \input{../localhyphenation}
+  \bibliography{../Bibliographies/stmue,
+                ../localbibliography,
+../Bibliographies/formal-background,
+../Bibliographies/understudied-languages,
+../Bibliographies/phonology,
+../Bibliographies/case,
+../Bibliographies/evolution,
+../Bibliographies/agreement,
+../Bibliographies/lexicon,
+../Bibliographies/np,
+../Bibliographies/negation,
+../Bibliographies/ellipsis,
+../Bibliographies/argst,
+../Bibliographies/binding,
+../Bibliographies/complex-predicates,
+../Bibliographies/coordination,
+../Bibliographies/relative-clauses,
+../Bibliographies/udc,
+../Bibliographies/processing,
+../Bibliographies/cl,
+../Bibliographies/dg,
+../Bibliographies/islands,
+../Bibliographies/diachronic,
+../Bibliographies/gesture,
+../Bibliographies/semantics,
+../Bibliographies/pragmatics,
+../Bibliographies/information-structure,
+../Bibliographies/idioms,
+../Bibliographies/cg,
+../Bibliographies/udc}
+
   \togglepaper[20]
 }{}
 
@@ -25,7 +60,7 @@
 
 %\epigram{Change epigram in chapters/03.tex or remove it there }
 
-\abstract{This chapter provides an overview of HPSG analyses of ellipsis. The structure of the chapter follows three types of ellipsis, nonsentential utterances, predicate ellipsis (including VP ellipsis), and nonconstituent coordination, with three types of analyses applied to them. The analyses characteristically don't admit silent syntactic material for any ellipsis phenomena with the exception of certain types of nonconstituent coordination.}
+\abstract{This chapter provides an overview of HPSG analyses of ellipsis. The structure of the chapter follows three types of ellipsis, nonsentential utterances, predicate ellipsis (including VP ellipsis), and nonconstituent coordination, with three types of analyses applied to them. These analyses characteristically don't admit silent syntactic material for any ellipsis phenomena with the exception of certain types of nonconstituent coordination.}
 
 
 \begin{document}
@@ -38,19 +73,22 @@
 \section{Introduction}
 \label{ellipsis-sec-introduction}
 
-         Ellipsis is a phenomenon that involves a noncanonical mapping between syntax and semantics. What appears to be a syntactically incomplete utterance still receives a semantically complete representation, based on the features of the surrounding context, be the context linguistic or nonlinguistic. The goal of syntactic theory is thus to account for how the complete semantics can be reconciled with the apparently incomplete syntax. One of the key questions here relates to the structure of the ellipsis site, that is, whether or not we should assume the presence of invisible syntactic material. This chapter begins by introducing three types of ellipsis (nonsentential utterances, predicate ellipsis, and nonconstituent coordination) that have attracted considerable attention and received treatment within HPSG. We next overview existing evidence for and against the so-called WYSIWYG (`What You See Is What You Get') approach to ellipsis, where no invisible material is posited at the ellipsis site. Finally, we walk the reader through three types of HPSG analyses applied to the three types of ellipsis presented in Section~\ref{sec-three-types-of-ellipsis}.
-\inlinetodostefan{refer to other sections as well. This is usually done in introductions.}
+Ellipsis is a phenomenon that involves a noncanonical mapping between syntax and semantics. What appears to be a syntactically incomplete utterance still receives a semantically complete representation, based on the features of the surrounding context, be the context linguistic or nonlinguistic. The goal of syntactic theory is thus to account for how the complete semantics can be reconciled with the apparently incomplete syntax. One of the key questions here relates to the structure of the ellipsis site, that is, whether or not we should assume the presence of invisible syntactic material. Section~\ref{sec-three-types-of-ellipsis} introduces three types of ellipsis (nonsentential utterances, predicate ellipsis, and nonconstituent coordination) that have attracted considerable attention and received treatment within HPSG (our focus here is on standard HPSG rather than Sign-Based Construction Grammar). In Section~\ref{sec-evidence-for-invisible-material} we overview existing evidence for and against the so-called WYSIWYG (`What You See Is What You Get') approach to ellipsis, where no invisible material is posited at the ellipsis site. Finally in Sections~\ref{sec-analyses-of-NUs}--\ref{sec-analyses-of-noncon}, we walk the reader through three types of HPSG analyses applied to the three types of ellipsis presented in Section~\ref{sec-three-types-of-ellipsis}. Our purpose is to highlight the nonuniformity of these analyses, along with the underlying intuition that ellipsis is not a uniform phenomenon. Throughout the chapter we also draw the reader's attention to the key role that corpus and experimental data play in HPSG theorizing, setting it aside from frameworks that primarily rely on intuitive judgments.
+
+
+%\inlinetodostefan{refer to other sections as well. This is usually done in introductions.}
 
 
 \section{Three types of ellipsis}
 \label{sec-three-types-of-ellipsis}
 
 Depending on the type of analysis by means of which HPSG handles them, elliptical phenomena can be broadly divided into three types:
-nonsentential utterances, predicate ellipsis (including VP ellipsis), and nonconstituent coordination.
-We overview the key features of these types here before discussing in greater detail how they have been brought to bear on the question of whether there is invisible syntactic structure at the ellipsis site or not. We begin with stranded XPs, which HPSG treats as nonsentential utterances, and then move on to predicate and argument ellipsis, followed by phenomena known as nonconstituent coordination.
+         nonsentential utterances, predicate ellipsis, and nonconstituent coordination.
+          We overview the key features of these types here before discussing in greater detail how they have been brought to bear on the question of whether there is invisible syntactic structure at the ellipsis site or not. We begin with stranded XPs, which HPSG treats as nonsentential utterances, and then move on to predicate and argument ellipsis, followed by phenomena known as nonconstituent coordination.
+
 
 \subsection{Nonsentential utterances}
-This section introduces utterances smaller than a sentence, which we refer to as \emph{\isi{nonsentential utterances}} (NUs). These range from \emph{\isi{Bare Argument Ellipsis}} (BAE) (\ref{1}), including fragment answers (\ref{2}), to direct or embedded \isi{sluicing} (\ref{3})--(\ref{4}). Sluicing hosts stranded wh-phrases and has the function of an interrogative clause, while BAE hosts XPs representing various syntactic categories and typically has the function of a declarative clause.\footnote{Several subtypes of nonsentential utterances can be distinguished, based on their contextual functions, which we don't discuss here (for a recent taxonomy, see \citealt{Ginzburg2012}).}
+This section introduces utterances smaller than a sentence, which we refer to as \emph{\isi{nonsentential utterances}} (NUs). These range from \emph{\isi{Bare Argument Ellipsis}} (BAE, a term used in \citealt{CJ2005a}) (\ref{1}), including fragment answers (\ref{2}), to direct or embedded \isi{sluicing} (\ref{3})--(\ref{4}). Sluicing hosts stranded wh-phrases and has the function of an interrogative clause, while BAE hosts XPs representing various syntactic categories and typically has the function of a declarative clause.\footnote{Several subtypes of nonsentential utterances can be distinguished, based on their contextual functions, which we don't discuss here (for a recent taxonomy, see \citealt[217]{Ginzburg2012}).}
 
 
 
@@ -64,34 +102,41 @@ This section introduces utterances smaller than a sentence, which we refer to as
 The theoretical question NUs raise is whether they are parts of larger sentential structures or rather nonsentential structures whose semantic and morphosyntactic features are licensed by the surrounding context. To adjudicate between these views, researchers have looked for evidence that NUs in fact behave as if they were fragments of sentences. As we will see in Section~\ref{sec-evidence-for-invisible-material}, there is evidence to support both of these views. However, HPSG doesn't assume that NUs are underlyingly sentential structures.
 
 \subsection{Predicate ellipsis and argument ellipsis}
-The section looks at three constructions whose syntax includes null, hence noncanonical, elements. They are Verb Phrase Ellipsis (VPE), Null Complement Anaphora (NCA), and argument drop (or pro drop). VPE features stranded auxiliary verbs (\ref{5}) and NCA is characterized by omission of complements to some lexical verbs (\ref{6}). Argument drop refers to omission of a pronominal subject or an object argument, as illustrated in (\ref{7}) for Polish.
+The section looks at three constructions whose syntax includes null, hence noncanonical, elements. They are Post-Auxiliary Ellipsis (PAE) (a term \citep{Sag1976} introduced for what is more typically referred to as Verb Phrase Ellipsis (VPE)) and pseudogapping, Null Complement Anaphora (NCA), and argument drop (or pro drop). PAE features stranded auxiliary verbs (\ref{5}) and pseudogapping stranded auxiliary verbs followed by XPs corresponding to complements to verbal heads present in the antecedent or to adjuncts (\ref{pg}). NCA is characterized by omission of complements to some lexical verbs (\ref{6}), while argument drop refers to omission of a pronominal subject or an object argument, as illustrated in (\ref{7}) for Polish.
 
 \ea A: I didn't ask George to invite you.\\B: Then who did?\label{5}\z
+
+\ea The dentist didn't call Sally today but they might tomorrow. \label{pg}\z
 
 \ea Some mornings you can't get hot water in the shower, but nobody complains. \label{6} \z
 
 \ea
-\gll Pia p\'{o}\'{z}no wr\'{o}ci\l a do domu. {Od razu} posz\l a spa\'{c}.\\
-\textsc{Pia} \textsc{late} \textsc{got} \textsc{to} \textsc{home} \textsc{right away} \textsc{went} \textsc{sleep}\\
+\gll Pia p\'{o}\'{z}no wr\'{o}ci\l a do domu. Od razu posz\l a spa\'{c}.\\
+Pia late got to home right away went sleep\\
 \glt `Anna got home late. She went straight to bed.'
 \label{7}
 \z
-Here the question is whether these null elements should be assumed to be underlyingly present in the syntax of theses constructions, and the answer is no.
+Here one question is whether these null elements should be assumed to be underlyingly present in the syntax of theses constructions, and the answer is no. Another question is whether theoretical analyses of constructions like PAE should be enriched with usage preferences since these constructions compete with \textit{do it/that/so} anaphora in predictable ways (see \citealt{Miller2013} for a proposal).
+
 
 \subsection{Nonconstituent coordination}
 
-We focus on two instances of nonconstituent coordination, Right Node Raising (RNR) and gapping \citep{Ross1969}, illustrated in (\ref{8}) and (\ref{9}) respectively. In RNR, a single constituent located in the right-peripheral position is associated with both conjuncts. In gapping, a finite verb is associated with both (or more) conjuncts but only present in the leftmost one. This results in what appears to be coordination of standard constituents and elements not normally defined as constituents (a stranded transitive verb in (\ref{8}) and a cluster of subject NP and object NP in (\ref{9})).
+We focus on three instances of nonconstituent coordination---right node raising (RNR), argument cluster coordination (ACC), and gapping (\citealt{Ross 1967})---illustrated in (\ref{8}, (\ref{acc}), and (\ref{9}), respectively. In RNR, a single constituent located in the right-peripheral position is associated with both conjuncts. In both gapping and ACC, a finite verb is associated with both (or more) conjuncts but only present in the leftmost one. Additionally in ACC, the subject of the first conjunct is also associated with the second conjunct but only present in the former. These phenomena illustrate what appears to be coordination of standard constituents with elements not normally defined as constituents (a stranded transitive verb in (\ref{8}), a cluster of NP and PP in (\ref{acc}), and a cluster of NPs in (\ref{9})).
 
-\ea Ethan sold and Rasmus gave away all his CDs. \label{8}\z
+ \ea Ethan sold and Rasmus gave away all his CDs. \label{8}\z
 
-\ea Ethan gave away his CDs and Rasmus his old guitar. \label{9}\z
+\ea Harvey gave a book to Ethan and a record to Rasmus. \label{acc}\z
 
-To handle such constructions the grammar must either be permitted to coordinate noncanonical constituents, to generate coordinated constituents parts of which can undergo deletion, or to coordinate nonsentential utterances. As we will see, HPSG makes use of the latter two options.
+ \ea Ethan gave away his CDs and Rasmus his old guitar. \label{9}\z
+
+
+ To handle such constructions the grammar must be permitted to (1) coordinate noncanonical constituents, (2) generate coordinated constituents parts of which are subject to an operation akin to deletion, or (3) coordinate VPs with nonsentential utterances. As we will see, HPSG analyses of these constructions make use of all three options, including the option expressed in (2), that coordinated structures may contain unpronounced material.
 
 \section{Evidence for and against invisible material at the ellipsis site}
 \label{sec-evidence-for-invisible-material}
 
-This section is concerned with NUs and VPE since this is where the contentious issues arise of where ellipsis is licensed (sections 3.3. and 3.4) and whether there is invisible syntactic material in an ellipsis site (sections 3.1 and 3.2). Below we consider evidence for and against invisible structure found in the ellipsis literature; the evidence is based not only on intuitive judgments, but also experimental and corpus data.
+This section is concerned with NUs and PAE since this is where the contentious issues arise of where ellipsis is licensed (Sections 3.3. and 3.4) and whether there is invisible syntactic material in an ellipsis site (Sections 3.1 and 3.2). Below we consider evidence for and against invisible structure found in the ellipsis literature. As we will see, the evidence is based not only on intuitive judgments, but also on experimental and corpus data, the latter being more typical of the HPSG tradition.
+
 
 \subsection{Connectivity effects}
 \label{sec-connectivity-effects}
@@ -100,34 +145,36 @@ Connectivity effects refer to parallels between NUs and their counterparts in se
 
 \ea
 \gll Er will jemandem schmeicheln, aber sie wissen nicht wem/*wen.\\
-\textsc{he} \textsc{will} \textsc{someone.DAT} \textsc{flatter}, \textsc{but} \textsc{they} \textsc{know} \textsc{not} \textsc{who.DAT/*who.ACC}\\
+he will someone.\textsc{dat} flatter, but they know not who.\textsc{dat}/*who.\textsc{acc}\\
 \glt `He wants to flatter someone, but they don't know whom.'\label{10}\z
 
-Case-matching effects are crosslinguistically robust in that they are found in the vast majority of languages with overt case marking systems, and therefore, they have been taken as strong evidence for the reality of silent structure. The argument is that the pattern of case matching follows straightforwardly from the silent structure that embeds an NU and matches the structure of the antecedent clause (\citet{Merchant2001, Merchant2005a}). However, a language like Hungarian poses a problem for this reasoning \citep[see][]{Jacobson2016}. Hungarian has verbs that assign one of two cases to their object NPs with no meaning difference, but case matching is still required between an NU and its counterpart, whichever case is marked on the counterpart. To see this, consider (\ref{11}) from \citet[356]{Jacobson2016}. The verb \emph{hasonlit} assigns either sublative (SUBL) or allative (ALL) case to its object, but if SUBL is selected for an NU's counterpart, the NU must match this case.
+
+Case-matching effects are crosslinguistically robust in that they are found in the vast majority of languages with overt case marking systems, and therefore, they have been taken as strong evidence for the reality of silent structure. The argument is that the pattern of case matching follows straightforwardly if an NU is embedded in silent syntactic material whose content includes the same lexical head that assigns case to the NU's counterpart in the antecedent clause to assign case to the NU (\citet{Merchant2001, Merchant2005a}). However, a language like Hungarian poses a problem for this reasoning \citep{Jacobson2016}. While Hungarian has verbs that assign one of two cases to their object NPs in overt clauses with no meaning difference, case matching is still required between an NU and its counterpart, whichever case is marked on the counterpart. To see this, consider (\ref{11}) from \citet[356]{Jacobson2016}. The verb \emph{hasonlit} assigns either sublative (SUBL) or allative (ALL) case to its object, but if SUBL is selected for an NU's counterpart, the NU must match this case.
 
 \ea
 A: \gll Ki-re hasonlit P\'{e}ter?\\
- \textsc{who.SUBL} \textsc{resembles} \textsc{Peter}\\
+ who.\textsc{subl} resembles Peter\\
  \glt  `Who does Peter resemble?'\\
 
 B: \gll J\'{a}nos-ra/*J\'{a}nos-hoz.\\
-\textsc{J\'{a}nos.SUBL/*J\'{a}nos.ALL}\\
+J\'{a}nos.\textsc{subl}/*J\'{a}nos.\textsc{all}\\
 \glt  `J\'{a}nos.'\label{11}\z
+%
 \citet{Jacobson2016} notes that there is some speaker variation regarding the (un)ac\-cepta\-bi\-li\-ty of case mismatch here at the same time that all speakers agree that either case is fine in a corresponding nonelliptical response to (\ref{11}A). This last point is important, because it shows that the requirement of---or at least a preference for---matching case features applies to NUs to a greater extent than it does to their nonelliptical equivalents, challenging connectivity effects.
 
-Similarly problematic for case-based parallels between NUs and their sentential counterparts are some Korean data. Korean NUs can drop case markers more freely than their counterparts in nonelliptical clauses can, a point made in \citet{Morgan1989}. Observe the following exchanges:
+Similarly problematic for case-based parallels between NUs and their sentential counterparts are some Korean data. Korean NUs can drop case markers more freely than their counterparts in nonelliptical clauses can, a point made in \citet{Morgan1989} and \citet{Kim2015}. Observe the example in \ref{12} from \citet[237]{Morgan1989}.
 
   \ea
 A: \gll Nwukwu-ka ku  chaek-ul  sa-ass-ni?\\
-\textsc{who.NOM} \textsc{the} \textsc{book.ACC} \textsc{buy.PST.QUE}\\
+who.\textsc{nom} the book.\textsc{acc} buy.\textsc{pst.que}\\
 \glt  `Who bought the book?'\\
 
 B: \gll Yongsu-ka/Yongsu/*Yongsu-lul.\\
-\textsc{Yongsu.NOM/Yongsu/*Yongsu.ACC}\\
+Yongsu.\textsc{nom}/Yongsu/*Yongsu.\textsc{acc}\\
 \glt  `Yongsu.'
 
 B$'$: \gll Yongsu-ka/*Yongsu  ku  chaek-ul  sa-ass-e\\
-\textsc{Yongsu.NOM/*Yongsu} \textsc{the} \textsc{book.ACC} \textsc{buy.PST.DECL}\\
+Yongsu.\textsc{nom}/*Yongsu the book.\textsc{acc} buy.\textsc{pst.decl}\\
 \glt  `Yongsu bought the book'\\
 \label{12}\z
 %
@@ -149,66 +196,66 @@ B:
 \gll Mimi-wa / * Mimi.\\
      Mimi-\textsc{src} {} {} Mimi\\
 \glt `With Mimi/*Mimi.' \label{13}\z
-
+%
 The generalization for Korean is then that NUs may be optionally realized as caseless but may never be marked for a different case than is marked on their counterparts.
 
-Overall, case-marking facts show that there is some morphosyntactic identity between NUs and their antecedents, though not to the extent that NUs have exactly the features that they would have if they were constituents embedded in sentential structures. The Hungarian facts also suggest that aspects of the argument structure of the antecedent relating to case licensing are relevant for an analysis of NUs.\footnote{Hungarian and Korean are in fact not the only problematic languages; for a list, see \citet{Vicente2015}.}
+Overall, case-marking facts show that there is some morphosyntactic identity between NUs and their antecedents, though not to the extent that NUs have exactly the features that they would have if they were constituents embedded in sentential structures. The Hungarian facts also suggest that those aspects of the argument structure of the appropriate lexical heads present in the antecedent that relate to case licensing are relevant for an analysis of NUs.\footnote{Hungarian and Korean are in fact not the only problematic languages; for a list, see \citet{Vicente2015}.}
 
-The second kind of connectivity effects goes back to \citet{Merchant2001, Merchant2005a} and highlights apparent links between wh- and focus movement and the features of NUs. The idea is that prepositions behave the same under wh- and focus movement as they do under clausal ellipsis, that is, they pied-pipe or strand in the same environments. If a language (e.g., English) permits preposition stranding under wh- and focus movement (\emph{With what did Harvey paint the wall?} vs \emph{What did Harvey paint the wall with?}), then NUs may surface with or without prepositions, as illustrated in (\ref{14}) for sluicing and BAE.
+The second kind of connectivity effects goes back to \citet{Merchant2001, Merchant2005a} and highlights apparent links between the features of NUs and wh- and focus movement. The idea is that prepositions behave the same under wh- and focus movement as they do under clausal ellipsis, that is, they pied-pipe or strand in the same environments. If a language (e.g., English) permits preposition stranding under wh- and focus movement (\emph{What did Harvey paint the wall with?} vs \emph{With what did Harvey paint the wall?}), then NUs may surface with or without prepositions, as illustrated in (\ref{14}) for sluicing and BAE.
 
 \ea A: I know what Harvey painted the wall with.\\B: (With) what?/(With) primer.\label{14}\z
-If there indeed was a link between between preposition stranding and NUs, then we would not expect prepositionless NUs in languages without preposition stranding. This expectation is disconfirmed by an ever-growing list of nonpreposition-stranding languages that do feature prepositionless NUs: Brazilian Portuguese (\citep{AlmeidaYoshida2007}, Spanish and French \citep{Rodrigues2006}, Greek \citep{Molimpakis2018}, Bahasa Indonesia \citep{Fortin2007}, Emirati Arabic \citep{Leung2014}, Russian \citep{Philippova2014}, Polish \citep{Szczegielniak2008, Nykiel2013, Sag2011}, %Czech \citep{Caha2011}, 
-Bulgarian \citep{Abels2017}, and Serbo-Croatian \citep{Stjepanovic2008, Stjepanovic2012}. A few of these studies have presented experimental evidence that prepositionless NUs are acceptable, though --- for reasons still poorly understood --- they typically don't reach the same level of acceptability as their variants with prepositions do (see \citealt{Nykiel2013} for Polish and \citealt{Molimpakis2018} for Greek).
+If there indeed was a link between between preposition stranding and NUs, then we would not expect prepositionless NUs in languages without preposition stranding. This expectation is disconfirmed by an ever-growing list of nonpreposition-stranding languages that do feature prepositionless NUs: Brazilian Portuguese (\citealt{AlmeidaYoshida2007}), Spanish and French (\citealt{Rodrigues2006}), Greek (\citealt{Molimpakis2018}), Bahasa Indonesia (\citealt{Fortin2007}), Emirati Arabic \citep{Leung2014}, Russian \citep{Philippova2014}, Polish \citep{Szczegielniak2008, Nykiel2013, Sag2011}, %Czech \citep{Caha2011},
+Bulgarian \citep{Abels2017}, Serbo-Croatian \citep{Stjepanovic2008, Stjepanovic2012}, and Saudi Arabic \citep{Alshaalan2020}. A few of these studies have presented experimental evidence that prepositionless NUs are acceptable, though --- for reasons still poorly understood --- they typically don't reach the same level of acceptability as their variants with prepositions do (see \citealt{Nykiel2013} for Polish, \citealt{Molimpakis2018} for Greek, and \citealt{Alshaalan2020} for Saudi Arabic). It is worth noting in this regard that the work following the HPSG tradition (e.g., \citealt{Sag2011}, \citealt{Nykiel 2013}) is based on a solid foundation of experimental evidence to a larger extent than work grounded in the Minimalist tradition.
 
-It is evident from this research that there is no grammatical constraint on NUs that keeps track of what preposition-stranding possibilities exist in any given language. On the other hand, it doesn't seem sufficient to assume that NUs can freely drop prepositions, given examples of sprouting like (\ref{15}), in which prepositions are not omissible (see \citealt{Chung1995} on the non-omissibility of prepositions under sprouting). The difference between (\ref{14}) and (\ref{15}) is that there is an explicit phrase the NU corresponds to (in the HPSG literature this phrase is termed a Salient Utterance \citep{Ginzburg:Sag:2000} or a Focus-Establishing Constituent \citep{Ginzburg2012}) in the former but not in the latter.
+It is evident from this research that there is no grammatical constraint on NUs that keeps track of what preposition-stranding possibilities exist in any given language. On the other hand, it doesn't seem sufficient to assume that NUs can freely drop prepositions, given examples of sprouting like (\ref{15}), in which prepositions are not omissible (see \citealt{Chung1995} on the non-omissibility of prepositions under sprouting). The difference between (\ref{14}) and (\ref{15}) is that there is an explicit phrase the NU corresponds to (in the HPSG literature this phrase is termed a Salient Utterance \citep[313]{Ginzburg:Sag:2000} or a Focus-Establishing Constituent \citealt{Ginzburg2012}) in the former but not in the latter.
 
 \ea A: I know Harvey painted the wall.\\B: *(With) what?/Yeah, *(with) primer.\label{15}\z
 This issue has not received much attention in the HPSG literature, though see \citet{Kim2015}.
 
 
 \subsection{Island effects}
-One of the predictions of the view that NUs are underlyingly sentential is that they should respect island constraints on long-distance movement. But as illustrated below, NUs (both sluicing and BAE) exhibit island-violating behavior.\footnote{\citet{Merchant2005a} argued that BAE, unlike sluicing, does respect island constraints, an argument that was later challenged \citep[see e.g,][]{CJ2005a, Griffiths2014}. However, \citet{Merchant2005-proc} focused specifically on pairs of wh-questions and answers like (\ref{2}) and ran into the difficulty of testing for island-violating behavior, since a well-formed antecedent couldn't be constructed.}
+One of the predictions of the view that NUs are underlyingly sentential is that they should respect island constraints on long-distance movement. But as illustrated below, NUs (both sluicing and BAE) exhibit island-violating behavior. The NU in (\ref{16}) would be illicitly extracted out of an adjunct (\textit{*Where does Harriet drink scotch that comes from?}) and the NU in (\ref{17}) would be extracted out of a complex NP (\textit{*The Gay Rifle Club, the administration has issued a statement that it is willing to meet with}).\footnote{\citet{Merchant2005a} argued that BAE, unlike sluicing, does respect island constraints, an argument that was later challenged \citep[see e.g,][]{CJ2005a, Griffiths2014}. However, \citet{Merchant2005-proc} focused specifically on pairs of wh-interrogatives and answers to them, running into the difficulty of testing for island-violating behavior, since a well-formed wh-interrogative antecedent couldn't be constructed.}
 
 \ea A: Harriet drinks scotch that comes from a very special part of Scotland.\\B: Where? \citep[245]{CJ2005a} \label{16}\z
 
 \ea A: The administration has issued a statement that it is willing to meet with one of the student groups.\\B: Yeah, right---the Gay Rifle Club. \citep[245]{CJ2005a} \label{17}\z
 
-Among \citeauthor{CJ2005a}'s (\citeyear[245]{CJ2005a}) examples of well-formed island-violating NUs are also sprouted NUs (those that correspond to implicit Salient Utterances) like (\ref{18})--(\ref{19}).
+Among \citeauthor{CJ2005a}'s (\citeyear[245]{CJ2005a}) examples of well-formed island-violating NUs are also sprouted NUs (those that correspond to implicit phrases in the antecedent) like (\ref{18})--(\ref{19}).
 
 \ea A: John met a woman who speaks French.\\B: With an English accent?\label{18}\z
 
 \ea A: For John to flirt with at the party would be scandalous. \\B: Even with his wife?\label{19}\z
-Other research assumes that sprouted NUs are one of the two kinds of NUs that respect island constraints, the other kind being contrastive NUs, illustrated in (\ref{20}) \citep{Chung1995, Merchant2001, Griffiths2014}.
+Other scholars assume that sprouted NUs are one of the two kinds of NUs that respect island constraints, the other kind being contrastive NUs, illustrated in (\ref{20}) \citep{Chung1995, Merchant2001, Griffiths2014}.
 
 \ea A: Does Abby speak the same Balkan language that Ben speaks?\\
 B: *No, Charlie. \citep{Merchant2001}  \label{20}\z
 %
-\citet{Schmeh2015} explore the acceptability of NUs like (\ref{20}) compared to NUs introduced by the particle \emph{Yes} depicted in (\ref{21}). (\ref{20}) differs from (\ref{21}) in terms of discourse function in that it corrects rather than supplement the antecedent, which is signaled by a different response particle.
+\citet{Schmeh2015} further explore the acceptability of NUs preceded by the response particle \textit{No} like those in (\ref{20}) compared to NUs introduced by the response particle \textit{Yes} depicted in (\ref{21}). (\ref{20}) and (\ref{21}) differ in terms of discourse function in that the latter supplements rather than correct the antecedent, a discourse function signaled by the response particle \textit{Yes}.
 
 \ea A: John met a guy who speaks a very unusual language. \\B: Yes, Albanian. \citep[245]{CJ2005a} \label{21}\z
 %
 \citet{Schmeh2015} find that corrections lower acceptability ratings compared to supplementations and propose that this follows from the fact that corrections induce greater processing difficulty than supplementations do, and hence the acceptability difference between (\ref{20}) and (\ref{21}). This finding makes it plausible that the perceived degradation of island-violating NUs could ultimately be attributed to nonsyntactic factors, e.g., the difficulty of successfully computing a meaning for them.
 
-In contrast to NUs, many instances of VPE appear to obey island constraints, as would be expected if there was unpronounced structure from which material was extracted. An example is depicted in (\ref{22}) (note that the corresponding sluicing NU is fine).
+In contrast to NUs, many instances of PAE appear to respect island constraints, as would be expected if there was unpronounced structure from which material was extracted. An example of a relative clause island is depicted in (\ref{22}) (note that the corresponding sluicing NU is fine).
 
 \ea *They want to hire someone who speaks a Balkan language, but I don't remember which they do [\sout{want to hire someone who speaks t}]. \citep[6]{Merchant2001}\label{22}\z
-(\ref{22}) contrasts with well-formed examples like (\ref{23}) and (\ref{24}), from \citet{Ginzburg2018}.
+(\ref{22}) contrasts with well-formed island-violating examples like (\ref{23}) and (\ref{24}), from \citet{Ginzburg2018}.
 
 \ea He managed to find someone who speaks a Romance language, but a Germanic language, he didn't [\sout{manage to find someone who speaks t}].\label{23}\z
 \ea He was able to find a bakery where they make good baguette, but croissants, he couldn't [\sout{find a bakery where they make good t}].\label{24}\z
-As \citet{Ginzburg2018} rightly point out, we don't yet have a complete understanding of when or why island effects show up in VPE. Its behavior is at best inconsistent, failing to provide convincing evidence for silent structure.
+As \citet{Ginzburg2018} rightly point out, we don't yet have a complete understanding of when or why island effects show up in PAE. Its behavior is at best inconsistent, failing to provide convincing evidence for silent structure.
 
 
 \subsection{Structural mismatches}
 \label{sec-structural-mismatches}
 
-Because structural mismatches are not permitted by NUs \citep[see][]{Merchant2005a, Merchant2013},\footnote{\citet{Ginzburg2018} cite examples---originally from \citet{Beecher2008}---of sprouting NUs with nominal, hence mismatched, antecedents, e.g., (i).
+Because structural mismatches are not found in NUs \citep[see][]{Merchant2005a, Merchant2013},\footnote{\citet{Ginzburg2018} cite examples---originally from \citet{Beecher2008}---of sprouting NUs with nominal, hence mismatched, antecedents, e.g., (i).
 	\ea We're on to the semi-finals, though I don't know who against.\z
 	Somewhat similar examples, where NUs appear to take APs as antecedents, appear in COCA:
 	\ea  A: Well, it's a defense mechanism. B: Defense against what?\z
 	\ea Our Book of Mormon talks about the day of the Lamanite, when the church would make a special effort to build and reclaim a fallen people. And some people will say, Well, fallen from what? \z
-	The NUs in (ii)--(iii) repeat the lexical heads whose complements are being sprouted (\emph{defense} and \emph{fallen}), that is, they contain more material than is usual for NUs (cf. (i)). It seems that without this additional material it would be difficult to integrate the NUs into the propositions provided by the antecedents and hence to arrive at the intended interpretations.
-} this section focuses on VPE and developments surrounding the question of which contexts license it. In a seminal study of anaphora, \citet{Hankamer1976} classified VPE as a surface anaphor with syntactic features closely matching those of an antecedent present in the linguistic context. They argued in particular that VPE is not licensed if it mismatches its antecedent in voice. Compare (\ref{25}) and (\ref{26}) from \citet[327]{Hankamer1976}.
+	The NUs in (ii)--(iii) repeat the lexical heads whose complements are being sprouted (\textit{defense} and \textit{fallen}), that is, they contain more material than is usual for NUs (cf. (i)). It seems that without this additional material it would be difficult to integrate the NUs into the propositions provided by the antecedents and hence to arrive at the intended interpretations.
+} this section focuses on PAE and developments surrounding the question of which contexts license it. In a seminal study of anaphora, \citet{Hankamer1976} classified PAE as a surface anaphor with syntactic features closely matching those of an antecedent present in the linguistic context. They argued in particular that PAE is not licensed if it mismatches its antecedent in voice. Compare (\ref{25}) and (\ref{26}) from \citet[327]{Hankamer1976}.
 %\todosatz{no reference given}.
 \ea[*]{
 	The children asked to be squirted with the hose, so we did.  \label{25}
@@ -218,7 +265,7 @@ Because structural mismatches are not permitted by NUs \citep[see][]{Merchant200
 	The children asked to be squirted with the hose, so they were. \label{26}
 }
 \z
-This proposal places tighter structural constraints on VPE than on other verbal anaphors (e.g., \emph{do it/that}) in terms of identity between an ellipsis site and its antecedent and has prompted extensive evaluation in a number of corpus and experimental studies in the decades following \citet{Hankamer1976}. Below are examples of acceptable structural mismatches reported in the literature, ranging from voice mismatch (\ref{27}) to nominal antecedents (\ref{28}) to split antecedents (\ref{29}).
+This proposal places tighter structural constraints on PAE than on other verbal anaphors (e.g., \textit{do it/that}) in terms of identity between an ellipsis site and its antecedent and has prompted extensive evaluation in a number of corpus and experimental studies in the decades following \citet{Hankamer1976}. Below are examples of acceptable structural mismatches reported in the literature, ranging from voice mismatch (\ref{27}) to nominal antecedents (\ref{28}) to split antecedents (\ref{29}).
 
 \ea This information could have been released by Gorbachev, but he chose not to [release it]. \citep[37]{Hardt1993} \label{27}\z
 
@@ -226,17 +273,17 @@ This proposal places tighter structural constraints on VPE than on other verbal 
 
 \ea Wendy is eager to sail around the world and Bruce is eager to climb Mt. Kilimanjaro, but neither of them can [do the things they want], because money is too tight. \citep{Webber79a} \label{29}\z
 
-There are two opposing views that have emerged from the empirical work. The first view takes mismatches to be grammatical and connects degradation in acceptability to violation of certain independent discourse \citep{Kehler2002, Miller2011, %Kertz2013, 
-Miller2014a, Miller2014b} or processing constraints \citep{Kim2011}. Two types of VPE have been identified on this view through corpus work---auxiliary choice VPE and subject choice VPE---each with different discourse requirements with respect to the antecedent \citep{Miller2011, Miller2014a, Miller2014b}. The second view assumes that there is a grammatical ban on structural mismatch but violations thereof may be repaired under certain conditions; repairs are associated with differential processing costs compared to matching ellipses and antecedents \citep{Arregui2006, Grant2012}. If we follow the first view, it is perhaps unexpected that voice mismatch should consistently incur a greater penalty under VPE than when no ellipsis is involved, as recently reported in \citet{Kim2015}. \citet{Kim2015} stop short of drawing firm conclusions regarding the grammaticality of structural mismatches, but one possibility is that the observed mismatch effects reflect a construction-specific constraint on VPE. HPSG analyses take structurally mismatched instances of VPE to be unproblematic and fully grammatical, while also recognizing construction-specific constraints: discourse or processing constraints formulated for VPE may or may not extend to other elliptical constructions, such as NUs (see \citealt{Ginzburg2018} for this point).
+There are two opposing views that have emerged from the empirical work regarding the acceptability and grammaticality of structural mismatches under PAE. The first view takes mismatches to be grammatical and connects degradation in acceptability to violation of certain independent discourse \citep{Kehler2002, Miller2011, %Kertz2013,
+Miller2014a, Miller2014b} or processing constraints \citep{Kim2011}. Two types of PAE have been identified on this view through extensive corpus work (a characteristic of the HPSG research style)---auxiliary choice PAE and subject choice PAE---each with different discourse requirements with respect to the antecedent \citep{Miller2011, Miller2014a, Miller2014b}. The second view assumes that there is a grammatical ban on structural mismatch but violations thereof may be repaired under certain conditions; repairs are associated with differential processing costs compared to matching ellipses and antecedents \citep{Arregui2006, Grant2012}. If we follow the first view, it is perhaps unexpected that voice mismatch should consistently incur a greater acceptability penalty under PAE than when no ellipsis is involved, as recently reported in \citet{Kim2015}. \citet{Kim2015} stop short of drawing firm conclusions regarding the grammaticality of structural mismatches, but one possibility is that the observed mismatch effects reflect a construction-specific constraint on PAE. HPSG analyses take structurally mismatched instances of PAE to be unproblematic and fully grammatical, while also recognizing construction-specific constraints: discourse or processing constraints formulated for PAE may or may not extend to other elliptical constructions, such as NUs (see \citealt{Ginzburg2018} for this point).
 
 
 \subsection{Nonlinguistic antecedents}
-Like structural mismatches, the availability of nonlinguistic antecedents for an ellipsis points to the fact that it needn't be interpreted by reference to and licensed by a structurally identical antecedent. Although this option is somewhat limited, VPE does tolerate nonlinguistic antecedents, as shown in (\ref{30})--(\ref{31}) \citep[see also][]{Hankamer1976, Schlachter1977}.
+Like structural mismatches, the availability of nonlinguistic antecedents for an ellipsis points to the fact that it needn't be interpreted by reference to and licensed by a structurally identical antecedent. Although this option is somewhat limited, PAE does tolerate nonlinguistic antecedents, as shown in (\ref{30})--(\ref{31}) \citep[see also][]{Hankamer1976, Schlachter1977}.
 \ea Mabel shoved a plate into Tate's hands before heading for the sisters' favorite table in the shop. ``You shouldn't have.'' She meant it. The sisters had to pool their limited resources
 just to get by. \citep[ex. 23][]{Miller2014b}\label{30}\z
 
 \ea Once in my room, I took the pills out. ``Should I?'' I asked myself. \citep[ex. 22a][]{Miller2014b}\label{31}\z
-\citet{Miller2014b} provide an extensive critique of the earlier work on the ability of VPE to take nonlinguistic antecedents, arguing for a streamlined discourse"=based explanation that neatly captures the attested examples as well as examples of structural mismatch like those discussed in Section~\ref{sec-structural-mismatches}. The important point here is again that VPE is subject to construction-specific constraints which limit its use with nonlinguistic antecedents.
+\citet{Miller2014b} provide an extensive critique of the earlier work on the ability of PAE to take nonlinguistic antecedents, arguing for a streamlined discourse"=based explanation that neatly captures the attested examples as well as examples of structural mismatch like those discussed in Section~\ref{sec-structural-mismatches}. The important point here is again that PAE is subject to construction-specific constraints which limit its use with nonlinguistic antecedents.
 
 NUs appear in various nonlinguistic contexts as well. \citet{Ginzburg2018} distinguish three classes of such NUs: sluices (\ref{32}), exclamative sluices (\ref{33}), and declarative fragments (\ref{34}).
 
@@ -247,14 +294,14 @@ NUs appear in various nonlinguistic contexts as well. \citet{Ginzburg2018} disti
 \label{33}\z
 
 \ea BOBADILLA turns, gestures to one of the other men, who comes forward and gives him a roll of parchment, bearing the royal seal. ``My letters of appointment.'' (COCA)\label{34}\z
-In addition to being problematic from the licensing point of view, NUs like these have been put forward as evidence against the idea that they are underlyingly sentential, because it is unclear what the structure that underlies them would be \citep[see][]{Ginzburg:Sag:2000, CJ2005a, Stainton2006}.\footnote{This is not to say that a sentential analysis of fragments without linguistic antecedents hasn't been attempted. For details of a proposal involving a `limited ellipsis' strategy, see \citet{Merchant2005a}.}
+In addition to being problematic from the licensing point of view, NUs like these have been put forward as evidence against the idea that they are underlyingly sentential, because it is unclear what the structure that underlies them would be \citep[see][]{Ginzburg:Sag:2000, CJ2005a, Stainton2006}.\footnote{This is not to say that a sentential analysis of fragments without linguistic antecedents hasn't been attempted. For details of a proposal involving a `limited ellipsis' strategy, see \citet{Merchant2005a} and \citet{Merchant2010}.}
 %\todosatz{Merchant 2010: no reference given}
 
 
 \section{Analyses of NUs}
 \label{sec-analyses-of-NUs}
 
-It is worth noting at the outset that the analyses of NUs within the framework of HPSG are based on an elaborate theory of dialog \citep{Ginzburg1994, Ginzburg2004, Ginzburg2014a, Larsson2002, Prver2006, Fernandez2006, Fernandez2002, Fernandez2007, Ginzburg2010, Ginzburg2014b, Ginzburg2012, Ginzburg2013} and on a wider range of data than is common practice in the ellipsis literature. Existing analyses of NUs go back to \citet{Ginzburg:Sag:2000}, who recognize declarative fragments (\ref{34a}) and two kinds of sluicing NUs, direct sluices (\ref{35}) and reprise sluices (\ref{36}) (the relevant fragments are bolded). The difference between direct and reprise sluices lies in the fact that the latter are requests for clarification of any part of the antecedent. For instance, in (\ref{36}) the referent of \emph{that} is unclear to the interlocutor.
+It is worth noting at the outset that the analyses of NUs within the framework of HPSG are based on an elaborate theory of dialog \citep{Ginzburg1994, Ginzburg2004, Ginzburg2014a, Larsson2002, Purver2006, Fernandez2006, Fernandez2002, Fernandez2007, Ginzburg2010, Ginzburg2014b, Ginzburg2012, Ginzburg2013} and on a wider range of data than is common practice in the ellipsis literature. Existing analyses of NUs go back to \citet{Ginzburg:Sag:2000}, who recognize declarative fragments (\ref{34a}) and two kinds of sluicing NUs, direct sluices (\ref{35}) and reprise sluices (\ref{36}) (the relevant fragments are bolded). The difference between direct and reprise sluices lies in the fact that the latter are requests for clarification of any part of the antecedent. For instance, in (\ref{36}) the referent of \textit{that} is unclear to the interlocutor.
 
 \ea ``I was wrong.'' Her brown eyes twinkled. ``Wrong about what?'' ``\textbf{That night}.'' (COCA) \label{34a}\z
 
@@ -262,9 +309,16 @@ It is worth noting at the outset that the analyses of NUs within the framework o
 
 \ea ``Can we please not say a lot about that?'' ``\textbf{About what?}'' (COCA) \label{36} \z
 
-\citet[304]{Ginzburg:Sag:2000} make use of the constraint shown in (\ref{hf-cx}) (we have added information about the MAX-QUD) to generate NUs.
 
-
+The different types of fragments are derived from the \citet[333]{Ginzburg:Sag:2000} hierarchy of clausal types depicted in (\ref{cltypes}). NUs like declarative fragments (decl-frag-cl) are associated with type hd-frag-ph (headed-fragment phrase) and decl-cl (declarative clause), while direct sluices (slu-int-cl) and reprise sluices (dir-is-int-cl) are associated with type hd-frag-ph and inter-cl (interrogative clause). The type slu-int-cl is permitted to appear in independent and embedded clauses, hence it is underspecified for the head feature IC (independent clause). This specification contrasts with that of declarative fragments and reprise sluices, with both specified as [IC +] (see \citealt[333]{Ginzburg:Sag:2000} for the overall organization of the clausal types including fragment types).
+%
+%GShierarchy here \label{cltypes}
+%
+%
+%
+\citet[304]{Ginzburg:Sag:2000} make use of the constraint shown in (\ref{hf-cx}) (we have added information about the \textsc{max-qud} to generate NUs.
+%
+%
 
 \ea
 \label{hf-cx}
@@ -273,8 +327,8 @@ Head-Fragment Construction:\\
 [cat & s\\ %\[HEAD v\]\\
              %CONT &\[NUCL \@1\]\\
  ctxt & [max-qud & !$\lambda\{\pi^{i}\}$!\\
-         sal-utt & \{  [cat \2\\
-                        cont|ind \type{i} ] \} ] ]}
+         sal-utt & \{  [cat & \2\\
+                        cont|ind & \type{i} ] \} ] ]}
 $\rightarrow$
 \avmtmp{
 [ cat      \2\\
@@ -295,30 +349,32 @@ $\rightarrow$
 %% \end{avm}
 \z
 Let us see how this constructional constraint allows us to
-license NUs and capture their properties, including the connectivity effects we discussed in Section~\ref{sec-connectivity-effects}. Note first that any phrasal category
+license NUs and capture their properties, including the connectivity effects we discussed in Section~\ref{sec-connectivity-effects}.
+
+Note first that any phrasal category
 can function as an NU, that is, can be mapped onto a sentential utterance as long as it corresponds to a Salient Utterance (SAL-UTT). This means that
-the head daughter's syntactic category must match that of a SAL-UTT, which is an attribute supplied by the surrounding context as a (sub)utterance of another contextual attribute---the Maximal Question under Discussion (MAX-QUD). The two contextual attributes SAL-UTT and MAX-QUD are introduced specifically for the purpose of analyzing NUs. The context gets updated with every new question-under-discussion, and MAX-QUD represents the most recent question-under-discussion, while SAL-UTT is the (sub)utterance with the widest scope within MAX-QUD. To put it informally, SAL-UTT represents a (sub)utterance of a MAX-QUD that has not been resolved yet. Its feature CAT supplies information relevant for establishing morphosyntactic identity with an NU, that is, syntactic category and case information, and (\ref{hf-cx}) requires that an NU match this information. Meanwhile, MAX-QUD provides the propositional semantics for an NU and is, typically, a unary question. The content of MAX-QUD can be supplied by linguistic or nonlinguistic context. In the prototypical case, MAX-QUD arises from the most recent wh-question uttered in a given context (\ref{37}), but can also arise (via accommodation) from other forms found in the context, such as constituents bearing focal accent (\ref{38}) and constituents in need of clarification (\ref{39}), or from a nonlinguistic context (\ref{40}).\footnote{\citet{Ginzburg2012} uses the notion of the Dialog Game Board (DGB) to keep track of all information relating to the common ground between interlocutors. The DGB is also the locus of contextual updates arising from each new question-under-discussion that is introduced.}
-\ea 
+the head daughter's syntactic category must match that of a SAL-UTT, which is an attribute supplied by the surrounding context as a (sub)utterance of another contextual attribute---the Maximal Question under Discussion (MAX-QUD). The two contextual attributes SAL-UTT and MAX-QUD are introduced specifically for the purpose of analyzing NUs. The context gets updated with every new question-under-discussion, and MAX-QUD represents the most recent question-under-discussion, while SAL-UTT is the (sub)utterance with the widest scope within MAX-QUD. To put it informally, SAL-UTT represents a (sub)utterance of a MAX-QUD that has not been resolved yet. Its feature CAT supplies information relevant for establishing morphosyntactic identity with an NU, that is, syntactic category and case information, and (\ref{hf-cx}) requires that an NU match this information. Because the permissible categories of SAL-UTT are nominal, SAL-UTTs can surface either as NPs or PPs, and so can NUs. This gives us a way of capturing the problems that \citet{Merchant2001, Merchant2005a} faces with respect to misalignments between preposition stranding under wh- and focus movement and the realization of NUs as NPs or PPs, as discussed in Section~\ref{sec-connectivity-effects}. Meanwhile, MAX-QUD provides the propositional semantics for an NU and is, typically, a unary question. The content of MAX-QUD can be supplied by linguistic or nonlinguistic context. In the prototypical case, MAX-QUD arises from the most recent wh-question uttered in a given context (\ref{37}), but can also arise (via accommodation) from other forms found in the context, such as constituents bearing focal accent ({\it MIKE} in (\ref{38})) and constituents in need of clarification (\ref{39}), or from a nonlinguistic context (\ref{40}).\footnote{\citet{Ginzburg2012} uses the notion of the Dialog Game Board (DGB) to keep track of all information relating to the common ground between interlocutors. The DGB is also the locus of contextual updates arising from each new question-under-discussion that is introduced.}
+\ea
 A: What did Barry break? \\
 B: The mike.\label{37}
 \z
 
-\ea 
+\ea
 A: Barry broke the MIKE. \\
 B: Yes, the only one we had.\label{38}
 \z
 
-\ea 
+\ea
 A: Barry broke the mike. \\
 B: Who?\label{39}
 \z
 
-\ea 
-(Cab driver to passenger on the way to airport) 
+\ea
+(Cab driver to passenger on the way to airport)
 A: Which airline?\label{40}
 \z
 
-The existing analyses of NUs \citep{Ginzburg2012, Sag2011, Kim2015, Abeille2014, Abeille2017} are based on \citeauthor{Ginzburg:Sag:2000}'s (\citeyear{Ginzburg:Sag:2000}) constraint. Figure~\ref{fig-the-mike} illustrates how it is applied to the declarative fragment in (\ref{37}).
+The existing analyses of NUs \citep{Ginzburg2012, Sag2011, Kim2015, Abeille2014, Abeille2019, Kim2019} are based on \citeauthor{Ginzburg:Sag:2000}'s (\citeyear{Ginzburg:Sag:2000}) constraint. Below in (\ref{fig-the-mike}) and (\ref{slu}) we illustrate how it is applied to the declarative fragment in (\ref{37}) and the reprise sluice in (\ref{39}). The analyses in (\ref{fig-the-mike}) and (\ref{slu}) differ in the value of the feature CONT (Content), the former being a proposition and the latter a question.
 
 \begin{figure}
 {\centering
@@ -340,31 +396,51 @@ sm edges without translation
  [The mike]]]
 \end{forest}
 }
-\caption{Add caption}\label{fig-the-mike}
+\caption{Structure of the declarative fragment clause}\label{fig-the-mike}
+\end{figure}
+
+\begin{figure}
+{\centering
+\begin{forest}
+sm edges without translation
+[S\\
+\avmtmp{
+[cat & [ head & v]\\
+  %CONT & \[NUCL \@1\]\\
+ ctxt & [max-qud & !$\lambda\{\pi^{i}\}[break(i,m)]$! \\
+         sal-utt & \{ [cat  \2\\
+                       cont|ind \type{i} ] \} ] ]}
+[NP\\
+ \avmtmp{
+  [cat  & \2\\
+   cont & [ ind \type{i} ] ]%\\
+   %\PARAMS & \{$\pi$$^{i}$\}
+  }
+ [Who]]]
+\end{forest}
+}
+\caption{Structure of the sluiced interrogative clause}\label{slu}
 \end{figure}
 
 
-
 This construction-based analysis, in which dialogue updating plays
-a key role in the licensing of NUs, can also offer a simple account of
-sprouting examples like (\ref{35}).\footnote{\citet[330]{Ginzburg:Sag:2000} suggest a way of analyzing sprouted NUs, such as (i). The implied direct object of \emph{eat} functioning as SAL-UTT here would appear as a noncanonical synsem on the verb's ARG-ST list, but not on the COMPS list, and thereby be able to provide appropriate morphosyntactic identity information.
-	
-	\ea  A: And what did you do then? \\B: I ate. \\A: What?\z
-	
-	
-} As discussed in \citet{Kim2015}, we could take an unrealized oblique argument of
-the verb \emph{wait} as an instance of indefinite null instantiation (INI) \citep[see][]{Ruppenhofer2014}:
+a key role in the licensing of NUs, can also offer a simple account of sprouting examples like (\ref{35}), repeated here for convenience as (\ref{spr}).
 
-\inlinetodostefan{Use feature geometry of \citet{Sag97a}}
-\ea 
+\ea ``You're waiting,'' she said softly. ``\textbf{For what?}'' (COCA) \label{spr} \z
+%
+\citet[331]{Ginzburg:Sag:2000} suggest the following way of analyzing such sprouted NUs. The implied PP \textit{for someone} functioning as SAL-UTT here would appear as a noncanonical synsem on the ARG-ST list of the verb \textit{wait}, but not on the COMPS list, and thereby be able to provide appropriate morphosyntactic identity information. The lexical entry for \textit{wait} would look like the one given in (\ref{wait}).\footnote{An alternative to this approach is \citet{Kim2015}, who takes the unrealized oblique argument of the verb \textit{wait} as an instance of indefinite null instantiation (INI), following \citep[see][]{Ruppenhofer2014}, with the result that this PP appears on the COMPS list with the annotation \textit{ini}.}
+
+
+%\inlinetodostefan{Use feature geometry of \citet{Sag97a}}
+\ea
 \label{wait}
-Lexical item for \emph{wait}:\\
+Lexical item for \textit{wait}:\\
 \avmtmp{
-[ form   & \phonliste{ wait }\\
+[ phon   & \phonliste{ wait }\\
   arg-st & < NP$_i$, PP$_x$ >\\
-  syn    & [ subj  & < ! NP[\type{overt}] ! >\\
-             comps & < ! PP[\type{ini}]   ! > ]\\
-  sem    &  ! $wait(i, x) $ ! ]
+  cat  &[ subj  & < NP$_i$  >\\
+                 comps & <  > ]\\
+  cont &     ! $wait(i, x) $ ! ]
 }
  %% \begin{avm}
  %% \[FORM \q<{\it wait}\q>\\
@@ -375,35 +451,42 @@ Lexical item for \emph{wait}:\\
  %%   \end{avm}
 \z
 %
-The lexical information specifies that the second argument of \emph{wait} can be an unrealized indefinite NP while the first argument needs to be an overt one. Now consider the dialogue in (\ref{35}). Uttering
-the sentence \emph{You're waiting?} would then update the DGB with a SAL-UTT represented by the unrealized NP:
+The lexical information specifies that the second argument of \textit{wait} can be an unrealized PP while the first argument needs to be an overt NP. Now consider the dialogue in (\ref{spr}). Uttering
+the sentence \textit{You're waiting.} would then update the DGB with a SAL-UTT represented by the unrealized PP, as in (\ref{updateddgb}).
 %
 \ea
+\label{updateddgb}
 \avmtmp{
 [%{\it dgb}\\
- dgb|sat-utt [syn &  \upshape PP [\type*{ini}
+ ctxt|sat-utt [cat &  \upshape PP [%\type*{ini}
                           pform & for\\
                           ind   & x ]\\
-              sem & !$\textit{wait.for}(i, x)$ ! ]] 
+              cont & !$\textit{wait.for}(i, x)$ ! ]]
 }
 %% \begin{avm}
 %% \[%{\it dgb}\\
 %%  DGB \[SAT-UTT \[SYN  PP\[{\it ini}\\
 %%                           PFORM {\it for}\\
 %%                         \IND\ {\it  x}\]\\
-%%                  SEM {\it wait.for}({\it i,x})\]\]\] 
+%%                  SEM {\it wait.for}({\it i,x})\]\]\]
 %% \end{avm}
 \z
 %
-The fragment \emph{for what?}, matching this SAL-UTT,
-projects a well-formed NU in accordance with the Head-Fragment Construction.\footnote{See the detailed analysis of such sprouting examples in \citet{Kim2015}.}
+The NU \textit{For what?}, matching this SAL-UTT,
+projects a well-formed NU in accordance with the Head-Fragment Construction.%\footnote{See the detailed analysis of such sprouting examples in \citet{Kim2015}.}
 
-The advantages of the nonsentential analyses sketched here follow from their ability to capture limited morphosyntactic parallelism between NUs and SAL-UTT without having to account for why NUs don't behave like constituents of sentential structures. The island-violating behavior of NUs is unsurprising on this analysis, as are attested cases of structural mismatch and situationally controlled NUs.\footnote{The rarity of NUs with nonlinguistic antecedents can be understood as a function of how easily a situational context can give rise to a MAX-QUD and thus license ellipsis (see \citealt{Miller2014b} for this point with regard to VPE).} However, some loose ends still remain. (\ref{hf-cx}) currently has no means of capturing certain connectivity effects: it can't rule preposition drop out under sprouting and it incorrectly rules out case mismatch in languages like Hungarian for speakers that do accept it (see discussion around example (\ref{11})).\footnote{See, however, \citet{Kim2015} for proposals envoking a case hierarchy specific to Korean to explain case mismatch and introducing an additional constraint to block preposition drop under sprouting.}
+
+The advantages of the nonsentential analyses sketched here follow from their ability to capture limited morphosyntactic parallelism between NUs and SAL-UTT without having to account for why NUs don't behave like constituents of sentential structures. The island-violating behavior of NUs is unsurprising on this analysis, as are attested cases of structural mismatch and situationally controlled NUs.\footnote{The rarity of NUs with nonlinguistic antecedents can be understood as a function of how easily a situational context can give rise to a MAX-QUD and thus license ellipsis (see \citealt{Miller2014b} for this point with regard to PAE).} However, some loose ends still remain. (\ref{hf-cx}) currently has no means of capturing certain connectivity effects: it can't rule preposition drop out under sprouting and it incorrectly rules out case mismatch in languages like Hungarian for speakers that do accept it (see discussion around example (\ref{11})).\footnote{See, however, \citet{Kim2015} for proposals envoking a case hierarchy specific to Korean to explain case mismatch and introducing an additional constraint to block preposition drop under sprouting.}
+%
+%NOTE from review: Please explain how Kim 2015 handles pseudosluices (with a copula) in wh in %situ languages such as Korean (and mandarin), not that these languages
+%allow direct sluices
+
 
 
 \section{Analyses of predicate/argument ellipsis}
-The first issue in the analysis of VPE is the status of an elided VP. It is assumed to be a \emph{pro} element due to its pronominal properties \citep[see][]{Lobeck1995, Lopez2000, Kim2006, Aelbrecht2015, Ginzburg2018}. For instance, VPE applies only to phrasal categories (\ref{42}--\ref{43}),
-can cross utterance boundaries (\ref{44}), can override island constraints (\ref{45}--\ref{46}), is subject to the Backwards Anaphora Constraint (\ref{47}--\ref{48}).
+\label{sec-analyses-of-pred-ellipsis}
+The first issue in the analysis of PAE is the status of an elided VP. It is assumed to be a \textit{pro} element due to its pronominal properties \citep[see][]{Lobeck1995, Lopez2000, Kim2006, Aelbrecht2015, Ginzburg2018}. For instance, PAE applies only to phrasal categories (\ref{42}--\ref{43}),
+can cross utterance boundaries (\ref{44}), can override island constraints (\ref{45}--\ref{46}), and is subject to the Backwards Anaphora Constraint (\ref{47}--\ref{48}).
 
 \ea *Mary will meet Bill at Stanford because she didn't  \jbtr John.\label{42}\z
 \ea Mary will meet Bill at Stanford because she didn't \jbtr at Harvard.\label{43}\z
@@ -422,18 +505,17 @@ Peter didn't know she did \jbtr is indeed surprising. (SSC)\label{46}\z
 %Mimi.NOM  pro see.PST.DECL\\
 %\glt `Mimi saw (him)'\label{49}\z
 
-In accounting for {\it pro}-drop phenomena, we do not need to posit a phonologically empty pronoun if the level of argument structure is
-available \citep[see][]{Bresnan1982a}.  As suggested by \citet{Kim2015}
-and \citet{Ginzburg2018}, we can simply encode the required pronominal properties in the argument structure. In the framework of HPSG, we represent this as the following Argument Realization Constraint allowing mismatch between argument-structure and syntactic-valence features:\footnote{Expressions have two subtypes: overt and covert ones, the latter of which has two subtypes, \emph{pro} and \emph{gap}. See \citet{Sag2012a} for details.}
+One way to account for PAE closely tracks analyses of {\it pro}-drop phenomena. We do not need to posit a phonologically empty pronoun if a level of argument structure is
+available where we can encode the required pronominal properties\citep[see][]{Bresnan1982a, Kim2015, Ginzburg2018}. In the framework of HPSG, we represent this possibility as the Argument Realization Constraint in (\ref{50}), permitting mismatch between argument-structure and syntactic-valence features:\footnote{Expressions have two subtypes: overt and covert ones, the latter of which has two subtypes, \textit{pro} and \textit{gap}. See \citet{Sag2012a} for details.}
 
-\inlinetodostefan{AVM: Space after $\ominus$}
+%\inlinetodostefan{AVM: Space after $\ominus$}
 \ea
 \label{50}
 Argument Realization Constraint (ARC):\\
-\type{v-word} \impl
+\type{v-wd} \impl
 \avmtmp{
-[syn|val [ subj  & \1\\
-           comps & \2 $\ominus$ !$list(pro)$!]\\
+[cat [ subj  & \1\\
+           comps & \2 \ $\ominus$ \ !$list(pro)$!]\\
  arg-st \1 \+ \2 ]
 }
 %% \begin{avm}
@@ -443,27 +525,26 @@ Argument Realization Constraint (ARC):\\
 %%   ARG-ST \@A $\oplus$ \@B\]
 %%   \end{avm}
 \z
-The argument realization here tells us that a \emph{pro} element
+The Argument Realization Constraint tells us that a \textit{pro} element
 in the argument structure need not be realized in the syntax.
  For
 example, as represented in (\ref{51}), the auxiliary
-verb \emph{can} in examples like \emph{John cannot dance, but Sandy can}
-have its second argument as a \emph{pro} VP, which is
-thus not instantiated as the syntactic
-complement of the verb. \index{transitive}
+verb \textit{can} in examples like \textit{John can't dance, but Sandy can.}
+has a \textit{pro} VP as its second argument, that is, this VP is not instantiated as the syntactic
+complement of the verb. %\index{transitive}
 
-\inlinetodostefan{AVM: space before VP}
+%\inlinetodostefan{AVM: space before VP}
 \ea
 \label{51}
-Lexical entry for \emph{can}:\\
+Lexical entry for \textit{can}:\\
 \avmtmp{
-[\type*{v-word}
- form & \phonliste{ can }\\
- syn & [ head|vform \type{fin}\\
-         val [ subj  & < \1 >\\
-               comps & < > ] ]\\
+[\type*{v-wd}
+ phon & \phonliste{ can }\\
+ cat & [ head|vform \ \type{fin}\\
+        subj  \ < \1 >\\
+               comps \  < >  ]\\
  arg-st & < \1 NP, !VP[\type{pro}]! > ]
-} 
+}
 %% \begin{avm}
 %% \[{\it v-word}\\
 %%  FORM \q<can\q>\\
@@ -471,15 +552,16 @@ Lexical entry for \emph{can}:\\
 %%       VAL \[SUBJ & \q<\@1\q>\\
 %%            COMPS & \q<  \; \q>\]\]\\
 %% ARG-ST  \q<\@1NP, VP[{\it pro}]\q>\]
-%%  \end{avm} 
+%%  \end{avm}
 \z
 %
 %
-As such, English VPE can be analyzed as a language-particular VP \emph{pro} drop phenomenon, trigged
-by a constraint like the following:
+Given this, English PAE can be analyzed as a language-particular VP \textit{pro} drop phenomenon, trigged
+by a constraint like (\ref{52}).
 
-\inlinetodostefan{
-AVM: type name too long and second column not used, space before YP}
+%\inlinetodostefan{
+%AVM: type name too long and second column not used, brackets around \type{pro} should be %normal text
+%brackets}
 
 
 \ea\label{52}
@@ -487,10 +569,10 @@ Aux-Ellipsis Construction:\\
 \avmtmp{
 [\type*{aux-v-lxm}
    %\SYN\|\HEAD\|\AUX\ $+$\\
- arg-st & < \1 XP, \2 YP > ] } $\mapsto$ 
+ arg-st < \1 XP, \2 YP > & ] } $\mapsto$
 \avmtmp{
-[\type*{aux-ellipsis-wd}
- arg-st & < \1 XP, \2 !YP[\type{pro}]! > ]
+[\type*{aux-pae-wd}
+ arg-st < \1 XP, \2 YP[\type{pro}] > & ]
 }
 %% \begin{forest}
 %%  [{\begin{avm}
@@ -505,12 +587,12 @@ Aux-Ellipsis Construction:\\
 \z
 What this tells us is that an auxiliary verb selecting two arguments
 can be projected into an elided auxiliary verb whose second argument
-is realized as a small \emph{pro}. Note that this argument is not mapped
-onto the syntactic grammatical function COMPS. The output auxiliary
+is realized as a small \textit{pro}. This argument is not mapped
+onto any grammatical function on the COMPS list. The output auxiliary
 in (\ref{51}) will then project a structure like the one
 in Figure~\ref{fig-53}.
-
-\begin{figure}
+%
+\begin{figure}[h!]
 \begin{forest}
 [S
   [\ibox{1} NP
@@ -543,21 +625,83 @@ in Figure~\ref{fig-53}.
 %%         ARG-ST \q<\@1NP, VP[{\it pro}]\q>\] \avmr \end{avm}}
 %%       [can]]]]
 %% \end{forest}
-\caption{add caption}\label{fig-53}
+\caption{Structure of a VPE}\label{fig-53}
 \end{figure}
-The head daughter's COMPS list (VP[bse]) is empty because the second element in the ARG-ST\ is
-a \emph{pro}.
+%
+The head daughter's COMPS list (VP[bse]) is empty because the second element in the ARG-ST\ is a \textit{pro}.\footnote{The PAE is basically different from the NCA (null complement anaphora} as in examples like {\it I asked Trace [to bring the horses into the
+barn] but she refused}, where the infinitival VP complement of
+{\it refused} is unexpressed. The NCA,  which \citet{Hankamar1976} take as a
+deep anaphor, is sensitive only
+to a limited set of main verbs, whose exact nature is still controversial.
+The research on the NCA has received relatively little attention in modern
+syntactic theory.}
 
+%NOTE from review: Do you want to distinguish PAE from other cases of pro VP (I tried, I
+%promise?
+%Please say how the analysis you cite (Chaves 2014 ?) handles the cases
+%of mismatches you discussed in the previous sections, as well as
+%insensitivity to islands, split antecedents etc
 
 
 \section{Analyses of nonconstituent coordination and gapping}
-In this section, we focus on RNR and gapping, whose analyses we address in separate subsections below.
+\label{sec-analyses-of-noncon}
+
+Constructions such as ACC (Argument cluster coordination),
+RNR (right node raising), and gapping have also often taken to belong
+to elliptical constructions. Each of these constructions has received
+relatively little attention in the research of elliptical constructions, possibly
+because of their syntactic and semantic complexities. In this
+section, we briefly discuss the direction of surface-based HPSG analyses
+for these, leaving the detailed discussion
+to the references cited in.
+%
+%
+%
+%
+%, whose analyses we address in separate subsections below.
+
+\subsection{Argument Cluster Coordination}
+
+As noted earlier, ACC is a type of non-constituent coordination, as again
+illustrated in the following:
+%
+%
+\ea John gave a book to Mary and a record to Jane.  \z \label{acc-here}
+\ea John gave Mary a book and Jane a record.  \z
+%
+Our focus here is on HPSG analyses of ACC, which departs from those
+relying on the notion of ellipsis where silent material is permitted as part of the structure.\footnote{For an example of an analysis of ACC that coordinates noncanonical constituents and doesn't posit the existence of silent material, see \citep{Mouret2006}} The surface-oriented HPSG analyses employ a key idea from linearization approaches
+where the level of an order domain is operationalized as the DOM list (see e.g., \citealt{Beavers2004, Crysman2003, Yatabe2001}).\footnote{For more details on the role of the DOM list in HPSG accounts of constituent order, the reader is referred to Chapter X.} The content of the DOM list consists of prosodic constituents (constituents with no information about their internal morphosyntax) and offers a way of accounting for coordination of noncanonical constituents. In analyses of ACC, the elements present on the mother's DOM list are those present overtly on the DOM lists of both conjuncts, as well as those present overtly on the DOM list of the left, but not the right, conjunct (see \citealt[(27)]{Beavers2004} for the proposed schema).
+%
+% To make this more precise, consider the \citep{Beavers2004} schema in (\ref{acc2}), which % derives not just ACC, but also RNR and constituent coordination.
+%
+%
+%
+%BeaversSag2004 here \label{acc2}
+%
+%
+This assumption allows us to coordinate VPs where left- and/or right-most elements on the mother's DOM list may or may not be empty to capture different types of coordination.
+To derive NCC as in (\ref{acc-here}), the left-most element on the mother's DOM list, representing material present overtly only in the left conjunct (here the verb {\it gave}), may not be empty.
+%
+%\ea Harvey gave a book to Ethan and a record to Rasmus. \label{acc3}\z
+
+%The schema in (\ref{acc2}) also permits derivation of RNR, provided the right-most element %on the mother's DOM list (the correspondent of the material present overtly only in the %right conjunct) is not empty. We now take a closer look at analyses of RNR in the next %section.
 
 \subsection{Right Node Raising}
-A characteristic property of RNR is that it's the only phenomenon where seemingly incomplete structure has consistently attracted HPSG analyses involving deletion of silent material. All existing analyses of RNR \citep{Abeille2016, Beavers2004, Chaves2008-in-lexicon, Caves2014, Crysmann2003, Yatabe2001, Yatabe2012} agree on this point, although some of this work proposes more than one mechanism for accounting for coordination of nonconstituents \citep{Chaves2014, Yatabe2001, Yatabe2012, Yatabe2019}.
 
-The RNR literature engages with the question of what kind of deletion it is that targets shared material, based on the kind of material that may be RNRaised and the range of mismatches permitted between the left and right conjuncts.\footnote{Although we refer to the material on the left and right as conjuncts, it is been known since \citet{Hudson1976, Hudson1989} that RNR extends to other syntactic environments than coordination (see \citealt{Chaves2014} for stressing this point).} For instance, \citet[839--840]{Chaves2014} concludes that RNR can't be syntactic deletion because it exhibits various argument-structure mismatches (\ref{54}--\ref{55}) and can target material below the word level (\ref{56}--\ref{57}).
+As noted earlier, the typical examples of RNR, as given in the following, concerns examples where the expression to the immediate right of parallel structures is shared by those
+parallels:
 
+\ea \relax [Kim prepares] and [Lee eats] the pasta.  \z \label{np-share}
+\ea \relax [Kim played] and [Lee sang] some Rock and Roll songs at Jane's party.\z \label{nonct-share}
+%
+The shared material can be either a constituent as in (\ref{np-share}) or a non-constituent as in (\ref{nonct-share}).
+
+A characteristic property of RNR is that it's the only phenomenon where structure that is considered elliptical has consistently attracted HPSG analyses involving silent material.
+All existing analyses of RNR \citep{Abeille2016, Beavers2004, Chaves2008-in-lexicon, Chaves2014, Crysmann2003, Shiraishi2019, Yatabe2001, Yatabe2012} agree on this point, although some of them propose more than one mechanism for accounting for different kinds of nonconstituent coordination \citep{Chaves2014, Yatabe2001, Yatabe2012, Yatabe2019}. One strand of research within the RNR literatures adopts a linearization-based approach of the kind discussed in the previous section \citep{Yatabe2001, Yatabe 2012} and another proposes a deletion-like operation \citep{Abeille2016, Chaves2014, Shiraishi2019}. We focus on the latter here, along with the question that it has raised, that is, what kind of identity constraints must be satisfied before RNR can apply.\footnote{For more detail on linearization-based analyses of RNR, the interested reader is referred to \citet{Yatabe2001, Yatabe2012}, who distinguish between syntactic RNR and phonological RNR, based on the amount of morphosyntactic identity holding between RNRaised material and the requirements imposed on the slots it occupies in the structure, and represent this distinction by treating the RNRaised material as either a separate domain object on the mother's DOM list (syntactic RNR) or embedded in a larger domain object corresponding to the right conjunct (phonological RNR).}
+The kind of material that may be RNRaised and the range of structural mismatches permitted between the left and right conjuncts have been the subject of recent debate.\footnote{Although we refer to the material on the left and right as conjuncts, it is been known since \citet{Hudson1976, Hudson1989} that RNR extends to other syntactic environments than coordination (see \citealt{Chaves2014} for stressing this point).} For instance, \citet[839--840]{Chaves2014} demonstrates that, besides more typical examples like (\ref{8}), repeated here as (\ref{RNR8}), there is a range of phenomena classifiable as RNR that exhibit various argument-structure mismatches (\ref{54}--\ref{55}) and can target material below the word level (\ref{56}--\ref{57}).
+
+\ea Ethan sold and Rasmus gave away all his CDs. \label{RNR8} \z
 
 \ea Sue gave me---but I don't think I will ever read---[a book about relativity]. \label{54}\z
 
@@ -566,6 +710,7 @@ The RNR literature engages with the question of what kind of deletion it is that
 \ea We ordered the hard- but they got us the soft-[cover edition].\label{56}\z
 
 \ea Your theory under- and my theory over[generates].\label{57}\z
+%
 Furthermore, RNR can target strings that are not subject to any known syntactic operations, such as rightward movement \citep[865]{Chaves2014}.
 
 \ea I thought it was going to be a good but it ended up being a very bad [reception].\label{58}\z
@@ -579,43 +724,137 @@ RNRaised material can also be discontinuous, as in (\ref{61})--(\ref{62}) (\cite
 \ea Please move from the exit rows if you are unwilling or unable [to perform the necessary actions] without injury.\label{61}\z
 
 \ea The blast upended and nearly sliced [an armored Chevrolet Suburban] in half.\label{62}\z
-This evidence leads \citet{Chaves2014} to propose that: (1) only 'true' RNR should be accounted for via the mechanism of surface-based deletion, (2) this deletion is sensitive to morph form identity, and (3) the targets of RNR are any linearized strings, whether constituents or otherwise. \citeauthor{Chaves2014}' (\citeyear[874]{Chaves2014}) constraint licensing RNR is given in \ref{50}. It permits the M(orpho)P(honology) feature of the mother to contain only one instance (represented as $L_{3}$ in (\ref{63})) of the two morphophonologically identical sequences [FORM $F_{1}$], \ldots, [FORM $F_{n}$] present in the daughters; the leftmost of these sequences undergoes deletion. The final list in the mother, $L_{4}$, may be empty or nonempty, depending on whether RNR is discontinuous.
+%
+This evidence leads \citet{Chaves2014} to propose that RNR is a nonuniform phenomenon, comprising extraposition and VP\/N'-ellipsis besides 'true' RNR and requiring different kinds of theoretical analyses. Of the three, only true RNR should be accounted for via the mechanism of optional surface-based deletion that is sensitive to morph form identity and targets any linearized strings, whether constituents or otherwise.\footnote{Whenever RNR can instead be analyzed as either VP\/N'-ellipsis or extraposition, \citeauthor{Chaves2014} proposes separate mechanisms for deriving them: the direct interpretation approach described in the previous sections for NUs and predicate/argument ellipsis and an analysis employing the feature EXTRA to record extraposed material along the lines of \citeauthor{KimSag2005, Kay2012}), respectively.} \citeauthor{Chaves2014}' (\citeyear[874]{Chaves2014}) constraint licensing true RNR is given in the following as an informal version  ($\alpha$
+= a morphophonologic constituent, $^{+}$ = a
+ $^{+}$ = a Kleene plus): 
+%
+%It permits the M(orpho)P(honology) feature of the mother to contain only one instance %(represented as $L_{3}$ in (\ref{63})) of the two morphophonologically identical sequences %[FORM $F_{1}$], \ldots, [FORM $F_{n}$] present in the daughters; the leftmost of these %sequences undergoes deletion. The final list in the mother, $L_{4}$, may be empty or %nonempty, depending on whether RNRaised material is discontinuous.
+%
+%
+%
+\ea
+\label{63}
+ Backward Periphery Deletion Construction:\\
+ 
+Given a sequence of morphophonologic constituents $\alpha_{1}^{+}$ $\alpha_{2}^{+}$ $\alpha_{3}^{+}$ $\alpha_{4}^{+}$ $\alpha_{5}^{*}$, then the output
+$\alpha_{1}^{+}$ $\alpha_{3}^{+}$ $\alpha_{4}^{+}$ $\alpha_{5}^{*}$
+iff $\alpha_{2}^{+}$ and $\alpha_{4}^{+}$ are identical up to morph forms.
+\z
+This informal rule takes the morphophonology of a phrase to be computed as the linear combination of the phonologies of the daughters, allowing deletion to apply locally.
+ 
 
+
+\iffalse{
+\citeauthor{Chaves2014}' (\citeyear[874]{Chaves2014}) constraint licensing true RNR is given in \ref{50}. It permits the M(orpho)P(honology) feature of the mother to contain only one instance (represented as $L_{3}$ in (\ref{63})) of the two morphophonologically identical sequences [FORM $F_{1}$], \ldots, [FORM $F_{n}$] present in the daughters; the leftmost of these sequences undergoes deletion. The final list in the mother, $L_{4}$, may be empty or nonempty, depending on whether RNRaised material is discontinuous.
+%
 %\fi
-\inlinetodostefan{AVM: long line and short type alignment, funny space after L2 and L3}
+%\inlinetodostefan{AVM: long line and short type alignment, funny space after L2 and L3}
+
+
 
 \ea
 \label{63}
 Backward periphery deletion construction:\\
-\avmtmp{
+\avmtmp{\small
 [\type*{phrase}
   mp $L_{1}$:\type{ne-list} $\bigcirc L_{2}$:\type{ne-list} $\bigcirc L_{3} \bigcirc L_{4}$ & ]
 } $\to$
 \avmtmp{
  [ \type*{phrase}
-    mp $L_{1} \bigcirc$ < [ form $F_{1}$ ], \ldots, [ form $F_{n}$ ] > $\bigcirc L_{2} \bigcirc L_{3}:$ < [ form $F_{1}$ ], \ldots, [form $F_{n}$ ] > $\bigcirc L_{4}$ & ]
+    mp $L_{1} \bigcirc$ < [ form $F_{1}$ ], \ldots, [ form $F_{n}$ ] > $\bigcirc L_{2} \bigcirc L_{3}:$%\\ \hspace{50pt}
+     <[ form $F_{1}$ ], \ldots, [form $F_{n}$ ] > $\bigcirc L_{4}$ & ]
 }
 \z
+}\fi 
+
+Another deletion-based analysis of RNR, due to \citep{Abeille2016, Shiraishi2019}, differs from \citet{Chaves2014} in terms of identity conditions on deletion.  \citet{Abeille2016} argue for a finer-grained analysis of French RNR without morphophonological identity. Their empirical evidence reveals a split between functional and lexical categories in French such that the former permit mismatch between the two conjuncts (where determiners or prepositions differ) under RNR, while the latter don't. \citep{Shiraishi2019} provide further corpus and experimental evidence that morphophonological identity is too strong a constraint on RNR, given the range of acceptable mismatches between the verbal forms of the material missing from the left conjunct and those of the material that is shared between both conjuncts.
+
+\iffalse{ To illustrate, an English verb form mismatch is depicted in (\ref{verbform}), from \citep[see][5]{Shiraishi2019}, where the left conjunct requires a participle while the shared material contains an infinitive form of the verb \textit{appear}.
+
+\ea Some new hybrid models already have, and others soon will appear in the automobile industry.\label{verbform}
+
+\citep{Shiraishi2019} capture verb form mismatch of this kind by introducing into their analysis of RNR the feature LID, which carries lexeme identity information. That is, this feature ensures semantic and syntactic category identity but ignores differences introduced by inflectional suffixes, with the result that the participle and the infinitive in (\ref{verbform}) count as lexeme-identical. RNR is licensed by (\ref{rnrcx}), where the LID feature is included in the MP feature also used in \citet{Chaves2014} (see (\ref{63})).
 
 
+Shiraishi2019 rnr-cx here \label{rnrcx}
 
-\citeauthor{Chaves2014}' (\citeyear{Chaves2014}) proposal reflects the idea that nonconstituent coordination is a multi-faceted phenomenon, requiring more than one kind of analysis. Indeed, the HPSG literature includes analyses based on NP-ellipsis or A(cross) T(he) B(oard) extraposition \citep{Chaves2014} and on phonological vs syntactic deletion \citep{Yatabe2001, Yatabe2012, Yatabe2019}. \citet{Abeille2016} argue for a finer-grained analysis of French RNR based on phonological deletion. Their empirical evidence reveals a split between functional and lexical categories in French such that the former permit mismatch between the two conjuncts (where determiners or prepositions differ) under RNR, while the latter don't.
 
+(\ref{rnrcx}) ensures that the content of the $l_{2}$ list in the left conjunct, which is elided and hence not represented in the mother, is shared with the $r_{2}$ list in the right conjunct via the LID feature. The lists $l_{1}$, $r_{1}$ and $r_{3}$ in (\ref{rnrcx}) represent material present overtly in the left and right conjuncts.
+}\fi
 
 
 \subsection{Gapping}
-HPSG analyses of gapping fall into two kinds: one kind draws on \citeauthor{Beavers2004}'s (\citeyear{Beavers2004}) deletion-based analysis of nonconstituent coordination \citep{Chaves2009} and the other on \citeauthor{Ginzburg:Sag:2000}'s (\citeyear{Ginzburg:Sag:2000}) analysis of NUs \citep{Abeille2014, Park2018}. The latter analyses align gapping with analyses of NUs, as discussed in Section~\ref{sec-analyses-of-NUs}, more than with analyses of nonconstituent coordination, and therefore gapping could be classified together with other NUs. We use the analysis due to \citet{Abeille2014} for illustration below.
 
-\citet{Abeille2014} assume an identity condition on gapping requiring that gapping remnants match major constituents in the antecedent clause, which they term source clause. In other words, gapping remnants are constrained by elements of the argument structure of the verbal head present in the antecedent and absent from the rightmost conjunct. %, as originally proposed by \citet{Hankamer1971}\todosatz{no reference given}.
-This identity condition correctly predicts that gapping remnants needn't appear in the same order as their counterparts in the antecedent (\ref{64}) \citep[see][156--158]{Sag1985}, nor are they required to be the same syntactic category as their counterparts (\ref{65}). However, note that despite the syntactic category mismatch, the NP \emph{an incredible bore} belongs to the subcategorization frame of the predicate \emph{become}.
+Gapping is also a type of ellipsis that allows either a finite verb or non-finite
+verbs to be unexpressed in the non-initial conjuncts of English coordination:
 
-\ea A policeman walked in at 11, and at 12, a fireman. \label{64}\z
+\ea Some ate bread, and others rice.\z
+\ea Kim can play the guitar, and Lee the violion.\z
+%
+%
+%
+%
+
+HPSG analyses of gapping in English fall into two kinds: one kind draws on \citeauthor{Beavers2004}'s (\citeyear{Beavers2004}) deletion-based analysis of nonconstituent coordination \citep{Chaves2009} and the other on \citeauthor{Ginzburg:Sag:2000}'s (\citeyear{Ginzburg:Sag:2000}) analysis of NUs \citep{Abeille2014}.\footnote{For a semantic approach to gapping, the reader is referred to \citet{Park2018}, who offer an analysis of scope ambiguities under gapping where the syntax assumed is of the NU type and the semantics is cast in the framework of Lexical Resource Semantics.} The latter analyses align gapping with analyses of NUs, as discussed in Section~\ref{sec-analyses-of-NUs}, more than with analyses of nonconstituent coordination, and for this reason gapping could be classified together with other NUs. We use the analysis in \citet{Abeille2014} for illustration below.
+
+
+\citet{Abeille2014}, focusing on French and Romanian, argue for a construction and
+discourse-based HPSG approach of gapping where the second headless gapped conjunct is taken to be a
+NSU type of fragment. The analysis places no syntactic parallelism between the 
+first conjunct and the gapped conjunct, observing data like the following:
 
 \ea Pat has become [crazy]$_{AP}$ and Chris [an incredible bore]$_{NP}$.  \label{65}\z
+%
+% assume an identity condition on gapping requiring that gapping remnants match major %constituents in the antecedent clause, which they term source clause. In other words,
+Instead of requiring strong syntactic parallelism between the two clauses, their analysis constrain gapping remnants by elements of the argument structure of the verbal head present in the antecedent and absent from the rightmost conjunct, which reflects the intuition articulated in \citet{Hankamer1971}. Their analysis starts with the assumption that coordination phrases are nonheaded constructions in which each conjunct shares the same
+valence (SUBJ and COMPS) and nonlocal (SLASH) features and 
+ its head (HEAD) value is not-fixed but share an upper bound (supertype) even to allow
+ examples like {\it Lee has become crazy and an incredible bore}. With this 
+ widely accepted assumption of coordination structure, their analysis
+  takes the gapped conjunct {\it Chris an incredible
+  bore} to be a NSU fragment with two cluster  daughters. The required
+ syntactic parallelism is operationalized by adopting the contextual attribute SAL-UTT, which is introduced for all NUs:
+ %\footnote{The interpretation of the remnants 
+ %follows from the high order unification algorithm.}
+ 
+ \ea
+\label{gap-hf-con}
+Syntactic constraints on {\it head-fragment-ph} (\citealt[(53)]{Abeille2014}):\\
+\type{head-fragment-ph} \impl
+\avmtmp{
+[cnxt|sal-utt < [head  H$_{1}$\\
+                 major +],...,[head  H$_{n}$\\
+                                major +]>\\
+ cat|head|cluster<[head  H$_{1}$],...,head  H$_{n}$>]
+}
+\z
+ %
+ %
+The syntactic identity between gapping remnants and their counterparts is achieved
+by the specifications such that each list member of the SAL-UTT bears the specification [MAJOR +] as part of its HEAD feature and is coindexed with the gapping remnants.\footnote{The feature MAJOR ensures that each expression is a major
+constituent functioning as a dependent of some verbal projection, blocking 
+remnants from being deeply embedded in the gapped clause.}
+   With syntactic identity captured this way, we predict correctly that gapping remnants needn't appear in the same order as their counterparts in the antecedent (\ref{64}) \citep[see][156--158]{Sag1985}, nor are they required to be the same syntactic category as their counterparts (\ref{65}).
+    
+\ea A policeman walked in at 11, and at 12, a fireman. \label{64}\z
+%
+%\ea Pat has become [crazy]$_{AP}$ and Chris [an incredible bore]$_{NP}$.  \label{65}\z
+%
+The unique properties of gapping over other types of ellipsis is captured by placing
+gapping as a sup-construction of coordination and assigning its own constructional
+constraints: the contextual background information requires each conjunct to hold
+some symmetric discourse relation (for the detailed discussion, see
+\citealt{Abeille2014})
+
+
+\iffalse{
 \citet{Abeille2014} offer additional evidence from Romance (e.g., case mismatch between gapping remnants and their counterparts and even more possibilities of ordering remnants than is the case in English) to strengthen their point that syntactic identity is relaxed under gapping.
 
+There are three further key assumptions in Abeill\'{e} et al.'s (2014) analysis. First, two (or more) gapping remnants form a cluster whose mother has an underspecified syntactic category, that is, is a non-headed phrase (this information is represented by the Cluster head feature in \ref{66}). This phrase then serves as the head daughter of a head-fragment phrase, whose syntactic category is also underspecified. This means that there is no unpronounced verbal head in the phrase to which gapping remnants belong. Second, the meanings of the gapping remnants are computed from the meaning of the rightmost nonelliptical verbal conjunct, as represented by the Source feature in \ref{66}. Finally, the conjuncts are linked by a symmetric discourse relation (i.e.,  parallelism or contrast) that is part of the Background feature in \ref{66}.
+}\fi 
 
-The key assumption in \citeauthor{Abeille2014}'s (\citeyear{Abeille2014}) analysis is that (two or more) gapping remnants form a cluster whose mother has an underspecified syntactic category, that is, is a non-headed phrase. This phrase then serves as the head daughter of a head-fragment phrase, whose syntactic category is also underspecified. This means that there is no unpronounced verbal head in the phrase to which gapping remnants belong. Furthermore, the contextual attribute SAL-UTT introduced for NUs serves to ensure syntactic identity between gapping remnants and their counterparts such that the latter are SAL-UTTs bearing the specification [Major +] as part of their Head feature and being coindexed with the remnants.
+\iffalse{
 
 With these ingredients of the analysis in place, we reproduce the gapping construction in (\ref{66}). The construction represents asymmetric coordination in the sense that the daughters include both nonelliptical verbal conjuncts and head-fragment phrases with an underspecified syntactic category. The mother only shares its syntactic category with the nonelliptical conjuncts so that its own category is specified to be verbal.
 
@@ -627,9 +866,9 @@ Gapping construction\\
 \begin{avm}
 %$\Langle$
 \< \[HEAD \fbox{H} \type{verbal}\\
-CONTXT | BACKGROUND \{ ..., sym-discourse-rel(\fbox{M$_{1}$},..., \fbox{M$_{j}$}, \fbox{M$_{j+1}$},..., \fbox{M$_{n}$} ), ... \}\\
+CNXT | BCKG \{ ..., sym-disc-rel(\fbox{M$_{1}$},..., \fbox{M$_{j}$}, \fbox{M$_{j+1}$},..., \fbox{M$_{n}$} ), ... \}\\
 
-DTRS $\langle$ \[ HEAD \fbox{H} \[ verbal \\ CLUSTER elist \]\\CONTENT \fbox{M$_{1}$} \] ,..., \[
+DTRS $\langle$ \[ HEAD \fbox{H} \[ verbal \\ CLUSTER elist \]\\CONT \fbox{M$_{1}$} \] ,..., \[
 HEAD \fbox{H} \[ verbal \\ CLUSTER elist \]\\CONTENT \fbox{M$_{j}$} \]\] \> %$\Rangle
 $\bigoplus$
 \end{avm}
@@ -642,10 +881,12 @@ $\bigoplus$
                                                 CONTENT \fbox{M$_{n}$}\]\>%$\rangle$
 \end{avm}
 \z
+}\fi
 
 
 
 \section{Summary}
+\label{sum}
 This chapter has reviewed three types of ellipsis, nonsentential utterances, predicate ellipsis, and nonconstituent coordination, corresponding to three kinds of analysis within HPSG. The pattern that emerges from this overview is that HPSG favors the `what you see is what get' approach to ellipsis and limits a deletion-based approach, common in the minimalist literature on ellipsis, to a subset of nonconstituent coordination phenomena.
 
 %\citep{Chomsky1957}.
@@ -684,13 +925,14 @@ DGB & Dialog Game Board\\
 
 
 \section*{Acknowledgements}
-We thank the editors and Yusuke Kubota for helpful comments.
+We thank the editors of this handbook and Yusuke Kubota for helpful comments.
 
 {\sloppy
 \printbibliography[heading=subbibliography,notkeyword=this]
 }
+%
+%}% AVM options
 
-}% AVM options
 
 \end{document}
 
