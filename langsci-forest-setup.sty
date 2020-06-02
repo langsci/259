@@ -359,10 +359,32 @@ instance/.style={edge=dotted}
   type hierarchy/.style={
     for tree={
       anchor=base,
-%anchor=north,
       content format={\noexpand\type{\unexpanded{#1}\forestoption{content}}},
     },
   },
+  attrib/.style={
+    content format={\noexpand\attrib{\forestoption{content}}},
+    draw,
+  },
+}
+
+% Type hierarchy (Saso 2020)
+\forestset{
+  type hierarchy/.style={
+    for tree={
+      anchor=base,
+      content format={\noexpand\type{\unexpanded{#1}\forestoption{content}}},
+    },
+    % The \ldots should not be in italics, so we add \normalfont to the original definition. Saso 27.05.2020
+    TeX={
+      \let\origldots\ldots
+      \def\ldots{\normalfont\origldots}%
+    },
+    % Saso suggested the above rather than looking at the content, but we may use looking at the
+    % content for replacing "...":
+    delay={where content={...}{content=\normalfont\ldots}{}},
+  },
+  % Partitions are typeset in small caps (\textsc) and put in boxes (draw).
   partition/.style={
     content format={\noexpand\textsc{\forestoption{content}}},
     draw,
@@ -380,3 +402,5 @@ instance/.style={edge=dotted}
       }{},
   }},
 }
+
+
