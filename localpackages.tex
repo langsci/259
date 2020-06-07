@@ -80,7 +80,27 @@
 % if your book makes use of linguistic examples
 \usepackage{langsci-gb4e} 
 
-\usepackage{./styles/jambox} % temporary as long as old gb4e is used
+\makeatletter
+\def\@exe[#1]{\ifnum \@xnumdepth >0%
+                 \if@xrec\@exrecwarn\fi%
+                 \if@noftnote\@exrecwarn\fi%
+                 \@xnumdepth0\@listdepth0\@xrectrue%
+                 \save@counters%
+              \fi%
+                 \advance\@xnumdepth \@ne \@@xsi%
+                 \if@noftnote%
+                        \begin{list}{(\thexnumi)}%
+                        {\usecounter{xnumi}\@subex{#1}{\@gblabelsep}{0em}%
+                        \setcounter{xnumi}{\value{equation}}}
+% this is commented out here since it causes additional space between \zl and \eal 06.06.2020
+%                        \nopagebreak}%
+                 \else%
+                        \begin{list}{(\roman{xnumi})}%
+                        {\usecounter{xnumi}\@subex{(iiv)}{\@gblabelsep}{\footexindent}%
+                        \setcounter{xnumi}{\value{fnx}}}%
+                 \fi}
+\makeatother
+
 
 % the package defined \attop in a way that produced a box that has textwidth
 %
