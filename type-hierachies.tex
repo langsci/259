@@ -140,6 +140,40 @@ Stefan: What does ``calign children'' do?
 
 Sašo: It sets ``calign primary child'' and ``calign secondary child'' at the same time.
 
+It is just a (new) shorthand for "calign primary child=2, calign
+secondary child=3".
+
+By default, "calign=center": the parent will be aligned with the
+midpoint between the primary and seconday child. But "calign=center" is
+an abbreviation for "calign=midpoint, calign primary child=1, calign
+secondary child=-1", so changing these children to 2 and 3 means that the
+alignment will be with the midpoint between these two children.
+
+If I remember correctly, I have used this in situations with "..." as
+the third child. Well, this effectively ignores the "..." for alignment
+with the parent.
+
+
+> I cannot find out what a secondary child is. This is in the manual on
+> page 40, but I am lacking something. It is not the second child, right?
+> But then what is the function of this concept?
+Different methods of "calign" use the settings given in "calign primary
+child" and "calign secondary child". Some use only the former, some
+both. If you remember, I also introduced a shortcut "calign children" to
+set both at once.
+
+>
+> What I try to find out now, is how do I get common-noun exactly aligned
+> with noun and verb aligned with relational:
+This is really easy now (in your, pre-published version of forest), just
+say "calign=2" in both "noun" and "relational" nodes.
+
+In the CTAN version, you can say "calign with current" on "common-noun"
+and "verb". (This works in your version as well, of course.)
+
+What both of these approaches do, under the hood, is set (on the parent
+node) "calign=child" and "calign primary child=2". ("calign secondary
+child" not used by "calign=child" method.)
 
 
 
@@ -1141,23 +1175,32 @@ different style, e.g. replacing |edge from=g!1| by |edge from'={g!1}{draw,red}| 
 \end{forest}
 
 
-\begin{forest} type hierarchy
-  [phrase
-    [headedness, partition
-      [headed-phrase
-        [head-subject-phrase
-          [nonfin-head-subj-cx, edge to=C!1,tier=nonfin-head-subj-cx]
-        ]
-        [\dots, calign with current]
-        [head-spr-phrase
-          [,identify=!NN]
+\begin{forest}
+type hierarchy
+[phrase
+  [headedness, partition
+    [headed-phrase
+      [head-subject-phrase
+         [nonfin-head-subj-cx, 
+          edge to=C!1, % Draw an edge to the first child of the node named C.
+                       % This is the partitition clausality and the first child is clause.
+          tier=nonfin-head-subj-cx] % Remember at which level we are here.
+      ]
+      [\dots, calign with current]
+      [head-spr-phrase
+        [,identify=!NN] % We do not give the subtype here, but say that it is identical to the
+                        % second leave to the right (N N). The first leave to the right is clause
+                        % and the second one is noun-poss-cx.
         ]
       ]
     ]
     [clausality, partition, name=C
       [clause]
       [non-clause
-        [noun-poss-cx,tier=nonfin-head-subj-cx]]
+        [noun-poss-cx,tier=nonfin-head-subj-cx]] % noun-poss-x would be at the same level as
+                                % head-spr-phrase, but we want to have it down to the level of
+                                % nonfin-head-subj-cxg, so we refer to this tier. 
+               
     ]
   ]
 \end{forest}
