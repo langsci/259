@@ -1395,18 +1395,18 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 	\iflsBabelShorthands
 	    \ifx\lsBookLanguage\lsBookLanguageEnglish
 	            \usepackage[ngerman,main=\lsBookLanguage]{babel}
-				\addto\extrasenglish{\languageshorthands{german}\useshorthands{"}}
+				\addto\extrasenglish{\languageshorthands{ngerman}\useshorthands{"}}
 	        \fi
 		\ifx\lsBookLanguage\lsBookLanguageFrench
                     \usepackage[ngerman,main=\lsBookLanguage]{babel}
-					\addto\extrasfrench{\languageshorthands{german}\useshorthands{"}}
+					\addto\extrasfrench{\languageshorthands{ngerman}\useshorthands{"}}
                 \fi
 		\ifx\lsBookLanguage\lsBookLanguageGerman
                     \usepackage[ngerman]{babel}
                 \fi
 		\ifx\lsBookLanguage\lsBookLanguagePortuguese
                     \usepackage[ngerman,main=\lsBookLanguage]{babel}
-                    \addto\extrasportuges{\languageshorthands{german}\useshorthands{"}}
+                    \addto\extrasportuges{\languageshorthands{ngerman}\useshorthands{"}}
                 \fi
 		\ifx\lsBookLanguage\lsBookLanguageChinese
 		        \usepackage{xeCJK}%Chinese doesn't load babel, but xeCJK.
