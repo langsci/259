@@ -13,6 +13,7 @@
 \IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
   \input{../localpackages}
   \input{../localcommands}
+  \input{../locallangscifixes.tex}
   \togglepaper[14]
 }{}
 
@@ -26,10 +27,10 @@
 
 \abstract{Each language has a way to express (sentential) negation
 that reverses the truth value of a certain sentence, but employs
-language-particular expressions as well as grammatical strategies. There are
+language-particular expressions and grammatical strategies. There are
 four main types of negatives
 in expressing sentential negation: the adverbial negative, the morphological negative,
-the auxiliary negative verb, and
+the negative auxiliary verb, and
 the preverbal negative. This chapter discusses HPSG analyses for these four strategies
 in marking sentential negation.}
 
@@ -40,7 +41,7 @@ in marking sentential negation.}
 
 {\avmoptions{center}
 
-\inlinetodostefan{Page numbers are missing, Stefan will mark necesary additions in the final read. }
+\inlinetodostefan{Page numbers are missing, Stefan will mark necessary additions in the final read. }
 
 
 \section{Modes of expressing negation}
@@ -53,8 +54,8 @@ in marking sentential negation.}
 There are four main types of negative markers
 in expressing negation in languages: the morphological negative,
 the negative auxiliary verb, the adverbial negative, and the clitic-like
- preverbal negative (see \citealt{Dahl:79, Payne:85, Zanuttini:2001, Dryer:05}).
- %\addpages
+ preverbal negative (see \citealt{Dahl:79, Payne:85, Zanuttini:2001, Dryer:05}).\footnote{The term \textit{negator} or \textit{negative marker} is a cover term for any linguistic expression functioning as sentential negation.}
+  %\addpages
  % these are papers (except Dryer) and hard to pin down the page numbers since the typology
  % is discussed across the papers.
 Each of these types is illustrated in the following:
@@ -103,7 +104,7 @@ belongs to this type.
 In analyzing these four main types of sentential negation, there have been two main strands: derivational and non-derivational views. The derivational view has claimed that the positioning of all of the
 four types of negatives is basically determined by the interaction of movement
 operations, a rather large set of functional projections including NegP,
-and their hierarchically fixed organization.\footnote{The term \textit{negator} or \textit{negative marker} is a cover term for any linguistic expression functioning as sentential negation.}
+and their hierarchically fixed organization.
 In particular, to account for the
 fact that, unlike English, only French allows main or lexical verb inversion
 as in (\ref{negation-1c}), \citet{Pollock:89,Pollock:94} and a number of subsequent researchers
@@ -467,7 +468,7 @@ distributional similarities between English \textit{not} and French
 \noindent
 This structure implies that
 both \textit{ne-pas} and \textit{not} need to precede the VPs that they modify.\footnote{
-This is constrained by the LP (linear precedence) Rule that specifies
+This also interacts with the LP (linear precedence) Rule that specifies
 that a modifier precedes the head that it modifies.}  It also
 indicates that the negator does not separate an infinitival verb
 from its complements, as observed from the following data (\citealp[\page 356]{KS:02}):
@@ -637,8 +638,15 @@ It would not be possible for the president to approve the bill.
 \zl
 %
 The first interpretation is constituent negation; the second is
-sentential negation. Another distinction comes from
-distributional possibilities. As noted, the sentential
+sentential negation. 
+
+
+The need for this distinction also comes from
+distributional possibilities. 
+The adverb \textit{never} is a true
+diagnostic of a VP modifier, and we use
+these observed contrasts
+between \textit{never} and \textit{not} to reason about what the properties of the negator \textit{not} must be. As noted, the sentential
 negation  cannot modify a finite
 VP, different from the adverb \textit{never}:
 
@@ -671,7 +679,11 @@ as a non-finite VP modifier, whereas \textit{never} can appear in both positions
 
 Another key difference between \textit{never} and \textit{not} can be found in
 the VP ellipsis construction.  Observe the following
-contrast \citep{KS:02}:
+contrast (see \citealt{Warner2000a-u} and \citealt{KS:02}):\footnote{As
+seen from an attested example like {\it I, being the size I am, could hide as one of them, whereas she could never}, in a limited context the adverb {\it never} is stranded
+after a modal auxiliary, but not after an non-modal auxiliary verb like {\it be, have}
+and {\it do}. Such a stranding seems to be possible when the adverb 
+expresses a contrastive focus meaning.} 
 
 \eal
 \label{negation-vpe-not-ex}\ex[]{
@@ -691,10 +703,6 @@ after the VP ellipsis auxiliary, but this is not possible with
 % behaves differently from
 %adverbs like \textit{never} in finite contexts, even though the two
 %behave alike in non-finite contexts.
-The adverb \textit{never} is a true
-diagnostic of a VP modifier, and we use
-these observed contrasts
-between \textit{never} and \textit{not} to reason about what the properties of the negator \textit{not} must be.
 %
 %\iffalse{
 %
@@ -760,7 +768,12 @@ Negative adverb-complement lexical rule:\\
 %
 This lexical rule specifies that when the input is a finite auxiliary verb,
 the output is a neg-finite auxiliary (\textit{fin-aux} $\mapsto$ \textit{neg-fin-aux})
-that selects Adv\jbsub{\textsc{i}} as an additional complement. This would then
+that selects Adv\jbsub{\textsc{i}} as an additional complement.\footnote{As
+discussed in the following, this type of lexical allows us
+to represent a key difference between English and French, in that
+French has no restriction on the feature \AUX\ to introduce the negative
+adverb {\it pas}
+as a finite verb's complement.}  This would then
 license a structure like in Figure~\ref{negation-fig:6}.
 
 
@@ -770,16 +783,16 @@ license a structure like in Figure~\ref{negation-fig:6}.
 		sm edges
 		[VP\\
 		\avmtmp{
-	          [head|vform  \type{fin}\\
-		   subj  < \1 NP >\\
-		   comps < > ]}, l sep*=1.5
+	          [\punk{head|vform}{\type{fin}}\\
+		   subj  & < \1 NP >\\
+		   comps & < > ]}, l sep*=1.5
 			[V\\
 			\avmtmp{
-			[\type{neg-fin-v}\\
-			head [ aux & $+$\\
-                               vform & \type{fin}]\\
-		        subj  < \1 NP >\\
-		        comps < \2 \textnormal{Adv}\sub{I}, \3 VP > ]}
+			[\type*{neg-fin-v}
+			head  & [ aux & $+$\\
+                                  vform & \type{fin}]\\
+		        subj  & < \1 NP >\\
+		        comps & < \2 \textnormal{Adv}\sub{I}, \3 VP > ]}
 %				arg-st \; \< \@{1}\,NP{,} \@{2}\,$\textnormal{Adv}_\textnormal{I}${,} %\@{3}\,VP\>
 				[could]]
 			[\ibox{2} Adv\sub{I}
@@ -975,7 +988,7 @@ to serve as the complement of a finite verb,
 %conforms to the independent LP rule that a lexical head precedes
 %all complements.}
 
-Given that the conditional, imperative, subjunctive,
+Given that the imperative, subjunctive,
 and even present participle verb forms in French are finite, we
 can expect that \textit{pas} cannot precede any of these verb
 forms, which the following examples confirm (\citealp[\page 142]{Kim:00}):
@@ -1151,7 +1164,7 @@ the view that morphological constituents including the negative marker
 are formed in the lexical component and hence have no syntactic
 status (see \citealt[Chapter~2]{Kim:00} for detailed discussion).
 
-This being noted, it is more reasonable to assume that the placement of a
+Given these observations, it is more reasonable to assume that the placement of a
 negative affix is regulated by morphological principles, i.e., by
 the properties of the morphological negative affix itself.
   %
@@ -1320,7 +1333,7 @@ These negative auxiliaries have syntactic status: they can be
 inflected, above all. Like other verbs, they can also be marked
 with verbal inflections such as agreement, tense, and mood.
 
-In dealing with auxiliary negative constructions,
+In dealing with negative auxiliary constructions,
 most of the derivational approaches have
 followed Pollock's and Chomsky's analyses in factoring out grammatical
 information (such as tense, agreement, and mood) carried by lexical items into various different phrase-structure nodes (see, among others, \citealt{Hagstrom:02}, \citealt{Han:07} for Korean, and \citealt{Vasishth:00} for Hindi).
@@ -1328,7 +1341,7 @@ This derivational view has
 been appealing in that the configurational structure for English-type
 languages could be applied even for languages with different types
 of negation. However, issues arise about how to address the grammatical
-properties of auxiliary negatives, which are quite different from the
+properties of negative auxiliaries, which are quite different from the
 other negative forms.
 %
 %
@@ -1569,25 +1582,25 @@ the morphosyntactic constraint on the preceding auxiliary expression. Consider
 the following:
 
 \eal
-\ex 
+\ex
 \gll sakwa-lul          [mek-ci anh-ta]. \\
      apple-\textsc{acc} \spacebr{}eat-\textsc{conn} \textsc{neg}-\textsc{decl} \\
 \glt`do not eat the apple'
 
-\ex 
+\ex
 \gll sakwa-lul          [[mek-ko siph-ci] anh-ta]. \\
      apple-\textsc{acc} \hspaceThis{[[}eat-\textsc{conn} wish-\textsc{conn} \textsc{neg}-\textsc{decl} \\
 \glt`would not like to eat the apple'
 
-\ex \label{negation-20c} 
+\ex \label{negation-20c}
 \gll sakwa-lul          [[[mek-ko siph-e] ha-ci] anh-ta]. \\
      apple-\textsc{acc} \hspaceThis{[[[}eat-\textsc{conn} wish-\textsc{conn} do-\textsc{conn} \textsc{neg}-\textsc{decl} \\
 \glt`do not like to eat the apple'
 
-\ex 
+\ex
 \gll sakwa-lul          [[[[mek-ko siph-e] ha-key] toy-ci] anh-ta]. \\
      apple-\textsc{acc} \hspaceThis{[[[[}eat-\textsc{conn} wish-\textsc{conn} do-\textsc{conn} become-\textsc{conn} \textsc{neg}-\textsc{decl} \\
-\glt`do not become to like to eat the apple.'
+\glt`(lit.) do not become to like to eat the apple.'
 \end{xlist} \end{exe}
 %
 As seen from the bracketed structures, we can add one more auxiliary verb to
@@ -1595,7 +1608,7 @@ an existing \textsc{head-light} construct with the final auxiliary bearing an ap
   connective marker. There is no upper limit to the possible number  of auxiliary
   verbs we can add (see \citealt[\page 88]{Kim:16} for detailed discussion).
 
-The present analysis in which the auxiliary negative forms a complex
+The present analysis in which the  negative auxiliary forms a complex
 predicate structure with a lexical verb can also be applied for languages
 like Basque, as suggested by \citet{CB:11}. They explore the interplay of sentential
 negation and word order in Basque. Consider their example:
@@ -1680,7 +1693,7 @@ we can observe in languages like Italian and Welsh:
 \zl
 %
 %
-As seen here, 
+As seen here,
 the Italian preverbal negative \textit{non} -- also called negative particle or
 clitic -- always precedes a lexical  verb, whether finite or
 non-finite, as further attested by the following
@@ -1718,7 +1731,7 @@ in that the different scope of verb movement application could explain
 the observed variations among typologically related
 languages. Such an analysis, however,
   fails to capture unique properties of the preverbal negative
-  in contrast to the morphological negative, the auxiliary negative, and the adverb negative.
+  in contrast to the morphological negative, the negative auxiliary, and the adverb negative.
 
 \citet{Kim:00} offers an HPSG analysis of Italian and Spanish negation.
 His analysis takes \textit{non}
@@ -1732,7 +1745,7 @@ to the latter group.\footnote{But one main difference between
 \textit{non} and \textit{loro} is that \textit{non} is a head
 element, whereas \textit{loro} is a complement XP. See
 \citet{Monachesi:98} for further discussion of the
-behavior of \textit{loro} and its treatment.} 
+behavior of \textit{loro} and its treatment.}
 %One key difference from
 %pronominal clitics is thus that \textit{non} functions as an independent word.
 Treating \textit{non} as
@@ -1773,8 +1786,8 @@ complement list. One key property of \textit{non}
 is its \textsc{head} value: this value is in a sense undetermined, but structure-shared with the \textsc{head} value of its verbal complement.
 The value is thus
 determined by what it combines with. When \textit{non} combines with a finite
-verb, it will be a finite verb, and when it combines with an
-infinitive verb, it will be an infinitive verb.
+verb, it will be a finite verb, and when it combines with an infinitival verb, it will be a
+non-finite verb.
 
 In order to see how
 this system works, let us consider an Italian example where
@@ -2009,13 +2022,13 @@ This lexical specification allows the object NP of the verb to be
 \GEN-marked in accordance with the constraint in (\ref{negation-polish-gen-case}).
 %\footnote{When
 %there is no argument composition, the positive verb \type{lubi\'{c}}
-%assigns \textsc{acc} to the object NP.} 
+%assigns \textsc{acc} to the object NP.}
 In Przepiórkowski's analysis, the feature
 \textsc{neg} thus tightly interacts with the mechanism of argument composition and construction-based case assignment (or satisfaction).
 
 Negation in languages like French, Italian, and Polish, among others, also involves negative concord.
 \Citet{Swart:02} investigate  negative concord in French, where multiple occurrences
-of phonologically negative constituents express either
+of negative constituents express either
 double negation or single negation:
 
 %\eal
@@ -2042,13 +2055,13 @@ roughly equivalent to first order logic expressions like \textit{NO}x[Person(x)]
 \ex
 \avmtmp{
 [phon   &  \phonliste{ n'aime }\\
- arg-st & < NP![\textsc{store} \{\ibox{1}\}], NP[\textsc{store} \{\ibox{2}\}]! >\\
+ arg-st & < NP![\textsc{qstore} \{\ibox{1}\}], NP[\textsc{qstore} \{\ibox{2}\}]! >\\
  quants & < \ibox{1}, \ibox{2} > ]
 }
 \ex
 \avmtmp{
 [phon   & \phonliste{ n'aime } \\
- arg-st & < NP![\textsc{store} \{\ibox{1}\}], NP[\textsc{store} \{\ibox{2}\}]! >\\
+ arg-st & < NP![\textsc{qstore} \{\ibox{1}\}], NP[\textsc{qstore} \{\ibox{2}\}]! >\\
  quants & < \1 > ]
 }
 \label{negation-quant}
@@ -2078,7 +2091,7 @@ reading for standard French, inducing double negation as in (\ref{negation-qstor
 \label{negation-qstore}
 \avmtmp{
 [phon   & \phonliste{ ne va }\\
- arg-st & < Adv\sub{i}![\textsc{store} \{\ibox{1}\}], NP[\textsc{store} \{\ibox{2}\}]! >\\
+ arg-st & < Adv\sub{i}![\textsc{qstore} \{\ibox{1}\}], NP[\textsc{qstore} \{\ibox{2}\}]! >\\
  quants & < \ibox{1}, \ibox{2} > ]}
 \z
 
@@ -2096,8 +2109,8 @@ concord),  takes the verb \emph{nid oes} to bear the positive \textsc{neg} value
 and specifies the subject \emph{neb yn} to carry the positive \textsc{nc} (negative
 concord) feature. This selectional approach, interacting with
 well-defined features, tries to capture how more than one
-negative element corresponds to a single semantic negation.\footnote{See
-\citet{BJ:00} for detailed discussion.}
+negative element corresponds to a single semantic negation (sSee
+\citet{BJ:00} for detailed discussion). 
 
 
 
@@ -2198,9 +2211,8 @@ far more economical and feasible.
 
 I thank reviewers of this chapter for detailed comments and suggestions, which
 helped improve the quality of this chapter a lot. I also thank
-Bob Borsley and Stefan M\"{u}ller for constructive comments on
-the earlier version. My thanks also go to Rok Sim
-and Jungsoo Kim for
+Anne Abeill\'{e}, Bob Borsley, and Stefan M\"{u}ller for constructive comments on
+the earlier version. My thanks also go to Okgi Kim, Rok Sim, and Jungsoo Kim for
 helpful feedback.
 %
 %
