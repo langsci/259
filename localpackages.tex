@@ -80,39 +80,7 @@
 % if your book makes use of linguistic examples
 \usepackage{langsci-gb4e} 
 
-% fixes problem with to much vertical space between \zl and \eal due to the \nopagebreak
-% command.
-\makeatletter
-\def\@exe[#1]{\ifnum \@xnumdepth >0%
-                 \if@xrec\@exrecwarn\fi%
-                 \if@noftnote\@exrecwarn\fi%
-                 \@xnumdepth0\@listdepth0\@xrectrue%
-                 \save@counters%
-              \fi%
-                 \advance\@xnumdepth \@ne \@@xsi%
-                 \if@noftnote%
-                        \begin{list}{(\thexnumi)}%
-                        {\usecounter{xnumi}\@subex{#1}{\@gblabelsep}{0em}%
-                        \setcounter{xnumi}{\value{equation}}}
-% this is commented out here since it causes additional space between \zl and \eal 06.06.2020
-%                        \nopagebreak}%
-                 \else%
-                        \begin{list}{(\roman{xnumi})}%
-                        {\usecounter{xnumi}\@subex{(iiv)}{\@gblabelsep}{\footexindent}%
-                        \setcounter{xnumi}{\value{fnx}}}%
-                 \fi}
-\makeatother
 
-% the texlive 2020 langsci-gb4e adds a newline after \eas, the texlive 2017 version was OK.
-\makeatletter
-\def\eas{\ifnum\@xnumdepth=0\begin{exe}[(34)]\else\begin{xlist}[iv.]\fi\ex\begin{tabular}[t]{@{}b{.99\linewidth}@{}}}
-\makeatother
-
-
-
-% the package defined \attop in a way that produced a box that has textwidth
-%
-\def\attop#1{\leavevmode\begin{minipage}[t]{.995\linewidth}\strut\vskip-\baselineskip\begin{minipage}[t]{.995\linewidth}#1\end{minipage}\end{minipage}}
 
 % This introduces labels which makes hyperlinks work so that proofreading is easier.
 %\makeatletter
