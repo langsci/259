@@ -1,9 +1,6 @@
 \documentclass[output=book
-		,modfonts
-		,nonflat
 	        ,collection
 	        ,collectionchapter
-	        ,collectiontoclongg
  	        ,biblatex  
                 ,babelshorthands
 %                ,showindex
@@ -11,7 +8,7 @@
                 ,colorlinks, citecolor=brown 
                 ,draftmode
 % 	        ,coverus
-		  ]{./langsci/langscibook}                              
+		  ]{langscibook}                              
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % put all additional commands you need in the 
@@ -22,6 +19,8 @@
 \input{localpackages.tex}
 \input{localhyphenation.tex}
 \input{localcommands.tex} 
+
+\memoizeset{readonly}
 
 
 %\includeonly{chapters/preface,chapters/properties,chapters/evolution,chapters/formal-background}
@@ -41,7 +40,7 @@
 %\includeonly{chapters/udc}
 %\includeonly{chapters/coordination}
 %\includeonly{chapters/control-raising}
-%\includeonly{chapters/np}
+\includeonly{chapters/np}
 %\includeonly{chapters/relative-clauses}
 %\includeonly{chapters/complex-predicates}
 %\includeonly{chapters/idioms}
@@ -59,7 +58,7 @@
 %\includeonly{chapters/dg}
 %\includeonly{chapters/cg}
 %\includeonly{chapters/lfg}
-\includeonly{chapters/minimalism}
+%\includeonly{chapters/minimalism}
 %\includeonly{chapters/cxg}
 
 %\includeonly{chapters/cg,chapters/lfg}
@@ -77,8 +76,6 @@
 %\usepackage{chappg}
 
 
-\usepackage{./langsci/styles/forest-externalizetikz}
-\tikzexternalize
 
 
 
@@ -87,8 +84,10 @@
 %%%             Frontmatter                      %%% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}         
-\maketitle                
+\memoizedisable
+\maketitle
 \frontmatter
+\memoizeenable
 % %% uncomment if you have preface and/or acknowledgements
 
 \currentpdfbookmark{Contents}{name} % adds a PDF bookmark
@@ -169,6 +168,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % There is normally no need to change the backmatter section
+\memoizedisable
+
 \input{backmatter.tex}
 
 \end{document} 

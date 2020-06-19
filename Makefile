@@ -1,10 +1,15 @@
 # specify thh main file and all the files that you are including
 SOURCE=  main.tex $(wildcard local*.tex) $(wildcard chapters/*.tex) $(wildcard Bibliographies/*.bib) \
-langsci/langscibook.cls
+langscibook.cls langsci-unified.bbx langsci-forest-setup.sty
 
 # MacBook Pro 16" (2019) time make main.pdf  9:40 min  9:14 min                       554 sec
 #                                           16:40 min 16:24 min (ohne Turboboost)     984 sec
 # MacBook Pro 15" (2016) time make main.pdf 11:23 min                                 683 sec
+
+# MacBook Pro 16" time biber main                             0:39.16/0:39.56 min
+#                 \rm -rf `biber --cache`; time biber main    0:45.65 min
+# 0:38.45 0:40.55
+# removed 147 non-referenced papers out of 1582
 
 
 # specify your main target here:
@@ -19,9 +24,9 @@ index:  main.snd
 
 
 main.pdf: $(SOURCE)
-	xelatex -no-pdf -shell-escape main
+	xelatex -shell-escape main
 	biber main
-	xelatex -no-pdf -shell-escape main
+	xelatex -shell-escape main
 	sed -i.backup s/.*\\emph.*// main.adx #remove titles which biblatex puts into the name index
 	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.sdx # ordering of references to footnotes
 	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.adx
@@ -32,6 +37,10 @@ main.pdf: $(SOURCE)
 	makeindex -o main.lnd main.ldx
 	makeindex -o main.snd main.sdx 
 	xelatex -shell-escape main
+
+trees:
+	xelatex main.tex
+	python3 styles/memoize/memomanager.py split main.mmz
 
 stable.pdf: main.pdf
 	cp main.pdf stable.pdf
@@ -46,16 +55,12 @@ chop: stable.pdf
 #	bash chopchapters.sh `grep "mainmatter starts" main.log|egrep -o "[0-9]*"`
 
 
-% make all (in chapters) on texlive 2019 to create the trees = 32:43
+# make all (in chapters) on texlive 2019 to create the trees = 32:43
 
-
-trees:
-	xelatex -shell-escape main
-	xelatex -shell-escape trees
 
 
 commit-stable: chop 
-	git commit -m "automatic creation of stable.pdf and chapters" stable.pdf chapters/collection.bib chapters-pdfs/
+	git commit -m "automatic creation of stable.pdf and chapters" chapters/collection.bib chapters-pdfs/
 	git push -u origin
 
 stable-commit: commit-stable
@@ -72,10 +77,14 @@ prepublish-commit: prepublish-pdfs
 	git push -u origin
 
 
-forest-commit:
-	git add chapters/hpsg-handbook.for.dir/*.pdf
-	git commit -m "forest trees" chapters/hpsg-handbook.for.dir/*.pdf chapters/hpsg-handbook.for
-	git push -u origin
+memo-commit:
+	# add all PDFs and all memo|s.
+	git add -A chapters/hpsg-handbook.memo.dir/*.pdf chapters/hpsg-handbook.memo.dir/*.memo
+	# -a option deltes files that disappeared
+	git commit -a -m "momoized figures" 
+
+# add this here and push everything that was staged or do it via gui
+#	git push -u origin
 
 FINALIZED= chapters/evolution.tex chapters/lexicon.tex chapters/case.tex chapters/idioms.tex
 
@@ -316,9 +325,6 @@ main.snd: FORCE
 chapters:
 	(cd chapters; make all)
 
-externalization: clean chapters
-	xelatex -shell-escape main
-
 
 #create a png of the cover
 cover: FORCE
@@ -372,6 +378,11 @@ biosketch.tex: blurb.md
 biosketch.html: blurb.md
 	pandoc -f markdown -t html biosketch.md>biosketch.html
 
+
+memo-install:
+	\rm -rf styles/memoize
+	cp -pr ~/Documents/Dienstlich/Projekte/memoize styles/
+
 #housekeeping	
 clean:
 	rm -f *.bak *~ *.backup \
@@ -386,13 +397,14 @@ clean:
 	langsci/*/*.aux langsci/*/*~ langsci/*/*.bak langsci/*/*.backup \
 	chapter-pdfs/* cuts.txt
 
-cleanfor: # These files are precious, as it takes a long time to produce them all.
-	rm -f *.for *.for.tmp chapters/*.for chapters/*.for.tmp hpsg-handbook.for.dir/*
+cleanmemo:
+	rm -f *.mmz chapters/*.mmz chapters/*.memo.dir/*
 
-realclean: clean
-	rm -f *.dvi *.ps *.pdf chapters/*.pdf
+# do not use this, we have to keep langsci's ccby.pdf
+#realclean: clean
+#	rm -f *.dvi *.ps *.pdf chapters/*.pdf
 
-brutal-clean: realclean cleanfor
+brutal-clean: clean cleanmemo
 
 chapterlist:
 	grep chapter main.toc|sed "s/.*numberline {[0-9]\+}\(.*\).newline.*/\\1/"

@@ -18,11 +18,10 @@
 
 \newcommand{\page}{}
 
+\newcommand{\todostefan}[1]{\todo[color=orange!80]{\footnotesize #1}\xspace}
+\newcommand{\todosatz}[1]{\todo[color=red!40]{\footnotesize #1}\xspace}
 
-\newcommand{\todostefan}[1]{{\tikzexternaldisable\todo[color=orange!80]{\footnotesize #1}}\xspace}
-\newcommand{\todosatz}[1]{{\tikzexternaldisable\todo[color=red!40]{\footnotesize #1}}\xspace}
-
-\newcommand{\inlinetodostefan}[1]{{\tikzexternaldisable\todo[color=green!40,inline]{\footnotesize #1}}\xspace}
+\newcommand{\inlinetodostefan}[1]{\todo[color=green!40,inline]{\footnotesize #1}\xspace}
 
 \newcommand{\addpages}{\todostefan{add pages}}
 \newcommand{\addglosses}{\todostefan{add glosses}}
@@ -833,41 +832,22 @@ $}}
 %\let\theauthor\@author 
 \makeatletter
 \newcommand{\togglepaper}[1][0]{ 
-  \bibliography{../Bibliographies/stmue,
-                ../localbibliography,
-../Bibliographies/formal-background,
-../Bibliographies/understudied-languages,
-../Bibliographies/phonology,
-../Bibliographies/case,
-../Bibliographies/evolution,
-../Bibliographies/agreement,
-../Bibliographies/lexicon,
+\bibliography{../Bibliographies/stmue,../localbibliography,
 ../Bibliographies/np,
 ../Bibliographies/negation,
-../Bibliographies/argst,
+../Bibliographies/ellipsis,
 ../Bibliographies/binding,
 ../Bibliographies/complex-predicates,
+../Bibliographies/control-raising,
 ../Bibliographies/coordination,
-../Bibliographies/relative-clauses,
-../Bibliographies/udc,
-../Bibliographies/processing,
-../Bibliographies/cl,
-../Bibliographies/dg,
-../Bibliographies/islands,
-../Bibliographies/gesture,
-../Bibliographies/semantics,
-../Bibliographies/pragmatics,
-../Bibliographies/information-structure,
-../Bibliographies/idioms,
-../Bibliographies/cg,
-../Bibliographies/udc,
+../Bibliographies/morphology,
+../Bibliographies/lfg,
 collection.bib}
   \input{../localhyphenation}
-  \tikzset{external/prefix={hpsg-handbook.for.dir/}}
-  \forestset{external/master dir={./}}
-  \usepackage{./styles/forest-externalizetikz}
-  \tikzexternalize
-% \forestset{external/readonly}
+  \memoizeset{
+    memo filename prefix={hpsg-handbook.memo.dir/},
+    % readonly
+  }
   \papernote{\scriptsize\normalfont
     \@author.
     \@title. 
@@ -886,39 +866,13 @@ collection.bib}
 \newcommand{\togglepaperminimal}[1][0]{ 
   \bibliography{../Bibliographies/stmue,
                 ../localbibliography,
-% ../Bibliographies/formal-background,
-% ../Bibliographies/understudied-languages,
-% ../Bibliographies/phonology,
-% ../Bibliographies/case,
-% ../Bibliographies/evolution,
-% ../Bibliographies/agreement,
-% ../Bibliographies/lexicon,
-% ../Bibliographies/np,
-% ../Bibliographies/negation,
-% ../Bibliographies/argst,
-% ../Bibliographies/binding,
-% ../Bibliographies/complex-predicates,
- ../Bibliographies/coordination,
-% ../Bibliographies/relative-clauses,
-% ../Bibliographies/udc,
-% ../Bibliographies/processing,
-% ../Bibliographies/cl,
-% ../Bibliographies/dg,
- ../Bibliographies/islands,
-% ../Bibliographies/gesture,
-% ../Bibliographies/semantics,
-% ../Bibliographies/pragmatics,
-% ../Bibliographies/information-structure,
-% ../Bibliographies/idioms,
-% ../Bibliographies/cg,
-% ../Bibliographies/udc,
+  ../Bibliographies/coordination,
 collection.bib}
   \input{../localhyphenation}
-  \tikzset{external/prefix={hpsg-handbook.for.dir/}}
-  \forestset{external/master dir={./}}
-  \usepackage{./styles/forest-externalizetikz}
-  \tikzexternalize
-% \forestset{external/readonly}
+  \memoizeset{
+    memo filename prefix={hpsg-handbook.memo.dir/},
+    % readonly
+  }
   \papernote{\scriptsize\normalfont
     \@author.
     \@title. 
@@ -1156,7 +1110,7 @@ collection.bib}
   },
 }
 
-% get rrid of these morewrite messages:
+% get rid of these morewrite messages:
 % https://tex.stackexchange.com/questions/419489/suppressing-messages-to-standard-output-from-package-morewrites/419494#419494
 \ExplSyntaxOn
 \cs_set_protected:Npn \__morewrites_shipout_ii:
@@ -1171,3 +1125,8 @@ collection.bib}
 % This is for places where authors used bold. I replace them by \emph
 % but have the information where the bold was. St. Mü. 09.05.2020
 \newcommand{\textbfemph}[1]{\emph{#1}}
+
+
+
+% Felix 09.06.2020: copy code from the third line into localcommands.tex: https://github.com/langsci/langscibook#defined-environments-commands-etc
+\patchcmd{\mkbibindexname}{\ifdefvoid{#3}{}{\MakeCapital{#3} }}{\ifdefvoid{#3}{}{#3 }}{}{\AtEndDocument{\typeout{mkbibindexname could not be patched.}}}

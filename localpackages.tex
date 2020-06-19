@@ -1,5 +1,8 @@
 % add all extra packages you need to load to this file 
 
+% the ISBN assigned to the digital edition
+\usepackage[ISBN=9783961102556]{ean13isbn} 
+
 \usepackage{graphicx}
 \usepackage{tabularx}
 \usepackage{amsmath} 
@@ -14,25 +17,31 @@
 %\usepackage{./styles/rtrees-bc} % forbidden forest 08.12.2019
 
 
-\usepackage{./langsci/styles/langsci-optional} 
-\usepackage{./langsci/styles/langsci-lgr}
+\usepackage{langsci-optional} 
+% used to be in this package
+\providecommand{\citegen}{}
+\renewcommand{\citegen}[2][]{\citeauthor{#2}'s (\citeyear*[#1]{#2})}
+\providecommand{\lsptoprule}{}
+\renewcommand{\lsptoprule}{\midrule\toprule}
+\providecommand{\lspbottomrule}{}
+\renewcommand{\lspbottomrule}{\bottomrule\midrule}
+\providecommand{\largerpage}{}
+\renewcommand{\largerpage}[1][1]{\enlargethispage{#1\baselineskip}}
+
+
+\usepackage{langsci-lgr}
 
 \newcommand{\MAS}{\textsc{m}\xspace} % \M is taken by somebody
 
 %\usepackage{./styles/forest/forest}
-\usepackage{./langsci/styles/langsci-forest-setup}
-% will be overwritten in chapters when compiled standalone:
-\tikzset{external/prefix={chapters/hpsg-handbook.for.dir/}}
-% all the forest figures
-\forestset{external/master=hpsg-handbook}
-% will be overwritten in chapters when compiled standalone:
-\forestset{external/master dir={chapters/}}
+\usepackage{langsci-forest-setup}
 
-%\tikzset{external/figure name={hpsg-handbook-tikz}}
-
-% Does not work when loaded here. Has to be loaded in main and other compile files
-%\usepackage{./styles/forest-externalizetikz}
-
+\usepackage{nomemoize} 
+\memoizeset{
+  memo filename prefix={chapters/hpsg-handbook.memo.dir/},
+  register=\todo{O{}+m},
+  prevent=\todo,
+}
 
 \usepackage{tikz-cd}
 
@@ -52,10 +61,10 @@
 \usepackage{subcaption}
 
 % Stefan Müller's styles
-\usepackage{./styles/merkmalstruktur,german,./styles/makros.2020,./styles/my-xspace,./styles/article-ex,
+\usepackage{./styles/merkmalstruktur,./styles/makros.2020,./styles/my-xspace,./styles/article-ex,
 ./styles/eng-date}
 
-\selectlanguage{USenglish}
+%\selectlanguage{USenglish}
 
 \usepackage{./styles/abbrev}
 
@@ -69,28 +78,22 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % remove the percentage signs in the following lines
 % if your book makes use of linguistic examples
-\usepackage{./langsci/styles/langsci-gb4e} 
+\usepackage{langsci-gb4e} 
 
 
-%% St. Mü.: 03.04.2020
-%% these two versions of the command can be used for series of sets of examples:
-%% \eal
-%% \ex
-%% \ex
-%% \zlcont
-%% \ealcont
-%% \ex
-%% \ex
-%% \zl
 
-\let\zlcont\z
-\def\ealcont{\exnrfont\ex\begin{xlist}[iv.]\raggedright}
+% This introduces labels which makes hyperlinks work so that proofreading is easier.
+%\makeatletter
+%\newcommand{\mex}[1]{\ref{ex-\the\c@chapter-\the\numexpr\c@equation+#1}\relax}
+%\newcommand{\eaautolabel}{\label{ex-\the\c@chapter-\the\numexpr\c@equation+1}}
+%\makeatother
 
-% original version of \z
-%\def\z{\ifnum\@xnumdepth=1\end{exe}\else\end{xlist}\fi}
-% \zcont just removes \end{exe}
-%\def\zcont{\ifnum\@xnumdepth=1\else\end{xlist}\fi}
-\def\zcont{}
+%\let\oldea\ea
+%\def\ea{\oldea\eaautolabel}
+
+%\let\oldeal\eal
+%\def\eal{\oldeal\eaautolabel}
+
 
 % Crossing out text
 % uncomment when needed
@@ -282,14 +285,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[normalem]{ulem} % For thinks like strikethrough, using \sout
 
-\newcommand{\high}[1]{\textbf{#1}} % highlighted text
+% \newcommand{\high}[1]{\textbf{#1}} % highlighted text
+\newcommand{\high}[1]{\textit{#1}} % highlighted text
 %\newcommand{\term}[1]{\textit{#1}\/} % technical term
-\newcommand{\qterm}[1]{`{#1}'} % technical term, quotes
+\newcommand{\qterm}[1]{``{#1}''} % technical term, quotes
 %\newcommand{\trns}[1]{\strut `#1'} % translation in glossed example
 \newcommand{\trnss}[1]{\strut \phantom{\sqz{}} `#1'} % translation in ungrammatical glossed example
 \newcommand{\ttrns}[1]{(`#1')} % an in-text translation of a word
 %\newcommand{\feat}[1]{\mbox{\textsc{\MakeLowercase{#1}}}}     % feature name
 %\newcommand{\val}[1]{\mbox{\textsc{\MakeLowercase{#1}}}}    % f-structure value
+\newcommand{\featt}[1]{\mbox{\textsc{\MakeLowercase{#1}}}}     % feature name
+\newcommand{\vall}[1]{\mbox{\textsc{\textup{\MakeLowercase{#1}}}}}    % f-structure value
 \newcommand{\mg}[1]{\mbox{\textsc{\MakeLowercase{#1}}}}    % morphological gloss
 %\newcommand{\word}[1]{\textit{#1}}       % mention of word
 \providecommand{\kstar}[1]{{#1}\ensuremath{^*}}
@@ -300,8 +306,8 @@
 \newcommand{\tempeq}{\ensuremath{=}}
 \newcommand{\predval}[1]{\ensuremath{\langle}\textsc{#1}\ensuremath{\rangle}}
 \newcommand{\predvall}[1]{{\rm `#1'}}
-\newcommand{\lfgfst}[1]{\textit{#1}\ensuremath{\,}}
-\newcommand{\scare}[1]{`#1'} % scare quotes
+\newcommand{\lfgfst}[1]{\ensuremath{#1\,}}
+\newcommand{\scare}[1]{``#1''} % scare quotes
 \newcommand{\bracket}[1]{\ensuremath{\left\langle\mathit{#1}\right\rangle}}
 \newcommand{\sectionw}[1][]{Section#1} % section word: for cap/non-cap
 \newcommand{\tablew}[1][]{Table#1} % table word: for cap/non-cap
@@ -312,6 +318,8 @@
 \newcommand{\func}[1]{\textbf{#1}}
 \renewcommand{\glue}{Glue}
 %\newcommand{\exr}[1]{(\ref{ex:#1}}
+\newcommand{\exra}[1]{(\ref{ex:#1})}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Notation
@@ -320,12 +328,10 @@
 \providecommand{\xzero}[2][]{#2\ensuremath{^0_{\mbox{\footnotesize\ensuremath{\mathit{#1}}}}}}
 
 
-\newcommand{\UP}{\Up}
-
-
 
 \let\leftangle\langle
 \let\rightangle\rangle
 
 %\newcommand{\pslabel}[1]{}
+
 

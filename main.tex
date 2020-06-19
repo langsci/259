@@ -9,12 +9,9 @@
 % Some lines start with %. Remove the % to include them
 
 \documentclass[output=book
-		,modfonts
-		,nonflat
 		,multiauthors
 	        ,collection
 	        ,collectionchapter
-	        ,collectiontoclongg
  	        ,biblatex  
                 ,babelshorthands
 %                ,showindex
@@ -22,7 +19,7 @@
                 ,colorlinks, citecolor=brown % for drafts
                 ,draftmode
 % 	        ,coverus
-		  ]{./langsci/langscibook}                              
+		  ]{langscibook}                              
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % put all additional commands you need in the 
@@ -34,6 +31,7 @@
 \input{localhyphenation.tex}
 \input{localcommands.tex} 
 
+\input{locallangscifixes.tex}
 
 \input{bibliographies-include}
 
@@ -44,19 +42,7 @@
   \stepcounter{realpage}
 }
 
-\usepackage{./styles/forest-externalizetikz}
-
-
-% if you want externalize graphics, compile files in chapters directly
-\forestset{external/readonly}
-% you may switch this off in the final run since eternalization may cut off overlays.
-%\tikzexternalize
-
-% Enable this to extract "forest" and forest-externalized "tikzpicture" environments.
-\forestset{external/extract=extracted-trees}
-% 
-% To externalize, compile "trees.tex" after extraction.
-
+%\memoizeset{readonly}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%                                              %%%
@@ -66,8 +52,11 @@
 
 \begin{document}
 
-\maketitle                
+\memoizedisable
+\maketitle
 \frontmatter
+\memoizeenable
+
 % %% uncomment if you have preface and/or acknowledgements
 
 \currentpdfbookmark{Contents}{name} % adds a PDF bookmark
@@ -98,7 +87,7 @@
 \includepaper{chapters/formal-background}
 \includepaper{chapters/lexicon}
 \includepaper{chapters/understudied-languages}
-% 
+ 
 \part{Syntactic phenomena}
 
 \includepaper{chapters/agreement}
@@ -126,7 +115,7 @@
 \includepaper{chapters/information-structure}
 %
 \part{Other areas of linguistics}
-%\includepaper{chapters/diachronic}
+
 %\includepaper{chapters/acquisition}
 \includepaper{chapters/processing}
 \includepaper{chapters/cl}
@@ -150,6 +139,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % There is normally no need to change the backmatter section
+\memoizedisable
+
 \input{backmatter.tex}
 
 \end{document} 
@@ -166,3 +157,9 @@
 % you can also try a simple 
 % make
 % on the commandline
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-engine: xetex
+%%% End:

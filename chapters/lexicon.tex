@@ -1,26 +1,25 @@
 %% -*- coding:utf-8 -*-
 
 \documentclass[output=paper
-                ,modfonts
-                ,nonflat
 	        ,collection
 	        ,collectionchapter
-	        ,collectiontoclongg
  	        ,biblatex
                 ,babelshorthands
                 ,newtxmath
                 ,draftmode
                 ,colorlinks, citecolor=brown
-]{./langsci/langscibook}
+]{langscibook}
 
 \IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
   \input{../localpackages}
   \input{../localcommands}
+  \input{../locallangscifixes.tex}
+
   \togglepaper[4]
 }{}
 
 % you may switch off externalization of changed files here:
-\forestset{external/readonly}
+%\memoizeset{readonly}
 
 
 \author{%
@@ -139,9 +138,9 @@ In many cases, endoclitics appear at morphological boundaries, as in the well-st
 \gll q'a\v{c}aɣ-ɣ-on bez t\"{a}nginax ba\v{s}=\textbfemph{q'un}-q'-e \\
      thief-\ig{pl-erg} my money.\ig{dat} steal$_{1}$-\ig{3pl}-steal$_{2}$-\ig{aorII} \\
 \glt `Thieves stole my money.' (root \word{ba\v{s}q'}, 'steal') (Harris, op.cit., (18))
-\zcont
+\z
 
-\ealcont
+\eal
 \label{pashto-endo}
 \ex\label{pashto-endo-a}
 \gll ʈəlwɑhə́=\textbfemph{me} \\
@@ -776,13 +775,21 @@ Ackerman \& Webelhuth's account of German passives posits a multiple inheritance
 type hierarchy
     [univ-pas-bas-lci
       [univ-do-pas-lci
-        [german-zuinf-pas-lci, edge to=!un
+        [german-zuinf-pas-lci, edge to=!un  % draw an edge to the node up (!u) and the next siebling
+                                            % of this node (!un) = german-pas-lci
           [german-pers-zuinf-pas-lci]
         ]
       ]
-      [german-pas-lci, calign with current, calign=first
+      [german-pas-lci, calign with current, 
+                       calign=first         % the center of the children is exactly below german-pas-lci
+                                            % this is so since we have two daughters in the tree,
+                                            % but three in the hiarchy. There will be a further edge
+                                            % from german-zuinf-pas-lci.
         [german-long-pas-lci
-          [german-long-pers-neutral-zuinf-pas-lci, l*=2, edge to=!r111,
+          [german-long-pers-neutral-zuinf-pas-lci, l*=2, edge to=!r111, % draw an edge to the node (!r111),
+                                % which is found by going to the first child of the root node (!r1)
+                                % = univ-do-pas-lci and the first child of this node (!r11) =
+                                % german-zuinf-pas-lci and the first child of this node (!r111) = german-pers-zuinf-pas-lci
             [german-long-pers-zuinf-pas-lci ]
             [german-long-attr-zuinf-pas-lci ]
           ]		
@@ -902,8 +909,8 @@ gerunds can be the complement of prepositions, whereas finite clauses cannot (as
 \ex[]{\label{ger-n-a}
 Pat is concerned about Sandy('s) getting arrested.}
 \ex[*]{\label{ger-n-b}Pat is concerned about (that) Sandy got arrested.}
-\zlcont
-\ealcont
+\zl
+\eal
 \label{ger-v}
 \ex[]{\label{ger-v-a}
 Pat disapproved of (me/my) *quiet/quietly departing before anyone noticed.
@@ -1270,28 +1277,46 @@ Figure~\ref{fig-verb-hier2} is a simplified  hierarchy of verb lexemes we use fo
 % \end{forest}
 \begin{forest}
   type hierarchy,
-%  for level=2{tier=2},
-  for level=3{l*=1.5}, % increases the distance to the second level by a factor of 1.5
+  for level=3{
+    instance, % Apply "instance" style to nodes on (absolute) level 3.
+    l*=1.5, % increases the distance to the second level by a factor of 1.5
+  },
   [verb 
     [vform,partition,
       [fin,
-        [fin+intrans, instance, edge to=!r21,
-           before drawing tree={
-             for nodewalk={cNNN}{x-=3em},
-             spread=x{cNNN}{!r22}{3em},
-           },
+        [fin+intrans, edge to=!r21,
+          before drawing tree={
+            % Move all "instance" nodes 3em to the left.  All instance nodes are
+            % given by nodewalk "cNNN" (current, next leaf, next leaf, next leaf).
+            for nodewalk={cNNN}{x-=3em},
+            % Non-official style. It pushes the nodes of the given nodewalk
+            % apart: the first node is not moved at all, the last one is moved
+            % by #1 (here, 6em). The spreading is uniform (in the sense that
+            % the gaps between all nodes are increased by the same amount), and it
+            % occurs in dimension given by #2 (here, "x").
+            distribute space={6em}{x}{cNNN},
+            % Comment missing here:
+            spread=x{cNNN}{!r22}{3em},
+          },
         ]
       ]
       [base,
-        [base+trans, instance, edge to=!r22]
+        [base+trans,
+          % Draws an extra edge from the current node to the given node.  The
+          % other node is given by its "relative node name" (section 3.15).
+          % "!" says we will provide a nodewalk (starting at the current node).
+          % Nodewalk "r22" is a shorthand for "root, n=2, n=2", in English "go
+          % to the root, go to the second child, go to the second child".
+          edge to=!r22
+        ]
       ]
     ]
     [arg-st,partition,
       [intrans, 
-        [base+intrans, instance, edge to=!r12]
+        [base+intrans, edge to=!r12]
       ]
       [trans,
-        [fin+trans, instance, edge to=!r11]
+        [fin+trans, edge to=!r11]
       ]
     ]
   ]
@@ -1437,3 +1462,9 @@ us improve this chapter considerably. We thank Elizabeth Pankratz for editorial 
 
 
 %      <!-- Local IspellDict: en_US-w_accents -->
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-engine: xetex
+%%% End:

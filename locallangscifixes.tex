@@ -1,0 +1,78 @@
+%% -*- coding:utf-8 -*-
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% gb4e
+
+% fixes problem with to much vertical space between \zl and \eal due to the \nopagebreak
+% command.
+\makeatletter
+\def\@exe[#1]{\ifnum \@xnumdepth >0%
+                 \if@xrec\@exrecwarn\fi%
+                 \if@noftnote\@exrecwarn\fi%
+                 \@xnumdepth0\@listdepth0\@xrectrue%
+                 \save@counters%
+              \fi%
+                 \advance\@xnumdepth \@ne \@@xsi%
+                 \if@noftnote%
+                        \begin{list}{(\thexnumi)}%
+                        {\usecounter{xnumi}\@subex{#1}{\@gblabelsep}{0em}%
+                        \setcounter{xnumi}{\value{equation}}}
+% this is commented out here since it causes additional space between \zl and \eal 06.06.2020
+%                        \nopagebreak}%
+                 \else%
+                        \begin{list}{(\roman{xnumi})}%
+                        {\usecounter{xnumi}\@subex{(iiv)}{\@gblabelsep}{\footexindent}%
+                        \setcounter{xnumi}{\value{fnx}}}%
+                 \fi}
+\makeatother
+
+% the texlive 2020 langsci-gb4e adds a newline after \eas, the texlive 2017 version was OK.
+\makeatletter
+\def\eas{\ifnum\@xnumdepth=0\begin{exe}[(34)]\else\begin{xlist}[iv.]\fi\ex\begin{tabular}[t]{@{}b{.99\linewidth}@{}}}
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% biblatex
+
+% biblatex sets the option autolang=hyphens
+%
+% This disables language shorthands. To avoid this, the hyphens code can be redefined
+%
+% https://tex.stackexchange.com/a/548047/18561
+
+\makeatletter
+\def\hyphenrules#1{%
+  \edef\bbl@tempf{#1}%
+  \bbl@fixname\bbl@tempf
+  \bbl@iflanguage\bbl@tempf{%
+    \expandafter\bbl@patterns\expandafter{\bbl@tempf}%
+    \expandafter\ifx\csname\bbl@tempf hyphenmins\endcsname\relax
+      \set@hyphenmins\tw@\thr@@\relax
+    \else
+      \expandafter\expandafter\expandafter\set@hyphenmins
+      \csname\bbl@tempf hyphenmins\endcsname\relax
+    \fi}}
+\makeatother
+
+
+% the package defined \attop in a way that produced a box that has textwidth
+%
+\def\attop#1{\leavevmode\begin{minipage}[t]{.995\linewidth}\strut\vskip-\baselineskip\begin{minipage}[t]{.995\linewidth}#1\end{minipage}\end{minipage}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Don't do this at home. I do not like the smaller font for captions.
+% This does not work. Throw out package caption in langscibook
+% \captionsetup{%
+% font={%
+% stretch=1%.8%
+% ,normalsize%,small%
+% },%
+% width=\textwidth%.8\textwidth
+% }
+% \setcaphanging
