@@ -1077,10 +1077,10 @@ Types in the dimensions are partial word-level descriptions of
 \ref{fig:KoenigNegPast}, these partial descriptions pair some
 morphosyntactic properties (\textsc{$\mu$-feat}) with constraints on
 the prefixes: the type \textit{$\neg$1sg-neg}, for instance, constrains the
-first prefix slot to be \textit{ha}, while leaving the other slots
+first prefix slot to be \textit{ha-}, while leaving the other slots
 underspecified. These will be further constrained by appropriate types
 from the other two dimensions. Likewise, the type \textit{1sg-pos},
-constrains slot 2 to be \textit{ni}, but specifies the further
+constrains slot 2 to be \textit{ni-}, but specifies the further
 requirement that the verb be \textsc{[neg~$-$]}.    
 
 \begin{figure}[htb]
@@ -1245,7 +1245,7 @@ assumed to introduce a feature \textsc{infl} that encapsulates all
 features relevant to inflection. At the top-level, these comprise
 \textsc{mph}, a partially ordered list of exponents (\textit{morph}),
 a morphosyntactic (or morphosemantic) property set \textsc{ms}
-associated with the word, and finally a set of \textsc{rr} of
+associated with the word, and finally \textsc{rr}, a set  of
 realisation rules that establish the correspondence between exponents
 and morphosyntactic properties.   
 
@@ -1266,14 +1266,15 @@ as associations between a phonological shape (\textsc{ph}) and a
 morphosyntactic property set (\textsc{ms}), the latter including, of
 course, information pertaining to lexeme identity. This correspondence
 can be described in a maximally holistic fashion, as shown in 
-(\ref{fig:Word}). Throughout this section, I shall use German
+(\ref{fig:Word}), where a phonological form is paired with information
+about lexemic identity (\textsc{lid}) and a morphosyntactic property (\textsc{tam}). Throughout this section, I shall use German
 (circumfixal) passive/past participle (\emph{ppp}) formation, as
 witnessed by \textit{ge-\emph{setz}-t} `put', for illustration.
 
 \begin{exe}
   \ex \begin{avm}
     \[ ph & \< \normalfont gesetzt\>\\
-      infl & \[ms & \{\[lid & setzen\],\[tma & ppp\]\}\]
+      infl & \[ms & \{\[lid & setzen\],\[tam & ppp\]\}\]
     \]
   \end{avm}
   
@@ -1282,28 +1283,18 @@ witnessed by \textit{ge-\emph{setz}-t} `put', for illustration.
 
 Since words in inflectional languages typically consist of multiple
 segment\-able parts, realisational models provide means to index
-position within a word: while in A--morphous Morphology
-\citep{Anderson92} and Paradigm Function Morphology \citep{Stump01} ordered rule blocks
-perform this function, IbM uses a list of morphs (\textsc{mph}) in
-order to explicitly represent exponents. 
-%
-% Having morphosyntactic
-% properties and exponents represented as sets and lists, standard
-% issues in inflectional morphology are straightforwardly captured at
-% the level of rules: cumulative exponence corresponds to the expression
-% of $m$ properties by 1 morph, whereas extended (or multiple) exponence
-% corresponds to 1 property being expressed by $n$ morphs. Overlapping
-% exponence finally represents the general case of $m$ properties being
-% realised by $n$ exponents.
-% Figure \ref{fig:WordMph} illustrates the
-% word-level $m:n$ correspondence of lexemic and inflectional properties
-% to the multiple morphs that realise it. 
+position within a word: while in A--Morphous Morphology
+\citep[=AM;][]{Anderson92} and Paradigm Function Morphology
+\citep[=PFM;][]{Stump01} ordered rule blocks perform this function, IbM
+uses a list of morphs (\textsc{mph}) to explicitly represent
+exponents.
 The sample word-level representation in (\ref{fig:WordMph})
 illustrates the kind of information represented on the \textsc{mph}
 list and the \textsc{ms} set. While elements of the \textsc{ms} set
 are either inflectional features or lexemic properties, the latter
 comprising e.g. information about the stem shape or inflection class
-membership, \textsc{mph} is a list of structured elements consisting
+membership, \textsc{mph} is a list of structured elements (of type
+\textit{mph}, cf.~(\ref{ex:mph})) consisting
 of a phonological description (\textsc{ph}) paired with a position
 class index (\textsc{pc}), which serves to establish linear order of
 exponents. In some previous work on IbM, \textsc{mph} was assumed to
@@ -1313,7 +1304,7 @@ be a list, which is slightly redundant, yet permits much more
 parsimonious descriptions of principles and rules.
 
 \begin{exe}
-  \ex \textit{mph} $\rightarrow$
+  \ex \label{ex:mph}\textit{mph} $\rightarrow$
   \begin{avm}
     \[ph & list(phon)\\
       pc & pos-class\]
@@ -1321,20 +1312,19 @@ parsimonious descriptions of principles and rules.
 
 \end{exe}
 
-The reification of position and shape as first class citizens of
+The reification of position and shape as first-class citizens of
 morphological representation is one of the central design decisions of
 IbM: as a result, constraints on position and shape will be amenable
 to the very same underspecification techniques as all other
 morphological properties. As a consequence, IbM eliminates structure
 from inflectional morphology, which clearly distinguishes this
-approach from other inferential-realisational approaches, such as PFM
-\citep{Stump01} or A-Morphous Morphology \citep[=AM;][]{Anderson92},
+approach from other inferential-realisational approaches, such as PFM or AM,
 where order is derived from cascaded rule application.  Although IbM
 recognises a minimal structure in terms of segmentable morphs, there
 is no hierarchy involved. AM and PFM, by contrast, reject derived
 structure, to borrow a term from Tree Adjoining Grammar, but this
 potential advantage is more than set off by their abundant use of
-derivation structure:
+derivation structure.
 
 \begin{exe}
   \ex Structured association of form (\textsc{mph}) and function (\textsc{ms})   \label{fig:WordMph}
@@ -1344,14 +1334,14 @@ derivation structure:
 
     \begin{avm}
       \[mph & \<\[ph &  <ge>\\ pc & -1\],\[ph &  <setz>\\ pc & 0\],\[ph &  <t>\\ pc & 1\]\>\\
-        ms & \{\[lid & setzen\],\[tma & ppp\]\}
+        ms & \{\[lid & setzen\],\[tam & ppp\]\}
       \]
     \end{avm}
     \ex Abstraction of circumfixation ($1:n$):
 
     \begin{avm}
       \[ mph & \<\[ph &  <ge>\\ pc & -1\],\[ph &  <t>\\ pc & 1\],\ldots\>\\
-        ms & \{\[tma & ppp\],\ldots\}
+        ms & \{\[tam & ppp\],\ldots\}
       \]
     \end{avm}
   \end{xlist}
@@ -1364,8 +1354,7 @@ realisation, as shown in (\ref{fig:WordMph}).  Yet, a direct
 word-based description does not easily capture situations where the
 same association between form and content is used more than once in
 the same word, as is arguably the case for Swahili
-\citep{Stump93,Crysmann:Bonami:2016,Crysmann:Bonami:2017:HPSG} or,
-even more importantly for Batsbi \citep{Harris09}.
+\citep{Stump93,Crysmann:Bonami:2016,Crysmann:Bonami:2017:HPSG} or Batsbi \citep{Harris09,Crysmann:2018:Batsbi}.
 
 By  introducing a level of \textsc{r(ealisation) r(ules)}, reuse
 of resources becomes possible. Rather than expressing the relation
@@ -1384,10 +1373,10 @@ the realisation between form and content, as shown in
         mud & \{\rnode{ca}{\[lid & setzen\]}\}
       \],
       \[	mph & \{\rnode{yy}{\[ph &  <ge>\\ pc & -1\]},\rnode{bb}{\[ph &  <t>\\ pc & 1\]}\}\\
-        mud & \{\rnode{cb}{\[tma & ppp\]}\}
+        mud & \{\rnode{cb}{\[tam & ppp\]}\}
       \]
       \}	\\ \\
-      ms & \{\rnode{da}{\[lid & setzen\]},\rnode{db}{\[tma & ppp\]}\}
+      ms & \{\rnode{da}{\[lid & setzen\]},\rnode{db}{\[tam & ppp\]}\}
     \]
   \end{avm}
   \psset{arrows=<->,linecolor=gray,linestyle=dotted,angleA=-90,angleB=90}
@@ -1405,9 +1394,9 @@ morphological descriptions beyond a simple pairing of form-related
 The crucial point about realisation rules is that they take care of
 parts of the inflection of an entire word independently of other
 realisation rules. Thus, in IbM, realisation rules are explicitly
-defined in terms of that set of morphosyntactic features they express,
-as opposed to contextually determined features. To that end, realisation
-rules introduce a feature \textsc{mud} (=Morphology Under Discussion),
+defined in terms of the set of morphosyntactic features they express,
+as opposed to contextually conditioning features. To that end, realisation
+rules introduce a feature \textsc{mud} (Morphology Under Discussion),
 in addition to \textsc{mph} and \textsc{ms}, in order to single out
 the morphosyntactic features that are licensed by application of the
 rule. Thus, \textsc{mud} specifies the subset of the morphosyntactic
@@ -1428,9 +1417,9 @@ Realisation rules (members of set \textsc{rr}) pair a set of
 morphological properties to be expressed, the morphology under
 discussion (\textsc{mud}), with a list of morphs that realise them
 (\textsc{mph}). Since \textsc{mud}, being a set, admits multiple
-morphosyntactic properties, and since \textsc{mph}, being a list
-admits multiple exponents, realisation rules establish in fact $m:n$
-relations between function and form: i.e. the many-to-many nature of
+morphosyntactic properties, and since \textsc{mph}, being a list,
+admits multiple exponents, realisation rules in fact establish $m:n$
+relations between function and form: thus, the many-to-many nature of
 inflectional morphology is captured at the most basic level. This very
 property sets the present framework apart from cascaded rule models of
 inferential-realisational morphology \citep{Anderson92,Stump01}, which
@@ -1456,26 +1445,28 @@ the system as a whole can capture $m:n$ relations.
 \end{figure}
 
 Given two distinct levels of representation, the morphological word
-and the rules that license it, it is of course necessary
-to define how constraints contributed by realisation rules relate to
-the overall morphological makeup of the word. Realisation rules per se
-only provide recipes for matching morphosyntactic properties onto
-exponents and vice versa. In order to describe well-formed words, it
-is necessary to enforce that these recipes actually be applied. IbM
+and the rules that license it, it is of course necessary to define how
+constraints contributed by realisation rules relate to the overall
+morphological makeup of the word. Realisation rules per se only
+provide recipes for matching morphosyntactic properties onto exponents
+and vice versa. In order to describe well-formed words, it is
+necessary to enforce that these recipes actually be applied. IbM
 regulates the relation between word-level properties and realisation
-rules by means of  rather straightforward principle, given in
-Figure~\ref{fig:MCC}: this very general principle of morphological well-formedness  ensures that the properties expressed by rules add up
-to the word's property set and that the rules' \textsc{mph} lists add
-up to that of the word, i.e. no contribution of a rule may ever be
-lost. This principle of general well-formedness in
+rules by means of a rather straightforward principle, given in
+Figure~\ref{fig:MCC}: this very general principle of morphological
+well-formedness ensures that the properties expressed by rules add up
+to the word's property set, and that the rules' \textsc{mph} lists add
+up to that of the word, such that no contribution of a rule may ever
+be lost. This principle of general well-formedness in
 Figure~\ref{fig:MCC} bears some resemblance to LFG's principles of
 completeness and coherence \citep{bresnan_j82}, as well as to the
 notion of `Total Accountability' proposed by \citet{Hockett47}. Since
 $m:n$ relations are recognised at the most basic level,
 i.e. morphological rules, mappings between the contributions of the
-rules and the properties of the word can (and should) be $1:1$: as we shall see
-below, this permits to formulate morphological well-formedness in
-terms of exhaustion of the morphosyntactic property set.  
+rules and the properties of the word can (and should) be $1:1$.  We
+shall see below that this makes possible a formulation of morphological
+well-formedness in terms of exhaustion of the morphosyntactic property
+set.
 
 In essence, a word's morphosyntactic property set (\textsc{ms}) will
 correspond to the non-trivial set union ($\uplus$) of the rules'
@@ -1488,9 +1479,12 @@ sharing (\avmbox{0}).
 
 Finally, a word's sequence of morphs, and hence: its phonology, will
 be obtained by shuffling ($\bigcirc$) the rules' \textsc{mph} lists in
-ascending order of position class (\textsc{pc}) indices. This is
-ensured by the Morph Ordering Principle given in Figure~\ref{fig:MOP},
-adapted from \citet{Crysmann:Bonami:2016}.
+ascending order of position class (\textsc{pc}) indices (see
+Chapter~\crossrefchaptert{order} for a definition of the shuffle
+relation, also known as
+sequence union). This is ensured by the Morph
+Ordering Principle given in Figure~\ref{fig:MOP}, adapted from
+\citet{Crysmann:Bonami:2016}.
 
 
 \begin{figure}[htb]
@@ -1500,19 +1494,19 @@ adapted from \citet{Crysmann:Bonami:2016}.
   
   \begin{subfigure}{\textwidth}
     \centering
-    \textit{word} $\rightarrow$\\
+    \textit{word} $\rightarrow$
       \begin{avm}
         \[ph & \@1 $\oplus \dots \oplus$ \@n\\
           infl & \[mph & \<\[ph & \@1 \], $\dots$ \[ph & \@n \]
             \> \]\]
       \end{avm}
     \caption{Concatenation}
-  \end{subfigure}
+  \end{subfigure}\\[2ex]
   
   \begin{subfigure}{\textwidth}
     \centering
       \textit{word}
-    $\rightarrow$\\
+    $\rightarrow$
     \begin{avm}
       $\neg$ \( \[infl & \[
           mph & \< ... \[pc & \@m  \], \[
@@ -1532,22 +1526,6 @@ second clause ensures that the order implied by position class indices
 (\textsc{pc}) is actually obeyed. \citet{bonami_o-crysmann_b13hpsg}
 provide a formalisation of morph ordering using list constraints.
 
-% Before closing this section, a brief note is in order regarding the
-% choice of data structures: while it is evident that order is
-% not an appropriate characteristic of morphosyntactic property sets,
-% the question whether to adopt a list-based representation or a
-% set-based one is pertinent for exponents: on the one hand, lists have
-% some initial plausilibility, given that morphs are ordered, but on the
-% other one may regard this as redundant, given the existence of an
-% explicit indexing schem,e in the form of \textsc{pc} values (which are
-% themselves implemented as lists). In fact, until recently, most IbM
-% work did assume \textsc{mph} sets rather than lists. Probably the only
-% reason to prefer lists over sets is presentational: since lists have
-% an inherent indexing scheme, identifying e.g. initial or final
-% elements yields much more parsimonious representations with lists than
-% it does with sets, which would require abundant explicit reference to
-% \textsc{pc} values. Thus, IbM currently assumes \textsc{mph}-lists
-% rather than \textsc{mph}-sets.
 
 Given the very general nature of the well-formedness constraints and
 particularly the commitment to monotonicity embodied by
@@ -1581,7 +1559,7 @@ includes the shared morphotactics of the suffix.
 \begin{forest}
 %\psset{levelsep=8em,treesep=12em,linewidth=0pt,nodesep=0pt}
 [{\begin{avm}
-    \[mud & \{ \[tma & ppp\] \}\\
+    \[mud & \{ \[tam & ppp\] \}\\
       mph & \< \[ph & ge\\ pc & -1 \],
       \[pc & 1 \] \> \]
   \end{avm}}
@@ -1609,7 +1587,7 @@ participle formation:
   \ex \label{ex:ppp}
   \begin{xlist}
 
-    \ex \textit{ge}-setz-\textit{t} `set/put'
+    \ex \textit{ge}-setz-\textit{t} `put'
     \ex über-setz-\textit{t} `translated'
     \ex \textit{ge}-schrieb-\textit{en} `written'
     \ex über-schrieb-\textit{en} `overwritten'
@@ -1626,7 +1604,7 @@ vs. absence of the prefixal part (\textit{ge-}).
   \footnotesize
 \begin{forest}
 [{\begin{avm}
-  \[mud & \{\[tma & ppp\]\}\\
+  \[mud & \{\[tam & ppp\]\}\\
     mph & \< ..., \[pc & 1\] \>\]
 \end{avm}}
 	[pref,partition
@@ -1653,8 +1631,8 @@ vs. absence of the prefixal part (\textit{ge-}).
 Figure \ref{fig:Horizontal} shows how Online Type Construction provides
 a means to generalise these patterns in a straightforward way: while the
 common supertype still captures properties true of all four different
-realisations, namely the property to be expressed and the fact that it
-involves at least a suffix, concrete prefixal and suffixal realisation
+realisations --- namely the property to be expressed and the fact that it
+involves at least a suffix ---, concrete prefixal and suffixal realisation
 patterns are segregated into dimensions of their own (indicated by
 \avmbox{PREF} and \avmbox{SUFF}). Systematic cross-classification
 (under unification) of types in \avmbox{PREF} with those in
@@ -1694,9 +1672,9 @@ rules.\footnote{\label{fn:OTC}There are two ways of conceptualising the status o
 \subsection{Pāṇinian competition}
 \label{sec:Panini}
 
-In accord with most theories of inflection
+In accordance with most theories of inflection
 \citep{Prince93,Stump01,Anderson92,Noyer92,kiparsky_p85}, IbM embraces
-a version of Morphological Blocking, aka the Elsewhere Condition
+a version of Morphological Blocking, also known as the Elsewhere Condition
 \citep{kiparsky_p85} or Pāṇini's Principle. The basic intuition behind
 Pāṇinian competition is that more specific rules can block the
 application of more general rules, where the most unspecific rule will
@@ -1779,7 +1757,7 @@ typically formed by a prefix \textit{ha-}, preceding the equally
 prefixal exponents of
 subject agreement and tense (future \textit{ta-}). However, in the
 negative first singular, discrete realisation of \textit{ha-} and
-\textit{ni} is blocked by the portmanteau \textit{si}. Here, we have
+\textit{ni-} is blocked by the portmanteau \textit{si-}. Here, we have
 a classical case of   Pāṇinian competition, where a rule that
 expresses both negative and first person singular agreement preempts
 application of the more general individual rules for negative or first
@@ -1790,7 +1768,7 @@ person singular.
 In the case of \textit{si}, we find the portmanteau in the same
 surface position as the exponents it is in competition with.  However,
 this need not be the case, nor indeed is preemption of this kind
-limited to adjacency. For example,  relative negative \textit{si} is realised
+limited to adjacency. Relative negative \textit{si-}, for instance, is realised
 in a position following the subject agreement marker, yet still, by
 virtue of expressing negative in the context of relative marking, it
 blocks realisation of negative \textit{ha-} in pre-agreement position. This constitutes a case of what \citet{Noyer92} calls ``discontinuous
@@ -1813,9 +1791,9 @@ bleeding''.
   \end{xlist}
 \end{exe}
 
-The relevant realisation rules for \textit{ha-}, \textit{ni}, and the
-two markers \textit{si}, can be formulated quite straightforwardly as
-in (\ref{ex:SwahiliPanini}a--d), in that order. For expository
+The relevant realisation rules for \textit{ha-}, \textit{ni-}, and the
+two markers \textit{si-}, can be formulated quite straightforwardly as
+in (\ref{ex:SwahiliPanini}a--d). For expository
 purposes, I shall make explicit the fact that \textsc{mud} is necessarily
 contained in \textsc{ms}.   
 
@@ -1868,9 +1846,9 @@ On the basis of the definition in (\ref{ex:PAN}a), portmanteau
   \citet{bonami_o-crysmann_b13hpsg} for a proposal of how spans can be made explicit.} is a competitor for both
 \textit{ni-} (\ref{ex:SwahiliPanini}b) and \textit{ha-}
 (\ref{ex:SwahiliPanini}c), since the \textsc{mud} of portmanteau
-\textit{si-} expands (=is subsumed by) each of the sets containing the \textsc{mud}
+\textit{si-} expands, i.e.~ is subsumed by each of the sets containing the \textsc{mud}
 value of \textit{ni-} or \textit{ha-}. Moreover, the \textsc{ms} value
-of portmanteau \textit{si} is properly subsumed by \textit{ni-} (and
+of portmanteau \textit{si-} is properly subsumed by \textit{ni-} (and
 \textit{ha-}). Accordingly, the rule for \textit{ni-} will be expanded
 as in (\ref{ex:PanExp}a).  Similarly, in a first iteration,
 \textit{ha-} will be specialised as in (\ref{ex:PanExp}b). 
@@ -1907,7 +1885,7 @@ However, \textit{ha-} (\ref{ex:SwahiliPanini}a) has another competitor,
 namely negative relative \textit{si-} (\ref{ex:SwahiliPanini}d): while
 in this case the \textsc{mud} values are equally informative, the
 rules differ in terms of their \textsc{ms} descriptions, with
-\textit{si} being conditioned on relative and \textit{ha-} being
+\textit{si-} being conditioned on relative and \textit{ha-} being
 unconditioned.  Expansion by Pāṇinian competition will add another
 existential constraint to (\ref{ex:PanExp}b). The fully expanded entry is given in
 (\ref{ex:PanExpHa}).
@@ -1928,9 +1906,9 @@ existential constraint to (\ref{ex:PanExp}b). The fully expanded entry is given 
 % Zero exponence
 A common case of default realisation is zero exponence: as illustrated
 by the German nominal paradigms in Table~\ref{tab:ParaSplit}, only a
-small part of the cells feature overt exponents. For example in the paradigm
+small number of the cells feature overt exponents. For example in the paradigm
 of \textit{Oma} `granny' (Table~\ref{tab:ParaSplit}a), singular number
-is solely expressed by the signifant absence of any
+is solely expressed by the significant absence of any
 exponents. Particularly relevant to the case of default zero
 realisation are the paradigms exhibiting a Pāṇinian split, e.g. that
 of \textit{Rechner} `computer': here, only two cells are actually
@@ -1943,10 +1921,10 @@ AM and PFM assume that every rule block returns an unmodified base,
 unless preempted by a more specific rule. In PFM, this property is
 ensured by the Identity Function Default (IFD)
 \citep[][53]{Stump01}. Having a default principle, such as the IFD, is
-economic in that it saves restating the identity function for every
-rule block. On the downside, a meta-level default, such as the IFD
+economical in that it saves restating the identity function for every
+rule block. On the downside, the IFD as a meta-level default 
 will always be able to apply, possibly making an account of gaps in
-paradigms more difficult. In IbM, zero-exponence is captured by
+paradigms more difficult. In IbM, zero exponence is captured by
 providing a rule type that contributes an empty list of morphs, as
 shown in (\ref{ex:ifd}) below. With an underspecified \textsc{mud}
 value, such a rule type may act as a default realisation.
@@ -1971,8 +1949,9 @@ contributing any morph, as shown in (\ref{ex:ifd}):
 \end{exe}
 
 A simple solution is to provide subtypes of the ultimate default for
-every inflectional dimension that witnesses zero exponence: for
-instance the rule type in (\ref{ex:ifd}) could be specialised by
+every inflectional dimension that witnesses zero exponence: the rule
+type in (\ref{ex:ifd}), for
+instance,  could be specialised by
 adding appropriate subtypes, e.g. for tense and polarity:
 
 \begin{exe}
@@ -1998,8 +1977,8 @@ adding appropriate subtypes, e.g. for tense and polarity:
 \end{exe}
 
 While this is slightly less general than what might have
-been hoped, the finer control that this move offers is independently
-required to mitigate between the zero exponence as a fallback strategy
+been hoped for, the finer control that this move is independently
+required to strike the right analytical balance between zero exponence as a fallback strategy
 and the existence of defectiveness, i.e. gaps in paradigms. 
 
 Having seen how Pāṇinian competition can be made explicit, we shall
@@ -2012,7 +1991,7 @@ than pure multiple exponence. As witnessed by the Swahili examples in
 exponent of negation combines with tense markers for past and
 future. However, while the exponent for future is constant across
 affirmative and negative (\ref{ex:SwahiliNegFut}), the negative past
-marker \textit{ku} in (\ref{ex:SwahiliNegPast}) displays overlapping
+marker \textit{ku-} in (\ref{ex:SwahiliNegPast}) displays overlapping
 exponence. 
 
 \begin{exe}
@@ -2038,8 +2017,8 @@ exponence.
 
 \end{exe}
 
-There are in principle two ways to picture cases of overlapping
-exponence as in (\ref{ex:SwahiliNegPast}b): either \textit{ku} is
+There are, in principle, two ways to picture cases of overlapping
+exponence as in (\ref{ex:SwahiliNegPast}b): either \textit{ku-} is
 regarded as cumulation of negative and past, or else it is an exponent
 of past, allomorphically conditioned by the negative.  Following
 \citet{Carstairs87}, IbM embraces a notion of inflectional allomorphy
@@ -2065,19 +2044,19 @@ conditioning by some feature.
 \end{exe}
 
 We can provide rules for the two past markers as given in
-(\ref{fig:SwahiliFut}), where \textit{ku} is additionally conditioned
+(\ref{fig:SwahiliFut}), where \textit{ku-} is additionally conditioned
 on the presence of \textit{neg} in the morphosyntactic property set
 (\textsc{ms}). While these two rules stand in Pāṇinian competition
 with each other, rule (\ref{fig:SwahiliFut}b) is crucially no
 competitor for the regular negative marker \textit{ha-}, since the
-\textup{mud} sets of (\ref{fig:SwahiliFut}b) and (\ref{ex:PanExp}a)
+\textsc{mud} sets of (\ref{fig:SwahiliFut}b) and (\ref{ex:PanExp}a)
 are actually disjoint. Thus, by embracing a distinction between
 expression and conditioning, overlapping exponence behaves as expected
 with respect to Pāṇini's principle.
 
 
 Pure multiple exponence works somewhat differently from
-overlapping exponence: e.g. in Nyanja \citep{Stump01,Crysmann:14:OUP},
+overlapping exponence: in Nyanja \citep{Stump01,Crysmann:14:OUP},
 class B adjectives (\ref{ex:NyanjaQualConc}) take two class markers to
 mark agreement with the head noun, one set of markers being the one
 normally used with class A adjectives (\ref{ex:NyanjaQual}), the other being attested with
@@ -2089,12 +2068,12 @@ properties, i.e. nominal class. \label{Nyanja}
      {\gll ci-pewa ca-ci-kulu\\
     \textsc{cl7}-hat(7/8) \textsc{qual7}-\textsc{conc7}-large\\
     \glt `a large hat' \hfill\citep[6]{Stump01}}
-  \ex{\label{ex:NyanjaConc} \gll ci-lombo ci-kula.\\
-    \textsc{cl7}-weed \textsc{conc7}-grow\\
-    \glt `A weed grows.' \hfill\citep[6]{Stump01}}
   \ex{\label{ex:NyanjaQual} \gll ci-manga ca-bwino\\
     \textsc{cl7}-maize \textsc{qual7}-good\\
     \glt `good maize' \hfill \citep[6]{Stump01}}
+  \ex{\label{ex:NyanjaConc} \gll ci-lombo ci-kula.\\
+    \textsc{cl7}-weed \textsc{conc7}-grow\\
+    \glt `A weed grows.' \hfill\citep[6]{Stump01}}
 \end{exe}
 
 \citet{Crysmann:14:OUP} shows that double inflection as in Nyanja
@@ -2188,12 +2167,13 @@ cascaded rule model adopted by e.g. PFM
 \citep{Stump01}.\footnote{\citet{Crysmann12} was a conservative
   extension of PFM with reified position class indices, an approach
   that was rendered obsolete by subsequent work.} Instead, order is
-directly represented as a property of exponents (=morphs).
+directly represented as a property of exponents.
 
-Taking as a starting point  the classical challenges from \citet{Stump93},
-they developed an extended typology of variable morphotactics,
-i.e. systems, which depart from the kind of rigid ordering more
-commonly found in morphological systems.
+Taking as a starting point the classical challenges from
+\citet{Stump93} --- portmanteau, ambifixal, reversed, and parallel
+position classes ---, they developed an extended typology of variable
+morphotactics, i.e. systems, which depart from the kind of rigid
+ordering more commonly found in morphological systems.
 
 \begin{table}[ht!]
   \begin{center}
@@ -2224,14 +2204,15 @@ commonly found in morphological systems.
 
 One of the most simple deviations from strict and invariable ordering
 is misaligned placement: while exponents marking alternative values
-for the same feature and therefore stand in paradigmatic opposition,
+for the same feature, and therefore stand in paradigmatic opposition,
 tend to occur in the same position, this is not always the case, as
 illustrated by the example from Nepali in Table~\ref{tab:Nepali}.     
 
 
 While the agreement markers follow the tense marker in the present,
 the relative order of tense and agreement marker differs from cell to
-cell in the future.
+cell in the future (\textsc{low} and \textsc{mid} constitute
+different levels in the system of honorifics).
 
 \begin{figure}[htb]
   \centering
@@ -2305,7 +2286,7 @@ misaligned placement, assignment of position does not just depend on
 the properties expressed by the marker itself, but on some additional
 property. An example of this is Swahili ``ambifixal'' relative
 marking, as shown in examples
-(\ref{ex:SwahiliRel:suff})--(\ref{ex:SwahiliRel:pref})\footnote{Conditioned
+(\ref{ex:SwahiliRel:suff})--(\ref{ex:SwahiliRel:pref}).\footnote{Conditioned
   placement is not only attested on alternate sides of the stem, as
   discussed for Swahili in \citet{Stump93}, but also on the same
   side. See the discussion of mesoclisis in European Portuguese in
@@ -2334,7 +2315,7 @@ in all other cases it precedes it.
   \end{xlist}
 \end{exe}
 
-Condition placement can be captured using a two-dimensional hierarchy,
+Conditioned placement can be captured using a two-dimensional hierarchy,
 as shown in Figure~\ref{fig:SwahiliRel}: the \avmbox{MORPHOTACTICS}
 dimension on the left defines the conditions for the corresponding
 placement constraints, whereas the \avmbox{EXPONENCE} dimension
@@ -2467,10 +2448,11 @@ sophisticated indexing scheme is called
 for.
 
 \citet{Crysmann:Bonami:2016} discuss placement of pronominal affix
-clusters in Italian. While placement is constant within the
-cluster itself and between stem and tense and agreement affixes, the
-linearisation of the cluster as a whole is variable, as shown by the
-alternation between indicative and imperative in (\ref{ex:Italian}). 
+clusters in Italian. While placement is constant within the cluster
+itself, \textit{me-lo-} in the example below, as well as
+between stem and tense and agreement affixes, the linearisation of the
+cluster as a whole is variable, as shown by the alternation between
+indicative and imperative in (\ref{ex:Italian}).
 
 \begin{exe}
   \ex\label{ex:Italian}
@@ -2484,7 +2466,6 @@ alternation between indicative and imperative in (\ref{ex:Italian}).
   \end{xlist}
 \end{exe}
 
-% Evidence for layered structure?
 
 An important question raised by the Italian facts is whether
 morphotactics is in need of a more layered structure. If so, it will
@@ -2499,7 +2480,7 @@ mobile in Italian and takes the exponents of tense and subject
 agreement along. To implement this, they show that it is sufficient to
 expose the positional index of the stem (the feature \textsc{stm-pc}
 in Figure~\ref{fig:ItalianStem}), such that other markers can
-be placed relative to it (cf.~the agreement rule in Figure~\ref{fig:ItalianAff}).  
+be placed relative to this pivot (cf.~the agreement rule in Figure~\ref{fig:ItalianAff}).  
 
 \begin{figure}[htb]\centering
   
@@ -2521,23 +2502,23 @@ be placed relative to it (cf.~the agreement rule in Figure~\ref{fig:ItalianAff})
 
 Compared to layered structure, the pivot feature approach appears to
 be more versatile, since it provides a suitable solution to second
-position affixes. In Sorani Kurdish \citep{Samvelian07}, an endoclitic agreement marker
+position affixes. Sorani Kurdish  endoclitic agreement marker
 surfaces after the initial morph, be it the stem, or some prefixal
-marker. Thus, placement is relative to what ever happens to be the
-first instantiated position index. 
+marker \citep{Samvelian07}. Thus, placement is relative to whatever happens to be the
+first \textit{instantiated} position index. 
 
 \begin{table}
 \begin{center}
 {\small
-\begin{tabular}[t]{lllll}
+\begin{tabular}[t]{ccccccc|lr}
 \lsptoprule
-$1$ & $3$ & $5$ & $7$\\
-%\textsc{neg} & \textsc{ipfv} & send & \textsc{3pl}\\   
+$1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ &\\
+\textsc{neg} & & \textsc{ipfv} & & `send' & & \textsc{3pl}\\   
 \midrule
-    &      & nard=\textbf{jân} & im & {`they sent me'}\\
-na=\textbf{jân}     &  & nard & im & {`they did not send me'}\\
-    & da=\textbf{jân} & nard & im & {`they were sending me'}\\
-na=\textbf{jân}     &  da  & nard & im & {`they were not sending me'}\\
+    &&      && nard &=\textbf{jân} & im & ~ &{`they sent me'}\\
+na & =\textbf{jân}     &  & & nard & & im & ~ &{`they did not send me'}\\
+   & & da & =\textbf{jân} & nard & & im & ~ &{`they were sending me'}\\
+na & =\textbf{jân}     &  da  & & nard & & im & ~ & {`they were not sending me'}\\
 \lspbottomrule
 \end{tabular}
 }
@@ -2569,17 +2550,18 @@ principle in (\ref{ex:stem-principle}).
 What this principle does is distribute two critical position class
 indices over every element of the \textsc{mph} list: one for the
 position of the stem, in order to capture stem-relative vs. absolute placement as
-in Italian, the other for the lowest instatiated position class index,
+in Italian, the other for the lowest instantiated position class index,
 to capture second position phenomena. 
 
-The realisation rule for a second position clitic will then look as
-follows, determining its \textsc{pc} value relative to that of the
+The realisation rule for a second position clitic can then be
+formulated  as
+in (\ref{ex:jan}), determining its \textsc{pc} value relative to that of the
 word's first morph. I use an arithmetic operator here as a convenient
 shortcut, but note that indices are actually represented as lists 
 underlyingly \citep{bonami-crysmann:2013}. 
 
 \begin{exe}
-  \ex
+  \ex \label{ex:jan}
   \begin{avm}
     \[mud & \{ \[per & 3\\
         num & pl \]\}\\
@@ -2596,16 +2578,16 @@ fixed morphs, the stem in position 5 and the person ending in position
 7. According to (\ref{ex:stem-principle}), \textsc{1st-pc} will be
 token identical to the \textsc{pc} of \textit{nard}, so \textit{=jân}
 will be assigned a \textsc{pc} value of 6. The second example
-\textit{da=jân-nard-im} has  the additional progressive prefix \textsc{da}
+\textit{da=jân-nard-im} has  the additional progressive prefix \textit{da-}
 in position 3, which is the lowest \textsc{pc} index in of the
-word. Accordingly \textit{=jân} is placed relative to \textit{da},
+word. Accordingly \textit{=jân} is placed relative to the prefix \textit{da-},
 in position 4. 
 
 To conclude the section, a more general remark is in order: as we have
 seen, IbM uses explicit position indices to constrain morphotactic
 position. In essence, these correspond to linear distribution classes,
 where higher indices are realised towards the right of lower indices
-and no two morphs within a word may bear the same index, yielding
+and no two morphs within a word may bear the same index, resulting in
 competition for linear position. As a consequence, there is no static
 notion of a slot: while morphs are ordered according to indices, there
 is no requirement for indices to be consecutive. Thus, nothing much
@@ -2616,8 +2598,8 @@ morph in the word with that particular positional index.
 \subsection{Constructional vs. generative views}
 \label{sec:ConstrGen}
 
-IbM departs from previous purely word-based approaches, such as
-\citet{Blevins14} or, within HPSG, \citet{Koenig99} by recognising an
+IbM departs from previous, purely word-based approaches, such as
+\citet{Blevins14} or, within HPSG, \citet[Section~5.2.2]{Koenig99} by recognising an
 intermediate level of realisation rules that effects the actual $m:n$
 relations between form and function. In this section, I shall discuss
 how this facilitates partial generalisations over gestalt exponence,
@@ -2641,7 +2623,7 @@ markers and the properties they express.
   \small
   \setlength{\tabcolsep}{.7\tabcolsep}
 \begin{tabular}{lll}
- \multicolumn{3}{c}{\textsc{nokk} `beak'} \\
+ \multicolumn{3}{c}{\textit{nokk} `beak'} \\
 \lsptoprule
   & \textsc{sg} & \textsc{pl}  \\
   \midrule
@@ -2652,7 +2634,7 @@ markers and the properties they express.
 \end{tabular}
 \medskip
 \begin{tabular}{lll} 
-\multicolumn{3}{c}{\textsc{õpik} `workbook'}\\
+\multicolumn{3}{c}{\textit{õpik} `workbook'}\\
 \lsptoprule
   & \textsc{sg} & \textsc{pl}  \\
   \midrule
@@ -2663,7 +2645,7 @@ markers and the properties they express.
 \end{tabular}
 
 \begin{tabular}{lll} 
-\multicolumn{3}{c}{\textsc{seminar} `seminar'}\\
+\multicolumn{3}{c}{\textit{seminar} `seminar'}\\
 \lsptoprule
   & \textsc{sg} & \textsc{pl}\\
   \midrule
@@ -2708,16 +2690,16 @@ singular is monomorphic, all plural forms are tri-morphic, to name
 just a few.  
 
 In IbM, $m:n$ correspondences are established at the level of
-realisation rules, and it is realisation rule which are organised into
+realisation rules, and these realisation rules are organised into
 (cross-classifying) type
-hierarchies. \citet{Crysmann:Bonami:2017:HPSG} argue that this
-makes it possible to extract the kind of partial generalisation noted
-in the previous paragraph and represent them in a three-dimensional
-type hierarchy that specifies constraints on stem selection
-independently of theme-vowel introduction and suffixation. Using
-pre-typing, idiosyncratic aspects can be contained, while more regular
-aspects, such as theme vowel and stem selection are taken care of by
-Online Type Construction. 
+hierarchies. \citet{Crysmann:Bonami:2017:HPSG} argue that this makes
+it possible to extract the kind of partial generalisation noted in the
+previous paragraph and represent them in a three-dimensional type
+hierarchy that specifies constraints on stem selection independently
+of theme-vowel introduction and suffixation. Using pre-typing,
+idiosyncratic aspects can be contained, while more regular aspects,
+such as theme vowel and stem selection are taken care of by Online
+Type Construction.
 
 Furthermore, encapsulating gestalt exponence as a subsystem of
 realisation rules has the added advantage that it does not spill over
@@ -2732,8 +2714,8 @@ possible, generally yielding much more parsomonious descriptions.
 
 \subsubsection{Reuse of resources}
 
-Cases of reuse of resources constitute a particularly strong case
-against over-generalising to the constructional view: parallel
+Reuse of resources constitutes a particularly strong argument
+against over-generalising to the constructional, or word-based, view: parallel
 position classes are a case at hand, as exemplified in Swahili
 \citep{Stump93,Crysmann:Bonami:2016} or Choc"-taw \citep{broadwell:2017}. 
 
@@ -2770,14 +2752,14 @@ to the left of tense markers, and object agreement to the right.
 
 Under a constructional approach, such as the word-based analysis in
 \citet{Koenig99}, the generalisation about identity of shapes is
-essentially lost: this is due to the fact that under this view,
+essentially lost, which is due to the fact that under this view,
 markers that can potentially combine must be introduced in different
 cross-classifying dimensions, e.g. one for subject marking in slot 2,
 the other for object marking in slot 5. Likewise, in order to
 distribute shape constraints over subject and object agreement, they
 must constitute yet another cross-cutting dimension, but there is
 simply no way in this set-up to enforce that every shape constraint
-must be evaluated twice.  
+must be evaluated twice.   
 
 \begin{figure*}[htb]
   \centering
@@ -2849,8 +2831,8 @@ must be evaluated twice.
 
 However, once we move from word-based statements to realisation rules,
 the problem simply vanishes, since we are not trying to solve the
-problem of parallelism of exponence and combination at the same time:
-as illustrated in Figure~\ref{fig:Swahili}, constraints about shape
+problem of parallelism of exponence and combination at the same time.
+As illustrated in Figure~\ref{fig:Swahili}, constraints about shape
 can be straightforwardly distributed over realisation rules for
 subject and object agreement (which are types), because their
 combination is effectively factored out. Thus, by abstracting over
@@ -2870,7 +2852,7 @@ cluster in Oneida, an Iroquoian language. Oneida presents us with what
 is probably the most complex morphotactic system that has been
 described so far within IbM.
 
-Oneida is a highly poly-synthetic language. According to
+Oneida is a highly polysynthetic language. According to
 \citet{diaz:koenig:michelson:19}, the prefixal inflectional system alone
 comprises seven  position classes in which up to eight
 non-modal and three modal categories can be expressed
@@ -2897,7 +2879,7 @@ cislocative in a different surface position from the translocative.
     Contrastive & Factual & & Optative & Repetitive & Optative &
                                                                  Factual
                  & \\
-    Coincident & & & Future & & Optative & &  \\
+    Coincidental & & & Future & &  & &  \\
     Partitive & & & & & & &\\
     \lspbottomrule
   \end{tabular}
@@ -2908,18 +2890,19 @@ cislocative in a different surface position from the translocative.
 \citet{diaz:koenig:michelson:19} discuss three different types of
 interaction within the system: (i) positional competition, exhibited
 in slot 1 (negative, contrastive, coincidental, partitive) and slot 5
-(cislocative, repetitive); (ii) borrowing, a particular case of extended
-exponence exhibited in slot 2 (translocative borrowing vowels from the
-future and factual); and (iii) sharing, witnessed by the factual and
-the optative, which are distributed across different positions. Cross-cutting these subsystems, we find a great level of
+(cislocative, repetitive); (ii) borrowing, a particular case of
+extended exponence exhibited in slot 2 (translocative borrowing vowels
+from the future and factual); and (iii) sharing, witnessed by the
+factual and the optative, which are distributed across different
+positions. Cross-cutting these subsystems, we find a great level of
 contextual inflectional allomorphy.
 
 \citet{diaz:koenig:michelson:19} contain the complexity of the system
 by building on several key notions, the first three of
 which are integral parts of IbM: first, the fact that IbM recognises
 $m:n$ relations at the rule level make it possible to approach the
-Oneida system in a more modular fashion carving out four independent
-subsystems for competition (slot 1 and slot 5), borrowing (slot 2) and
+Oneida system in a more modular fashion, carving out four independent
+subsystems for competition (slot 1 and slot 5), borrowing (slot 2), and
 sharing (factual). Second, they draw on the distinction between
 realisation (\textsc{mud}) and conditioning \textsc{ms} to abstract
 out inflectional allomorphy. Third, they capture discontinuous
