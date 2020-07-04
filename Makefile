@@ -60,7 +60,7 @@ chop: stable.pdf
 
 
 commit-stable: chop 
-	git commit -m "automatic creation of stable.pdf and chapters" chapters/collection.bib chapters-pdfs/
+	git commit -m "automatic creation of stable.pdf and chapters" chapters/collection.bib chapters-pdfs/ stable.pdf
 	git push -u origin
 
 stable-commit: commit-stable
@@ -221,30 +221,30 @@ prepubs-latex-cp: prepublish-pdfs
 	cp prepubs-chop-pdfs/08.pdf prepubs-pdfs/nominal-structures.pdf
 	cp prepubs-chop-pdfs/09.pdf prepubs-pdfs/argument-structure.pdf
 	cp prepubs-chop-pdfs/10.pdf prepubs-pdfs/order.pdf
-	cp prepubs-chop-pdfs/11.pdf prepubs-pdfs/clitics.pdf
-	cp prepubs-chop-pdfs/12.pdf prepubs-pdfs/complex-predicates.pdf
-	cp prepubs-chop-pdfs/13.pdf prepubs-pdfs/control-raising.pdf
-	cp prepubs-chop-pdfs/14.pdf prepubs-pdfs/unbounded-dependencies.pdf
-	cp prepubs-chop-pdfs/15.pdf prepubs-pdfs/relative-clauses.pdf
-	cp prepubs-chop-pdfs/16.pdf prepubs-pdfs/islands.pdf
-	cp prepubs-chop-pdfs/17.pdf prepubs-pdfs/coordination.pdf
-	cp prepubs-chop-pdfs/18.pdf prepubs-pdfs/idioms.pdf
-	cp prepubs-chop-pdfs/19.pdf prepubs-pdfs/negation.pdf
-	cp prepubs-chop-pdfs/20.pdf prepubs-pdfs/ellipsis.pdf
-	cp prepubs-chop-pdfs/21.pdf prepubs-pdfs/binding.pdf
-	cp prepubs-chop-pdfs/22.pdf prepubs-pdfs/morphology.pdf
-	cp prepubs-chop-pdfs/23.pdf prepubs-pdfs/semantics.pdf
-	cp prepubs-chop-pdfs/24.pdf prepubs-pdfs/information-structure.pdf
-	cp prepubs-chop-pdfs/25.pdf prepubs-pdfs/processing.pdf
-	cp prepubs-chop-pdfs/26.pdf prepubs-pdfs/cl.pdf
-	cp prepubs-chop-pdfs/27.pdf prepubs-pdfs/dialogue.pdf
-	cp prepubs-chop-pdfs/28.pdf prepubs-pdfs/sign-languages.pdf
-	cp prepubs-chop-pdfs/29.pdf prepubs-pdfs/gesture.pdf
-	cp prepubs-chop-pdfs/30.pdf prepubs-pdfs/hpsg-minimalism.pdf
-	cp prepubs-chop-pdfs/31.pdf prepubs-pdfs/hpsg-categorial-grammar.pdf
-	cp prepubs-chop-pdfs/32.pdf prepubs-pdfs/hpsg-lfg.pdf
-	cp prepubs-chop-pdfs/33.pdf prepubs-pdfs/hpsg-dependency-grammar.pdf
-	cp prepubs-chop-pdfs/34.pdf prepubs-pdfs/hpsg-cxg.pdf
+#	cp prepubs-chop-pdfs/11.pdf prepubs-pdfs/clitics.pdf
+	cp prepubs-chop-pdfs/11.pdf prepubs-pdfs/complex-predicates.pdf
+	cp prepubs-chop-pdfs/12.pdf prepubs-pdfs/control-raising.pdf
+	cp prepubs-chop-pdfs/13.pdf prepubs-pdfs/unbounded-dependencies.pdf
+	cp prepubs-chop-pdfs/14.pdf prepubs-pdfs/relative-clauses.pdf
+	cp prepubs-chop-pdfs/15.pdf prepubs-pdfs/islands.pdf
+	cp prepubs-chop-pdfs/16.pdf prepubs-pdfs/coordination.pdf
+	cp prepubs-chop-pdfs/17.pdf prepubs-pdfs/idioms.pdf
+	cp prepubs-chop-pdfs/18.pdf prepubs-pdfs/negation.pdf
+	cp prepubs-chop-pdfs/19.pdf prepubs-pdfs/ellipsis.pdf
+	cp prepubs-chop-pdfs/20.pdf prepubs-pdfs/binding.pdf
+	cp prepubs-chop-pdfs/21.pdf prepubs-pdfs/morphology.pdf
+	cp prepubs-chop-pdfs/22.pdf prepubs-pdfs/semantics.pdf
+	cp prepubs-chop-pdfs/23.pdf prepubs-pdfs/information-structure.pdf
+	cp prepubs-chop-pdfs/24.pdf prepubs-pdfs/processing.pdf
+	cp prepubs-chop-pdfs/25.pdf prepubs-pdfs/cl.pdf
+	cp prepubs-chop-pdfs/26.pdf prepubs-pdfs/dialogue.pdf
+	cp prepubs-chop-pdfs/27.pdf prepubs-pdfs/sign-languages.pdf
+	cp prepubs-chop-pdfs/28.pdf prepubs-pdfs/gesture.pdf
+	cp prepubs-chop-pdfs/29.pdf prepubs-pdfs/hpsg-minimalism.pdf
+	cp prepubs-chop-pdfs/30.pdf prepubs-pdfs/hpsg-categorial-grammar.pdf
+	cp prepubs-chop-pdfs/31.pdf prepubs-pdfs/hpsg-lfg.pdf
+	cp prepubs-chop-pdfs/32.pdf prepubs-pdfs/hpsg-dependency-grammar.pdf
+	cp prepubs-chop-pdfs/33.pdf prepubs-pdfs/hpsg-cxg.pdf
 
 
 # 
@@ -380,8 +380,11 @@ biosketch.html: blurb.md
 
 
 memo-install:
-	\rm -rf styles/memoize
-	cp -pr ~/Documents/Dienstlich/Projekte/memoize styles/
+	cp -pr ~/Documents/Dienstlich/Projekte/memoize/memoize* .
+	cp -pr ~/Documents/Dienstlich/Projekte/memoize/nomemoize* .
+
+avm-install:
+	cp -fp ~/Documents/Dienstlich/Projekte/LangSci/Git-HUB/langsci-avm/langsci-avm.sty .
 
 #housekeeping	
 clean:
