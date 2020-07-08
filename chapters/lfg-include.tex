@@ -29,7 +29,7 @@ Head-Driven Phrase Structure Grammar is similar in many respects to its cousin f
 Both theories allow phonologically empty nodes of the constituent structure, although researchers in both theories tend to avoid them unless they are well-motivated \citep[734--742]{SF94a-unlinked,Berman97a,dalrymple;ea19}.   
 
 There are also some differences in representational resources, especially in the original formulations of the two frameworks.
-But each framework now exists in many variants, and features that were originally exclusive to one framework can often now be found in some variant of the other.   HPSG's feature structures are \textit{typed}, while those of LFG usually are not, but ASH-REF use typed feature structures in LFG.  
+But each framework now exists in many variants, and features that were originally exclusive to one framework can often now be found in some variant of the other.   HPSG's valence lists are ordered, while those of LFG usually are not, but \citet{andrews1999complex} use an ordered list of terms (subject and objects) in LFG.  
 LFG represents grammatical relations in a \textit{functional structure} or f-structure that is autonomous from the constituent structure, while HPSG usually lacks a functional structure, but \citet{Bender2008a} proposes to incorporate one into HPSG.  This chapter explores the utility of various formal devices for the description of natural language grammars, but since those devices are not exclusively intrinsic to one framework, this discussion does not bear on the comparative utility of the frameworks themselves.   
 In other words, our comparison of HPSG and LFG is intended to be theoretical and not political.  
 
@@ -298,15 +298,21 @@ Selection for grammatical relations instead of formal categories enables LFG to 
 \ex[*]{We talked about that he was sick for days.}
 
 \zl
-The variant of \textit{talk} taking an \textit{about}-PP selects neither a DP nor a CP \textit{per se}, but rather selects the attribute string  \featt{OBL}$_{about}$ \featt{OBJ}, describing the path to the f-structure for the object of the preposition \textit{about}.\footnote{Following \citet[300]{BATW2016a},  this analysis assumes that the preposition \textit{about} does not introduce a  \feat{pred} feature, so it lacks its own argument structure and instead serves as a marker of an argument of the verb, functioning much like an oblique case marker.}
+The preposition \textit{about} selects neither a DP nor a CP \textit{per se}, but rather selects the grammatical function  \featt{OBJ}.
+%\footnote{Following \citet[300]{BATW2016a},  this analysis assumes that the preposition \textit{about} does not introduce a  \feat{pred} feature, so it lacks its own argument structure and instead serves as a marker of an argument of the verb, functioning much like an oblique case marker.}
 
 \eal \label{talk-about}
-{{\it talk}\/: V}\qquad\feqs{(\up \feat{pred}) = `talk-about$\leftangle
-(\up \feat{subj})(\up \feat{obl}_{about} \feat{obj})\rangle$'}    
+{{\it about}\/: P}\qquad\feqs{(\up \feat{pred}) = `about$\leftangle
+(\up \feat{obj})\rangle$'}    
 \zl
 
+%\eal \label{talk-about}
+%{{\it talk}\/: V}\qquad\feqs{(\up \feat{pred}) = `talk-about$\leftangle
+%(\up \feat{subj})(\up \feat{obl}_{about} \feat{obj})\rangle$'}    
+%\zl
+
 \noindent
-It is not the verb but the local c-structure environment that conditions the category of that argument: the canonical prepositional object position right-adjacent to \textit{about} can only house a DP (compare (\ref{sick}c) and (\ref{sick}d)), while the topic position allows either DP or CP (compare (\ref{sick}a) and (\ref{sick}b)).  In LFG the grammatical functions such as \textsc{subj} and \textsc{obj} represent equivalence classes across various modes of c-structure expression.  
+It is not the preposition but the local c-structure environment that conditions the category of that argument: the canonical prepositional object position right-adjacent to \textit{about} can only house a DP (compare (\ref{sick}c) and (\ref{sick}d)), while the topic position allows either DP or CP (compare (\ref{sick}a) and (\ref{sick}b)).  In LFG the grammatical functions such as \textsc{subj} and \textsc{obj} represent equivalence classes across various modes of c-structure expression.  
 
 Some HPSG approaches to filler-gap mismatches are presented in \crossrefchaptert[Section~\ref{sec:UDC:FillerGapMismatches}]{udc}.  They are essentially similar to the LFG account just presented, in that they work by allowing the preposed clause and the gap to differ in certain features.  The main difference between research on this problem in the two frameworks is that in LFG the bifurcation between matching and non-matching features of filler/""gap  is built into the framework in the separation between f-structure and c-structure.\footnote{Note that c-structure and f-structure are autonomous but not independent.  To constrain the relation between the c-structure category and f-structure, one can use either metacategories \citep[691-698]{dalrymple;ea19} or the CAT function \citep[265]{dalrymple;ea19}.}  
 
@@ -334,7 +340,7 @@ In the constructional approach,
 
 The second approach is closer in spirit to the head movement posited in transformational grammar.  It is found in both HPSG and LFG but the formal implementation is rather different in the two frameworks.  The HPSG \scare{head movement} account due to \citet{Borsley89} posits a phonologically empty element that can function as the verb in its canonical position (such as \ref{mad}a), and that empty element is structure-shared with the verb that is fronted.  This treats the variation in head position similarly to non-local dependencies involving phrases.  See \crossrefchaptert[Section~\ref{sec-head-movement}]{order}.
 
-The LFG version of \scare{head movement} takes advantage of  the separation of autonomous c- and f-structures.  Recall from the above discussion of the DP in Figure~\ref{dp-tree} that functional heads such as determiners, auxiliaries and complementizers do not introduce new f-structures, but rather map to the same f-structure as their complement phrases.   The finite auxiliary can therefore appear in either the I or C position without this difference in position affecting the f-structure, as we will see presently.  Recall also that c-structure nodes are optional and can be omitted as long as a well-formed f-structure is generated.  Comparing the non-terminal structures of Figure~\ref{fig-tree3} and Figure~\ref{fig-tree4}, the I preterminal node is omitted from the latter structure but otherwise they are identical.  (The lexical equations in Figure~\ref{fig-tree4} are the same as the ones in Figure~\ref{fig-tree3} but are mostly omitted for clarity.)  Given the many \updown{} annotations, the C, I, and AP nodes (as well as IP and CP) all map to the same f-structure, namely the one shown in (\ref{fs2}).  
+The LFG version of \scare{head movement} takes advantage of  the separation of autonomous c- and f-structures.  Recall from the above discussion of the DP in Figure~\ref{dp-tree} that functional heads such as determiners, auxiliaries and complementizers do not introduce new f-structures, but rather map to the same f-structure as their complement phrases.   The finite auxiliary can therefore appear in either the I or C position without this difference in position affecting the f-structure, as we will see presently.  Recall also that c-structure nodes are optional and can be omitted as long as a well-formed f-structure is generated.  Comparing the non-terminal structures of Figure~\ref{fig-tree3} and Figure~\ref{fig-tree4}, the I preterminal node is omitted from the latter structure but otherwise they are identical.  (The lexical equations in Figure~\ref{fig-tree4} are the same as the ones in Figure~\ref{fig-tree3} but are omitted for clarity.)  Given the many \updown{} annotations, the C, I, and AP nodes (as well as IP and CP) all map to the same f-structure, namely the one shown in (\ref{fs2}).  
 
 \begin{figure}
   \ednote{THE SAME UP ARROW SPACING ISSUES ARE PRESENT HERE, BUT AT LEAST IT COMPILES!} \begin{forest}
@@ -923,11 +929,18 @@ Instead of functional control, Kroeger analyzes this latter type of control with
 HPSG  was conceived from the
 start as  a theory of the \textit{sign} \citep{Saussure16a-Fr}, 
 wherein each constituent is a pairing of form and meaning.  
-So semantic representation and composition  were built into HPSG (and the subsequent sister framework of Sign-Based Construction Grammar;\footnote{Whether SBCG is a sister or daughter framework of HPSG is perhaps up for debate, but probably not a particularly interesting one. \citet[486]{Sag2010b} called it a \scare{version} of HPSG, but that paper also advocates for SBCG based in part on strong subcategorization locality arguments analogous to those in \citet[23--24, for example]{ps2}, which are no longer universally accepted in the HPSG community \citep[e.g.,][]{Meurers99b,Prze99,MuellerLehrbuch1,Bender2008a}. We therefore feel it's more accurate to call SBCG a \qterm{sister} framework than a \qterm{daughter} framework. Forget it, reader. It's Chinatown.} \citealt{BS2012a-ed}), as reflected in the title of the first HPSG
+So semantic representation and composition  were built into HPSG (and the 
+%subsequent sister 
+related framework of Sign-Based Construction Grammar;
+%\footnote{Whether SBCG is a sister or daughter framework of HPSG is perhaps up for debate, but probably not a particularly interesting one. \citet[486]{Sag2010b} called it a \scare{version} of HPSG, but that paper also advocates for SBCG based in part on strong subcategorization locality arguments analogous to those in \citet[23--24, for example]{ps2}, which are no longer universally accepted in the HPSG community \citep[e.g.,][]{Meurers99b,Prze99,MuellerLehrbuch1,Bender2008a}. We therefore feel it's more accurate to call SBCG a \qterm{sister} framework than a \qterm{daughter} framework. Forget it, reader. It's Chinatown.}
+ \citealt{BS2012a-ed}), as reflected in the title of the first HPSG
 book \citep{pollard;sag87}, \textit{Information-Based Syntax and
   Semantics}.  LFG was not founded as a theory that included semantics, but a semantic component was developed for LFG shortly after its foundation \citep{halvorsen83}.  The direction of semantics for LFG changed some ten years later and the dominant tradition is now Glue Semantics \citep{dalrymple;ea93,dalrymple99,Dalrymple2001a-u,asudeh-lpr,dalrymple;ea19}.  
 
-This section presents a basic introduction to Glue Semantics (\glue); this is necessary to fully understand a not insignificant portion of LFG literature of the past fifteen years, which interleaves LFG syntactic analysis with \glue\ semantic analysis. The section is not meant as a direct comparison of LFG and HPSG semantics, for two reasons. First, as explained in the previous paragraph, HPSG is inherently a theory that integrates syntax and semantics, but LFG is not; the semantic module that \glue\ provides for LFG can easily be pulled out, leaving the syntactic component exactly the same.\footnote{Some work in Glue Semantics has argued that the subcategorization information in LFG's \feat{pred} values, governed by Completeness and Coherence, is captured by the compositional logic of \glue\ and therefore can be eliminated from f-structure; see footnote~\ref{fn:valence} below.  However, it is important to realize that this not a necessary move: Glue Semantics is perfectly consistent with the standard f-structural conception of Completeness and Coherence \citep[see, e.g., the discussion of syntactic versus semantic Completeness and Coherence in][53--56, 315--317]{dalrymple;ea19}. If Completeness and Coherence continue to hold at f-structure (or hold redundantly at f-structure), then the \glue\ module can be pulled out, leaving a purely traditional LFG syntax.} Second, as will become clear in the next section, at a suitable level of abstraction, \glue\ offers an underspecified theory of semantic composition, in particular scope relations, which is also the goal of what is arguably the most influential recent HPSG semantic approach, Minimal Recursion Semantics \citep{copestake;ea05}. But beyond observing this big-picture commonality, comparison of \glue\ and MRS would require a chapter in its own right.
+This section presents a basic introduction to Glue Semantics (\glue); this is necessary to fully understand a not insignificant portion of LFG literature of the past fifteen years, which interleaves LFG syntactic analysis with \glue\ semantic analysis. The section is not meant as a direct comparison of LFG and HPSG semantics, for two reasons. First, as explained in the previous paragraph, HPSG is inherently a theory that integrates syntax and semantics, but LFG is not; the semantic module that \glue\ provides for LFG can easily be pulled out, leaving the syntactic component exactly the same.\footnote{On the relation between the \feat{pred} feature and the semantic component, see footnote \ref{fn:valence} below.} 
+%Some work in Glue Semantics has argued that the subcategorization information in LFG's \feat{pred} values, governed by Completeness and Coherence, is captured by the compositional logic of \glue\ and therefore can be eliminated from f-structure; see footnote~\ref{fn:valence} below.  However, it is important to realize that this not a necessary move: Glue Semantics is perfectly consistent with the standard f-structural conception of Completeness and Coherence \citep[see, e.g., the discussion of syntactic versus semantic Completeness and Coherence in][53--56, 315--317]{dalrymple;ea19}. If Completeness and Coherence continue to hold at f-structure (or hold redundantly at f-structure), then the \glue\ module can be pulled out, leaving a purely traditional LFG syntax.
+%} 
+Second, as will become clear in the next section, at a suitable level of abstraction, \glue\ offers an underspecified theory of semantic composition, in particular scope relations, which is also the goal of what is arguably the most influential recent HPSG semantic approach, Minimal Recursion Semantics \citep{copestake;ea05}. But beyond observing this big-picture commonality, comparison of \glue\ and MRS would require a chapter in its own right.
 %As this is a handbook on HPSG and this is primarily a chapter on LFG, but Glue Semantics is in fact a general theory of semantic composition that is not necessarily tied to LFG, 
 Our goal is to present enough of Glue Semantics for readers to grasp the main intuitions behind it, without presupposing much knowledge of formal semantic theory.  The references listed at the end of the previous paragraph \citep[especially][]{dalrymple;ea19} are good places to find additional discussion and references.
 
@@ -958,7 +971,16 @@ The rest of this section is organized as follows. In Section~\ref{sec:background
 %If we are approaching these questions from the direction of a syntactic theory and its attendant syntactic framework, the first question, to do with the syntax--semantics interface, tends to be primary. However, it is nevertheless important to bear in mind the second question, to do with semantic representation. Otherwise, the range of semantic approaches for a given syntactic theory might seem a bit bewildering. For example, 
 
 Various theories of semantic representation have been adopted by the different non-transformational syntactic frameworks over the years.  
-The precursor to HPSG, GPSG \citep{GKPS85a}, was paired by its designers with a then fairly standard static Montogovian semantics \citep{Montague73a-u}, but GPSG itself was subsequently adopted as the syntactic framework used by \citet[9]{kamp;reyle93} for Discourse Representation Theory, a dynamic theory of semantics.  Initial work on semantics for LFG also assumed a Montogovian semantics \citep{halvorsen83,halvorsen;kaplan88}.  But with the increasing interest in Situation Semantics \citep{barwise;perry83} in the 1980s at Stanford University and environs (particularly SRI International and Xerox PARC), the sites of the foundational work on both HPSG and LFG, both frameworks also became associated with Situation Semantics.  In the case of LFG, this association was not foundational, manifesting primarily in the form of \citet{fenstad;ea87}, and soon waned. In contrast, as noted above, HPSG is a theory of signs and therefore had semantics incorporated into the theory from the outset.  Moreover, the chosen semantic theory was Situation Semantics, and this also carried over into the second main HPSG book \citep{ps2} and further \citep{ginzburg;sag00}.
+The precursor to HPSG, GPSG \citep{GKPS85a}, was paired by its designers with a then fairly standard static Montogovian semantics \citep{Montague73a-u}, but GPSG itself was subsequently adopted as the syntactic framework used by \citet[9]{kamp;reyle93} for Discourse Representation Theory, a dynamic theory of semantics.  Initial work on semantics for LFG also assumed a Montogovian semantics \citep{halvorsen83,halvorsen;kaplan88}.  But with the increasing interest in Situation Semantics \citep{barwise;perry83} in the 1980s at Stanford University and environs (particularly SRI International and Xerox PARC), the sites of the foundational work on both HPSG and LFG, both frameworks 
+%also became associated with 
+incorporated a Situation Semantics component (on LFG see  \citet{fenstad;ea87}).  
+Interest in the use of Situation Semantics did not last as long in LFG as it did in HPSG, 
+%this association was not foundational, manifesting primarily in the form of \citet{fenstad;ea87}, and soon waned. 
+%In contrast, as noted above, HPSG is a theory of signs and therefore had semantics incorporated into the theory from the outset.  
+%Moreover, the chosen semantic theory was 
+%But in HPSG, 
+where Situation Semantics was
+carried over into the second main HPSG book \citep{ps2} and beyond \citep{ginzburg;sag00}.
 
 Beginning in the nineties, the focus subsequently shifted in new directions due to a new interest in computationally tractable
 theories of the syntax--semantics interface, to support efforts at
@@ -1005,8 +1027,7 @@ linguistic expressions --- including lexical items but possibly also
 particular syntactic configurations --- are associated
 with \term{meaning constructors} of the following form:\footnote{It is
 in principle possible for a linguistic expression to have a phonology
-and syntax but not contribute to interpretation, such as expletive
-pronouns like \word{there} and \word{it} or the \word{do}-support
+and syntax but not contribute to interpretation, such as the expletives \word{there} and \word{it} or the \word{do}-support
 auxiliary in English; see \citet[113]{asudeh-lpr} for some discussion of
 expletive pronouns in the context of \glue.}
 \begin{exe}
@@ -1018,9 +1039,9 @@ which can be anything that supports the lambda calculus; \formula{G} is an
 expression of \term{linear logic} \citep{girard87}, which 
 specifies the semantic composition (it ``glues meanings
 together''), based on a syntactic parse.  By convention a colon separates them. Glue Semantics is related to (Type-Logical) Categorial
-Grammar \citep{carpenter97,morrill94a,morrill11,moortgat97}, but it
-assumes a separate syntactic representation for handling word order,
-so the terms of the linear logic specify just semantic
+Grammar \citep{carpenter97,morrill94a,morrill11,moortgat97}, but 
+%it assumes a separate syntactic representation for handling word order, so 
+the terms of the linear logic specify just semantic
 composition without regard to word order 
 (see \citealt{asudeh-lpr} for further discussion). Glue Semantics is
 therefore useful in helping us focus on semantic composition in its
@@ -1087,7 +1108,7 @@ natural deduction format, in which each connective has an elimination rule (\for
 \end{exe}
 
 \noindent
-Focusing first on the right-hand, linear logic side, the implication elimination rule is just standard modus ponens. The implication introduction rule is hypothetical reasoning. A hypothesis is made in the first line as an assumption, indicated by presenting it in square brackets with an index that flags the particular hypothesis/assumption. Given this hypothesis, if through some series of proof steps, indicated by the vertical ellipsis, we derive a term, then we are entitled to withdraw the assumption, using its flag to indicate that it is this particular assumption that has been withdrawn, and conclude that the hypothesis implies the term so-derived. In each of these rules, the inference over the linear logic term corresponds to an operation on the meaning term, via the Curry-Howard Isomorphism between formulas and types \citep{curry;feys58,curry;feys95,howard80}. The rule for eliminating the linear implication corresponds to functional application. The rule for introducing the linear implication corresponds to functional abstraction. These rules will be seen in action shortly.
+Focusing first on the right-hand, linear logic side, the implication elimination rule is just standard modus ponens. The implication introduction rule is hypothetical reasoning. A hypothesis is made in the first line as an assumption, indicated by presenting it in square brackets with an index that flags the particular hypothesis/assumption. Given this hypothesis, if through some series of proof steps, indicated by the vertical ellipsis, we derive a term, then we are entitled to discharge the assumption, using its flag to indicate that it is this particular assumption that has been discharged, and conclude that the hypothesis implies the term so-derived. In each of these rules, the inference over the linear logic term corresponds to an operation on the meaning term, via the Curry-Howard Isomorphism between formulas and types \citep{curry;feys58,curry;feys95,howard80}. The rule for eliminating the linear implication corresponds to functional application. The rule for introducing the linear implication corresponds to functional abstraction. These rules will be seen in action shortly.
 
 In general, given some head \formula{h} and some arguments of the head
 \formula{a_1, \ldots, a_n}, an implicational term like the following
@@ -1271,8 +1292,6 @@ Note that here, unlike in previous sections, the \feat{pred} value for the verb 
 \feat{pred} values do not list subcategorization at all, in which case the move is not just notational, and that the Principles of Completeness and Coherence instead follow from the resource-sensitivity of Glue Semantics; for some
 discussion, see
 \citet[112--114]{asudeh-lpr}  and \citet[299--301]{dalrymple;ea19}.} % 
-% ASH-HELP: I don't understand this last sentence or how it is relevant here.
-% STEVE: Hope this is better!
  The
 f-structures are named mnemonically by the first character of their
 \feat{pred} value. All other f-structural information has been
@@ -1384,7 +1403,7 @@ The final meaning language expression,
   model theory with generalized quantifiers. 
   
   Notice that the
-  quantifier need not be moved in the syntax, contra QR analyses; see \citealt{Gotham2018} for contrastive discussion. The quantifier is just an
+  quantifier does not move in the syntax, contra QR analyses; see \citealt{Gotham2018} for contrastive discussion. The quantifier is just an
   \feat{obj} in f-structure --- and no special type shifting was
   necessary. This is because the proof rules  allow 
   us to temporarily fill the position of the object quantifier with a
@@ -1502,7 +1521,7 @@ The final meaning language expressions in \exra{sws} and \exra{ows}
    give
   the two possible readings for the scope ambiguity, again assuming  a
   standard model theory with generalized quantifiers. Once more,
-  notice that neither quantifier need be moved in the syntax (again, contra QR analyses)  --- they 
+  notice that neither quantifier moves in the syntax (again, contra QR analyses)  --- they 
   are respectively just a \feat{subj} and an \feat{obj} in
   f-structure. 
 % \inlinetodostefan{Since you are comparing LFG to HPSG here the readers could draw the wrong conclusion
@@ -1533,7 +1552,7 @@ Against the backdrop of a general expressive similarity, we have pointed out a f
 %REVERSE THESE AS NEEDED for lfg.tex:
 \printbibliography[heading=subbibliography,notkeyword=this] 
 %\input lfg-fast-bibliography.tex
-%\bibliography{../bibliographies/stmue,../bibliographies/lfg.bib}
+\bibliography{../bibliographies/stmue,../bibliographies/lfg.bib}
 \let\upashtmp\up
 
 \end{document}
