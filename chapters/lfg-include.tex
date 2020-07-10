@@ -1,4 +1,4 @@
-%% Time-stamp: <2020-07-04 17:40:37 admin>
+%% Time-stamp: <2020-07-09 15:39:16 admin>
 %% -*- coding:utf-8 -*-
 
 % This is the body of the paper. It should compile with latex and xelatex
@@ -21,16 +21,16 @@
 %\if0
 \section{Introduction} 
 \label{intro-sec}
-Head-Driven Phrase Structure Grammar is similar in many respects to its cousin framework, Lexical Functional Grammar or LFG \citep{BATW2016a,dalrymple;ea19}.  Both HPSG and LFG are lexicalist frameworks in the sense that they distinguish between the morphological system that creates words, and the syntax proper that combines those fully inflected words into phrases and sentences.  Both frameworks assume a lexical theory of argument structure (\citealp{MWArgSt}; compare also \crossrefchapteralp{arg-st}) in which verbs and other predicators come equipped with valence structures indicating the kinds of complements that the word is to be combined with.  Both theories treat certain instances of control (equi) and raising as lexical properties of control or raising predicates (on control and raising in HPSG see \crossrefchapterw{control-raising}).  Both systems are historically related to unification grammar \citep{Kay84a-u}, but whereas HPSG captures the effects of unification either as a declarative constraint on shared structures or on path equalities, LFG captures the effects of unification with declarative descriptions that describe two feature values as equal  (see \crossrefchapterw{evolution} on the evolution of HPSG and \crossrefchapterw{formal-background} on underlying formal assumptions). Both frameworks use recursively embedded attribute-value matrices; these structures directly model linguistic expressions in LFG, but are understood in HPSG as grammatical descriptions satisfied by the directed acyclic graphs that model utterances.
+Head-Driven Phrase Structure Grammar is similar in many respects to its cousin framework, Lexical Functional Grammar or LFG \citep{BATW2016a,dalrymple;ea19}.  Both HPSG and LFG are lexicalist frameworks in the sense that they distinguish between the morphological system that creates words, and the syntax proper that combines those fully inflected words into phrases and sentences.  Both frameworks assume a lexical theory of argument structure (\citealp{MWArgSt}; compare also \crossrefchapteralp{arg-st}) in which verbs and other predicators come equipped with valence structures indicating the kinds of complements that the word is to be combined with.  Both theories treat certain instances of control (equi) and raising as lexical properties of control or raising predicates (on control and raising in HPSG see \crossrefchapterw{control-raising}). Both theories allow phonologically empty nodes of the constituent structure, although researchers in both theories tend to avoid them unless they are well-motivated \citep[734--742]{SF94a-unlinked,Berman97a,dalrymple;ea19}. Both frameworks use recursively embedded attribute-value matrices (AVMs). These structures directly model linguistic expressions in LFG, but are understood in HPSG as grammatical descriptions satisfied by the directed acyclic graphs that model utterances. Both frameworks are historically related to unification grammar \citep{Kay84a-u}, but neither framework actually employs a unification operation, which is an operation on feature structures: the unification of two feature structures that contain no mutually inconsistent information yields a feature structure that contains all and only the information in the unified feature structures. Neither HPSG nor LFG employs unification in this strict sense. HPSG captures unification's intuition of mutual consistency of information through the conjunction of descriptions of the relevant structures, where the descriptions are typically captured in some AVM representation of a feature logic (see \crossrefchapterw{evolution} on the evolution of HPSG and \crossrefchapterw{formal-background} on underlying formal assumptions).  LFG captures the same intuition with equations that state that two feature values are equal. It is nevertheless not uncommon for practitioners of HPSG and LFG to informally use the term \qterm{unification} when talking about the resolution of two mutually consistent descriptions of a single structure. 
 %PREVIOUS VERSION:
 %these are themselves the relevant structures in LFG, but are understood as representations of directed acyclic graphs in HPSG.
 %
 %\footnote{For the purpose of this paper, given its goal of exposition of LFG with reference to HPSG, this characterization will do, but it's not strictly true that LFG is a unification-based framework, because unification is really an operation on structures, as in HPSG, whereas the effects of unification in LFG are rather captured by mutually consistent \emph{descriptions} of structures.}   
-Both theories allow phonologically empty nodes of the constituent structure, although researchers in both theories tend to avoid them unless they are well-motivated \citep[734--742]{SF94a-unlinked,Berman97a,dalrymple;ea19}.   
+  
 
 There are also some differences in representational resources, especially in the original formulations of the two frameworks.
 But each framework now exists in many variants, and features that were originally exclusive to one framework can often now be found in some variant of the other.   HPSG's valence lists are ordered, while those of LFG usually are not, but \citet{andrews1999complex} use an ordered list of terms (subject and objects) in LFG.  
-LFG represents grammatical relations in a \textit{functional structure} or f-structure that is autonomous from the constituent structure, while HPSG usually lacks a functional structure, but \citet{Bender2008a} proposes to incorporate one into HPSG.  This chapter explores the utility of various formal devices for the description of natural language grammars, but since those devices are not exclusively intrinsic to one framework, this discussion does not bear on the comparative utility of the frameworks themselves.   
+LFG represents grammatical relations in a \textit{functional structure} or f-structure that is autonomous from the constituent structure, while HPSG usually lacks anything like a functional structure. But \citet{Bender2008a} proposes that \feat{arg-st} be projected from lexical daughters to mothers, which results in something similar to f-structure, since information about arguments is no longer strictly local to the predicate that selects for them. This chapter explores the utility of various formal devices for the description of natural language grammars, but since those devices are not exclusively intrinsic to one framework, this discussion does not bear on the comparative utility of the frameworks themselves.   
 In other words, our comparison of HPSG and LFG is intended to be theoretical and not political.  
 
 
@@ -183,7 +183,7 @@ sm edges without translation
     [\csn{\ensuremath{f_3 =\ f_6}}{V$_{f_6}$}   [roars$_{f_9}$\\
                          {(\ensuremath{f_6} \feat{pred}) $=$ `roar$\langle (\up \feat{subj})  \rangle $'}
                          \\ {(\ensuremath{f_6}\ \feat{tense}) $=$ \feat{pres}}\\
-                  {(\ensuremath{f_6}\ \feat{subj}) $=$ \ensuremath{f9}}\\
+                  {(\ensuremath{f_6}\ \feat{subj}) $=$ \ensuremath{f_9}}\\
                  {(\ensuremath{f_9}\ \feat{pers}) $=$ 3}\\
                   {(\ensuremath{f_9}\ \feat{num}) $=$ \feat{sg}} ]]]]
 \end{forest}
@@ -1552,7 +1552,7 @@ Against the backdrop of a general expressive similarity, we have pointed out a f
 %REVERSE THESE AS NEEDED for lfg.tex:
 \printbibliography[heading=subbibliography,notkeyword=this] 
 %\input lfg-fast-bibliography.tex
-\bibliography{../bibliographies/stmue,../bibliographies/lfg.bib}
+%\bibliography{../bibliographies/stmue,../bibliographies/lfg.bib}
 \let\upashtmp\up
 
 \end{document}
