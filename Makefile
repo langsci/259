@@ -1,6 +1,10 @@
 # specify thh main file and all the files that you are including
-SOURCE=  main.tex $(wildcard local*.tex) $(wildcard chapters/*.tex) $(wildcard Bibliographies/*.bib) \
+Bibliographies=$(wildcard Bibliographies/*.bib) localbibliography.bib 
+
+SOURCE=  main.tex $(wildcard local*.tex) $(wildcard chapters/*.tex) $(Bibliographies) \
 langscibook.cls langsci-unified.bbx langsci-forest-setup.sty
+
+
 
 # MacBook Pro 16" (2019) time make main.pdf  9:40 min  9:14 min                       554 sec
 #                                           16:40 min 16:24 min (ohne Turboboost)     984 sec
@@ -304,7 +308,7 @@ main.aux: $(SOURCE)
 	xelatex -no-pdf main 
 
 #create only the book
-main.bbl:  $(SOURCE) localbibliography.bib  $(wildcard Bibliographies/*.bib)
+main.bbl:  $(SOURCE) 
 	xelatex -no-pdf main 
 	biber main
 
@@ -351,6 +355,10 @@ proofreading: proofreading.pdf
 proofreading.pdf: main.pdf
 	pdftk main.pdf multistamp prstamp.pdf output proofreading.pdf 
 
+references.pdf: references.tex $(Bibliographies)
+	biber --output_format=bibtex main.bcf -O hpsg-handbook-bibliography.bib 
+	biber citeall
+	xelatex citeall
 
 paperhive: 
 	git branch gh-pages
