@@ -355,10 +355,17 @@ proofreading: proofreading.pdf
 proofreading.pdf: main.pdf
 	pdftk main.pdf multistamp prstamp.pdf output proofreading.pdf 
 
-references.pdf: references.tex $(Bibliographies)
-	biber --output_format=bibtex main.bcf -O hpsg-handbook-bibliography.bib 
-	biber citeall
-	xelatex citeall
+# extract all bibtex items and then remove irrelevant fields with --tool
+hpsg-handbook-bibliography.bib: $(Bibliographies)
+	biber --output_format=bibtex --output-field-replace=location:address,journaltitle:journal,date:year main.bcf -O hpsg-handbook-bibliography_tmp.bib 
+	biber --tool --configfile=biber-tool.conf --output-field-replace=location:address,journaltitle:journal,date:year --output-legacy-dates hpsg-handbook-bibliography_tmp.bib -O hpsg-handbook-bibliography.bib
+
+references.pdf: references.tex hpsg-handbook-bibliography.bib
+	xelatex references
+	biber references
+	xelatex references
+
+references: references.pdf
 
 paperhive: 
 	git branch gh-pages
