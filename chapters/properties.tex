@@ -25,28 +25,91 @@
 
 %\epigram{Change epigram in chapters/01.tex or remove it there }
 
-\abstract{Change the  abstract in chapters/01.tex
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec fermentum risus, vehicula gravida magna. Sed dapibus venenatis scelerisque. In elementum dui bibendum, ultricies sem ac, placerat odio. Vivamus rutrum lacus eros, interdum scelerisque est euismod eget. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+\abstract{Head-driven Phrase Structure Grammar (HPSG) is a declarative and monostratal version of generative grammar, in which linguistic expressions have a single relatively simple constituent structure. It seeks to develop detailed formal analyses using a system of types, features, and constraints. Constraints on types of \emph{lexical-sign} are central to the lexicon of a language and constraints on types of \emph{phrase} are at the heart of the syntax, and both lexical and phrasal types include semantic and phonological information. Different versions of the framework have been developed, including versions in which constituent order is a reflection not of constituent structure but of a separate system of order domains and the Sign-Based Construction Grammar version, which make a fundamental distinction between signs of various kinds and the constructions which license them.%
+%
+\footnote{We are grateful to Stefan Müller, Jean-Pierre Koenig, and Frank Richter for many helpful comments on earlier versions of this chapter. We alone are responsible for what appears here.}
 }
 
 \begin{document}
 \maketitle
 \label{chapter-basic-properties}\label{chap-properties}
 
+\inlinetodostefan{footnote from the title had to be moved here bc it created compilation errors}
 \inlinetodostefan{Fix the label for page-hfp \label{page-hfp}}
 
 \section{Introduction} 
-Phasellus maximus erat ligula, accumsan rutrum augue facilisis in. Proin sit amet pharetra nunc, sed maximus erat. Duis egestas mi eget purus venenatis vulputate vel quis nunc. Nullam volutpat facilisis tortor, vitae semper ligula dapibus sit amet. Suspendisse fringilla, quam sed laoreet maximus, ex ex placerat ipsum, porta ultrices mi risus et lectus. Maecenas vitae mauris condimentum justo fringilla sollicitudin. Fusce nec interdum ante. Curabitur tempus dui et orci convallis molestie \citep{Chomsky57a}.
+Head-driven Phrase Structure Grammar (HPSG) dates back to early 1985 when Carl Pollard presented his Lectures on HPSG. It was often seen in the early days as a revised version of the earlier Generalized Phrase Structure Grammar (GPSG) framework \citep{GKPS85a}, but it was also influenced by Categorial Grammar, and, as \citet[1]{ps} emphasized, by other frameworks like Lexical-Functional Grammar (LFG) \citep{Bresnan82a-ed}, as well. Naturally it has changed in various ways over the decades. This is discussed in much more detail in the next chapter (Flickinger et al., this volume, chapter \ref{chap-evolution}), but it makes sense here to distinguish three versions of HPSG. Firstly, there is what might be called early HPSG, the framework presented in \citet{ps} and \citet{ps2}%
+%
+\footnote{As discussed in Richter, this volume, chapter \ref{chap-formal-background}, the approaches that are developed in these two books have rather different formal foundations. However, they propose broadly similar syntactic analyses, and for this reason it seems reasonable to group them together as early HPSG.}.
+%
+This has most of the properties of more recent versions but only exploits the analytic potential of type hierarchies to a limited degree \citep{Flickinger87,FPW85a}. Next there is what is sometimes called Constructional HPSG, the framework adopted in \citet{Sag97a,GSag2000a-u}, and much other work. Unlike earlier work this uses a rich hierarchy of phrase-types. This is why it is called constructional%
+%
+\footnote{As discussed below, HPSG has always assumed a rich hierarchy of lexical types. One might argue, therefore, that it has always been constructional.}.
+%
+Finally, in the 2000s, Sag developed a version of HPSG called \emph{Sign-Based Construction Grammar} (SBCG) \citep{Sag2012a}. The fact that this approach has a new name suggests that it is very different from earlier work, but probably most researchers in HPSG would see it as a version of HPSG, and it was identified as such in \citet[486]{Sag2010b}. Its central feature is the special status it assigns to constructions. In earlier work they are just types of sign, but for SBSG signs and constructions are quite different objects. In spite of this difference, most analyses in Constructional HPSG could probably be translated into SBCG and vice versa. In this chapter we will concentrate on the ideas of Constructional HPSG, which is probably the version of the framework that has been most widely assumed. We will comment briefly on SBCG in the final section.
 
-\citet{Meier2017}
-\ea\label{ex:1:descartes}
-\langinfo{Latin}{}{personal knowledge}\\
-\gll cogit-o ergo sum \\
-     think-1{\SG}.{\PRS}.{\IND} hence exist.1{\SG}.{\PRS}.{\IND}\\
-\glt `I think therefore I am'
+\inlinetodostefan{Add sec refs}
+The chapter is organized as follows. In section 2, we set out the properties that characterize the approach and the assumptions it makes about the nature of linguistic analyses and the conduct of linguistic research. Then, in section 3, we consider the main elements of HPSG analyses: types, features, and constraints. In section 4 we look more closely at the HPSG approach to the lexicon, and in section 5, we outline the basics of the HPSG approach to syntax. In section 6, we look at some further syntactic structures, and in section 7, we consider some further topics, including SBCG. Finally, in section 8, we summarize the chapter.
+
+
+\section{Properties}
+Perhaps the first thing to say about HPSG is that it is a form of generative grammar in the sense of \citet{Chomsky57a}. This means that it seeks to develop precise and explicit analyses of grammatical phenomena. But unlike many versions of generative grammar, it is a declarative or constraint-based approach to grammar, belonging to what \citet{PullumScholz2001} call ‘Model Theoretic syntax’. As such, it assumes that a linguistic analysis involves a set of constraints to which linguistic objects must conform, and that a linguistic object is well-formed if and only if it conforms to all relevant constraints.%
+%
+\footnote{In most HPSG work, all constraints are equal. Hence, there is no possibility as there is in Optimality Theory of violating one if it is the only way to satisfy another more important one \citep{Malouf2003a}. However, see \citealt{MK2000a-cr,OFTM2004a-u} for an HPSG parser with probabilities or weighted constraints.}
+%
+This includes linguistic objects of all kinds – words, phrases, phonological segments, etc. There are no procedures constructing representations such as the phrase structure and transformational rules of classical transformational grammar or the Merge and Agree operations of Minimalism. Of course, speakers and hearers do construct representations and must have procedures that enable them to do so, but this is a matter of performance, and there is no need to think that the knowledge that is used in performance has a procedural character. Rather, the fact that it used in both production and comprehension (and other activities, e.g. translation) suggests that it should be neutral between the two and hence declarative. For further discussion of the issues, see e.g. \citet{PullumScholz2001,Postal2003a} and \citet{SW2011a,SW2015a}.
+
+HPSG is also a monostratal approach, which assumes that linguistic expressions have a single constituent structure. This makes it quite different from transformational grammar, in which an expression can have a number of constituent structures. It means among other things that there is no possibility of saying that an expression occupies one position at one level of structure and another at another. Hence, HPSG has nothing like the movement processes of transformational grammar. The relations that are attributed to movement in transformational work are captured by constraints that require certain features to have the same value. For example, as discussed in section 4\todo{add sec ref}, a raising sentence is one with a verb which has the same value for the feature \textsc{subj(ect)} as its complement and hence combines with whatever kind of subject its complement requires.
+
+HPSG is sometimes described as a concrete approach to syntax. This description refers not only to the fact that it assumes a single constituent structure but also to the fact that this structure is relatively simple, especially compared with the structures that are postulated within Minimalism. Unlike Minimalism, HPSG does not assume that all branching is binary. This inevitably leads to simpler flatter structures. Also unlike Minimalism, it makes limited use of phonologically empty elements. For example, it is not assumed, as in Minimalism, that because some clauses contain a complementizer they all do, an empty one if not an overt one. Similarly, it is not assumed that because some languages like English have determiners, they all do, overt or covert. It is also not generally assumed that null subject sentences, such as (\ref{ex:prop1b}) from Polish, have a phonologically empty subject in their constituent structure. Thus, the constituent structure of the two following sentences are quite different, even if their semantics are similar:
+
+\ea\label{ex:prop1}
+	\ea\label{ex:prop1a}
+	I read a book.
+	\ex\label{ex:prop1b}
+	\gll Czytałem książkę.\\
+	read\textsc{.pst.1sg} book\textsc{.acc}\\
+	\glt ‘I read a book.’
+	\z
 \z
 
-Sed nisi urna, dignissim sit amet posuere ut, luctus ac lectus. Fusce vel ornare nibh. Nullam non sapien in tortor hendrerit suscipit. Etiam sollicitudin nibh ligula. Praesent dictum gravida est eget maximus. Integer in felis id diam sodales accumsan at at turpis. Maecenas dignissim purus non libero scelerisque porttitor. Integer porttitor mauris ac nisi iaculis molestie. Sed nec imperdiet orci. Suspendisse sed fringilla elit, non varius elit. Sed varius nisi magna, at efficitur orci consectetur a. Cras consequat mi dui, et cursus lacus vehicula vitae. Pellentesque sit amet justo sed lectus luctus vehicula. Suspendisse placerat augue eget felis sagittis placerat. 
+It is also assumed in much HPSG work that there are no phonologically empty elements in the constituent structure of an unbounded dependency construction such as the following:
+
+\ea\label{ex:prop2}
+What did you say?
+\z
+
+On this view, the verb \emph{say} in (\ref{ex:prop2}) does not have an empty complement. There is, however, some debate here (\citealp{SF94a,Mueller2004e}; Borsley \& Crysmann, this volume, chapter \ref{sec:UDC:MoreOnGaps}).
+
+{\color{red}
+A further important feature of HPSG is a rejection of the Chomskyan idea that grammatical phenomena can be divided into a core, which merits serious investigation, and a periphery, which can be safely ignored.%
+%
+\footnote{This is not to deny that some constructions are more canonical and more frequent in use than others and that this may be important in various ways.}
+%
+This means that it is not only concerned with such ‘core’ phenomena as \emph{wh}-interrogatives, relative clauses, and passives but also with more ‘peripheral’ phenomena such as the following:
+}
+
+\ea\label{ex:prop3}
+	\ea\label{ex:prop3a}
+	It’s amazing the people you see here.
+	\ex\label{ex:prob3b}
+	The more I read, the more I understand.
+	\ex\label{ex:prop3c}
+	Chris lied his way into the meeting.
+	\z
+\z
+
+These exemplify the nominal extraposition construction \citep{MichaelisLambrecht1996}, the comparative correlative construction \citep{Abeille2006a,AB2008a-u,Borsley2011a-u}, and the \emph{X’s Way} construction \citep[7.4]{KF99a,Sag2012a}. As we will see, HPSG is an approach which is able to accommodate broad linguistic generalizations and highly idiosyncratic facts and everything in between.%
+%
+\footnote{Idioms have also been an important focus of research in HPSG. See e.g. \citealt{RS2009a,KM2019a}, and Sailer, this volume, chapter \ref{chap-idioms}.}
+
+
+Another notable feature of the framework since the earliest work is a concern with semantics as well as syntax. More generally, it does not try to reduce either semantics or morphology to syntax (see Crysmann, this volume, chapter \ref{chap-morphology}, Koenig and Richter, this volume, chapter \ref{chap-semantics}). We will comment further on this in the following sections.
+
+We turn now to some assumptions which are more about the conduct of linguistic research than the nature of linguistic analyses. Firstly, HPSG emphasizes the importance of firm empirical foundations and of detailed formal analyses of the kind advocated by Chomsky in \emph{Syntactic Structures} \citep{Chomsky57a}. Whereas transformational work typically offers sketches of analyses which might be fleshed out one day, HPSG commonly provides detailed analyses which can be set out in an appendix. A notable example is \citet{GSag2000a-u}, which sets out its analysis of English interrogatives in a 50 page appendix. Arguably, one can only be fully confident that a complex analysis works if it is incorporated into a computer implementation. Hence, computer implementations of HPSG analyses are also quite common (see e.g. \citealp{Babel,MuellerCoreGram,Copestake2002a,BDFPS2010a-u,Bender2016}, and Bender and Emerson, this volume, chapter \ref{chap-cl}). 
+	
+
+
 
 
 \begin{table}
@@ -61,6 +124,16 @@ Sed nisi urna, dignissim sit amet posuere ut, luctus ac lectus. Fusce vel ornare
   \lspbottomrule
  \end{tabular}
 \end{table}
+
+\citep{Chomsky57a}.
+
+\citet{Meier2017}
+\ea\label{ex:1:descartes}
+\langinfo{Latin}{}{personal knowledge}\\
+\gll cogit-o ergo sum \\
+think-1{\SG}.{\PRS}.{\IND} hence exist.1{\SG}.{\PRS}.{\IND}\\
+\glt `I think therefore I am'
+\z
 
 
 \is{prolegomena}
