@@ -397,6 +397,8 @@ biosketch.html: blurb.md
 memo-install:
 	cp -pr ~/Documents/Dienstlich/Projekte/memoize/memoize* .
 	cp -pr ~/Documents/Dienstlich/Projekte/memoize/nomemoize* .
+	cp -pr ~/Documents/Dienstlich/Projekte/memoize/xparse-arglist.sty .
+	cp -pr ~/Documents/Dienstlich/Projekte/memoize/memomanager.py .
 
 avm-install:
 	cp -fp ~/Documents/Dienstlich/Projekte/LangSci/Git-HUB/langsci-avm/langsci-avm.sty .
