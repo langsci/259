@@ -115,20 +115,6 @@ Another notable feature of the framework since the earliest work is a concern wi
 
 We turn now to some assumptions which are more about the conduct of linguistic research than the nature of linguistic analyses. Firstly, HPSG emphasizes the importance of firm empirical foundations and of detailed formal analyses of the kind advocated by Chomsky in \emph{Syntactic Structures} \citep{Chomsky57a}. Whereas transformational work typically offers sketches of analyses which might be fleshed out one day, HPSG commonly provides detailed analyses which can be set out in an appendix. A notable example is \citet{GSag2000a-u}, which sets out its analysis of English interrogatives in a 50 page appendix. Arguably, one can only be fully confident that a complex analysis works if it is incorporated into a computer implementation. Hence, computer implementations of HPSG analyses are also quite common (see e.g. \citealp{Babel,MuellerCoreGram,Copestake2002a,BDFPS2010a-u,Bender2016}, and Bender and Emerson, this volume, chapter~\ref{chap-cl}).
 
-
-%\avm{[ \type*{A type spanning a line}
-%attr & [\type{type}] ]}
-
-
-%\avm{
-%	[ ctxt & [ max-qud \\
-%		sal-utt & \{ [ cat \\
-%			cont <ind & i> ] \}
-%			]
-%	]
-%}
-
-
 Another property of the framework is a rejection of abstract analyses with tenuous links to the observable data. As we noted above, phonologically empty elements are only assumed if there is compelling evidence for them.%
 %
 \footnote{There may be compelling evidence for some empty elements in some languages. Thus, \citet[section~8]{Borsley2009a-u}Borsley argues that Welsh has phonologically empty pronouns. For general discussion of empty elements, see \citet[chapter~19.2]{MuellerGT-Eng1-linked}.}
@@ -166,34 +152,109 @@ There are many different kinds of types, but particularly important is the type 
 
 Signs are obviously complex objects with (at least) phonological, syntactic and semantic properties. Hence, the type \emph{sign} must have features that encode these properties. For much work in HPSG, phonological properties are encoded as the value of a feature \textsc{phon(ology)}, whose value is a list of objects of type \emph{phon}, while syntactic and semantic properties are grouped together as the value of a feature \textsc{synsem}, whose value is an object of type \emph{synsem}. (Feature or attributes are written in small caps.) A type has certain features associated with it, and each feature has a value of some kind. A bundle of features can be represented by an attribute"=value"=matrix (AVM) with the type name at the top on the left hand side and the features below followed by their values. Thus, signs can be described as follows:
 
-%\ea\label{ex:prop4}
-%\avm{
-%[\type{sign}\\
-%phon & \normalfont{list(}phon\normalfont{)}\\
-%synsem & synsem]
-%}
-%\z
+
+\ea\label{ex:prop4}
+\avmtmp{
+	[\type*{sign}
+	phon & \upshape list !(\textit{phon})!\\
+	synsem & synsem ]
+}
+\z
+\todo{“list” is in textit in \ref{ex:prop6} tho}
 
 
 The descriptions of specific signs will obviously have specific values for the two features. For example, we might have the following simplified AVM for the phrase \emph{the cat}:
 
-%\ea\label{ex:prop5}
-%\avm{
-%	[\type{phrase}\\
-%	phon & <the,cat>\\
-%	synsem & NP]
-%\z
+\ea\label{ex:prop5}
+\avmtmp{
+	[\type*{phrase}
+	phon & <\upshape the,cat>\\
+	synsem & \upshape NP ]
+}
+\z
 
 
 Here, following a widespread practice, we use standard orthography instead of real \emph{phon} objects%
 %
 \footnote{See Bird \& Klein 1999, Höhle 2018%
 	%
-	\inlinetodostefan{both not given in references, r they not supposed to appear there? What section r the others referring to?}
+	\inlinetodostefan{both not given in references, are they not supposed to appear there? What section are the others referring to?}
 	%
 	and de Kuthy (this volume, section~7), Abeillé and Chaves (this volume, section~7).}%
 %
 , and we use the traditional label NP as an abbreviation for the relevant \emph{synsem} object. We will say more about \emph{synsem} objects shortly. First, however, we must say something about phrases.
+
+A central feature of phrases is that they have internal constituents. More precisely, they have daughters, i.e. immediate constituents, one of which may be the head. This information is encoded by further features, for \citet[29]{GSag2000a-u} the features \textsc{daughters} (\textsc{dtrs}) and \textsc{head-daughter} (\textsc{hd-dtr}). The value of the latter is a \emph{sign}, and the value of the former is a list of \emph{signs}, which includes the value of the latter.%
+%
+\footnote{Some HPSG work, e.g. \citet{Sag97a} has a \textsc{head-daughter} feature and a \textsc{non-head-daughters} feature, and the value of the former is not part of the value of the latter. The sign that is the value of \textsc{hd-dtr} can be a word or a phrase. Within Minimalism, the term ‘head’ is only applied to words. On this usage, the value of \textsc{hd-dtr} is either the head or a phrase containing the head. But there are good reasons for not adopting this usage, for example the fact that the head can be an unheaded phrase for example a coordination (see Abeillé and Chaves, \inlinetodostefan{“chapter” has been lowercase up until now} Chapter~\ref{chap-coordination} of this volume). So we will say that the value of \textsc{hd-dtr} is the head. See \citet[30]{Jackendoff77a} for an early discussion of the term.}
+%
+{\color{red}
+Thus, phrases take the form in (\ref{ex:prop6a}), and headed-phrases the form in (\ref{ex:prop6b}):
+}
+
+\begin{multicols}{2}
+\ea\label{ex:prop6}
+	\ea\label{ex:prop6a}
+	\avmtmp{
+		[\type*{phrase}
+		phon & list!(phon)!\\
+		synsem & synsem\\
+		dtrs & list!(sign)! ]
+	}
+
+\columnbreak
+	
+	\ex\label{ex:prop6b}
+	\avmtmp{
+		[\type*{headed-phrase}
+		phon & list!(phon)!\\
+		synsem & synsem\\
+		dtrs & list!(sign)!\\
+		hd-dtr & sign ]
+	}
+	\z
+\z
+\end{multicols}
+
+To take a concrete example the phrase \emph{the cat} might have the fuller AVM in (\ref{ex:prop7}).
+
+\ea\label{ex:prop7}
+\avmtmp{
+	[\type*{phrase}
+	phon & <\textnormal{the,cat}>\\
+	synsem & \textnormal{NP}\\
+	dtrs &	<[phon & <\textnormal{the}>\\
+			synsem & \textnormal{Det}],
+%			
+			\1 [phon & <\textnormal{cat}>\\
+			synsem & \textnormal{N} ] >\\
+	hd-dtr & \1 ]
+}
+\z
+
+Here the two instances of the tag \avmtmp{\1} indicate that the \emph{synsem} object which is the second member of the \textsc{dtrs} list is also the value of \textsc{hd-dtr}. Thus, the word \emph{cat} is the head of the phrase \emph{the cat}. An object occupying more than one position in a representation, either as a feature value or as part of a feature value, for example \avmtmp{\1} in (\ref{ex:prop7}), is known as re-entrancy or structure-sharing. As we will see below, it is a pervasive feature of HPSG.
+
+Most HPSG work on morphology has assumed a realizational approach, in which there are no morphemes (see Crysmann, this volume, chapter~\ref{chap-morphology}). Hence, words do not have internal structures in the way that phrases do. However, it is widely assumed that lexemes and words that are derived through a lexical rule have the lexeme from which they are derived as a daughter (see Koenig 1999 and below section~4.3).\todo{not in references; add sec ref} Hence, the \textsc{dtrs} feature is relevant to words as well as phrases.
+
+AVMs like (\ref{ex:prop7}) can be quite hard to look at. Hence, it is common to use traditional tree diagrams instead. Thus, we might have a tree-like representation in Figure~\ref{fig:prop2} instead of (\ref{ex:prop7}). But one should bear in mind that AVMs correspond to (rooted) graphs and provide richer descriptions than traditional phrase structure trees, with richer node labels and edge labels, and with shared feature values between nodes. Thus, at each node, all kinds of information are available, not just syntax but also semantics and phonology.%
+%
+\footnote{This differs from Lexical Functional Grammar for instance, which distributes the information between different kinds of structures (see Wechsler and Asudeh, this volume, chapter~\ref{chap-lfg}).}
+%
+
+\begin{figure}
+\begin{forest}
+[NP
+	[Det
+		[the]
+	]
+	[N, edge label={node[midway,right]{\textsc{hd-dtr}}}
+		[cat]
+	]
+]
+\end{forest}
+	
+\caption{A simple tree for \emph{the cat}}\label{fig:prop2}
+\end{figure}
 
 
 
