@@ -25,27 +25,25 @@
 
 %\epigram{Change epigram in chapters/01.tex or remove it there }
 
-\abstract{Head-driven Phrase Structure Grammar (HPSG) is a declarative and monostratal version of generative grammar, in which linguistic expressions have a single relatively simple constituent structure. It seeks to develop detailed formal analyses using a system of types, features, and constraints. Constraints on types of \emph{lexical-sign} are central to the lexicon of a language and constraints on types of \emph{phrase} are at the heart of the syntax, and both lexical and phrasal types include semantic and phonological information. Different versions of the framework have been developed, including versions in which constituent order is a reflection not of constituent structure but of a separate system of order domains and the Sign-Based Construction Grammar version, which make a fundamental distinction between signs of various kinds and the constructions which license them.%
-%
-\footnote{We are grateful to Stefan Müller, Jean-Pierre Koenig, and Frank Richter for many helpful comments on earlier versions of this chapter. We alone are responsible for what appears here.}
-}
+\abstract{Head-driven Phrase Structure Grammar (HPSG) is a declarative and monostratal version of generative grammar, in which linguistic expressions have a single relatively simple constituent structure. It seeks to develop detailed formal analyses using a system of types, features, and constraints. Constraints on types of \emph{lexical-sign} are central to the lexicon of a language and constraints on types of \emph{phrase} are at the heart of the syntax, and both lexical and phrasal types include semantic and phonological information. Different versions of the framework have been developed, including versions in which constituent order is a reflection not of constituent structure but of a separate system of order domains and the Sign-Based Construction Grammar version, which make a fundamental distinction between signs of various kinds and the constructions which license them.}
 
+
+% This chapter was converted from a word submission. Thanks to Elisabeth Eberle.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 \maketitle
 \label{chapter-basic-properties}\label{chap-properties}
 
-\inlinetodostefan{footnote from the title had to be moved here bc it created compilation errors}
-\inlinetodostefan{Fix the label for page-hfp \label{page-hfp}}
-
 
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
-\section{Introduction} 
-Head-driven Phrase Structure Grammar (HPSG) dates back to early 1985 when Carl Pollard presented his Lectures on HPSG. It was often seen in the early days as a revised version of the earlier Generalized Phrase Structure Grammar (GPSG) framework \citep{GKPS85a}, but it was also influenced by Categorial Grammar, and, as \citet[1]{ps} emphasized, by other frameworks like Lexical-Functional Grammar (LFG) \citep{Bresnan82a-ed}, as well. Naturally it has changed in various ways over the decades. This is discussed in much more detail in the next chapter (Flickinger et al., this volume, chapter~\ref{chap-evolution}), but it makes sense here to distinguish three versions of HPSG. Firstly, there is what might be called early HPSG, the framework presented in \citet{ps} and \citet{ps2}%
+\section{Introduction}\label{sec:prop1}
+\label{prop:sec-intro}
+
+Head-driven Phrase Structure Grammar (HPSG) dates back to early 1985 when Carl Pollard presented his Lectures on HPSG. It was often seen in the early days as a revised version of the earlier Generalized Phrase Structure Grammar (GPSG) framework \citep{GKPS85a}, but it was also influenced by Categorial Grammar, and, as \citet[1]{ps} emphasized, by other frameworks like Lexical-Functional Grammar (LFG) \citep{Bresnan82a-ed}, as well. Naturally it has changed in various ways over the decades. This is discussed in much more detail in the next chapter \crossrefchapterp{evolution}, but it makes sense here to distinguish three versions of HPSG. Firstly, there is what might be called early HPSG, the framework presented in \citet{ps} and \citet{ps2}%
 %
-\footnote{As discussed in Richter, this volume, chapter~\ref{chap-formal-background}, the approaches that are developed in these two books have rather different formal foundations. However, they propose broadly similar syntactic analyses, and for this reason it seems reasonable to group them together as early HPSG.}.
+\footnote{As discussed in \crossrefchapterw{formal-background}, the approaches that are developed in these two books have rather different formal foundations. However, they propose broadly similar syntactic analyses, and for this reason it seems reasonable to group them together as early HPSG.}.
 %
 This has most of the properties of more recent versions but only exploits the analytic potential of type hierarchies to a limited degree \citep{Flickinger87,FPW85a}. Next there is what is sometimes called Constructional HPSG, the framework adopted in \citet{Sag97a,GSag2000a-u}, and much other work. Unlike earlier work this uses a rich hierarchy of phrase-types. This is why it is called constructional%
 %
@@ -53,20 +51,21 @@ This has most of the properties of more recent versions but only exploits the an
 %
 Finally, in the 2000s, Sag developed a version of HPSG called \emph{Sign-Based Construction Grammar} (SBCG) \citep{Sag2012a}. The fact that this approach has a new name suggests that it is very different from earlier work, but probably most researchers in HPSG would see it as a version of HPSG, and it was identified as such in \citet[486]{Sag2010b}. Its central feature is the special status it assigns to constructions. In earlier work they are just types of sign, but for SBSG signs and constructions are quite different objects. In spite of this difference, most analyses in Constructional HPSG could probably be translated into SBCG and vice versa. In this chapter we will concentrate on the ideas of Constructional HPSG, which is probably the version of the framework that has been most widely assumed. We will comment briefly on SBCG in the final section.
 
-\inlinetodostefan{Add sec refs}
-The chapter is organized as follows. In section~2, we set out the properties that characterize the approach and the assumptions it makes about the nature of linguistic analyses and the conduct of linguistic research. Then, in section~3, we consider the main elements of HPSG analyses: types, features, and constraints. In section~4 we look more closely at the HPSG approach to the lexicon, and in section~5, we outline the basics of the HPSG approach to syntax. In section~6, we look at some further syntactic structures, and in section~7, we consider some further topics, including SBCG. Finally, in section~8, we summarize the chapter.
+The chapter is organized as follows. In Section~\ref{sec:prop2}, we set out the properties that characterize the approach and the assumptions it makes about the nature of linguistic analyses and the conduct of linguistic research. Then, in Section~\ref{sec:prop3}, we consider the main elements of HPSG analyses: types, features, and constraints. In Section~\ref{sec:prop4} we look more closely at the HPSG approach to the lexicon, and in Section~\ref{sec:prop5}, we outline the basics of the HPSG approach to syntax. In Section~\ref{sec:prop6}, we look at some further syntactic structures, and in Section~\ref{sec:prop7}, we consider some further topics, including SBCG. Finally, in Section~\ref{sec:prop8}, we summarize the chapter.
 
 
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
-\section{Properties}
-Perhaps the first thing to say about HPSG is that it is a form of generative grammar in the sense of \citet{Chomsky57a}. This means that it seeks to develop precise and explicit analyses of grammatical phenomena. But unlike many versions of generative grammar, it is a declarative or constraint-based approach to grammar, belonging to what \citet{PullumScholz2001} call ‘Model Theoretic syntax’. As such, it assumes that a linguistic analysis involves a set of constraints to which linguistic objects must conform, and that a linguistic object is well-formed if and only if it conforms to all relevant constraints.%
-%
-\footnote{In most HPSG work, all constraints are equal. Hence, there is no possibility as there is in Optimality Theory of violating one if it is the only way to satisfy another more important one \citep{Malouf2003a}. However, see \citealt{MK2000a-cr,OFTM2004a-u} for an HPSG parser with probabilities or weighted constraints.}
-%
-This includes linguistic objects of all kinds – words, phrases, phonological segments, etc. There are no procedures constructing representations such as the phrase structure and transformational rules of classical transformational grammar or the Merge and Agree operations of Minimalism. Of course, speakers and hearers do construct representations and must have procedures that enable them to do so, but this is a matter of performance, and there is no need to think that the knowledge that is used in performance has a procedural character. Rather, the fact that it used in both production and comprehension (and other activities, e.g. translation) suggests that it should be neutral between the two and hence declarative. For further discussion of the issues, see e.g. \citet{PullumScholz2001,Postal2003a} and \citet{SW2011a,SW2015a}.
+\section{Properties}\label{sec:prop2}
+\label{prop:sec-properties}
 
-HPSG is also a monostratal approach, which assumes that linguistic expressions have a single constituent structure. This makes it quite different from transformational grammar, in which an expression can have a number of constituent structures. It means among other things that there is no possibility of saying that an expression occupies one position at one level of structure and another at another. Hence, HPSG has nothing like the movement processes of transformational grammar. The relations that are attributed to movement in transformational work are captured by constraints that require certain features to have the same value. For example, as discussed in section~4\todosatz{add sec ref}, a raising sentence is one with a verb which has the same value for the feature \textsc{subj(ect)} as its complement and hence combines with whatever kind of subject its complement requires.
+Perhaps the first thing to say about HPSG is that it is a form of generative grammar in the sense of \citet{Chomsky57a}. This means that it seeks to develop precise and explicit analyses of grammatical phenomena. But unlike many versions of generative grammar, it is a declarative or constraint-based approach to grammar, belonging to what \citet{PS2001a} call ``Model Theoretic Syntax''. As such, it assumes that a linguistic analysis involves a set of constraints to which linguistic objects must conform, and that a linguistic object is well-formed if and only if it conforms to all relevant constraints.%
+%
+\footnote{In most HPSG work, all constraints are equal. Hence, there is no possibility as there is in Optimality Theory of violating one if it is the only way to satisfy another more important one \citep{Malouf2003a}. However, see \citew{MK2000a} and \citew{OFTM2004a-u} for an HPSG parser with probabilities or weighted constraints.}
+%
+This includes linguistic objects of all kinds – words, phrases, phonological segments, etc. There are no procedures constructing representations such as the phrase structure and transformational rules of classical transformational grammar or the Merge and Agree operations of Minimalism. Of course, speakers and hearers do construct representations and must have procedures that enable them to do so, but this is a matter of performance, and there is no need to think that the knowledge that is used in performance has a procedural character. Rather, the fact that it used in both production and comprehension (and other activities, e.g. translation) suggests that it should be neutral between the two and hence declarative. For further discussion of the issues, see e.g. \citet{PS2001a}, \citet{Postal2003a} and \citet{SW2011a,SW2015a}.
+
+HPSG is also a monostratal approach, which assumes that linguistic expressions have a single constituent structure. This makes it quite different from transformational grammar, in which an expression can have a number of constituent structures. It means among other things that there is no possibility of saying that an expression occupies one position at one level of structure and another at another. Hence, HPSG has nothing like the movement processes of transformational grammar. The relations that are attributed to movement in transformational work are captured by constraints that require certain features to have the same value. For example, as discussed in Section~\ref{prop:sec-lexicon}, a raising sentence is one with a verb which has the same value for the feature \textsc{subj(ect)} as its complement and hence combines with whatever kind of subject its complement requires.
 
 HPSG is sometimes described as a concrete approach to syntax. This description refers not only to the fact that it assumes a single constituent structure but also to the fact that this structure is relatively simple, especially compared with the structures that are postulated within Minimalism. Unlike Minimalism, HPSG does not assume that all branching is binary. This inevitably leads to simpler flatter structures. Also unlike Minimalism, it makes limited use of phonologically empty elements. For example, it is not assumed, as in Minimalism, that because some clauses contain a complementizer they all do, an empty one if not an overt one. Similarly, it is not assumed that because some languages like English have determiners, they all do, overt or covert. It is also not generally assumed that null subject sentences, such as (\ref{ex:prop1b}) from Polish, have a phonologically empty subject in their constituent structure. Thus, the constituent structure of the two following sentences are quite different, even if their semantics are similar:
 
@@ -76,7 +75,7 @@ HPSG is sometimes described as a concrete approach to syntax. This description r
 	\ex\label{ex:prop1b}
 	\gll Czytałem książkę.\\
 	read\textsc{.pst.1sg} book\textsc{.acc}\\
-	\glt ‘I read a book.’
+	\glt `I read a book.'
 	\z
 \z
 
@@ -86,15 +85,14 @@ It is also assumed in much HPSG work that there are no phonologically empty elem
 What did you say?
 \z
 
-On this view, the verb \emph{say} in (\ref{ex:prop2}) does not have an empty complement. There is, however, some debate here (\citealp{SF94a,Mueller2004e}; Borsley \& Crysmann, this volume, chapter~\ref{sec:UDC:MoreOnGaps}).
+On this view, the verb \emph{say} in (\ref{ex:prop2}) does not have an empty complement. There is, however, some debate here (\citealp{SF94a,Mueller2004e}; \crossrefchapteralt[Section~\ref{sec:UDC:MoreOnGaps}]{udc}).
 
-{\color{red}
 A further important feature of HPSG is a rejection of the Chomskyan idea that grammatical phenomena can be divided into a core, which merits serious investigation, and a periphery, which can be safely ignored.%
 %
 \footnote{This is not to deny that some constructions are more canonical and more frequent in use than others and that this may be important in various ways.}
 %
-This means that it is not only concerned with such ‘core’ phenomena as \emph{wh}-interrogatives, relative clauses, and passives but also with more ‘peripheral’ phenomena such as the following:
-}
+This means that it is not only concerned with such ``core'' phenomena as \emph{wh}-interrogatives, relative clauses, and passives but also with more ``peripheral'' phenomena such as the following:
+
 
 \ea\label{ex:prop3}
 	\ea\label{ex:prop3a}
@@ -106,36 +104,38 @@ This means that it is not only concerned with such ‘core’ phenomena as \emph
 	\z
 \z
 
-These exemplify the nominal extraposition construction \citep{MichaelisLambrecht1996}, the comparative correlative construction \citep{Abeille2006a,AB2008a-u,Borsley2011a-u}, and the \emph{X’s Way} construction \citep[7.4]{KF99a,Sag2012a}. As we will see, HPSG is an approach which is able to accommodate broad linguistic generalizations and highly idiosyncratic facts and everything in between.%
+These exemplify the nominal extraposition construction \citep{ML96a}, the comparative correlative construction \citep{Abeille2006a,AB2008a-u,Borsley2011a-u}, and the \emph{X’s Way} construction \citep[7.4]{KF99a,Sag2012a}. As we will see, HPSG is an approach which is able to accommodate broad linguistic generalizations and highly idiosyncratic facts and everything in between.%
 %
-\footnote{Idioms have also been an important focus of research in HPSG. See e.g. \citealt{RS2009a,KM2019a}, and Sailer, this volume, chapter~\ref{chap-idioms}.}
+\footnote{Idioms have also been an important focus of research in HPSG. See e.g. \citew{RS2009a}, \citew{KM2019a}, and \crossrefchaptert{idioms}.}
 %
 
-Another notable feature of the framework since the earliest work is a concern with semantics as well as syntax. More generally, it does not try to reduce either semantics or morphology to syntax (see Crysmann, this volume, chapter~\ref{chap-morphology}, Koenig and Richter, this volume, chapter~\ref{chap-semantics}). We will comment further on this in the following sections.
+Another notable feature of the framework since the earliest work is a concern with semantics as well as syntax. More generally, it does not try to reduce either semantics or morphology to syntax (see \crossrefchapteralt{morphology}, \crossrefchapteralt{semantics}). We will comment further on this in the following sections.
 
-We turn now to some assumptions which are more about the conduct of linguistic research than the nature of linguistic analyses. Firstly, HPSG emphasizes the importance of firm empirical foundations and of detailed formal analyses of the kind advocated by Chomsky in \emph{Syntactic Structures} \citep{Chomsky57a}. Whereas transformational work typically offers sketches of analyses which might be fleshed out one day, HPSG commonly provides detailed analyses which can be set out in an appendix. A notable example is \citet{GSag2000a-u}, which sets out its analysis of English interrogatives in a 50 page appendix. Arguably, one can only be fully confident that a complex analysis works if it is incorporated into a computer implementation. Hence, computer implementations of HPSG analyses are also quite common (see e.g. \citealp{Babel,MuellerCoreGram,Copestake2002a,BDFPS2010a-u,Bender2016}, and Bender and Emerson, this volume, chapter~\ref{chap-cl}).
+We turn now to some assumptions which are more about the conduct of linguistic research than the nature of linguistic analyses. Firstly, HPSG emphasizes the importance of firm empirical foundations and of detailed formal analyses of the kind advocated by Chomsky in \emph{Syntactic Structures} \citep{Chomsky57a}. Whereas transformational work typically offers sketches of analyses which might be fleshed out one day, HPSG commonly provides detailed analyses which can be set out in an appendix. A notable example is \citet{GSag2000a-u}, which sets out its analysis of English interrogatives in a 50 page appendix. Arguably, one can only be fully confident that a complex analysis works if it is incorporated into a computer implementation. Hence, computer implementations of HPSG analyses are also quite common (see e.g. \citealp{Babel,MuellerCoreGram,Copestake2002a,BDFPS2010a-u,Bender2016}, and \crossrefchapteralp{cl}).
 
 Another property of the framework is a rejection of abstract analyses with tenuous links to the observable data. As we noted above, phonologically empty elements are only assumed if there is compelling evidence for them.%
 %
-\footnote{There may be compelling evidence for some empty elements in some languages. Thus, \citet[section~8]{Borsley2009a-u}Borsley argues that Welsh has phonologically empty pronouns. For general discussion of empty elements, see \citet[chapter~19.2]{MuellerGT-Eng1-linked}.}
+\footnote{There may be compelling evidence for some empty elements in some languages. Thus, \citet[Section~8]{Borsley2009a-u} argues that \ili{Welsh} has phonologically empty pronouns. For general discussion of empty elements, see \citet[Chapter~19.2]{MuellerGT-Eng1}.}
 %
-Similarly, overt elements are only assumed to have properties for which there is clear evidence. For example, words are only assumed to have case or agreement features if there is some concrete morphological evidence for them, as in Polish, illustrated in (\ref{ex:prop1b}). This feature of HPSG stems largely from considerations about acquisition (\citealt[chapter~19]{MuellerGT-Eng1-linked}; Ginzburg this volume, Borsley and Müller, this volume, chapter~\ref{sec-acquisition-minimalism}). Every element or property which is postulated for which there is no clear evidence in the data increases the complexity of the acquisition task and hence necessitates more complex innate machinery. This suggests that such elements and properties should be avoided as much as possible. It has important implications both for the analysis of individual languages and for how differences between languages are viewed.
+Similarly, overt elements are only assumed to have properties for which there is clear evidence. For example, words are only assumed to have case or agreement features if there is some concrete morphological evidence for them, as in Polish, illustrated in (\ref{ex:prop1b}). This feature of HPSG stems largely from considerations about acquisition (\citealt[Chapter~19]{MuellerGT-Eng1}; %\crossrefchaptert{acquisition}; 
+\crossrefchaptert[Section~\ref{sec-acquisition-minimalism}]{minimalism}). Every element or property which is postulated for which there is no clear evidence in the data increases the complexity of the acquisition task and hence necessitates more complex innate machinery. This suggests that such elements and properties should be avoided as much as possible. It has important implications both for the analysis of individual languages and for how differences between languages are viewed.
 	
-A related property of the framework is a rejection of the idea that it is reasonable to assume that a language has some element or property if some other languages do. Many languages have case and many languages have agreement, but for HPSG it does not follow that they all do. As \citet[25]{MuellerCoreGram} puts it, “Grammars should be motivated on a language-specific basis.” Does this mean that other languages are irrelevant when one investigates a specific language? Clearly not. As Müller also puts it, “In situations where more than one analysis would be compatible with a given dataset for language X, the evidence from language Y with similar constructs is most welcome and can be used as evidence in favour of one of the two analyses for language X.” (\citeyear[43]{MuellerCoreGram})
+A related property of the framework is a rejection of the idea that it is reasonable to assume that a language has some element or property if some other languages do. Many languages have case and many languages have agreement, but for HPSG it does not follow that they all do. As \citet[25]{MuellerCoreGram} puts it, “Grammars should be motivated on a language-specific basis.” Does this mean that other languages are irrelevant when one investigates a specific language? Clearly not. As Müller also puts it, “In situations where more than one analysis would be compatible with a given dataset for language X, the evidence from language Y with similar constructs is most welcome and can be used as evidence in favour of one of the two analyses for language X.” \citep[43]{MuellerCoreGram}
 
 
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
-\section{Elements}
+\section{Elements}\label{sec:prop3}
+\label{prop:sec-elements}
 
 For HPSG, a linguistic analysis is a system of types (or sorts), features, and constraints. Types provide a complex classification of linguistic objects, features identify their basic properties, and constraints impose further restrictions. In this section, we will explain these three elements. We note at the outset that HPSG distinguishes between the linguistic objects (lexemes, words phrases, etc.) and descriptions of such objects. Linguistic objects must have all relevant properties of their description and cannot be underspecified in any way. Descriptions in contrast can be underspecified and in fact always are.
 
-There are many different kinds of types, but particularly important is the type sign and its various subtypes. For \citet[19]{GSag2000a-u}, this type has the subtypes lexical-sign and phrase, and lexical-sign has the subtypes lexeme and word. (Types are written in lower case italics.) Thus, we have the following type hierarchy in Figure~\ref{fig:prop1}.
+There are many different kinds of types, but particularly important is the type sign and its various subtypes. For \citet[19]{GSag2000a-u}, this type has the subtypes lexical-sign and phrase, and lexical-sign has the subtypes lexeme and word. (Types are written in lower case italics.) Thus, we have the type hierarchy in Figure~\ref{fig:prop1}.
 
 
-\begin{figure}[h!]
-	\itshape
+\begin{figure}
 \begin{forest}
+type hierarchy
 [sign
 	[lexical-sign
 		[lexeme]
@@ -157,11 +157,10 @@ Signs are obviously complex objects with (at least) phonological, syntactic and 
 \ea\label{ex:prop4}
 \avmtmp{
 	[\type*{sign}
-	phon & \upshape list !(\textit{phon})!\\
+	phon & \list*(phon)\\
 	synsem & synsem ]
 }
 \z
-\todosatz{“list” is in textit in \ref{ex:prop6} tho}
 
 
 The descriptions of specific signs will obviously have specific values for the two features. For example, we might have the following simplified AVM for the phrase \emph{the cat}:
@@ -169,38 +168,33 @@ The descriptions of specific signs will obviously have specific values for the t
 \ea\label{ex:prop5}
 \avmtmp{
 	[\type*{phrase}
-	phon & <\upshape the,cat>\\
+	\phon  < the, cat >\\
 	synsem & \upshape NP ]
 }
 \z
 
 
-Here, following a widespread practice, we use standard orthography instead of real \emph{phon} objects%
-%
-\footnote{See Bird \& Klein 1999, Höhle 2018%
-	%
-	\inlinetodostefan{both not given in references, are they not supposed to appear there? What section are the others referring to?}
-	%
-	and de Kuthy (this volume, section~7), Abeillé and Chaves (this volume, section~7).}%
-%
-, and we use the traditional label NP as an abbreviation for the relevant \emph{synsem} object. We will say more about \emph{synsem} objects shortly. First, however, we must say something about phrases.
+Here, following a widespread practice, we use standard orthography instead of real \emph{phon}
+objects\footnote{%
+See \citet{BK94b}, \citet{Hoehle99a-u} and \crossrefchaptert{information-structure}, \crossrefchaptert{coordination}.
+\inlinetodostefan{Stefan: Why is information structure and coordination relevant to PHON?}
+},
+and we use the traditional label NP as an abbreviation for the relevant \emph{synsem} object. We will say more about \emph{synsem} objects shortly. First, however, we must say something about phrases.
 
 A central feature of phrases is that they have internal constituents. More precisely, they have daughters, i.e. immediate constituents, one of which may be the head. This information is encoded by further features, for \citet[29]{GSag2000a-u} the features \textsc{daughters} (\textsc{dtrs}) and \textsc{head-daughter} (\textsc{hd-dtr}). The value of the latter is a \emph{sign}, and the value of the former is a list of \emph{signs}, which includes the value of the latter.%
 %
-\footnote{Some HPSG work, e.g. \citet{Sag97a} has a \textsc{head-daughter} feature and a \textsc{non-head-daughters} feature, and the value of the former is not part of the value of the latter. The sign that is the value of \textsc{hd-dtr} can be a word or a phrase. Within Minimalism, the term ‘head’ is only applied to words. On this usage, the value of \textsc{hd-dtr} is either the head or a phrase containing the head. But there are good reasons for not adopting this usage, for example the fact that the head can be an unheaded phrase for example a coordination (see Abeillé and Chaves, \inlinetodostefan{“chapter” has been lowercase up until now} Chapter~\ref{chap-coordination} of this volume). So we will say that the value of \textsc{hd-dtr} is the head. See \citet[30]{Jackendoff77a} for an early discussion of the term.}
+\footnote{Some HPSG work, e.g. \citet{Sag97a} has a \textsc{head-daughter} feature and a \textsc{non-head-daughters} feature, and the value of the former is not part of the value of the latter. The sign that is the value of \textsc{hd-dtr} can be a word or a phrase. Within Minimalism, the term \term{head} is only applied to words. On this usage, the value of \textsc{hd-dtr} is either the head or a phrase containing the head. But there are good reasons for not adopting this usage, for example the fact that the head can be an unheaded phrase for example a coordination (see \crossrefchapteralp{coordination}). So we will say that the value of \textsc{hd-dtr} is the head. See \citet[30]{Jackendoff77a} for an early discussion of the term.}
 %
-{\color{red}
 Thus, phrases take the form in (\ref{ex:prop6a}), and headed-phrases the form in (\ref{ex:prop6b}):
-}
 
 \begin{multicols}{2}
 \ea\label{ex:prop6}
 	\ea\label{ex:prop6a}
 	\avmtmp{
 		[\type*{phrase}
-		phon & list!(phon)!\\
+		phon & \list*(phon)\\
 		synsem & synsem\\
-		dtrs & list!(sign)! ]
+		dtrs & \list*(sign) ]
 	}
 
 \columnbreak
@@ -208,9 +202,9 @@ Thus, phrases take the form in (\ref{ex:prop6a}), and headed-phrases the form in
 	\ex\label{ex:prop6b}
 	\avmtmp{
 		[\type*{headed-phrase}
-		phon & list!(phon)!\\
+		phon & \list*(phon)\\
 		synsem & synsem\\
-		dtrs & list!(sign)!\\
+		dtrs & \list*(sign)\\
 		hd-dtr & sign ]
 	}
 	\z
@@ -222,33 +216,34 @@ To take a concrete example the phrase \emph{the cat} might have the fuller AVM i
 \ea\label{ex:prop7}
 \avmtmp{
 	[\type*{phrase}
-	phon & <\textnormal{the,cat}>\\
+	\phon  < the, cat >\\
 	synsem & \textnormal{NP}\\
-	dtrs &	<[phon & <\textnormal{the}>\\
-			synsem & \textnormal{Det}],
+	dtrs &	<[ \phon  < the >\\
+	           synsem & \textnormal{Det}],
 %			
-			\1 [phon & <\textnormal{cat}>\\
+			\1 [\phon  < cat >\\
 			synsem & \textnormal{N} ] >\\
 	hd-dtr & \1 ]
 }
 \z
 
-Here the two instances of the tag \avmtmp{\1} indicate that the \emph{synsem} object which is the second member of the \textsc{dtrs} list is also the value of \textsc{hd-dtr}. Thus, the word \emph{cat} is the head of the phrase \emph{the cat}. An object occupying more than one position in a representation, either as a feature value or as part of a feature value, for example \avmtmp{\1} in (\ref{ex:prop7}), is known as re-entrancy or structure-sharing. As we will see below, it is a pervasive feature of HPSG.
+Here the two instances of the tag \ibox{1} indicate that the \emph{synsem} object which is the second member of the \textsc{dtrs} list is also the value of \textsc{hd-dtr}. Thus, the word \emph{cat} is the head of the phrase \emph{the cat}. An object occupying more than one position in a representation, either as a feature value or as part of a feature value (a member of a list or set), for example \ibox{1} in (\ref{ex:prop7}), is known as re-entrancy or structure-sharing. As we will see below, it is a pervasive feature of HPSG.
 
-Most HPSG work on morphology has assumed a realizational approach, in which there are no morphemes (see Crysmann, this volume, chapter~\ref{chap-morphology}). Hence, words do not have internal structures in the way that phrases do. However, it is widely assumed that lexemes and words that are derived through a lexical rule have the lexeme from which they are derived as a daughter (see Koenig 1999 and below section~4.3).\todosatz{not in references; add sec ref} Hence, the \textsc{dtrs} feature is relevant to words as well as phrases.
+Most HPSG work on morphology has assumed a realizational approach, in which there are no morphemes (see \crossrefchapteralp{morphology}). Hence, words do not have internal structures in the way that phrases do. However, it is widely assumed that lexemes and words that are derived through a lexical rule have the lexeme from which they are derived as a daughter (see \citew{Koenig99a} and below Section~\ref{prop:sec-lex-rules}). Hence, the \textsc{dtrs} feature is relevant to words as well as phrases.
 
 AVMs like (\ref{ex:prop7}) can be quite hard to look at. Hence, it is common to use traditional tree diagrams instead. Thus, we might have a tree-like representation in Figure~\ref{fig:prop2} instead of (\ref{ex:prop7}). But one should bear in mind that AVMs correspond to (rooted) graphs and provide richer descriptions than traditional phrase structure trees, with richer node labels and edge labels, and with shared feature values between nodes. Thus, at each node, all kinds of information are available, not just syntax but also semantics and phonology.%
 %
-\footnote{This differs from Lexical Functional Grammar for instance, which distributes the information between different kinds of structures (see Wechsler and Asudeh, this volume, chapter~\ref{chap-lfg}).}
+\footnote{This differs from Lexical Functional Grammar for instance, which distributes the information between different kinds of structures (see \crossrefchapteralp{lfg}).}
 %
 
-\begin{figure}[h!]
+\begin{figure}
 \begin{forest}
+sm edges
 [NP
 	[Det
 		[the]
 	]
-	[N, edge label={node[midway,right]{\textsc{hd-dtr}}}
+	[N, edge label={node[midway,right]{~\textsc{hd-dtr}}}
 		[cat]
 	]
 ]
@@ -259,34 +254,34 @@ AVMs like (\ref{ex:prop7}) can be quite hard to look at. Hence, it is common to 
 
 If the head is either obvious or unimportant, the \textsc{hd-dtr} annotation might be omitted. This is a convenient informal notation, but it is important to remember that it is just that and has no status within the theory.
 
-We return now to \emph{synsem} objects. Standardly these have two features: \textsc{local}, whose value is a \emph{local} object and \textsc{nonlocal}, which we will deal with in section~5.\todosatz{add sec ref} A \emph{local} object has the features \textsc{cat(egory)} and \textsc{cont(ent)}, whose values are objects of type \emph{category} and \emph{content}, respectively, and the feature \textsc{context}.%
+We return now to \emph{synsem} objects. Standardly these have two features: \textsc{local}, whose value is a \emph{local} object and \textsc{nonlocal}, which we will deal with in Section~\ref{prop:sec-syntax}. A \emph{local} object has the features \textsc{cat(egory)} and \textsc{cont(ent)}, whose values are objects of type \emph{category} and \emph{content}, respectively, and the feature \textsc{context}.%
 %
-\footnote{Words also have a \textsc{morph} attribute that we ignore here (see Crysmann, this volume, chapter~\ref{chap-morphology}).}
+\footnote{Words also have a \textsc{morph} attribute that we ignore here (see \crossrefchapteralp{morphology}).}
 %
 In much work, a \emph{category} object has the features, \textsc{head}, \textsc{subj} and \textsc{comp(lement)s}. \textsc{head} takes as its value a \emph{part-of-speech} object, while \textsc{subj} and \textsc{comps} have a list of \emph{synsem} objects as their value. The former indicates what sort of subject a sign requires and the latter indicates what complements it takes. In both cases the value is the empty list if nothing is required.  It is generally assumed that the \textsc{subj} list never has more than one member. \textsc{subj} and \textsc{comps} are often called \emph{valence} features. Thus, the following AVM provides a fuller representation of signs:
 
 \ea\label{ex:prop8}
 \avmtmp{
 	[\type*{sign}
-	phon & list!(phon)!\\
+	phon & \list*(phon)\\
 	synsem &	[\type*{synsem}
 				local &	[\type*{local}
 						category &	[\type*{category}
 									head & part-of-speech\\
-									subj & list!(synsem)!\\
-									comps & list!(synsem)!]\\
+									subj & \list*(synsem)\\
+									comps & \list*(synsem)]\\
 						content\\
 						context]\\
-				nonlocal\ldots]
+				nonlocal \ldots]
 	]
 }
 \z
 
-The type \emph{part-of-speech} has subtypes such as \emph{noun}, \emph{verb}, and \emph{adjective}. In other words, we have a type hierarchy of the following form:
+The type \emph{part-of-speech} has subtypes such as \emph{noun}, \emph{verb}, and \emph{adjective}. In other words, we have a type hierarchy of the form given in Figure~\ref{fig:prop3}.
 
-\begin{figure}[h!]
-	\itshape
+\begin{figure}
 \begin{forest}
+type hierarchy
 [part-of-speech
 	[noun]
 	[verb]
@@ -299,7 +294,7 @@ The type \emph{part-of-speech} has subtypes such as \emph{noun}, \emph{verb}, an
 
 The type hierarchy can be viewed as an ontology of possible objects in the language. A particular word or phrase must instantiate one of the maximal (most specific) types and have the properties specified for it and all its supertypes.%
 %
-\footnote{AVMs associated with types used to be combined by type unification \citep{ps}. See Richter, this volume, chapter~\ref{chap-introduction}.}
+\footnote{AVMs associated with types used to be combined by type unification \citep{ps}.\inlineaddpages See \crossrefchaptert{formal-background}.}
 %
 We might have a \emph{synsem} object of the following form for the phrase \emph{the cat}:
 
@@ -325,46 +320,47 @@ Rather different from most of the features mentioned above are fairly traditiona
 %
 There are also Boolean features with + and – as their values. An example is \textsc{aux} used to distinguish auxiliary verbs ([\textsc{aux}~+]) from non-auxiliary verbs ([\textsc{aux}~–]).%
 %
-\footnote{In some recent work, e.g. \citet[157--162]{Sag2012a}, \citet{Sag2020a}, the feature is used to distinguish positions that only allow an auxiliary from positions that allow any verb. Within this approach auxiliaries (except support do) are unspecified for \textsc{aux} since they may appear in both [\textsc{aux}~+] and [\textsc{aux}~–] constructions. Non-auxiliary verbs are [\textsc{aux}~–], see Abeillé, this volume, chapter~\ref{chap-control-raising}.}
+\footnote{In some recent work, e.g. \citet[157--162]{Sag2012a}, \citet{Sag2020a}, the feature is used to distinguish positions that only allow an auxiliary from positions that allow any verb. Within this approach auxiliaries (except support do) are unspecified for \textsc{aux} since they may appear in both [\textsc{aux}~+] and [\textsc{aux}~–] constructions. Non-auxiliary verbs are [\textsc{aux}~–], see \crossrefchaptert{control-raising}.}
 %
 
 As the preceding makes clear, features in HPSG can have a number of kinds of value. They may have an atomic type (\textsc{person, number, gender, case, aux}), a feature structure (\textsc{synsem, local, category}, etc.), or a list of some kind (\textsc{subj, comps}).%
 %
 \footnote{A list can be analysed as a type of feature structure with the features \textsc{first} and \textsc{rest}, where the value of \textsc{first} is the first element of the list.}
 %
-As we will see in section~5\todosatz{add sec ref}, HPSG also assumes features with a set as their value.
+As we will see in Section~\ref{sec:prop5}, HPSG also assumes features with a set as their value.
 
-The \textsc{content} feature, whose value is a \emph{content} object, highlights the importance of semantics within HPSG. But what exactly is a \emph{content} object? Different views of semantics have been taken within the HPSG literature. Much HPSG work has assumed some version of Situation Semantics \citep{BP83a}. But some work has employed so-called Minimal Recursion Semantics \citep{CFPS2005a}, while some others use Logical Resource Semantics \citep{RichterandSailer2001}\todosatz{ref from hpsg-handbook-bibliography.bib!}. \citet[501]{Sag2010b} adopts a conventional, Montague-style possible-worlds semantics in his analysis of English filler-gap constructions and SBCG (section~7.2)\todosatz{add secref} has generally employed a version of Frame Semantics. See Koenig and Richter, this volume, chapter~\ref{chap-semantics} for a discussion of the issues.
+The \textsc{content} feature, whose value is a \emph{content} object, highlights the importance of semantics within HPSG. But what exactly is a \emph{content} object? Different views of semantics have been taken within the HPSG literature. Much HPSG work has assumed some version of Situation Semantics \citep{BP83a}. But some work has employed so-called Minimal Recursion Semantics \citep{CFPS2005a}, while some others use Lexical Resource Semantics \citep{RS2004a-u}\todostefan{Stefan: Ref ok?}. \citet[501]{Sag2010b} adopts a conventional, Montague-style possible-worlds semantics in his analysis of English filler-gap constructions and SBCG (Section~\ref{sec:prop7.2}) has generally employed a version of Frame Semantics. See \crossrefchaptert{semantics} for a discussion of the issues.
 
-Finally, the \textsc{context} feature is used for information structure, deixis, and more generally pragmatics (see de Kuthy, this volume, chapter~\ref{chap-information-structure}).
+Finally, the \textsc{context} feature is used for information structure, deixis, and more generally pragmatics (see \crossrefchapteralp{information-structure}).
 
 We will say more about types and features in the following sections. We turn now to constraints. These are implicational statements, saying that if a linguistic object has some property or properties then it must have some other property or properties. They take the following form:%
 %
-\footnote{The double-shafted arrow ($\Rightarrow$) is used in constraints, and a single shafted arrow |$\rightarrow$ in lexical rules.}
+\footnote{The double-shafted arrow (\impl) is used in constraints, and a single shafted arrow $\mapsto$ in lexical rules.}
 %
 
 \ea\label{ex:prop10}
-X $\Rightarrow$ Y
+X \impl Y
 \z
 
-Commonly X is a type and Y a feature description, and this is the case in all the constraints that we discuss below. However, X may also be a feature description with or without an associated type. This is necessary, for example, in the constraints that constitute binding theory. See Müller and Branco, this volume, chapter~\ref{chap-binding}. Here is a very simple constraint:
+Commonly X is a type and Y a feature description, and this is the case in all the constraints that we discuss below. However, X may also be a feature description with or without an associated type. This is necessary, for example, in the constraints that constitute binding theory. See \crossrefchapterw{binding}. Here is a very simple constraint:
 
 \ea\label{ex:prop11}
-\emph{phrase} $\Rightarrow$ [\textsc{comps} $\langle \rangle$]
+\emph{phrase} \impl [\textsc{comps} $\langle \rangle$]
 \z
 
 This says that a phrase has the empty list ($\langle \rangle$) as the value of the \textsc{comps} feature, which means that it does not require any complements.%
 %
-\footnote{The constraint in (\ref{ex:prop11}) is plausible for English, but it is too strong for some languages, especially for languages with complex predicates or partial VPs (see Godard and Samvelian, this volume, chapter~1),\inlinetodostefan{what ch is this actually referring to??} \textcolor{red}{and also for SOV languages if they are analysed in terms of binary branching (see Müller, this volume, chapter~\ref{chap-order}).}}
+\footnote{The constraint in (\ref{ex:prop11}) is plausible for English, but it is too strong for some languages, especially for languages with complex predicates or partial VPs (see \crossrefchapteralp{complex-predicates}), and also for SOV languages if they are analysed in terms of binary branching (see \crossrefchapteralp{order}).}
 %
-As we will see below, most constraints are more complex than (\ref{ex:prop11}) and impose a number of restrictions on certain objects. For this reason, one might speak of a set of constraints. However, we will continue to use the term constraint for objects of the form in (\ref{ex:prop10}), no matter how many restrictions are imposed. Particularly important are constraints dealing with internal structure of various types of phrase. We will consider some constraints of this kind in section~5.\todosatz{add secref}
+As we will see below, most constraints are more complex than (\ref{ex:prop11}) and impose a number of restrictions on certain objects. For this reason, one might speak of a set of constraints. However, we will continue to use the term constraint for objects of the form in (\ref{ex:prop10}), no matter how many restrictions are imposed. Particularly important are constraints dealing with internal structure of various types of phrase. We will consider some constraints of this kind in Section~\ref{sec:prop5}.
 
-In most HPSG work, some shortcuts are used to abbreviate a feature path, for example in (\ref{ex:prop11}), \textsc{comps} stands for \textsc{synsem|loc|cat|comps}. We use this practice in the rest of the chapter and \textcolor{red}{it is used} throughout the Handbook.
+In most HPSG work, some shortcuts are used to abbreviate a feature path, for example in (\ref{ex:prop11}), \textsc{comps} stands for \textsc{synsem|loc|cat|comps}. We use this practice in the rest of the chapter and it is used throughout the Handbook.
 
 
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
-\section{The lexicon}
+\section{The lexicon}\label{sec:prop4}
+\label{prop:sec-lexicon}
 
 As noted above, the type \emph{lexical-sign}, its subtypes, and the constraints on them are central to the lexicon of a language and the words it licenses.%
 %
@@ -372,13 +368,13 @@ As noted above, the type \emph{lexical-sign}, its subtypes, and the constraints 
 %
 Lexical rules are also important. Some of the earliest work in HPSG focused on the organization of the lexicon and the question of how lexical generalizations can be captured, and detailed proposals have been developed.%
 %
-\footnote{The lexicon is more important in HPSG than in some other constructional approaches, e.g. that of \citet{Goldberg95a,Goldberg2006a}. See \citet{MWArgSt} and Müller, this volume, chapter~\ref{chap-cxg} for discussion.}
+\footnote{The lexicon is more important in HPSG than in some other constructional approaches, e.g. that of \citet{Goldberg95a,Goldberg2006a}. See \citet{MWArgSt} and \crossrefchaptert{cxg} for discussion.}
 %
 
 %%%%%%%%%%%%%%%%%%%%
-\subsection{Lexemes and words}
+\subsection{Lexemes and words}\label{sec:prop4.1}
 
-In some frameworks, the lexicon contains not lexemes but morphemes, i.e. roots and affixes of various kinds. But most work in HPSG has assumed a realizational approach to morphology. Within this approach, there are no morphemes, just lexemes and the words that realize them, and affixes are just bits of phonology realizing certain morphosyntactic features \citep{Stump2001a-u-kopiert,Anderson92a-u}. One consequence of this is that HPSG has no syntactic elements like the T(ense) and Num(ber) functional heads of Minimalism, which are mainly realized by affixes. See Crysmann, this volume, chapter~\ref{chap-morphology} and Davis and Koenig, this volume, chapter~\ref{chap-lexicon} for discussion.
+In some frameworks, the lexicon contains not lexemes but morphemes, i.e. roots and affixes of various kinds. But most work in HPSG has assumed a realizational approach to morphology. Within this approach, there are no morphemes, just lexemes and the words that realize them, and affixes are just bits of phonology realizing certain morphosyntactic features \citep{Stump2001a-u-kopiert,Anderson92a-u}. One consequence of this is that HPSG has no syntactic elements like the T(ense) and Num(ber) functional heads of Minimalism, which are mainly realized by affixes. See \crossrefchapterw{morphology} and \crossrefchapterw{lexicon} for discussion.
 
 Probably the most important properties of any lexeme are its part of speech and its combinatorial properties. As we saw in the last section, the \textsc{head} feature encodes part of speech information while the \textsc{subj} and \textsc{comps} features encode combinatorial information. As we also noted in the last section, \textsc{head} takes as its value a \emph{part-of-speech} object and the type \emph{part-of-speech} has subtypes such as \emph{noun}, \emph{verb}, and \emph{adjective}. At least some of the subtypes have certain features. For example, in many languages the type noun has the feature \textsc{case} with values like \emph{nom(inative), acc(usative)}, and \emph{gen(itive)}. Thus, nominative pronouns like \emph{I} might have a \emph{part-of-speech} of the form in (\ref{ex:prop12}) as its \textsc{head} value.
 
@@ -402,7 +398,7 @@ In much the same way, the type \emph{adjective} will have a feature distinguishi
 
 We must now say more about combinatorial properties. In much HPSG work it is assumed that \textsc{subj} and \textsc{comps} encode what might be regarded as superficial combinatorial information and more basic combinatorial information is encoded by a feature \textsc{arg(ument)-st(ructure)}.%
 %
-\footnote{\textsc{arg-st} is also crucial for binding theory, which takes the form of a number of constraints on \textsc{arg-st} lists. See Müller and Branco, this volume, chapter~\ref{chap-binding}.}
+\footnote{\textsc{arg-st} is also crucial for binding theory, which takes the form of a number of constraints on \textsc{arg-st} lists. See \crossrefchapterw{binding}.}
 %
 Normally the value of \textsc{arg-st} of a word is the concatenation of the values of \textsc{subj} and \textsc{comps}, using $\oplus$ for list concatenation. In other words, we normally have the following situation (notice the use of re-entrancy or structure-sharing):
 
@@ -419,25 +415,27 @@ As noted earlier, it is generally assumed that the \textsc{subj} list never has 
 \ea\label{ex:prop15}
 \avmtmp{
 	[subj & <\1>\\
-	comps & <\2>\\
-	arg-st & <\1 \upshape NP, \2 NP>]
+	 comps & <\2>\\
+	 arg-st & <\1 \upshape NP, \2 NP>]
 }
 \z
 
-Under some circumstances, however, we have something different. For example, it has been proposed, e.g. in \citet[65]{ManningandSag1998},\todosatz{ref from hpsg-handbook-bib} that null subject sentences have an element representing the understood subject in the \textsc{arg-st} list of the main verb but nothing in the \textsc{subj} list. Thus, the verb \emph{czytałem} in (\ref{ex:prop1b}), repeated here as (\ref{ex:prop16}), has the features in (\ref{ex:prop17}).
+Under some circumstances, however, we have something different. For example, it has been proposed, e.g. in \citet[65]{MS99a}, that null subject sentences have an element representing the understood subject in the \textsc{arg-st} list of the main verb but nothing in the \textsc{subj} list. Thus, the verb \emph{czytałem}`read' in (\ref{ex:prop1b}), repeated here as (\ref{ex:prop16}), has the features in (\ref{ex:prop17}).
 
-\ea\label{ex:prop16}
+\eal\label{ex:prop16}
+\ex
 \gll Czytałem książkę.\\
-write.\textsc{pst.1sg} book.\textsc{acc}\\
-\glt ‘I read a book.’
+read.\textsc{pst.1sg} book.\textsc{acc}\\
+\glt `I read a book.'
 
 \ex\label{ex:prop17}
+Lexical item for \emph{czytałem} `(I) read':\\
 \avmtmp{
 	[subj & <>\\
-	comps & <\1>\\
-	arg-st & <\upshape NP, \1NP>]
+	comps & < \1 >\\
+	arg-st & < \upshape NP, \1 NP >]
 }
-\z
+\zl
 
 A similar analysis is widely assumed for unbounded dependency gaps. On this analysis, the verb \emph{say} in (\ref{ex:prop2}), repeated here as (\ref{ex:prop18}), has the features in (\ref{ex:prop19}).
 
@@ -452,48 +450,49 @@ What did you say?
 }
 \z
 
-It is also assumed that the arguments that are realised \textcolor{red}{as pronominal affixes (traditionally known as clitics in Romance languages)} are absent from \textsc{comps} lists \citep{MS97a-u,monachesi05},\todosatz{Monachesi from hpsg-hb.bib} and other differences between \textsc{subj} and \textsc{comps} and \textsc{arg-st} have been proposed for other languages (see \citealt{ManningandSag1998}, Wechsler, Koenig and Davies,\todosatz{from hpsg-bib} this volume, chapter~\ref{chap-arg-st} for discussion. In much work, the relation \textsc{arg-st} and \textsc{subj} and \textsc{comps} is regulated by a constraint called the Argument Realisation Principle (ARP). The following is a simplified version of the constraint proposed in \citet[171]{GSag2000a-u} (see also \citealt[12]{BMS2001a}):
+It is also assumed that the arguments that are realised as pronominal affixes (traditionally known as clitics in Romance languages) are absent from \textsc{comps} lists \citep{MS97a-u,monachesi05}, and other differences between \textsc{subj} and \textsc{comps} and \textsc{arg-st} have been proposed for other languages (see \citealt{MS99a}, \crossrefchapterw{arg-st} for discussion. In much work, the relation \textsc{arg-st} and \textsc{subj} and \textsc{comps} is regulated by a constraint called the Argument Realisation Principle (ARP). The following is a simplified version of the constraint proposed in \citet[171]{GSag2000a-u} (see also \citealt[12]{BMS2001a}):
 
 \ea\label{ex:prop20}
-\emph{word} $\Rightarrow$
-\avmtmp[align=center]{
+\emph{word} \impl
+\avmtmp{
 	[subj & \1\\
-	comps & \2 \- \textnormal{list}!(non-canonical)!\\
+	comps & \2 \- \list*(non-canonical)\\
 	arg-st & \1 \+ \2]
 }
 \z
 
-This ensures that non-canonical arguments, including gaps and arguments realized as a clitics do not appear in \textcolor{red}{\textsc{comps} lists}.%
+This ensures that non-canonical arguments, including gaps and arguments realized as a clitics do not appear in \textsc{comps} lists.%
 %
-\footnote{The sign $\oplus$ means\ concatenation\ of\ lists.\ In A $\ominus$ B=C, $\ominus$ stands for ‘a relation where C is equal to A, iff B is the empty list. Otherwise C is the list that deletes the first part in A that is identical to B’ (Müller 2000:258)\inlinetodostefan{not in references}}
+\footnote{The sign $\oplus$ means concatenation of lists. In A $\ominus$ B=C, $\ominus$ stands for ``a relation where C is equal to A, iff B is the empty list. Otherwise C is the list that deletes the first part in A that is identical to B'' \citep[\page 258]{Mueller2000h}.}
 %
 Notice, however, that it says nothing special about subjects and so does not allow an AVM like (\ref{ex:prop17}).%
 %
-\footnote{\citet[177--183]{GSag2000a-u} explicitly allow gaps in \textsc{subj} lists, but this is controversial, as discussed in Borsley and Crysmann, this volume, chapter~\ref{chap-udc}.}
+\footnote{\citet[177--183]{GSag2000a-u} explicitly allow gaps in \textsc{subj} lists, but this is controversial, as discussed in \crossrefchapterw{udc}.}
 %
 There are complex issues here, and the Principle will probably take a different form in different languages. So we will not try decide exactly what form it should take.
 
-A variety of HPSG work assumes the \textsc{subj} and \textsc{comps} features, but some work assumes a \textsc{spr (specifier)} feature instead of or in addition to the \textsc{subj} feature. Where it replaces \textsc{subj}, the idea is that subjects are one of a number of types of specifiers, others being determiners within NPs and degree words like \emph{so} and \emph{too} within APs \citep{SWB2003a}. Where it is an additional feature, the idea is that there are number of types of specifier but subjects are not specifiers. Predicative nominals (e.g. \emph{my cousin} in \emph{Paul is my cousin}) may need both (\citealp[9.4.1]{ps2}; \citealp[409]{GSag2000a-u}\citealp{AG2003a-b}). There are other positions in the HPSG community. Much early work has a single feature called \textsc{subcat} instead of \textsc{subj} and \textsc{comps} \citep{ps}. Essentially the same position has been adopted within Sign Based Construction Grammar, which has a single feature called \textsc{valence} instead of \textsc{subj, spr} and \textsc{comps}.%
+A variety of HPSG work assumes the \textsc{subj} and \textsc{comps} features, but some work assumes a \textsc{spr (specifier)} feature instead of or in addition to the \textsc{subj} feature. Where it replaces \textsc{subj}, the idea is that subjects are one of a number of types of specifiers, others being determiners within NPs and degree words like \emph{so} and \emph{too} within APs \citep{SWB2003a}. Where it is an additional feature, the idea is that there are number of types of specifier but subjects are not specifiers. Predicative nominals (e.g. \emph{my cousin} in \emph{Paul is my cousin}) may need both (\citealp[Section~9.4.1]{ps2}; \citealp[409]{GSag2000a-u}\citealp{AG2003b-u}). There are other positions in the HPSG community. Much early work has a single feature called \textsc{subcat} instead of \textsc{subj} and \textsc{comps} \citep{ps}. Essentially the same position has been adopted within Sign Based Construction Grammar, which has a single feature called \textsc{valence} instead of \textsc{subj, spr} and \textsc{comps}.%
 %
 \footnote{SBCG also has a feature \textsc{x-arg}, which picks out subjects and other external arguments. But unlike the other features mentioned here, this always has the same value in a head and its mother. Its role is to make information about external arguments available outside the phrases in which they appear.  See \citet[84, 149--151]{Sag2007a,Sag2012a}.}
 %
 Obviously, there are some important issues here.
 
-It is an important feature of lexical items that part of speech and combinatorial properties are separate matters. Members of the same part of speech can have different combinatorial properties and members of different parts of speech can have the same combinatorial properties. Much HPSG work captures this fact by proposing that the type \emph{lexeme} be cross-classified along two dimensions, one dealing with part-of-speech information and one dealing with argument selection information \citep{Flickinger87}. Figure~\ref{fig:prop4} is a simple illustration based on \citet[20]{GSag2000a-u}:
+It is an important feature of lexical items that part of speech and combinatorial properties are separate matters. Members of the same part of speech can have different combinatorial properties and members of different parts of speech can have the same combinatorial properties. Much HPSG work captures this fact by proposing that the type \emph{lexeme} be cross-classified along two dimensions, one dealing with part-of-speech information and one dealing with argument selection information \citep{Flickinger87}. Figure~\ref{fig:prop4} is a simple illustration based on \citet[20]{GSag2000a-u}.
 
-\begin{figure}[h!]
+\begin{figure}
 \begin{forest}
-[\emph{lexeme},s sep=2cm
-	[\textsc{part-of-speech},draw
-		[\emph{v-lx},name=v]
+type hierarchy
+[lexeme
+	[part-of-speech,partition
+		[v-lx,name=v]
 		[\ldots]
 		[\ldots]
 		[\ldots]
 	]
-	[\textsc{arg-selection},draw
-		[\emph{intr-lx}
-			[\emph{s-rsg-lx}
-				[\emph{srv-lx},name=srv]
+	[arg-selection,partition
+		[intr-lx
+			[s-rsg-lx
+				[srv-lx,name=srv]
 				[,phantom]
 			]
 			[\ldots]
@@ -512,8 +511,8 @@ It is an important feature of lexical items that part of speech and combinatoria
 Upper case letters are used for the two dimensions of classification, and \emph{v-lx, intr-lx, s-rsg-lx}, and \emph{srv-lx} abbreviate \emph{verb-lexeme, intransitive-lexeme, subject-raising-lexeme}, and \emph{subject-raising-verb-lexeme}, respectively. All these types will be subject to specific constraints, For example, \emph{v-lx} will be subject to something like the following constraint, based on that in \citet[22]{GSag2000a-u}:
 
 \ea\label{ex:prop21}
-\emph{v-lx}$\Rightarrow$
-\avmtmp[align=center]{
+\emph{v-lx} \impl
+\avmtmp{
 	[head & verb\\
 	arg-st & <\upshape XP \ldots>]
 }
@@ -522,23 +521,25 @@ Upper case letters are used for the two dimensions of classification, and \emph{
 This says that a verb lexeme has a \emph{verb} part of speech and requires a phrase of some kind as its first (syntactic) argument (corresponding to its subject). Similarly, we will have something like the following constraint for \emph{s-rsg-lx}:
 
 \ea\label{ex:prop22}
-\emph{s-rsg-lx} $\Rightarrow$
+\emph{s-rsg-lx} \impl
 \avmtmp{
-	[arg-st & <\1, [subj & <\1>] \ldots>]
+	[arg-st & <\1, [subj & <\1>], \ldots>]
 }
 \z
 
-This says that a subject-raising-lexeme has (at least) two (syntactic) arguments, a subject and a complement, and that the subject is whatever the complement requires as a subject, indicated by \avmtmp{\1}. Most of the properties of any lexeme will be inherited from its supertypes. Thus, very little information needs to be listed for each specific lexeme, and the richness of the lexical description comes from the classification in a system like this.
+This says that a subject-raising-lexeme has (at least) two (syntactic) arguments, a subject and a complement, and that the subject is whatever the complement requires as a subject, indicated by \ibox{1}. Most of the properties of any lexeme will be inherited from its supertypes. Thus, very little information needs to be listed for each specific lexeme, and the richness of the lexical description comes from the classification in a system like this.
 
-For example, for a subject-raising verb like \emph{seem}, its \textcolor{red}{\textsc{cat}} and \textsc{content} features are the following, using Minimal Recursion semantics: \textsc{rels} is the attribute for the list of elementary predications associated with a word, a lexeme or a phrase, \textsc{soa} is for state-of-affair (see Koenig and Richter, this volume, chapter~\ref{chap-semantics}). \emph{Seem} takes an infinitival VP complement.%
+For example, for a subject-raising verb like \emph{seem}, its \textsc{cat} and \textsc{content} features are the following, using Minimal Recursion semantics: \textsc{rels} is the attribute for the list of elementary predications associated with a word, a lexeme or a phrase, \textsc{soa} is for state-of-affair (see \crossrefchapteralp{semantics}). \emph{Seem} takes an infinitival VP complement.%
 %
 \footnote{The entry can be modified to allow predicative complements, as well as a second \emph{to} complement (\emph{John seems tired/ in a good mood to me}).}
 %
-Notice that no semantic role is assigned to the first argument (see Abeillé, this volume, chapter~\ref{chap-control-raising}).
+Notice that no semantic role is assigned to the first argument (see \crossrefchapteralp{control-raising}).
 
 \ea\label{ex:prop23}
-\emph{seem-lx $\Rightarrow$ s-rsg-lx} \&
-\avmtmp[align=center]{
+Constraints on type \type{seem-lx}:\\
+\type{seem-lx} \impl \\
+\type{s-rsg-lx} \&\\
+\avmtmp{
 	[cat & [arg-st & <[], \textnormal{VP}	[head & [vform & inf]\\
 											index & s1]>]\\
 	cont &	[index & s\\
@@ -548,11 +549,12 @@ Notice that no semantic role is assigned to the first argument (see Abeillé, th
 }
 \z
 
-Once these more specific features are combined with features from type \emph{s-rsg-lxm}, we get a more complete AVM like the following for the word \emph{seem}:
-
+Once these more specific features are combined with features from type \emph{s-rsg-lxm}, we get a more complete AVM like the following for the word \emph{seem}:\inlinetodostefan{Stefan: These were formulated as type implication, which is not correct, since the type implication is in (\ref{ex:prop23}). I removed the ``
+\emph{seem-lx} \impl'' part and added a heading. OK?}
 \ea\label{ex:prop24}
-\emph{seem-lx} $\Rightarrow$
-\avmtmp[align=center]{
+%\emph{seem-lx} \impl\\
+Constraints for the lexeme \emph{seem}:\\
+\avmtmp{
 	[cat &	[arg-st & <\1, \2 \textnormal{VP}	[head & [vform & inf]\\
 												subj & <\1>\\
 												index & s1]>\\
@@ -567,7 +569,7 @@ Once these more specific features are combined with features from type \emph{s-r
 }
 \z
 
-Notice that the \textsc{subj} feature is underspecified. Thus, \emph{seem} combines with an infinitival complement and with any subject (nominal or verbal, expletive or referential), provided this subject is appropriate for its complement (see Abeillé, this volume, chapter~\ref{chap-control-raising}):
+Notice that the \textsc{subj} value\todostefan{Stefan: Changed ``\subj feature'' to ``\subj value''. OK?} is underspecified. Thus, \emph{seem} combines with an infinitival complement and with any subject (nominal or verbal, expletive or referential), provided this subject is appropriate for its complement (see \crossrefchapteralp{control-raising}):
 
 \ea\label{ex:prop25}
 	\ea John /*Working is sleeping.
@@ -578,13 +580,14 @@ Notice that the \textsc{subj} feature is underspecified. Thus, \emph{seem} combi
 \z
 
 %%%%%%%%%%%%%%%%%%%%
-\subsection{Lexical rules}
+\subsection{Lexical rules}\label{sec:prop4.2}
+\label{prop:sec-lex-rules}
 
 The hierarchy of lexical types provides one way of capturing lexical generalizations. Lexical rules provide another.%
 %
-\footnote{Lexical rules can be seen as a generative device, or alternatively, as a set of well-formedness conditions on the lexicon: if the lexicon contains items with description x, it must also contain items with description y \citep{Meurers2001a}. See Davis and Koenig, this volume chapter~\ref{chap-lexicon}.}
+\footnote{Lexical rules can be seen as a generative device, or alternatively, as a set of well-formedness conditions on the lexicon: if the lexicon contains items with description x, it must also contain items with description y \citep{Meurers2001a}. See \crossrefchapterw{lexicon}.}
 %
-They are used in morphology to relate lexemes to words (inflection) and lexemes to lexemes (derivation) (see Crysmann, this volume, chapter~\ref{chap-morphology}). For syntax, they are relevant especially to valence alternations such as that illustrated in the following (see Wechsler, Koenig and Davis, this volume, chapter~ \ref{chap-arg-st}):
+They are used in morphology to relate lexemes to words (inflection) and lexemes to lexemes (derivation) (see \crossrefchapteralp{morphology}). For syntax, they are relevant especially to valence alternations such as that illustrated in the following (see \crossrefchapteralp{arg-st}):
 
 \ea\label{ex:prop26}
 	\ea That Kim was late annoyed Lee.
@@ -605,22 +608,23 @@ These show that verbs and adjectives which allow a clausal subject generally als
 	\ea To annoy Lee is easy.
 	\ex It is easy to annoy Lee.
 	\z
-Clauses introduced by \emph{that} are sometimes considered as CPs in HPSG (see section~7),\inlinetodostefan{add secref} with verbs and complementizers as two subtypes of \emph{verbal}.
+Clauses introduced by \emph{that} are sometimes considered as CPs in HPSG (see Section~\ref{sec:prop7}), with verbs and complementizers as two subtypes of \emph{verbal}.
 	
 }
 %
 
 \ea\label{ex:prop28}
-\avmtmp{[arg-st & <S> \+ \2] |$\rightarrow$
+\avmtmp{[arg-st & <S> \+ \2] $\mapsto$
 	[arg-st & <NP![\type{it}]!> \+ \2 \+ <S>]}
 \z
 
-The active-passive relation can be captured by a similar lexical rule \citep{Flickinger87}. Since these rules do not change the \textsc{content} feature, these alternations will preserve the meaning of the verb or adjective lexeme (see Davis and Koenig, this volume, chapter~ \ref{chap-lexicon}). Thus, the sentences in (\ref{ex:prop27}) will have a different syntactic structure from their counterparts in (\ref{ex:prop26}) but may have the same semantic representation (they will probably have different information structures, thus different \textsc{context} features); see de Kuthy, this volume, chapter~\ref{chap-information-structure}.
+The active-passive relation can be captured by a similar lexical rule \citep{Flickinger87}. Since these rules do not change the \textsc{content} feature, these alternations will preserve the meaning of the verb or adjective lexeme (see \crossrefchapteralp{lexicon}). Thus, the sentences in (\ref{ex:prop27}) will have a different syntactic structure from their counterparts in (\ref{ex:prop26}) but may have the same semantic representation (they will probably have different information structures, thus different \textsc{context} features); see \crossrefchapterw{information-structure}.
 
 
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
-\section{Syntax}
+\section{Syntax}\label{sec:prop5}
+\label{prop:sec-syntax}
 
 As noted above, the type \emph{phrase}, its subtypes, and the constraints on them are at the heart of the syntax of a language.%
 %
@@ -629,9 +633,9 @@ As noted above, the type \emph{phrase}, its subtypes, and the constraints on the
 A simple hierarchy of phrase types was assumed in early HPSG, but what we have called Construction-based HPSG employs complex hierarchies of phrase types comparable to the complex hierarchies of lexical types employed in the lexicon.
 
 %%%%%%%%%%%%%%%%%%%%
-\subsection{A hierarchy of phrase types}
+\subsection{A hierarchy of phrase types}\label{sec:prop5.1}
 
-Like much other work in syntax, HPSG takes from X-bar theory \citep{Jackendoff77a} the idea that the local trees that make up syntactic structures fall into a limited number of types. Like \citet{Jackendoff77a}, and unlike Minimalism, HPSG assumes that not all phrases are headed, even if many are, and does not limit the term ‘head’ to lexical elements. Thus, among phrases there is a basic distinction between non-headed-phrases and headed-phrases. There are various kinds of headed phrase. We will consider three here. First there are head-complement-phrases, combinations of a head and its complements. These can be headed by various parts of speech, verbs, prepositions, adjectives, nouns, and others, and may have one complement or more than one. Next, there are head-subject-phrases. Typically, the head of such a phrase is a VP. However, the bracketed material in the following may well be head-subject-phrases with a non-verbal head. 
+Like much other work in syntax, HPSG takes from X-bar theory \citep{Jackendoff77a} the idea that the local trees that make up syntactic structures fall into a limited number of types. Like \citet{Jackendoff77a}, and unlike Minimalism, HPSG assumes that not all phrases are headed, even if many are, and does not limit the term \term{head} to lexical elements. Thus, among phrases there is a basic distinction between non-headed-phrases and headed-phrases. There are various kinds of headed phrase. We will consider three here. First there are head-complement-phrases, combinations of a head and its complements. These can be headed by various parts of speech, verbs, prepositions, adjectives, nouns, and others, and may have one complement or more than one. Next, there are head"=subject"=phrases. Typically, the head of such a phrase is a VP. However, the bracketed material in the following may well be head-subject-phrases with a non-verbal head. 
 
 \ea\label{ex:prop29}
 With [Kim ill/in London/a candidate], anything is possible.
@@ -645,30 +649,30 @@ Finally, there are head-filler-phrases, clauses in which an initial constituent 
 	\z
 \z
 
-All this suggests the simple type hierarchy in figure~\ref{fig:prop5}:
+All this suggests the simple type hierarchy in Figure~\ref{fig:prop5}.
 
-\begin{figure}[h!]
-	\itshape
+\begin{figure}
 \begin{forest}
+type hierarchy
 [phrase
 	[non-headed-ph]
 	[headed-ph
 		[hd-comp-ph]
-		[hd-subj-ph]
+		[hd-subj-ph,calign with current]
 		[hd-filler-ph]
 	]
 ]
 \end{forest}
-\caption{A Hierarchy of types of phrases}\label{fig:prop5}
+\caption{A hierarchy of types of phrases}\label{fig:prop5}
 \end{figure}
 
 Each of these types is associated with a constraint capturing its distinctive properties.
 
 Consider first the type \emph{hd-ph}. Here we need a constraint capturing what all headed-phrases have in common. This is essentially that they have a head, with which they share certain features. But what features? One view is that the main features that are shared are those that are the value of \textsc{head}. This is embodied in the following constraint, which is known as the Head Feature Principle:
 
-\ea\label{ex:prop31}
-\emph{headed-ph} $\Rightarrow$
-\avmtmp[align=center]{
+\ea\label{ex:prop31}\label{page-hfp}
+\type{headed-ph} \impl
+\avmtmp{
 	[head & \1\\
 	head-dtr & [head & \1]]
 }
@@ -677,11 +681,11 @@ Consider first the type \emph{hd-ph}. Here we need a constraint capturing what a
 Each of the three subtypes of \emph{headed-ph} is subject to a constraint embodying its distinctive properties. Here is a constraint on the type \emph{hd-comp-ph} (with \textsc{synsem} abbreviated as \textsc{ss}):
 
 \ea\label{ex:prop32}
-\emph{hd-comp-ph} $\Rightarrow$
-\avmtmp[align=center]{
+\emph{hd-comp-ph} \impl
+\avmtmp{
 	[hd-dtr & \1	[\type*{word}
-					comps & <\2, \ldots,\tag{\emph{n}}>]\\
-	dtrs & <\1, [ss & \2], \ldots, [ss & \tag{\emph{n}}]>]
+					comps & <\2, \ldots, \tag{n}>]\\
+	dtrs & <\1, [ss & \2], \ldots, [ss & \tag{n}]>]
 }
 \z
 
@@ -689,7 +693,7 @@ This ensures that a head-complement-phrase has a word as a head daughter and non
 %
 \footnote{The head could be identified as a [\textsc{lex}~+], [\textsc{light}~+], or [\textsc{weight}~\emph{light}] phrase, to accomodate coordination of heads as in \emph{John [knows and likes] this record.} \citep{Abeille2006a}.}
 %
-Notice that nothing is said about the \textsc{synsem} value of the phrase. It will be [\textsc{comps}~<>], as required by the constraint in (\ref{ex:prop14}), and it will have the same value for \textsc{head} as the Head-daughter as a consequence of the Head-Feature-Principle. It must also have the same value for \textsc{subj} as the head daughter. One might add this to the constraint in (\ref{ex:prop31}), but that would miss a generalization. Head-complement-phrases are not the only phrases which have the same value for \textsc{subj} as their head. This is also a feature of head-filler-phrases, as we will see below. It seems in fact that it is normal for a phrase to have the same value for any Valence feature as its head. This is often attributed to the Valence Principle, which can be stated informally as follows (cf. Sag and Wasow 1999: 86):\todosatz{not in references}
+Notice that nothing is said about the \textsc{synsem} value of the phrase. It will be [\textsc{comps}~<>], as required by the constraint in (\ref{ex:prop14}), and it will have the same value for \textsc{head} as the head daughter as a consequence of the Head Feature Principle. It must also have the same value for \textsc{subj} as the head daughter. One might add this to the constraint in (\ref{ex:prop31}), but that would miss a generalization. Head-complement-phrases are not the only phrases which have the same value for \textsc{subj} as their head. This is also a feature of head-filler-phrases, as we will see below. It seems in fact that it is normal for a phrase to have the same value for any Valence feature as its head. This is often attributed to the Valence Principle, which can be stated informally as follows (cf. \citealp[\page 86]{SagW99a-u}):
 
 \ea\label{ex:prop33}
 Unless some constraint says otherwise, the mother’s values for the Valence features are identical to those of the Head daughter.
@@ -697,12 +701,15 @@ Unless some constraint says otherwise, the mother’s values for the Valence fea
 
 There is no assumption in HPSG that all branching is binary.%
 %
-\footnote{Implemented HPSG grammars for various languages may assume binary branching structures \citep{Flickinger2000a,Copestake2002a,MuellerCoreGram}, see Bender this volume.}
+\footnote{Implemented HPSG grammars for various languages
+\inlinetodostefan{Stefan: This has nothing to do with implementation. The implementation is not the reason for binary branching. There are theoretical reasons.}
+ may assume binary branching structures \citep{Flickinger2000a,Copestake2002a,MuellerCoreGram}, see \crossrefchaptert{cl}.}
 %
 Hence, where a head takes two complements, both may be its sisters. An example of the sort of structures that the analysis licenses is illustrated in Figure~\ref{fig:prop6}.
 
-\begin{figure}[h!]
-\begin{forest}sm edges
+\begin{figure}
+\begin{forest}
+	sm edges
 [\avmtmp{
 	[\type*{hd-comp-ph}
 	head & \1 verb\\
@@ -714,13 +721,13 @@ Hence, where a head takes two complements, both may be its sisters. An example o
 		head & \1\\
 		subj & \2\\
 		comps & <\3, \4>]
-	}, edge label={node[midway,left]{\textsc{hd-dtr~~}}}
+	}, edge label={node[midway,left]{\textsc{hd-dtr}~~~~}}
 		[give]
 	]
-	[\avmtmp{\3 NP}
+	[\ibox{3} NP
 		[some money,roof]
 	]
-	[\avmtmp{\4 PP}
+	[\ibox{4} PP
 		[to charity,roof]
 	]
 ]
@@ -731,8 +738,8 @@ Hence, where a head takes two complements, both may be its sisters. An example o
 Instead of the Head Feature Principle and the Valence Principle, \citet[33]{GSag2000a-u} propose the Generalized Head Feature Principle, which takes the following form:
 
 \ea\label{ex:prop34}
-\emph{headed-ph} $\Rightarrow$
-\avmtmp[align=center]{
+\type{headed-ph} \impl
+\avmtmp{
 	[synsem & / \1\\
 	hd-dtr & [synsem & / \1]]
 }
@@ -743,14 +750,12 @@ The slashes (/) here indicate that this is a default constraint \citep{LC99a}. T
 We turn now to the type \emph{hd-subj-ph}. Here we need a constraint which mentions the \textsc{synsem} value of the phrase, and not just the daughters, as follows:
 
 \ea\label{ex:prop35}
-\emph{hd-subj-ph} $\Rightarrow$
-{\color{red}
-\avmtmp[align=center]{
+\type{hd-subj-ph} \impl
+\avmtmp{
 	[subj & <>\\
 	hd-dtr & \1	[comps & <>\\
 				subj & <\2>]\\
 	dtrs & <[synsem \2], \1>]
-}
 }
 \z
 
@@ -760,15 +765,16 @@ This ensures that a head-subject-phrase is [\textsc{subj}~<>] and has a head dau
 %
 It licenses structures like that in Figure~\ref{fig:prop7}.
 
-\begin{figure}[h!]
-\begin{forest}sm edges
+\begin{figure}
+\begin{forest}
+	sm edges
 [\avmtmp{
 	[\type*{hd-subj-ph}
 	head & \1 verb\\
 	subj & <>\\
 	comps & <>]
 },l sep=1cm
-	[\avmtmp{\2 NP}
+	[\ibox{2} NP
 		[They]
 	]
 	[\avmtmp{
@@ -784,14 +790,15 @@ It licenses structures like that in Figure~\ref{fig:prop7}.
 \caption{A tree for a head-subject phrase}\label{fig:prop7}
 \end{figure}
 
-Finally, we consider the type \emph{hd-fill-ph}. This involves the feature \textsc{slash}, one of the features contained in the value of the feature \textsc{nonlocal} introduced earlier in (\ref{ex:prop9}). Its value is a set of local feature structures and it encodes information about unbounded dependency gaps (see Borsley \& Crysmann, this volume, chapter~\ref{chap-udc}). Here is the relevant constraint:%
+Finally, we consider the type \emph{hd-fill-ph}. This involves the feature \textsc{slash}, one of the features contained in the value of the feature \textsc{nonlocal} introduced earlier in (\ref{ex:prop9}). Its value is a set of local feature structures and it encodes information about unbounded dependency gaps (see \crossrefchapteralp{udc}). Here is the relevant constraint:%
 %
-\footnote{We use $\cup$ for set union. Notice that the root category does not have to have an empty \textsc{slash} list, thus allowing for multiple extractions (\emph{Paul, who could we talk to about?}).}
+\footnote{We use $\cup$ for set union. Notice that the mother category does not have to have an empty \textsc{slash} list, thus allowing for multiple extractions (\emph{Paul, who could we talk to about?}).
+\inlinetodostefan{Stefan: Can we add gaps here marking what belongs to what? Looking at the example it looks like a relative clause modifying \emph{Paul} and as if the \emph{who} is the filler of both gaps after \emph{to} and \emph{about}. If this is true, your example would not be an example of multiple fillers, which is needed here.} }
 %
 
-\ea\label{ex:prop36}
-\emph{hd-filler-ph} $\Rightarrow$
-\avmtmp[align=center]{
+\ea\label{ex:prop36}\label{prop:head-filler-phrase}
+\type{hd-filler-ph} \impl
+\avmtmp{
 	[slash & \1\\
 	hd-dtr & \2	[comps & <>\\
 				slash & \{\3\} $\cup$ \1]\\
@@ -799,14 +806,15 @@ Finally, we consider the type \emph{hd-fill-ph}. This involves the feature \text
 }
 \z
 
-This says that a head-filler-phrase has a head daughter, with a \textsc{slash} set which is the \textsc{slash} set of the head-filler-phrase plus one other \emph{local} feature structure, and a non-head daughter, whose \textsc{local} value is the additional \emph{local} feature structure of the head daughter. \avmtmp{\1} is normally the empty set.%
+This says that a head-filler-phrase has a head daughter, with a \textsc{slash} set which is the \textsc{slash} set of the head-filler-phrase plus one other \emph{local} feature structure, and a non-head daughter, whose \textsc{local} value is the additional \emph{local} feature structure of the head daughter. \ibox{1} is normally the empty set.%
 %
 \footnote{As with (\ref{ex:prop34}), one might substitute phrase here for [\textsc{comps}~<>]. But this would mean that \emph{to} in \emph{I would do it but I don’t know how to} must be analysed as a phrase containing a single word. With (\ref{ex:prop36}) it can be just a word.}
 %
 Figure~\ref{fig:prop8} illustrates a typical head-filler-phrase.
 
-\begin{figure}[h!]
-\begin{forest}sm edges
+\begin{figure}
+\begin{forest}
+	sm edges
 [\avmtmp{
 	[\type*{hd-fill-ph}
 	head & \1 verb\\
@@ -839,12 +847,12 @@ I’m wondering [who [to talk to]].
 
 Either the Valence Principle or the Generalized Head Feature Principle will ensure that a head-filler-phrase has the same value for \textsc{subj} as its head daughter.
 
-The constraints that we have just discussed are rather like phrase structure rules. This led \citet[33]{GSag2000a-u} to use an informal notation which reflects this. This involves the phrase type on the first line followed by a colon, and information about the phrase itself and its daughters on the second line separated by an arrow and with the head daughter identified by ‘\textbf{H}’. Thus, instead of (\ref{ex:prop38a}) one has (\ref{ex:prop38b}).
+The constraints that we have just discussed are rather like phrase structure rules. This led \citet[33]{GSag2000a-u} to use an informal notation which reflects this. This involves the phrase type on the first line followed by a colon, and information about the phrase itself and its daughters on the second line separated by an arrow and with the head daughter identified by ``\textbf{H}''. Thus, instead of (\ref{ex:prop38a}) one has (\ref{ex:prop38b}).
 
 \ea\label{ex:prop38}
 	\ea\label{ex:prop38a}
-	\emph{phrase} $\Rightarrow$
-	\avmtmp[align=center]{
+	\type{phrase} \impl
+	\avmtmp{
 		[synsem & \upshape X\\
 		dtrs & <\1 Y, Z>\\
 		hd-dtr & \1]
@@ -852,62 +860,60 @@ The constraints that we have just discussed are rather like phrase structure rul
 	\ex\label{ex:prop38b}
 	\emph{phrase:}
 	
-	X $\rightarrow$ \textbf{H}[Y], Z
+	X $\to$ \textbf{H}[Y], Z
 	\z
 \z
 
-Notice that while the double arrow in (\ref{ex:prop38a}) has the normal ‘if-then’ interpretation, the single arrow in (\ref{ex:prop38b}) means ‘consists of’. In some circumstances this informal notation may be more convenient than the more formal notation used above.
+Notice that while the double arrow in (\ref{ex:prop38a}) has the normal `if-then' interpretation, the single arrow in (\ref{ex:prop38b}) means ``consists of''. In some circumstances this informal notation may be more convenient than the more formal notation used above.
 
-In the preceding discussion, we have ignored the semantics of the phrase. Leaving aside quantification and other complex matters, the \textsc{content} of a headed phrase can be handled via two semantic principles, assuming \textsc{index} and \textsc{rel}ations as in MRS (26)\todosatz{This is supposed to be 36, right?} above: a coindexing principle (the \textsc{index} of a headed-phrase is the \textsc{index} of its \textsc{head-dtr}) and a ‘compositionality’ principle (the \textsc{rels} of a phrase is the contatenation of the \textsc{rels} of its \textsc{dtrs}) (\citealp{CFPS2005a}; Koenig and Richter, this volume, chapter~\ref{sec-minimal-recursion-semantics}).
+In the preceding discussion, we have ignored the semantics of the phrase. Leaving aside quantification and other complex matters, the \textsc{content} of a headed phrase can be handled via two semantic principles, assuming \textsc{index} and \textsc{rel}ations as in MRS as in (\ref{ex:prop23})\todosatz{Changed (26) to (23). OK?} above: a coindexing principle (the \textsc{index} of a headed-phrase is the \textsc{index} of its \textsc{head-dtr}) and a ``compositionality'' principle (the \textsc{rels} of a phrase is the contatenation of the \textsc{rels} of its \textsc{dtrs}) (\citealp{CFPS2005a}; \crossrefchapteralp[Section~\ref{sec-minimal-recursion-semantics}]{semantics}).
 
 The type hierarchy in (\ref{ex:prop34}) is simplified in a number of respects. It includes no non-headed-phrases.%
 %
-\footnote{The most important type of non-headed phrase is coordinate structure. See Abeillé and Chaves, Chapter~\ref{chap-coordination} of this volume, for discussion.}
+\footnote{The most important type of non-headed phrase is coordinate structure. See \crossrefchapterw{coordination} for discussion.}
 %
 It also ignores various other subtypes of headed-phrase, some of which are discussed in the next section. Most importantly, it is widely assumed that the type \emph{phrase} like the type \emph{lexeme} can be cross-classified along two dimensions, one dealing with head-dependent relations and the other dealing with the properties of various types of clauses. A simplified illustration is given in Figure~\ref{fig:prop9}.
 
-\begin{figure}[h!]
+\begin{figure}
 \begin{forest}
-[\emph{phrase}
-	[\textsc{headedness},draw
+type hierarchy
+[phrase
+	[headedness,partition
 		[\ldots]
-		[\emph{headed-phrase}
+		[headed-phrase
 			[\ldots]
 			[\ldots]
-			[\emph{head-fill-ph}
+			[head-fill-ph
 				[\ldots]
 				[\ldots]
-				[\emph{wh-interr-cl},name=2]
+				[wh-interr-cl,edge to=!r211]
 			]
 		]
 	]
-	[\textsc{clausality},draw
-		[\emph{clause}
-			[\emph{interr-cl},name=1]
+	[clausality,partition
+		[clause
+			[interr-cl]
 			[\ldots]
 		]
-		[\emph{non-clause}]
+		[non-clause]
 	]
 ]
-{
-\draw (1.south) to (2.north);
-}
 \end{forest}
 \caption{Cross-classification of phrases}\label{fig:prop9}
 \end{figure}
 
-Here \emph{wh-interr-cl} is identified as a subtype of \emph{head-fill-ph} and a subtype of \emph{interr(ogative)-cl}. As such, it has both the properties required by the constraint in (\ref{ex:prop42})\todosatz{42 isnt a constraint tho} and certain properties characteristic of interrogative clauses, most obviously interrogative semantics.
+Here \emph{wh-interr-cl} is identified as a subtype of \emph{head-fill-ph} and a subtype of \emph{interr(ogative)-cl}. As such, it has both the properties required by the constraint in (\ref{prop:head-filler-phrase}) and certain properties characteristic of interrogative clauses, most obviously interrogative semantics.
 
 %%%%%%%%%%%%%%%%%%%%
-\subsection{Constituency and constituent order}
+\subsection{Constituency and constituent order}\label{sec:prop5.2}
 
 We must now say something about constituent order. In much HPSG work this is a matter of phonology, more precisely a matter of the relation between the \textsc{phon} value of a phrase and the \textsc{phon} values of its daughters.%
 %
-\footnote{As discussed in section~7.1,\inlinetodostefan{add secref} in some HPSG work, linear order is a property of so-called order domains, which essentially mediate constituent structure and phonology (see Müller, this volume, chapter~\ref{chap-order}). }
+\footnote{As discussed in Section~\ref{sec:prop7.1}, in some HPSG work, linear order is a property of so-called order domains, which essentially mediate constituent structure and phonology (see \crossrefchapteralp{order}). }
 %
-Consider, for example, a phrase with two daughters, each with its own \textsc{phon} value. The \textsc{phon} value of the phrase will be the concatenation of the \textsc{phon} values of the daughters. Clearly, they can be concatenated in two ways as follows, as in (\ref{ex:prop39}), or their order may be left unspecified for ‘free’ word order’:
+Consider, for example, a phrase with two daughters, each with its own \textsc{phon} value. The \textsc{phon} value of the phrase will be the concatenation of the \textsc{phon} values of the daughters. Clearly, they can be concatenated in two ways as follows, as in (\ref{ex:prop39}), or their order may be left unspecified for ``free'' word order:
 
-\ea\label{ex:prop39}
+\ea\label{ex:prop39}\label{ex-phon-concatenation}
 \avmtmp{
 	[phon & \1 \+ \2\\
 	dtrs & <[phon \1], [phon \2]>]
@@ -926,81 +932,284 @@ Within this approach, the following English and Welsh examples might have exactl
 	\ex\label{ex:prop40b}
 	\gll defaid du\\
 	sheep.\textsc{pl} black\\
-	\glt ‘black sheep’
+	\glt `black sheep'
 	\z
 \z
 
+Similarly, a prepositional phrase in English and a postpositional phrase in Japanese might have the same analysis (a head-complement phrase) apart from their \textsc{phon} values. Ordering rules are constraints on phrasal types. They are commonly written with < (`precedes'). Thus, languages with head-complement order might have the rule in (\ref{ex:prop41a}) and languages with complement-head order the rule in (\ref{ex:prop41b}).
 
+\eal\label{ex:prop41}
+\ex\label{ex:prop41a}
+	\avmtmp{
+		[comps & <\ldots, \1, \ldots>] !<! [synsem & \1]
+	}
+\ex\label{ex:prop41b}
+	\avmtmp{
+		[synsem & \1] !<! [comps & <\ldots, \1, \ldots>]
+	}
+\zl
 
+But it should be remembered that they are well-formedness constraints on structures built with certain concatenations of \textsc{phon} values as in (\ref{ex-phon-concatenation})\todosatz{Changed 38 to 39. OK?}.%
+%
+\footnote{An alternative notation, provided different Daughters are distinguished with different names, could be:
+\begin{exe}
+	\exi{a.} \textsc{hd-dtr} < \textsc{comps-dtrs}
+	\exi{b.} \textsc{comps-dtrs} < \textsc{hd-dtr}
+\end{exe}
+}
+%
 
+Not all pairs of expressions which might be seen as differing just in word order have the same analysis apart from their \textsc{phon} values. Consider, for example, the following:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{table}
-\caption{Frequencies of word classes}
-\label{tab:1:frequencies}
- \begin{tabular}{lllll} % add l for every additional column or remove as necessary
-  \lsptoprule
-            & nouns & verbs & adjectives & adverbs\\ %table header
-  \midrule
-  absolute  &   12 &    34  &    23     & 13\\
-  relative  &   3.1 &   8.9 &    5.7    & 3.2\\
-  \lspbottomrule
- \end{tabular}
-\end{table}
-
-\citep{Chomsky57a}.
-
-\citet{Meier2017}
-\ea\label{ex:1:descartes}
-\langinfo{Latin}{}{personal knowledge}\\
-\gll cogit-o ergo sum \\
-think-1{\SG}.{\PRS}.{\IND} hence exist.1{\SG}.{\PRS}.{\IND}\\
-\glt `I think therefore I am'
+\ea\label{ex:prop42}
+	\ea\label{ex:prop42a}
+	Kim is late.
+	\ex\label{ex:prop42b}
+	Is Kim late?
+	\z
 \z
 
+Here we have a declarative and a related interrogative. They differ semantically and in word order, but for most work in HPSG they also differ in their syntactic structures. (\ref{ex:prop42a}) is a head-subject-phrase much like that in Figure~\ref{fig:prop7}. Clauses like (\ref{ex:prop42b}), on the other hand, are standardly seen as ternary branching phrases in which both the subject and the complement are a sister of the auxiliary \citep[40]{ps2}. This requires an additional phrase type, which might be called a head-subject-complement-phrase.%
+%
+\footnote{In \citet[36]{GSag2000a-u} it is called \emph{sai-phrase}. In some HPSG work, e.g. \citet[409--414]{SWB2003a}, examples like (\ref{ex:prop42b}) are analysed as involving an auxiliary verb with two complements and no subject. This approach has no need for an additional phrase type, but it requires an alternative valence description for auxiliary verbs.}
+%
 
-\is{prolegomena}
-Sed cursus \footnote{eros condimentum mi consectetur, ac consectetur} sapien pulvinar. Sed consequat, magna\footnote{eu scelerisque laoreet, ante erat tristique justo, nec cursus eros diam eu nisl. Vestibulum non arcu tellus}. Nunc dignissim tristique massa ut gravida. Nullam auctor orci gravida tellus egestas, vitae pharetra nisl porttitor. Pellentesque turpis nulla, venenatis id porttitor non, volutpat ut leo. Etiam hendrerit scelerisque luctus. Nam sed egestas est. Suspendisse potenti. Nunc vestibulum nec odio non laoreet. Proin lacinia nulla lectus, eu vehicula erat vehicula sed. 
 
-\section*{Abbreviations}
-\begin{tabularx}{.45\textwidth}{lX}
-\textsc{cop} & copula\\ 
-\textsc{fv} & final vowel\\
-\end{tabularx}
-\begin{tabularx}{.45\textwidth}{lX}
-\textsc{neg} & negation\\ 
-\textsc{sm} & subject marker\\
-\end{tabularx}
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+\section{Further syntactic structures}\label{sec:prop6}
+\label{prop:sec-further-syntactic-structures}
+
+Head-complement-phrases, head-subject-phrases, and head-filler-phrases are perhaps the most important types of syntactic structure, but there are others that are of considerable importance. Here we will say something about three: head-adjunct-phrases, head-specifier-phrases, and head-marker-phrases.
+
+%%%%%%%%%%%%%%%%%%%%
+\subsection{Adjuncts}\label{sec:prop6.1}
+
+Adverbs and adverbial PPs within VPs and attributive adjectives and relative clauses within NPs are commonly viewed as adjuncts. Thus, the following illustrate head-adjunct-phrases (with the head following the adjunct in (\ref{ex:prop43a}) and (\ref{ex:prop43c}) and preceding in (\ref{ex:prop43b}), and (\ref{ex:prop43d})):
+
+\ea\label{ex:prop43}
+	\ea\label{ex:prop43a}
+	Kim [slowly [read the book]]
+	\ex\label{ex:prop43b}
+	Kim [[met Lee] in the pub]
+	\ex\label{ex:prop43c}
+	a [new [book about syntax]]
+	\ex\label{ex:prop43d}\label{ex-book-which-impresses}
+	a [[book about syntax] which impresses everyone]
+	\z
+\z
+
+In much HPSG work, adjuncts select the heads they combine with through a feature \textsc{mod} (modifies) whose value is a \emph{synsem} object, while other signs are [\textsc{mod} \emph{none}]. Thus, (\ref{ex:prop43a}) involves the schematic structure in Figure~\ref{fig:prop10}.
+
+\begin{figure}
+\begin{forest}
+	sm edges
+[\avmtmp{
+	[\type*{hd-adj-ph}
+	head & \1 verb\\
+	subj & \2 <NP>\\
+	comps & <>]
+},l sep=1cm
+	[Adv\avmtmp{[mod & \3]}
+		[slowly]
+	]
+	[\avmtmp{
+		\3[\type*{hd-comp-ph}
+		head & \1\\
+		subj & \2\\
+		comps & <>]
+	}, edge label={node[midway,right]{\textsc{~hd-dtr}}}
+		[read the book,roof]
+	]
+]
+\end{forest}
+\caption{A tree for a head-adjunct phrase}\label{fig:prop10}
+\end{figure}
+
+In the case of adverbs, adverbial PPs, and attributive adjectives, it is a simple matter to assign an appropriate value to \textsc{mod}, and this value can be underspecified to account for the polymorphism of certain adverbs which can modify all (major) categories \citep{AG2003b-u}. In the case of relative clauses, it is more complex because it must be coindexed with the \emph{wh}-element if there is one or the gap if there isn’t. In (\ref{ex-book-which-impresses}) this is reflected in the fact that the verb in the relative clause is the singular \emph{impresses} and not the plural \emph{impress}. See \crossrefchapterw{udc} and \crossrefchaptert{relative-clauses} for some discussion.
+
+Notice also that in head-adjunct phrases, the adjunct is not a syntactic head but may well be the semantic predicate, or the semantic head. This is an example of the difference between syntactic head and semantic head, and between syntatic argument and syntactic argument in HPSG.
+
+Although an adjunct analysis of adverbial PPs seems quite natural, it has been argued in some HPSG work that they are in fact optional complements of verbs (see e.g. \citealp[4]{AG97a-u,BMS2001a}; \citealp[168, fn.2]{GSag2000a-u}. On this view, \emph{in the pub} in (\ref{ex:prop43b}) is much like the same phrase in the following, where it is clearly a (predicative) complement:
+
+\ea\label{ex:prop44}
+Kim is in the pub. 
+\z
+
+Various arguments have been advanced for this position, but it is controversial and it is rejected by \citet{Levine2003a} and \citet[Chapter~3]{LH2006a} and \citet{Chaves2009a}. There is an unresolved issue here.%
+%
+\footnote{It has been argued that some adverbs and PPs are adjuncts and others are complements, depending on word order, case etc. (see for example \citealp{Prze99}, \citealp{HA2014a-u} and \crossrefchapteralp{negation}).}
+%
+
+%%%%%%%%%%%%%%%%%%%%
+\subsection{Specifiers and markers}\label{sec:prop6.2}
+
+As noted earlier, some HPSG work assumes a feature \textsc{spr (specifier)} which is realized by various categories. In some work subjects are analysed as specifiers \citep*[100--103]{SWB2003a}, but in other work they are realizations of a \textsc{subj(ect)} feature, as discussed in the last section. For some HPSG work, e.g. \citew[Section~9.4]{ps2}, \citew[Section~4.3]{SWB2003a}, determiners within NPs are an important example of specifiers. On this view, \emph{the pub} has the schematic structure in Figure~\ref{fig:prop11}.
+
+\begin{figure}
+\begin{forest}
+	sm edges
+[\avmtmp{
+	[\type*{hd-spr-ph}
+	head & \1 noun\\
+	spr & <>\\
+	comps & <>]
+},l sep=1cm
+	[\ibox{2} Det
+		[the]
+	]
+	[\avmtmp{
+		[\type*{word}
+		head & \1\\
+		spr & <\2>\\
+		comps & <>]
+	}, edge label={node[midway,right]{\textsc{~hd-dtr}}}
+		[pub]
+	]
+]
+\end{forest}
+\caption{A tree for a head-specifier phrase}\label{fig:prop11}
+\end{figure}
+
+Some recent work, e.g. Sag (2012) has adopted a rather different view of at least some determiners, namely that they are what are known as markers, a notion first introduced in \citet[Section~1.6]{ps2}. These are non-heads which select the head that they combine with through a \textsc{select} feature but determine the \textsc{marking} value of their mother.  Within this approach, \emph{the pub} has the schematic structure in Figure~\ref{fig:prop12}.%
+%
+\footnote{Work which assumes the \textsc{select} feature also uses it instead of \textsc{mod} for adjuncts, and consider both markers and adjuncts to be ``functors'' (\citealp{VanEynde98a}; \crossrefchapteralp{np}).}
+%
+
+\begin{figure}
+\begin{forest}
+	sm edges
+[\avmtmp{
+	[\type*{hd-mark-ph}
+	head & \1 noun\\
+	comps & <>\\
+	marking & the]
+},l sep=1cm
+	[\avmtmp{
+		[select & \2\\
+		marking & the]
+	}
+		[the]
+	]
+	[\avmtmp{
+		\2[\type*{word}
+		head & \1\\
+		comps & <>\\
+		marking & none]
+	}, edge label={node[midway,right]{~~\textsc{hd-dtr}}}
+		[pub]
+	]
+]
+\end{forest}
+\caption{A tree for a head-functor phrase}\label{fig:prop12}
+\end{figure}
+
+A marker analysis was originally proposed for complementizers. However, they have also been analysed as heads within HPSG, e.g. in \citet[456--458]{Sag97a} and \citet[2.8]{GSag2000a-u}. Thus, there is no consensus here.
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+\section{Further topics}\label{sec:prop7}
+\label{prop:sec-further-topics}
+
+There are many other aspects of HPSG that could be discussed in this chapter, but we will focus on just two: what are known as order domains, and the distinguishing properties of the SBCG version of HPSG.
+
+%%%%%%%%%%%%%%%%%%%%
+\subsection{Order domains}\label{sec:prop7.1}
+
+We noted above that much HPSG work views word order as a matter of phonology, specifically a matter of the relation between the \textsc{phon} value of a phrase and the \textsc{phon} values of its daughters (see \crossrefchapteralp{order}). Some work in HPSG argues that this is too simple in that it ties the observed order too closely to constituent structure. Consider the following examples:
+
+\ea\label{ex:prop45}
+	\ea\label{ex:prop45a}
+	A man who looked like Churchill came into the room.
+	\ex\label{ex:prop45b}
+	A man came into the room who looked like Churchill.
+	\z
+\z
+
+One might assume that these show different observed orders because they have different structures \citep{Kiss2005a}, but one might also want to claim that they have the same constituent structure. This is possible if the observed order is not a simple reflection of constituent structure. Much work in HPSG has proposed that the observed order is a reflection not of the constituent structure of an expression but of a separate system of order domains (see \citealp{Reape94a,Babel,Kathol2000a}). Within this approach, ordering rules may order non sister elements, as long as they belong to the same order domain: the constituent structure of an expression can be encoded as the value of a \textsc{dtrs (daughters)} feature and the order domain as the value of a \textsc{dom(ain)} feature. Adopting this position, one might propose that (\ref{ex:prop45b}) has the schematic analysis in (\ref{ex:prop46}).
+
+\ea\label{ex:prop46}
+\avmtmp{
+	[synsem & S\\
+	dtrs & <[\type{a man who looked like Churchill}],[\type{came into the room}]>\\
+	dom & <[\type{a man}],[\type{came into the room}],[\type{who looked like Churchill}]> ]
+}
+\z
+
+Here the clause has two daughters but three domain elements. The simpler example in (\ref{ex:prop45a}) will have two daughters and two domain elements.
+
+It is worth noting that this approach allows a different analysis for interrogatives like (\ref{ex:prop42b}). It would be possible to propose that an analysis in which they have two daughters and three domain elements as follows:
+
+\ea\label{ex:prop47}
+\avmtmp{
+	[synsem & S\\
+	dtrs & <[\type{Kim}],[\type{is late}]>\\
+	dom & <[\type{is}],[\type{Kim}],[\type{late}]> ]
+}
+\z
+
+As far as we are aware, no one has proposed such an analysis for English interrogatives, but essentially this analysis is proposed for German interrogatives in \citet[81]{Kathol2000a}.%
+%
+\footnote{\citet{Kathol2000a} assumes that order domains are divided into topological fields and shows how this idea allows an interesting approach to various aspects of clausal word order. See \citet{Borsley:06} for an application of this idea to negation.}
+%
+
+Order domains seem most plausible as an approach to the sorts of discontinuity that are found in so-called nonconfigurational languages such as \ili{Warlpiri} \citep{DS99a}. However, they may well have a role to play in more familiar languages \citep{BGM99a,Chaves2014a-u}. But exactly how much of a role they should play in syntax is an unresolved matter.
+
+One might wonder whether a version of HPSG that includes order domains is still a monostratal framework. It remains a framework in which linguistic expressions have a single constituent structure. However, it does have a second important level of representation, which makes available a variety of analyses which would otherwise not be possible. Whether the framework is still monostratal depends on how exactly the term is used. We will not take a stand on this.
+
+%%%%%%%%%%%%%%%%%%%%
+\subsection{Sign-Based Construction Grammar}\label{sec:prop7.2}
+
+The SBCG version of HPSG will be discussed in some detail in the next chapter \crossrefchapterp{evolution}, and the chapter on HPSG and Construction Grammar \crossrefchapterp{cxg}. Here we will just highlight the central difference between this approach and earlier work. The term construction is widely used in connection with the earlier construction-based HPSG, but within that work constructions are just types of sign. In contrast, for SBCG signs and constructions are quite different objects.
+
+For SBCG constructions are objects which associate a \textsc{mother} sign with a list of \textsc{daughter} signs, one of which is a \textsc{head-daughter} in a headed construction. Thus, constructions take the form in (47a) and headed-constructions the form in (47b):
+
+\begin{multicols}{2}
+\ea\label{ex:prop48}
+	\ea\label{ex:prop48a}
+	\avmtmp{
+		[\type*{cx}
+		mtr & sign\\
+		dtrs & \list*(sign) ]
+	}
+	
+\columnbreak
+	
+	\ex\label{ex:prop48b}
+	\avmtmp{
+		[\type*{headed-cx}
+		mtr & sign\\
+		dtrs & \list*(sign)\\
+		hd-dtr & sign ]
+	}
+\z
+	\z
+\end{multicols}
+
+Constructions are utilized by the Sign Principle, which can be formulated as follows:%
+%
+\footnote{Lexical rules are analysed in SBCG as lexical constructions. Thus, (b) covers derived words as well as phrases.}
+%
+
+\ea\label{ex:prop49}
+Signs are well formed if either (a) they match some lexical entry, or (b) they match the mother of some construction.
+\z
+
+Constructions and the Sign Principle are properties of SBCG which are lacking in earlier work. Essentially, then, they are complications. But they allow simplifications. In particular, they mean that signs do not need to have the features \textsc{dtrs} and \textsc{hd-dtr}. This in turn allows the framework to dispense with the feature \textsc{synsem} and the type \emph{synsem}. These elements are necessary in earlier HPSG because taking the value of \textsc{comps} to be a list of signs would incorrectly predict that heads may select complements not just with specific syntactic and semantic properties but also with specific kinds of internal structure. For example, it would allow a verb to select as its complement a phrase whose head has a specific type of complement. To exclude this possibility, earlier versions of HPSG seem to need \textsc{synsem} and \emph{synsem}. In SBCG it is excluded by the assumption that signs do not have the features \textsc{dtrs} and \textsc{hd-dtr} and so \textsc{synsem} and \emph{synsem} are unnecessary. Thus, SBCG is both more complex and simpler than earlier versions of the framework. This means that considerations of simplicity do not favour or disfavour the approach.
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+\section{Concluding remarks}\label{sec:prop8}
+
+In the preceding pages, we have spelled out the basic properties of HPSG and the assumptions it makes about the nature of linguistic analyses and the conduct of linguistic research. We have looked at the types, features, and constraints that are the building blocks of HPSG analyses. We have also outlined the HPSG approach to the lexicon, and the basics of its approach to syntax, and we have considered some of the main types of syntactic structure. Finally, we have discussed order domains and SBCG. More can be learned about all of these matters in the chapters that follow.
 
 
 \section*{Acknowledgements}
+
+We are grateful to Stefan Müller, Jean-Pierre Koenig, and Frank Richter for many helpful comments on
+earlier versions of this chapter. We alone are responsible for what appears here.
+
+
 
 {\sloppy
 \printbibliography[heading=subbibliography,notkeyword=this]

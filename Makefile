@@ -356,8 +356,8 @@ proofreading.pdf: main.pdf
 	pdftk main.pdf multistamp prstamp.pdf output proofreading.pdf 
 
 # extract all bibtex items and then remove irrelevant fields with --tool
-hpsg-handbook-bibliography.bib: $(Bibliographies)
-	biber --output_format=bibtex --output-field-replace=location:address,journaltitle:journal,date:year main.bcf -O hpsg-handbook-bibliography_tmp.bib 
+hpsg-handbook-bibliography.bib: $(Bibliographies) main.bcf
+	biber --output_format=bibtex --output-field-replace=location:address,journaltitle:journal,date:year --output-legacy-date main.bcf -O hpsg-handbook-bibliography_tmp.bib 
 	biber --tool --configfile=biber-tool.conf --output-field-replace=location:address,journaltitle:journal,date:year --output-legacy-dates hpsg-handbook-bibliography_tmp.bib -O hpsg-handbook-bibliography.bib
 
 references.pdf: references.tex hpsg-handbook-bibliography.bib
@@ -393,6 +393,7 @@ biosketch.tex: blurb.md
 biosketch.html: blurb.md
 	pandoc -f markdown -t html biosketch.md>biosketch.html
 
+install: memo-install avm-install
 
 memo-install:
 	cp -pr ~/Documents/Dienstlich/Projekte/memoize/memoize* .
