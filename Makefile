@@ -35,6 +35,7 @@ main.pdf: $(SOURCE)
 	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.sdx # ordering of references to footnotes
 	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.adx
 	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.ldx
+	sed -i.backup 's/\\MakeCapital //g' main.adx
 # 	python3 fixindex.py
 # 	mv mainmod.adx $*.adx
 	makeindex -o main.and main.adx
