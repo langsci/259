@@ -46,8 +46,7 @@
 
 \begin{document}
 \maketitle
-\label{chap-udc} {
-  \avmoptions{center}
+\label{chap-udc}
 
 
   \section{Introduction} \label{sec:Intro} Since
@@ -135,10 +134,11 @@
   subjects and complements.  There are examples where the filler has
   an adjunct role such as (\ref{ex:UDC:3}d) or the following:
 
-  \begin{exe} \ex \label{ex:UDC:6} \begin{avm}
-      \{ \normalfont Where\\ \normalfont When\\ \normalfont How\\
-      \normalfont Why\} \end{avm} did you talk to Lee
-    \trace{}?  \end{exe}
+  \begin{exe} \ex \label{ex:UDC:6}
+      \avmtmp{
+      	\{\normalfont Where \\ \normalfont When \\ \normalfont How \\ \normalfont Why & \}
+      } did you talk to Lee\trace{}?
+  \end{exe}
 
   \noindent 
   There are also UD constructions with no gap at all. Instead they
@@ -199,14 +199,15 @@ Figure~\ref{fig:UDC:9}, following \citet[Chapter~4]{Pollard:Sag:94}:
 \begin{figure}[htb]
   \centering
 
-  \begin{avm}
-    \[\asort{synsem}
-      local & \[\asort{local}
-        category & category\\
-    content & content\]\\
-    nonlocal & \[\asort{nonlocal} slash & set(local)\\
-    \ldots\]\]
-  \end{avm}
+\avmtmp{
+	[\type*{synsem}
+	local &	[\type*{local}
+			category & category \\
+			content & content ] \\
+	nonlocal &	[\type*{nonlocal}
+				slash & set!(local)! \\
+				\ldots ] ]
+}
 
   \caption{\label{fig:UDC:9}HPSG feature geometry: nonlocal and local features}
   
@@ -245,13 +246,22 @@ sentence. Thus, we have the schematic structure illustrated in Figure~\ref{fig:U
   \centering
 \begin{forest}
 sm edges without translation
-	[{S[\textsc{slash} \menge{}]}
-		[{NP[\textsc{local} \ibox{1}]} [what]]
-		[{S[\textsc{slash} \menge{ \ibox{1} }]}
+	[%
+	\avmtmp{S [slash & \{ \}]}
+		[%
+		\avmtmp{NP [local & \1]}
+			[what]
+		]
+		[%
+		\avmtmp{S [slash \{ \1 \}]}
 			[V[did]]
 			[NP[you]]
-			[{VP[\textsc{slash} \menge{ \ibox{1} }]}
-				[{V[\textsc{slash} \menge{ \ibox{1} }]} [put]]
+			[%
+			\avmtmp{VP [slash \{ \1 \}]}
+				[
+				\avmtmp{V [slash \{ \1 \}]}
+					[put]
+				]
 				[PP[on the table, roof]]]]]
 \end{forest}
 \caption{\label{fig:UDC:11}Extraction by \textsc{slash} feature percolation}
@@ -283,16 +293,16 @@ in constituent structure. Gaps have the feature make up given in
 \ea
 \label{ex:UDC:12}
 Representation of gaps \citep[160]{Pollard:Sag:94}:\\
-\begin{avm}
-    \[local & \@1\\
-    nonlocal & \[slash & \{ \@1 \} \] \]
-  \end{avm}
+\avmtmp{
+    [local & \1 \\
+    nonlocal &	[slash & \{ \1 \} ] ]
+}
 \z  
 
 
 \noindent
 Thus, \emph{to} in (\ref{ex:UDC:10}) will have an element of this form in an \textsc{arg-st}
-list where \avmbox{1} is NP.
+list where \ibox{1} is NP.
 
 Returning now to \textsc{slash}, a widely assumed approach involves the following
 assumptions:
@@ -316,14 +326,27 @@ mean that it has the following more elaborate analysis, as given in Figure~\ref{
    \centering
 \begin{forest}
 sm edges without translation
-	[{S[\textsc{slash} \menge{} ]}
-		[{NP[\textsc{local} \ibox{1}]} [what]]
-		[{S[\textsc{slash} \menge{ \ibox{1} }]}
-			[{V[\textsc{slash} \menge{ \ibox{1} }]} [did]]
-			[{NP[\textsc{slash} \menge{}]} [you]]
-			[{VP[\textsc{slash} \menge{ \ibox{1} }]}
-				[{V[\textsc{slash} \menge{ \ibox{1} }]} [put]]
-				[{PP[\textsc{slash} \menge{}]} [on the table, roof]]]]]
+	[%
+	\avmtmp{S [slash \{ \} ]}
+		[%
+		\avmtmp{NP [local \1]}
+			[what]]
+		[%
+		\avmtmp{S [slash \{ \1 \}]}
+			[%
+			\avmtmp{V [slash \{ \1 \}]}
+				[did]]
+			[%
+			\avmtmp{NP [slash \{ \}]}
+				[you]]
+			[%
+			\avmtmp{VP [slash \{ \1 \}]}
+				[%
+				\avmtmp{V [slash \{ \1 \}]}
+					[put]]
+				[%
+				\avmtmp{PP [slash \{ \}]}
+					[on the table, roof]]]]]
 \end{forest}
 
 %\if0
@@ -380,13 +403,13 @@ is {[}\textsc{slash} \{ \}{]}. One might propose the following constraint:
 \ea
 %\label{fig:UDC:16}
 Head-filler phrase (singleton \textsc{slash} set):\\
-   \small\emph{head-filler-ph} \impl
-  \begin{avm}
-   \[slash & \{ \}\\
-     hd-dtr & \@1 \[comps & \< ~ \>
-     slash & \{ \@2 \}\]\\
-   dtrs & \< \[local & \@2\], \@1\>\]
- \end{avm}
+%   \small
+	\emph{head-filler-ph} \impl
+\avmtmp{
+	[slash & \{ \} \\
+	hd-dtr & \1	[comps < > & slash \{ \2 \} ]\\
+	dtrs & < [local & \2 ], \1 > ]
+}
 \z
 
 \noindent
@@ -399,13 +422,14 @@ more general constraint is assumed along the following lines:
 \ea
 \label{fig:UDC:17}
 Head-filler phrase:\\
-  \small\emph{head-filler-ph} \impl
-  \begin{avm}
-    \[slash & \@3\\
-      hd-dtr & \@1 \[comps & \< ~ \>\\
-        slash & \{ \@2 \} $~\cup$ \@3 \]\\
-      dtrs & \< \[local & \@2\], \@1\>\]
-  \end{avm}
+%  \small
+	\emph{head-filler-ph} \impl
+\avmtmp{
+	[slash & \3 \\
+	hd-dtr & \1	[comps & < > \\
+				slash & \{ \2 \} $\cup$ \3 ] \\
+	dtrs & <	[local & \2 ], \1 > ]
+}
 \z
 
 \noindent
@@ -470,17 +494,13 @@ following, somewhat simplified structure:
   \centering
 \begin{forest}
 sm edges without translation
-	[{\begin{avm}
-            \[\head & \textit{verb} \\
-              \textsc{slash} & \{ \ibox{1} \} \\
-              \textsc{arg-st} & \< NP \[ \textsc{local} & \ibox{1} \\ 
-                \textsc{slash}
-                &
-                \{
-                \ibox{1}
-                \} \],
-              PP \> \]
-          \end{avm}}
+	[%
+	\avmtmp{
+		[head & verb \\
+		slash & \{ \1 \} \\
+		arg-st & < NP	[local & \1 \\ 
+						slash & \{ \1 \} ], PP > ]
+	}
         [put]]
       \end{forest}
    \caption{\label{fig:UDC:20}Representation of a slashed verb (traceless)}
@@ -510,22 +530,26 @@ this view, the VP will have the following structure:
   \centering
 \begin{forest}
 sm edges without translation
-	[{\begin{avm}
-	\[\head & \textit{verb} \\
-	\textsc{slash} & \{ \ibox{1} \} \]
-	\end{avm}}
-		[{\begin{avm}
-		\[\head & \textit{verb} \\
-		\textsc{slash} & \{ \} \\
-		\textsc{arg-st} & \< \ibox{2} NP, \ibox{3} PP \> \]
-		\end{avm}} [put]]
-		[{\begin{avm}
-		\[\textsc{synsem} & \ibox{2} \[ \textsc{local} & \ibox{1} \\
-													\textsc{nonlocal} & \[ \textsc{slash} & \{ \ibox{1} \} \] \] \]
-		\end{avm}} [$e$]]
-		[{\begin{avm}
-		\[\textsc{synsem} & \ibox{3} \]
-		\end{avm}} [on the table, roof]] ]
+	[%
+	\avmtmp{
+		[head & verb \\
+		slash & \{ \1 \} ]
+	}
+		[%
+		\avmtmp{
+			[head & verb \\
+			slash & \{ \} \\
+			arg-st & < \2 NP, \3 PP > ]
+		}
+			[put]]
+		[%
+		\avmtmp{
+			[synsem & \2	[local & \1 \\
+							nonlocal &	[slash & \{ \1 \} ] ] ]
+		}
+			[$e$]]
+		[%
+		\avmtmp{[synsem & \3 ]} [on the table, roof]] ]
 \end{forest}
     \caption{\label{fig:UDC:21}Representation of a slashed VP (with trace)}  
 \end{figure}
@@ -914,13 +938,12 @@ examples like (\ref{ex:UDC:6}) repeated as (\ref{ex:UDC:28}), because
 no obligatory constituent is missing.\footnote{This position has initially
   been taken in \citet[176--180]{Pollard:Sag:94}. } 
 
-\avmoptions{center}
 \begin{exe}
 \ex \label{ex:UDC:28}
-\begin{avm} 
-  \{ \normalfont Where\\ \normalfont When\\ \normalfont How\\
-  \normalfont Why\}
-\end{avm}
+\avmtmp{
+	\{ \normalfont Where\\ \normalfont When\\ \normalfont How\\
+  \normalfont Why & \}
+}
 did you talk to Lee \trace{}?
 \end{exe}
 
@@ -1063,10 +1086,10 @@ which we can formulate as follows, following \citet[199]{Ginzburg:Sag:01}:
 \label{fig:UDC:32}
 \textsc{slash} Amalgamation Principle:\\
    \textit{word} \impl
-   \begin{avm}
-     $\slash$\[slash & \@1 $~\cup$ \ldots $~\cup$ \@n\\
-       arg-st & \<\[slash & \@1\] ~\ldots~ \[slash & \@n \] \>\]
-   \end{avm}
+\avmtmp{
+	$\slash$	[slash & \1 $\cup$ \ldots $\cup$ \tag{n}\\
+				arg-st & <[slash & \1] \ldots	[slash & \tag{n} ] > ]
+}
 \z
 
 \noindent
@@ -1171,12 +1194,13 @@ the distribution of \textsc{slash} allow structures like the following:
   \centering
 \begin{forest}
 sm edges without translation
-	[{[\slasch \menge{ \ibox{1} } ] }
+	[\avmtmp{[slash & \{ \1 \}]}
 		[\ldots]
-		[{[\slasch \menge{ \ibox{1} } ] } ]
+		[\avmtmp{[slash & \{ \1 \}]} ]
 		[\ldots]
-		[{[\slasch \menge{ \ibox{1} } ] } ]
-		[\ldots]]		
+		[\avmtmp{[slash & \{ \1 \}]} ]
+		[\ldots]
+	]		
 \end{forest}
   \caption{\label{fig:UDC:36}Across-the-board (ATB) extraction: conflation of \textsc{slash} values} 
 \end{figure}
@@ -1451,12 +1475,12 @@ and (\ref{ex:UDC:52}):
 \ea
 \label{fig:UDC:53}
 Lexical representation of \textit{tough} adjectives (preliminary):\\
-  \begin{avm}
-    \[synsem  \[local|cat & \[head & adj\\
-          subj & \< NP \[index \@i\] \>\\
-          comps & \< VP\[vform & inf\\ slash & \{ NP \[index &
-              \@i\] \} \]\>\] \]\]
-    \end{avm}
+\avmtmp{
+[synsem & [local|cat &	[head & adj \\
+						subj & <NP [index \tag{i}]> \\
+          				comps & <VP	[vform & inf \\
+          							slash & \{ NP [index & \tag{i}] \} ] > ] ] ]
+}
 \z
 
 \noindent
@@ -1477,14 +1501,13 @@ following form:
 \ea
 \label{fig:UDC:54}
 Lexical representation of \textit{tough} adjectives (final):\\*
-  \begin{avm}
-    \[synsem  \[local|cat & \[head & adj\\
-          subj & \< NP \[index \@i\] \>\\
-          comps & \< VP\[vform & inf\\ slash & \{ NP \[index &
-              \@i\] \} $~\cup$ \@1 \]\>\]\\
-        nonlocal & \[slash & \@1 \]
-      \]\]
-  \end{avm}
+\avmtmp{
+	[synsem &	[local|cat &	[head & adj \\
+								subj & <NP [index \tag{i}]> \\
+								comps & <VP	[vform & inf\\
+											slash & \{ NP [index & \tag{i} ] \} $\cup$ \1 ] > ]\\
+				nonlocal &	[slash & \1 ] ] ]
+}
 \z  
 
 \noindent
@@ -1545,13 +1568,14 @@ like the one in (\ref{fig:UDC:59}):
 \ea
 \label{fig:UDC:59}
 Lexical representation of relative complementiser \textit{that}:\\*
-  \begin{avm}
-    \[synsem \[local|cat  \[head & \[{\normalfont\textit{complementiser}}\\ mod 
-            \; NP\[index & \@i \]\]\\
-          subj & \< \>\\
-          comps & \< S\[vform & \normalfont\textit{fin}\\slash & \{ \mbox{\textup{NP}} \[index & \@i \] \} $~\cup$ \@1 \]\> \]\\
-      nonlocal  \[slash & \@1 \]\]\]
-  \end{avm}
+\avmtmp{
+	[synsem &	[local|cat &	[head &	[\type*{complementiser}\\
+										mod NP[index & \tag{i} ] ] \\
+								subj & < > \\
+								comps & < S &	[vform & fin\\
+												slash & \{ NP [index & \tag{i} ] \} $\cup$ \1 ] > ] \\
+				nonlocal &	[slash & \1 ] ] ]
+}
   
 \z
 
@@ -1841,17 +1865,19 @@ one in Figure~\ref{fig:WelshResump} below.
   \centering
 \begin{forest}
 sm edges without translation
-	[{\begin{avm}
-			\[\head & \ibox{1} prep $\vee$ noun \\
-			\textsc{slash} & \{ \ibox{2} NP$_i$ \} \]
-	\end{avm}}
-	[{\begin{avm}
-			\[\head & \ibox{1} \\
-			\textsc{slash} & \{ \ibox{2} \} \\
-			\textsc{arg-st} & \sliste{ \ldots{} \ibox{3} \ldots{} } \]
-	\end{avm}}]
-	[{\ibox{3} NP$_i$ }]
-	[\dots]]
+	[%
+	\avmtmp{
+		[head & \1 prep $\lor$ noun \\
+		slash & \{ \2 NP$_i$ \}]
+	}
+		[%
+		\avmtmp{
+			[head & \1 \\
+			slash & \{ \2 \} \\
+			arg-st & < \ldots \3 \ldots >]
+		}]
+		[\ibox{3} NP$_i$]
+	[\ldots]]
 \end{forest}
     \caption{\label{fig:WelshResump}Representation of Welsh resumptives}  
 \end{figure}
@@ -1967,33 +1993,61 @@ information, whereas exactly this information is excluded for
 
 
 
-\begin{figure}[htb]
-  \centering
-  
-  \begin{tabular}{cc}
-    \multicolumn{2}{c}{
-    \rnode{l}{\begin{avm}
-      \[\asort{local} 
-      cont & \[index & ind \]\]
-    \end{avm}}
-}\\[4em]
-    \rnode{f}{\begin{avm}
-      \[\asort{full-local}
-        cat & cat\\
-      \]
-    \end{avm}}
-    &
-      \rnode{w}{\begin{avm}
-      \[\asort{weak-local}
-        cont & \[rels \< ~ \>\]
-      \]
-    \end{avm}}
-  \end{tabular}
-  \psset{angleA=-90,angleB=90,nodesep=1pt,arm=0pt,linewidth=.5pt}
-  \ncdiag{l}{w}
-  \ncdiag{l}{f}
+%\begin{figure}[htb]
+%  \centering
+%  
+%  \begin{tabular}{cc}
+%    \multicolumn{2}{c}{
+%    \rnode{l}{\begin{avm}
+%      \[\asort{local} 
+%      cont & \[index & ind \]\]
+%    \end{avm}}
+%}\\[4em]
+%    \rnode{f}{\begin{avm}
+%      \[\asort{full-local}
+%        cat & cat\\
+%      \]
+%    \end{avm}}
+%    &
+%      \rnode{w}{\begin{avm}
+%      \[\asort{weak-local}
+%        cont & \[rels \< ~ \>\]
+%      \]
+%    \end{avm}}
+%  \end{tabular}
+%  \psset{angleA=-90,angleB=90,nodesep=1pt,arm=0pt,linewidth=.5pt}
+%  \ncdiag{l}{w}
+%  \ncdiag{l}{f}
+%
+%
+%
+%  \caption{\label{fig:local}Hierarchy of \textit{local} \citep{Crysmann:12}}
+%
+%\end{figure}
 
-  
+
+
+\begin{figure}[htb]
+	\centering
+
+\begin{forest}
+[%
+\avmtmp{
+	[\type*{local} 
+	cont &	[index & ind ] ]
+},l sep=1.5cm
+	[%
+	\avmtmp{
+		[\type*{full-local}
+		cat & cat ]
+	}]
+	[%
+	\avmtmp{
+		[\type*{weak-local}
+		cont &	[rels <  > ] ]
+	}]
+]
+\end{forest}  
   
   \caption{\label{fig:local}Hierarchy of \textit{local} \citep{Crysmann:12}}
   
@@ -2003,21 +2057,24 @@ information, whereas exactly this information is excluded for
   \centering
 \begin{forest}
 sm edges without translation
-[{\begin{avm}
-	\[\asort{synsem}
+[%
+\avmtmp{
+	[\type*{synsem}
 	loc & full-local \\
-	nloc & non-local\]
-\end{avm}}
-	[{\begin{avm}
-	\[\asort{slashed}
-	loc & \[\cont|index & \ibox{1} \] \\
-	nloc & \[sl & \{ \[cont|index & \ibox{1} \] \} \] \]
-	\end{avm}}
-		[{\begin{avm}
-		\[\asort{gap}
-		loc & \ibox{1} full-local \\
-		nloc & \[sl & \{ \ibox{1} \}\] \]
-		\end{avm}} ]
+	nloc & non-local ]
+}
+	[%
+	\avmtmp{
+		[\type*{slashed}
+		loc &	[cont|index & \1] \\
+		nloc &	[sl & \{[cont|index & \1 ] \} ] ]
+	}
+		[%
+		\avmtmp{
+			[\type*{gap}
+			loc & \1 full-local \\
+			nloc &	[sl & \{ \1 \} ] ]
+		} ]
 		[\textit{resump}]]]
 \end{forest}
   \caption{\label{fig:synsem}Hierarchy of \textit{synsem} objects \citep{Crysmann:12}}
@@ -2514,34 +2571,25 @@ adjunct extraposition.
 \begin{exe}
   \ex Complement Extraposition Lexical Rule
   
-  \begin{avm}
-    \[subcat \; \@1 $\oplus$ \< \[loc & \@4 \[cat|head & verb $\vee$
-          prep\\
-        subcat & \< ~ \>\] \]\> $\oplus$ \@2\\
-    nonloc|inher|extra \; \@3\]~$\mapsto$
-\end{avm}
-
-\begin{avm}
-  \[subcat \; \@1 $\oplus$
-    \@2\\
-    nonloc|inher|extra \; \@3 $\cup$ \{ \@4 \}
-  \]
-\end{avm}
+\avmtmp{
+	[subcat & \1 \+ <[loc & \4	[cat|head & verb $\lor$ prep \\
+								subcat & < > ] ]> \+ \2 \\
+	\punk{nonloc|inher|extra}{\3} ]
+$\mapsto$ \\
+	[subcat & \1 \+ \2 \\
+    \punk{nonloc|inher|extra}{\3 $\cup$ \{ \4 \}} ]
+}
 \ex Adjunct Extraposition Lexical Rule
 
-\begin{avm}
-  \[loc \; \@2 \[cat|head & noun $\vee$ verb\]\\
-    nonloc|inher|extra \; \@1
-    \] ~$\mapsto$ 
-\end{avm}
-
-\begin{avm}
-  \[loc|cont  \; \@3\\
-    nonloc|inher|extra \; \@1 $\cup$ \{ \[cat & \[head & \[\asort{prep
-            $\vee$ rel} mod|loc & \@2\]\\
-      cont & \@3\]\] \}
-  \]
-\end{avm}
+\avmtmp{
+	[loc & \2 [cat|head & noun $\lor$ verb ] \\
+    \punk{nonloc|inher|extra}{\1} ]
+$\mapsto$ \\
+	[loc|cont \3\\
+    nonloc|inher|extra & \1 $\cup$ \{[cat & [head & [\type*{prep $\lor$ rel}
+    												mod|loc & \2 ] \\
+      										cont & \3 ] ] \} ]
+}
 
 \end{exe}
 
@@ -2570,12 +2618,11 @@ dependencies, which are realised as extraposed daughters.\footnote{We
 \begin{exe}
   \ex Head-Extra Schema
 
-  \begin{avm}
-    \[synsem & \[nonloc|inher|extra \; \{~\}\]\\
-      dtrs & \[head-dtr & \[synsem|nonloc|to-bind|extra \;
-          \normalfont\textsf{loc}(\@1) \]\\
-  extra-dtrs & \@1\]\]
-  \end{avm}
+\avmtmp{
+	[synsem & [nonloc|inher|extra & \{ \} ] \\
+	dtrs & [head-dtr & [synsem|nonloc|to-bind|extra & \upshape \textsf{loc(\1)} ] \\
+	extra-dtrs & \1 ] ]
+}
 \end{exe}
 
 Order of extraposed daughters amongst each other and with respect to
@@ -2997,7 +3044,9 @@ structure for (\ref{ex:UDC:ThatHeMightBeWrong}).
 sm edges without translation
 	[S
 		[S [That he might be wrong, roof]]
-		[{S[\textsc{slash} \menge{NP}]} [he didn't think of, roof]]]
+		[%
+		\avmtmp{S [slash \{NP\}]}
+			[he didn't think of, roof]]]
 \end{forest}    
 	 \caption{\label{fig:UDC:Tree:ThatHeMightBeWrong}``Dishonest'' gap }
 \end{figure}
@@ -3058,12 +3107,12 @@ associate a mother sign (\textsc{mtr}) with a list of daughter signs
 
 \begin{exe}
   \ex \label{ex:UDC:SBCG:cx}
-  \begin{avm}
-    \[\asort{cx}
-      mtr & sign\\
-      dtrs & list(sign)\\
-    hd-dtr & sign\]
-  \end{avm}
+\avmtmp{
+	[\type*{cx}
+      mtr & sign \\
+      dtrs & list!(sign)! \\
+    hd-dtr & sign ]
+}
 
 \end{exe}
 \noindent
@@ -3129,11 +3178,11 @@ In (\ref{ex:UDC:SBCG:ex}a), \textit{read} has the values in
 
 \begin{exe}
   \ex \label{ex:UDC:SBCG:nogap}
-  \begin{avm}
-    \[arg-st & \< \@1NP, \@2NP \>\\
-      valence & \<\@1, \@2\>\\
-      gap & \< ~\>\]
-  \end{avm}
+\avmtmp{
+	[arg-st & < \1 NP, \2 NP > \\
+	valence & < \1 , \2 > \\
+	gap & < > ]
+}
 
 \end{exe}
 
@@ -3144,11 +3193,11 @@ the value of \textsc{gap} is the empty list. In
 
 \begin{exe}
   \ex \label{ex:UDC:SBCG:gap}
-  \begin{avm}
-    \[arg-st & \< \@1NP, \@2NP \>\\
-      valence & \<\@1\>\\
-      gap & \< \@2 \>\]
-  \end{avm}
+\avmtmp{
+	[arg-st & < \1 NP, \2 NP > \\
+	valence & < \1 > \\
+	gap & < \2 > ]
+}
 
 \end{exe}
 	
@@ -3179,7 +3228,6 @@ in a \textsc{gap} list and not in a \textsc{valence} list.
 }
 
 
-}
 
 \end{document}
 
