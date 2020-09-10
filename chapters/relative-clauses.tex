@@ -20,7 +20,7 @@
 
 
 %% the notactive option is necessary for this document:
-\avmoptions{notactive,center}
+\avmoptions{notactive}
 
 %%  \crossrefchaptert{ChXXXX}) -- should be a cross ref to the chapter that introduces
 %%  multiple inheritance from different dimensions
@@ -148,20 +148,11 @@ adjunct clauses headed by a subordinator like \lic{because} (as in \lic{We're la
 typically be specified as \pref{x:rc-7}:
 \begin{exe}\ex\begin{xlist}
   \ex\label{x:rc-5}
-  \begin{avm}
-   \[ synsem\|loc\|cat\|head\|mod &  
-      \[ loc\|cat\|head & noun \\
-      \]\\
-   \]
-   \end{avm}
+\avmtmp{[synsem|loc|cat|head|mod &  [ loc|cat|head & noun ] ]}
   \ex\label{x:rc-6}
-  \begin{avm}
-   \[ synsem\|loc\|cat\|head\|mod &  
-      \[ loc\|cat\|head & verb \\
-      \]\\
-   \]
-   \end{avm}
- \ex\label{x:rc-7} \begin{avm}\[synsem\|loc\|cat\|head\|mod & none\]\end{avm}
+\avmtmp{[synsem|loc|cat|head|mod & [ loc|cat|head & verb ] ]}
+ \ex\label{x:rc-7}
+\avmtmp{[synsem|loc|cat|head|mod & none]}
 \end{xlist}
 \isfeat{synsem}\isfeat{local}\isfeat{cat}\isfeat{head}\isfeat{mod}
 \istype{verb}\istype{noun}
@@ -263,10 +254,10 @@ higher than the level at which the associated filler appears.\footnote{In case i
   \emph{be} a \lic{wh}-phrase, e.g.\ it cannot function as the filler in a relative
   clause. Suppose, counter-factually, the \feat{rel} value of \lic{who} could be inherited
   beyond the relative clause \lic{to whom Kim spoke}, so that e.g.\ \lic{a person to whom
-    Kim spoke} was marked as [\feat{rel}~\{\idx{1}\}]. This phrase would be able to
+    Kim spoke} was marked as [\feat{rel}~\{\ibox{1}\}]. This phrase would be able to
   function as the \lic{wh}-phrase in a relative clause like *[\lic{a person to whom Kim
     spoke}] \lic{Sam recognised \trace}, which would be able to combine with a noun specified as
-  [\feat{index}~\idx{1}] to produce something like *\lic{a person} [[\lic{a person to whom
+  [\feat{index}~\ibox{1}] to produce something like *\lic{a person} [[\lic{a person to whom
     Kim spoke}] \lic{Sam recognised \trace}].}
 \is{relative inheritance|)}
 
@@ -287,17 +278,12 @@ value, roughly as in \pref{x:rc-17}, which we abbreviate to \pref{x:rc-18}.\foot
   a subject and a VP.}
 \begin{exe}\ex\begin{xlist}
   \ex\label{x:rc-17}  
-  \begin{avm}
-   \[synsem & 
-      \[ loc & 
-         \[ cat  & \[ head & noun \]\\
-            cont & \[ index & \@1 \]
-         \]\\
-         non-loc & \[ inher\|rel & \q\{\@1\q\} \]
-      \]
-   \]  
-   \end{avm}
-  \ex\label{x:rc-18} \ibar{N}\subtag{1}~\begin{avm}\[rel& \q\{\@1\q\}\]\end{avm}
+\avmtmp{
+	[synsem &	[loc &	[cat &	[head & noun ] \\
+						cont &	[index & \1 ] ] \\
+				non-loc &	[inher|rel & \{ \1 \} ] ] ]
+}
+  \ex\label{x:rc-18} \avmtmp{\ibar{N}$_{\1}$ [rel & \{ \1 \} ]}
 \end{xlist}
 \isfeat{synsem}\isfeat{local}\isfeat{cat}\isfeat{content}\isfeat{head}\isfeat{index}\isfeat{non-local}
 \istype{noun}
@@ -307,7 +293,7 @@ This index can then be \is{relative inheritance}inherited upwards via the \feat{
 \feat{mod} value of the relative clause: this is simply a matter of replacing the
 specification of the \feat{mod} value in \pref{x:rc-5} with that in \pref{x:rc-19},
 abbreviated as in \pref{x:rc-20}, where
-\idx{1} is the index that appears in the \feat{rel} value of the associated
+\ibox{1} is the index that appears in the \feat{rel} value of the associated
 \lic{wh}-phrase.\footnote{We assume, for simplicity,
   that the value of \feat{rel} is a set of indices. This is consistent with e.g.\
   \cite{Pollard:Sag:94} and \cite{Sag:97}, but not with \cite[188]{Ginzburg:Sag:00}, who
@@ -318,38 +304,62 @@ abbreviated as in \pref{x:rc-20}, where
   this.}
 \begin{exe}\ex\begin{xlist}
   \ex\label{x:rc-19}
-  \begin{avm}
-   \[ synsem\|loc\|cat\|head\|mod &  
-      \[ loc & 
-         \[ cat  & \[ head & noun \]\\
-            cont & \[ index & \@1 \]
-         \]\\
-      \]
-   \]
-   \end{avm}
-   \ex\label{x:rc-20} S~\begin{avm}\[mod&\upshape{\ibar{N}\subtag{1}}\]\end{avm}
+\avmtmp{
+	[synsem|loc|cat|head|mod &	[loc &	[cat &	[head & noun ] \\
+										cont &	[index & \1 ] ] ] ]
+}
+   \ex\label{x:rc-20}
+\avmtmp{S [mod & \upshape \ibar{N}$_{\1}$ ]}
  \end{xlist}
  \isfeat{synsem}\isfeat{local}\isfeat{cat}\isfeat{head}\isfeat{mod}\isfeat{index}\isfeat{content}
  \istype{noun}
 \end{exe}
 
+%\begin{figure}
+%    \begin{forest}  %qtree edges
+%   [{\TnodeDA{S}{\[mod& \upshape{\ibar{N}\subtag{1}}\]}}, baseline 
+%      [{\TnodeDA{\idx{3} PP}{\[ rel &\setof{\@1} \]}}   [{P}  [ {to} ] ]
+%         [{\TnodeDA{NP\subtag{1}}{\[ rel&\setof{\@1} \]}}  [ {whom} ] ]
+%      ]
+%      [{\TnodeDA{S}{\[slash&\setof{\@3}\]}} 
+%         [{\TnodeDA{NP}{}}  [ {Kim} ] ]
+%         [{\TnodeDA{VP}{\[slash&\setof{\@3}\]}}    
+%            [{\TnodeDA{V}{\[slash&\setof{\@3}\]}}  [ {spoke} ] ]
+%         ]
+%      ]
+%   ]
+%   \end{forest}
+%  \caption{Representation of \lic{to whom Kim spoke}}
+%  \label{fig:rc-1}
+%\end{figure}
+
 \begin{figure}
-    \begin{forest}  %qtree edges
-   [{\TnodeDA{S}{\[mod& \upshape{\ibar{N}\subtag{1}}\]}}, baseline 
-      [{\TnodeDA{\idx{3} PP}{\[ rel &\setof{\@1} \]}}   [{P}  [ {to} ] ]
-         [{\TnodeDA{NP\subtag{1}}{\[ rel&\setof{\@1} \]}}  [ {whom} ] ]
-      ]
-      [{\TnodeDA{S}{\[slash&\setof{\@3}\]}} 
-         [{\TnodeDA{NP}{}}  [ {Kim} ] ]
-         [{\TnodeDA{VP}{\[slash&\setof{\@3}\]}}    
-            [{\TnodeDA{V}{\[slash&\setof{\@3}\]}}  [ {spoke} ] ]
-         ]
-      ]
-   ]
-   \end{forest}
-  \caption{Representation of \lic{to whom Kim spoke}}
-  \label{fig:rc-1}
+\begin{forest}  %qtree edges
+[\avmtmp{S [mod & \upshape \ibar{N}$_{\1}$ ]}
+	[\avmtmp{\3 PP [rel & \{ \1 \} ]}
+		[P
+			[to]
+		]
+		[\avmtmp{NP$_{\1}$ [rel & \{ \1 \} ]}
+			[whom]
+		]
+	]
+	[\avmtmp{S [slash & \{ \3 \} ]} 
+		[NP
+			[Kim]
+		]
+		[\avmtmp{VP [slash & \{ \3\} ]}    
+			[\avmtmp{V [slash & \{ \3 \} ]}
+				[spoke]
+			]
+		]
+	]
+]
+\end{forest}
+\caption{Representation of \lic{to whom Kim spoke}}
+\label{fig:rc-1}
 \end{figure}
+
 Schematically, then, \lic{wh}-relatives should have
 structures along the lines of Figure~\ref{fig:rc-1}.
 The top structure here is a head-filler
@@ -375,10 +385,13 @@ modifiers) is a \istype{state-of-affairs}\type{state-of-affairs} (\istype{soa}\t
    \istype{naming}\type{naming} relation to the name \type{Kim}.}
 \begin{exe}\ex\begin{xlist}
   \ex\label{x:rc-21}
-  \begin{avm}
-   \[\asort{soa} nuc & \[ \asort{speak\_to} speaker & Kim\\addressee & \@1 \] \]
-   \end{avm}
-   \ex\label{x:rc-22} $speak\_to(Kim,\idx{1})$
+\avmtmp{
+	[\type*{soa}
+	nuc &	[\type*{speak\_to}
+			speaker & Kim \\
+			addressee & \1 ] ]
+}
+   \ex\label{x:rc-22} $speak\_to(Kim,\ibox{1})$
  \end{xlist}
  \isfeat{speaker}\isfeat{nucleus}\isfeat{addressee}
  \istype{state-of-affairs}
@@ -518,7 +531,7 @@ which shows that \lic{some pictures of whom} is fine as the initial phrase of a 
 clause, as in \pref{x:rc-30}, but is not possible as the focus of a question, as in
 \pref{x:rc-29}:\footnote{On \citegen{Ginzburg:Sag:00} account, \pref{x:rc-29} is excluded
   by a constraint that requires non-initial elements of \feat{arg-st} to be
-  [\feat{wh}~\setof{}], \feat{wh} corresponding to what we are here calling \feat{que} (the
+  [\feat{wh}~\{ \}], \feat{wh} corresponding to what we are here calling \feat{que} (the
   \feat{Wh}-Constraint, \citealt[189]{Ginzburg:Sag:00}). In \pref{x:rc-29} \lic{some} is
   the initial element on the \feat{arg-st} of \lic{pictures}, and \lic{(of) whom} is
   non-initial, hence the ungrammaticality. Clearly, the fact that \pref{x:rc-30} is
@@ -572,12 +585,14 @@ regarded as a head-adjunct structure, where the nominal is the head and the
 relative clause is the adjunct, as in Figure~\ref{fig:rc-2}.
 \begin{figure}
   \begin{forest}  %qtree edges
-   [{\ibar{N}\subtag{1}} ,baseline
-      [{\idx{2} \ibar{N}\subtag{1}}  [ {person} ] ]
-      [{\TnodeDA{S}{\[mod&\@2\]}}
-         [{to whom Kim spoke}, roof]
-      ]
-   ]
+	[{\ibar{N}$_{\ibox{1}}$} ,baseline
+		[{\ibox{2} \ibar{N}$_{\ibox{1}}$}
+      		[person]
+      	]
+		[\avmtmp{S [mod & \2]}
+			[to whom Kim spoke, roof]
+		]
+	]
    \end{forest}
    \caption{A relative clause and its antecedent}
    \label{fig:rc-2}
@@ -603,38 +618,42 @@ relative clause is the adjunct, as in Figure~\ref{fig:rc-2}.
  \pref{x:rc-38}.
 \begin{exe}
   \ex\label{x:rc-35}
-  \begin{avm}
-      \[\asort{scope-obj}
-         index & \@1\\
-         restr & 
-         \{ \[\asort{fact} prop\|soa & \[\asort{soa} nuc & \[\asort{person} instance & \@1 \] \]
-            \]
-         \} 
-      \] 
-   \end{avm}
+\avmtmp{
+	[\type*{scope-obj}
+	index & \1 \\
+	restr &	\{[\type*{fact}
+			prop|soa &	[\type*{soa}
+						nuc &	[\type*{person}
+								instance & \1 ] ] ] \} ] 
+}
    \istype{scope-object}
    \istype{soa}\istype{fact}
-  \ex\label{x:rc-36}\ibox{1} : \ensuremath{\{person(\idx{1})\}}
+  \ex\label{x:rc-36}\ibox{1} : \ensuremath{\{person(\ibox{1})\}}
 \end{exe}
 \begin{exe}
   \ex\label{x:rc-37}
-  \begin{avm}
-      \[\asort{scope-obj}
-         index & \@1\\
-         restr & 
-         \{ \begin{tabular}{l}
-            \[\asort{fact} prop\|soa  & \[\asort{soa} nuc & \[\asort{person} instance & \@1\]\]\] ,\\
-            \[\asort{fact} prop\|soa  & \[\asort{soa} nuc & \[\asort{speak\_to} speaker & Kim\\addressee & \@1\]\]\]
-            \end{tabular}
-      \} 
-      \] 
-   \end{avm}
+\avmtmp{
+	[\type*{scope-obj}
+	index & \1 \\
+	restr &	\{
+			[\type*{fact}
+			prop|soa  &	[\type*{soa}
+						nuc &	[\type*{person}
+								instance & \1 ] ] ], \\
+            [\type*{fact}
+            prop|soa &	[\type*{soa}
+            			nuc &	[\type*{speak\_to}
+            					speaker & Kim\\
+            					addressee & \1 ] ] ]
+      		\} 
+	] 
+}
    \isfeat{index}\isfeat{restr}\isfeat{prop}\isfeat{soa}\isfeat{nucleus}\isfeat{instance}\isfeat{speaker}\isfeat{addressee}
    \istype{scope-object}
  \end{exe}
 \begin{exe}
-\ex\label{x:rc-38}\ibox{1} : \ensuremath{\{person(\idx{1}),
-        speak\_to(Kim,\idx{1})\}}
+\ex\label{x:rc-38}\ibox{1} : \ensuremath{\{person(\ibox{1}),
+        speak\_to(Kim,\ibox{1})\}}
 \end{exe}
 To get the content of \lic{person to whom Kim spoke} from the content of \lic{person} is a
 matter of producing a \istype{scope-object}\type{scope-object} whose index is the index of \lic{person} (and
@@ -697,10 +716,10 @@ takes two arguments. The first is an XP, the \lic{wh}-phrase, with a \feat{rel} 
 which contains the index of the \is{relative clause!antecedent of}antecedent nominal. The second is sentential, and
 constrained to have a \feat{slash} value that includes the XP. With some simplifications
 and some minor modifications to fit the framework we assume here, this is along the lines
-of \pref{x:rc-39} \citep[cf.][216]{Pollard:Sag:94}. Here XP~\idx{4} is intended to
-mean an XP whose \feat{local} value is \idx{4}, and S:\idx{3} means a clause (a
+of \pref{x:rc-39} \citep[cf.][216]{Pollard:Sag:94}. Here XP~\ibox{4} is intended to
+mean an XP whose \feat{local} value is \ibox{4}, and S:\ibox{3} means a clause (a
 saturated \istype{verb}\type{verb} -- i.e.\ one with empty \feat{subj} and \comps
-specifications) whose \feat{content} is \idx{3}. The \idx{2} that appears in the
+specifications) whose \feat{content} is \ibox{3}. The \ibox{2} that appears in the
 value of \feat{restr} is intended to be the
 \feat{restr} set of the \is{relative clause!antecedent of}antecedent nominal (this should be specified as part of the
 \feat{mod} value, but we have not done this, in the interests of
@@ -708,16 +727,15 @@ readability).
 \ea
 \label{x:rc-39}
 Lexical item for the empty relativizer:\\*
-  \begin{avm}
-     \[ synsem & \[ loc & 
-         \[cat & 
-            \[ head & \[ mod & \upshape{\ibar{N}\subtag{1}} \]\]\\
-               cont & \[\asort{scope-obj} index & \@1\\ restr &  \@2 $\cup$  \{ \[\asort{fact}prop\|soa & \@3\] \} \] \] 
-      \]\\ 
-      arg-st & \< \cPile{{\upshape XP} \@4\\ \[rel&\setof{\@1}\]}, 
-                  \cPile{ {\upshape S}:\idx{3}\\\[slash&\setof{\@4}\]}   \>
-     \]
-   \end{avm}
+\avmtmp{
+	[synsem &	[loc &	[cat &	[head & [mod & \upshape \ibar{N}$_{\1}$ ] ] \\
+						cont &	[\type*{scope-obj}
+								index & \1 \\
+								restr &  \2 $\cup$	\{[\type*{fact}
+													prop|soa & \3]\} ] ] ] \\ 
+	arg-st & < \cPile{{\upshape XP} \4 \\ [rel & \{ \1 \} ]}, 
+               \cPile{{\upshape S}:\3 \\ [slash & \{ \4 \} ]} > ]
+}
    \isfeat{synsem}\isfeat{local}\isfeat{cat}\isfeat{head}\isfeat{content}\isfeat{mod}\isfeat{index}\isfeat{restr}\isfeat{prop}\isfeat{soa}\isfeat{arg-st}\isfeat{rel}\isfeat{slash}
 \end{exe}
 
@@ -725,19 +743,27 @@ Standard schemas for combining heads with arguments will produce structures like
 Figure~\ref{fig:rc-3}, which (since \feat{mod} is a head feature) will inherit the
 \feat{mod} feature from R, and hence combine with a nominal like \lic{person} in a
 head-adjunct phrase to produce the structure in Figure~\ref{fig:rc-3}.\footnote{Here again
-  we have used PP \idx{4} to indicate a PP whose \feat{local} value is \idx{4}.}
+  we have used PP \ibox{4} to indicate a PP whose \feat{local} value is \ibox{4}.}
 \begin{figure}
   \begin{forest} % qtree edges
-   [{\ibar{N}\subtag{1}}%, s sep=5em, baseline
-      [{\idx{7} \ibar{N}\subtag{1}}  [ {person} ]  
+   [\ibar{N}$_\ibox{1}$%, s sep=5em, baseline
+      [\ibox{7} \ibar{N}$_\ibox{1}$
+      	[person]  
       ]  
-      [{\TnodeDA{RP}{\[rel&\setof{\@1}\]}} 
-         [{\TnodeDA{PP~\idx{4}}{\[rel&\setof{\@1}\]}}  ~
-            [ {to whom}, roof] 
+      [\avmtmp{RP [rel & \{ \1 \} ]} 
+         [\avmtmp{PP \4 [rel & \{ \1 \} ]}
+            [to whom, roof] 
          ]
-         [{\TnodeDA{\ibar{R}}{}}
-            [{\TnodeDA{R}{\[mod&\@7\\arg-st&\tuple{\@4,\@6}\]}}     [ {\trace} ] ]
-            [{\TnodeDA{\idx{6}~S}{\[slash&\setof{\@4}\]}}  [ {Kim spoke} ,roof] ]
+         [\ibar{R}
+            [%
+            \avmtmp{R [mod & \7 \\
+            	arg-st & \{ \4 , \6 \} ]
+            }
+            	[\_]
+            ]
+            [\avmtmp{\6 S [slash & \{ \4 \} ]}
+            	[Kim spoke,roof]
+            ]
          ]
       ]
    ]
@@ -749,7 +775,7 @@ head-adjunct phrase to produce the structure in Figure~\ref{fig:rc-3}.\footnote{
 This captures the properties described above, and resolves the issues mentioned in the
 following way.
 
-The first argument of R is specified as [\feat{rel}~\setof{\idx{1}}]. Thus, it must contain
+The first argument of R is specified as [\feat{rel}~\{\ibox{1}\}]. Thus, it must contain
 a \isi{relative pronoun}. Moreover, \pref{x:rc-39} specifies that the first argument must
 correspond to a gap in the second argument. Hence cases like \pref{x:rc-8} where there is no
 \lic{wh}-phrase, or where the \lic{wh}-phrase is \emph{in situ}, are excluded.
@@ -757,7 +783,7 @@ correspond to a gap in the second argument. Hence cases like \pref{x:rc-8} where
 Since R, not the slashed S, is the head of RP, there is no problem of mismatch between the
 content of the S and the relative clause: R is lexically specified as having \istype{fact}\type{fact}
 (i.e.\ \istype{scope-object}\type{scope-object}) content incorporating the ``internal'' content of its complement clause
-(tagged \idx{3}) in the appropriate way. This \istype{fact}\type{fact} content will be
+(tagged \ibox{3}) in the appropriate way. This \istype{fact}\type{fact} content will be
 projected to RP by normal principles of semantic composition relating to heads,
 complements, and subjects, and RP will produce the right content by unioning the
 restrictions that come from the head nominal with this \istype{fact}\type{fact} content.
@@ -769,8 +795,8 @@ like \feat{rel} and \feat{slash} (non-local features) the value on the mother is
 union of the values on the daughters, less any indicated as being discharged
 (``bound off'') on the head daughter (the values that are bound off in this way are
 specified as elements of the value of a \feat{to-bind} attribute). Thus, R can be specified so as to discharge the
-\feat{slash} value on its S sister (so that \ibar{R} is [\feat{slash}~\setof{}]), and we can
-ensure that the topmost \ibar{N} is [\feat{rel}~\setof{}], so long as its head \ibar{N} daughter is specified as
+\feat{slash} value on its S sister (so that \ibar{R} is [\feat{slash}~\{ \}]), and we can
+ensure that the topmost \ibar{N} is [\feat{rel}~\{ \}], so long as its head \ibar{N} daughter is specified as
 binding-off the \feat{rel} value on RP. This specification can be imposed by stipulation
 in the \feat{mod} value of R.  See \cite[164]{Pollard:Sag:94} for details.
 \is{relative inheritance|)}
@@ -892,17 +918,14 @@ subject-aux inversion ([\feat{inv}~{--}]).\footnote{Giving relative clauses
   very different from \citeauthor{Pollard:Sag:94}'s assumption that clauses have
   \istype{state-of-affairs}\type{state-of-affairs} content (since \istype{proposition}\type{proposition}s are simply semantic objects which contain a \feat{soa}).}
 \begin{exe}\ex\label{x:rc-44}
-  \type{rel-cl} \(\Rightarrow\)
-  \begin{avm}
-   \[ %\asort{rel-cl} 
-      head & 
-      \[ mc & --\\
-         inv & --\\
-         mod & \[ head & noun \]
-      \]\\
-      cont & proposition\\ 
-   \]
-   \end{avm}
+\avmtmp{
+	\emph{rel-cl} \impl
+	[ %\type*{rel-cl} 
+	head &	[mc & -- \\
+			inv & --\\
+			mod &	[head & noun ] ] \\
+	cont & proposition ]
+}
    \isfeat{head}\isfeat{mc}\isfeat{inv}\isfeat{mod}\isfeat{head}\isfeat{content}
    \istype{noun}\istype{proposition}
 \end{exe}
@@ -931,12 +954,11 @@ required to have a \feat{rel} value which contains the \feat{index} of the
   \cite{chaves07}, which provides, \emph{inter alia} an analysis of coordinate structures and
   relative clauses using MRS, and \cite{Walker2017}, where an approach to the semantics of relative clauses using LRS is worked out in detail.}
 \begin{exe}\ex\label{x:rc-46}
-  \istype{wh-rel-cl}\type{wh-rel-cl} \(\Rightarrow\)
-  \begin{avm}
-   \[ head & \[mod & \nbar\subtag{1}\]\\
-     non-hd-dtrs & \< \[rel &  \setof{\@1}\] \>
-   \]
-   \end{avm}
+  \istype{wh-rel-cl}
+\avmtmp{\emph{wh-rel-cl} \impl
+	[head &	[mod \ibar{N}$_{\1}$] \\
+	non-hd-dtrs &	<[rel &  \{ \1 \} ]> ]
+}
    \isfeat{head}\isfeat{non-head-daughters}\isfeat{mod}\isfeat{rel}
  \end{exe}
 The framework assumed in \cite{Sag:97} allows multiple inheritance of
@@ -950,15 +972,13 @@ also classified in the phrasal dimension as belonging to a sub-type of head-fill
   the clause, so the restrictions associated with the noun do not include the restrictions
   associated with the clause, and \emph{vice versa}.}
 \begin{exe}\ex\label{x:rc-47}
-  \istype{hd-fill-phrase}\type{hd-fill-ph}    \(\Rightarrow\)
-  \begin{avm}
-   \[ slash & \@2\\
-      hd-dtr & \[ head & verbal\\
-                  slash & \setof{\@1}\,  $\uplus$ \@2
-               \]\\
-     non-hd-dtrs & \< \[local &  \@1 \] \>
-   \]
-   \end{avm}
+  \istype{hd-fill-phrase}
+\avmtmp{\emph{hd-fill-ph} \impl
+	[slash & \2 \\
+	hd-dtr &	[head & verbal \\
+				slash & \{ \1 \} $\uplus$ \2 ] \\
+    non-hd-dtrs & <[local &  \1 ]> ]
+}
    \isfeat{head-daughter}\isfeat{slash}\isfeat{non-head-daughters}\isfeat{head}\isfeat{local}
    \istype{verbal}
 \end{exe}
@@ -979,32 +999,62 @@ disregarding most empty and irrelevant attributes).\footnote{\label{fn:rc-3}This
   \is{relative inheritance}inherited upwards to RP, and is discharged there. This means
   that for \citeauthor{Pollard:Sag:94}, but not for \cite{Sag:97}, a \lic{wh}-relative
   clause is a \feat{rel} marked clause.}
+%\begin{figure}
+%  \newcommand{\MotherDA}{S
+%      \begin{avm}
+%   \[ head & \@4 \[ mod&\nbar\subtag{1} \]\\
+%      cont & \@3\\ % \[ \asort{fact} prop\|soa & \@4 \]\\
+%      slash & \setof{ }\\
+%      rel & \setof{ }\\
+%   \]
+%   \end{avm}
+% }
+%\newcommand{\FillerDDA}{PP~\idx{2}~\begin{avm}\[rel&\setof{\@1}\]\end{avm}}
+%  \newcommand{\HeadDDA}{S~\begin{avm}\[head&\@4\\cont&\@3\\slash&\setof{\@2}\\rel&\setof{ }\]\end{avm}}
+%    \begin{forest}
+%   [{\MotherDA}, baseline 
+%      [{\FillerDDA} [ {to whom} ,roof] ]
+%      [{\HeadDDA}   [ {Kim spoke} ,roof] ]
+%   ]
+%   \end{forest}
+%   \isfeat{slash}\isfeat{head}\isfeat{content}\isfeat{mod}\isfeat{rel}
+%   \caption{A \cite{Sag:97}-style structure for a finite \lic{wh}-relative clause}
+%   \label{x:rc-48}
+%\end{figure}
+
+
 \begin{figure}
-  \newcommand{\MotherDA}{S
-      \begin{avm}
-   \[ head & \@4 \[ mod&\nbar\subtag{1} \]\\
-      cont & \@3\\ % \[ \asort{fact} prop\|soa & \@4 \]\\
-      slash & \setof{ }\\
-      rel & \setof{ }\\
-   \]
-   \end{avm}
- }
-\newcommand{\FillerDDA}{PP~\idx{2}~\begin{avm}\[rel&\setof{\@1}\]\end{avm}}
-  \newcommand{\HeadDDA}{S~\begin{avm}\[head&\@4\\cont&\@3\\slash&\setof{\@2}\\rel&\setof{ }\]\end{avm}}
-    \begin{forest}
-   [{\MotherDA}, baseline 
-      [{\FillerDDA} [ {to whom} ,roof] ]
-      [{\HeadDDA}   [ {Kim spoke} ,roof] ]
-   ]
-   \end{forest}
-   \isfeat{slash}\isfeat{head}\isfeat{content}\isfeat{mod}\isfeat{rel}
-   \caption{A \cite{Sag:97}-style structure for a finite \lic{wh}-relative clause}
-   \label{x:rc-48}
+	\begin{forest}
+		[%
+		\avmtmp{
+			[head & \4	[mod \ibar{N}$_{\1}$] \\
+			cont & \3 \\ % \[ \asort{fact} prop\|soa & \@4 \]\\
+			slash & \{ \} \\
+			rel & \{ \} ]
+		}
+			[\avmtmp{PP \2 [rel & \{ \1 \}]}
+				[to whom,roof]
+			]
+			[%
+			\avmtmp{
+				S [head & \4 \\
+				cont & \3 \\
+				slash & \{ \2 \} \\
+				rel & \{ \} ]
+			}
+				[Kim spoke,roof]
+			]
+		]
+	\end{forest}
+	\isfeat{slash}\isfeat{head}\isfeat{content}\isfeat{mod}\isfeat{rel}
+	\caption{A \cite{Sag:97}-style structure for a finite \lic{wh}-relative clause}
+	\label{x:rc-48}
 \end{figure}
+
 The \feat{rel} specification on the non-head daughter
 (the PP) in \pref{x:rc-46} ensures the presence of a \lic{wh}-phrase, and the fact that this
 is a head-filler phrase ensures that the \lic{wh}-phrase cannot be \emph{in situ} (cf.\
-\pref{x:rc-8}, above); the [\feat{rel}~\setof{}] on the daughter S excludes the
+\pref{x:rc-8}, above); the [\feat{rel}~\{ \}] on the daughter S excludes the
 possibility of additional \isi{relative pronoun}s inside the S (i.e.\ the possibility of multiple
 \isi{relative pronoun}s, cf.\ \lic{*(the person) to whom Kim spoke about whom}). \feat{rel}
 inheritance will carry the index of the \is{relative clause!antecedent of}antecedent down into the PP,
@@ -1032,21 +1082,17 @@ The task of combining a nominal and a relative clause (in particular, identifyin
 and unioning restrictions) involves a further phrase type \istype{head-relative-phrase}\type{head-relative-phrase},
 as in \pref{x:rc-49}.
 \begin{exe}\ex\label{x:rc-49}
-  \istype{head-relative-phrase}\type{head-relative-phrase}  \(\Rightarrow\)
-  \begin{avm}
-   \[
-      head & noun\\
-      cont & 
-      \[ index & \@2\\
-         restr & \@3  $\uplus$ \{\[\asort{fact} prop & \@4 \] \}
-      \]\\
-      hd-dtr & 
-      \[ index & \@2\\
-         restr & \@3
-      \]\\
-      non-hd-dtr & \[ cont & \@4 \]
-   \]
-   \end{avm}
+  \istype{head-relative-phrase}
+\avmtmp{
+	\emph{head-relative-phrase} \impl
+	[head & noun \\
+	cont &	[index & \2 \\
+         	restr & \3 $\uplus$	\{[\type*{fact}
+         						prop & \4 ]\} ] \\
+	hd-dtr &	[index & \2 \\
+				restr & \3 ] \\
+	non-hd-dtr & [cont & \4 ] ]
+}
    \isfeat{head}\isfeat{content}\isfeat{index}\isfeat{restr}\isfeat{prop}
    \istype{noun}
  \end{exe}
@@ -1068,40 +1114,72 @@ Figure~\ref{fig:rc-4}.\footnote{This is not the normal semantics associated with
   sets of \istype{fact}\type{facts} (\citealt{Sag:97} assumes they are sets of
   \istype{proposition}\type{propositions}). Nothing hangs on this.}
 
+%\begin{figure}
+%\newcommand{\NContentDA}{
+%   \begin{avm} 
+%   \[ cont &
+%      \[  index & \@1 \\  restr & \@2 \]
+%   \]
+%   \end{avm}
+% }
+% \newcommand{\TopNContentDA}{
+%   \begin{avm}
+%   \[ cont & 
+%      \[ index & \@1 \\
+%         restr & \@2 \, $\uplus$ \{ \[\asort{fact} prop & \@3 \] \} 
+%      \]
+%   \]
+%   \end{avm}
+% }
+% \newcommand{\RelContentDA}{
+%   \begin{avm}
+%   \[ mod & \@4\\ cont & \@3  \]
+%   \end{avm}
+% }
+%    \begin{forest}  baseline %qtree edges, 
+%   [{\ibar{N}~\TopNContentDA}
+%      [{\idx{4}~\ibar{N}~\NContentDA} [ {person} ,roof] ]
+%      [{S~\RelContentDA} 
+%         [ {to whom Kim spoke}, roof ]
+%      ]
+%   ]
+%   \end{forest}
+%   \caption{\citegen{Sag:97} analysis of a relative clause plus its antecedent}
+%  \label{fig:rc-4}
+%  \isfeat{content}\isfeat{index}\isfeat{restr}\isfeat{prop}\isfeat{mod}
+%  \istype{fact}
+%\end{figure}\is{relative clause!antecedent of}
+
+
 \begin{figure}
-\newcommand{\NContentDA}{
-   \begin{avm} 
-   \[ cont &
-      \[  index & \@1 \\  restr & \@2 \]
-   \]
-   \end{avm}
- }
- \newcommand{\TopNContentDA}{
-   \begin{avm}
-   \[ cont & 
-      \[ index & \@1 \\
-         restr & \@2 \, $\uplus$ \{ \[\asort{fact} prop & \@3 \] \} 
-      \]
-   \]
-   \end{avm}
- }
- \newcommand{\RelContentDA}{
-   \begin{avm}
-   \[ mod & \@4\\ cont & \@3  \]
-   \end{avm}
- }
-    \begin{forest}  baseline %qtree edges, 
-   [{\ibar{N}~\TopNContentDA}
-      [{\idx{4}~\ibar{N}~\NContentDA} [ {person} ,roof] ]
-      [{S~\RelContentDA} 
-         [ {to whom Kim spoke}, roof ]
-      ]
-   ]
-   \end{forest}
-   \caption{\citegen{Sag:97} analysis of a relative clause plus its antecedent}
-  \label{fig:rc-4}
-  \isfeat{content}\isfeat{index}\isfeat{restr}\isfeat{prop}\isfeat{mod}
-  \istype{fact}
+
+\begin{forest}
+	[%
+	\avmtmp{\ibar{N}
+		[ cont &	[index & \1 \\
+					restr & \2 $\uplus$	\{[\type*{fact}
+										prop & \3 ]\} ] ]
+	}
+		[%
+		\avmtmp{\4 \ibar{N}
+			[cont &	[index & \1 \\
+			restr & \2 ] ]
+		}
+			[person,roof]
+		]
+		[%
+		\avmtmp{S
+			[mod & \4\\
+			cont & \3]
+		}
+			[to whom Kim spoke, roof]
+		]
+	]
+\end{forest}
+	\caption{\citegen{Sag:97} analysis of a relative clause plus its antecedent}
+	\label{fig:rc-4}
+	\isfeat{content}\isfeat{index}\isfeat{restr}\isfeat{prop}\isfeat{mod}
+	\istype{fact}
 \end{figure}\is{relative clause!antecedent of}
 
 From a purely formal point of view, the \istype{head-relative-phrase}\type{head-relative-phrase} construction is not
@@ -1248,34 +1326,66 @@ Figure~\ref{fig:rc-5}. Apart from the finite specification, this differs from th
   subtypes of \istype{verbal}\type{verbal}), but Sag is careful to treat \lic{to} as a
   \istype{comp}\type{comp} and non-finite \lic{wh}-relatives as CPs because this gives a
   principled basis for excluding overt subjects.}
-\begin{figure}
-  \newcommand{\MotherDA}{S\subscr{inf}
-      \begin{avm}
-   \[ head & \@4 \[ mod& \nbar\subtag{1} \]\\
-      cont & \@3\\ % \[ \asort{fact} prop\|soa & \@4 \]\\
-      slash & \{\}\\
-      rel & \{\}\\
-      subj & \tuple{\@5}
-   \]
-   \end{avm}
- }
-  \newcommand{\FillerDDA}{\idx{2}~PP~\begin{avm}\[rel&\{\@1\}\]\end{avm}}
-  \newcommand{\HeadDDA}{S\subscr{inf}~\begin{avm}\[head&\@4\\cont&\@3\\slash&\{\@2\}\\rel&\{\}\\subj&\sliste{\@5\thinspace\
-           \mathrm{PRO}}\]\end{avm}}
-%  \newcommand{\HeadDDA}{S\subscr{inf}~\begin{avm}\[head&\@4\\cont&\@3\\slash&\{\@2\}\\rel&\{\}\\subj&\tuple{\@5\thinspace\
+%\begin{figure}
+%  \newcommand{\MotherDA}{S\subscr{inf}
+%      \begin{avm}
+%   \[ head & \@4 \[ mod& \nbar\subtag{1} \]\\
+%      cont & \@3\\ % \[ \asort{fact} prop\|soa & \@4 \]\\
+%      slash & \{\}\\
+%      rel & \{\}\\
+%      subj & \tuple{\@5}
+%   \]
+%   \end{avm}
+% }
+%  \newcommand{\FillerDDA}{\idx{2}~PP~\begin{avm}\[rel&\{\@1\}\]\end{avm}}
+%  \newcommand{\HeadDDA}{S\subscr{inf}~\begin{avm}\[head&\@4\\cont&\@3\\slash&\{\@2\}\\rel&\{\}\\subj&\sliste{\@5\thinspace\
 %           \mathrm{PRO}}\]\end{avm}}
+%%  \newcommand{\HeadDDA}{S\subscr{inf}~\begin{avm}\[head&\@4\\cont&\@3\\slash&\{\@2\}\\rel&\{\}\\subj&\tuple{\@5\thinspace\
+%%           \mathrm{PRO}}\]\end{avm}}
+%
+%    \begin{forest}  %qtree edges
+%   [{\MotherDA}, baseline 
+%      [{\FillerDDA} [ {on whom} ,roof] ]
+%      [{\HeadDDA}   [ {to put the blame} ,roof] ]
+%   ]
+%   \end{forest}
+%   \caption{\citegen{Sag:97} analysis of a non-finite \lic{wh}-relative clause (\type{inf-wh-rel-cl})}
+%   \label{fig:rc-5}
+%   \istype{inf-wh-rel-cl}
+%   \isfeat{head}\isfeat{content}\isfeat{slash}\isfeat{rel}\isfeat{subj}\is{PRO}
+% \end{figure}
 
-    \begin{forest}  %qtree edges
-   [{\MotherDA}, baseline 
-      [{\FillerDDA} [ {on whom} ,roof] ]
-      [{\HeadDDA}   [ {to put the blame} ,roof] ]
-   ]
-   \end{forest}
-   \caption{\citegen{Sag:97} analysis of a non-finite \lic{wh}-relative clause (\type{inf-wh-rel-cl})}
-   \label{fig:rc-5}
-   \istype{inf-wh-rel-cl}
-   \isfeat{head}\isfeat{content}\isfeat{slash}\isfeat{rel}\isfeat{subj}\is{PRO}
- \end{figure}
+
+\begin{figure}
+	
+\begin{forest}
+	[%
+	\avmtmp{S$_{inf}$
+		[head & \4	[mod \ibar{N}$_{\1}$] \\
+		cont & \3 \\ % \[ \asort{fact} prop\|soa & \@4 \]\\
+		slash & \{ \}\\
+		rel & \{ \}\\
+		subj & \{ \5 \} ]
+	}
+		[\avmtmp{\2 PP [rel & \{ \1 \}]}
+			[on whom,roof]
+		]
+		[\avmtmp{S$_{inf}$
+			[head & \4 \\
+			cont & \3 \\
+			slash & \{ \2 \} \\
+			rel & \{ \} \\
+			subj & < \5 PRO > ]
+		}
+			[to put the blame,roof]
+		]
+	]
+\end{forest}
+	\caption{\citegen{Sag:97} analysis of a non-finite \lic{wh}-relative clause (\type{inf-wh-rel-cl})}
+	\label{fig:rc-5}
+	\istype{inf-wh-rel-cl}
+	\isfeat{head}\isfeat{content}\isfeat{slash}\isfeat{rel}\isfeat{subj}\is{PRO}
+\end{figure}
  
 The exclusion of overt subjects is not peculiar to non-finite relatives (it is shared by
 non-finite interrogatives, cf.\ \lic{I wonder on whom (*for Sam) to put the
@@ -1290,22 +1400,20 @@ The relevant constraints can be stated directly --- roughly as in \pref{x:rc-55}
 head-filler phrase must have an unexpressed subject, and a non-finite \lic{wh}-relative
 clause is a non-finite head-filler phrase whose non-head daughter is a PP.
 \begin{exe}\ex\begin{xlist}\label{x:rc-55}
-  \ex \istype{inf-hd-fill-phrase}\type{inf-hd-fill-ph}    \(\Rightarrow\)
-  \begin{avm}
-   \[ hd-dtr &
-      \[ head & \[ vform & non-finite \]\\
-         subj & \tuple{\mathrm{PRO}}
-      \]\\
-   \]
-   \end{avm} 
+  \ex \istype{inf-hd-fill-phrase}
+\avmtmp{\emph{inf-hd-fill-ph} \impl
+	[hd-dtr &	[head &	[vform & non-finite] \\
+				subj & < PRO >] ]
+} 
    \isfeat{head-daughter}\isfeat{head}\isfeat{subj}\isfeat{vform}
    \istype{non-finite}\is{PRO}
  \ex\label{x:rc-56}
-   \istype{inf-hd-fill-rel-cl}\type{inf-hd-fill-rel-cl}    \(\Rightarrow\)
-   \istype{inf-hd-fill-phrase}\type{inf-hd-fill-ph} \&
-   \begin{avm}
-   \[ non-hd-dtrs & \tuple{\mathrm{PP}}  \]
-   \end{avm} 
+   \istype{inf-hd-fill-rel-cl}
+\avmtmp{\emph{inf-hd-fill-rel-cl} \impl
+   \istype{inf-hd-fill-phrase}
+\emph{inf-hd-fill-ph} \&
+	[non-hd-dtrs & < PP >]
+}
  \end{xlist}
    \isfeat{non-head-daughters}
 \end{exe}
@@ -1357,33 +1465,18 @@ complementiser, with a \feat{synsem} value roughly as in \pref{x:rc-58}.\footnot
 \glt `The boy who met the king came.'
 \end{exe}
 \begin{exe}\ex\label{x:rc-58}
-  \begin{avm}
-   \[ \asort{synsem}
-      loc & 
-         \[ cat & 
-            \[
-               head & 
-               \[\asort{c} 
-                  mod & {\upshape NP\subscr{def}:} \[ index & \@1\\restr&\@2\]
-               \]\\
-               comps &
-               \<
-                  \[ loc &
-                     \[ cat & {\upshape S\subscr{fin}}\\
-                        cont & \@3\\
-                     \]\\
-                     non-loc &  \[ slash  & \{ NP\subscr{\idx{1}}\} \]
-                  \]
-               \>\\
-            \]\\
-            cont &
-            \[ index & \@1\\
-               restr & \@2 $\uplus$ \{ \@3 \}
-            \]
-         \]\\
-         non-loc & \[ slash  & \{ \} \]
-      \]
-   \end{avm}
+\avmtmp{
+	[\type*{synsem}
+	loc &	[cat &	[head &	[\type*{c} 
+							mod & \upshape NP\subscr{def}:	[index & \1 \\
+														restr & \2] ] \\
+					comps &	<[loc &	[cat & \upshape S\subscr{fin} \\
+									cont & \3 ] \\
+							non-loc &	[slash & \{NP$_{\1}$ \}] ]> ] \\
+			cont &	[index & \1 \\
+					restr & \2 $\uplus$ \{ \3 \} ] ] \\
+	non-loc &	[slash & \{ \} ] ]
+}
    \isfeat{local}\isfeat{cat}\isfeat{head}\isfeat{mod}\isfeat{index}\isfeat{restr}\isfeat{comps}\isfeat{non-local}\isfeat{slash}
 \end{exe}
 According to this, \emph{ʔallaði} will combine with a slashed finite sentential
@@ -1542,29 +1635,18 @@ a PP\sub{\lic{de}} complement, \lic{comprendre} `understand' in
 \citeauthor{AbeilleGodard07} suggest a lexical entry for \lic{dont} with a \feat{synsem}
 value along the lines of \pref{x:rc-72}.
 \begin{exe}\ex\label{x:rc-72}
-  \begin{avm}
-   \[ \asort{synsem}
-      loc &
-      \[ cat &
-         \[ head & \[\asort{c} mod & \nbar\subscr{\@1} \]\\
-            comps &
-            \<
-               \[ loc & \[ cat & \upshape{S\subscr{fin}}\\cont &\@2\]\\
-                  non-loc&
-                  \[slash&
-                     \{\@3
-                        \[\asort{nprl} cat & \upshape{PP\subscr{de}}\thinspace\subscr{\@1}\]
+\avmtmp{
+	[\type*{synsem}
+	loc &	[cat &	[head &	[\type*{c}
+							mod & \upshape \ibar{N}$_{\1}$ ] \\
+					comps &	<[loc &	[cat & \upshape S\subscr{fin} \\
+									cont & \2 ] \\
+							non-loc &	[slash & \{ \3	[\type*{nprl}
+														cat & \upshape PP\subscr{de \1} ] \} ] ] > ] \\
                         %   \upshape{NP\subscr{de}}\thinspace\subscr{\@1}
-                     \}
-                  \]
-               \]
-            \>\\
-         \]\\
-         cont & \@2\\
-      \]\\
-      to-bind & \{\@3\}
-   \]
-   \end{avm}
+			cont & \2 ] \\
+	to-bind & \{ \3 \} ]
+}
    \isfeat{local}\isfeat{head}\isfeat{mod}\isfeat{comps}\isfeat{non-local}\isfeat{cat}\isfeat{to-bind}\isfeat{content}
    \istype{nplr}
 \end{exe}
@@ -1646,18 +1728,20 @@ between the licensing predicate and \lic{dont} involves inheritance of a gap. Th
 that this should be dealt with by a lexical rule along the lines of \pref{x:rc-79}, 
 where $\oplus$ signifies the ``append'' relation -- in combination with the ellipsis it allows the possibility that the \comps list may contain additional elements.
 \begin{exe}\ex\label{x:rc-79}  Lexical Rule for Propositional attitude predicates in \ili{French}\\
-  \begin{avm}
-   \[ % cat & \[ head & v \]\\
-      comps & \< \cPile{CP\\\[slash & \{ \@1 \[\asort{prl} cont\|index&\@2\] \}\]} \>\; $\oplus$ \ldots\\
+\avmtmp{
+	[ % cat & \[ head & v \]\\
+	comps & <	\cPile{CP\\
+				[slash & \{ \1	[\type*{prl}
+								cont|index & \2 ] \} ]} > \+ \ldots ]
     %  cont & \@3 proposition
-   \]
-   \end{avm}
+}
    \isfeat{comps}\isfeat{slash}\isfeat{content}\isfeat{index}\istype{plr}
-   $\mapsto$
-  \begin{avm}
-      \[ slash & \{ \[\asort{nprl} cat & \upshape{PP}\subscr{de}\subscr{\@2} \]\}\\
-         to-bind & \{\@1\} \]
-   \end{avm}
+$\mapsto$
+\avmtmp{
+	[slash &	\{[\type*{nprl}
+				cat & \upshape PP\subscr{de \2} ] \} \\
+	to-bind & \{ \1 \} ]
+}
    \isfeat{slash}\isfeat{to-bind}\isfeat{cat}
  \end{exe}
 In words, the left-hand side of this describes a lexeme that takes a CP complement with a
@@ -1770,9 +1854,11 @@ which modifies a nominal (N).\footnote{Different sub-types of \istype{v-mod}\typ
   \feat{pos} (part-of-speech) feature and he assumes that \feat{mod} is list valued
   \citep[see][285]{Kim16SyntacticStrKorean}. This is not important here.}
 \begin{exe}\ex\label{x:rc-86}
-  \begin{avm}
-   \[head & \[\asort{verb} mc & --\\ mod & noun\]\]
-   \end{avm}
+\avmtmp{
+	[head &	[\type*{verb}
+			mc & -- \\
+			mod & noun ] ]
+}
    \isfeat{head}\isfeat{mc}\isfeat{mod}\istype{noun}
 \end{exe}
 He   also   proposes   a  construction   (the   \istype{head-relative-mod}\type{head-relative-mod}  construction,
@@ -1781,20 +1867,14 @@ modifier verb  with a head  nominal, along  the lines of  \pref{x:rc-87}.\footno
   formulation is slightly different from Kim's for  the sake of consistency with the rest of
   our presentation. }
 \begin{exe}\ex\label{x:rc-87}
-\istype{hd-relative-mod-phrase}\type{hd-relative-mod-phrase}  \(\Rightarrow\)
-  \begin{avm}
-   \[ head & noun\\
-      slash &  \setof{}\\
-      hd-dtr & \@2 \upshape{N}\subscr{\idx{1}}\\
-      non-hd-dtrs &
-      \<
-         \upshape{S} \[
-            head\|mod \; \@2\\
-            slash \;  \setof{\mathrm{NP\subscr{\idx{1}}}}
-         \]
-      \>
-   \]
-   \end{avm}
+\istype{hd-relative-mod-phrase}
+\avmtmp{\emph{hd-relative-mod-phrase} \impl
+	[head & noun \\
+	slash &  \{ \} \\
+	hd-dtr & \2 \upshape N$_{\1}$ \\
+	non-hd-dtrs &	<S	[\punk{head|mod}{\2} \\
+						slash & \{NP$_{\1}$ \}]> ]
+}
    \isfeat{head}\isfeat{slash}\isfeat{head-daughter}\isfeat{non-head-daughters}\isfeat{mod}
 \end{exe}
 In words: a nominal structure can consist of a head noun, and a clause headed by a
@@ -1808,21 +1888,39 @@ the lines of those presented above.
 \begin{figure}
 \begin{forest}  %qtree edges
 sm edges
-[{N\subtag{1}}  ,baseline
-      [{\TnodeDA{S}{\[mod&\@2\\slash&\setof{\@3 \mathrm{NP\subscr{\@1}}}\]}} 
-         [{NP}  [ motwu-ka;everyone-\textsc{nom} ] ]
-         [{\TnodeDA{VP}{\[mod&\@2\\slash&\setof{\@3}\]}}   
-            [{\TnodeDA{S}{\[slash&\setof{\@3}\]}} 
-               [{\TnodeDA{NP}{}}  [ Kim-i;Kim-\textsc{nom} ] ]
-               [{\TnodeDA{VP}{\[slash&\setof{\@3}\]}}    
-                  [{\TnodeDA{V}{\[slash&\setof{\@3}\]}}  [ ilk-ess-ta-ko;read-\textsc{pst-decl-comp} ] ]
+[N$_{\ibox{1}}$  ,baseline
+      [%
+      \avmtmp{
+      	S [mod & \2 \\
+      	slash & \{ \3 NP$_{\1}$ \}]
+      } 
+         [NP
+         	[motwu-ka;everyone-\textsc{nom}]
+         ]
+         [%
+         \avmtmp{
+         	VP [mod & \2 \\
+         	slash & \{ \3 \} ]
+         }   
+			[\avmtmp{S [slash & \{ \3 \}]}
+            	[NP
+               		[Kim-i;Kim-\textsc{nom}]
+               	]
+				[\avmtmp{VP [slash & \{ \3 \}]}
+					[\avmtmp{V [slash & \{ \3 \}]}
+                  		[ilk-ess-ta-ko;read-\textsc{pst-decl-comp}]
+                  	]
                ]
             ]
-            [{\TnodeDA{V}{\[mod&\@2\]}}  [ sayngkakha-nun;think-\textsc{mod} ]   ]
+            [\avmtmp{V [mod & \2]}
+            	[sayngkakha-nun;think-\textsc{mod}]
+            ]
          ]
       ]
-      [{\idx{2}N\subtag{1}}  [ chayk;book ] ]
+      [\ibox{2}N$_{\ibox{1}}$
+      	[chayk;book]
       ]
+]
 \end{forest}
 \caption{A Korean relative clause, based on \cite[295]{Kim16SyntacticStrKorean}}
 \label{fig:rc-6}
@@ -1857,14 +1955,23 @@ clause). This gives structures like that in Figure~\ref{fig:rc-7}.\footnote{Acco
   relativisation of a top level subject, are analysed as containing a version of
   \lic{that} which is actually a \isi{relative pronoun}). See above Footnote~\ref{fn:rc-4}.}
 \begin{figure}
-    \begin{forest}  %qtree edges
-   [{\ibar{N}\subtag{1}} , baseline
-      [{\idx{7}\ibar{N}\subtag{1}}  [ {cakes} ]  
-      ]
-      [{RP} 
-            [{\TnodeDA{R}{\[mod&\@7\\arg-st&\tuple{\@6}\]}}     [ {\trace} ] ]
-            [{\TnodeDA{\idx{6}~S:\idx{3}}{\[slash&\setof{\mathrm{NP\subscr{\idx{1}}}}\]}}  [ {Kim bought} ,roof] ]
-      ]
+	\begin{forest}  %qtree edges
+	[\ibar{N}$_{\ibox{1}}$ , baseline
+		[\ibox{7}\ibar{N}$_{\ibox{1}}$
+			[cakes]
+		]
+		[RP 
+			[%
+			\avmtmp{
+				R [mod & \7 \\
+				arg-st & < \6 > ]
+			}
+				[\_]
+			]
+            [\avmtmp{\6 S: \3 [slash & \{NP$_{\ibox{1}}$\} ]}
+            	[Kim bought,roof]
+            ]
+		]
    ]
    \end{forest}
    \caption{A \cite{Pollard:Sag:94}-style structure for an English bare relative}
@@ -1876,14 +1983,13 @@ immediate subtype of \istype{rel-cl}\type{rel-cl}) as in \pref{x:rc-91}. In word
 a noun-modifying clause whose head daughter contains an NP gap that is co-indexed with the
 modified nominal.
 \begin{exe}\ex\label{x:rc-91}
-  \istype{non-wh-rel-cl}\type{non-wh-rel-cl} \(\Rightarrow\)
-  \begin{avm}
-   \[ %\asort{rel-cl} 
-      head & \[ mod & \[ head & \nbar\subscr{\idx{1}} \]\]\\
-      slash & \setof{}\\
-      hd-dtr &  \[ slash & \setof{\mathrm{NP\subscr{\idx{1}}}}\]
-   \]
-   \end{avm}
+  \istype{non-wh-rel-cl}
+\avmtmp{\emph{non-wh-rel-cl} \impl
+	[ %\asort{rel-cl} 
+	head &	[mod &	[head & \upshape \ibar{N}$_{\1}$] ] \\
+	slash & \{ \} \\
+	hd-dtr &	[slash & \{NP$_{\1}$\}] ]
+}
    \isfeat{head}\isfeat{mod}\isfeat{slash}\isfeat{head-daughter}
 \end{exe}
 This licenses structures like that in Figure~\ref{fig:rc-8}.\footnote{Sag also proposes a
@@ -1899,27 +2005,53 @@ This licenses structures like that in Figure~\ref{fig:rc-8}.\footnote{Sag also p
   Neither discussion addresses the
   special modal semantics associated with non-finites, e.g.\ \pref{x:rc-92}
   means something like ``books that Sam can (or should) read''.} 
+%\begin{figure}
+%  \newcommand{\SlashDA}[1]{\begin{avm}\[slash&\setof{#1}\]\end{avm}}
+%  \newcommand{\SlashModDA}{\begin{avm}\[mod&\@2 \nbar\subscr{\idx{1}}\\slash&\setof{}\]\end{avm}}
+%    \begin{forest}  %qtree edges
+%   [\ibar{N}    , baseline
+%      [ {\idx{2}} [ cakes ] ]
+%      [ {S~\SlashModDA}
+%         [{NP} [ Kim ] ]
+%         [ {VP~\SlashDA{\mathrm{NP\subscr{\idx{1}}} }} [ {bought} ,roof]   ]
+%      ]
+%   ]
+%   \end{forest}
+%   \caption{A \cite{Sag:97}-style structure for an English bare relative}
+%   \label{fig:rc-8}
+%   \isfeat{slash}\isfeat{mod}
+% \end{figure}
+
 \begin{figure}
-  \newcommand{\SlashDA}[1]{\begin{avm}\[slash&\setof{#1}\]\end{avm}}
-  \newcommand{\SlashModDA}{\begin{avm}\[mod&\@2 \nbar\subscr{\idx{1}}\\slash&\setof{}\]\end{avm}}
-    \begin{forest}  %qtree edges
-   [\ibar{N}    , baseline
-      [ {\idx{2}} [ cakes ] ]
-      [ {S~\SlashModDA}
-         [{NP} [ Kim ] ]
-         [ {VP~\SlashDA{\mathrm{NP\subscr{\idx{1}}} }} [ {bought} ,roof]   ]
-      ]
-   ]
-   \end{forest}
-   \caption{A \cite{Sag:97}-style structure for an English bare relative}
-   \label{fig:rc-8}
-   \isfeat{slash}\isfeat{mod}
- \end{figure}
+\begin{forest}  %qtree edges
+	[\ibar{N}    , baseline
+		[\ibox{2}
+			[cakes]
+		]
+		[%
+		\avmtmp{
+			S [mod & \2 \upshape \ibar{N}$_{\ibox{1}}$ \\
+			slash & \{\} ]
+		}
+			[NP
+				[Kim]
+			]
+			[\avmtmp{VP [slash & \{NP$_{\ibox{1}}$\}]}
+				[bought ,roof]
+			]
+		]
+	]
+\end{forest}
+	\caption{A \cite{Sag:97}-style structure for an English bare relative}
+	\label{fig:rc-8}
+	\isfeat{slash}\isfeat{mod}
+\end{figure}
+
  
 This differs from Kim's proposal for \ili{Korean} in which the \feat{slash} value is
 bound off: in particular, where Kim's analysis involves a nominal and a slashed S, Sag's
-involves a nominal and an \emph{un}slashed S --- the clause is [\feat{slash}~\setof{}], it
-is the VP which is [\feat{slash}~\setof{\mathrm{NP}}]. This reflects the fact that in \ili{English} the gap in the
+involves a nominal and an \emph{un}slashed S --- the clause is [\feat{slash}~\{ \}], it
+is the VP which is [\feat{slash}~\{NP\}]. This reflects the fact that in \ili{English} the gap in the
 relative clause cannot be the subject, accounting for the contrast
 in \pref{x:rc-94}.\footnote{Examples like \pref{x:rc-95} are acceptable in some non-standard dialects of
   \ili{English}. Sag suggests this is not problematic, since they could be analysed as
@@ -1939,15 +2071,12 @@ approach might seem
 simple: since all we need is to create clauses specified as [\feat{mod}~\ibar{N}] which contain a
 co-indexed gap, all we seem to need is verbs specified as in \pref{x:rc-97}.
 \begin{exe}\ex\label{x:rc-97}
-    \begin{avm}
-   \[ head & 
-      \[ \asort{verb}
-         mod & \upshape{\ibar{N}\subscr{\idx{1}}}
-      \]\\
-      comps & \< \upshape{PP} \>\\
-      slash & \{ \upshape{ NP\subscr{\idx{1}} } \}
-   \]
-   \end{avm}
+\avmtmp{
+	[head &	[\type*{verb}
+			mod & \upshape \ibar{N}$_{\ibox{1}}$ ] \\
+	comps & < \upshape PP > \\
+	slash & \{ \upshape NP$_{\ibox{1}}$ \} ]
+}
    \isfeat{head}\isfeat{mod}\isfeat{comps}\isfeat{slash}
 \end{exe}
 In the absence of special constructions or empty elements, this would license structures
@@ -1991,25 +2120,18 @@ there are neither \is{relative inheritance}\feat{rel} nor \feat{slash} dependenc
 This
 approach seems particularly appealing in the cases like \pref{x:rc-104}, which would be
 analysed as just involving an attributive adjective (\lic{fond}) which happens to take a
-complement, along the lines of \pref{x:rc-105}, where \setof{\ldots} stands for the restrictions
+complement, along the lines of \pref{x:rc-105}, where \{\ldots\} stands for the restrictions
 the adjective itself imposes. But we think a similar account of verbal
 participles and prepositions is equally plausible.\footnote{For example, \cite[159--164]{Mueller2002b} deals with
 adjectival passive participles in this way.}
 \begin{exe}\ex\label{x:rc-105}
-  \begin{avm}
-   \[ head & 
-      \[ mod & 
-         \[\asort{noun}
-            index & \@1\\
-            restr & \@2
-         \]\\
-      \]\\
-      cont & 
-      \[ index & \@1\\
-         restr & \@2 $\uplus\ \lbrace \ldots \rbrace$
-      \]
-   \]
-   \end{avm}
+\avmtmp{
+	[head &	[mod &	[\type*{noun}
+            index & \1 \\
+            restr & \2 ] ] \\
+	cont &	[index & \1 \\
+	restr & \2 $\uplus\ \lbrace \ldots \rbrace$ ] ]
+}
    \isfeat{head}\isfeat{mod}\isfeat{index}\isfeat{restr}\isfeat{content}\istype{noun}
 \end{exe}
 Notice that in \pref{x:rc-105} we omit mention of the \feat{subj}. If we assume the

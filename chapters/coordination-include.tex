@@ -306,15 +306,17 @@ Although prosodic phrasing is not generally believed to always align with syntac
  shown in  (\ref{coordparam2}),  using parametric lists  \citep[\page 396, fn.\,2]{pollardsag} to enforce
  that all conjuncts structure-share the morphosyntactic information. The type \type{ne-list} (\textit{non-empty-list}) corresponds
  to a list that has at least one member, and when used parametrically as in (\ref{coordparam2}), it additionally requires that
- every member of the list bear the features $[$\textsc{synsem}$|$""\textsc{loc}$|$""\textsc{cat}  \avmbox{1}$]$.
+ every member of the list bear the features
+ \avmtmp{[synsem|loc|cat & \1]}.
 
 \begin{exe}
 \ex \textsc{Coordination construction} (preliminary)
 
-\begin{avm} \type{coord-phr} \impl
-\[synsem   \| cat \@{1}\\
-dtrs \<\[synsem \| loc \| cat \@{1}\]\>$\oplus$ 
-\type{ne-list}\(\[synsem \| loc \| cat  \@{1}\]\)\]\end{avm}\label{coordparam2}
+\avmtmp{
+\emph{coord-phr} \impl
+	[\punk{synsem|cat}{\1} \\
+	dtrs & <[synsem|loc|cat & \1 ]> \+ ne-list ([synsem|loc|cat & \1 ]) ]
+}\label{coordparam2}
 \end{exe}
 
 \noindent
@@ -328,15 +330,21 @@ types:\footnote{Mouret's and Bı̂lbı̂ie's formulations are slightly different
 
 \eal
 \ex
- \begin{avm}\type{simple-coord-phr} \impl
- \[dtrs &  \type{ne-list}\(\<\[coord &  none\]\>\) \, $\oplus$ \type{ne-list}\(\[coord \type{crd}\]\)\]\end{avm}
+\avmtmp{
+\emph{simple-coord-phr} \impl \\
+	[dtrs & ne-list (<[coord & none]>) \+ ne-list ([coord & crd ] ) ]
+}
 
 \ex
- \begin{avm}\type{omnisyndetic-coord}  \impl 
- \[dtrs  \type{ne-list}\(\[coord \type{crd} \]\)\]\end{avm}\label{omni}
+\avmtmp{
+\emph{omnisyndetic-coord}  \impl 
+	[dtrs & ne-list ([coord & crd ] ) ]
+}\label{omni}
 \ex
- \begin{avm}\type{asyndetic-coord}  \impl 
-\[dtrs   \type{ne-list}\(\[coord &  none\]\)\]\end{avm}
+\avmtmp{
+\emph{asyndetic-coord}  \impl 
+	[dtrs & ne-list ([coord & none ] ) ]
+}
 \zl
 
 \noindent
@@ -382,15 +390,17 @@ Chaves (\citeyear[Chapters~4--6]{chavesthesis}; \citeyear[Section~5.3]{chavesext
 and \citet[Chapters~4--5]{sangheepark} for HPSG work that specifically focuses on the semantics of coordination.}
 
 \begin{exe}
- \ex \begin{avm}
+ \ex
+\avmtmp{
  %\type{coordinator} \impl
- \[\type{coord-lexeme}\\
- phon  \, \, $\langle$\type{and}$\rangle$\\
-  synsem  \[loc \[cat & \[head & \[\type{coord}\\
-             sel \[loc \[cat \[coord \type{none}\\ mrkg \@{1}\]\]\]\]\\
-             coord  & \type{and}\\
-             mrkg & \@{1}\]\]\]\]
- \end{avm}\label{le-coord-lexeme-marker}
+	[\type*{coord-lexeme}
+	\phon < \type{and\,} > \\
+	synsem &	[loc &	[cat &	[head &	[\type*{coord}
+										sel & [loc & [cat & [coord & none \\
+										mrkg & \1 ] ] ] ] \\
+             					coord  & and \\
+             					mrkg & \1 ] ] ] ]
+}\label{le-coord-lexeme-marker}
 \end{exe}
 
 
@@ -407,20 +417,21 @@ feature. See also \crossrefchaptert[\page \pageref{page-hfp}]{properties}.}
 
 \eas
 \label{rulem}\label{head-functor-construction}
-\type{head-func-cxt} \impl\\
-\begin{avm}
- \[synsem & \[loc & \[cat & \[subj  & \@{1}\\ 
-                              comps & \@{2}\\
-                              coord & \@{3}\\
-                              mrkg  & \@{4}\]\]\]\\
- hd-dtr & \@{5}\\
- dtrs & \<\[synsem \[loc & \[cat & \[sel   & \@{6}\\
-                                     coord & \@{3}\\ 
-                                     mrkg  & \@{4}\]\]\]\],
-        \@{5} \[synsem \@{6}\[loc \[ cat \[ subj  & \@{1}\\ 
-                                      comps & \@{2}\]\]\]\]\>\]
+\avmtmp{
+\emph{head-func-cxt} \impl
 
-\end{avm}
+	[synsem & [loc & [cat &	[subj & \1 \\ 
+							comps & \2 \\
+							coord & \3 \\
+							mrkg  & \4 ] ] ] \\
+	hd-dtr & \5 \\
+	dtrs & <	[synsem & [loc & [cat &	[sel & \6 \\
+										coord & \3 \\ 
+										mrkg  & \4 ] ] ] ] ,
+				\5 [synsem & \6 [loc & [cat &	[subj & \1 \\ 
+                                      			comps & \2 ] ] ] ]
+                                      			 > ]
+}
 \zs
 
 
@@ -482,7 +493,7 @@ Since it is a weak head, it inherits most of  its syntactic features (\textsc{he
 \ex 
 \avmtmp{
 [\type*{coord-lexeme}
- phon & $\langle$\emph{and}$\rangle$\\
+ \phon < and > \\
  synsem & [ loc & [ cat & [ head  & \0\\
                             coord & and\\  
                             mrkg  & \2\\
@@ -490,7 +501,7 @@ Since it is a weak head, it inherits most of  its syntactic features (\textsc{he
                             comps & < [ loc [cat [head  & \0\\
                                                   subj  & \1\\
                                                   comps & \3\\
-                                                  mrkg  & \2 ] ] ] > $\oplus$ \3 ] ] ]
+                                                  mrkg  & \2 ] ] ] > \+ \3 ] ] ]
                          ]
 }\label{lexcoordentry}
 \end{exe}
@@ -890,22 +901,35 @@ For example, this entails that all valence constraints are identical. Thus, in V
 \begin{figure}
 \begin{forest}
 sm edges
-[\begin{avm}S\[subj \hspace{5pt} $\langle$ \@{2} $\rangle$\\
-               comps  $\langle$ $\rangle$\]
-               \end{avm}
- [\avmbox{2}NP [Sam, roof]]
- [ \begin{avm}
-   VP\[subj \hspace{5pt} $\langle$ \@{2} $\rangle$\\
-               comps  $\langle$ $\rangle$\]
-   \end{avm} 
-    [\begin{avm}
-      VP\[subj \hspace{5pt} $\langle$ \@{2} $\rangle$\\
-               comps  \eliste \]
-      \end{avm} [ate cheese pizza, roof]]
-    [\begin{avm}
-      VP\[subj \hspace{5pt} $\langle$ \@{2} $\rangle$\\
-                    comps  $\langle$ $\rangle$\]
-     \end{avm} [and drank soda, roof] ] ]]
+[%
+\avmtmp{
+	S [subj & < \2 > \\
+	comps & < > ]
+}
+	[\ibox{2}NP
+		[Sam, roof]
+	]
+	[%
+	\avmtmp{
+		VP [subj & < \2 > \\
+			comps & < > ]
+	} 
+    	[%
+    	\avmtmp{
+    		VP [subj & < \2 > \\
+               comps & < > ]
+		}
+			[ate cheese pizza, roof]
+		]
+    	[%
+    	\avmtmp{
+			VP [subj & < \2 > \\
+				comps & < > ]
+		}
+			[and drank soda, roof]
+		]
+	]
+]
 \end{forest}
 \caption{Valence identity in  coordination}\label{valenceif}
 \end{figure}
@@ -915,8 +939,8 @@ All the unsaturated valence arguments become one and the same for all coordinand
 like the one in (\ref{vpbad1}), or S and VP as in (\ref{vpbad2}):
 
 \eal
-\ex[*]{Fred [read a book]\sub{\comps \eliste}  and [opened]\sub{\comps \sliste{ NP }}.}\label{vpbad1}
-\ex[*]{Fred [she has a hat]\sub{\subj \eliste} and [smiled]\sub{\subj \sliste{ NP }}.}\label{vpbad2}
+\ex[*]{Fred [read a book]\sub{\comps $\langle \rangle$}  and [opened]\sub{\comps $\langle$ NP $\rangle$}.}\label{vpbad1}
+\ex[*]{Fred [she has a hat]\sub{\subj $\langle \rangle$} and [smiled]\sub{\subj $\langle$ NP $\rangle$}.}\label{vpbad2}
 \zl
 
 But there is other information in \textsc{cat} besides valence. For example, the head feature
@@ -1047,14 +1071,14 @@ See \citet{goldsmith}, \citet{lakoff86}, \citet{levinprince86}, and \citet{kehle
 
 \begin{exe}
 \ex \begin{xlista}
-\ex[] {[To him]\sub{\avmbox{1}NP}  [[Fred gave a football \trace]$_{\textup{\textsc{slash}} \langle \avmbox{1} \rangle}$ and
-[Kim gave a book \trace]$_{\textup{\textsc{slash}} \langle \avmbox{1} \rangle}$]}.
+\ex[] {[To him]\sub{\ibox{1}NP}  [[Fred gave a football \trace]$_{\textup{\textsc{slash}} \langle \ibox{1} \rangle}$ and
+[Kim gave a book \trace]$_{\textup{\textsc{slash}} \langle \ibox{1} \rangle}$]}.
 
-\ex[*] {[To him]\sub{\avmbox{1}NP} [[Fred gave a football \trace]$_{\textup{\textsc{slash}} \langle \avmbox{1} \rangle}$ and
+\ex[*] {[To him]\sub{\ibox{1}NP} [[Fred gave a football \trace]$_{\textup{\textsc{slash}} \langle \ibox{1} \rangle}$ and
 [Kim gave me a book]$_{\textup{\textsc{slash}} \langle \, \rangle}$]}.
 
-\ex[*] {[To him]\sub{\avmbox{1}NP} [[Fred gave a football to me]$_{\textup{\textsc{slash}} \langle \, \rangle}$ and
-[Kim gave a book \trace]$_{\textup{\textsc{slash}} \langle \avmbox{1} \rangle}$]}.
+\ex[*] {[To him]\sub{\ibox{1}NP} [[Fred gave a football to me]$_{\textup{\textsc{slash}} \langle \, \rangle}$ and
+[Kim gave a book \trace]$_{\textup{\textsc{slash}} \langle \ibox{1} \rangle}$]}.
 \end{xlista}\label{cs1}
 \end{exe}
 
@@ -1082,9 +1106,9 @@ See \citet{goldsmith}, \citet{lakoff86}, \citet{levinprince86}, and \citet{kehle
 
 \begin{exe}
 \ex \begin{xlista}
-\ex {}[Who]\sub{\avmbox{1}NP} did Sam [pick up the phone$_{\textup{\textsc{slash}} \langle \, \rangle}$ and call \trace$_{\textup{\textsc{slash}} \langle \avmbox{1} \rangle}$]?
-\ex What was the maximum amount$_{\avmbox{1}}$ that
-I can [contribute \trace$_{\textup{\textsc{slash}} \langle \avmbox{1} \rangle}$ and still get a tax deduction$_{\textup{\textsc{slash}} \langle \, \rangle}$]?
+\ex {}[Who]\sub{\ibox{1}NP} did Sam [pick up the phone$_{\textup{\textsc{slash}} \langle \, \rangle}$ and call \trace$_{\textup{\textsc{slash}} \langle \ibox{1} \rangle}$]?
+\ex What was the maximum amount$_{\ibox{1}}$ that
+I can [contribute \trace$_{\textup{\textsc{slash}} \langle \ibox{1} \rangle}$ and still get a tax deduction$_{\textup{\textsc{slash}} \langle \, \rangle}$]?
 \end{xlista}\label{assym}
 \end{exe}
 
@@ -1232,20 +1256,21 @@ morbidity.\textsc{f.sg} and death.\textsc{f.sg} premature.\textsc{f.pl}\\
  
 \begin{exe}
 \ex 
-\begin{avm}
-\type{nom-coord-phrase} \impl \[synsem & \[cont \[index & \[num & pl\\
-                                              gen & \[m & \@{1}$\oplus$\@{2} \]\\
-                                              pers & \[me  & \@{4}$\oplus$\@{6}\]
-                                             \]
-                               \]
-                  \]\\      
-dtrs & \< \[synsem \[cont \[index & \[gen \[ m \@{1}\]\\
-                               pers \[me \@{3}\\
-                                         you \@{4}]\] \]\] \] \],\\
-               \[synsem \[cont \[index & \[gen \[ m \@{2} \]\\
-                               pers \[me \@{5}\\
-                                         you \@{6}\]\]\] \] \]\>\]
-\end{avm}\label{aguila}
+\avmtmp{
+\emph{nom-coord-phrase} \impl
+	[synsem &	[cont &	[index &	[num & pl \\
+									gen &	[m & \1 \+ \2 ] \\
+                                    pers &	[me  & \4 \+ \6 ] ] ] ] \\
+	dtrs &	<	[synsem &	[cont &	[index &	[gen &	[m & \1] \\
+                               					pers &	[me & \3 \\
+                                         				you & \4] ] ]] ]
+			,\\
+				[synsem &	[cont &	[index &	[gen &	[m & \2] \\
+                               					pers &	[me & \5 \\
+                                         				you & \6] ] ]] ] 
+			>
+	]
+}\label{aguila}
 \end{exe}
  
  \noindent
@@ -1304,11 +1329,12 @@ constraint that shares the \textsc{index} value of the (nominal) coordinate moth
 last conjunct (p.\,389):
 
 \begin{exe}
-\ex \begin{avm}
-\type{nom-coord-phrase} \impl
-\[synsem  & \[ loc|cont|index & \@{1}\]\\
-dtrs & \< \[\, \], \ldots{}, \[synsem|loc|cont|index & \@{1}\]\>\]
-\end{avm}
+\ex
+\avmtmp{
+\emph{nom-coord-phrase} \impl
+	[synsem &	[loc|cont|index & \1 ] \\
+	dtrs & < [ ], \ldots, [synsem|loc|cont|index & \1 ] > ]
+}
 \end{exe}
 
 
@@ -1334,20 +1360,20 @@ As mentioned above, \citet{Villavicencio:Sadler:ea:05} use three features: \text
 
 \begin{exe}
  \ex
-\type{nom-coord-ph} \impl\\
-\begin{avm}
-\[synsem|loc|cat|head \[ lagr & \@{1}\\
-                         ragr & \@{2}\]\\
-  dtrs \< \[synsem|loc|cat|head|lagr & \@{1}\], \ldots, \[synsem|loc|cat|head|ragr & \@{2}\]\>\]
-\end{avm}
+\avmtmp{
+\emph{nom-coord-ph} \impl\\
+	[\punk{synsem|loc|cat|head}{[lagr & \1 \\
+                         		ragr & \2 ]} \\
+	dtrs &	<	[synsem|loc|cat|head|lagr & \1 ], \ldots, [synsem|loc|cat|head|ragr & \2]	> ]
+}
 
 \ex
-\begin{avm}
-\type{noun} \impl    
-\[lagr & \@{1}\\
-  ragr & \@{1}\\
-  concord & \@{1}\]
-\end{avm}  
+\avmtmp{
+\emph{noun} \impl    
+	[lagr & \1 \\
+  	ragr & \1 \\
+  	concord & \1 ]
+}  
 \end{exe}
 
 Nouns have the same value for  \textsc{concord}, \textsc{lagr}, and \textsc{ragr}, and 
@@ -1356,17 +1382,19 @@ Attributive adjectives constrain the agreement features of the noun they modify 
 
 \begin{exe}
  \ex 
-          \begin{avm}
-          \type{prenominal-adj} \impl 
-          \[concord & \@{1}\\
-                       sel & \[lagr \@{1}\]\]\end{avm}
+\avmtmp{
+\emph{prenominal-adj} \impl 
+	[concord & \1 \\
+	sel &	[lagr & \1 ] ]
+}
 
  \ex 
-  \begin{avm}
-  \type{postnominal-adj} \impl  
-  \[concord & \@{1} $\vee$ \@{2}\\
-            sel & \[concord & \@{1}\\
-                    ragr & \@{2}\]\]\end{avm}
+\avmtmp{
+\emph{postnominal-adj} \impl  
+	[concord & \1 $\lor$ \2 \\
+	sel &	[concord & \1 \\
+			ragr & \2 ] ]
+}
 \end{exe}
 
 \noindent
@@ -1768,18 +1796,18 @@ Here, {\it coord} is an abbreviation of the phonologies of coordinators, like
 \begin{exe}
 \ex
 
-\begin{avm}
-%\textup{ 
-\type{coord-phr} \impl
-\[phon \@{1}$\oplus$\@{2}$\oplus$\@{0}$\oplus$\@{3}%\\
-    \\
- dtrs \< \[phon \@{1}$\oplus$\@{2}$_{ne-list}$\\
-             synsem|loc|cat|coord & none\],
- \[phon  \@{0}$\langle$(\type{coord})$\rangle\oplus$\@{1}$\oplus$\@{3}$_{ne-list}$\\
-   synsem|loc|cat|coord  \type{crd}\]
- \> \]
+%\scalebox{.84}{
+\avmtmp{
+%\textup{
+\emph{coord-phr} \impl
+	[phon & \1 \+ \2 \+ \0 \+ \3 \\
+	dtrs &	<	[phon & \1 \+ \2\subscr{ne-list} \\
+				\punk{synsem|loc|cat|coord}{none}],
+				[phon & \0 <(\type{coord}\,)> \+ \1 \+ \3\subscr{ne-list} \\
+   				\punk{synsem|loc|cat|coord}{crd}]	> ]
 %}
-\end{avm}
+}
+%}
 
 %% \begin{avm}
 %% \textup{ \emph{coord-phr} \impl
@@ -1794,7 +1822,7 @@ Here, {\it coord} is an abbreviation of the phonologies of coordinators, like
 \end{exe}
 
 \noindent
-If \avmbox{1} is resolved as the empty list then no ellipsis occurs, but if \avmbox{1} is non-empty then ellipsis occurs, as illustrated in Figure~\ref{lpe}. 
+If \ibox{1} is resolved as the empty list then no ellipsis occurs, but if \ibox{1} is non-empty then ellipsis occurs, as illustrated in Figure~\ref{lpe}. 
 Some accounts, like  \citet{yatabe01}, \citet{Crysmann:04}, \citet{Beavers}, and \citet{chaveslp} operate on
 linearization domain\label{page-linearization-domains-in-coordination-two} elements instead of directly on \textsc{phon}.  
 See \crossrefchaptert[Section~\ref{sec-domains}]{order} for more discussion about linearization theory.
@@ -1802,13 +1830,23 @@ See \crossrefchaptert[Section~\ref{sec-domains}]{order} for more discussion abou
 
 \begin{figure}
     \centering
+%\oneline{%    
+%\begin{forest}
+%[{VP[ \phon  \ibox{1} $\oplus$ \ibox{2} $\oplus$ \ibox{0} $\oplus$ \ibox{3} ]} 
+%          [{VP[ \phon \ibox{1} \phonliste{ give } $\oplus$ \ibox{2} \phonliste{ a, book, to, Mary } ]}]
+%         [{VP[ \phon \ibox{0} \phonliste{ and } $\oplus$ \ibox{1} \phonliste{ give } $\oplus$ \ibox{3} \phonliste{ a, magazine, to, Sue } ]}
+%           [Coord]
+%           [VP] ] ]
+%\end{forest}
+%}
+
 \oneline{%    
 \begin{forest}
-[{VP[ \phon  \ibox{1} $\oplus$ \ibox{2} $\oplus$ \ibox{0} $\oplus$ \ibox{3} ]} 
-          [{VP[ \phon \ibox{1} \phonliste{ give } $\oplus$ \ibox{2} \phonliste{ a, book, to, Mary } ]}]
-         [{VP[ \phon \ibox{0} \phonliste{ and } $\oplus$ \ibox{1} \phonliste{ give } $\oplus$ \ibox{3} \phonliste{ a, magazine, to, Sue } ]}
-           [Coord]
-           [VP] ] ]
+[\avmtmp{VP [phon & \1 \+ \2 \+ \0 \+ \3]} 
+	[\avmtmp{VP [phon & < \type{give}\, > \+ \2 < \type{a, book, to, Mary}\, > ]}]
+	[\avmtmp{VP [phon & \0 < \type{and}\, > \+ \1 < \type{give}\, > \+ \3 < \type{a, magazine, to, Sue}\, > ]}
+	[Coord]
+	[VP] ] ]
 \end{forest}
 }
     \caption{Analysis of \emph{give a book to Mary and} \sout{\emph{give}} \emph{a magazine to Sue}}\label{lpe}
@@ -2026,17 +2064,25 @@ of \textsc{lid} is a list of semantic frames that canonically specify the meanin
  
 \begin{exe}
 \ex
-\begin{avm}
-{\small \type{rpe-cx} \impl
-\[mp & \@{$L_1$}$\oplus$\@{$R_1$}$\oplus$\@{$R_2$}$\oplus$\@{$R_3$}\\
-  synsem & \@{0}\\
- dtrs & \< \[mp   \@{$L_1$}$\oplus$\@{$L_2$}\<\[phon & \@{$p_1$}\\ lid & \@{1}\],\ldots{}, \[phon & \@{$p_n$}\\
- lid & \@{n}\]\>$\oplus$\\
- \hspace{0.7cm}\@{$R_1$}$\oplus$\@{$R_2$}\<\[phon & \@{$p_1$}\\ lid & \@{1}\],\ldots{}, \[phon & \@{$p_n$}\\
- lid & \@{n}\]\>$\oplus$\@{$R_3$}\\
- synsem  \@{0}
-             \] \> \]}
-\end{avm}\label{rnrcx}
+{\small
+\avmtmp{
+\emph{rpe-cx} \impl
+	[mp & \tag{$L_1$} \+ \tag{$R_1$} \+ \tag{$R_2$} \+ \tag{$R_3$}\\
+	synsem & \0 \\
+	dtrs &	<[mp & \tag{$L_1$} \+ \tag{$L_2$}	<[phon & \tag{$p_1$}\\
+											lid & \1 ]
+											,\ldots{},
+											[phon & \tag{$p_n$}\\
+											lid & \tag{n} ]> \+ \\
+%			\hspace{0.7cm}
+ 	~ & ~	\tag{$R_1$} \+ \tag{$R_2$}	<[phon & \tag{$p_1$}\\
+ 										lid & \1 ]
+ 										,\ldots{},
+ 										[phon & \tag{$p_n$}\\
+ 										lid & \tag{n} ]> \+ \tag{$R_3$}\\
+			synsem & \0 ]> ]
+}\label{rnrcx}
+}
 \end{exe}
 
 \noindent
@@ -2100,34 +2146,32 @@ Note that this is a unary-branching rule, which means that it can in principle a
 
 \oneline{%
 \begin{forest}
-[ {\begin{avm}
-S\[\type{phrase}\\
-mp \<
-\[phon \<\[$I$ &
-    \[$\phi$ &
-       /\textipa{kIm} \textipa{lAIks}/\]\]\>\\
-       lid \ldots{}\],
-    \[phon \<\[$I$ &
-     \[$\phi$ &
-            /\textipa{\ae nd} \textipa{mij@} \textipa{heIts}/\]\]\>\\
-            lid \ldots{}\],
-         \[phon \<\[$I$ & \[$\phi$ &  /\textipa{beIg@lz}/\]\]\>\\
-         lid \ldots{} \]\>  \]\end{avm}}
-[{\begin{avm}
-S\[\type{phrase}\\
-mp
-\<  \[phon \< \[$I$ &
-    \[$\phi$ &
-       /\textipa{kIm} \textipa{lAIks}/\] \]\>\\
-      lid ..\],
-        \[phon    \<\[$I$ & \[$\phi$ &  /\textipa{beIg@lz}/\]\]\>\\
-              lid \ldots{}\],\\
-     \[phon \<\[$I$ &
-     \[$\phi$ &
-            /\textipa{\ae nd} \textipa{mij@} \textipa{heIts}/\]\]\>\\
-          lid \ldots{}\],
-         \[phon \<\[$I$ & \[$\phi$ &  /\textipa{beIg@lz}/ \]\]\>\\
-              lid \ldots{}\]   \>  \]\end{avm}}
+[%
+\avmtmp{
+	S [\type*{phrase}
+	mp &	<[phon & <[$I$ & [$\phi$ & /\textipa{kIm lAIks}/] ]> \\
+			lid & \ldots ]
+			,
+			[phon & <[$I$ &	[$\phi$ & /\textipa{\ae nd mij@ heIts}/] ]>\\
+			lid & \ldots ]
+			,
+			[phon & <[$I$ &	[$\phi$ &  /\textipa{beIg@lz}/] ]> \\
+			lid & \ldots ]>  ]
+}
+	[%
+	\avmtmp{
+		S [\type*{phrase}
+		mp & <	[phon & <[$I$ &	[$\phi$ & /\textipa{kIm lAIks}/] ]> \\
+				lid & \ldots ]
+				,
+				[phon & <[$I$ &	[$\phi$ & /\textipa{beIg@lz}/] ]> \\
+				lid & \ldots ]
+				,\\
+				[phon & <[$I$ &	[$\phi$ & /\textipa{\ae nd mij@ heIts}/] ]>\\
+				lid & \ldots ],
+				[phon & <[$I$ &	[$\phi$ & /\textipa{beIg@lz}/ ] ]> \\
+				lid & \ldots ]> ]
+	}
 %    
 %%     \scalebox{1}{
 %%     {\begin{avm}
@@ -2206,7 +2250,7 @@ voted  \textsc{for} [my father's motion].\\
 
 
 
-In the example in Figure~\ref{rnrt}, the sub-list \avmbox{R$_3$} is resolved as the empty list, but this need not be so. When the final sublist is not resolved as the empty list, we obtain discontinuous Right-Node Raising cases like (\ref{disrnr}), due to  \citet[238--240]{Whitman:09}
+In the example in Figure~\ref{rnrt}, the sub-list \ibox{R\subscr{3}} is resolved as the empty list, but this need not be so. When the final sublist is not resolved as the empty list, we obtain discontinuous Right-Node Raising cases like (\ref{disrnr}), due to  \citet[238--240]{Whitman:09}
 and \citet[868]{chavesrnr}, where the Right-Node Raised expression is followed by extra material. 
 \begin{exe}
 \ex \begin{xlista}
@@ -2230,55 +2274,69 @@ and \citet[868]{chavesrnr}, where the Right-Node Raised expression is followed b
 
 Finally, let us now turn our attention to Gapping, as in 
 \emph{Robin likes Sam and Tim -- Sue}.
-There are elliptical accounts of Gapping  \citep{chaves06} as well as direct-interpretation accounts where the missing material is recovered from the preceding linguistic context  \citep{Mouret:06,Abeille:Blbie:Mouret:14,sangheepark}; see \crossrefchaptert{ellipsis}. The latter is illustrated in Figure~\ref{gfig}, in simplified format. Basically, the Question Under Discussion (QUD, \citealp{roberts96}) of the first clause is $\lambda y.\lambda x. \exists e(like(x,y))$ which is information that shared across the clausal daughters as \avmbox{1}.
+There are elliptical accounts of Gapping  \citep{chaves06} as well as direct-interpretation accounts where the missing material is recovered from the preceding linguistic context  \citep{Mouret:06,Abeille:Blbie:Mouret:14,sangheepark}; see \crossrefchaptert{ellipsis}. The latter is illustrated in Figure~\ref{gfig}, in simplified format. Basically, the Question Under Discussion (QUD, \citealp{roberts96}) of the first clause is $\lambda y.\lambda x. \exists e(like(x,y))$ which is information that shared across the clausal daughters as \ibox{1}.
 This allows the second conjunct to combine the two NPs with the verbal semantics, and recover the propositional meaning.
 
 %\fi
 
+%\begin{figure}
+%\oneline{%
+%\begin{forest}
+%%sm edges
+%[S\ms{
+%      qud     & \ibox{1}\\
+%      content & \menge{ $\exists e'(like(robin,sam)) \wedge \exists e(like(tim,sue))$ }\\
+%     } 
+% [S\ms{  qud & \ibox{1}\\
+%         content & \menge{ \ibox{0} $\exists e'(like(robin,sam))$ } % }
+%      } ]
+% [S\ms{ qud & \ibox{1}\\
+%          content & \menge{ \ibox{0} $\wedge \exists e(like(tim,sue))$ }
+%        }
+% [Conj [and]]
+% [S\ms{ qud & \ibox{1} \menge{ $\lambda y. \lambda x. \exists e(like(x,y))$ }\\
+%        content & \menge{ $\exists e(like(t,s))$ } } 
+%   [NP\ms{ content & \menge{ $tim$ }}]
+%   [NP\ms{ content & \menge{ $sue$ }}] ]
+%]]
+%\end{forest}
+%}
+%\caption{Analysis of \emph{Robin likes Sam and Tim -- Sue} (abbreviated)}\label{gfig}
+%\end{figure}
+
+
 \begin{figure}
-\oneline{%
+    \centering
+\oneline{
 \begin{forest}
 %sm edges
-[S\ms{
-      qud     & \ibox{1}\\
-      content & \menge{ $\exists e'(like(robin,sam)) \wedge \exists e(like(tim,sue))$ }\\
-     } 
- [S\ms{  qud & \ibox{1}\\
-         content & \menge{ \ibox{0} $\exists e'(like(robin,sam))$ } % }
-      } ]
- [S\ms{ qud & \ibox{1}\\
-          content & \menge{ \ibox{0} $\wedge \exists e(like(tim,sue))$ }
-        }
- [Conj [and]]
- [S\ms{ qud & \ibox{1} \menge{ $\lambda y. \lambda x. \exists e(like(x,y))$ }\\
-        content & \menge{ $\exists e(like(t,s))$ } } 
-   [NP\ms{ content & \menge{ $tim$ }}]
-   [NP\ms{ content & \menge{ $sue$ }}] ]
-]]
-\end{forest}
+[%
+\avmtmp{
+	S [qud & \1 \\
+	content & \{ $\exists e'$!(\type{like}(\type{robin,sam}))! $\land \exists e$!(\type{like}(\type{tim,sue}))! \} ]
 }
-\caption{Analysis of \emph{Robin likes Sam and Tim -- Sue} (abbreviated)}\label{gfig}
+	[%
+	\avmtmp{
+		S [qud & \1 \\
+		content & \{ \0 $\exists e'$!(\type{like}(\type{robin,sam}))! \}]
+	}]
+	[%
+	\avmtmp{
+		S [qud & \1 \\
+		content & \{ \0 $\land \exists e$!(\type{like}(\type{tim,sue}))! \}]
+	}
+		[Conj [and] ]
+		[%
+		\avmtmp{
+			S [qud & \1 \{$\lambda y. \lambda x. \exists e$!(\type{like}(\type{x,y}))! \} \\
+			content & \{$\exists e$!(\type{like}(\type{t,s}))! \} ]
+		}
+  			[\avmtmp{NP [content & \{$tim$ \}]}]
+			[\avmtmp{NP [content & \{$sue$ \}]}] ] ] ]
+\end{forest} 
+     \caption{Analysis of \emph{Robin likes Sam and Tim -- Sue} (abbreviated)}\label{gfig}
+}
 \end{figure}
-
-
-%% \begin{figure}
-%%     \centering
-%% \begin{forest}
-%% %sm edges
-%% [\begin{avm}S\[qud & \@{1}\\
-%%                 content & \{ $\exists e'(like(robin,sam)) \wedge \exists e(like(tim,sue))$ \}\]\end{avm}
-%%  [\begin{avm}S\[qud & \@{1}\\
-%%                 content & \{ \@{0}$\exists e'(like(robin,sam))$\}\]\end{avm}]
-%%  [\begin{avm}S\[qud & \@{1}\\
-%%                 content & \{ \@{0} $\wedge \exists e(like(tim,sue))$\}\]\end{avm}
-%%    [Conj [and] ]
-%%    [\begin{avm}S\[qud & \@{1}\{$\lambda y. \lambda x. \exists e(like(x,y))$\}\\
-%%                 content & \{$\exists e(like(t,s))$ \}\]\end{avm}
-%%      [\begin{avm}NP\[content & \{$tim$ \}\]\end{avm}]
-%%      [\begin{avm}NP\[content & \{$sue$ \}\]\end{avm}] ] ] ]
-%% \end{forest} 
-%%     \caption{Analysis of \emph{Robin likes Sam and Tim -- Sue} (abbreviated)}\label{gfig}
-%% \end{figure}
 
 
 Like Right-Node Raising, Gapping is not restricted to coordinate structures as \citegen[\page 30--31]{sangheepark} attested 
