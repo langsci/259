@@ -46,7 +46,7 @@
 
 \label{chap-morphology}
 
-{\avmoptions{center}
+
 
 %\inlinetodostefan{15.05.2020: add page numbers}
 
@@ -207,53 +207,23 @@ themselves towards capturing the variety of the full empirical pattern
 while at the same time providing the necessary abstraction in terms of
 more general supertypes from which individual subclasses may inherit. 
 
-
-
-\newbox\poss
-\newbox\suffixed
-\newbox\externalised
-
-\setbox\poss=\hbox{
-  \avmoptions{active}
-  \begin{avm}
-    [\asort{possibility}
-    ss|l|cont|nuc|reln & $\diamond$]
-  \end{avm}
-}
-\setbox\suffixed=\hbox{
-  \avmoptions{active}
-  \begin{avm}
-    [\asort{suffixed}
-    ph & @1 $\oplus$ \normalfont\textit{list}\\
-    morph-b & <[ph & @1]>]
-  \end{avm}
-}
-\setbox\externalised=\hbox{
-  \avmoptions{active}
-  \begin{avm}
-    [\asort{externalised}
-    ss & [l|cat|val|subj &  <NP:@1>]\\
-    morph-b  & <[ss|l|cat|val|comps & <NP\[\type{acc}\]:@1,...>]>]
-  \end{avm}
-}
-
 \begin{exe}
-  \ex     \avmoptions{active}
-  \begin{avm}
-    [\asort{reg-bar-adj}\\
-    ph & @1 + \textit{bar}\\
-    morph-b & <[\asort{trans-verb}
-    ph & @1\\
-      ss|l & [cat|val|comps  <NP\[\type{acc}\]$_{@2}$> ~$\oplus$ @3]\\
-      cont|nuc & @4[act & \textit{nom-obj}\\
-      und & @2]]>\\
-    ss|loc & [cat & [head & \textit{adj}\\
-    val & [subj & <\normalfont NP$_{@2}$>\\
-    comps & @3]]\\
-    cont|nuc & [reln & $\diamond$\\
-    und & @2\\
-    soa-arg & @4]]]
-  \end{avm} \label{fig:riehemannBar}
+  \ex
+\avmtmp{
+	[\type*{reg-bar-adj}
+	ph & \1 $+$ bar \\
+	morph-b &	<[\type*{trans-verb}
+				ph & \1 \\
+				ss|l &	[cat|val|comps <NP ![\type{acc}]!$_{\2}$> \+ \3] \\
+				cont|nuc & \4	[act & nom-obj \\
+								und & \2] ]> \\
+	ss|loc &	[cat &	[head & adj \\
+						val &	[subj & <NP$_{\2}$> \\
+								comps & \3] ] \\
+				cont|nuc &	[reln & $\diamond$ \\
+							und & \2 \\
+							soa-arg & \4 ] ] ]
+} \label{fig:riehemannBar}
 \end{exe}
 
 Figure~\ref{fig:Riehemann} provides the extended hierarchy suggested
@@ -275,7 +245,12 @@ Figure~\ref{fig:Riehemann} inherits this property and specifies the
 concrete shape of the list appended to the morphological base.
 
 \begin{exe}
-  \ex \usebox{\suffixed} \label{fig:riehemannSuff}
+  \ex
+	\avmtmp{
+		[\type*{suffixed}
+		ph & \1 \+ list \\
+		morph-b & <[ph & \1]> ]
+	}\label{fig:riehemannSuff}
 \end{exe}
 
 
@@ -286,7 +261,11 @@ concrete shape of the list appended to the morphological base.
 \end{sloppypar}
 
 \begin{exe}
-  \ex \usebox{\poss}
+  \ex
+  	\avmtmp{
+		[\type*{possibility}
+  		ss|l|cont|nuc|reln & $\diamond$]
+  	}
 \end{exe}
 
 Clearly more specific is the passivisation effect observed with
@@ -297,7 +276,12 @@ instead of an accusative, and it does not apply at all to intransitive
 bases (\textit{brennbar} `combustible').  
 
 \begin{exe}
-  \ex \usebox{\externalised}
+  \ex
+  	\avmtmp{
+	  	[\type*{externalised}
+	  	ss & [l|cat|val|subj &  < NP: \1 >]\\
+	  	morph-b  & <[ss|l|cat|val|comps & < NP![\type{acc}]!: \1 , \ldots> ]> ]
+	  }
 \end{exe}
 
 Regular \textit{-bar} adjectives (\ref{fig:riehemannBar}) inherit from all these supertypes, which
@@ -359,86 +343,153 @@ type from one dimension with exactly one leaf type from the other.
   \centering
 
   \footnotesize
-  \avmoptions{bottom}
-  \psset{angleA=-90,angleB=90,arm=0pt}
+%  \avmoptions{bottom}
+%  \psset{angleA=-90,angleB=90,arm=0pt}
+%
+%  \resizebox{\textwidth}{!}{%
+%    \tabcolsep.2\tabcolsep
+%  \begin{tabular}{ccccccc}
+%    \multicolumn{4}{c}{\tnode{lexeme}} \\[2ex]
+%    \multicolumn{2}{c}{\dnode{ROOT}}  & \multicolumn{2}{c}{\dnode{VALENCE}}\\[2ex]
+%    \multicolumn{2}{c}{\rnode{verbs} {
+%    \begin{avm}
+%      \[\asort{verbs}
+%      cat & V\]
+%    \end{avm}
+%}}\\     \rnode{kill}{
+%    \begin{avm}
+%      \[\asort{kill-lxm} ph & kill\\
+%      cont & \[reln & kill-rel\\
+%      act & index\\
+%      und & index\]\] 
+%    \end{avm}
+%}  & \rnode{resurrect}{\begin{avm}
+%      \[\asort{resurrect-lxm} ph & resurrect\\
+%      cont & \[reln & resurrect-rel\\
+%      act & index\\
+%      und & index\]\] 
+%    \end{avm}
+%}  & \rnode{trans}{\begin{avm}
+%      \[\asort{trans-lxm}
+%      cat & \[hd & v\\
+%        subj & \< NP$_{\@x}$ \>\\
+%      comps & \< NP$_{\@y}$ \>\]\\
+%      cont & \[act & \@x\\
+%      und & \@y\]
+%      \]
+%    \end{avm}
+%            }
+%        & 
+%       \rnode{pass}{\begin{avm}
+%        \[\asort{pass-lxm}
+%          cat & \[hd & v\\
+%            subj & \< NP$_{\@y}$ \>\\
+%            comps & \< PP$_{\@x}$ \>\]\\
+%          cont & \[act & \@x\\
+%              und & \@y\]
+%          \]
+%         \end{avm}}
+%    \\[6em] 
+%             
+%             
+%    \rnode{kill-act}{\colorbox[gray]{1}{\textit{kill-lxm} $\wedge$ \textit{trans-lxm}}} &
+%    \rnode{kill-pass}{\colorbox[gray]{1}{\textit{kill-lxm} $\wedge$ \textit{pass-lxm}}} &
+%    \rnode{resurrect-act}{\colorbox[gray]{1}{\textit{resurrect-lxm} $\wedge$ \textit{trans-lxm}}} &
+%    \rnode{resurrect-pass}{\colorbox[gray]{1}{\textit{resurrect-lxm} $\wedge$ \textit{pass-lxm}}}
+%    
+%        \psset{linewidth=.6pt,nodesep=2pt}                                                                                            
+%    \ncdiag{lexeme}{ROOT}
+%    \ncdiag{lexeme}{VALENCE}
+%    \ncdiag{ROOT}{verbs}
+%    \ncdiag{VALENCE}{trans}
+%    \ncdiag{VALENCE}{pass}
+%
+%    \ncdiag[linestyle=dashed]{kill}{kill-act}
+%    \ncdiag[linestyle=dashed]{resurrect}{resurrect-act}
+%    \ncdiag[linestyle=dashed]{kill}{kill-pass}
+%    \ncdiag[linestyle=dashed]{resurrect}{resurrect-pass}
+%    \ncdiag[linestyle=dashed]{trans}{kill-act}
+%    \ncdiag[linestyle=dashed]{trans}{resurrect-act}
+%    \ncdiag[linestyle=dashed]{pass}{kill-pass}
+%    \ncdiag[linestyle=dashed]{pass}{resurrect-pass}
+%%    \ncdiag{pass}{rumored}
+%
+%    \ncdiag{verbs}{kill}
+%    \ncdiag{verbs}{resurrect}
+%    % \ncdiag{verbs}{hate}
+% %   \ncdiag{verbs}{rumored}
+%
+%    
+%    
+%  \end{tabular}
+% } 
 
-  \resizebox{\textwidth}{!}{%
-    \tabcolsep.2\tabcolsep
-  \begin{tabular}{ccccccc}
-    \multicolumn{4}{c}{\tnode{lexeme}} \\[2ex]
-    \multicolumn{2}{c}{\dnode{ROOT}}  & \multicolumn{2}{c}{\dnode{VALENCE}}\\[2ex]
-    \multicolumn{2}{c}{\rnode{verbs} {
-    \begin{avm}
-      \[\asort{verbs}
-      cat & V\]
-    \end{avm}
-}}\\     \rnode{kill}{
-    \begin{avm}
-      \[\asort{kill-lxm} ph & kill\\
-      cont & \[reln & kill-rel\\
-      act & index\\
-      und & index\]\] 
-    \end{avm}
-}  & \rnode{resurrect}{\begin{avm}
-      \[\asort{resurrect-lxm} ph & resurrect\\
-      cont & \[reln & resurrect-rel\\
-      act & index\\
-      und & index\]\] 
-    \end{avm}
-}  & \rnode{trans}{\begin{avm}
-      \[\asort{trans-lxm}
-      cat & \[hd & v\\
-        subj & \< NP$_{\@x}$ \>\\
-      comps & \< NP$_{\@y}$ \>\]\\
-      cont & \[act & \@x\\
-      und & \@y\]
-      \]
-    \end{avm}
-            }
-        & 
-       \rnode{pass}{\begin{avm}
-        \[\asort{pass-lxm}
-          cat & \[hd & v\\
-            subj & \< NP$_{\@y}$ \>\\
-            comps & \< PP$_{\@x}$ \>\]\\
-          cont & \[act & \@x\\
-              und & \@y\]
-          \]
-         \end{avm}}
-    \\[6em] 
-             
-             
-    \rnode{kill-act}{\colorbox[gray]{1}{\textit{kill-lxm} $\wedge$ \textit{trans-lxm}}} &
-    \rnode{kill-pass}{\colorbox[gray]{1}{\textit{kill-lxm} $\wedge$ \textit{pass-lxm}}} &
-    \rnode{resurrect-act}{\colorbox[gray]{1}{\textit{resurrect-lxm} $\wedge$ \textit{trans-lxm}}} &
-    \rnode{resurrect-pass}{\colorbox[gray]{1}{\textit{resurrect-lxm} $\wedge$ \textit{pass-lxm}}}
-    
-        \psset{linewidth=.6pt,nodesep=2pt}                                                                                            
-    \ncdiag{lexeme}{ROOT}
-    \ncdiag{lexeme}{VALENCE}
-    \ncdiag{ROOT}{verbs}
-    \ncdiag{VALENCE}{trans}
-    \ncdiag{VALENCE}{pass}
-
-    \ncdiag[linestyle=dashed]{kill}{kill-act}
-    \ncdiag[linestyle=dashed]{resurrect}{resurrect-act}
-    \ncdiag[linestyle=dashed]{kill}{kill-pass}
-    \ncdiag[linestyle=dashed]{resurrect}{resurrect-pass}
-    \ncdiag[linestyle=dashed]{trans}{kill-act}
-    \ncdiag[linestyle=dashed]{trans}{resurrect-act}
-    \ncdiag[linestyle=dashed]{pass}{kill-pass}
-    \ncdiag[linestyle=dashed]{pass}{resurrect-pass}
-%    \ncdiag{pass}{rumored}
-
-    \ncdiag{verbs}{kill}
-    \ncdiag{verbs}{resurrect}
-    % \ncdiag{verbs}{hate}
- %   \ncdiag{verbs}{rumored}
-
-    
-    
-  \end{tabular}
- } 
+\resizebox{\textwidth}{!}{%
+	\begin{forest}
+		type hierarchy
+[lexeme
+	[root,partition
+		[%
+		\avmtmp{
+			[\type*{verbs}
+			cat & V]
+		}
+			[%
+			\avmtmp{
+				[\type*{kill-lxm}
+				ph & kill \\
+				cont &	[reln & kill-rel \\
+				act & index \\
+				und & index] ]
+			}, l sep+=1cm, name=a
+				[kill-lxm $\land$ trans-lxm, tier=word, edge=dashed, name=1]
+			]
+			[%
+			\avmtmp{
+				[\type*{resurrect-lxm}
+				ph & resurrect \\
+				cont &	[reln & resurrect-rel \\
+				act & index \\
+				und & index] ]
+			}, l sep+=1cm, name=b
+				[kill-lxm $\land$ pass-lxm, tier=word, no edge, name=2]
+			]
+		]
+	]
+	[valence,partition, l sep+=1cm
+		[%
+		\avmtmp{
+			[\type*{trans-lxm}
+			cat &	[hd & v \\
+			subj & <NP$_{\tag{x}}$> \\
+			comps & <NP$_{\tag{y}}$> ] \\
+			cont &	[act & \tag{x} \\
+			und & \tag{y} ] ]
+		}, l sep+=1cm, name=c
+			[resurrect-lxm $\land$ trans-lxm, tier=word, edge=dashed, name=3]
+		]
+		[%
+		\avmtmp{
+			[\type*{pass-lxm}
+			cat &	[hd & v \\
+			subj & <NP$_{\tag{y}}$> \\
+			comps & <PP$_{\tag{x}}$> ] \\
+			cont &	[act & \tag{x} \\
+			und & \tag{y} ] ]
+		}, l sep+=1cm, name=d
+			[resurrect-lxm $\land$ pass-lxm, tier=word, edge=dashed, name=4]
+		]
+	]
+]
+{
+\draw[dashed](a.south) to (2.north);
+\draw[dashed](b.south) to (3.north);
+\draw[dashed](b.south) to (4.north);
+\draw[dashed](c.south) to (1.north);
+\draw[dashed](d.south) to (2.north);
+}
+	\end{forest}
+}
 
   \caption{Online type construction}
   \label{fig:KoenigDyn}
@@ -458,71 +509,130 @@ pre-typing makes this type already a type in both dimensions.
   \centering
 
 
-\resizebox{\textwidth}{!}{%  
-  \psset{angleA=-90,angleB=90,arm=0pt}
-    \tabcolsep.2\tabcolsep
-  \begin{tabular}{ccccccc}
-    \multicolumn{4}{c}{\tnode{lexeme}} \\[2ex]
-    \multicolumn{2}{c}{\dnode{ROOT}}  & \multicolumn{2}{c}{\dnode{VALENCE}}\\[2ex]
-    \multicolumn{2}{c}{\rnode{verbs}{
-    \begin{avm}
-      \[\asort{verbs}
-      cat & \[hd & v\]\]
-    \end{avm}
-}} & \rnode{trans}{\begin{avm}
-      \[  \asort{trans}
-        cat & \[hd & v\\
-          subj & \< NP$_{\@x}$ \>\\
-          comps & \< NP$_{\@y}$ \>
-                \]\\
-       cont & \[act & {\@x}\\
-       und & {\@y} \]
-      \]
-    \end{avm}}
-        &
-      \rnode{pass}{\begin{avm}
-       \[\asort{pass}
+%\resizebox{\textwidth}{!}{%  
+%  \psset{angleA=-90,angleB=90,arm=0pt}
+%    \tabcolsep.2\tabcolsep
+%  \begin{tabular}{ccccccc}
+%    \multicolumn{4}{c}{\tnode{lexeme}} \\[2ex]
+%    \multicolumn{2}{c}{\dnode{ROOT}}  & \multicolumn{2}{c}{\dnode{VALENCE}}\\[2ex]
+%    \multicolumn{2}{c}{\rnode{verbs}{
+%    \begin{avm}
+%      \[\asort{verbs}
+%      cat & \[hd & v\]\]
+%    \end{avm}
+%}} & \rnode{trans}{\begin{avm}
+%      \[  \asort{trans}
+%        cat & \[hd & v\\
+%          subj & \< NP$_{\@x}$ \>\\
+%          comps & \< NP$_{\@y}$ \>
+%                \]\\
+%       cont & \[act & {\@x}\\
+%       und & {\@y} \]
+%      \]
+%    \end{avm}}
+%        &
+%      \rnode{pass}{\begin{avm}
+%       \[\asort{pass}
+%
+%       cat & \[hd & v\\subj & \< NP$_{\@y}$ \>\\
+%       comps & \< PP$_{\@x}$ \>\]\\
+%     cont & \[act & {\@x}\\
+%       und & {\@y}\]
+%       \]
+%    \end{avm}}  \\[6em] 
+%    \rnode{own}{
+%    \begin{avm}
+%      \[ph & own\\
+%      cont & \[\asort{own-rel}
+%      act & index\\
+%      und & index\]\] 
+%    \end{avm}
+%}  & \rnode{have}{\begin{avm}
+%      \[ph & have\\
+%            cont & \[\asort{have-rel}
+%      act & index\\
+%      und & index\]
+%\] 
+%    \end{avm}
+%}  &
+%    \tnode{reg-trans} & \tnode{reg-pass}\\
+%
+%    \psset{linewidth=.6pt,nodesep=2pt}                                                                       
+%    \ncdiag{lexeme}{ROOT}
+%    \ncdiag{lexeme}{VALENCE}
+%    \ncdiag{ROOT}{verbs}
+%    \ncdiag{VALENCE}{trans}
+%    \ncdiag{VALENCE}{pass}
+%
+%    \ncdiag{trans}{reg-trans}
+%    \ncdiag{trans}{have}
+%    \ncdiag{pass}{reg-pass}
+%%    \ncdiag{pass}{rumored}
+%
+%    \ncdiag{verbs}{own}
+%    \ncdiag{verbs}{have}
+% %   \ncdiag{verbs}{rumored}
+%    
+%  \end{tabular}
+%}
 
-       cat & \[hd & v\\subj & \< NP$_{\@y}$ \>\\
-       comps & \< PP$_{\@x}$ \>\]\\
-     cont & \[act & {\@x}\\
-       und & {\@y}\]
-       \]
-    \end{avm}}  \\[6em] 
-    \rnode{own}{
-    \begin{avm}
-      \[ph & own\\
-      cont & \[\asort{own-rel}
-      act & index\\
-      und & index\]\] 
-    \end{avm}
-}  & \rnode{have}{\begin{avm}
-      \[ph & have\\
-            cont & \[\asort{have-rel}
-      act & index\\
-      und & index\]
-\] 
-    \end{avm}
-}  &
-    \tnode{reg-trans} & \tnode{reg-pass}\\
-
-    \psset{linewidth=.6pt,nodesep=2pt}                                                                       
-    \ncdiag{lexeme}{ROOT}
-    \ncdiag{lexeme}{VALENCE}
-    \ncdiag{ROOT}{verbs}
-    \ncdiag{VALENCE}{trans}
-    \ncdiag{VALENCE}{pass}
-
-    \ncdiag{trans}{reg-trans}
-    \ncdiag{trans}{have}
-    \ncdiag{pass}{reg-pass}
-%    \ncdiag{pass}{rumored}
-
-    \ncdiag{verbs}{own}
-    \ncdiag{verbs}{have}
- %   \ncdiag{verbs}{rumored}
-    
-  \end{tabular}
+\resizebox{\textwidth}{!}{%
+	\begin{forest}
+		type hierarchy
+[lexeme
+	[root,partition, l sep+=1cm
+		[%
+		\avmtmp{
+			[\type*{verbs}
+			cat & V]
+		}, l sep+=1.5cm
+			[%
+			\avmtmp{
+				[ph & own \\
+				cont &	[\type*{own-rel}
+						act & index\\
+						und & index] ]
+			}, tier=word
+			]
+			[%
+			\avmtmp{
+				[ph & have\\
+				cont &	[\type*{have-rel}
+						act & index\\
+						und & index] ]
+			}, tier=word, name=have
+			]
+		]
+	]
+	[valence,partition
+		[%
+		\avmtmp{
+			[\type*{trans}
+			cat &	[hd & v \\
+			subj & <NP$_{\tag{x}}$> \\
+			comps & <NP$_{\tag{y}}$> ] \\
+			cont &	[act & \tag{x} \\
+			und & \tag{y} ] ]
+		}, name=trans
+			[reg-trans, tier=word]
+		]
+		[%
+		\avmtmp{
+			[\type*{pass}
+			cat &	[hd & v \\
+			subj & <NP$_{\tag{y}}$> \\
+			comps & <PP$_{\tag{x}}$> ] \\
+			cont &	[act & \tag{x} \\
+			und & \tag{y} ] ]
+		}
+			[reg-pass, tier=word]
+		]
+	]
+]
+{
+\draw (trans.south) to (have.north);
+}
+\end{forest}
 }
 
   \caption{Exceptions via pre-typing}
@@ -917,14 +1027,19 @@ value.
 \begin{figure}[htb]
   \centering
 
-  \begin{avm}
-    \[morph & \[stem & \@2\\
-        ending & \@3 \{ $_{\$1}$  \normalfont ``e'', ``st'', ``t'', ``n'', ``t'',
-        ``n''\}\\
-        form & \normalfont \@2 +  \@3\]\\
-      synsem & \[local|head|agr & \{$_{\$1}$ \[per & 1\\num & sg \], \[per & 2\\
-        num & sg\], ... , \[per & 3\\num & pl\]\} \]\]
-  \end{avm}
+\avmtmp{
+	[morph &	[stem & \2 \\
+				ending & \3 \{ $_{\$1}$  \normalfont ``e'', ``st'', ``t'', ``n'', ``t'', ``n''\} \\
+				form & \2 $+$ \3] \\
+	synsem &	[local|head|agr & \{$_{\$1}$	[per & 1 \\
+												num & sg]
+												,
+												[per & 2 \\
+        										num & sg]
+        										, \ldots ,
+        										[per & 3 \\
+        										num & pl] \} ] ]
+}
   
   \caption{Encoding paradigms by distributed disjunctions \citep{Krieger:Nerbonne:93}}
   \label{fig:DistrDisj}
@@ -938,10 +1053,9 @@ the \textsc{ending} value as in Figure~\ref{fig:DistrDisjSollen}.
 \begin{figure}[htb]
   \centering
 
-  \begin{avm}
-    \[morph & \[ending & \{ $_{\$1}$ \normalfont ``'', ``st'', ``'', ``n'', ``t'',
-        ``n''\}\]\]
-  \end{avm}
+\avmtmp{
+	[morph &	[ending & \{ $_{\$1}$ \normalfont ``'', ``st'', ``'', ``n'', ``t'', ``n''\} ] ]
+}
   
   
   \caption{Partial irregularity by overriding default endings \citep{Krieger:Nerbonne:93}}
@@ -955,10 +1069,9 @@ cf. Figure~\ref{fig:DistrDisjSupp}.
 \begin{figure}[htb]
   \centering
 
-  \begin{avm}
-    \[morph & \[form & \{ $_{\$1}$ \normalfont ``bin'', ``bist'', ``ist'', ``sind'', ``seid'',
-        ``sind''\}\]\]
-  \end{avm}
+\avmtmp{
+	[morph &	[form & \{ $_{\$1}$ \normalfont ``bin'', ``bist'', ``ist'', ``sind'', ``seid'', ``sind''\} ] ]
+}
   
   \caption{Suppletive verbs \citep{Krieger:Nerbonne:93}}
   \label{fig:DistrDisjSupp}
@@ -1051,19 +1164,19 @@ inflectional constructions as given in Figure~\ref{fig:KoenigSwahili}.
 \begin{forest}
 type hierarchy
 [verb-infl
-   [2ND-SLOT,partition
+   [2nd-slot,partition
      [1sg
        [1sg-pos]
        [,identify=!NN]] % !N is the next leaf. !NN is the second next leaf. This one is
                         % identical to this node.
      [3pl]]
-   [1ST-SLOT,partition
+   [1st-slot,partition
      [neg
 	[1sg-neg] % An alternative would be to draw an edge from here to the node
                   % that is the first daughter of the first daughter of the root node:, edge to=!r11
         [¬1sg-neg]]
      [pos]]
-   [3RD-SLOT,partition
+   [3rd-slot,partition
      [pst
 	[pos-pst]
 	[neg-pst]]
@@ -1100,30 +1213,30 @@ requirement that the verb be \textsc{[neg~$-$]}.
   \centering
   
   \begin{subfigure}{.4\textwidth}
-      \begin{avm}
-        \[ph & \[aff & \[pref & \< \normalfont ha, ..., ... \>\]\]\\
-          cat  & \[head & \[$\mu$-feat & \[neg & \normalfont + \]\]\]\]
-      \end{avm}
+	\avmtmp{
+		[ph &	[aff &	[pref & < \normalfont ha, \ldots, \ldots > ] ] \\
+		cat  &	[head &	[$\mu$-feat &	[neg & $+$] ] ]]
+	}
       \caption{\textit{$\neg$1sg-neg}} 
     \end{subfigure}
   \begin{subfigure}{.52\textwidth}
-      \begin{avm}
-    \[ph & \[aff & \[pref & \< ..., \normalfont ni, ... \>\]\]\\
-    cat  & \[head & \[$\mu$-feat & \[neg & $-$\\
-    subj-agr & \[per & 1\\
-    num & sg\]\]\]\]\]
-\end{avm}
+	\avmtmp{
+		[ph &	[aff &	[pref & < \ldots, \normalfont ni, \ldots > ] ] \\
+		cat  &	[head &	[$\mu$-feat &	[neg & $-$ \\
+										subj-agr &	[per & 1 \\
+    												num & sg] ] ] ] ]
+	}
 \caption{\textit{1sg-pos}}
 \end{subfigure}
 
   \begin{subfigure}{.48\textwidth}
 
-      \begin{avm}
-    \[ph & \[aff & \[pref & \< \normalfont si, \< ~ \>, ... \>\]\]\\
-    cat  & \[head & \[$\mu$-feat & \[neg & \normalfont +\\
-    subj-agr & \[per & 1\\
-    num & sg\]\]\]\]\]
-\end{avm}
+\avmtmp{
+	[ph &	[aff &	[pref & < \normalfont si, < >, \ldots > ] ]\\
+	cat  &	[head &	[$\mu$-feat &	[neg & $+$ \\
+									subj-agr &	[per & 1 \\
+												num & sg] ] ] ] ]
+}
 
     \caption{\textit{1sg-neg}}
   \end{subfigure}
@@ -1264,15 +1377,12 @@ and morphosyntactic properties.
 
 \begin{exe}
   \ex
-  \begin{avm}
-    {\normalfont\textit{word}}
-    $~\rightarrow$~
-    \[
-      infl &
-      \[mph & list({morph})\\
-      rr & set(realisation-rule)\\
-    ms & set(msp)\]\]
-  \end{avm}
+\avmtmp{
+	\emph{word} $\rightarrow$
+[infl &	[mph & list!(morph)! \\
+		rr & set!(realisation-rule)! \\
+		ms & set!(msp)! ] ]
+}
 
 \end{exe}
 
@@ -1287,11 +1397,11 @@ about lexemic identity (\textsc{lid}) and a morphosyntactic property (\textsc{ta
 witnessed by \textit{ge-\emph{setz}-t} `put', for illustration.
 
 \begin{exe}
-  \ex \begin{avm}
-    \[ ph & \< \normalfont gesetzt\>\\
-      infl & \[ms & \{\[lid & setzen\],\[tam & ppp\]\}\]
-    \]
-  \end{avm}
+  \ex
+	\avmtmp{
+		[ph & < \normalfont gesetzt> \\
+		infl &	[ms & \{[lid & setzen], [tam & ppp]\}] ]
+}
   
   \label{fig:Word}
 \end{exe}
@@ -1320,10 +1430,11 @@ parsimonious descriptions of principles and rules.
 
 \begin{exe}
   \ex \label{ex:mph} 
-  \begin{avm}
-    {\normalfont\textit{mph}} ~$\rightarrow$~ \[ph & list(phon)\\
-      pc & pos-class\]
-  \end{avm}
+\avmtmp{
+	\emph{mph} $\rightarrow$
+[ph & list!(phon)! \\
+pc & pos-class]
+}
 
 \end{exe}
 
@@ -1347,18 +1458,28 @@ derivation structure.
   \begin{xlist}
     \ex Word:
 
-    \begin{avm}
-      \[mph & \<\[ph &  <ge>\\ pc & -1\],\[ph &  <setz>\\ pc & 0\],\[ph &  <t>\\ pc & 1\]\>\\
-        ms & \{\[lid & setzen\],\[tam & ppp\]\}
-      \]
-    \end{avm}
+\avmtmp{
+	[mph &	<[ph &  !<ge>! \\
+			pc & -1]
+			,
+			[ph &  !<setz>! \\
+			pc & 0]
+			,
+			[ph &  !<t>! \\
+			pc & 1]> \\
+	ms &	\{[lid & setzen], [tam & ppp]\} ]
+}
     \ex Abstraction of circumfixation ($1:n$):
 
-    \begin{avm}
-      \[ mph & \<\[ph &  <ge>\\ pc & -1\],\[ph &  <t>\\ pc & 1\],\ldots\>\\
-        ms & \{\[tam & ppp\],\ldots\}
-      \]
-    \end{avm}
+\avmtmp{
+	[mph &	<[ph &  !<ge>! \\
+			pc & -1]
+			,
+			[ph &  !<t>! \\
+			pc & 1]
+			, \ldots> \\
+	ms &	\{[tam & ppp], \ldots\} ]
+}
   \end{xlist}
 \end{exe}
 
@@ -1382,21 +1503,24 @@ the realisation between form and content, as shown in
 \begin{exe}
   \ex{Association of form and function mediated by rule}
 
-  \begin{avm}
-    \[ mph & \<\rnode{xx}{\@g \[ph &  <ge>\\ pc & -1\]},
-      \rnode{aa}{\@s \[ph &  <setz>\\ pc & 0\]}, \rnode{ab}{\@t \[ph &
-          <t>\\ pc & 1\]}\> \\ \\
-      rr & \{	\[	mph & \<\rnode{ba}{\@s \[ph &  <setz>\\ pc & 0\]}\>\\
-        mud & \{\rnode{ca}{\@l \[lid & setzen\]}\}
-      \],
-      \[	mph & \<\rnode{yy}{\@g \[ph &  <ge>\\ pc &
-            -1\]}, \rnode{bb}{\@t \[ph &  <t>\\ pc & 1\]}\>\\
-        mud & \{\rnode{cb}{\@p \[tam & ppp\]}\}
-      \]
-      \}	\\ \\
-      ms & \{\rnode{da}{\@l \[lid & setzen\]}, \rnode{db}{\@p \[tam & ppp\]}\}
-    \]
-  \end{avm}
+\avmtmp[extraskip=\bigskipamount]{
+	[mph & <\rnode{xx}{\tag{g}	[ph & !<ge>! \\
+								pc & -1]},
+			\rnode{aa}{\tag{s}	[ph & !<setz>! \\
+								pc & 0]},
+			\rnode{ab}{\tag{t}	[ph & !<t>! \\
+								pc & 1]}> \\ \\
+	rr &	\{[mph & <\rnode{ba}{\tag{s}	[ph & !<setz>! \\
+											pc & 0]}> \\
+			mud & \{\rnode{ca}{\tag{l}	[lid & setzen]}\} ],
+			[mph & <\rnode{yy}{\tag{g}	[ph & !<ge>! \\
+										pc & -1]},
+					\rnode{bb}{\tag{t}	[ph & !<t>! \\
+										pc & 1]}> \\
+			mud & \{\rnode{cb}{\tag{p}	[tam & ppp]}\} ] \} \\ \\
+	ms & \{\rnode{da}{\tag{l}	[lid & setzen]},
+			\rnode{db}{\tag{p}	[tam & ppp]}\} ]
+}
   \psset{arrows=<->,linecolor=gray,linestyle=dotted,angleA=-90,angleB=90}
   \nccurve{xx}{yy} \nccurve{aa}{ba} \nccurve{ab}{bb} \nccurve{ca}{da}
   \nccurve{cb}{db}
@@ -1423,12 +1547,12 @@ in (\ref{ex:MudMS}).
 
 \begin{exe}
   \ex \label{ex:MudMS}
-  \begin{avm}
-        {\normalfont\textit{realisation-rule}}
-    $~\rightarrow$~ \[mud & \@1 set(msp)\\
-      ms & \@1 ~$\cup$ set(msp)\\
-    mph & list(morph)\]
-  \end{avm}
+\avmtmp{
+\emph{realisation-rule} $\rightarrow$
+	[mud & \1 set!(msp)! \\
+	ms & \1 $\cup$ set!(msp)! \\
+	mph & list!(morph)!]
+}
 
 \end{exe}
 
@@ -1450,14 +1574,18 @@ the system as a whole can capture $m:n$ relations.
 \begin{figure}[htb]
   \begin{center}
 
-    \begin{avm}
-           {\normalfont\textit{word}}
-    $~\rightarrow$~ \[mph & \@{e$_1$} $\bigcirc\dots\bigcirc$ \@{e$_n$}\\
-         rr & \{ \[mph & \@{e$_1$}\\mud & \@{m$_1$}\\ms & \@0\] ,\ldots\ ,
-         \[mph & \@{e$_n$}\\mud & \@{m$_n$}\\ ms & \@0\] \}\\
-         ms & \@{m$_1$} $\uplus\dots\uplus$ \@{m$_n$}
-        \]
-    \end{avm}
+\avmtmp{
+\emph{word} $\rightarrow$
+	[mph & \tag{e$_1$} \shuffle \ldots \shuffle \tag{e$_n$} \\
+	rr &	\{[mph & \tag{e$_1$} \\
+			mud & \tag{m$_1$} \\
+			ms & \0 ]
+			, \ldots\ ,
+			[mph & \tag{e$_n$} \\
+			mud & \tag{m$_n$} \\
+			ms & \0] \} \\
+	ms & \tag{m$_1$} $\uplus\dots\uplus$ \tag{m$_n$} ]
+}
       \end{center}
   \caption{Morphological well-formedness}
   \label{fig:MCC}
@@ -1494,7 +1622,7 @@ situation that elements contributed by two sets may be collapsed,
 non-trivial set union ($\uplus$) insists that the sets to be unioned
 must be disjoint.  The entire morphosyntactic property set of the word
 (\textsc{ms}) is visible on each realisation rule by way of structure
-sharing (\fbox{0}).
+sharing (\ibox{0}).
 
 Finally, a word's sequence of morphs, and hence: its phonology, will
 be obtained by shuffling ($\bigcirc$) the rules' \textsc{mph} lists in
@@ -1513,24 +1641,20 @@ Ordering Principle given in Figure~\ref{fig:MOP}, adapted from
   
   \begin{subfigure}{\textwidth}
     \centering
-      \begin{avm}
-    {\normalfont\textit{word}}
-    $~\rightarrow$~        \[ph & \@1 $\oplus \dots \oplus$ \@n\\
-          infl & \[mph & \<\[ph & \@1 \], $\dots$ \[ph & \@n \]
-            \> \]\]
-      \end{avm}
+\avmtmp{
+\emph{word} $\rightarrow$
+	[ph & \1 \+ \ldots\ \+ \tag{n} \\
+	infl &	[mph &	<[ph & \1], \ldots [ph & \tag{n}]> ] ]
+}
     \caption{Concatenation}
   \end{subfigure}\\[2ex]
   
   \begin{subfigure}{\textwidth}
     \centering
-    \begin{avm}
-          {\normalfont\textit{word}}
-    $~\rightarrow$~$\neg$ \( \[infl & \[
-          mph & \< ... \[pc & \@m  \], \[
-            pc & \@n \],...\>
-        \]\] ~$\wedge$ ~ \@m $\geq$ \@n\)
-    \end{avm}
+\avmtmp{
+\emph{word} $\rightarrow \neg$
+	([infl &	[mph & < \ldots\ [pc & \tag{m}], [pc & \tag{n}], \ldots> ] ] $\land$ \tag{m} $\geq$ \tag{n})
+}
       \caption{Order}
     \end{subfigure}
 
@@ -1576,18 +1700,21 @@ includes the shared morphotactics of the suffix.
 %    \hspace*{-1em} 
 \begin{forest}
 %\psset{levelsep=8em,treesep=12em,linewidth=0pt,nodesep=0pt}
-[{\begin{avm}
-    \[mud & \{ \[tam & ppp\] \}\\
-      mph & \< \[ph & ge\\ pc & -1 \],
-      \[pc & 1 \] \> \]
-  \end{avm}}
-	[{\begin{avm}
-		\[mph & \< ..., \[ph & t \] \> \]
-	\end{avm}}]
-	[{\begin{avm}
-		\[mph & \< ..., \[ph & en 
-		\] \>\]
-	\end{avm}}]
+[%
+\avmtmp{
+	[mud &	\{[tam & ppp]\} \\
+	mph &	<[ph & ge \\
+			pc & -1],
+			[pc & 1]> ]
+}
+	[%
+	\avmtmp{
+		[mph & < \ldots\ ,	[ph & t] > ]
+	}]
+	[%
+	\avmtmp{
+		[mph & < \ldots\ ,	[ph & en] > ]
+	}]
 ]
 \end{forest}
 	\caption{Vertical abstraction by inheritance}\label{fig:Vertical}
@@ -1621,25 +1748,35 @@ vs. absence of the prefixal part (\textit{ge-}).
   \centering
   \footnotesize
 \begin{forest}
-[{\begin{avm}
-  \[mud & \{\[tam & ppp\]\}\\
-    mph & \< ..., \[pc & 1\] \>\]
-\end{avm}}
-	[PREF,partition
-		[{\begin{avm}
-			\[mph & \< \[ph & ge\\pc & -1\], \[ ~ \]\>\]
-		\end{avm}}]
-		[{\begin{avm}
-			\[mph & \< \[ ~ \] \> \]
-		\end{avm}}]
+[%
+\avmtmp{
+	[mud &	\{[tam & ppp]\} \\
+	mph & < \ldots\ , [pc & 1] > ]
+}
+	[pref,partition
+		[%
+		\avmtmp{
+			[mph & <[ph & ge \\
+					pc & -1], ![ ]!> ]
+		}
+		]
+		[%
+		\avmtmp{
+			[mph & <![ ]!> ]
+		}
+		]
 	]
-	[SUFF,partition
-		[{\begin{avm}
-            \[mph & \<..., \[ph & t\]\>\]
-          \end{avm}}]
-		[{\begin{avm}
-			\[mph & \< ..., \[ph & en\]\>\]
-		\end{avm}}]
+	[suff,partition
+		[%
+		\avmtmp{
+			[mph & < \ldots , [ph & t]> ]
+		}
+		]
+		[%
+		\avmtmp{
+			[mph & < \ldots , [ph & en]> ]
+		}
+		]
 	]
 ]
 \end{forest}
@@ -1819,41 +1956,47 @@ contained in \textsc{ms}.
 \begin{exe}
   \ex \label{ex:SwahiliPanini}
   \begin{minipage}[t]{0.4\linewidth} \begin{xlist}
-      \exi{a. \begin{avm}
-          \[mud & \@1 \{ \normalfont\textit{neg}\/ \}\\
-            ms & \@1 $\cup$ set\\
-            mph & \< \[ph & \<\normalfont ha\>\\
-              pc & $1$\] \> \]
-        \end{avm}}
+      \exi{a.
+      	\avmtmp{
+          [mud & \1 \{\type{neg\,}\} \\
+          ms & \1 $\cup$ set \\
+          mph & <[ph & <\normalfont ha> \\
+		  pc & $1$]> ]
+		}}
     \end{xlist}
   \end{minipage} ~ \begin{minipage}[t]{0.4\linewidth} \begin{xlist}
-        \exi{b.  \begin{avm}
-            \[mud & \@1 \{ \[\asort{ subj}
-            per & 1\\num & sg\] \}\\
-            ms & \@1 $\cup$ set\\
-            mph & \< \[ph & \<\normalfont ni\>\\
-            pc & 2\] \> \]
-        \end{avm}}
+        \exi{b.
+        	\avmtmp{
+            	[mud & \1 \{[\type*{subj}
+            				per & 1 \\
+            				num & sg]\} \\
+            	ms & \1 $\cup$ set \\
+            	mph & <[ph & <\normalfont ni> \\
+            	pc & 2]> ]
+			}}
     \end{xlist}
   \end{minipage}
 
 
 \begin{minipage}[t]{0.4\linewidth} \begin{xlist}
-      \exi{c.  \begin{avm}
-          \[mud &  \@1 \{ \normalfont\textit{neg},\\ \[\asort{subj}
-              per & 1\\num & sg\]\}\\
-            mph & \< \[ph & \<\normalfont si\>\\
-            pc & $1..2$\] \> \]
-        \end{avm}}
+      \exi{c.
+      	\avmtmp{
+          [mud & \1	\{\type*{neg,}
+          			[\type*{subj}
+              		per & 1 \\
+              		num & sg]\} \\
+          mph & <[ph & <\normalfont si> \\
+            	pc & $1..2$] > ]
+		}}
     \end{xlist}
   \end{minipage} ~ \begin{minipage}[t]{0.5\linewidth} \begin{xlist}
-      \exi{d.  \begin{avm}
-          \[mud &  \@1 \{ \normalfont\textit{neg}\}\\
-            ms & \@1 $~\cup$ \{ \normalfont\itshape rel \} $~\cup$
-            set\\
-            mph & \< \[ph & \<\normalfont si\>\\
-            pc & $3$\] \> \]
-        \end{avm}}
+      \exi{d.
+      	\avmtmp{
+          [mud &  \1 \{\type{neg\,}\} \\
+          ms & \1 $\cup$ \{\type{rel\,}\} $\cup$ set\\
+          mph & <[ph & <\normalfont si> \\
+          		pc & $3$] > ]
+		}}
     \end{xlist}
   \end{minipage}
 
@@ -1877,25 +2020,27 @@ as in (\ref{ex:PanExp}a).  Similarly, in a first iteration,
   \begin{minipage}[t]{0.49\linewidth}
     \begin{xlist}
       \exi{a.
-        \begin{avm}
-          \[mud & \@1 \{ \[\asort{ subj}
-              per & 1\\num & sg\] \}\\
-            ms & \@1 $\cup$ set $\wedge$ $\neg$ \{ \normalfont\textit{neg}, ... \}\\
-            mph & \< \[ph & \<\normalfont ni\>\\
-              pc & 2\] \> \]
-        \end{avm}}
+		\avmtmp{
+          [mud & \1 \{[\type*{subj}
+           			per & 1 \\
+           			num & sg]\} \\
+           ms & \1 $\cup$ set $\land \neg$ \{\type{neg}, \ldots\} \\
+           mph & <[ph & <\normalfont ni> \\
+              	pc & 2]> ]
+		}}
     \end{xlist}
   \end{minipage}
   \begin{minipage}[t]{0.49\linewidth}
     \begin{xlist}
-      \exi{b. \begin{avm}
-          \[mud & \@1 \{ \normalfont\textit{neg} \}\\
-            ms & \@1 $\cup$  $\neg$ \{ \[\asort{subj}
-              per & 1\\num & sg\], ... \}\\
-            mph & \< \[ph & \<\normalfont ha\>\\
-              pc & 1\] \> \]
-        \end{avm}
-      }
+      \exi{b.
+      	\avmtmp{
+          [mud & \1 \{\type{neg}\,\} \\
+          ms & \1 $\cup \neg$ \{[\type*{subj}
+              					per & 1 \\
+              					num & sg], \ldots \} \\
+          mph & <[ph & <\normalfont ha> \\
+             	 pc & 1]> ]
+		}}
     \end{xlist}
   \end{minipage}
 \end{exe}
@@ -1911,14 +2056,15 @@ existential constraint to (\ref{ex:PanExp}b). The fully expanded entry is given 
 
 \begin{exe}
   \ex \label{ex:PanExpHa}
-  \begin{avm}
-    \[mud & \@1 \{ \normalfont\textit{neg} \}\\
-      ms & \@1 $\cup$  $\neg$ \{ \[\asort{subj}
-        per & 1\\num & sg\], ... \} $~\wedge$ $\neg$ \{
-      \normalfont\textit{rel, ...}\}\\
-      mph & \< \[ph & \<\normalfont ha\>\\
-        pc & 1\] \> \]
-  \end{avm}    
+\avmtmp{
+    [mud & \1 \{\type{neg}\,\} \\
+    ms & \1 $\cup \neg$ \{[\type*{subj}
+        				per & 1 \\
+        				num & sg], \ldots\}
+        				$\land \neg$ \{\type{rel}, \ldots\} \\
+    mph & <[ph & <\normalfont ha> \\
+        	pc & 1]> ]
+}    
   
 \end{exe}
 
@@ -1961,10 +2107,10 @@ contributing any morph, as shown in (\ref{ex:ifd}):
 
 \begin{exe}
   \ex \label{ex:ifd}
-  \begin{avm}
-    \[mud & \{ \[ ~ \] \}\\
-    mph & \< ~ \>\]
-  \end{avm}
+\avmtmp{
+    [mud & \{![ ]!\} \\
+    mph & < >]
+}
 \end{exe}
 
 A simple solution is to provide subtypes of the ultimate default for
@@ -1976,21 +2122,21 @@ adding appropriate subtypes, e.g. for tense and polarity:
 \begin{exe}
   \ex 
   \begin{forest}
-    [
-    \begin{avm}
-    \[mud & \{ \[ ~ \] \}\\
-      mph & \< ~ \>\]
-    \end{avm}
-    [
-    \begin{avm}
-      \[mud & \{ \normalfont\itshape tns\}\]
-    \end{avm}
-    ]
-    [
-    \begin{avm}
-      \[mud & \{ \normalfont\itshape pol\}\]
-    \end{avm}
-    ]
+    [%
+    \avmtmp{
+    	[mud & \{![ ]!\} \\
+      	mph & < >]
+	}
+	    [%
+	    \avmtmp{
+	      [mud & \{\type{tns}\}]
+		}
+	    ]
+	    [%
+	    \avmtmp{
+	      [mud & \{\type{pol}\}]
+		}
+	    ]
     ]
   \end{forest}
 \end{exe}
@@ -2014,7 +2160,7 @@ marker \textit{ku-} in (\ref{ex:SwahiliNegPast}) displays overlapping
 exponence. 
 
 \begin{exe}
-  \avmoptions{top}
+%  \avmoptions{top}
   \ex  \label{ex:SwahiliNegFut}
   \begin{xlist}
     \ex[]{\gll tu- {ta}- taka\\
@@ -2048,16 +2194,17 @@ conditioning by some feature.
   \ex \label{fig:SwahiliFut}
   \begin{xlist}
     \ex 
-    \begin{avm}
-      \[mud & \{ \normalfont\textit{past} \}\\
-        mph & \< \[ph & li\\
-          pc & $3$\]\> \]
-    \end{avm}    \ex     \begin{avm}
-      \[mud & \{ \normalfont\textit{past} \}\\
-        ms & \{\normalfont\textit{neg}\} $~\cup$ set\\
-        mph & \< \[ph & ku\\
-          pc & $3$\]\> \]
-    \end{avm}
+\avmtmp{
+	[mud & \{\type{past}\,\}\\
+        mph & < [ph & li\\
+          pc & $3$]> ]
+}    \ex
+\avmtmp{
+      [mud & \{\type{past}\,\}\\
+        ms & \{\type{neg}\,\} $\cup$ set\\
+        mph & < [ph & ku\\
+          pc & $3$]> ]
+}
     
   \end{xlist}
 \end{exe}
@@ -2105,52 +2252,56 @@ in Figure \ref{fig:Nyanja}.
 \scalebox{.9}{
 \begin{forest}for tree={l=2cm}
 [\emph{realisation-rule}
-	[MORPHOTACTICS,partition, name=morph
-		[{\begin{avm}
-			\[
-			mud & \{\normalfont\textit{agr} \}\\
-			ms & \{ \[\asort{pid}
-			cat & verb\], ...\}\\
-			mph & \< \[pc & $-4$\]\> \]
-		\end{avm}}, name= 1, tier=word]
-		[{\begin{avm}
-			\[mud & \{\normalfont\textit{agr}\}\\
-			 ms & \{ \[\asort{pid}
-			cat & \[\asort{adj}
-			type & A\]\], ...\}\\
-			mph & \< \[pc & -1\]\>\]
-		\end{avm}}, name=2, tier=word]
+	[morphotactics,partition, name=morph
+		[%
+		\avmtmp{
+			[
+			mud & \{\type{agr}\,\}\\
+			ms & \{ [\type*{pid}
+			cat & verb], \ldots\}\\
+			mph & < [pc & $-4$]> ]
+		}, name= 1, tier=word]
+		[%
+		\avmtmp{
+			[mud & \{\type{agr}\,\}\\
+			 ms & \{ [\type*{pid}
+			cat & [\type*{adj}
+			type & A]], \ldots\}\\
+			mph & < [pc & -1]>]
+		}, name=2, tier=word]
 	]
-	[EXPONENCE,partition
-		[QUAL,partition, name=qual
-			[{\begin{avm}
-				\[mud & \{ \[\normalfont\textit{agr}\\cl & 7\]\}\\
-				mph & \< ... \[ph & \<\normalfont ca\>\\
-				pc & $-1$ $\vee$ $-2$
-				\] ... \>\]
-			\end{avm}}, tier=word]
+	[exponence,partition
+		[qual,partition, name=qual
+			[%
+			\avmtmp{
+				[mud & \{ [\type{agr}\,\\cl & 7]\}\\
+				mph & < \ldots [ph & <\normalfont ca>\\
+				pc & $-1 \lor -2$
+				] \ldots >]
+			}, tier=word]
 			[\dots]
 		]
-		[CONC,partition, name=conc
-			[{\begin{avm}
-				\[mud & \{ \[\normalfont\textit{agr}\\cl & 7\]\}\\
-				mph & \< ... \[ph & \<\normalfont ci\>\\
-				pc & $-1$ $\vee$ $-4$
-				\] ... \>\]
-			\end{avm}}, tier=word]
+		[conc,partition, name=conc
+			[%
+			\avmtmp{
+				[mud & \{ [\type{agr}\,\\cl & 7]\}\\
+				mph & < \ldots [ph & <\normalfont ci>\\
+				pc & $-1 \lor -4$
+				] \ldots >]
+			}, tier=word]
 			[\dots]
 		]
 	]
 ]
 %% sorry this is an ugly workaround but even on stackexchange, no one could help me :/
 \node[below of=morph, node distance= 9cm](3){%
-	{\begin{avm}
-			\[mud & \{\normalfont\textit{agr}\}\\
-			ms & \{ \[\asort{pid}
-			cat & \[\asort{adj}
-			type & B\]\], ...\}\\
-			mph & \<\[pc & $-2$\], \[pc & $-1$\]\>\]
-	\end{avm}}%
+	\avmtmp{
+			[mud & \{\type{agr}\,\}\\
+			ms & \{ [\type*{pid}
+			cat & [\type*{adj}
+			type & B]], \ldots\}\\
+			mph & <[pc & $-2$], [pc & $-1$]>]
+	}%
 };
 \draw (1.north) to (qual.south);
 \draw (2.north) to (conc.south);
@@ -2236,53 +2387,52 @@ different levels in the system of honorifics).
 %\scalebox{.73}
 \oneline{
 \begin{forest}
-[{\begin{avm}
-	\[mud & \@1\\
-	ms & \@1 ~$\cup$ set\]
-\end{avm}}
-	[{\begin{avm}
-		\[mud & \{ \normalfont\textit{tense}  \} \]
-	\end{avm}}
-		[{\begin{avm}
-			\[mud & \{ \normalfont\textit{present} \}\\
-			mph & \< \[ph & \<\normalfont tʃ$^{\normalfont h}$a\>\\
-			pc & $1$\] \> \]
-		\end{avm}}]
-		[{\begin{avm}
-			\[mud & \{ \normalfont\textit{future}  \}\\
-			mph & \< \[ph & \<\normalfont lā\>\\
-			pc & $3$\] \> \]
-		\end{avm}}]
+[%
+\avmtmp{
+	[mud & \1\\
+	ms & \1 $\cup$ set]
+}
+	[\avmtmp{[mud & \{ \type{tense}\, \}]}
+		[%
+		\avmtmp{
+			[mud & \{ \type{present}\, \}\\
+			mph & < [ph & <\normalfont tʃ$^{\normalfont h}$a>\\
+			pc & $1$] > ]
+		}]
+		[%
+		\avmtmp{
+			[mud & \{\type{future}\,  \}\\
+			mph & < [ph & <\normalfont lā >\\
+			pc & $3$] > ]
+		}]
 	]
-	[{\begin{avm}
-		\[mud & \{ \normalfont\textit{agr} \} \]
-	\end{avm}}
-		[{\begin{avm}
-			\[mph & \< \[pc & $2$\] \> \]
-		\end{avm}}, l=4cm
-			[{\begin{avm}
-				\[mud & \{ \[per & 1 \]\}\\
-				mph & \< \[ph & \<\normalfont aũ\>\] \> \]
-			\end{avm}}]
-			[{\begin{avm}
-				\[mud & \{ \[per & 3\\
-				hon & low \] \}\\
-				mph & \< \[ph & \<\normalfont au\>\] \> \]
-			\end{avm}}]
+	[\avmtmp{[mud & \{ \type{agr}\, \} ]}
+		[\avmtmp{[mph & < [pc & $2$] > ]}, l=4cm
+			[%
+			\avmtmp{
+				[mud & \{ [per & 1 ]\}\\
+				mph & < [ph & <\normalfont aũ >] > ]
+			}]
+			[%
+			\avmtmp{
+				[mud & \{ [per & 3\\
+				hon & low ] \}\\
+				mph & < [ph & <\normalfont au >] > ]
+			}]
 		]
-		[{\begin{avm}
-			\[mph & \< \[pc & $4$\] \> \]
-		\end{avm}}, l=4cm
-			[{\begin{avm}
-				\[mud & \{ \[per & 2\\
-				hon & low \]\}\\
-				mph & \< \[ph  & \<\normalfont s\>\] \> \]
-			\end{avm}}]
-			[{\begin{avm}
-				\[mud & \{ \[per & 3\\
-				hon & mid \] \}\\
-				mph & \<\[ph & \<\normalfont n\>\] \> \]
-			\end{avm}}]
+		[\avmtmp{[mph & < [pc & $4$] > ]}, l=4cm
+			[%
+			\avmtmp{
+				[mud & \{ [per & 2\\
+				hon & low ]\}\\
+				mph & < [ph  & <\normalfont s >] > ]
+			}]
+			[%
+			\avmtmp{
+				[mud & \{ [per & 3\\
+				hon & mid ] \}\\
+				mph & <[ph & <\normalfont n >] > ]
+			}]
 		]
 	]
 ]
@@ -2344,28 +2494,76 @@ constraints over the rules of exponence.
 
 \begin{figure}[htb]
   \centering
-
+  
 \scalebox{.85}{
 \begin{forest}
-[{\begin{avm}
-\[\asort{realisation-rule}
-mud & \@1 set\\
-ms & \@1 $~\cup$ set\\
-mph & list\]
-\end{avm}}
-	[MORPHOTACTICS,partition
-		[{\rnode{a}{\rr{\normalfont\textit{rel}}{\[pc & $4$\]}}}]
-		[{\rnode{b}{\rrr{\normalfont\textit{rel}}{\normalfont \textit{aff, def, ...}}{\[pc & $7$\]}}}]
+[%
+\avmtmp{
+	[\type*{realisation-rule}
+	mud & \1 set \\
+	ms & \1 $\cup$ set \\
+	mph & list]
+}
+	[morphotactics,partition
+		[%
+		\avmtmp{
+			[mud & \{\type{rel}\, \} \\
+			mph & <[pc & $4$]> ]
+		}
+		]
+		[%
+		\avmtmp{
+			[mud & \{\type{rel}\, \} \\
+			ms & \{\type{aff, def, \ldots}\,\} \\
+			mph & <[pc & $7$]> ]
+		}
+		]
 	]
-	[EXPONENCE,partition
-		[{\rnode{X1}{\rr{ \[\asort{rel} per & {3}\\num & {sg}\\cl &
-		{ki-vi}\]}{\[ph & <\normalfont cho> \]}}}]
-		[{\rnode{X2}{\rr{ \[\asort{rel} per & {3}\\num & {pl}\\cl &
-		{ki-vi}\]}{\[ph & <\normalfont vyo> \]}} ...}]
+	[exponence,partition
+		[%
+		\avmtmp{
+			[mud &	\{[\type*{rel}
+					per & 3 \\
+					num & sg \\
+					cl & ki-vi ]\} \\
+			mph &	<[ph & !<\normalfont cho>! ]> ]
+		}
+		]
+		[%
+		\avmtmp{
+			[mud &	\{[\type*{rel}
+					per & 3 \\
+					num & pl \\
+					cl & ki-vi ]\} \\
+			mph &	<[ph & !<\normalfont vyo>!]> ]
+		} \ldots
+		]
 	]
 ]
 \end{forest}
 }
+
+%\scalebox{.85}{
+%\begin{forest}
+%[{\begin{avm}
+%\[\asort{realisation-rule}
+%mud & \@1 set\\
+%ms & \@1 $~\cup$ set\\
+%mph & list\]
+%\end{avm}}
+%	[MORPHOTACTICS,partition
+%		[{\rnode{a}{\rr{\normalfont\textit{rel}}{\[pc & $4$\]}}}]
+%		[{\rnode{b}{\rrr{\normalfont\textit{rel}}{\normalfont \textit{aff, def, ...}}{\[pc & $7$\]}}}]
+%	]
+%	[EXPONENCE,partition
+%		[{\rnode{X1}{\rr{ \[\asort{rel} per & {3}\\num & {sg}\\cl &
+%		{ki-vi}\]}{\[ph & <\normalfont cho> \]}}}]
+%		[{\rnode{X2}{\rr{ \[\asort{rel} per & {3}\\num & {pl}\\cl &
+%		{ki-vi}\]}{\[ph & <\normalfont vyo> \]}} ...}]
+%	]
+%]
+%\end{forest}
+%}
 
 %\vspace*{2ex}
 %\scalebox{.75}{
@@ -2503,15 +2701,91 @@ be placed relative to this pivot (cf.~the agreement rule in Figure~\ref{fig:Ital
 
 \begin{figure}[htb]\centering
   
-  \includegraphics[scale=.9]{figures/italian-stem-crop}
-  
+%  \includegraphics[scale=.9]{figures/italian-stem-crop}
+
+\begin{forest}
+[\emph{realisation-rule}
+	[%
+	\avmtmp{
+		[mud &	\{[\type*{pid}
+				stem & \0]\} \\
+		mph &	<[stm-pc & \tag{s} \\
+				pc & \tag{s}\\
+				ph & \0]> ]
+	}
+		[%
+		\avmtmp{
+			[ms & \{[\type{untensed, \ldots}]\} \\
+			mph & <[pc & $1$]>]
+		}
+		]
+		[%
+		\avmtmp{
+			[ms & \{[\type{tensed, \ldots}]\} \\
+			mph & <[pc & $9$]>]
+		}
+		]
+	]
+]
+\end{forest}
   \caption{Partial hierarchy of Italian stem realisation rules}
   \label{fig:ItalianStem}
 \end{figure}
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[scale=.84]{figures/italian-affix-crop}
+%  \includegraphics[scale=.84]{figures/italian-affix-crop}
+
+\resizebox{\textwidth}{!}{
+\begin{forest}
+[\emph{realisation-rule}
+	[%
+	\avmtmp{
+		[mud & \{[\type{obj}\, ]\} \\
+		mph & <[pc & $4$ $+$]> ]
+	}
+		[%
+		\avmtmp{
+			[mud &	\{[per & $1$\\
+					num & sg]\} \\
+			mph & <[ph & \upshape me]> ]
+		}
+		]
+		[\ldots]
+	]
+	[%
+	\avmtmp{
+		[mud &	\{[\type*{dobj}
+				per & $3$]\} \\
+		mph & <[pc & $7$]> ]
+	}
+		[%
+		\avmtmp{
+			[mud &	\{[num & sg \\
+					gen & mas]\} \\
+			mph & <[ph & \upshape lo]> ]
+		}
+		]
+		[\ldots]
+	]
+	[%
+	\avmtmp{
+		[mud & \{[\type{subj}\, ]\} \\
+		mph &	<[stm-pc & \tag{s}\\
+				pc & \tag{s} $+$ $2$]> ]
+	}
+		[%
+		\avmtmp{
+			[mud &	\{[per & $2$\\
+					num & pl]\} \\
+			mph & <[ph & \upshape te]> ]
+		}
+		]
+		[\ldots]
+	]
+]
+\end{forest}
+}
   
   \caption{Partial hierarchy of Italian affixal realisation rules}
   \label{fig:ItalianAff}
@@ -2554,17 +2828,18 @@ principle in (\ref{ex:stem-principle}).
 
 \begin{exe}
   \ex\label{ex:stem-principle}
-  \begin{avm}
-    {\normalfont \textit{word}\/} ~$\rightarrow$~
-    \[infl & \[mph & \<\[pc & \@1\\
-        1st-pc & \@1\\stm-pc & \@s \] ,
-      \[1st-pc & \@1\\
-        stm-pc & \@s\] ,
-    \ldots{} ,
-    \[1st-pc & \@1\\stm-pc &  \@s\]
-    \>
-    \]\]
-  \end{avm}
+\avmtmp{
+\emph{word} $\rightarrow$
+	[infl &	[mph & <[pc & \1\\
+        	1st-pc & \1\\
+        	stm-pc & \tag{s} ]
+        	,
+      		[1st-pc & \1\\
+        	stm-pc & \tag{s}] ,
+    		\ldots ,
+    		[1st-pc & \1\\
+    		stm-pc &  \tag{s}]> ] ]
+}
 \end{exe}
 
 What this principle does is distribute two critical position class
@@ -2582,13 +2857,13 @@ underlyingly \citep{bonami-crysmann:2013}.
 
 \begin{exe}
   \ex \label{ex:jan}
-  \begin{avm}
-    \[mud & \{ \[per & 3\\
-        num & pl \]\}\\
-      mph & \< \[ph & \<\normalfont jân\>\\
-        1st-pc & \@1\\
-      pc & \@1 \normalfont + 1\]\>\]
-  \end{avm}
+\avmtmp{
+    [mud &	\{[per & 3\\
+        	num & pl ]\}\\
+     mph &	<[ph & <\normalfont jân>\\
+        	1st-pc & \1\\
+     		pc & \1 $+$ $1$ ]> ]
+}
 \end{exe}
 
 For illustration, consider the two word forms \textit{nard=jân-im}
@@ -2782,66 +3057,74 @@ must be evaluated twice.
 
 \begin{figure*}[htb]
   \centering
-  \smaller\smaller
+  \smaller %\smaller
 \begin{forest}
 [\emph{realisation-rule}
-	[SHAPE,partition
-		[{\begin{avm}
-			\[ mph & \{\[ph &  \<\normalfont ni\>\]\}\\
-			mud & \{\[per & 1\\ num & sg\]\}
-			\]
-		\end{avm}}, name=1
-			[{\begin{avm}
-				\[ mph & \{\[ph &  \<\normalfont ni\>\\ pc & 2\]\}\\
-				mud & \{ \[\asort{subj} per & 1\\ num & sg\] \}
-				\]
-			\end{avm}}, name=a, no edge, tier=word, l=3cm]
+	[shape,partition
+		[%
+		\avmtmp{
+			[ mph & \{[ph &  <\normalfont ni>]\} \\
+			mud &	\{[per & 1\\
+					num & sg]\} ]
+		}, name=1
+			[%
+			\avmtmp{
+				[ mph & \{[ph &  <\normalfont ni> \\
+						pc & 2]\} \\
+				mud &	\{[\type*{subj}
+						per & 1\\
+						num & sg]\} ]
+			}, name=a, edge=dashed, tier=word, l=2.5cm
+			]
 		]
-		[{\begin{avm}
-			\[ mph & \{\[ph &  \<\normalfont wa\>\]\}\\
-			mud & \{\[per & 3\\ num & pl\]\}
-			\]
-		\end{avm}}, name=2
-			[{\begin{avm}
-				\[ mph & \{\[ph &  \<\normalfont wa\>\\ pc & 5\]\}\\
-				mud & \{ \[\asort{obj} per & 3\\ num & pl\] \}
-				\]
-			\end{avm}}, name=b, no edge, tier=word, l=3cm]
+		[%
+		\avmtmp{
+			[ mph & \{[ph &  <\normalfont wa>]\} \\
+			mud &	\{[per & 3 \\
+					num & pl]\} ]
+		}, name=2
+			[%
+			\avmtmp{
+				[ mph &	\{[ph & <\normalfont wa> \\
+						pc & 5]\} \\
+				mud &	\{[\type*{obj}
+						per & 3 \\
+						num & pl]\} ]
+			}, name=b, edge=dashed, tier=word, l=2.5cm
+			]
 		]
 	]
-	[POSITION,partition
-		[{\begin{avm}
-			\[ mph & \{\[pc & 2\]\}\\
-			mud & \{subj\}
-			\]
-		\end{avm}}, name=3
-			[{\begin{avm}
-				\[ mph & \{\[ph &  \<\normalfont wa\>\\ pc & 2\]\}\\
-				mud & \{ \[\asort{subj} per & 3\\ num & pl\] \}
-				\]
-			\end{avm}}, name=c, no edge, tier=word, l=3cm]
+	[position,partition
+		[%
+		\avmtmp{
+			[ mph & \{[pc & 2]\} \\
+			mud & \{subj\} ]
+		}, name=3
+			[%
+			\avmtmp{
+				[ mph & \{[ph &  <\normalfont wa>\\ pc & 2]\}\\
+				mud & \{ [\type*{subj} per & 3\\ num & pl] \} ]
+			}, name=c, edge=dashed, tier=word, l=2.5cm
+			]
 		]
-		[{\begin{avm}
-			\[ mph & \{\[pc & 5\]\}\\
-			mud & \{ obj \}
-			\]
-		\end{avm}}, name=4
-			[{\begin{avm}
-				\[ mph & \{\[ph &  \<\normalfont ni\>\\ pc & 5\]\}\\
-				mud & \{\[\asort{obj} per & 1\\ num & sg\]\}
-				\]
-			\end{avm}}, name=d, no edge, tier=word, l=3cm]
+		[%
+		\avmtmp{
+			[ mph & \{[pc & 5]\}\\
+			mud & \{ obj \} ]
+		}, name=4
+			[%
+			\avmtmp{
+				[ mph & \{[ph &  <\normalfont ni>\\ pc & 5]\}\\
+				mud & \{[\type*{obj} per & 1\\ num & sg]\} ]
+			}, name=d, edge=dashed, tier=word, l=2.5cm
+			]
 		]
 	]
 ]
-\draw[dashed] (1.south) to (a.north);
 \draw[dashed] (1.south) to (d.north);
-\draw[dashed] (2.south) to (b.north);
 \draw[dashed] (2.south) to (c.north);
-\draw[dashed] (3.south) to (c.north);
 \draw[dashed] (3.south) to (a.north);
 \draw[dashed] (4.south) to (b.north);
-\draw[dashed] (4.south) to (d.north);
 \end{forest}
   
   \caption{Rule type hierarchy for Swahili parallel position classes \citep{Crysmann:Bonami:2016}}
@@ -3006,8 +3289,6 @@ partial rule descriptions.
 
 % Bring in m:n and new perspectives. 
 
-
-}
 
 {\sloppy
 \printbibliography[heading=subbibliography,notkeyword=this]}
