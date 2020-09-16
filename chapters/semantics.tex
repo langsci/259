@@ -47,16 +47,14 @@ The real innovation HPSG brought to the interface between syntax and semantics i
 
 The semantic side of HPSG was initially rooted in Situation Semantics \citep[Chapter 4]{PollardandSag1987}. The choice of Situation Semantics is probably somewhat a matter of happenstance, and overall, nothing too crucial depended on that choice (and other choices have been explored since, as we detail below). However, this statement should not be construed as implying the choice was inconsequential. There were several interesting aspects of this choice for the study of the interface between syntax and semantics that is integral to any grammatical framework. We briefly mention a few here. A first interesting aspect of this choice is that the identification of arguments was not through an ordering but via keywords standing for role names, something that made it easier to model argument structure in subsequent work (see \crossrefchapteralt{arg-st}). A second aspect is the built-in ``intensionality'' of Situation Semantics. Since atomic formulas in Situation Semantics denote circumstances rather than truth values, and circumstances are more finely individuated than truth values, the need to resort to possible world semantics to properly characterize differences in the meaning of basic verbs, for example, is avoided. A third aspect of Situation Semantics that played an important role in HPSG is parameters. Parameters are variables that can be restricted and sorted, thus allowing for an easy semantic classification of types of NPs, something that HPSG's binding theory makes use of.
 
-Parameters also play an important role in early accounts of quantification; these accounts rely on restrictions on parameters that constrain how variables are anchored, akin to predicative conditions on discourse referents in Discourse Representation Theory \citep{KampandReyle1993}. Restrictions on parameters are illustrated with (\ref{donkey}), the (non-empty) semantic content of the common noun \word{donkey}, where the variable \avmbox{1} is restricted to individuals that are donkeys, as expressed by the value of the attribute \attrib{rest}.\footnote{In \citet{PollardandSag1987}, which we discuss here, semantic relations are the values of a \attrib{reln} attribute and restrictions are single semantic relations rather than set-valued. To ensure historical accuracy, we use the signature that was used at the time.}
+Parameters also play an important role in early accounts of quantification; these accounts rely on restrictions on parameters that constrain how variables are anchored, akin to predicative conditions on discourse referents in Discourse Representation Theory \citep{KampandReyle1993}. Restrictions on parameters are illustrated with (\ref{donkey}), the (non-empty) semantic content of the common noun \word{donkey}, where the variable \ibox{1} is restricted to individuals that are donkeys, as expressed by the value of the attribute \attrib{rest}.\footnote{In \citet{PollardandSag1987}, which we discuss here, semantic relations are the values of a \attrib{reln} attribute and restrictions are single semantic relations rather than set-valued. To ensure historical accuracy, we use the signature that was used at the time.}
 
 \begin{exe}
 \ex\label{donkey}
-{\avmoptions{center}
-\begin{avm}
-\[var & \@1 \\
-rest & \[reln & donkey \\
-		inst & \@1\]\]
-\end{avm}
+\avmtmp{
+[var & \1 \\
+rest & [reln & donkey \\
+		inst & \1]]
 }
 \end{exe} 
 
@@ -65,16 +63,16 @@ Because indices are restricted variables/parameters,  the model of quantificatio
 
 \begin{exe}
 \ex\label{donk-sn}
-{\avmoptions{center}
-\begin{avm}
-\[quant & \[det & forall \\
-			ind & \[var & \@1 \\
-					rest & \[reln & donkey \\
-							inst & \@1 \]\]\]\\
-scope & \[reln & sneeze \\
-		sneezer & \@1\]\]
-\end{avm}
+
+\avmtmp{
+[quant & [det & forall \\
+			ind & [var & \1 \\
+					rest & [reln & donkey \\
+							inst & \1] ] ]\\
+scope & [reln & sneeze \\
+		sneezer & \1]]
 }
+
 \end{exe}
 
 The subject NP contributes the value of the attribute \attrib{quant}, while the verb contributes the value of \attrib{scope}. The quantifier includes information on the type of quantifier contributed by the determiner (a universal quantifier in this case) and the index (a parameter restricted by the common noun).
@@ -83,8 +81,7 @@ Because HPSG is a sign-based grammar, each constituent includes a \attrib{phon}o
 
 \eal \label{SP87}
 \ex
-If the semantic content (\avmbox{1}) of the head daughter is of sort \type{circumstance} and the semantic content (\avmbox{2}) of the complement daughter is of sort \type{quantifier}, the semantic content of the mother is {\avmoptions{center}\begin{avm}
-\[quant & \@2 \\ scope & \@1\]\end{avm}}.\\
+If the semantic content (\ibox{1}) of the head daughter is of sort \type{circumstance} and the semantic content (\ibox{2}) of the complement daughter is of sort \type{quantifier}, the semantic content of the mother is \avmtmp{[quant & \2 \\ scope & \1]}.\\
 \ex Otherwise, the semantic contents of the head daughter and the mother are identical.
 \zl
 
@@ -105,27 +102,43 @@ Until the mid-2000s, HPSG's ``standard'' model of the interface between the synt
 
 \begin{figure}[htbp!]\centering
 \begin{forest}
-[{{\avmoptions{center}\begin{avm}
-\[quants & \<\@4,\@6\> \\
-nucleus & \@5 \\
-retrieved & \<\@4,\@6\>\]
-\end{avm}}}
-[{{\avmoptions{center}\begin{avm}\[ind & \@1 \\
-qstore & \{\@6\}\]\end{avm}}} [every student, roof]]
-[{{\avmoptions{center}\begin{avm}
-\[quants & \<\> \\
-nucleus & \@5 \\
-qstore & \{\@4\}\]
-\end{avm}}}
-[{\avmoptions{center}\begin{avm}
-\[quants & \<\> \\
-nucleus & \@5\[\asort{know}
-			knower & \@1\\
-			known & \@2 \] \]
-\end{avm}} [knows] ]
-[{\avmoptions{center}\begin{avm}\[ind & \@2 \\
-qstore & \{\@4\}\]\end{avm}} [a poem, roof]]
-] ]
+[%
+\avmtmp{
+	[quants & < \4 , \6 > \\
+nucleus & \5 \\
+retrieved & < \4 , \6 >]
+}
+	[%
+	\avmtmp{
+		[ind & \1 \\
+	qstore & \{ \6 \} ]
+	}
+		[every student, roof]
+	]
+	[%
+	\avmtmp{
+		[quants & < > \\
+		nucleus & \5 \\
+		qstore & \{ \4 \} ]
+	}
+		[%
+		\avmtmp{
+			[quants & < > \\
+			nucleus & \5	[\type*{know}
+							knower & \1 \\
+							known & \2 ] ]
+		}
+			[knows]
+		]
+		[%
+		\avmtmp{
+			[ind & \2 \\
+			qstore & \{ \4 \} ]
+		}
+			[a poem, roof]
+		]
+	]
+]
 \end{forest}
 \caption{\label{qu-sc}Semantic composition of an English sentence containing two quantifiers}
 \end{figure} 
@@ -133,7 +146,7 @@ qstore & \{\@4\}\]\end{avm}} [a poem, roof]]
 
 %[NP [the woman, roof]]
 
-Both subject and object quantifiers start with their quantifiers (basically, something very similar to the representation in (\ref{donk-sn})) in a \attrib{qstore}. Since the reading of interest is the one where \word{a poem} outscopes \word{every student}, the quantifier introduced by \word{a poem} cannot be retrieved at the VP level. This is because the value of \attrib{quants} is the concatenation of the value of \attrib{retrieved} with the \attrib{quants} value of the head daughter. Were the quantifier introduced by \word{a poem} (\avmbox{4}) retrieved at the VP level, the sole quantifier retrieved at the S level, the one introduced by \word{every student}, would outscope it. So, the only way for the quantifier introduced by \word{a poem} to outscope the quantifier introduced by \word{every student} is for the former to be retrieved at the S node just like the latter. Simplifying somewhat for presentational purposes, two principles govern how quantifiers are passed on from head daughter to mothers and how quantifier scope is assigned for retrieved quantifiers; they are stated in (\ref{quant-princ}) (adapted from \citealt[322--323]{PollardandSag1994}).
+Both subject and object quantifiers start with their quantifiers (basically, something very similar to the representation in (\ref{donk-sn})) in a \attrib{qstore}. Since the reading of interest is the one where \word{a poem} outscopes \word{every student}, the quantifier introduced by \word{a poem} cannot be retrieved at the VP level. This is because the value of \attrib{quants} is the concatenation of the value of \attrib{retrieved} with the \attrib{quants} value of the head daughter. Were the quantifier introduced by \word{a poem} (\ibox{4}) retrieved at the VP level, the sole quantifier retrieved at the S level, the one introduced by \word{every student}, would outscope it. So, the only way for the quantifier introduced by \word{a poem} to outscope the quantifier introduced by \word{every student} is for the former to be retrieved at the S node just like the latter. Simplifying somewhat for presentational purposes, two principles govern how quantifiers are passed on from head daughter to mothers and how quantifier scope is assigned for retrieved quantifiers; they are stated in (\ref{quant-princ}) (adapted from \citealt[322--323]{PollardandSag1994}).
 
 
 
@@ -173,30 +186,30 @@ Pollard and Yoo's solution (p.\,419--420) amounts to making quantifier storage a
 
 \begin{exe}
 \ex\label{poll-yoo}
-{\avmoptions{center}
-\begin{avm}
-\[\asort{sign}
-phonology & list(phon\_string) \\
-synsem & \[local & \[category & category \\
+
+\avmtmp{
+[\type*{sign}
+phonology & list!(phon\_string)! \\
+synsem &	[local &	[category & category \\
 						content & content \\
-						qstore & set(quantifier) \\
-						pool & set(quantifier) \] \] \\
-retrieved & list(quantifier) \]			
-\end{avm}
+						qstore & set!(quantifier)! \\
+						pool & set!(quantifier)! ] ] \\
+retrieved & list!(quantifier)! ]
 }
 \end{exe}
 
 %fmr12-21: turned rightarrow into Rightarrow to make consistent with (19)
 \begin{exe}
 \ex\label{sign-cons}
-\type{sign} $\Rightarrow$ {\avmoptions{center}\begin{avm}
-										\[synsem$|$loc & \[qstore & \@1 \\
-																	pool & \@2\]\\
-										 retrieved & \@3\]
-										\end{avm}} \\
-			$\wedge$ set-of-elements (\avmbox{3},\avmbox{4})
-			$\wedge$ \avmbox{4} $\subseteq$ \avmbox{2}
-			$\wedge$ \avmbox{1} = \avmbox{2} $-$ \avmbox{4}
+\avmtmp{
+\emph{sign} \impl
+[synsem|loc &	[qstore & \1 \\
+				pool & \2 ] \\
+retrieved & \3 ]
+} \\
+$\land$ set-of-elements (\ibox{3} , \ibox{4})
+$\land$ \ibox{4} $\subseteq$ \ibox{2}
+$\land$ \ibox{1} = \ibox{2} $-$ \ibox{4}
 \end{exe}
 
 \begin{exe}
@@ -242,13 +255,14 @@ Since \word{controversial} selects for \word{plan}, combining their meaning lead
 %\ex \label{inter-adj-a} A controversial senator
 %\ex\label{inter-adj-b} \sem{x$|$controversial'(x) \& senator'(x)}
 \ex\label{contr-pl-sem}
-{\avmoptions{center}
-\begin{avm}
-\[\asort{$\textit{nom-obj}$}
-index & \@1 \\
-restr &  \[reln & plan \\ inst & \@1 \] \& \[reln & controversial \\ arg & \@1 \]
-\]
-\end{avm}}
+
+\avmtmp{
+[\type*{nom-obj}
+index & \1 \\
+restr &	[reln & plan \\
+		inst & \1 ] \&	[reln & controversial \\
+						arg & \1 ] ]
+}
 %\end{xlist}
 \end{exe}
 
@@ -256,14 +270,14 @@ But since adjuncts are the semantic head, the meaning of \word{potentially contr
 
 \begin{exe}
 \ex\label{pot-contr-pl-sem}
-{\avmoptions{center}
-\begin{avm}
-\[\asort{$\textit{nom-obj}$}
-index & \@1 \\
-restr & \[reln & potential \\
-arg & \[reln & plan \\ inst & \@1 \] \& \[reln & controversial \\ arg & \@1 \] \]
-\]
-\end{avm}}
+\avmtmp{
+[\type*{nom-obj}
+index & \1 \\
+restr &	[reln & potential \\
+		arg &	[reln & plan \\
+				inst & \1 ] \&	[reln & controversial \\
+								arg & \1 ] ] ]
+}
 \end{exe}
 
 \noindent
@@ -289,32 +303,31 @@ The result of applying the revised Semantics Principle to \word{potentially cont
 
 \begin{figure}[htbp!]\centering
 \begin{forest}
-[{\avmoptions{center}\begin{avm}
-\[
-head & \@4\[mod & \[arg & \[cont & \[ind & \@1 \\
-			             restr & \@2 \]\]\\
-                    econt & \[ind & \@1\\
-                                 restr & \@2\&\@{5$'$}\]\\
-                    icont & \@{5$'$} \]\]\\
-cont & \@5	\\
-\]
-\end{avm}}
-[{\avmoptions{center}\begin{avm}
-\[
-head$|$mod & \[arg & \@8 \\
-               econt & \@5 \\
-	       icont & \@5\] \\
-cont & \@5\[reln & potential \\
-			arg & \@3 \]									 
-\]
-\end{avm}}]
-[{\avmoptions{center}\begin{avm}
-\@8\[
-head & \@4 \\
-cont & \@3\[reln & controversial \\
-					inst & \@1 \]							 
-\]
-\end{avm}}]
+[%
+\avmtmp{
+	[head & \4 [mod &	[arg &	[cont &	[ind & \1 \\
+			             				restr & \2 ] ]\\
+                    	econt &	[ind & \1 \\
+                                restr & \2 \& \tag{5$'$}]\\
+                    	icont & \tag{5$'$} ] ]\\
+cont & \5 ]
+}
+	[%
+	\avmtmp{
+	[head|mod &	[arg & \8 \\
+				econt & \5 \\
+				icont & \5 ] \\
+	cont & \5	[reln & potential \\
+				arg & \3 ] ]
+	}
+	]
+	[%
+	\avmtmp{
+	\8	[head & \4 \\
+		cont & \3	[reln & controversial \\
+					inst & \1 ] ]
+	}
+	]
 ]
 \end{forest}
 \caption{\label{pot-contr-sem}The meaning of \word{potentially controversial}}
@@ -323,20 +336,18 @@ cont & \@3\[reln & controversial \\
 
 \begin{exe}
 \ex\label{contr-sem}
-{\avmoptions{center}
-\begin{avm}
-\[head$|$mod & \[arg & \[cont & \[ind & \@1\\
-				  restr & \@2\]\]\\
-		 econt & \[ind & \@1 \\
-			   restr & \@2\&\@5 \]\\
-                 icont & \@5\] \\
-cont & \[reln & controversial \\
-		inst & \@1 \]
-\]
-\end{avm}}
+\avmtmp{
+[head|mod &	[arg &	[cont &	[ind & \1\\
+							restr & \2]]\\
+		 			econt &	[ind & \1 \\
+			   				restr & \2 \& \5 ]\\
+                 	icont & \5 ] \\
+cont &	[reln & controversial \\
+		inst & \1 ] ]
+}
 \end{exe}
 
-Critically, each kind of modifier specifies in its \attrib{mod$|$econt} value the combinatorial effects it has on the meaning of the modifier and modified combination; the \attrib{econt} value contains that result and will be inherited as \attrib{cont} value by the mother node. Intersective adjectives like \word{controversial} specify that their combinatorial effect is intersective, as shown in (\ref{contr-sem}); conjectural adverbs like \word{potentially}, on the other hand, specify their \attrib{cont} value as the result of applying their meaning to the \attrib{cont} value of the modified sign. As shown in the left daugther of Figure~\ref{pot-contr-sem}, the resulting \attrib{cont} value of \word{potentially} is identified by (\ref{sem-princ-k-a}) with its \attrib{icont} value (which is in turn lexically specified as identical with the \attrib{econt} value) when \word{potentially} combines as adjunct daughter with an intersective adjective such as \word{controversial} in a head-adjunct structure. Moreover, when the depicted phrase \word{potentially controversial} combines with a noun such as \word{plan} in another head-adjunct phrase, \avmbox{5} and \avmbox{5$'$} in Figure~\ref{pot-contr-sem} become identical, again by (\ref{sem-princ-k-a}), thereby also integrating the meaning of \word{potentially controversial} into the second conjunct of the \attrib{econt|restr} value of the depicted phrase. Now, since the \attrib{mod} value of the head in a head-adjunct phrase determines the \attrib{mod} value of the phrase, it means that \word{controversial} determines in its \attrib{econt}, in combination with its \attrib{arg} value, what it modifies (\word{plan}) and, ultimately, the \attrib{cont} value of the entire phrase \word{potentially controversial plan}, thus ensuring that its intersectivity is preserved even when it combines with a conjectural adverb. \citet{AsudehandCrouch2002} and \citet{Egg2004b} provide more recent solutions to the same problem through the use of a Glue Semantics approach to meaning composition within HPSG and semantic underspecification, respectively.
+Critically, each kind of modifier specifies in its \attrib{mod$|$econt} value the combinatorial effects it has on the meaning of the modifier and modified combination; the \attrib{econt} value contains that result and will be inherited as \attrib{cont} value by the mother node. Intersective adjectives like \word{controversial} specify that their combinatorial effect is intersective, as shown in (\ref{contr-sem}); conjectural adverbs like \word{potentially}, on the other hand, specify their \attrib{cont} value as the result of applying their meaning to the \attrib{cont} value of the modified sign. As shown in the left daugther of Figure~\ref{pot-contr-sem}, the resulting \attrib{cont} value of \word{potentially} is identified by (\ref{sem-princ-k-a}) with its \attrib{icont} value (which is in turn lexically specified as identical with the \attrib{econt} value) when \word{potentially} combines as adjunct daughter with an intersective adjective such as \word{controversial} in a head-adjunct structure. Moreover, when the depicted phrase \word{potentially controversial} combines with a noun such as \word{plan} in another head-adjunct phrase, \ibox{5} and \ibox{5$'$} in Figure~\ref{pot-contr-sem} become identical, again by (\ref{sem-princ-k-a}), thereby also integrating the meaning of \word{potentially controversial} into the second conjunct of the \attrib{econt|restr} value of the depicted phrase. Now, since the \attrib{mod} value of the head in a head-adjunct phrase determines the \attrib{mod} value of the phrase, it means that \word{controversial} determines in its \attrib{econt}, in combination with its \attrib{arg} value, what it modifies (\word{plan}) and, ultimately, the \attrib{cont} value of the entire phrase \word{potentially controversial plan}, thus ensuring that its intersectivity is preserved even when it combines with a conjectural adverb. \citet{AsudehandCrouch2002} and \citet{Egg2004b} provide more recent solutions to the same problem through the use of a Glue Semantics approach to meaning composition within HPSG and semantic underspecification, respectively.
 %fmr12-19: turned ``Glue semantics'' into Glue Semantics; correct?
 
 \section{Sorting semantic objects}
@@ -347,14 +358,13 @@ One of the hallmarks of HPSG is that all grammatical objects are assigned a sort
 
 \begin{exe}
 	\ex\label{KD-03-sem}
-	{\avmoptions{center}
-	\begin{avm}\[content & \[\asort{$\textit{cause-rel}$}
-												causer & \@1\] \\
-                   arg-st & \<np, \ldots \>\]\end{avm}
-$\Rightarrow$ \begin{avm}\[
-                           arg-st & \<np$_{\@1}$, \ldots\>\]
-\end{avm} 
-	}
+\avmtmp{
+[content &	[\type*{cause-rel}
+			causer & \1 ] \\
+arg-st & <np, \ldots > ]
+\impl
+[arg-st & <np$_{\1}$, \ldots> ]
+}
 \end{exe}
 
 Constructional analyses that flourished in the late 1990s also benefited from the sorting of semantic objects. The analysis  of clause types in \citet{Sag1997} and \citet{GinzburgandSag2001} makes extensive use of the sorting of semantic objects to model different kinds of clauses, as our discussion of the latter in the next section makes clear.
@@ -370,38 +380,28 @@ The approach to interrogatives that Ginzburg and Sag propose is new in that it d
 
 \begin{exe}
 \ex\label{ques-sem-a}
+\avmtmp{
 Who left? $\mapsto$ \\
-{\avmoptions{center}
-\begin{avm}
-\[\asort{question}
-params & \{ \[\asort{param}
-						index & \@1 \\
-						restr & \{person(\@1)\}\] \} \\
-prop & \[\asort{proposition}
-			sit & s  \\
-			soa & \[quants & \< \> \\
-						nucl & \[\asort{leave-rel}
-									leaver & \@1 \]
-						\]
-			\]
-\]
-\end{avm}
+[\type*{question}
+params &	\{[\type*{param}
+			index & \1 \\
+			restr & \{person!(\1)!\} ] \} \\
+prop &	[\type*{proposition}
+		sit & s \\
+		soa &	[quants & < > \\
+				nucl &	[\type*{leave-rel}
+						leaver & \1 ] ] ] ]
 }
 \ex\label{ques-sem-b}
+\avmtmp{
 Did someone leave? $\mapsto$ \\
-{\avmoptions{center}
-\begin{avm}
-\[\asort{question}
+[\type*{question}
 params & \{ \} \\
-prop & \[\asort{proposition}
-			sit & s  \\
-			soa & \[quants & \< \> \\
-						nucl & \[\asort{leave-rel}
-									leaver & \@1 \]
-						\]
-				\]
-\]
-\end{avm}
+prop &	[\type*{proposition}
+		sit & s  \\
+		soa &	[quants & < > \\
+				nucl &	[\type*{leave-rel}
+						leaver & \1 ] ] ] ]
 }
 
 \end{exe}
@@ -411,17 +411,39 @@ The meaning assigned to questions illustrated above relies on an ontology of mes
 
 \begin{figure}
 \begin{forest}
-[{\footnotesize\textit{message}}
-[{{\avmoptions{center}\begin{avm}\[\asort{austinian}
-						sit & situation \\
-						soa & soa\]\end{avm}}}
-[{{\avmoptions{center}\begin{avm}\[\asort{outcome} soa & i-soa\]\end{avm}}}]
-[{{\avmoptions{center}\begin{avm}\[\asort{proposition} soa & r-soa\]\end{avm}}}] ]
-[{{\avmoptions{center}\begin{avm}\[\asort{prop-constr}
-        prop & proposition \]\end{avm}
-}}
-[{\footnotesize\textit{fact}}]
-[{{\avmoptions{center}\begin{avm}\[\asort{question} params & set(param)\]\end{avm}}}] ]
+[\emph{message}
+	[%
+	\avmtmp{
+		[\type*{austinian}
+		sit & situation \\
+		soa & soa]
+	}
+		[%
+		\avmtmp{
+			[\type*{outcome}
+			soa & i-soa]
+		}
+		]
+		[%
+		\avmtmp{
+			[\type*{proposition}
+			soa & r-soa]
+		}
+		]
+	]
+	[%
+	\avmtmp{
+		[\type*{prop-constr}
+        prop & proposition ]
+	}
+		[\emph{fact}]
+		[%
+		\avmtmp{
+			[\type*{question}
+			params & set!(param)!]
+		}
+		]
+	]
 ]
 \end{forest}
 \caption{\label{mess-types}A hierarchy of sorts of messages}
@@ -433,8 +455,18 @@ Of concern to us here is less the specifics of this ontology of messages (or of 
 \ex\label{cl-typ}
 \begin{xlist}
 \ex\label{decl-cl}
-\type{decl-cl}: {\avmoptions{center} \begin{avm}\[cont & \[\asort{austinian}  soa & /\@1 \] \]\end{avm}}$\rightarrow$ H{\avmoptions{center} \begin{avm}\[cont & /\@1\] \end{avm}}
-\ex\label{inter-cl} \type{inter-cl}: {\avmoptions{center} \begin{avm}\[cont & question \] $\rightarrow$  \ldots \end{avm}}
+\avmtmp{
+\emph{decl-cl}:
+[cont & [\type*{austinian}
+soa & /\1 ] ]
+$\rightarrow$
+H [cont & /\1]
+}
+\ex\label{inter-cl}
+\avmtmp{
+\emph{inter-cl}:
+[cont & question] $\rightarrow$  \ldots
+}
 \end{xlist}
 \end{exe}
 
@@ -468,9 +500,12 @@ This constraint ensures that \word{wh}-phrases that are fillers of a head-filler
 
 \begin{exe}
 \ex\label{fic}Filler Inclusion Constraint  \\
-\type{wh-inter-cl}: {\avmoptions{center}\begin{avm}
-\[cont & \[params & \{\@1\} \, $\uplus$ set\]\] $\rightarrow$ \[wh & \{\@1\}\], H
-\end{avm}}
+\avmtmp{
+\emph{wh-inter-cl}:
+[cont & [params & \{ \1 \} $\uplus$ set] ]
+$\rightarrow$
+[wh & \{ \1 \}], H
+}
 \end{exe}
 
 
@@ -506,12 +541,22 @@ branching constructions whose function is strictly semantic.\footnote{\citet{Mue
 
 
 \begin{exe}
-\ex\label{is-inter-cl}\type{is-inter-cl}: \\
-{\avmoptions{center}\begin{avm}\[cat & \[ic & \textup{+} \\
-																subj & \< \,\> \\
-																vform & fin\]\] $\rightarrow$ H\[ \,\]\end{avm}}
-\ex\label{dir-is-int-cl}\type{dir-is-inter-cl}:  \\
-{\avmoptions{center}\begin{avm}\[cont$|$prop & \@1\] $\rightarrow$ H\[cont & \@1\]\end{avm}}
+\ex\label{is-inter-cl}
+\avmtmp{
+\emph{is-inter-cl}: \\
+[cat &	[ic & $+$ \\
+		subj & < > \\
+		vform & fin] ]
+$\rightarrow$
+H ![ ]!
+}
+\ex\label{dir-is-int-cl}
+\avmtmp{
+\emph{dir-is-inter-cl}:  \\
+[cont|prop & \1]
+$\rightarrow$
+H [cont & \1]
+}
 \end{exe}
 
 %fmr12-21: turned feature ``pro'' into ``prop'' in AVM to make it consistent with the text
@@ -603,18 +648,15 @@ We now present a brief outline of how MRS works in typed feature structures. Fir
 
 \begin{exe}
 \ex\label{mrs-str}
-{\avmoptions{center}
-\begin{avm}
-\[\asort{mrs}
-hook & \[index & index \\
-				ltop & handle \\
-				gtop & handle \] \\
-rels & list(relation) \\
-hcons & list\textup{(}qeq\textup{)}
-\]
-\end{avm}
+\avmtmp{
+[\type*{mrs}
+hook &	[index & index \\
+		ltop & handle \\
+		gtop & handle] \\
+rels & list!(relation)! \\
+hcons & list!\textup{(}qeq\textup{)}! ]
 }
-\end{exe} 
+\end{exe}
 
 Sentence (\ref{mrs-ex-sent}) and its (underspecified) \type{mrs} representation in (\ref{mrs-ex-sc}) illustrate how \type{mrs} structures can be used to capture scope underspecification (see \citealt[306]{Copestakeetal2005}). 
 
@@ -622,66 +664,67 @@ Sentence (\ref{mrs-ex-sent}) and its (underspecified) \type{mrs} representation 
 \ex\label{mrs-ex-sent}
 Every dog probably sleeps.
 \ex\label{mrs-ex-sc}
-{\avmoptions{center}
-\begin{avm}
-\[\asort{mrs}
-hook & \[\asort{hook}
-			gtop & \@1 \\
-			ltop & \@7  \] \\
-rels & \<\[\asort{every\_rel}
-				lbl & \@2 \\
-				arg0 & \@3 \\
-				rstr & \@4\\
-				body & handle\], \[\asort{dog\_rel}
-											lbl & \@6 \\
-											arg0 & \@3 \],
-											\[\asort{prbly\_rel}
-											lbl & \@7 \\
-											arg1 & \@8  \],
-											\[\asort{sleep\_rel}
-											lbl & \@9 \\
-											arg1 & \@3\]\> \\
-hcons & \<\[\asort{qeq}
-					harg & \@1 \\
-					larg & \@7\],
-					\[\asort{qeq}
-					harg & \@4 \\
-					larg & \@6\],
-					\[\asort{qeq}
-					harg & \@8 \\
-					larg & \@9\]\>				
-\]
-\end{avm}
+\avmtmp{
+[\type*{mrs}
+hook &	[\type*{hook}
+		gtop & \1 \\
+		ltop & \7] \\
+rels &	<[\type*{every\_rel}
+		lbl & \2 \\
+		arg0 & \3 \\
+		rstr & \4\\
+		body & handle],
+		[\type*{dog\_rel}
+		lbl & \6 \\
+		arg0 & \3]
+		,
+		[\type*{prbly\_rel}
+		lbl & \7 \\
+		arg1 & \8]
+		,
+		[\type*{sleep\_rel}
+		lbl & \9 \\
+		arg1 & \3]> \\
+hcons &	<[\type*{qeq}
+		harg & \1 \\
+		larg & \7]
+		,
+		[\type*{qeq}
+		harg & \4 \\
+		larg & \6]
+		,
+		[\type*{qeq}
+		harg & \8 \\
+		larg & \9]>				
+]
 }
 \end{exe}
 
 
 Members of \attrib{rels} correspond to the content of lexical entries while members of \attrib{hcons} constrain the relative scope of semantic arguments of members of \attrib{rels}. Now, although the grammar of English leaves the meaning of (\ref{mrs-ex-sent}) underspecified, it \emph{does} constrain some scope relations, and the \type{mrs} in (\ref{mrs-ex-sc}) therefore constrains how some elementary predications relate to each other. First, the identity between the value of \attrib{arg0} for both the \type{every\_rel} and \type{dog\_rel} elementary predications indicates that \word{every} in (\ref{mrs-ex-sent}) quantifies over dogs;  %fmr12-21: dog, not dogs? %JPK 12-21 yep, corrected
-\avmbox{3} is the variable bound by the quantifier. And similarly, the value of \attrib{arg1} of \word{sleep\_rel} is lexically constrained to correspond to the index of the subject, itself constrained to be identical to the value of \attrib{arg0} for the \word{dog\_rel} predication (i.e.\ \avmbox{3}). Second, \type{prbly\_rel} is required to outscope \type{sleep\_rel} (a \type{qeq} constraint either identifies its \attrib{harg} or \attrib{larg} or it constrains its \attrib{harg} to outscope its \attrib{larg}). %fmr12-21: larg instead of arg
-Similarly, the restriction of \type{every\_rel} is constrained to  outscope \type{dog\_rel} as \avmbox{4} $=_{qeq}$ \avmbox{6}. Finally, the global top (the value of \attrib{gtop}) is constrained to outscope the local top (the value of \attrib{ltop}). (To simplify, the local top is the handle of the elementary predication that is not a quantifier with the widest scope.) The semantic representation that the grammar of English motivates remains underspecified, as it does not specify what the value of the \attrib{body} of \type{every\_rel} is, in particular whether it is the handle of the \type{prbly\_rel} or \type{sleep\_rel} elementary predications. Resolving this scope ambiguity amounts to adding an \attrib{hcons} that identifies the value of \attrib{body} with either handle, i.e.\ \avmbox{7} or \avmbox{9}. 
+\ibox{3} is the variable bound by the quantifier. And similarly, the value of \attrib{arg1} of \word{sleep\_rel} is lexically constrained to correspond to the index of the subject, itself constrained to be identical to the value of \attrib{arg0} for the \word{dog\_rel} predication (i.e.\ \ibox{3}). Second, \type{prbly\_rel} is required to outscope \type{sleep\_rel} (a \type{qeq} constraint either identifies its \attrib{harg} or \attrib{larg} or it constrains its \attrib{harg} to outscope its \attrib{larg}). %fmr12-21: larg instead of arg
+Similarly, the restriction of \type{every\_rel} is constrained to  outscope \type{dog\_rel} as \ibox{4} $=_{qeq}$ \ibox{6}. Finally, the global top (the value of \attrib{gtop}) is constrained to outscope the local top (the value of \attrib{ltop}). (To simplify, the local top is the handle of the elementary predication that is not a quantifier with the widest scope.) The semantic representation that the grammar of English motivates remains underspecified, as it does not specify what the value of the \attrib{body} of \type{every\_rel} is, in particular whether it is the handle of the \type{prbly\_rel} or \type{sleep\_rel} elementary predications. Resolving this scope ambiguity amounts to adding an \attrib{hcons} that identifies the value of \attrib{body} with either handle, i.e.\ \ibox{7} or \ibox{9}. 
 
-Examples that include multiple quantifiers work in a similar way. Take the sentence in (\ref{2-quant-ex}) and the elementary predications for \word{every}, \word{chases}, and \word{some} (we only include relevant elementary predications and attributes for simplicity). We know that the body of \type{every\_rel} and \type{some\_rel} each outscope \word{chase\_rel} (so \avmbox{1 } $=_{qeq}$ \avmbox{3} and \avmbox{2} $=_{qeq}$ \avmbox{3}, where the left-hand side of the equality corresponds to the \attrib{harg} and the right-hand side to the \attrib{larg}).\footnote{\citet{Copestakeetal2005} do not require the nuclear scope of generalized quantifiers to outscope the predicate denoted by the verb they are syntactic dependents of. Since Lexical Resource Semantics does so -- and correctly so, as it seems to be a constraint on the interpretation of English sentences that contain generalized quantifiers -- we include additional \avmbox{1 } $=_{qeq}$ \avmbox{3} and \avmbox{2} $=_{qeq}$ \avmbox{3} constraints in the text and their effect in Figure~\ref{fig:MRS-tree} for ease of comparison. Nothing critical hinges on this issue.} But we do not know if \type{every\_rel} outscopes \type{some\_rel} or the reverse; adding either \attrib{hcons} \avmbox{1} $=_{qeq}$ \avmbox{2} or \avmbox{2} $=_{qeq}$ \avmbox{1} specifies which is the case. (This example illustrates that $=_{qeq}$ is not commutative, as it is meant to encode greater or equal scope.) Figure~\ref{fig:MRS-tree} provides a tree representation of the underspecified outscope relation induced by $=_{qeq}$ constraints; dashed lines indicate that there may be intervening semantic material between the operator and what it outscopes.
+Examples that include multiple quantifiers work in a similar way. Take the sentence in (\ref{2-quant-ex}) and the elementary predications for \word{every}, \word{chases}, and \word{some} (we only include relevant elementary predications and attributes for simplicity). We know that the body of \type{every\_rel} and \type{some\_rel} each outscope \word{chase\_rel} (so \ibox{1 } $=_{qeq}$ \ibox{3} and \ibox{2} $=_{qeq}$ \ibox{3}, where the left-hand side of the equality corresponds to the \attrib{harg} and the right-hand side to the \attrib{larg}).\footnote{\citet{Copestakeetal2005} do not require the nuclear scope of generalized quantifiers to outscope the predicate denoted by the verb they are syntactic dependents of. Since Lexical Resource Semantics does so -- and correctly so, as it seems to be a constraint on the interpretation of English sentences that contain generalized quantifiers -- we include additional \ibox{1 } $=_{qeq}$ \ibox{3} and \ibox{2} $=_{qeq}$ \ibox{3} constraints in the text and their effect in Figure~\ref{fig:MRS-tree} for ease of comparison. Nothing critical hinges on this issue.} But we do not know if \type{every\_rel} outscopes \type{some\_rel} or the reverse; adding either \attrib{hcons} \ibox{1} $=_{qeq}$ \ibox{2} or \ibox{2} $=_{qeq}$ \ibox{1} specifies which is the case. (This example illustrates that $=_{qeq}$ is not commutative, as it is meant to encode greater or equal scope.) Figure~\ref{fig:MRS-tree} provides a tree representation of the underspecified outscope relation induced by $=_{qeq}$ constraints; dashed lines indicate that there may be intervening semantic material between the operator and what it outscopes.
 
 \begin{exe}
 \ex\label{2-quant-ex}Every dog chases some cat.
 \ex\label{2-quant-sem}
-{\avmoptions{center}
-\begin{avm}
-\[\asort{every\_rel}
+\avmtmp{
+[\type*{every\_rel}
 restr & handle \\
-body & \@1 \]
-\end{avm}
+body & \1 ]
+%
 \hspace{.15in}
-\begin{avm}
-\[\asort{some\_rel}
+%
+[\type*{some\_rel}
 restr & handle \\
-body & \@2 \]
-\end{avm}
+body & \2 ]
+%
 \hspace{.15in}
-\begin{avm}
-\[\asort{chase\_rel}
-lbl & \@3 \]
-\end{avm}
+%
+[\type*{chase\_rel}
+lbl & \3 ]
 }
 \end{exe}
 
@@ -723,29 +766,27 @@ An example of the model-theoretic opacity of handles is provided by the composit
 
 \begin{exe}
 \ex\label{int-mod}
-{\avmoptions{center}
-\begin{avm}
-\[rels & \<\[\asort{white\_rel}
-					lbl & \@1 \\
-					arg0 & \@2 \], \[\asort{horse\_rel}
-												lbl & \@1 \\
-												arg0 & \@2 \] \> \]
-\end{avm}
+\avmtmp{
+[rels & <[\type*{white\_rel}
+		lbl & \1 \\
+		arg0 & \2]
+		,
+		[\type*{horse\_rel}
+		lbl & \1 \\
+		arg0 & \2]> ]
 }
 \end{exe}
 
-The fact that the value of \attrib{arg0} is the same for both elementary predications (\avmbox{2}) is model-theoretically motivated: both properties are predicated of the same individual. 
+The fact that the value of \attrib{arg0} is the same for both elementary predications (\ibox{2}) is model-theoretically motivated: both properties are predicated of the same individual. 
 %JPK 12-17: No, it should be "of", this is a technical, philosophical use
-The fact that the value of \attrib{lbl} is identical (\avmbox{1}) is also motivated if labels are used to help determine the scope of quantifiers; in a quantifier like \word{every white horse}, the content of \word{white} and \word{horse} have the same scope; they conjunctively serve as the restriction of \type{every\_rel} represented in  (\ref{every-hand}).
+The fact that the value of \attrib{lbl} is identical (\ibox{1}) is also motivated if labels are used to help determine the scope of quantifiers; in a quantifier like \word{every white horse}, the content of \word{white} and \word{horse} have the same scope; they conjunctively serve as the restriction of \type{every\_rel} represented in  (\ref{every-hand}).
 
 \begin{exe}
 \ex\label{every-hand}
-{\avmoptions{center}
-\begin{avm}
-\[\asort{every\_rel}
+\avmtmp{
+[\type*{every\_rel}
 restr & handle \\
-body & handle \]
-\end{avm}
+body & handle ]
 }
 \end{exe}
 
@@ -795,14 +836,11 @@ The combinatorial semantics of phrases is encoded with structures of sort \type{
 
 \begin{exe}
   \ex\label{lrs-str}
-{\avmoptions{center}
-\begin{avm}
-  \[sem & \[\asort{lrs}
+\avmtmp{
+  [sem &	[\type*{lrs}
             excont & me\\
             incont & me\\
-            parts & list\textup{(}me\textup{)}\]
-  \]
-\end{avm}
+            parts & list!\textup{(}me\textup{)}!] ]
 }
 \end{exe}
 
@@ -865,102 +903,109 @@ The local semantics of signs is split from the combinatorial \type{lrs} structur
 
 \begin{exe}
   \ex\label{local-sem}
-{\avmoptions{center}
-\begin{avm}
-  \[\asort{local}
-    cat$|$val & \[spr & \< \mbox{\rm Det}$_{\@1}$ \>\]\\
-    content & \[
-            index$|$dr & \@1 {\normalfont \sffamily x}\\
-            main & {\normalfont \sffamily dog}\]
-  \]
-\end{avm}
+\avmtmp{
+ [\type*{local}
+ cat|val &	[spr & <\upshape Det$_{\1}$>]\\
+ content &	[index|dr & \1 \upshape \sffamily x \\
+            main & \upshape \sffamily dog ] ]
 }
 \end{exe}
 
-The attribute \attrib{discourse-referent} (\attrib{dr}) contains the variable that will be the argument of the unary predicate {\normalfont \sffamily dog}, which is the \attrib{main} semantic contribution of the lexeme. The variable, {\normalfont \sffamily x}, does not come from the noun but is available to the noun by selection of the determiner by the valence attribute \attrib{spr}. The subscripted tag \avmbox{1} on the \attrib{spr} list indicates the identity of \attrib{dr} values of the determiner and the nominal head \word{dog}. A principle of local semantics says that \attrib{main} values and \attrib{dr} values are inherited along the syntactic head path.
+The attribute \attrib{discourse-referent} (\attrib{dr}) contains the variable that will be the argument of the unary predicate {\normalfont \sffamily dog}, which is the \attrib{main} semantic contribution of the lexeme. The variable, {\normalfont \sffamily x}, does not come from the noun but is available to the noun by selection of the determiner by the valence attribute \attrib{spr}. The subscripted tag \ibox{1} on the \attrib{spr} list indicates the identity of \attrib{dr} values of the determiner and the nominal head \word{dog}. A principle of local semantics says that \attrib{main} values and \attrib{dr} values are inherited along the syntactic head path.
 
 
 \begin{figure}[htbp!]
-\small \begin{forest}
-[{\avmoptions{center}\begin{avm}
-  \[phon & \< \rm{every, dog} \>\\
-  \ldots\ cont & \[index$|$dr & \@{2a} {\normalfont \sffamily x}\\
-                      main & \@{3a} {\normalfont \sffamily dog}\]\\
-  sem & \[exc & \@2 {\normalfont \sffamily $\forall$x ($\phi$,$\psi$)}\\
-          inc & \@3 {\normalfont \sffamily dog(x)}\\
-          pts & \<\@2, \@{2a}, \@{2b}, \@3, \@{3a} \>\]
-\] 
-\end{avm} \\ \& \avmbox{3} $\triangleleft$ $\phi$}
-[{\avmoptions{center}\begin{avm}
-\[phon & \<{\rm every}\>\\
-\ldots\ cont &  \[index$|$dr & \@{2a} {\normalfont \sffamily x}\\
-                  main & \@{2b} $\forall$\]\\
-sem  & \[exc & \@2 \\
-          inc & \@2 {\normalfont \sffamily $\forall$x ($\phi$,$\psi$)}\\
-          pts &\<$\forall$, {\normalfont \sffamily x}, {\normalfont \sffamily $\forall$x ($\phi$,$\psi$)}\>\]
-\]
-\end{avm}}]
-[{\avmoptions{center}\begin{avm}
-  \[phon & \< \rm{dog} \>\\
-  ss$|$l & \[cat$|$val & \[spr & \< \mbox{\rm Det}$_{\@{2a}}$ \>\]\\
-             cont & \[index$|$dr & \@{2a}\\
-             main & \@{3a} {\normalfont \sffamily dog}\]\]\\
-  sem & \[exc & \@2 \\
-          inc & \@3 {\normalfont \sffamily dog(x)}\\
-          pts &\<{\normalfont \sffamily dog}, {\normalfont \sffamily dog(\@{2a})}\>\]							 
-\]
-\end{avm}}] ]
+%\small
+\begin{forest}
+[%
+\avmtmp{
+	[phon & <\rm{every, dog} >\\
+  \ldots\ cont & [index|dr & \tag{2a} {\normalfont \sffamily x}\\
+                      main & \tag{3a} {\normalfont \sffamily dog}]\\
+  sem & [exc & \2 !{\normalfont \sffamily $\forall$x ($\phi$,$\psi$)}!\\
+          inc & \3 !{\normalfont \sffamily dog(x)}!\\
+          pts & <\2, \tag{2a}, \tag{2b}, \tag3, \tag{3a} >] ]
+}
+\\ \& \ibox{$3$} $\triangleleft$ $\phi$
+	[%
+	\avmtmp{
+		[phon & <{\rm every}>\\
+		\ldots\ cont &	[index|dr & \tag{2a} {\normalfont \sffamily x}\\
+	                  	main & \tag{2b} $\forall$]\\
+		sem  &	[exc & \2 \\
+				inc & \2 !{\normalfont \sffamily $\forall$x ($\phi$,$\psi$)}! \\
+	          	pts & <$\forall$, {\normalfont \sffamily x}, !{\normalfont \sffamily $\forall$x ($\phi$,$\psi$)}!>] ]
+	}
+	]
+	[%
+	\avmtmp{
+		[phon & <\rm{dog} >\\
+		ss|l &	[cat|val & [spr & < {\rm Det}$_{\tag{2a}}$ >]\\
+	             cont &	[index|dr & \tag{2a}\\
+	             		main & \tag{3a} {\normalfont \sffamily dog}]]\\
+		sem &	[exc & \2 \\
+	          	inc & \3 !{\normalfont \sffamily dog(x)}!\\
+	          	pts & <!{\normalfont \sffamily dog}, {\normalfont \sffamily dog(\tag{2a})}!>] ]
+	}
+	]
+]
 \end{forest}
 \caption{\label{every-dog-sem}The semantics of \word{every dog}}
 \end{figure}
 
 The semantics of phrases follows from the interaction of the (lexical) selection of local semantic structures and the semantic combinatorics that results from the principles in (\ref{lrs-essent-principles}) and the clauses of the Semantics Principle.
-For ease of readability, Figure~\ref{every-dog-sem} omits the lambda abstractions from the generalized quantifier, chooses a notation from first order logic, and does not make all structure sharings between pieces of the logical representation explicit. The head noun \word{dog} contributes (on \attrib{parts}, \attrib{pts}), the predicate {\normalfont \sffamily dog} and the application of the predicate to a lexically unknown argument, \avmbox{2a}, identical with the \attrib{dr} value of \word{dog}. As shown in (\ref{local-sem}), the \attrib{dr} value of the noun is shared with the \attrib{dr} value of the selected determiner, which is the item contributing the variable {\normalfont \sffamily x} to the representation. In addition, \word{every} contributes the quantifier and the application of the quantifier to its arguments. The clause of the Semantics Principle which restricts the combination of quantificational determiners with nominal projections identifies the \attrib{inc} of \word{every} with the \attrib{exc} of \word{dog}, and requires that the \attrib{inc} of dog (\avmbox{3}) be a subterm of the restrictor of the quantifier, $\phi$ (notated as `\avmbox{3} $\triangleleft$ $\phi$', conjoined to the AVM describing the phrase). The identification of the \attrib{exc} and \attrib{inc} of \word{every} follows from (\ref{lrs-essent-principles}b--c). According to this analysis, the semantic representation of the phrase \word{every dog} is a universal quantification with {\normalfont \sffamily dog(x)} in the restrictor and unknown scope ($\psi$). The scope will be determined when the noun phrase combines with a verb phrase. For example, such a verb phrase could be \word{barks}, as in  Figure~\ref{every-dog-barks-sem}. If its semantics is represented as a unary predicate {\normalfont \sffamily bark}, the predicate and its application to a single argument are contributed by the verb phrase, and local syntactic selection of the subject \word{every dog} by the verb \word{barks} identifies this argument as variable {\normalfont \sffamily x}, parallel to the selection of the quantifier's variable by \word{dog} above. The relevant clause of the Semantics Principle requires that {\normalfont \sffamily bark(x)} be a subterm of $\psi$, and the \attrib{exc}, \avmbox{2}, of the complete sentence receives the value \mbox{\normalfont \sffamily $\forall$x (dog(x), bark(x))} as the only available reading in accordance with the \attrib{excont} Principle. %
+For ease of readability, Figure~\ref{every-dog-sem} omits the lambda abstractions from the generalized quantifier, chooses a notation from first order logic, and does not make all structure sharings between pieces of the logical representation explicit. The head noun \word{dog} contributes (on \attrib{parts}, \attrib{pts}), the predicate {\normalfont \sffamily dog} and the application of the predicate to a lexically unknown argument, \ibox{2a}, identical with the \attrib{dr} value of \word{dog}. As shown in (\ref{local-sem}), the \attrib{dr} value of the noun is shared with the \attrib{dr} value of the selected determiner, which is the item contributing the variable {\normalfont \sffamily x} to the representation. In addition, \word{every} contributes the quantifier and the application of the quantifier to its arguments. The clause of the Semantics Principle which restricts the combination of quantificational determiners with nominal projections identifies the \attrib{inc} of \word{every} with the \attrib{exc} of \word{dog}, and requires that the \attrib{inc} of dog (\ibox{3}) be a subterm of the restrictor of the quantifier, $\phi$ (notated as `\ibox{3} $\triangleleft$ $\phi$', conjoined to the AVM describing the phrase). The identification of the \attrib{exc} and \attrib{inc} of \word{every} follows from (\ref{lrs-essent-principles}b--c). According to this analysis, the semantic representation of the phrase \word{every dog} is a universal quantification with {\normalfont \sffamily dog(x)} in the restrictor and unknown scope ($\psi$). The scope will be determined when the noun phrase combines with a verb phrase. For example, such a verb phrase could be \word{barks}, as in  Figure~\ref{every-dog-barks-sem}. If its semantics is represented as a unary predicate {\normalfont \sffamily bark}, the predicate and its application to a single argument are contributed by the verb phrase, and local syntactic selection of the subject \word{every dog} by the verb \word{barks} identifies this argument as variable {\normalfont \sffamily x}, parallel to the selection of the quantifier's variable by \word{dog} above. The relevant clause of the Semantics Principle requires that {\normalfont \sffamily bark(x)} be a subterm of $\psi$, and the \attrib{exc}, \ibox{2}, of the complete sentence receives the value \mbox{\normalfont \sffamily $\forall$x (dog(x), bark(x))} as the only available reading in accordance with the \attrib{excont} Principle. %
 %In (\ref{every-dog-barks-sem}), \idx{2} spells out as {\normalfont \sffamily $\forall$x (dog(x), bark(x))}.
 
 %fmr12-19 decapitalized _e_very dog barks in caption, following the Polish figure
 
 \begin{figure}
-\small\begin{forest}
-[{\avmoptions{center}\begin{avm}
-  \[phon & \< \rm{every, dog, barks} \>\\
-  \ldots\ cont & \[main & \@{4a} {\normalfont \sffamily bark}\]\\
-  sem & \[exc & \@2 {\normalfont \sffamily $\forall$x ($\phi$,$\psi$)}\\
-          inc & \@4 {\normalfont \sffamily bark(x)}\\
-          pts & \<\@2, \@{2a}, \@{2b}, \@3, \@{3a}, \@4, \@{4a} \>\]
-\] 
-\end{avm}\\ \& \avmbox{4} $\triangleleft$ $\psi$}
-[{\avmoptions{center}\begin{avm}
-  \[phon & \< \rm{every, dog} \>\\
-  \ldots\ cont & \[index$|$dr & \@{2a} {\normalfont \sffamily x}\\
-                      main & \@{3a} {\normalfont \sffamily dog}\]\\
-  sem & \[exc & \@2 {\normalfont \sffamily $\forall$x ($\phi$,$\psi$)}\\
-          inc & \@3 {\normalfont \sffamily dog(x)}\\
-          pts & \<\@2, \@{2a}, \@{2b}, \@3, \@{3a} \>\]
-\] 
-\end{avm}\\ \& \avmbox{3} $\triangleleft$ $\phi$}]
-[{\avmoptions{center}\begin{avm}
-  \[phon & \< \rm{barks} \>\\
-  ss$|$l & \[cat$|$val & \[subj & \< \mbox{\rm NP}$_{\avmbox{2a}}$ \>\]\\
-             cont & \[main & \@{4a} {\normalfont \sffamily bark}\]\]\\
-  sem & \[exc & \@2 \\
-          inc & \@4 {\normalfont \sffamily bark(x)}\\
-          pts &\<{\normalfont \sffamily bark}, {\normalfont \sffamily bark(\@{2a})}\>\]							 
-\]
-\end{avm}}] ]
+%\small
+\begin{forest}
+[%
+\avmtmp{
+	[phon & < \rm{every, dog, barks} >\\
+	\ldots\ cont & [main & \tag{4a} {\normalfont \sffamily bark} ] \\
+	sem &	[exc & \2 !{\normalfont \sffamily $\forall$x ($\phi$,$\psi$)}! \\
+			inc & \4 !{\normalfont \sffamily bark(x)}!\\
+			pts & <\2, \tag{2a}, \tag{2b}, \3, \tag{3a}, \4, \tag{4a}>]]
+}
+\\ \& \ibox{$4$} $\triangleleft$ $\psi$
+	[%
+	\avmtmp{
+		[phon & < \rm{every, dog} > \\
+		\ldots\ cont & [index|dr & \tag{2a} {\normalfont \sffamily x}\\
+						main & \tag{3a} {\normalfont \sffamily dog}]\\
+		sem & [exc & \2 !{\normalfont \sffamily $\forall$x ($\phi$,$\psi$)}!\\
+          inc & \3 !{\normalfont \sffamily dog(x)}! \\
+          pts & <\2, \tag{2a}, \tag{2b}, \3, \tag{3a} > ] ]
+	}
+	\\ \& \ibox{$3$} $\triangleleft$ $\phi$
+	]
+	[%
+	\avmtmp{
+		[phon & < \rm{barks} > \\
+		ss|l &	[cat|val & [subj & < NP$_{\tag{2a}}$ > ]\\
+				cont & 	[main & \tag{4a} {\normalfont \sffamily bark}]]\\
+		sem &	[exc & \2 \\
+				inc & \4 !{\normalfont \sffamily bark(x)}! \\
+				pts & <{\normalfont \sffamily bark}, !{\normalfont \sffamily bark(\tag{2a})}!> ] ]
+	}
+	]
+]
 \end{forest}
 \caption{\label{every-dog-barks-sem}The semantics of \word{every dog barks}}
 \end{figure}
 
 In Figure~\ref{every-dog-barks-sem},
 the identity of the restrictor $\phi$ of the universal quantifier with
-\avmbox{3} {\normalfont \sffamily dog(x)} and of its scope $\psi$ with \avmbox{4} {\normalfont \sffamily 
+\ibox{3} {\normalfont \sffamily dog(x)} and of its scope $\psi$ with \ibox{4} {\normalfont \sffamily 
   bark(x)} are determined at the utterance level by the lack of other
 material that could be added to the two arguments of the
 quantifier. For example, an extraposed relative clause which belongs
 to \word{every dog} could consistently contribute its meaning
 representation to the restrictor, and only the absence of such
-additional semantic material leads to the inferred identity of \avmbox{3} with
+additional semantic material leads to the inferred identity of \ibox{3} with
 $\phi$.
 
 Underspecification of the structure of meaning representations in the
@@ -990,47 +1035,55 @@ Consider the semantic representation of the \ili{Polish} sentence \word{nikt nie
 %fmr12-21: tag 2c was missing on the parts list of the mother (damn! why did I miss that before?)
 
 \begin{figure}[htbp!]\centering
-\footnotesize\begin{forest}
-[{\avmoptions{center}\begin{avm}
-  \[phon & \< \rm{nikt, nie przyszed\l} \>\\
-  \ldots\ cont & \[main & \@{4a} {\normalfont \sffamily come}\]\\
-  sem & \[exc & \@1 {\normalfont \sffamily $\neg\exists$x ($\phi$,$\psi$)}\\
-          inc & \@4 {\normalfont \sffamily come(x)}\\
-          pts & \<\@2, \@{2a}, \@{2b}, \@{2c}, \@3, \@{3a}, \@4, \@{4a} \>\]
-\] 
-\end{avm}\\ \& \avmbox{4} $\triangleleft$ $\psi$}
-[{\avmoptions{center}\begin{avm}
-  \[phon & \< \rm{nikt} \>\\
-  \ldots\ cont & \[index$|$dr & \@{2a} {\normalfont \sffamily x}\\
-                      main & \@{3a} {\normalfont \sffamily person}\]\\
-  sem & \[exc & \@2 {\normalfont \sffamily $\exists$x ($\phi$,$\psi$)}\\
-          inc & \@3 {\normalfont \sffamily person(x)}\\
-          pts & \<\@2, \@{2a}, \@{2b}, \@{2c}$\neg\beta$, \@3, \@{3a} \>\]
-\] 
-\end{avm}\\ \& \avmbox{3} $\triangleleft$ $\phi$ \& \avmbox{2} $\triangleleft$ $\beta$}]
-[{\avmoptions{center}\begin{avm}
-  \[phon & \< \rm{nie przyszed\l} \>\\
-  ss$|$l & \[cat$|$val & \[subj & \< \mbox{\rm NP}$_{\avmbox{2a}}$ \>\]\\
-             cont & \[main & \@{4a} {\normalfont \sffamily come}\]\]\\
-  sem & \[exc & \@1 \\
-          inc & \@4 {\normalfont \sffamily come(x)}\\
-          pts &\<{\normalfont \sffamily come}, {\normalfont \sffamily come(\@{2a}), \@{4b}$\neg\alpha$}\>\]							 
-\] 
-\end{avm}\\ \& \avmbox{4b} $\triangleleft$ \avmbox{1} \& \avmbox{4} $\triangleleft$ $\alpha$}] ]
+%\footnotesize
+\small
+\begin{forest}
+[%
+\avmtmp{
+	[phon & < \rm{nikt, nie przyszed\l} > \\
+	\ldots\ cont & [main & \tag{4a} {\normalfont \sffamily come}] \\
+	sem &	[exc & \1 !{\normalfont \sffamily $\neg\exists$x ($\phi$,$\psi$)}! \\
+	inc & \4 !{\normalfont \sffamily come(x)}! \\
+	pts & <\2, \tag{2a}, \tag{2b}, \tag{2c}, \3, \tag{3a}, \tag4, \tag{4a} >] ]
+}
+\\ \& \ibox{$4$} $\triangleleft$ $\psi$
+	[%
+	\avmtmp{
+		[phon & < \rm{nikt} > \\
+		\ldots\ cont &	[index|dr & \tag{2a} {\normalfont \sffamily x}\\
+	                      main & \tag{3a} {\normalfont \sffamily person} ] \\
+		sem & [exc & \2 !{\normalfont \sffamily $\exists$x ($\phi$,$\psi$)}! \\
+	          inc & \3 !{\normalfont \sffamily person(x)}! \\
+	          pts & <\2, \tag{2a}, \tag{2b}, \tag{2c}$\neg\beta$, \3, \tag{3a} >] ] 
+	}
+	\\ \& \ibox{$3$} $\triangleleft$ $\phi$ \& \ibox{$2$} $\triangleleft$ $\beta$
+	]
+	[%
+	\avmtmp{
+		[phon & < \rm{nie przyszed\l} > \\
+		ss|l &	[cat|val &	[subj & < NP$_{\tag{2a}}$ > ] \\
+             	cont & [main & \tag{4a} {\normalfont \sffamily come}] ]\\
+		sem &	[exc & \1 \\
+          		inc & \4 !{\normalfont \sffamily come(x)}!\\
+          		pts & <{\normalfont \sffamily come}, !{\normalfont \sffamily come(\tag{2a}), \tag{4b}$\neg\alpha$}!>] ]
+	}
+	\\ \& \ibox{$4$\textup{b}} $\triangleleft$ \ibox{$1$} \& \ibox{$4$} $\triangleleft$ $\alpha$
+	]
+]
 \end{forest}
 \caption{\label{polish-nc-sem}The meaning of Polish \word{nikt nie przyszed\l} `nobody came'}
 \end{figure}
 
 Negated finite verbs in \ili{Polish} contribute a negation that must be realized
-within the verb's \attrib{excont} (\avmbox{4b} $\triangleleft$ \avmbox{1}) and
-outscopes the \attrib{incont} of the verb (\avmbox{4} $\triangleleft$ $\alpha$).
+within the verb's \attrib{excont} (\ibox{4\textup{b}} $\triangleleft$ \ibox{1}) and
+outscopes the \attrib{incont} of the verb (\ibox{4} $\triangleleft$ $\alpha$).
 Similarly, the existential quantifier of the n-word \word{nikt} `nobody' is
-outscoped by negation (\avmbox{2} $\triangleleft$ $\beta$). However, in addition
+outscoped by negation (\ibox{2} $\triangleleft$ $\beta$). However, in addition
 to the familiar restriction when the quantificational subject combines
 with the finite verb, Polish as a strict negative concord language requires
 that a negated finite verb be in the scope of at most one negation in
 its \attrib{excont}, entailing identity of the two negations,
-$\avmbox{2c}=\avmbox{4b}$, and the single negation reading \word{nobody came} as
+\ibox{2\textup{c}} $=$ \ibox{4\textup{b}}, and the single negation reading \word{nobody came} as
 the only admissible reading of the sentence shown in Figure~\ref{polish-nc-sem}.
 To capture obligatory negation marking on finite words in Polish, a second
 principle of negative concord rules that if a finite verb is in the scope
