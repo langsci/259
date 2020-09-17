@@ -63,7 +63,6 @@
 \maketitle
 \label{chap-gesture}
 
-\avmoptions{}
 
 \section{Why gestures?} 
 \label{sec:why-gestures}
@@ -551,46 +550,46 @@ multichart 2: \{[s,1,2], [g,3,4]\} \\
 % The meaning (\textit{content}) of a gesture of category (\textit{cat}) \textit{spatial\_gesture}  like \enquote*{\Pointing} is represented as a \textit{latitude-longitude} coordinate pair \citep{Johnston:1998}:
 % %
 % \ea
-% \begin{avm}
+% \avmtmp{
 % \[cat: & \textit{spatial\_gesture} \\
 %   content: & \[fsType: & \textit{point} \\
-%                coord: & \textit{latlong}$(x,y)$\]
-% \]
-% \end{avm}
+%                coord: & \textit{latlong}$(x,y)$]
+% ]
+% }
 % \z
 
 
 The basic rule for integrating spatial gestures with speech commands is the \emph{basic integration scheme} \citep{Johnston:1998,Johnston:et:al:1997}, reproduced in (\ref{ex:basic-integration-scheme}): \is{basic integration scheme} \is{multimodal integration scheme}
 %
 \ea \label{ex:basic-integration-scheme}
-\begin{avm}
-  \[lhs : & \[cat : & \textit{command} \\
- 	modality : & \@2 \\
-  	content : & \@1 \\
-    time : & \@3\] \\
-    rhs : & \[dtr1 : & \[cat : & \textit{located\_command} \\
-	modality : & \@6 \\
-    content : & \@1\textup{[}location \@5\textup{]} \\
-    time : & \@7\] \\
-    dtr2 : & \[cat : & \textit{spatial\_gesture} \\
-    content : & \@5 \\
-    modality :& \@9 \\
-    time :& \@{10}\]\] \\
-    constraints : & \{overlap(\@7,\@{10}) $\lor$ follow(\@7,\@{10},\texttt{4}s) \\
-    total-time(\@7,\@{10},\@3) \\ 
-    assign-modality(\@6,\@9,\@2)\}\]
-\end{avm}
+%\avmtmp{
+%  \[lhs : & \[cat : & \textit{command} \\
+% 	modality : & \@2 \\
+%  	content : & \@1 \\
+%    time : & \@3] \\
+%    rhs : & \[dtr1 : & \[cat : & \textit{located\_command} \\
+%	modality : & \@6 \\
+%    content : & \@1\textup{[}location \@5\textup{]} \\
+%    time : & \@7] \\
+%    dtr2 : & \[cat : & \textit{spatial\_gesture} \\
+%    content : & \@5 \\
+%    modality :& \@9 \\
+%    time :& \@{10}]] \\
+%    constraints : & \{overlap(\@7,\@{10}) $\lor$ follow(\@7,\@{10},\texttt{4}s) \\
+%    total-time(\@7,\@{10},\@3) \\ 
+%    assign-modality(\@6,\@9,\@2)\}]
+%}
 \z
 
 The AVM in (\ref{ex:basic-integration-scheme}) implements a mother-daughter structure along the lines of a context-free grammar rule, where a left-hand side (\textsc{lhs}) expands to a right-hand side (\textsc{rhs}).
 %
 The right-hand side consists of two constituents (daughters \textsc{dtr1} and \textsc{dtr2}), a verbal expression (\textit{located\_command}) \istype{located\_command} and a gesture.
 %
-The semantic integration between both modalities is achieved in terms of \isi{structure sharing}, see tag \avmbox{5}: 
+The semantic integration between both modalities is achieved in terms of \isi{structure sharing}, see tag \ibox{5}: 
 %
 the spatial gesture provides the location coordinate for the verbal command. 
 
-The \isi{bimodal integration} is constrained by a set of restrictions, mainly regulating the \isi{temporal relationship} between speech and gesture (see tags \avmbox{7} and \avmbox{10} in the \textsc{constraints} set): 
+The \isi{bimodal integration} is constrained by a set of restrictions, mainly regulating the \isi{temporal relationship} between speech and gesture (see tags \ibox{7} and \ibox{10} in the \textsc{constraints} set): 
 %
 the gesture may overlap with its affiliated \is{affiliate} word in time, or follow it in at most four seconds (see the \texttt{4}s under \textsc{constraints}).
 %
@@ -610,26 +609,25 @@ A representation format that captures the \enquote{phonological}, physical-kinem
 For instance, the representation of the gesture in Figure~\ref{fig:staircases} according to the format used in \citet{Luecking:Bergmann:Hahn:Kopp:Rieser:2010} is given in (\ref{ex:gesture-representation}):
 
 \ea \label{ex:gesture-representation}
-\begin{avm}
-  \[\asort{right hand}
-    handshape &\[shape & G \\ 
-      path & 0 \\
-      dir & 0 \] \\
-    palm & \[orient & PAB>PAB/PUP>PAB\\
-      path & 0 \\
-      dir & 0 \] \\
-    boh & \[orient & BUP>BTB/BUP>BUP \\
-      path & arc>arc>arc \\
-      dir & MR>MF>ML\] \\
-    wrist & \[position & P-R\\
-      path & line \\
-      dir & MU \\
-      dist & D-EK\\
-      extent & small\]  \\
-    sync & \[config & BHA \\
-      rel.mov & LHH \]
-  \]
-\end{avm}
+\avmtmp{
+[\type*{right hand}
+handshape &	[shape & G \\ 
+      		path & 0 \\
+      		dir & 0] \\
+palm &	[orient & PAB!>!PAB/PUP!>!PAB\\
+      	path & 0 \\
+      	dir & 0] \\
+boh & [orient & BUP!>!BTB/BUP!>!BUP \\
+      path & arc!>!arc!>!arc \\
+      dir & MR!>!MF!>!ML] \\
+wrist &	[position & P-R\\
+      	path & line \\
+     	 dir & MU \\
+      	dist & D-EK\\
+      	extent & small] \\
+sync &	[config & BHA \\
+      	rel.mov & LHH] ]
+}
 \z
 
 The formal description of a gestural movement is given in terms of the \isi{handshape}, \isfeat{handshape} the orientations of the palm \isfeat{palm} and the back of the hand (\textsc{boh}), \isfeat{boh} the \isi{movement trajectory} (if any) of the wrist \isfeat{wrist} and the relation between both hands (synchronicity, \textsc{sync}).\isfeat{sync} 
@@ -811,33 +809,36 @@ Take [the $\searrow$[N$'$ [N$'$ red bolt]]]
 \ex \label{ex:take-tree}
 \begin{forest}
 baseline
-[\begin{avm}
-    \[syn & \[\asort{gram-cat} 
-              head & \@1 \\
-              spr & \q< \@2 \@> \\
-              comps & \avmel \] \\
-     sem & $\lambda x (\textit{salient}(x) \wedge \textit{red}(x) \wedge \text{bolt}(x))$
-    \]
-   \end{avm}
-  [\begin{avm}
-    \[syn & \[\asort{gram-cat} 
-              head & \[\asort{deictic}
-                        mod & \q< \@3 \q> \\
-                        func & restrictor \] \\
-              spr & \avmel \\
-              comps & \avmel \] \\
-     sem & $\lambda F \lambda x (\textit{salient}(x) \wedge F(x))$
-    \]
-   \end{avm}
+[%
+\avmtmp{
+    [syn & [\type*{gram-cat} 
+              head & \1 \\
+              spr & < \2 > \\
+              comps & < > ] \\
+     sem & $\lambda x$\upshape!(\type{salient}($x$) $\land$ \type{red}($x$) $\land$ \type{bolt}($x$))!
+    ]
+}
+  [%
+  \avmtmp{
+    [syn & [\type*{gram-cat} 
+              head & [\type*{deictic}
+                        mod & < \3 > \\
+                        func & restrictor ] \\
+              spr & < > \\
+              comps & < > ] \\
+     sem & $\lambda F \lambda x$\upshape!(\type{salient}($x$) $\land F$($x$))!
+    ]
+   }
   [$\searrow$]]
-  [\begin{avm}
-    \@{3}\[syn & \[\asort{gram-cat} 
-              head & \@1 \\
-              spr & \q< \@2 \q> \\
-              comps & \avmel \] \\
-     sem & $\lambda y (\textit{red}(y) \wedge \text{bolt}(y))$
-    \]
-   \end{avm}
+  [%
+  \avmtmp{
+    \3[syn & [\type*{gram-cat} 
+              head & \1 \\
+              spr & < \2 > \\
+              comps & < > ] \\
+     sem & $\lambda y$\upshape!(\type{red}($y$) $\land$ \type{bolt}($y$))!
+    ]
+   }
   [red bolt, roof]]
 ]
 \end{forest}
@@ -893,33 +894,30 @@ Under certain conditions, including when a deictic gesture is direct (i.e.\ $\ve
 \ea
 \emph{Situated Prosodic Word Constraint} \protect\citep[\page 445]{Alahverdzhieva:Lascarides:Flickinger:2017}:\\*
 \label{ex:pwc}
-\begin{avm}
-\[\asort{word} 
-overlap & \<@7, @8\> \\
+\avmtmp{
+[\type*{word} 
+overlap & <@7, @8> \\
 time & \textup{@7 $\cup$ @8} \\
 phon & \textup{@3} \\
-synsem & \[cat & \textup{@5} \\ 
-           cont & \[rels & \avmbox{C\textsubscript{rel}} $\oplus$ \avmbox{S\textsubscript{rel}} $\oplus$ \avmbox{G\textsubscript{rel}} \\
-                    hcons & \avmbox{S\textsubscript{hc}} $\oplus$ \avmbox{G\textsubscript{hc}}\] 
-         \] \\
-s-dtr & \[\asort{word}
+synsem & [cat & \textup{@5} \\ 
+           cont & [rels & \tag{C\textsubscript{rel}} $\oplus$ \tag{S\textsubscript{rel}} $\oplus$ \tag{G\textsubscript{rel}} \\
+                    hcons & \tag{S\textsubscript{hc}} $\oplus$ \tag{G\textsubscript{hc}}] ] \\
+s-dtr & [\type*{word}
           time & \textup{@7} \\
           phon & \textup{@3}nuclear\_or\_pre-nuclear \\
-          synsem & \[cat & \textup{@5} \\
-                     cont & \[rels & \avmbox{S\textsubscript{rel}} \\
-                              hcons & \avmbox{S\textsubscript{hc}}hcons\]
-                   \]
-        \] \\
-g-dtr & \[\asort{depicting\_or\_deictic}
+          synsem & [cat & \textup{@5} \\
+                     cont & [rels & \tag{S\textsubscript{rel}} \\
+                              hcons & \tag{S\textsubscript{hc}}hcons] ] ] \\
+g-dtr & [\type*{depicting\_or\_deictic}
           time & \textup{@8} \\
-          synsem & \[cat & \[g-feature & value \\ \ldots\] \\
-                     cont & \[rels & \avmbox{G\textsubscript{rel}} \\
-                              hcons & \avmbox{G\textsubscript{hc}}\]
-                   \]
-        \] \\
-c-cont.rels & \avmbox{C\textsubscript{rel}}
-\]
-\end{avm}
+          synsem & [cat & [g-feature & value \\ \ldots] \\
+                     cont & [rels & \tag{G\textsubscript{rel}} \\
+                              hcons & \tag{G\textsubscript{hc}}]
+                   ]
+        ] \\
+c-cont.rels & \tag{C\textsubscript{rel}}
+]
+}
 \z
 
 In order to deal with gestures that are affiliated with expressions that are larger than single words, \citet{Alahverdzhieva:Lascarides:Flickinger:2017} also develop a phrase or sentence level integration scheme, where the stressed element has to be a semantic head (in the study of \citealt{Mehler:Luecking:2012:d}, 18.8\% of the gestures had a phrasal affiliate).
@@ -965,23 +963,23 @@ These perceptual features serve as the integration locus for iconic gestures, us
 The integration scheme for achieving this is the following one \citep[\page 249]{Luecking:2013:a} (omitting the time constraint used in the basic integration scheme in \ref{ex:basic-integration-scheme}): \is{speech-gesture ensemble}
 %
 \ea \label{ex:sg-ensemble}
-\begin{avm}
-    \[\asort{sg-ensemble}
-    phon & \@{12}\\
-    cat & \@2\\
-    cont & \@3\[restr & \<\ldots , \@5\[\asort{pred} 
-                     cvm & \@1\] , \ldots\>\]\\
-    s-dtr & \[\asort{verbal-sign}
-            phon & \@{12}\[accent & \@6\]\\
-            cat & \@2\\
-            cont & \@3\]\\
-    g-dtr & \[\asort{gesture-vec}
-            aff & \<\[phon & \[accent &\@6\textit{marked}\]\]\>\\ 
-            traj & \@1\\
-            cont & \[mode & exemplification\\
-                   ex-pred & \@5\]\]
-               \]
-\end{avm}
+\avmtmp{
+    [\type*{sg-ensemble}
+    phon & \12 \\
+    cat & \2 \\
+    cont & \3 [restr & <\ldots , \5[\type*{pred} 
+                    				 cvm & \1]
+                    	, \ldots> ] \\
+    s-dtr & [\type*{verbal-sign}
+            phon & \12[accent & \6] \\
+            cat & \2 \\
+            cont & \3] \\
+    g-dtr & [\type*{gesture-vec}
+            aff & <[phon & [accent &\6\textit{marked}]]> \\ 
+            traj & \1 \\
+            cont & [mode & exemplification \\
+                   ex-pred & \5] ] ]
+}
 \z
 
 Comparable to a modifier, a gesture attaches to an affiliate via feature \textsc{aff}, \isfeat{aff} which in turn is required to carry intonational accent, expressed in terms of information packaging developed by \cite{Engdahl:Vallduvi:1996} (cf. \crossrefchapteralt{information-structure}).
@@ -1004,14 +1002,12 @@ Both steps are illustrated by means of the simple example shown in Figure~\ref{f
 The kinematic gesture representation of the movement carried out (\textsc{carrier}) \isfeat{carrier} by the wrist \isfeat{wrist.mov} -- \textit{move up}, \textit{move left}, \textit{move down}, which are concatenated (``$\oplus$'') by movement steps in a bent (\enquote{\ensuremath{\oplus_\smallsmile}}, as opposed to rectangular \enquote{\ensuremath{\oplus_\llcorner}}) way (cf. also Figure~\ref{fig:move-direction}) -- is translated via vectorising function \textbf{V} into a vector trajectory (\textsc{traj(ectory)}) \isfeat{traj(ectory)} from the three-dimensional vector space, cf. Figure~\ref{fig:gesture-space}:\footnote{Vectors within gesture space can be conceived of as equivalence classes over concrete movement annotation predicates.}
 %
 \ea \label{ex:half-circle-gesture}
-\begin{avm}
-\[\asort{gesture-vec}
-   traj & \[\textbf{V}\@1$=$\textbf{UP} \ensuremath{\oplus_\smallsmile}\ \textbf{$-$RT} \ensuremath{\oplus_\smallsmile}\ \textbf{$-$UP}\] \\
-   carrier & \[\asort{gesture}
-                morph & \[wrist.mov & \@1mu \ensuremath{\oplus_\smallsmile}\ ml \ensuremath{\oplus_\smallsmile}\ md\]
-             \]
- \]
-\end{avm}
+\avmtmp{
+[\type*{gesture-vec}
+   traj & [\textbf{V}\1$=$\textbf{UP} \ensuremath{\oplus_\smallsmile}\ \textbf{$-$RT} \ensuremath{\oplus_\smallsmile}\ \textbf{$-$UP}] \\
+   carrier & [\type*{gesture}
+                morph & [wrist.mov & \1 mu \ensuremath{\oplus_\smallsmile}\ ml \ensuremath{\oplus_\smallsmile}\ md] ] ]
+}
 \z
 
 The lexical entry for \textit{semicircle} is endowed with a \emph{conceptual vector meaning} \is{conceptual vector meaning} attribute \textsc{cvm}.\isfeat{cvm}
@@ -1027,29 +1023,29 @@ This information is added in terms of a form predicate to the restriction list o
 Licensed by the speech-gesture integration scheme in (\ref{ex:sg-ensemble}), the half-circular gesture trajectory from (\ref{ex:half-circle-gesture}) and its affiliate expression \textit{semicircle} can enter into an ensemble construction, as shown in (\ref{ex:half-circle}):
 
 \ea \label{ex:half-circle}
-\begin{avm}
-    \[\asort{sg-ensemble}
-    phon & \<\@1\[seg & \textit{semicircle}\]\>\\
-    cat & \@2\[head & \textit{noun}\]\\
-    cont & \@3\[index & \textit{i}\\
-             restr & \<\[\asort{geom-obj-pred} 
-             reln & semicircle\\inst & \textit{i}\] , 
-             \@5\[\asort{form-pred}
+\avmtmp{
+    [\type*{sg-ensemble}
+    phon & <\1 [seg & semicircle]>\\
+    cat & \2 [head & noun]\\
+    cont & \3 [index & i\\
+             restr & <[\type*{geom-obj-pred} 
+             		reln & semicircle\\
+             		inst & i] , 
+             \5 [\type*{form-pred}
                      reln & round2\\
-                     arg & \textit{i}\\
-                     cvm & \[vec & axis-path(\textit{i},\textbf{v})\\
-                           path & \@7\]\]\>\]\\
-    s-dtr & \[\asort{verbal-sign}
-            phon & \@1\[accent & \@6\]\\
-            cat & \@2\\
-            cont & \@3\]\\
-    g-dtr & \[\asort{gesture-vec}
-            aff & \<\[phon & \[accent &\@6\textit{marked}\]\]\>\\ 
-            traj & \@7\textbf{UP} \ensuremath{\oplus_\smallsmile}\ \textbf{$-$RT} \ensuremath{\oplus_\smallsmile}\ \textbf{$-$UP}\\
-            cont & \[mode & exemplification\\
-                   ex-pred & \@5\]\]
-               \]
-\end{avm}
+                     arg & i \\
+                     cvm & [vec & axis-path!(i,\textbf{v})! \\
+                           path & \7]]>]\\
+    s-dtr & [\type*{verbal-sign}
+            phon & \1 [accent & \6]\\
+            cat & \2\\
+            cont & \3]\\
+    g-dtr & [\type*{gesture-vec}
+            aff & <[phon & [accent &\6 marked]]>\\ 
+            traj & \7\textbf{UP} \ensuremath{\oplus_\smallsmile}\ \textbf{$-$RT} \ensuremath{\oplus_\smallsmile}\ \textbf{$-$UP}\\
+            cont & [mode & exemplification\\
+                   ex-pred & \5]] ]
+}
 \z
 
 By extending lexical entries with frame information from \isi{frame semantics} \citep{Fillmore82a-u}, also the exemplification of non-overtly-expressed predicates becomes feasible \citep[Sec.~9.2.1]{Luecking:2013:a}; a datum showing this case has already been given with the \emph{spiral staircases} in (\ref{ex:staircases})/Figure~\ref{fig:staircases}.
@@ -1075,15 +1071,15 @@ Let us illustrate this by means of Example 1 from \citet{Alahverdzhieva:Lascarid
 Using a variant of a kinematic representation format for gestures (cf. Section~\ref{sec:repr-gest-with}), the right hand from example \ref{ex:mud} is notated as follows \citep[\page 440]{Alahverdzhieva:Lascarides:Flickinger:2017}:
 %
 \ea \label{ex:mud-gesture}
-\begin{avm}
-\[\asort{depict-literal}
+\avmtmp{
+[\type*{depict-literal}
 hand-shape & bent \\
 palm-orient & towards-down \\
 finger-orient & towards-down \\
 hand-location & lower-periphery \\
 hand-movement & circular 
-\]
-\end{avm}
+]
+}
 \z
 
 Each feature value pair from the gesture's representation in (\ref{ex:mud-gesture}) is mapped onto an RMRS-based underspecified representation \citep[\page 442]{Alahverdzhieva:Lascarides:Flickinger:2017}:
@@ -1103,80 +1099,71 @@ Note that all predicates mapped from the gesture in (\ref{ex:mud-rmrs}) fall wit
 Regimented by the \emph{Situated Prosodic Word Constraint} \is{Situated Prosodic Word Constraint} from (\ref{ex:pwc}), the underspecified semantic description of the gesture in (\ref{ex:mud-rmrs}) and its affiliated noun \textit{mud} can enter into the multimodal construction given in Figure~\ref{fig:mud} (where the gesture features are partly omitted for the sake of brevity).
 
 \begin{figure}
+	\resizebox{\textwidth}{!}{
 \begin{forest}
 [{
-  \begin{avm}
-    \[overlap & \<\@1, \@2\> \\
-    time & \textup{\@1 $\cup$ \@2} \\
+  \avmtmp{
+    [overlap & < \1 , \2 > \\
+    time & \1 $\cup$ \2 \\
     phon & nuclear \\
     cat & N$'$ \\
-    cont & \[top & $h_1$ \\ 
-             hk & \[ltop & $l_7$ \\ idx & $x_2$\] \\
-             rl & \<
-                  \[\asort{vis\_rel}
+    cont & [top & $h_1$ \\ 
+             hk & [ltop & $l_7$ \\ idx & $x_2$] \\
+             rl & <[\type*{vis\_rel}
                   lbl & $l_7$ \\
                   arg0 & $e_1$ \\
                   s-lbl & $l_6$ \\
                   g-lbl & $l_0$ \\
-                  m-arg & $x_2$ 
-                  \], 
-                  \avmbox{N\textsubscript{sem}}, 
-                  \avmbox{G\textsubscript{sem}}, 
-                  \> \\
-             hc & \avmbox{G\textsubscript{$=q$}}
-           \]
-    \]
-  \end{avm}
+                  m-arg & $x_2$ ],
+                  \tag{N\textsubscript{sem}}, 
+                  \tag{G\textsubscript{sem}}, > \\
+             hc & \tag{G$_{=q}$}
+           ]
+    ]
+  }
 }
-[{
-  \begin{avm}
-    \[time & \textup{\@1} \\
+[%
+  \avmtmp{
+    [time & \1 \\
     phon & nuclear \\
     cat & N \\
-    cont & \[top & $h_1$ \\
-             hk & \[ltop & $l_6$ \\ idx & $x_1$\] \\
-             rl & \avmbox{N\textsubscript{sem}}\<
-                                               \[\asort{\_mud\_n\_1} 
-                                               lbl & $l_6$ \\
-                                               arg0 & $x1$
-                                               \]
-                                               \>
-           \]
-    \]
-  \end{avm}
-} [\textit{mud}]]
-[{
-  \begin{avm}
-    \[time & \textup{\@2} \\
-    cont & \[top & $h_1$ \\
-            hk & \[ltop & $l_0$ \\ idx & $i_{1--5}$\] \\
-            rl & \avmbox{G\textsubscript{sem}}\<
-                                              \[\asort{$[\mathcal{G}]$}
-                                              lbl & $l_0$ \\
-                                              arg0 & $h_0$
-                                              \], 
-                                              \[\asort{hand\_shape\_bent}
-                                              lbl & $l_1$ \\
-                                              arg0 & $i_1$
-                                              \], \ldots, \avmr \\ & \avml
-                                              \qquad\quad\[\asort{hand\_movement\_circular}
-                                              lbl & $l_5$ \\
-                                              arg0 & $i_5$
-                                              \]
-                                              \>\\
-            hc & \avmbox{G\textsubscript{$=q$}}\{$h_0 =_q l_1, \ldots, h_0 =_q l_5$\}
-           \]
-    \]
-  \end{avm}
-} [{
-  \begin{avm}
-    \[hand-shape & bent \\
-    hand-movement & circular\]
-  \end{avm}
-}]
+    cont & [top & $h_1$ \\
+             hk & [ltop & $l_6$ \\ idx & $x_1$] \\
+             rl & \tag{N\textsubscript{sem}} <[\type*{\_mud\_n\_1} 
+                                             lbl & $l_6$ \\
+                                             arg0 & $x1$]> ] ]
+  }
+	[\textit{mud}]]
+[%
+  \avmtmp{
+    [time & \2 \\
+    cont & [top & $h_1$ \\
+            hk & [ltop & $l_0$ \\
+            idx & $i_{1--5}$] \\
+            rl & \tag{G\textsubscript{sem}} <[!$[\mathcal{G}]$! \\
+                                            lbl & $l_0$ \\
+                                            arg0 & $h_0$]
+                                            , 
+                                            [\type*{hand\_shape\_bent}
+                                            lbl & $l_1$ \\
+                                            arg0 & $i_1$]
+                                            , \ldots, \\
+                                       ~[\type*{hand\_movement\_circular}
+                                            lbl & $l_5$ \\
+                                            arg0 & $i_5$]\\
+                                            > \\
+            hc & \tag{G$_{=q}$}\{$h_0 =_q l_1, \ldots, h_0 =_q l_5$\} ] ]
+  }
+[%
+  \avmtmp{
+    [hand-shape & bent \\
+    hand-movement & circular]
+  }
+]
 ]
 ]
 \end{forest}
+}
 \caption{Derivation tree for depicting gesture and its affiliate noun \emph{mud} \protect\citep[\page 447]{Alahverdzhieva:Lascarides:Flickinger:2017}}
 \label{fig:mud}
 \end{figure}
