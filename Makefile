@@ -356,9 +356,10 @@ proofreading: proofreading.pdf
 proofreading.pdf: main.pdf
 	pdftk main.pdf multistamp prstamp.pdf output proofreading.pdf 
 
+
 # extract all bibtex items and then remove irrelevant fields with --tool
 hpsg-handbook-bibliography.bib: $(Bibliographies) main.bcf
-	biber --output_format=bibtex --output-field-replace=location:address,journaltitle:journal,date:year --output-legacy-date main.bcf -O hpsg-handbook-bibliography_tmp.bib 
+	biber --output_format=bibtex --output-legacy-date main.bcf -O hpsg-handbook-bibliography_tmp.bib 
 	biber --tool --configfile=biber-tool.conf --output-field-replace=location:address,journaltitle:journal,date:year --output-legacy-dates hpsg-handbook-bibliography_tmp.bib -O hpsg-handbook-bibliography.bib
 
 references.pdf: references.tex hpsg-handbook-bibliography.bib
