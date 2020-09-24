@@ -362,6 +362,10 @@ hpsg-handbook-bibliography.bib: $(Bibliographies) main.bcf
 	biber --output_format=bibtex --output-legacy-date main.bcf -O hpsg-handbook-bibliography_tmp.bib 
 	biber --tool --configfile=biber-tool.conf --output-field-replace=location:address,journaltitle:journal,date:year --output-legacy-dates hpsg-handbook-bibliography_tmp.bib -O hpsg-handbook-bibliography.bib
 
+check-bib: hpsg-handbook-bibliography.bib
+	biber --validate-datamodel references
+#	biber --tool --configfile=biber-tool.conf -V hpsg-handbook-bibliography_tmp.bib
+
 references.pdf: references.tex hpsg-handbook-bibliography.bib
 	xelatex references
 	biber references

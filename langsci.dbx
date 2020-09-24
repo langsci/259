@@ -1,3 +1,208 @@
 \DeclareDatamodelFields[type=list, datatype=name]{
   authauthor,autheditor}
 \DeclareDatamodelEntryfields{authauthor,autheditor}
+
+% We also want to have this for books. Otherwise
+%
+% biber --validate-datamodel main
+%
+% complains.
+
+\DeclareDatamodelEntryfields[book,proceedings]{
+  booktitle}
+
+\DeclareDatamodelEntryfields[article]{
+  publisher}
+  
+\ResetDatamodelConstraints
+
+\DeclareDatamodelConstraints[
+  article,
+  book,
+  inbook,
+  bookinbook,
+  suppbook,
+  booklet,
+  collection,
+  incollection,
+  suppcollection,
+  manual,
+  misc,
+  mvbook,
+  mvcollection,
+  online,
+  patent,
+  periodical,
+  suppperiodical,
+  proceedings,
+  inproceedings,
+  reference,
+  inreference,
+  report,
+  set,
+  thesis,
+  unpublished]{
+    \constraint[type=mandatory]{
+      \constraintfieldsxor{
+        \constraintfield{date}
+        \constraintfield{year}
+      }
+    }
+  }
+
+\DeclareDatamodelConstraints[set]{
+  \constraint[type=mandatory]{
+    \constraintfield{entryset}
+  }
+}
+
+\DeclareDatamodelConstraints[article]{
+  \constraint[type=mandatory]{
+    \constraintfield{author}
+    \constraintfield{journaltitle}
+    \constraintfield{title}
+  }
+}
+
+\DeclareDatamodelConstraints[book,mvbook,mvcollection,mvreference]{
+  \constraint[type=mandatory]{
+    \constraintfield{title}
+%\constraintfield{series}
+%\constraintfield{number}
+  }
+}
+
+\DeclareDatamodelConstraints[inbook,bookinbook,suppbook]{
+  \constraint[type=mandatory]{
+    \constraintfield{author}
+    \constraintfield{title}
+    \constraintfield{booktitle}
+  }
+}
+
+\DeclareDatamodelConstraints[booklet]{
+  \constraint[type=mandatory]{
+    \constraintfieldsor{
+      \constraintfield{author}
+      \constraintfield{editor}
+    }
+    \constraintfield{title}
+  }
+}
+
+\DeclareDatamodelConstraints[collection,reference]{
+  \constraint[type=mandatory]{
+    \constraintfield{editor}
+    \constraintfield{title}
+  }
+}
+
+\DeclareDatamodelConstraints[incollection,suppcollection,inreference]{
+  \constraint[type=mandatory]{
+    \constraintfield{author}
+    \constraintfield{editor}
+    \constraintfield{title}
+    \constraintfield{booktitle}
+%\constraintfield{series}
+%\constraintfield{number}
+  }
+}
+
+\DeclareDatamodelConstraints[dataset]{
+  \constraint[type=mandatory]{
+    \constraintfield{title}
+  }
+}
+
+\DeclareDatamodelConstraints[manual]{
+  \constraint[type=mandatory]{
+    \constraintfield{title}
+  }
+}
+
+\DeclareDatamodelConstraints[misc,software]{
+  \constraint[type=mandatory]{
+    \constraintfield{title}
+  }
+}
+
+\DeclareDatamodelConstraints[online]{
+  \constraint[type=mandatory]{
+    \constraintfield{title}
+    \constraintfieldsor{
+      \constraintfield{url}
+      \constraintfield{doi}
+      \constraintfield{eprint}
+    }
+  }
+}
+
+\DeclareDatamodelConstraints[patent]{
+  \constraint[type=mandatory]{
+    \constraintfield{author}
+    \constraintfield{title}
+    \constraintfield{number}
+  }
+}
+
+\DeclareDatamodelConstraints[periodical]{
+  \constraint[type=mandatory]{
+    \constraintfield{editor}
+    \constraintfield{title}
+  }
+}
+
+\DeclareDatamodelConstraints[proceedings,mvproceedings]{
+  \constraint[type=mandatory]{
+    \constraintfield{title}
+  }
+}
+
+\DeclareDatamodelConstraints[inproceedings]{
+  \constraint[type=mandatory]{
+    \constraintfield{author}
+    \constraintfield{title}
+    \constraintfield{booktitle}
+  }
+}
+
+\DeclareDatamodelConstraints[report]{
+  \constraint[type=mandatory]{
+    \constraintfield{author}
+    \constraintfield{title}
+    \constraintfield{type}
+    \constraintfield{institution}
+  }
+}
+
+\DeclareDatamodelConstraints[thesis]{
+  \constraint[type=mandatory]{
+    \constraintfield{author}
+    \constraintfield{title}
+    \constraintfield{type}
+    \constraintfield{institution}
+  }
+}
+
+\DeclareDatamodelConstraints[unpublished]{
+  \constraint[type=mandatory]{
+    \constraintfield{author}
+    \constraintfield{title}
+  }
+}
+
+\DeclareDatamodelConstraints{
+  \constraint[type=data, datatype=isbn]{
+    \constraintfield{isbn}
+  }
+  \constraint[type=data, datatype=issn]{
+    \constraintfield{issn}
+  }
+  \constraint[type=data, datatype=ismn]{
+    \constraintfield{ismn}
+  }
+  \constraint[type=data, datatype=pattern, pattern=\regexp{(?:sf|sm|sn|pf|pm|pn|pp)}]{
+    \constraintfield{gender}
+  }
+}
+
