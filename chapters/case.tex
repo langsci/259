@@ -294,48 +294,49 @@ Both \citet{Pollard94a} and \citet{HM94a} account for such facts via configurati
 \citet[209–210]{HM94a} formalize this \princ{Case Principle} by
 giving the following constraints:
 \ea \label{ex:cons:snom}
-\onems[phrase]{
-synsem|loc|cat \ms{ head & \ms[verb]{
-                         vform & fin
-                         }\\
-                    subcat & \eliste
-                  }\\
-dtrs \ms[h-c-str]{
-     head-dtr|\ldots|subcat & \sliste{ NP[\type{str}], \ldots }\\
-     }
-} \impl\\
-  \hspace*{\fill}
-  \ms{
-    dtrs$|$head-dtr$|$\ldots$|$subcat & \sliste{ NP[\type{snom}], \ldots } }
-\z
-\ea
+\avmtmp{
+[\type*{phrase}
+\punk{synsem|loc|cat}{[head & [\type*{verb}
+                         	vform & fin] \\
+                    subcat & < > ]} \\
+dtrs & [\type*{h-c-str}
+     	head-dtr|\ldots|subcat & < NP![\type{str}]!, \ldots > ] ]
+}
+\impl\\
+\hfill
+\avmtmp{
+[dtrs|head-dtr|\ldots|subcat & < NP![\type{snom}]!, \ldots > ]
+}
+%%
+\ex
 \label{ex:cons:sacc}
-\onems[phrase]{
-synsem|loc|cat \ms{ head & \ms[verb]{
-                         vform & fin
-                         }\\
-                    subcat & \eliste\ $\vee$ \sliste{ \type{synsem} }
-                  }\\
-dtrs \ms[h-c-str]{
-     head-dtr|\ldots|subcat & \sliste{ \type{synsem}, NP[\type{str}], \ldots }\\
-     }
-} \impl\\
-  \hspace*{\fill}
-  \ms{
-    dtrs$|$head-dtr$|$\ldots$|$subcat & \sliste{ \type{synsem}, NP[\type{sacc}]}, \ldots }
-\z
-\ea
-\onems[phrase]{
-synsem|loc|cat \ms{ head & noun\\
-                    subcat & \eliste\ $\vee$ \sliste{ \type{synsem} }
-                  }\\
-dtrs \ms[h-c-str]{
-     head-dtr|\ldots|subcat & \sliste{ \type{synsem}, NP[\type{str}], \ldots }\\
-     }
-} \impl\\
-  \hspace*{\fill}
-  \ms{
-    dtrs$|$head-dtr$|$\ldots$|$subcat & \sliste{ \type{synsem}, NP[\type{sgen}]}, \ldots }
+\avmtmp{
+[\type*{phrase}
+\punk{synsem|loc|cat}{[head & [\type*{verb}
+                         	vform & fin ] \\
+                    subcat & < > $\lor$ < \type{synsem} > ]} \\
+dtrs & [\type*{h-c-str}
+    	head-dtr|\ldots|subcat & < \type{synsem}, NP![\type{str}]!, \ldots > ] ]
+}
+\impl\\
+\hfill
+\avmtmp{
+[dtrs|head-dtr|\ldots|subcat & < \type{synsem}, NP![\type{sacc}]! >, \ldots ]
+}
+%%
+\ex
+\avmtmp{
+[\type*{phrase}
+\punk{synsem|loc|cat}{[head & noun \\
+                    subcat & < > $\lor$ < \type{synsem} > ]} \\
+dtrs & [\type*{h-c-str}
+     	head-dtr|\ldots|subcat & < \type{synsem}, NP![\type{str}]!, \ldots > ] ]
+}
+\impl\\
+\hfill
+\avmtmp{
+[dtrs|head-dtr|\ldots|subcat & < \type{synsem}, NP![\type{sgen}]! >, \ldots ]
+}
 \z
 Note that the locus of this \princ{Case Principle} is \ftype{phrase} and that it makes reference to \ftype{head-complement-structure} values of the \path{daughters} (\path{dtrs}) attribute.  In this sense, this principle is configurational.  Similar principles were proposed for \ili{Korean} \citep{Yoo93a-u,brat:96}, \ili{English} \citep{Grover95a-u} and \ili{Polish} \citep{prze:95b}, \emph{inter alia}.
 
@@ -344,22 +345,23 @@ This configurational approach to case assignment is criticised in \citet{prze:96
 The solution proposed in \citet{prze:96,Prze99b,Prze99} is to resolve structural cases directly within \path{arg-st}, via local principles operating at the level of \ftype{category} of a~word (where both head information and argument structure information – but not constituent structure – are available) rather than at the level of \ftype{phrase}.  This seems to bring back the problem, discussed in connection with the \ili{Icelandic} data above, of raised arguments, which occur on a~number of \path{arg-st} lists.  The innovation of \citet{prze:96,Prze99b,Prze99} is the proposal to mark, within \textsc{arg-st}, whether a~given argument is realised locally (either tree-con\-fi\-gu\-ra\-tio\-nal\-ly, or as a~gap to be extracted higher on, or as an affix) or not.  If it is realised locally, it may be assigned appropriate case; if it is not (because it is raised), its structural case must be resolved higher up.  On this setup, the above constraints \rref{ex:cons:snom}–\rref{ex:cons:sacc} responsible for the assignment of structural nominative and accusative are replaced with the following two constraints (and similarly for the structural genitive):\footnote{The antecedents of such principles could be further constrained to apply to \ftype{word}s only. As usual, `$\oplus$' indicates concatenation of lists.}
 \ea
 \label{nonc:cp:germ1}
-\ms{
-    head & verb \\
-    arg-st & \liste{ \ms{ arg NP[\type{str}] \\
-                          realized $+$} } $\oplus$ \ibox{2}}
-  \impl 
-  \ms{
-    arg-st \liste{ \ms{ arg  NP[\type{snom}] }} $\oplus$ \ibox{2}} 
-\z
-\ea \label{nonc:cp:germ2}
-\ms{
-    head & verb \\
-    arg-st & \ibox{1} \type{nelist} $\oplus$ \liste{ \ms{ arg NP[\type{str}] \\
-                          realized $+$} } $\oplus$ \ibox{2}}
-  \impl\\ 
-  \ms{
-    arg-st \ibox{1} $\oplus$ \liste{ \ms{ arg  NP[\type{snom}] }} $\oplus$ \ibox{2}} 
+\avmtmp{
+[head & verb \\
+arg-st & <[arg NP![\type{str}]! \\
+		realized $+$]> \+ \2 ]
+\impl
+[arg-st & <[arg  NP![\type{snom}]!]> \+ \2 ]
+}
+%%
+\ex \label{nonc:cp:germ2}
+\avmtmp{
+[head & verb \\
+arg-st & \1 nelist \+ <[arg NP![\type{str}]! \\
+                      realized $+$]> \+ \2 ]
+\impl
+
+[arg-st & \1 \+ <[arg  NP![\type{snom}]!]> \+ \2 ]
+}
 \z
 Obviously, for such constraints to work, values of \path{arg-st} must be lists of slightly more complex objects than \ftype{synsem} (these are now values of \path{arg} within such more complex objects), and additional principles must make sure that values of \path{realized} are instantiated properly (see \citealt[78–79]{Prze99b} for details).
 
