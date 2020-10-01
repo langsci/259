@@ -634,18 +634,20 @@ shows an example lexical item for the word \emph{ate}:\footnote{
 \eas
 \label{le-ate}
 Lexical item for the word \emph{ate}:\\
-\onems[word]{
-phonology    \phonliste{ ate } \\[1mm]
-syntax-semantics  \ldots \ms[local]{ category  & \ms[category]{ head & \ms[verb]{ vform & fin
-                                                                                }\\[3mm]
-                                                                spr   & \sliste{ NP[\type{nom}]\ind{1} }\\[2mm]
-                                                                comps & \sliste{ NP[\type{acc}]\ind{2} }\\
-                                                                             } \\[10mm]
-                                          content & \ldots \ms[eat]{ agent & \ibox{1}\\
-                                                                     theme & \ibox{2}\\
-                                                                   }
-            }
+\avmtmp{
+[\type*{word}
+phonology & <\type{ate}\,> \\
+syntax-semantics \ldots &	[\type*{local}
+							category & [\type*{category}
+										head & [\type*{verb}
+												vform & fin] \\
+										spr & <NP![\type{nom}]$_{\1}$!> \\
+										comps & <NP![\type{acc}]$_{\2}$!> ]\\
+							content & \ldots	[\type*{eat}
+												agent & \1 \\
+												theme & \2 ] ] ]
 }
+
 \zs
 The information about part of speech and finiteness is bundled under \head. The selection of a
 subject is represented under \spr (sometimes the feature \subj is used for subjects) and the
@@ -666,12 +668,12 @@ hierarchy. (\mex{1}) shows a constraint on the type \type{head-complement-phrase
 \ea
 \label{schema-bin-prel}
 %~\\[-8pt]
-\type{head-complement-phrase}\istype{head"=complement"=phrase} \impl\\
-\onems{
-      synsem$|$loc$|$cat$|$comps \ibox{1} \\
-      head-dtr$|$synsem$|$loc$|$cat$|$comps \sliste{ \ibox{2} }  $\oplus$ \ibox{1} \\
-      non-head-dtrs \sliste{ [ \synsem \ibox{2} ] }
-      }
+\avmtmp{
+\emph{head-complement-phrase}\istype{head"=complement"=phrase} \impl\\
+[synsem|loc|cat|comps \1 \\
+head-dtr|synsem|loc|cat|comps < \2 > \+ \1 & \\
+non-head-dtrs < [ \synsem \2 ] > ] 
+}
 \z
 The constraint says that feature structures of type \type{head-complement-phrase} have to have a
 \synsemv, a \textsc{head-dtr} feature, and a list-valued \textsc{non-head-dtrs} feature. The list has
@@ -688,31 +690,27 @@ head-complement configuration:
 \eas
 \label{ex-ate-a-pizza-sag97}%
 Analysis of \emph{ate a pizza} in Constructional HPSG:\\
-\onems[head-complement-phrase]{
-phon   \phonliste{ ate, a, pizza }\\
-synsem$|$loc  \ms{ cat   & \ms{ head   & \ibox{1}\\
-                            spr & \ibox{2}\\
-                            comps & \eliste
-                          }\\
-                    cont  & \ldots\\ %\ibox{2}\\
-                  }\\
-head-dtr  \onems[word]{
-           phon \phonliste{ ate }\\ 
-           synsem$|$loc \ms{ cat & \ms{ head  & \ibox{1} \ms[verb]{
-                                                         vform & fin\\
-                                                         }\\
-                                          spr   & \ibox{2} \sliste{ NP[\type{nom}] }\\
-                                          comps & \sliste{ \ibox{3} NP[\type{acc}] }
-                                        }\\
-                               cont & \ldots
-% \ibox{2} \ms[essen]{
-%                                       agens & \ibox{1}\\
-%                                       thema & \ibox{3}\\ 
-%                                       }\\
-                             }
-           }\\
-non-head-dtrs  \liste{ \ms{ phon & \phonliste{ a, pizza }\\
-                            synsem & \ibox{3} } }
+\avmtmp{
+[\type*{head-complement-phrase}
+\phon < ate, a, pizza > \\
+synsem|loc &	[cat &	[head & \1 \\
+                            spr & \2 \\
+                            comps & < >] \\
+                 cont & \ldots ] \\ %\2\\
+head-dtr & [\type*{word}
+           \phon < ate > \\
+           synsem|loc	[cat &	[head  & \1 [\type*{verb}
+                                            vform & fin] \\
+                                spr & \2 < NP![\type{nom}]! > \\
+                                comps & < \3 NP![\type{acc}]! > ] \\
+                         cont & \ldots
+% 									\2 [\type*{essen}
+%                                       agens & \1 \\
+%                                       thema & \3 ] \\
+                        ]
+			] \\
+non-head-dtrs & <[\phon < a, pizza > \\
+                 synsem & \3 ]> ]
 }
 \zs
 The description in the \compsl of the head is identified with the \synsemv of the non-head daughter
@@ -747,13 +745,12 @@ signs do not have daughters. This is due to the fact that phrasal schemata (= ph
 are defined as in (\mex{1}):
 \eas
 Head"=Complement Construction following \citet[481]{SWB2003a}:\\
-\type{head"=comp"=cx}\istype{head"=comp"=cx} \impl\\
-\onems{
-mother$|$syn$|$val$|$comps  \eliste\\
-head-dtr \ibox{0} \ms[word]{
-                  syn$|$val$|$comps & \ibox{A}
-                  }\\
-dtrs  \sliste{ \ibox{0} } $\oplus$ \ibox{A} \type{nelist} \\
+\emph{head"=comp"=cx}\istype{head"=comp"=cx} \impl\\
+\avmtmp{
+[\punk{mother|syn|val|comps}{< >} \\
+head-dtr & \0	[\type*{word}
+                syn|val|comps & \tag{A} ] \\
+dtrs & < \0 > \+ \tag{A} nelist ]
 }
 \zs
 Rather than specifying syntactic and semantic properties of the complete linguistic object at the
@@ -813,13 +810,12 @@ of numbers is just a presentational variant, the exclamation mark is a non-trivi
 extension. (\mex{1}) provides an example: the constraints on the type \type{pred-hd"=comp"=cxt}:
 \eas
 Predicational Head"=Complement Construction following \citet[\page 152]{Sag2012a}:\\
-\type{pred-hd"=comp"=cxt}\istype{head"=comp"=cx} \impl\\
-\onems{
-mother$|$syn X ! [val \sliste{ Y }]\\
-head-dtr Z: \onems[word]{
-                  syn X: \ms{ val \sliste{ Y } $\oplus$ L }\\
-                  }\\
-dtrs  \sliste{ Z } $\oplus$ L:\type{nelist} \\
+\emph{pred-hd"=comp"=cxt}\istype{head"=comp"=cx} \impl\\
+\avmtmp{
+[\punk{mother|syn X !}{[val & < Y >]} \\
+head-dtr & \upshape Z: [\type*{word}
+               			syn & \upshape X: [val & < Y > \+ \upshape L] ] \\
+dtrs & \upshape < Z > \+ L:\type{nelist} ]
 }
 \zs
 The X stands for all syntactic properties of the head daughter. These are identified with the
@@ -850,30 +846,44 @@ The phrasal sign for \emph{ate a pizza} in Constructional HPSG was given in
 daughters and mother filled in.
 \ea
 \label{feat-geom-sag2012}
-\ms[head-comp-cx]{
-mother & \ms[phrase]{
-         form  & \phonliste{ ate, a, pizza }\\[1mm]
-         syn   & \ms{
-                      cat & \ibox{1}\\
-                      val   & \sliste{ NP[\type{nom}] }\\
-                    }\\
-%         sem   & \ibox{2}\\
-         sem   & \ldots
-         }\\
-head-dtr & \ibox{2} \ms[word]{
-           form & \phonliste{ ate }\\
-           syn & \ms{ cat & \ibox{1} \ms[verb]{
-                            vf & fin\\
-                            }\\
-                      val & \sliste{ NP[\type{nom}], \ibox{3} NP[\type{acc}] }\\
-                    }\\
-           sem   & \ldots
-           % sem   & \ibox{2} \ms[eat]{
-           %         agens & \ibox{1}\\
-           %         thema & \ibox{5}\\ 
-           %         }\\
-           }\\
-dtrs & \sliste{ \ibox{2}, \ibox{3} }
+%\ms[head-comp-cx]{
+%mother & \ms[phrase]{
+%         form  & \phonliste{ ate, a, pizza }\\[1mm]
+%         syn   & \ms{
+%                      cat & \ibox{1}\\
+%                      val   & \sliste{ NP[\type{nom}] }\\
+%                    }\\
+%%         sem   & \ibox{2}\\
+%         sem   & \ldots
+%         }\\
+%head-dtr & \ibox{2} \ms[word]{
+%           form & \phonliste{ ate }\\
+%           syn & \ms{ cat & \ibox{1} \ms[verb]{
+%                            vf & fin\\
+%                            }\\
+%                      val & \sliste{ NP[\type{nom}], \ibox{3} NP[\type{acc}] }\\
+%                    }\\
+%           sem   & \ldots
+%           % sem   & \ibox{2} \ms[eat]{
+%           %         agens & \ibox{1}\\
+%           %         thema & \ibox{5}\\ 
+%           %         }\\
+%           }\\
+%dtrs & \sliste{ \ibox{2}, \ibox{3} }
+%}
+\avmtmp{
+[\type*{head-comp-cx}
+mother &	[\type*{phrase}
+			form & <\type{ate, a, pizza}\,> \\
+			syn &	[cat & \1\\
+					val & < NP![\type{nom}]! > ] \\
+			sem & \ldots ] \\
+head-dtr & \2	[\type*{word}
+				form & <\type{ate}\,> \\
+				syn &	[cat & \1	[\type*{verb}
+									vf & fin] \\
+						val & < NP![\type{nom}]!, \3 NP![\type{acc}]! > ]] \\
+dtrs & < \2 , \3 > ]
 }
 \z
 As was explained in the previous subsection, Constructional HPSG groups all selectable information under
@@ -1003,14 +1013,23 @@ verb \emph{eat}:
 %%   \zlast
 %% }
 \ea
-\ms[sem-obj]{
+%\ms[sem-obj]{
+%index & \\
+%frames & \sliste{ \ms[eating-fr]{
+%                  label & l\\
+%                  sit   & s\\
+%                  ingestor & i\\
+%                  ingestible & j\\
+%                  } } }
+\avmtmp{
+[\type*{sem-obj}
 index & \\
-frames & \sliste{ \ms[eating-fr]{
-                  label & l\\
-                  sit   & s\\
-                  ingestor & i\\
-                  ingestible & j\\
-                  } } }
+frames &	<[\type*{eating-fr}
+			label & l\\
+			sit & s\\
+			ingestor & i\\
+			ingestible & j]> ]
+}
 \z
 While some generalizations over verbs of a certain type can be captured with role labels like
 \textsc{ingestor} and \textsc{ingestible}, this is limited to verbs of ingestion. More general role
@@ -1326,30 +1345,45 @@ Intransitive verbs are also excluded, as (\mex{0}c) shows. Riehemann suggests th
 (\mex{1}):
 \ea
 \label{ex-schema-bar}
-\begin{tabular}[t]{@{}l@{}}
+%\begin{tabular}[t]{@{}l@{}}
 Schema for productive adjective derivations with the suffix \suffix{bar} in\\ German according to
 \citet[\page 68]{Riehemann98a}:\\*
-\onems[reg-bar-adj]{
-phonology  \ibox{1} + \normalfont\textit{bar}\\
-morph-b    \liste{ \onems[trans-verb]{ phon \ibox{1}\\
-                                        synsem|loc \ms{ cat|val|comps \sliste{ NP[\type{acc}]:\ibox{2} } $\oplus$ \ibox{3}\\              
-                                                        cont|nuc \ibox{4} \ms{ act\\
-                                                                               und \ibox{2}\\
-                                                                             }\\
-                                                      }\\
-                                     } }\\
-synsem|local \onems{ category \ms{ head & adj\\
-                                valence & \ms{ subj & \sliste{ NP:\ibox{2} }\\
-                                               comps & \ibox{3}\\
-                                             }\\
-                              }\\
-                  content|nucleus \ms{ reln & $\Diamond$\\
-                                       arg1 & \ibox{2}\\
-                                       arg2 & \ibox{4}\\
-                                     }\\
-                }\\
+%\onems[reg-bar-adj]{
+%phonology  \ibox{1} + \normalfont\textit{bar}\\
+%morph-b    \liste{ \onems[trans-verb]{ phon \ibox{1}\\
+%                                        synsem|loc \ms{ cat|val|comps \sliste{ NP[\type{acc}]:\ibox{2} } $\oplus$ \ibox{3}\\              
+%                                                        cont|nuc \ibox{4} \ms{ act\\
+%                                                                               und \ibox{2}\\
+%                                                                             }\\
+%                                                      }\\
+%                                     } }\\
+%synsem|local \onems{ category \ms{ head & adj\\
+%                                valence & \ms{ subj & \sliste{ NP:\ibox{2} }\\
+%                                               comps & \ibox{3}\\
+%                                             }\\
+%                              }\\
+%                  content|nucleus \ms{ reln & $\Diamond$\\
+%                                       arg1 & \ibox{2}\\
+%                                       arg2 & \ibox{4}\\
+%                                     }\\
+%                }\\
+%}
+%\end{tabular}
+\avmtmp{
+[\type*{reg-bar-adj}
+phonology & \1 $+$ bar\\
+morph-b &	<[\type*{trans-verb}
+			phon \1\\
+			synsem|loc &	[cat|val|comps & < NP![\type{acc}]!:\2 > \+ \3 \\
+							cont|nuc \4	[act & \\
+										und & \2] ] ]>\\
+synsem|local	[category &	[head & adj\\
+							valence &	[subj & < NP:\2 >\\
+										comps & \3 ] ] \\
+				content|nucleus	[reln & $\Diamond$\\
+								arg1 & \2\\
+								arg2 & \4 ] ] ]
 }
-\end{tabular}
 \z
 \textsc{morph-b} is a list that contains a description of a transitive verb (something that governs
 an accusative object which is linked to the undergoer role \iboxb{2} and has an actor).\footnote{
@@ -1561,45 +1595,39 @@ dropped in noun phrases with mass nouns with a certain reading.
 \label{ex-npn-bragmann}%
 NPN Construction as formalized by \citew{Bargmann2015a}:\\
 %\begin{sideways}
-\oneline{%
-\onems{
-phon \phonliste{ \ldots{} N \ldots, after, \ldots{} N \ldots }\\
-ss|loc|cat \ms{ head & \ms[noun]{ count & $-$\\
-                                  agr   & \type{3rdsing}\\
-                                }\\
-                val  & \ms{ spr & \eliste\\
-                            comps & \eliste\\
-                          }\\
-             }\\
-sr \textrm{$\lambda P.\exists X.|X| >1~\&~\forall x \in X$$:N'(x)~\&~\exists R^{order} \subseteq X^{2}~\&~P(x)$} \\
-dtrs \liste{ 
-\onems{ phon \phonliste{ \ldots{} N \ldots }\\
-        ss|l|c \ms{ head & \onems[noun]{ count $+$\\
-                                      agr  \type{3rdsing}\\
-                                }\\
-                val  & \ms{ spr   & \sliste{ Det }\\
-                            comps & \eliste\\
-                          }\\
-             }\\
-        sr $\ldots~\lambda x.N'(x)~\ldots$
-},
-$\left( \onems{ phon \phonliste{ after }\\
-            \ldots{} head \type{prep}\\
-            sr $\exists R^{order} \subseteq X^{2}$\\
-             },
-\onems{ phon \phonliste{ \ldots{} N \ldots }\\
-        ss|l|c \ms{ head & \onems[noun]{ count  $+$\\
-                                         agr   \type{3rdsing}\\
-                                }\\
-                val  & \ms{ spr   & \sliste{ Det }\\
-                            comps & \eliste\\
-                          }\\
-             }\\
-        sr $\ldots~\lambda x.N'(x)~\ldots$
-} \right)^+$
-}% list
+	\oneline{%
+\avmtmp{
+[\phon < \ldots\ N \ldots, after, \ldots\ N \ldots > \\
+\punk{ss|loc|cat}{	[head &	[\type*{noun}
+					count & $-$ \\
+                    agr & 3rdsing ] \\
+             val  &	[spr & < > \\
+                    comps & < > ] ]	} \\
+sr & !$\lambda P.\exists X.|X| >1~\&~\forall x \in X:N'(x)~\&~\exists R^{order} \subseteq X^{2}~\&~P(x)$! \\
+dtrs &	<	[\phon < \ldots\ N \ldots > \\
+       		 ss|l|c &	[head &	[\type*{noun}
+								count & $+$ \\
+								agr & 3rdsing ] \\
+						val  &	[spr & < Det > \\
+								comps & < > ] ] \\
+        	sr & !$\ldots~\lambda x.N'(x)~\ldots$! ]
+        ,
+		(	[\phon <after\,> \\
+          	\ldots\ head & prep \\
+            sr & $\exists R^{order} \subseteq X^{2}$ ]
+            ,
+			[\phon < \ldots\ N \ldots > \\
+        	ss|l|c &	[head &	[\type*{noun}
+								count & $+$ \\
+                            	agr & 3rdsing ] \\
+                		val &	[spr & < Det > \\
+                            	comps & < > ] ] \\
+        	sr & !$\ldots~\lambda x.N'(x)~\ldots$! ]
+        )\textsuperscript{+}%todo this sould be placed a lot higher!!
+        >
+]
 }
-}
+	}
 %\end{sideways}
 \z
 There is a list of daughters consisting of a first daughter and an arbitrarily long list of
