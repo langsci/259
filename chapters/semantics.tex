@@ -598,7 +598,7 @@ This is a point that was made clear a long time ago by Martin Kay in his work on
 
 \subsubsection{Why minimally recursive semantic representations}
 
-MRS developed out of computational semantic engineering considerations related to machine translation for face-to-face dialogue that started in the early 90s (see \citealt{Kayetal1992} for an overview of the \verbmobil project). As \citet{Copestakeetal1995} argue, syntactic differences between languages can lead to logically equivalent distinct semantic representations when using traditional ``recursive'' semantic representations. They point out, for example, that the English expression \word{fierce black cat} and Spanish \word{gato negro y feroz} would be given distinct semantic representations under standard assumptions, as shown in (\ref{gato}).
+MRS developed out of computational semantic engineering considerations related to machine translation for face-to-face dialogue that started in the early 90s (see \citealt{Kayetal1992} for an overview of the \verbmobil project). As \citet{Copestakeetal1995} argue, syntactic differences between languages can lead to logically equivalent distinct semantic representations when using traditional ``recursive'' semantic representations. They point out, for example, that the English expression \word{fierce black cat} and \ili{Spanish} \word{gato negro y feroz} would be given distinct semantic representations under standard assumptions, as shown in (\ref{gato}).
 
 \begin{exe}
 \ex\label{gato}
@@ -610,7 +610,7 @@ $\lambda x$.(cat($x$) $\wedge$ (black($x$) $\wedge$ fierce($x$)))
 \end{xlist}
 \end{exe}
 
-These distinct semantic representations would make translating these simple nominal expressions from one language to the other difficult. Furthermore, some sentences may be similarly ambiguous in English and Spanish (for example, sentences that contain generalized quantifiers), and requiring the semantic disambiguation of these sentences prior to translating them into sentences that contain similar ambiguities is inefficient. Semantic representations should only be as disambiguated as the source language grammar entails. For these reasons and others they detail, \citet{Copestakeetal1995} propose to model the semantics of grammar via semantic representations that are as flat (or non-recursive) as possible. To achieve this minimal recursivity despite the fact that disambiguated scope relations among generalized quantifiers require embedding, they add additional variables or handles that serve as labels to particular relations in the flat list of relations and that can serve as ``arguments'' of scopal operators. (\ref{ex-mrs}) and its underspecified and fully disambiguated semantic representations in (\ref{ex-mrs-sem}) illustrate this informally and (\ref{ex-mrs-alt}) more formally. Subscripts on names of relations in the informal representation stand for labels of the formulas they are part of. Thus, $1$ in \word{every$_{1}$($x$, 3, $n$)} is a label for the entire formula. In the more explicit representation in (\ref{ex-mrs-alt}), the label of a formula is written before it and separated from it by a colon (e.g.\ h1:every(x,h3,h8)\,); 
+These distinct semantic representations would make translating these simple nominal expressions from one language to the other difficult. Furthermore, some sentences may be similarly ambiguous in English and \ili{Spanish} (for example, sentences that contain generalized quantifiers), and requiring the semantic disambiguation of these sentences prior to translating them into sentences that contain similar ambiguities is inefficient. Semantic representations should only be as disambiguated as the source language grammar entails. For these reasons and others they detail, \citet{Copestakeetal1995} propose to model the semantics of grammar via semantic representations that are as flat (or non-recursive) as possible. To achieve this minimal recursivity despite the fact that disambiguated scope relations among generalized quantifiers require embedding, they add additional variables or handles that serve as labels to particular relations in the flat list of relations and that can serve as ``arguments'' of scopal operators. (\ref{ex-mrs}) and its underspecified and fully disambiguated semantic representations in (\ref{ex-mrs-sem}) illustrate this informally and (\ref{ex-mrs-alt}) more formally. Subscripts on names of relations in the informal representation stand for labels of the formulas they are part of. Thus, $1$ in \word{every$_{1}$($x$, 3, $n$)} is a label for the entire formula. In the more explicit representation in (\ref{ex-mrs-alt}), the label of a formula is written before it and separated from it by a colon (e.g.\ h1:every(x,h3,h8)\,); 
 %JPK 12-17 de-italicized as requested
 variables over labels are simply labels that do not correspond (yet) to labels of formulas ($h8$ and $h9$).\footnote{\citet{Copestake2007} presents a Neo-Davidsonian version of MRS called R(obust)MRS where arguments of predicates (aside from their event variable) are contributed via independent elementary predications. Copestake shows that RMRS can be profitably used with shallower analyses, ``including part-of-speech tagging, noun phrase chunking and stochastic parsers which operate without detailed lexicon'' (p.\,73); see \citet{PeldzusandSchlangen2012} for how RMRS allows for the incremental construction of meaning representations in dialogue systems.}
 
@@ -958,7 +958,7 @@ The semantics of phrases follows from the interaction of the (lexical) selection
 For ease of readability, Figure~\ref{every-dog-sem} omits the lambda abstractions from the generalized quantifier, chooses a notation from first order logic, and does not make all structure sharings between pieces of the logical representation explicit. The head noun \word{dog} contributes (on \attrib{parts}, \attrib{pts}), the predicate {\normalfont \sffamily dog} and the application of the predicate to a lexically unknown argument, \ibox{2a}, identical with the \attrib{dr} value of \word{dog}. As shown in (\ref{local-sem}), the \attrib{dr} value of the noun is shared with the \attrib{dr} value of the selected determiner, which is the item contributing the variable {\normalfont \sffamily x} to the representation. In addition, \word{every} contributes the quantifier and the application of the quantifier to its arguments. The clause of the Semantics Principle which restricts the combination of quantificational determiners with nominal projections identifies the \attrib{inc} of \word{every} with the \attrib{exc} of \word{dog}, and requires that the \attrib{inc} of dog (\ibox{3}) be a subterm of the restrictor of the quantifier, $\phi$ (notated as `\ibox{3} $\triangleleft$ $\phi$', conjoined to the AVM describing the phrase). The identification of the \attrib{exc} and \attrib{inc} of \word{every} follows from (\ref{lrs-essent-principles}b--c). According to this analysis, the semantic representation of the phrase \word{every dog} is a universal quantification with {\normalfont \sffamily dog(x)} in the restrictor and unknown scope ($\psi$). The scope will be determined when the noun phrase combines with a verb phrase. For example, such a verb phrase could be \word{barks}, as in  Figure~\ref{every-dog-barks-sem}. If its semantics is represented as a unary predicate {\normalfont \sffamily bark}, the predicate and its application to a single argument are contributed by the verb phrase, and local syntactic selection of the subject \word{every dog} by the verb \word{barks} identifies this argument as variable {\normalfont \sffamily x}, parallel to the selection of the quantifier's variable by \word{dog} above. The relevant clause of the Semantics Principle requires that {\normalfont \sffamily bark(x)} be a subterm of $\psi$, and the \attrib{exc}, \ibox{2}, of the complete sentence receives the value \mbox{\normalfont \sffamily $\forall$x (dog(x), bark(x))} as the only available reading in accordance with the \attrib{excont} Principle. %
 %In (\ref{every-dog-barks-sem}), \idx{2} spells out as {\normalfont \sffamily $\forall$x (dog(x), bark(x))}.
 
-%fmr12-19 decapitalized _e_very dog barks in caption, following the Polish figure
+%fmr12-19 decapitalized _e_very dog barks in caption, following the \ili{Polish} figure
 
 \begin{figure}
 %\small
@@ -1081,12 +1081,12 @@ outscopes the \attrib{incont} of the verb (\ibox{4} $\triangleleft$ $\alpha$).
 Similarly, the existential quantifier of the n-word \word{nikt} `nobody' is
 outscoped by negation (\ibox{2} $\triangleleft$ $\beta$). However, in addition
 to the familiar restriction when the quantificational subject combines
-with the finite verb, Polish as a strict negative concord language requires
+with the finite verb, \ili{Polish} as a strict negative concord language requires
 that a negated finite verb be in the scope of at most one negation in
 its \attrib{excont}, entailing identity of the two negations,
 \ibox{2\textup{c}} $=$ \ibox{4\textup{b}}, and the single negation reading \word{nobody came} as
 the only admissible reading of the sentence shown in Figure~\ref{polish-nc-sem}.
-To capture obligatory negation marking on finite words in Polish, a second
+To capture obligatory negation marking on finite words in \ili{Polish}, a second
 principle of negative concord rules that if a finite verb is in the scope
 of negation in its \attrib{excont}, it must itself be a contributor of negation \citep[316]{RichterandSailer2001}.
 
@@ -1128,7 +1128,7 @@ of the right shape to be identified with the representation of
 (\ref{every-diff-lrs}) for (\ref{different-s-lrs}).
 \citet{Lahm2016b} presents an alternative account of such readings
 with \word{different} using Skolem functions which also hinges on
-LRS-specific techniques. \citet{IordachioaiaandRichter2015} study Romanian
+LRS-specific techniques. \citet{IordachioaiaandRichter2015} study \ili{Romanian}
 negative concord constructions and represent their readings using polyadic negative
 quantifiers; \citet{Lahm2018} develops a lexicalized theory
 of plural semantics.
