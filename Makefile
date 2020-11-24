@@ -43,6 +43,13 @@ main.pdf: $(SOURCE)
 	makeindex -o main.snd main.sdx 
 	xelatex -shell-escape main
 
+
+languagecandidates:
+	egrep -oh "[a-z] [A-Z]['a-zA-Z-]+" chapters/*tex| grep -o  "[A-Z].*" |sort -u >languagelist.txt
+
+languagesused:
+	egrep -oh "\\il.*{[A-Z]['a-zA-Z-]+}" chapters/*tex |grep -o  "[A-Z].*"
+
 trees:
 	xelatex main.tex
 	python3 styles/memoize/memomanager.py split main.mmz
