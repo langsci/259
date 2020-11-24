@@ -38,9 +38,9 @@ main.pdf: $(SOURCE)
 	sed -i.backup 's/\\MakeCapital //g' main.adx
 # 	python3 fixindex.py
 # 	mv mainmod.adx $*.adx
-	makeindex -o main.and main.adx
-	makeindex -o main.lnd main.ldx
-	makeindex -o main.snd main.sdx 
+	makeindex -gs index.format -o main.and main.adx
+	makeindex -gs index.format -o main.lnd main.ldx
+	makeindex -gs index.format -o main.snd main.sdx 
 	xelatex -shell-escape main
 
 
