@@ -32,7 +32,6 @@
 \begin{document}
 \maketitle
 \label{chap-control-raising}
-\avmoptions{center}
 
 
 %\section{Introduction}
@@ -501,8 +500,14 @@ Constraints on types \type{subj-rsg-lx} and  \type{obj-rsg-lx} are as follows:\f
 
 \eal
 \label{rsg}
-\ex	\type{subj-rsg-lx}	\impl  \argst  \begin{avm} \@1 \append \<\[subj & \@1\]\> \end{avm} \label{rais-1}
-\ex \type{obj-rsg-lx} \impl \argst  \begin{avm} \<NP\> \append \@1 \append \<\[subj & \@1\]\> \end{avm} \label{rais2}
+\ex
+\avmtmp{
+	\type{subj-rsg-lx} \impl \argst \1 \+ <[subj & \1]>\\
+}\label{rais-1}
+\ex
+\avmtmp{
+	\type{obj-rsg-lx} \impl \argst <NP> \+ \1 \+ <[subj & \1]>\\
+}\label{rais2}
 \zl
 
 
@@ -511,36 +516,34 @@ The subject of the non finite complement shares its \type{synsem} with the subje
 A subject-raising verb (\word{seem}) and an object"=raising verb (\word{expect}) inherit from \type{subj-rsg-v} and \type{obj-rsg-v} respectively; their lexical descriptions look as follows, assuming a MRS semantics (\citealp{CFPS2005a} and \crossrefchapteralp{semantics}):
 
 \eas
-\word{seem}:\\
-\begin{avm}
-	\[\tp{subj-rsg-v-word}\\
-	subj & \<\@1 \> \\
-	comps & \<\@2VP\[head & \[vform & inf\] \\
-		       subj & \<\@1\> \\
-		       cont & \[ind & \@3\] \]\>\\
-	arg-st & <\@1,\@2>\\
-		cont & \[ind & s \\
- 		rels & \{\[\asort{seem-rel}
-			soa & \@3\]\}\]
-	\]
-\end{avm}
+\type{seem}:\\
+\avmtmp{
+[\type*{subj-rsg-v-word}
+subj & <\1 > \\
+comps & <\2 VP	[head &	[vform & inf] \\
+		       	subj & <\1> \\
+		       	cont &	[ind & \3] ]>\\
+arg-st & <\1, \2> \\
+cont &	[ind & s \\
+		rels &	\{[\type*{seem-rel}
+				soa & \3]\}]]
+}
 \zs
 
 \eas
-\word{expect}:\\
-\begin{avm}
-	\[\tp{obj-rsg-v-word}\\
-	subj & \<\@1NP$_{\@i}$ \> \\
-	comps & \<\@2, \@3VP\[head & \[vform & inf\] \\
-		subj & \<\@2\> \\
-		cont & \[ind & \@4\] \]\>\\
-	arg-st & <\@1,\@2, \@3>\\
-	cont & \[ind & s \\
-			rels & \{\[\asort{expect-rel}
-			exp & \@i\\
-			soa & \@4\]\}\]
-	\]
-\end{avm}
+\type{expect}:\\
+\avmtmp{
+[\type*{obj-rsg-v-word}
+subj &	<\1 NP$_{\tag{i}}$> \\
+comps &	<\2, \3 VP	[head &	[vform & inf] \\
+					subj & <\2> \\
+					cont & [ind & \4] ]> \\
+arg-st & <\1, \2, \3> \\
+cont &	[ind & s \\
+		rels & \{[\type*{expect-rel}
+				exp & \tag{i} \\
+				soa & \4]\} ] ]
+}
 \zs
 They take a VP and not a clausal complement, which means that the complements expected by the infinitive are realized locally but not its subject. The  corresponding simplified trees are as shown in Figures~\ref{cons-1} and~\ref{cons2}. Notice that the syntactic structures are the same.
 \begin{figure}
@@ -572,76 +575,95 @@ They take a VP and not a clausal complement, which means that the complements ex
 % 	]
 % \end{tikzpicture}
 \begin{forest}
-[{\begin{avm}
-    \[S\\
-    phon & \phonliste{ Paul seems to sleep }\\
-      subj & \eliste \\
-      comps & \eliste\]
-  \end{avm}}
-  [{\begin{avm}
-  \[NP\\
-  phon & \phonliste{ Paul } \\
-         	 synsem & \@1 \]
-    \end{avm}}]
-  [{\begin{avm}
-      \[VP\\
-      phon & \phonliste{ seems to sleep }\\
-        subj & \<\@1\>\\
-        comps & \eliste\]
-    \end{avm}}
-    [{\begin{avm}
-        \[V\\
-        phon & \phonliste{ seems } \\
-          subj & \<\@1\>\\
-          comps & \<\@2 \[subj & \< \@1 \>\]\>\\
-        \]
-      \end{avm}}]
-    [{\begin{avm}
-        \[VP\\
-        phon \phonliste{ to sleep }\\
-          synsem \@2 \]	
-      \end{avm}}] ] ]
+[
+\avmtmp{
+[\type*{S}
+\phon <Paul seems to sleep> \\
+subj & < > \\
+comps & < > ]
+}
+	[
+	\avmtmp{
+	[NP \\
+  	\phon <Paul> \\
+	synsem & \1 ]
+	}
+	]
+	[
+	\avmtmp{
+	[VP \\
+	\phon <seems to sleep> \\
+	subj & <\1> \\
+	comps & < > ]
+	}
+    	[
+    	\avmtmp{
+        [\type*{V}
+        \phon <seems> \\
+          subj & <\1> \\
+          comps & <\2	[subj & <\1>]> ]
+		}
+		]
+    	[
+    	\avmtmp{
+        [VP \\
+        \phon <to sleep> \\
+        synsem & \2 ]	
+		}
+		]
+	]
+]
 \end{forest}
 \caption{\label{cons-1}A sentence with a subject-raising verb}
 \end{figure}
 
 \begin{figure}
 \begin{forest}
-  [{\begin{avm}
-      \[S\\
-      phon & \phonliste{ Mary expected Paul to work }\\
-        subj & \eliste\\
-        comps & \eliste\]		
-    \end{avm}}
-	[{\begin{avm} 
-	\[NP\\
-	phon & \phonliste{ Mary } \\
-			synsem & \@3 \]
-		\end{avm}}]
-	[{\begin{avm}
-            \[VP\\
-            phon & \phonliste{ expected Paul to work }\\
-              subj & \<\@3 \>\\
-              comps & \eliste\]		
-          \end{avm}}
-	[{\begin{avm}
-            \[V\\
-            phon & \phonliste{ expected } \\
-              subj & \<\@3 \>\\
-              comps & \<\@1, \@2 \[
-                subj & \<\@1 \>\]\>\]		
-          \end{avm}}]
-	[{\begin{avm} 
-	\[NP\\
-	phon & \phonliste{ Paul } \\
-			synsem & \@1 \]
-		\end{avm}}]
-	[{\begin{avm}
-            \[VP\\
-            phon & \phonliste{ to work }\\
-              synsem & \@2 \]	
-          \end{avm}}]
-	] ]
+[
+\avmtmp{
+[\type*{S}
+\phon <Mary expected Paul to work> \\
+        subj & < > \\
+        comps & < > ]		
+}
+	[
+	\avmtmp{
+	[NP \\
+	\phon <Mary> \\
+	synsem & \3 ]
+	}
+	]
+	[
+	\avmtmp{
+	[VP \\
+	\phon <expected Paul to work> \\
+	subj & <\3> \\
+	comps & < > ]
+	}
+		[
+		\avmtmp{
+		[V \\
+		\phon <expected> \\
+		subj & <\3 > \\
+		comps & <\1, \2	[subj & <\1>]> ]		
+		}
+		]
+		[
+		\avmtmp{
+		[NP \\
+		\phon <Paul> \\
+		synsem & \1 ]
+		}
+		]
+		[
+		\avmtmp{
+		[VP \\
+		\phon <to work> \\
+              synsem & \2 ]
+		}
+		]
+	]
+]
 \end{forest}	
 \caption{\label{cons2}A sentence with an object"=raising verb}
 \end{figure}
@@ -681,25 +703,25 @@ For subject-raising verbs which allow for a sentential complement as well (with 
 \citet{SagandPollard1991} propose a semantics-based control theory. The semantic class of the verb determines whether it is subject-control or object-control: they distinguish verbs of orientation (\emph{want}, \emph{hope}), verbs of commitment (\emph{promise}, \emph{try}) and verbs of influence (\emph{persuade}, \emph{forbid}) based on the type of relation and semantic roles of their arguments. 
 
 \begin{figure}
-	\begin{forest}
-       [{\type{control-relation}} 
-      					[{\type{orientation-rel}}
-      						[{\type{want-rel}} ] 
-      						 [{\type{hope-rel}}]
-      						 [{\ldots}]   		
+	\begin{forest}type hierarchy
+       [control-relation
+      					[orientation-rel
+      						[want-rel] 
+      						 [hope-rel]
+      						 [\ldots]   		
       					] 
-      					[{\type{commitment-rel}} 
-      					 		[{\type{promise-rel}}
-      					 			[{\type{try-rel}}]
-      					 		[{\ldots}]
+      					[commitment-rel
+      					 		[promise-rel
+      					 			[try-rel]
+      					 		[\ldots]
       					 	]
-      					 	 [{\type{influence-rel}}
-      					 		[{\type{persuade-rel}}
-      					 			[{\type{forbid-rel}}]
+      					 	 [influence-rel
+      					 		[persuade-rel
+      					 			[forbid-rel]
       					 		]
-      					 		[{\ldots}]
+      					 		[\ldots]
       					 	]
-      					 	[{\ldots}]
+      					 	[\ldots]
       					]  
       	]
       %	\draw (A1.south)-- (B1.north);
@@ -712,33 +734,33 @@ For example, \emph{want}, \emph{promise} and \emph{persuade} have a semantic con
 
 \eas
 %\word{want}:\\
-\begin{avm}
-	\[\type{want-rel} \\
-	experiencer & \@1 \\
-	SOA & \[relation &  \\
-			arg & \@1\]\]
-\end{avm}
+\avmtmp{
+[\type*{want-rel}
+	experiencer & \1 \\
+	SOA &	[relation &  \\
+			arg & \1] ]
+}
 \zs
 
 \eas
 %\word{promise}:\\
-\begin{avm}
-	\[\type{promise-rel} \\
-	commitor & \@1 \\
-		commitee & \@2 \\
-	SOA & \[relation &  \\
-			arg & \@1\]\]
-\end{avm}
+\avmtmp{
+[\type*{promise-rel}
+	commitor & \1 \\
+		commitee & \2 \\
+	SOA &	[relation &  \\
+			arg & \1]]
+}
 \zs
 \eas 
 %\word{persuade}:\\*
-\begin{avm}
-\[\type{persuade-rel} \\
-	influencer & \@1 \\
-		influenced & \@2 \\
-	SOA & \[relation &  \\
-			arg & \@2\]\]
-\end{avm}	
+\avmtmp{
+[\type*{persuade-rel}
+	influencer & \1 \\
+	influenced & \2 \\
+	SOA &	[relation &  \\
+			arg & \2]]
+}	
 \zs
 
 According to this theory, the controller is the experiencer with verbs of orientation, the commitor with verbs of commitment, and the influencer with verbs of influence. 
@@ -748,9 +770,11 @@ From the syntactic point of view, two types of control predicates, \type{subject
 \label{cont}
 \ex
 \label{subj-cont-lx}
-\type{subj-cont-lx}	\impl \argst  \begin{avm}  \<NP$_{\@i}$, ...\[subj & \<\[ind & \@i\]\>\]\> \end{avm}
+\type{subj-cont-lx}	\impl \argst
+\avmtmp{<NP$_{\tag{i}}$, \ldots[subj & <[ind & \tag{i}]>]>}
 \ex
-\type{obj-cont-lx} \impl  \argst  \begin{avm} \<\@0, \@1 \[ind & \@i\], \[subj & \<\[ind &\@i\]\>\]\> \end{avm}
+\type{obj-cont-lx} \impl  \argst
+\avmtmp{<\0, \1 [ind & \tag{i}], [subj & <[ind &\tag{i}]>]>}
 \zl
 
 The controller is the first argument with subject-control verbs, while it is the second argument with object-control verbs. Contrary to the types defined for raising predicates in (\ref{rsg}), the controller here is simply coindexed with the subject of the non finite complement. This means it must have a semantic role (since it has a semantic index), thus expletives and idiom parts are not allowed ((\ref{rain3}), (\ref{rain4}), (\ref{cat3}), (\ref{cat4})). This also implies that its syntactic features may differ from those of the subject of the non finite complement: it may have a different part of speech (a NP subject can be coindexed with a PP controller) as well as a different case ((\ref{to}), (\ref{hope})).\\
@@ -759,37 +783,35 @@ A subject-control verb (\word{want}) and an object-control verb (\word{persuade}
 \footnote{To account for Visser's generalization (object-control verbs passivize  while subject-control verbs do not), \citet{SagandPollard1991} analyse the subject of the infinitive as a reflexive, which must be bound by the controller. According to Binding Theory (see \crossrefchapteralp{binding}), the controller must be less oblique than the reflexive, hence less oblique than the VP complement which contains the reflexive: the controller can be the subject and the VP a complement as in (\ref{per}); it can be the first complement when the VP is the second complement as in (\ref{persuade-pass}), but it cannot be a  \emph{by}-phrase, which is more oblique than the VP complement, as in (\ref{promise-pass}) (the by-phrase should not be bound according to principle C, and the subject of infinitive should be bound according to principle A).}.
 
 \eas
-\word{want}:\\
-\begin{avm}
-	\[\type{subj-cont-v-word}\\
-	subj & \<\@1NP$_{\@i}$ \> \\
-	comps & \<\@2VP\[head & \[vform & inf\] \\
-		subj & \<\[ind & \@i\]\> \\
-		cont & \[ind & \@3\] \]\>\\
-	arg-st & <\@1,\@2> \\
-	cont & \[ind & s \\
-			rels & \{\[\asort{want-rel}
-			exp & \@i \\
-			soa & \@3\]\}\]
-	\]
-\end{avm}	
+\type{want}:\\
+\avmtmp{
+[\type*{subj-cont-v-word}
+	subj & <\1 NP$_{\tag{i}}$ > \\
+	comps & <\2 VP	[head &	[vform & inf] \\
+					subj &	<[ind & \tag{i}]> \\
+					cont & [ind & \3] ]> \\
+	arg-st & <\1, \2> \\
+	cont &	[ind & s \\
+			rels &	\{[\type*{want-rel}
+					exp & \tag{i} \\
+					soa & \3]\}] ]
+}
 \zs
 \eas
-\word{persuade}:\\*
-\begin{avm}
-	\[\type{obj-cont-v-word}\\
-	subj & \<\@1NP$_{\@i}$ \> \\
-	comps & \<\@2NP$_{\@j}$, \@3VP\[head & \[vform & inf\] \\
-		subj & \<\[ind & \@j\]\> \\
-		cont & \[ind & \@4\] \]\>\\
-	arg-st & <\@1,\@2, \@3> \\
-	cont & \[ind & s \\
-			rels & \{\[\asort{persuade-rel}
-			agent & \@i \\
-			patient & \@j \\
-			soa & \@4\]\}\]
-	\]
-\end{avm}	
+\type{persuade}:\\*
+\avmtmp{
+	[\type*{obj-cont-v-word} \\
+	subj & <\1 NP$_{\tag{i}}$ > \\
+	comps & <\2 NP$_{\tag{j}}$, \3 VP	[head &	[vform & inf] \\
+	subj &	<[ind & \tag{j}]> \\
+	cont & [ind & \4] ]>\\
+	arg-st & <\1, \2, \3> \\
+	cont &	[ind & s \\
+			rels & \{[\type*{persuade-rel}
+			agent & \tag{i} \\
+			patient & \tag{j} \\
+			soa & \4]\} ] ]
+}
 \zs
 
 The corresponding structures for subject-control and object-control sentences are illustrated in Figures~\ref{sleep3} and~\ref{cons3}:
@@ -826,35 +848,44 @@ The corresponding structures for subject-control and object-control sentences ar
 % \end{tikzpicture}
 % This one fails forest even without externalization
 \begin{forest}
-[{\begin{avm}
-    \[S\\
-    phon & \phonliste{ Paul wants to sleep }\\
-      subj & \eliste \\
-      comps & \eliste\]
-  \end{avm}}
-  [{\begin{avm}
-    \[NP\\
-    phon \phonliste{ Paul } \\
-      synsem \@1 \]
-    \end{avm}}]
-  [{\begin{avm}
-      \[VP\\
-      phon & \phonliste{ wants to sleep }\\
-        subj & \<\@1\>\\
-        comps & \eliste\]
-    \end{avm}}
-    [{\begin{avm}
-        \[V\\
-        phon & \phonliste{ wants } \\
-          subj & \<\@1 \[ind  \type{i} \] \>\\
-          comps & \<\@2 \[subj & \< \normalfont NP$_{i}$ \> \]\>\\
-        \]
-      \end{avm}}] 
-    [{\begin{avm}
-        \[VP\\
-        phon & \phonliste{ to sleep }\\
-          synsem & \@2  \]	
-      \end{avm}}] ] ]
+[
+\avmtmp{
+[\type*{S}
+\phon <Paul wants to sleep> \\
+      subj & < > \\
+      comps & < > ]
+}
+	[
+	\avmtmp{
+	[NP\\
+    \phon <Paul> \\
+      synsem \1 ]
+	}
+	]
+	[
+	\avmtmp{
+	[VP\\
+    \phon <wants to sleep> \\
+        subj & <\1> \\
+        comps & < > ]
+	}
+    	[
+    	\avmtmp{
+        [\type*{V}
+        \phon <wants> \\
+          subj & <\1 [ind & i] > \\
+          comps & <\2 [subj & < NP$_{i}$ > ]> ]
+		}
+		] 
+		[
+		\avmtmp{
+        [VP\\
+        \phon <to sleep> \\
+          synsem & \2  ]	
+		}
+		]
+	]
+]
 \end{forest}
 % \begin{forest}
 % [\avmtmp{
@@ -953,43 +984,55 @@ The corresponding structures for subject-control and object-control sentences ar
 % 			\end{avm}}
 % 	] ]
 % \end{tikzpicture}	
+\oneline{
 \begin{forest}
-[{\begin{avm}
-    \[S\\
-    phon & \phonliste{ Mary persuaded Paul to work }\\
-      subj & \eliste\\
-      comps & \eliste\]		
-  \end{avm}}
-  [{\begin{avm}
-  \[NP\\
-  phon & \phonliste{ Mary } \\
-	synsem & \@3
-      \]
-    \end{avm}}]
-  [{\begin{avm}
-      \[VP\\
-      phon & \phonliste{ persuaded Paul to work }\\
-        subj & \<\@3 NP\>\\
-        comps & \eliste\]		
-    \end{avm}}
-    [{\begin{avm}
-        \[V\\
-        phon & \phonliste{ persuaded } \\
-          subj & \<\@3 NP\>\\
-          comps & \<\@1 \[ind \type{i} \], \@2 \[
-            subj & \< NP$_{i}$ \> \]\>\]		
-      \end{avm}}]
-    [{\begin{avm}
-    \[NP\\
-    phon  \phonliste{ Paul } \\
-          synsem \@1 \]
-      \end{avm}}]
-    [{\begin{avm}
-        \[VP\\
-        phon & \phonliste{ to work }\\
-          synsem & \@2  \]	
-      \end{avm}}] ] ]
-\end{forest}	
+[
+\avmtmp{
+[\type*{S}
+\phon <Mary persuaded Paul to work> \\
+      subj & < > \\
+      comps & < > ]		
+}
+	[
+	\avmtmp{
+	[NP\\
+	\phon <Mary> \\
+	synsem & \3 ]
+	}
+	]
+	[
+	\avmtmp{
+	[VP\\
+	\phon <persuaded Paul to work> \\
+        subj & <\3 NP> \\
+        comps & < >]
+	}
+		[
+		\avmtmp{
+        [\type*{V}
+        \phon <persuaded> \\
+          subj & <\3 NP>\\
+          comps & <\1	[ind & i], \2	[subj & < NP$_{i}$> ]> ]		
+		}
+		]
+		[
+		\avmtmp{
+		[NP\\
+		\phon <Paul> \\
+          synsem \1 ]
+		}
+		]
+		[
+		\avmtmp{
+        [VP\\
+        \phon <to work> \\
+          synsem & \2  ]
+		}
+		]
+	]
+]
+\end{forest}
+}	
 \caption{\label{cons3}A sentence with an object-control verb}
 \end{figure}
 
@@ -1091,8 +1134,10 @@ Zan  \PRF{} sing.\textsc{lf} yesterday\\
 feature \vform, with the following lexical constraint (\type{nelist} stands for non-empty list):
 
 \begin{exe}       
-\ex \begin{avm} \[vform & \type{sf} \]~ \impl~  \[comps & nelist\] 
-\end{avm}
+\ex
+\avmtmp{
+	[vform & sf] \impl [comps & nelist]
+}
 \end{exe}
 Interestingly, clausal complements do not trigger the verb short form (\citet{Henri2010} analyses them as extraposed). The complementizer (\emph{ki}) is optional.
 
@@ -1202,11 +1247,18 @@ Assuming the lexical types for subj-rsg-lexmes and subj-cont-lexemes in (\ref{rs
 %Posso : SUBJ  <>, Comps <2>, Arg-st <1[pro], 2VP[SUBJ <1>]>
 %Voglio SUBJ  <>, Comps <2>, Arg-st <NPi[pro], 2VP[SUBJ <NPi>]>
 \eal
-\ex	\type{posso} \impl \begin{avm} \[subj & elist\\
-comps & \< \@2\> \\ arg-st & \<\@1[pro] ,\@2\[subj & \@1\]\>\] \end{avm}\label{rais1}
-\ex \type{voglio}  \impl \begin{avm} \[subj & elist\\
-comps & \< \@2\> \\
-arg-st & \<NP$_{\@i}$[pro], \@2\[subj & \<\[ind & \@i\]\>\]\>\] \end{avm}
+\ex	\type{posso} \impl
+\avmtmp{
+	[subj & elist \\
+	comps & <\2> \\
+	arg-st & <\1[pro], \2[subj & \1]>]
+}\label{rais1}
+\ex \type{voglio}  \impl
+\avmtmp{
+	[subj & elist \\
+	comps & < \2> \\
+	arg-st & <NP$_{\tag{i}}$[pro], \2[subj & <[ind & \tag{i}]>]> ]
+}
 \zl
 
 
@@ -1227,14 +1279,18 @@ Different properties argue in favor of a subject status of the first NP in the o
 \citew{WechslerandArka1998}, \citew{ManningandSag1998} and \crossrefchaptert{binding}. The objective voice is also different from the passive: the passive may have a passive prefix, an agent \emph{by}-phrase, and does not constrain the thematic role of its subject. The two verbal types can be defined as follows (see \crossrefchapteralp[Section~\ref{arg-st-sec-ergativity}]{arg-st}):
 
 \begin{exe}       
-\ex \type{av-verb} \begin{avm}  \impl~  \[subj & \@1\\
-comps & \@2\\
-arg-st & \@1 \append \@2 \] 
-\end{avm}
-\ex \type{ov-verb} \begin{avm}  \impl~  \[subj & \@1\\
-comps & \@2\\
-arg-st & \@2 \append \@1 \]
-\end{avm}
+\ex \type{av-verb} \impl
+\avmtmp{
+	[subj & \1 \\
+	comps & \2 \\
+	arg-st & \1 \+ \2 ] 
+}
+\ex \type{ov-verb} \impl
+\avmtmp{
+	[subj & \1 \\
+	comps & \2 \\
+	arg-st & \2 \+ \1 ]
+}
 \end{exe}
 
 In this analysis, the preverbal argument, whether the theme of an OV verb or the agent of an AV verb, is the subject, and in many languages, only a subject
@@ -1403,20 +1459,20 @@ Using \xarg, they propose for \word{pans} `think'
 the following description. The complement of \word{pans} must have an \xarg coindexed with the subject of \word{pans}, but its \subjl is not constrained: it can be a saturated verbal complement (whose \subjv is the empty list) or a VP complement (whose \subjv is not the empty list).
 
 \begin{exe}
-\ex \word{pans} `think':\\
-\begin{avm}
-	\[subj & \<NP$_{\@i}$ \> \\
-	comps & \<\[head & \[verb\\
-	xarg & \[ind & \@i\]\]\\
-		marking & pou  
-		%cont & \[ind & \@2\]
-		 \]\>
+\ex \type{pans} `think':\\
+\avmtmp{
+	[subj & <NP$_{\tag{i}}$ > \\
+	comps &	<[head &	[verb\\
+						xarg &	[ind & \tag{i}] ] \\
+			marking & pou
+			%cont & \[ind & \@2\]
+			]>
 	%cont & \[ind & s \\
 		%	rels & \{\[\asort{think-rel}
 		%	arg \@i \\
 		%	arg & \@2\]\}\]
-	\]
-\end{avm}
+	]
+}
 \end{exe}
 
  See also \citew[\page 408--409]{Sag2007a} and \citew{KaySag2009} for the obligatory control of possessive determiners in \ili{English} expressions such as \emph{keep one's cool}, \emph{lose one's temper}, with an \xarg feature on nouns and NPs:
@@ -1435,7 +1491,7 @@ Raising may also involve verbs taking a finite complement with a pronominal subj
 \zl
 
 The verb \emph{look like} can thus have the subject of its sentential complement  be shared with its own subject:\\
-\emph{look like}: \argst \sliste{ \ibox{1}, S[\xarg \ibox{1}] }
+\emph{look like}: \argst \avmtmp{<\1, S[xarg & \1]>}
 
 This is also the case in \ili{English} tag questions, since the subject of the tag question must be expressed and shared with that of the matrix clause: 
 
@@ -1449,8 +1505,14 @@ The types for subject-raising and subject-control verbs in (\ref{rais-1}) and (\
   bubble, if OK. rais-1 and cont-1 were subj-cont-lx and are now subj-cont-verb. Should it be -lx
   here as well?} will thus be revised as follows:\\
 \eal
-\ex \type{subj-rsg-verb} \impl \argst \begin{avm}  \@1 \append \<\[x-arg & \@1\]\> \end{avm} 
-\ex \type{subj-cont-verb} \impl \argst \begin{avm}  \<NP$_{\@i}$, ...\[x-arg & \<\[ind & \@i\]\>\]\> \end{avm}
+\ex \type{subj-rsg-verb} \impl \argst
+\avmtmp{
+	\1 \+ <[x-arg & \1]>
+}
+\ex \type{subj-cont-verb} \impl \argst
+\avmtmp{
+	<NP$_{\tag{i}}$, \ldots [x-arg &	<[ind & \tag{i}]> ] >
+}
 \zl
 
 \section{Copular constructions}
@@ -1623,10 +1685,16 @@ Copular verbs such as \word{be} or \word{consider} are analysed as subtypes of s
 lexical types for verbs that take a predicative complement are as follows:
 
 \begin{exe} 
-\ex	\type{subj-pred-v}	\impl \argst \begin{avm}  \@1 \append \<\[subj & \@1\\
-prd & $+$\]\> \end{avm}
-\ex \type{obj-pred-v} \impl \argst \begin{avm}  \<NP\> \append \@1 \append \<\[subj & \@1\\
-prd & $+$\]\> \end{avm}
+\ex	\type{subj-pred-v}	\impl \argst
+\avmtmp{
+	\1 \+ <[subj & \1 \\
+			prd & $+$]>
+}
+\ex \type{obj-pred-v} \impl \argst
+\avmtmp{
+	<NP> \+ \1 \+	<[subj & \1 \\
+					prd & $+$]>
+}
 \end{exe}
 
 A copular verb like \word{be} or \word{seem} does not assign any semantic role to its subject, while
@@ -1643,34 +1711,34 @@ stated in the types, don't you? AA arg-st added: the types are more general and 
 
 
 \eas
-\word{seem}:\\
-\begin{avm}
-\[\tp{subj-pred-v-word}\\
-subj & \<\@1\>\\
-comps & \<\@2\[head & \[prd & $+$\]\\
-		 subj & \<\@1\> \\
-		 cont & \[ind & \@3\]\]\>\\
-arg-st & \<\@1, \@2\> \\
-cont & \[ind & s \\
-		rels & \{\[\asort{seem-rel} 
-				soa & \@3\]\}\]\]		
-\end{avm}
+\type{seem}:\\
+\avmtmp{
+[\type*{subj-pred-v-word}
+subj & <\1> \\
+comps & <\2	[head &	[prd & $+$] \\
+					subj & <\1> \\
+			cont & [ind & \3]]> \\
+arg-st & <\1, \2> \\
+cont &	[ind & s \\
+		rels & \{[\type*{seem-rel} 
+				soa & \3]\} ] ]
+}
 \zs
 
 \eas
-\word{consider}:\\
-\begin{avm}
-\[\tp{obj-pred-v-word}\\
-subj & \<\@1NP$_{i}$\>\\
-comps & \<\@2, \@3\[head & \[prd & $+$\]\\
-		 subj & \<\@2\> \\
-		 cont & \[ind & \@4\]\]\>\\
-arg-st & \<\@1, \@2, \@3\> \\
-cont & \[ind & s \\
-		rels & \{\[\asort{consider-rel} 
+\type{consider}:\\
+\avmtmp{
+[\type*{obj-pred-v-word}
+subj & <\1 NP$_{i}$> \\
+comps & <\2, \3	[head &	[prd & $+$] \\
+				subj & <\2> \\
+				cont &	[ind & \4] ]> \\
+arg-st & <\1, \2, \3> \\
+cont &	[ind & s \\
+		rels & \{[\type*{consider-rel} 
 				exp & i \\
-				soa & \@4\]\}\]\]		
-\end{avm}	
+				soa & \4]\} ] ]
+}
 \zs
 
 	
@@ -1681,18 +1749,17 @@ Let us take the example
 	
 \eas
 \label{happy2}
-\word{happy}:\\
-\begin{avm}
-\[phon & \phonliste{ happy }\\
-head & \[\asort{adj}
-	 prd & $+$\]\\
-subj & \<NP$_{i}$\> \\
-comps & \eliste \\
-cont & \[ind & s \\
-rels & \{\[\asort{happy-rel}
-exp & i\]\}\]
-\]	
-\end{avm}
+\type{happy}:\\
+\avmtmp{
+[\phon <happy> \\
+head &	[\type*{adj}
+	 	prd & $+$] \\
+subj & <NP$_{i}$> \\
+comps & < > \\
+cont & [ind & s \\
+rels &	\{[\type*{happy-rel}
+		exp & i]\} ] ]
+}
 \zs
 
 In the trees in the Figures~\ref{fig-happy} and~\ref{fig-cons}, the \subjf of \word{happy} is
@@ -1734,70 +1801,88 @@ look like in my Figure~\ref{fig-happy-fixed}.}
 % 	]
 % \end{tikzpicture}
 \begin{forest}
-[{\begin{avm}
-    \[S\\
-    phon & \phonlist{ Paul seems happy }\\
-      subj & elist \\
-      comps & elist\]
-  \end{avm}}
-   [{\begin{avm} 
-     \[NP\\
-     phon & \phonlist{ Paul } \\
-       synsem & \@1 \]
-     \end{avm}}]
-   [{\begin{avm}
-       \[VP\\
-       phon & \phonlist{ seems happy }\\
-         subj & \<\@1\>\\
-         comps & \elist\]
-     \end{avm}}
-     [{\begin{avm}
-         \[V\\
-         phon & \phonlist{ seems } \\
-           subj & \<\@1\>\\
-           comps & \<\@2 \[subj & \<\@1\>\]\>\\
-         \]
-       \end{avm}}] 
-     [{\begin{avm}
-         \[AP\\
-         phon & \phonlist{ happy }\\
-           synsem & \@2  \]	
-       \end{avm}} ]]]
+[
+\avmtmp{
+[\type*{S}
+\phon <Paul seems happy> \\
+subj & < > \\
+comps & < > ]
+}
+	[
+	\avmtmp{
+	[NP\\
+	\phon <Paul> \\
+	synsem & \1 ]
+	}
+	]
+	[
+	\avmtmp{
+	[VP\\
+	\phon <seems happy> \\
+	subj & <\1> \\
+	comps & < > ]
+	}
+		[
+		\avmtmp{
+        [\type*{V}
+        \phon <seems> \\
+		subj & <\1> \\
+		comps & <\2	[subj & <\1>] > ]
+		}
+		]
+		[
+		\avmtmp{
+        [AP\\
+        \phon <happy> \\
+		synsem & \2 ]	
+		}
+		]
+	]
+]
 \end{forest}
 \caption{\label{fig-happy}A sentence with an intransitive copular verb}
 \end{figure}
 
 \begin{figure}
 \begin{forest}
-[{\begin{avm}
-    \[S\\
-    phon & \phonliste{ Paul seems happy }\\
-      subj & \eliste \\
-      comps & \eliste\]
-  \end{avm}}
-   [{\begin{avm} 
-     \[NP\\
-     phon & \phonliste{ Paul } \\
-       synsem & \@1 \]
-     \end{avm}}]
-   [{\begin{avm}
-       \[VP\\
-         phon  & \phonliste{ seems happy }\\
-         subj  & \@2 \<\@1\>\\
-         comps & \eliste\]
-     \end{avm}}
-     [{\begin{avm}
-         \[V\\
-           phon  & \phonliste{ seems } \\
-           subj  & \@2\\
-           comps & \<\@3 \[subj & \@2 \]\>\\
-         \]
-       \end{avm}}] 
-     [{\begin{avm}
-         \[AP\\
-         phon & \phonliste{ happy }\\
-           synsem & \@3  \]	
-       \end{avm}} ]]]
+[
+\avmtmp{
+[\type*{S}
+\phon <Paul seems happy> \\
+      subj & < > \\
+      comps & < > ]
+}
+	[
+	\avmtmp{
+	[NP\\
+	\phon <Paul> \\
+       synsem & \1 ]
+	}
+	]
+	[
+	\avmtmp{
+	[VP\\
+	\phon <seems happy> \\
+         subj  & \2 <\1> \\
+         comps & < > ]
+	}
+		[
+		\avmtmp{
+		[\type*{V}
+		\phon <seems>  \\
+		subj  & \2 \\
+		comps & <\3	[subj & \2] > ]
+		}
+		] 
+		[
+		\avmtmp{
+		[AP\\
+		\phon <happy> \\
+		synsem & \3 ]	
+		}
+		]
+	]
+]
 \end{forest}
 \caption{\label{fig-happy-fixed}A sentence with an intransitive copular verb}
 \end{figure}
@@ -1836,41 +1921,51 @@ look like in my Figure~\ref{fig-happy-fixed}.}
 % 	] ]
 % \end{tikzpicture}
 \begin{forest}
-[{\begin{avm}
-    \[S\\
-    phon & \phonlist{ Mary considers Paul happy }\\
-      subj & \elist\\
-      comps & \elist\]		
-  \end{avm}}
-   [{\begin{avm}
-   \[NP\\
-   phon & \phonliste{ Mary }\\
-			synsem & \@3 \]
-		\end{avm}}]
-   [{\begin{avm}
-       \[VP\\
-       phon & \phonliste{ considers Paul happy }\\
-         subj & \<\@3 \>\\
-         comps & \elist\]		
-     \end{avm}}
-	[\avmtmp{
-            [V\\
-            phon  & \phonlist{ considers } \\
-             subj  & < \3 >\\
-             comps & < \1, \2 [ subj & < \1 >  ] > ]		
-          }]
-	[{\begin{avm}
-	 \[NP\\
-	 phon & \phonlist{ Paul } \\
-			synsem & \@1 \]
-		\end{avm}}]
-	[{\begin{avm}
-			\[AP\\
-			phon & \phonlist{ happy }\\
-				synsem & \@2 
-				\]	
-			\end{avm}}]
-	] ]
+[
+\avmtmp{
+[\type*{S}
+\phon <Mary considers Paul happy> \\
+      subj & < > \\
+      comps & < > ]		
+}
+	[
+	\avmtmp{
+	[NP\\
+	\phon <Mary> \\
+	synsem & \3 ]
+	}
+	]
+	[
+	\avmtmp{
+	[VP\\
+	\phon <considers Paul happy> \\
+	subj & <\3> \\
+	comps & < > ]
+	}
+		[
+		\avmtmp{
+		[\type*{V}
+		\phon <considers> \\
+		subj  & <\3> \\
+		comps & <\1, \2 [subj & <\1> ] > ]		
+		}
+		]
+		[
+		\avmtmp{
+		[NP\\
+		\phon <Paul> \\
+			synsem & \1 ]
+		}
+		]
+		[
+		\avmtmp{
+		[AP\\
+		\phon <happy> \\
+		synsem & \2 ]	
+		}
+		]
+	]
+]
 \end{forest}	
 \caption{\label{fig-cons}A sentence with a transitive copular verb}
 \end{figure}
@@ -1885,19 +1980,18 @@ look like in my Figure~\ref{fig-happy-fixed}.}
 It inherits from the subject-control-verb type (\ref{cont}); its lexical description is as follows:
 
 \eas
-\word{feel}:\\
-\begin{avm}
-	\[subj & \<\@1NP$_{\@i}$ \> \\
-	comps & \<\@2\[head & \[prd & $+$\] \\
-		subj & \<\[ind & \@i\]\> \\
-		cont & \[ind & \@3\] \]\>\\
-	arg-st & \<\@1,\@2\> \\
-	cont & \[ind & s \\
-			rels & \{\[\asort{feel-rel}
-			exp & \@i \\
-			soa & \@3\]\}\]
-	\]
-\end{avm}
+\type{feel}:\\
+\avmtmp{
+	[subj & <\1 NP$_{\tag{i}}$ > \\
+	comps & <\2	[head &	[prd & $+$] \\
+				subj &	<[ind & \tag{i}]> \\
+				cont &	[ind & \3] ]>\\
+	arg-st & <\1, \2> \\
+	cont &	[ind & s \\
+			rels &	\{[\type*{feel-rel}
+			exp & \tag{i} \\
+			soa & \3]\} ] ]
+}
 \zs
 
 
@@ -1949,9 +2043,10 @@ Following \citep{Ross69a-u,Gazdaretal1982, Sagetal2020},
 
 \begin{exe}
 \ex \label{ex-head-value-of-aux-elements}
-  \type{auxiliary-verb} \impl \begin{avm}
- \[head & \[aux & $+$\]	\]
- \end{avm}
+  \type{auxiliary-verb} \impl
+\avmtmp{
+	[head &	[aux & $+$] ]
+}
  \end{exe}
  
  \ili{English} auxiliaries take VP (or XP) complements and do not select their subject, just like subject-raising verbs. They are thus compatible with non"=referential subjects, such as meteorological \word{it} and existential \textit{there}. They select the verb form of their non"=finite complements: \textit{have} selects a past participle, \textit{be} a gerund-participle, \textit{can} and \textit{will} a bare form.
@@ -1987,34 +2082,32 @@ It will not dare rain.
 The lexical descriptions for the auxiliaries \word{will} and \word{have} look as follows: 
 
 \ea
-\word{will}:\\*
-\begin{avm}
-	\[head & \[aux &  $+$\]\\
-	subj & \<\@1 \> \\
-	comps & \<\@2VP \[head & \[vform & bse\]  \\
-						subj & \<\@1\> \\
-						cont & \[ind & \@3\] \]\>\\
-	arg-st & <\@1,\@2>\\
-	cont & \[ind & s \\
-			rels & \{\[\asort{future-rel}
-			soa & \@3\]\}\]
-	\]
-\end{avm}
+\type{will}:\\*
+\avmtmp{
+	[head &	[aux &  $+$] \\
+	subj & <\1> \\
+	comps & <\2 VP	[head &	[vform & bse] \\
+					subj & <\1> \\
+					cont &	[ind & \3] ]> \\
+	arg-st & <\1, \2>\\
+	cont &	[ind & s \\
+			rels & \{[\type*{future-rel}
+			soa & \3]\} ] ]
+}
 \z
 \eas
-\word{have}:\\*
-\begin{avm}
-		\[head & \[aux & $+$\]\\
-		subj & \<\@1 \> \\
-	comps & \<\@2VP \[head & \[vform & past-part\] \\
-		subj & \<\@1\> \\
-		cont & \[ind & \@3\] \]\>\\
-	arg-st & <\@1,\@2>\\
-	cont & \[ind & s \\
-			rels & \{\[\asort{perfect-rel}
-			soa & \@3\]\}\]
-	\]
-\end{avm}	
+\type{have}:\\*
+\avmtmp{
+	[head &	[aux & $+$] \\
+	subj & <\1> \\
+	comps & <\2 VP	[head &	[vform & past-part] \\
+					subj & <\1> \\
+					cont &	[ind & \3] ]>\\
+	arg-st & <\1, \2>\\
+	cont &	[ind & s \\
+			rels & \{[\type*{perfect-rel}
+			soa & \3]\} ] ]
+}
 \zs
 
 To account for their NICE (\isi{negation}, \isi{inversion}, \isi{contraction}, \isi{ellipsis}) properties, \citet{KS2002a}\addpages use a binary head feature \aux, so that only [\aux $+$] verbs may allow for subject inversion (\ref{inv}), sentential negation (\ref{neg}), contraction or VP ellipsis (\ref{ell}). See  \crossrefchapterw[Section~\ref{sec-head-movement-vs-flat}]{order} on subject inversion, \crossrefchapterw[Section~\ref{sec-sentential-negation}]{negation} on negation and \crossrefchapterw{ellipsis} on post-auxiliary ellipsis (section 5).\footnote{Copular \word{be} has the NICE properties (\textit{Is John happy?}), it is an auxiliary verb with [\prd $+$] complement. Since \emph{to} allows for VP ellipsis, it is also analysed as an auxiliary verb: \emph{John promised to work and he started to}. See \citew*{GPS82a-u}.}
@@ -2046,8 +2139,11 @@ Subject raising verbs such as \word{seem}, \word{keep} or \word{start} are [\aux
 \citet{Sagetal2020} revised this analysis and proposed a new analysis couched in \sbcg (\citealp{Sag2012a}; see also \crossrefchapteralp[Section~\ref{sec-sbcg}]{cxg}). The descriptions used below were translated into the feature geometry of Constructional HPSG \citep{Sag97a}, which is used in this volume. In their approach, the head feature \aux is both lexical and constructional: the constructions restricted to auxiliaries require their head to be [\aux $+$], while the constructions available for all verbs are [\aux $-$]. In this approach, non"=auxiliary verbs are lexically specified as [\aux $-$]:
 
 \begin{exe}
-\ex \type{non-auxiliary-verb} \impl \begin{avm}\[head & \[aux & $-$\\
- inv & $-$ \] \]\end{avm}
+\ex \type{non-auxiliary-verb} \impl
+\avmtmp{
+	[head &	[aux & $-$ \\
+			inv & $-$ ] ]
+}
 \end{exe}
 
  Auxiliary verbs, on the other hand are unspecified for the feature \aux, and are contextually specified; except for unstressed \word{do}  which is [\aux $+$] and must occur in constructions restricted to auxiliaries.
@@ -2069,14 +2165,15 @@ Does John work? [\aux $+$]
 
 Subject inversion is handled by a subtype of head-subject-complement phrase, which is independently needed for verb initial languages like \ili{Welsh} \parencites{Borsley99c-u}{SWB2003a}.\footnote{As noted in \crossrefchapterw{properties}, in some HPSG work, e.g. \citew[409-414]{SWB2003a}, examples like (\ref{inv1}) and (\ref{inv2}) are analysed as involving an auxiliary verb with two complements and no subject. This approach has no need for an additional phrase type, but it requires an alternative valence description for auxiliary verbs.} It is a specific (non"=binary) construction, of which other constructions such as \type{polar-interrogative-clause} are subtypes, and whose head must be [\textsc{inv} $+$].  
 \begin{exe}
-\ex \type{initial-aux-cx} \impl \begin{avm}
-		\[subj & \eliste \\
-                  comps & \eliste \\
-                  head-dtr & \@0 \[aux & $+$ \\
-                   subj & \@1\\
-                    comps & \@2 \]\\
-                  dtrs & \< \@0 \>~$\oplus$ \@1 $\oplus$ \@2
-                  \] \end{avm}
+\ex \type{initial-aux-cx} \impl
+\avmtmp{
+	[subj & < > \\
+	comps & < > \\
+	head-dtr & \0	[aux & $+$ \\
+					subj & \1\\
+                    comps & \2 ] \\
+					dtrs & <\0> \+ \1 \+ \2 ]
+}
   \end{exe}          
        
 Most auxiliaries are lexically unspecified for the feature INV and allow for both constructions (non"=inverted and inverted), while the 1st person \word{aren't} is obligatory inverted (lexically marked as [\textsc{inv} $+$]) and the modal \word{better} obligatory non"=inverted (lexically marked as [\textsc{inv} $-$]):
