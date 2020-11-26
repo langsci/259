@@ -340,11 +340,14 @@ Furthermore, in transformational analyses, it is often assumed that the subject 
 %\ex[]{[Drinking one liter of water each day] seems to benefit your health.}
 %\zl
 Data from languages with ``quirky'' case such as \ili{Icelandic}, also show that subjects of subject-raising verbs in fact keep the quirky case assigned by the embedded verb  \citep{Zaenenetal1985}, contrary to the subject of subject-control verbs which are assigned case by the matrix verb and are thus in the nominative. A verb like \word{need} takes an accusative subject, and a raising verb (\word{seem}) takes an accusative subject as well when combined with \word{need} (\ref{need}). With a control verb (\word{hope}), on the other hand, the subject must be nominative (\ref{hope-i}).
+\inlinetodoobl{
+You attributed the examples in (\mex{1}) to \citew[\page 138--139]{PollardandSag1994} but they are not from there. PS discuss other examples.%
+}
 
 \eal
 \ex 
-\gll Mig vantar peninga. (\ili{Icelandic}, \citealp[\page 138--139]{PollardandSag1994})\\
-     I.\textsc{acc} need money.\textsc{acc} \\
+\gll Mig vantar peninga.\footnotemark\\
+     I.\textsc{acc} need money.\textsc{acc} \\\hfill(\ili{Icelandic})
 \ex 
 \gll Mig virdast vanta peninga. \label{need} \\
      I.\textsc{acc} seem need money.\textsc{acc} \\
@@ -445,8 +448,8 @@ As a result,  raising means full identity of syntactic and semantic information 
 \eal
 \label{german2}
 \ex 
-\gll Der Wächter  sah den Einbrecher     und seinen Helfer            einen       / *  einer nach dem anderen weglaufen [\ili{German}]\\
-     the watchman saw the burglar.\ACC{} and his    accomplice.\ACC{} one.\ACC{} {} {} one.\NOM{} after the other run.away\\
+\gll Der Wächter  sah den Einbrecher     und seinen Helfer            einen       / *  einer nach dem anderen weglaufen\\
+     the watchman saw the burglar.\ACC{} and his    accomplice.\ACC{} one.\ACC{} {} {} one.\NOM{} after the other run.away\\\hfill(\ili{German})
 \glt `The watchman saw the burglar and his accomplice run away, one after the other.'
 \ex
 \gll Der Wächter erlaubte den Einbrechern einer nach dem anderen weglaufen.\\
@@ -460,35 +463,27 @@ As a result,  raising means full identity of syntactic and semantic information 
 Subject-raising-verbs (and object-raising verbs) can be defined as subtypes inheriting from verb"=lexeme and subject-raising"=lexeme (or object raising"=lexeme) types.
 
 
-\begin{figure}[htbp!]
-	\begin{forest}
-       [{\type{lexeme}} 
-      					[{\fbox{\attrib{part-of-speech}}}
-      						[{\type{verb-lx}}, name=A1 
-      							[, no edge ]
-      							[, no edge ] ] 
-      						 [{\type{adj-lx}}]
-      						 [{\type{noun-lx}}] 
-      						 [{\ldots}]   		
-      					] 
-      					[{\fbox{\attrib{arg-selection}}} 
-      					    [{\type{intr-lx}}
-      					 		[{\type{subj-rsg-lx}}
-      					 			[{\type{sr-v-lx}}, name=B1 ]
-      					 		]
-      					 		[{\ldots}]
-      					 	]
-      					 	 [{\type{tr-lx}}
-      					 		[{\type{obj-rsg-lx}}
-      					 			[{\type{or-v-lx}}, name=B2 ]
-      					 		]
-      					 		[{\ldots}]
-      					 	]
-      					 	[{\ldots}]
-      					]  
-      	]
-      	\draw (A1.south)-- (B1.north);
-      	\draw (B2) to [bend left= 6] (A1);
+\begin{figure}
+\begin{forest}
+type hierarchy
+[lexeme
+  [part-of-speech,partition
+     [verb-lx, name=A1 ] 
+     [adj-lx]
+     [noun-lx] 
+     [\ldots]] 
+  [arg-selection,partition 
+     [intr-lx
+      	[subj-rsg-lx
+      	  [sr-v-lx, name=B1 ]]
+        [\ldots] ]
+     [tr-lx
+       [obj-rsg-lx
+         [or-v-lx, name=B2 ]]
+       [\ldots]	]
+     [\ldots]]]
+\draw (A1.south)-- (B1.north);
+\draw (B2) to [bend left= 6] (A1);
 \end{forest}
 \caption{\label{verb-hier2}A type hierarchy for subject- and object-raising verbs}
 \end{figure}
@@ -499,9 +494,10 @@ Constraints on types \type{subj-rsg-lx} and  \type{obj-rsg-lx} are as follows:\f
 
 \eal
 \label{rsg}
-\ex
-\ex \type{subj-rsg-lx} \impl \avmtmp{ [ \argst  \1 \+ < [subj & \1 ] > ]} \label{rais-1}
-\ex \type{obj-rsg-lx}  \impl \avmtmp{ [ \argst  < NP > \+ \1 \+ < [subj & \1 ] > ]} \label{rais2}
+\ex \type{subj-rsg-lx} \impl\\
+\avmtmp{ [ \argst  \1 \+ < [subj & \1 ] > ]} \label{rais-1}
+\ex \type{obj-rsg-lx}  \impl\\
+\avmtmp{ [ \argst  < NP > \+ \1 \+ < [subj & \1 ] > ]} \label{rais2}
 \zl
 
 
@@ -571,7 +567,7 @@ They take a VP and not a clausal complement, which means that the complements ex
 \begin{forest}
 [
 \avmtmp{
-[\type*{S}
+[S\\
 \phon <Paul seems to sleep> \\
 subj & < > \\
 comps & < > ]
@@ -592,7 +588,7 @@ comps & < > ]
 	}
     	[
     	\avmtmp{
-        [\type*{V}
+        [V\\
         \phon <seems> \\
           subj & <\1> \\
           comps & <\2	[subj & <\1>]> ]
@@ -718,8 +714,6 @@ For subject-raising verbs which allow for a sentential complement as well (with 
       					 	[\ldots]
       					]  
       	]
-      %	\draw (A1.south)-- (B1.north);
-      	%\draw (B2) to [bend left= 6] (A1);
 \end{forest}
 \caption{\label{verb-hier3}A type hierarchy for control predicates}
 \end{figure}
@@ -730,9 +724,9 @@ For example, \emph{want}, \emph{promise} and \emph{persuade} have a semantic con
 %\word{want}:\\
 \avmtmp{
 [\type*{want-rel}
-	experiencer & \1 \\
-	SOA &	[relation &  \\
-			arg & \1] ]
+ experiencer & \1 \\
+ soa [\type*{relation}  \\
+      arg & \1] ]
 }
 \zs
 
@@ -740,20 +734,20 @@ For example, \emph{want}, \emph{promise} and \emph{persuade} have a semantic con
 %\word{promise}:\\
 \avmtmp{
 [\type*{promise-rel}
-	commitor & \1 \\
-		commitee & \2 \\
-	SOA &	[relation &  \\
-			arg & \1]]
+ commitor & \1 \\
+ commitee & \2 \\
+ soa 	[\type*{relation}  \\
+	 arg & \1]]
 }
 \zs
 \eas 
 %\word{persuade}:\\*
 \avmtmp{
 [\type*{persuade-rel}
-	influencer & \1 \\
-	influenced & \2 \\
-	SOA &	[relation &  \\
-			arg & \2]]
+ influencer & \1 \\
+ influenced & \2 \\
+ soa 	[\type*{relation}  \\
+	 arg & \2]]
 }	
 \zs
 
@@ -764,22 +758,24 @@ From the syntactic point of view, two types of control predicates, \type{subject
 \label{cont}
 \ex
 \label{subj-cont-lx}
-\type{subj-cont-lx} \impl \avmtmp{ [ \argst  < NP$_{\tag{i}}$, \ldots, [subj & < [ind & \tag{i} ] > ] > ]}
+\type{subj-cont-lx} \impl\\
+\avmtmp{ [ \argst  < NP$_{\tag{i}}$, \ldots, [subj & < [ind & \tag{i} ] > ] > ]}
 \ex
-\type{obj-cont-lx}  \impl \avmtmp{ [ \argst  < \0, \1 [ind & \tag{i}], [subj & < [ind & \tag{i} ] > ] > ]}
+\type{obj-cont-lx} \impl\\ 
+\avmtmp{ [ \argst  < \0, \1 [ind & \tag{i}], [subj & < [ind & \tag{i} ] > ] > ]}
 \zl
 
-The controller is the first argument with subject-control verbs, while it is the second argument with object-control verbs. Contrary to the types defined for raising predicates in (\ref{rsg}), the controller here is simply coindexed with the subject of the non finite complement. This means it must have a semantic role (since it has a semantic index), thus expletives and idiom parts are not allowed ((\ref{rain3}), (\ref{rain4}), (\ref{cat3}), (\ref{cat4})). This also implies that its syntactic features may differ from those of the subject of the non finite complement: it may have a different part of speech (a NP subject can be coindexed with a PP controller) as well as a different case ((\ref{to}), (\ref{hope})).\\
+The controller is the first argument with subject-control verbs, while it is the second argument with object-control verbs. Contrary to the types defined for raising predicates in (\ref{rsg}), the controller here is simply coindexed with the subject of the non finite complement. This means it must have a semantic role (since it has a semantic index), thus expletives and idiom parts are not allowed ((\ref{rain3}), (\ref{rain4}), (\ref{cat3}), (\ref{cat4})). This also implies that its syntactic features may differ from those of the subject of the non finite complement: it may have a different part of speech (a NP subject can be coindexed with a PP controller) as well as a different case ((\ref{to}), (\ref{hope-i})).
+
 Verbs of orientation and commitment inherit from the type \type{subj-cont-lx}, while verbs of influence inherit from the type \type{subj-cont-lx}.
-A subject-control verb (\word{want}) and an object-control verb (\word{persuade}) inherit from \type{subj-cont-v} and \type{obj-cont-v} respectively; their lexical descriptions are as follows:
-\footnote{To account for Visser's generalization (object-control verbs passivize  while subject-control verbs do not), \citet{SagandPollard1991} analyse the subject of the infinitive as a reflexive, which must be bound by the controller. According to Binding Theory (see \crossrefchapteralp{binding}), the controller must be less oblique than the reflexive, hence less oblique than the VP complement which contains the reflexive: the controller can be the subject and the VP a complement as in (\ref{ex-John-promised-Mary-to-buy}) and (\ref{persuade-pass}); it can be the first complement when the VP is the second complement as in (\ref{ex-John-permitted-Mary-to-buy}), but it cannot be a  \emph{by}-phrase, which is more oblique than the VP complement, as in (\ref{promise-pass}) (the by-phrase should not be bound according to principle C, and the subject of infinitive should be bound according to principle A).}.
+A subject-control verb (\word{want}) and an object-control verb (\word{persuade}) inherit from \type{subj-cont-v} and \type{obj-cont-v} respectively; their lexical descriptions are as follows:\footnote{To account for Visser's generalization (object-control verbs passivize  while subject-control verbs do not), \citet{SagandPollard1991} analyse the subject of the infinitive as a reflexive, which must be bound by the controller. According to Binding Theory (see \crossrefchapteralp{binding}), the controller must be less oblique than the reflexive, hence less oblique than the VP complement which contains the reflexive: the controller can be the subject and the VP a complement as in (\ref{ex-John-promised-Mary-to-buy}) and (\ref{persuade-pass}); it can be the first complement when the VP is the second complement as in (\ref{ex-John-permitted-Mary-to-buy}), but it cannot be a  \emph{by}-phrase, which is more oblique than the VP complement, as in (\ref{promise-pass}) (the by-phrase should not be bound according to principle C, and the subject of infinitive should be bound according to principle A).}.
 
 \eas
 \type{want}:\\
 \avmtmp{
 [\type*{subj-cont-v-word}
-	subj & <\1 NP$_{\tag{i}}$ > \\
-	comps & <\2 VP	[head &	[vform & inf] \\
+	subj  & < \1 NP$_{\tag{i}}$ > \\
+	comps & < \2 VP	[head &	[vform & inf] \\
 					subj &	<[ind & \tag{i}]> \\
 					cont & [ind & \3] ]> \\
 	arg-st & <\1, \2> \\
@@ -842,7 +838,7 @@ The corresponding structures for subject-control and object-control sentences ar
 \begin{forest}
 [
 \avmtmp{
-[\type*{S}
+[S\\
 \phon <Paul wants to sleep> \\
       subj & < > \\
       comps & < > ]
@@ -863,7 +859,7 @@ The corresponding structures for subject-control and object-control sentences ar
 	}
     	[
     	\avmtmp{
-        [\type*{V}
+        [V\\
         \phon <wants> \\
           subj & <\1 [ind & i] > \\
           comps & <\2 [subj & < NP$_{i}$ > ]> ]
@@ -980,7 +976,7 @@ The corresponding structures for subject-control and object-control sentences ar
 \begin{forest}
 [
 \avmtmp{
-[\type*{S}
+[S\\
 \phon <Mary persuaded Paul to work> \\
       subj & < > \\
       comps & < > ]		
@@ -1001,8 +997,8 @@ The corresponding structures for subject-control and object-control sentences ar
 	}
 		[
 		\avmtmp{
-        [\type*{V}
-        \phon <persuaded> \\
+        [V\\
+         \phon <persuaded> \\
           subj & <\3 NP>\\
           comps & <\1	[ind & i], \2	[subj & < NP$_{i}$> ]> ]		
 		}
@@ -1028,18 +1024,20 @@ The corresponding structures for subject-control and object-control sentences ar
 \caption{\label{cons3}A sentence with an object-control verb}
 \end{figure}
 
-In some \ili{Slavic} languages (\ili{Russian}, \ili{Czech}, \ili{Polish}), some subject-control verbs may allow case sharing as well, as shown by predicate case agreement with quantified (non nominative) subjects. As observed by \cite{Przepiorkowski2004}, \cite{PrzepiorkowskiandRosen2005}, coindexing does not prevent full sharing: so the analysis may allow for both cases, and a specific constraint may be added to enforce only case sharing and prevent default (instrumental) case assignment to the embedded predicate.
+In some \ili{Slavic} languages (\ili{Russian}, \ili{Czech}, \ili{Polish}), some subject-control verbs may allow case sharing as well, as shown by predicate case agreement with quantified (non nominative) subjects. As observed by \cite{Przepiorkowski2004}, \cite{PrzepiorkowskiandRosen2005}, coindexing does not prevent full sharing: so the analysis may allow for both cases, and a specific constraint may be added to enforce only case sharing and prevent default (instrumental) case assignment to the embedded predicate.\footnote{%
+The examples in (\mex{1}) are taken from \citew[ex (6)--(7)]{Przepiorkowski2004}.
+}
 
 \begin{exe}
 \ex \begin{xlist}
 \ex 
-\gll Janek chce byé miły. [\ili{Polish}]\\
-     Janek.\textsc{nom} wants be.\textsc{inf} nice.\textsc{nom} \\
+\gll Janek chce byé miły.\\
+     Janek.\textsc{nom} wants be.\textsc{inf} nice.\textsc{nom} \\ \hfill(\ili{Polish})
 \glt `Janek wants to be nice.’
 \ex 
 \gll Pięć dziewcząt chce być miłe / miłych. \\
      five.\textsc{acc} girls.\textsc{gen} wants be.\textsc{inf} nice.\textsc{acc} {} nice.\textsc{gen}\\
-\glt `Five girls want to be nice.’ \citep[ex (6)--(7)]{Przepiorkowski2004}
+\glt `Five girls want to be nice.’ 
 	\end{xlist}
 		
 \end{exe}
@@ -1065,8 +1063,8 @@ the negation, which follows TMA; they can be coordinated unlike TMA \citep[\page
 
 \eal
 \ex[]{ 
-\gll To pou kontign ou aret bwar? [\ili{Mauritian}] \\
-     2\SG{} \IRR{} continue.\textsc{sf} or stop.\textsc{sf} drink.\textsc{lf}\\
+\gll To pou kontign ou aret bwar? \\
+     2\SG{} \IRR{} continue.\textsc{sf} or stop.\textsc{sf} drink.\textsc{lf}\\(\ili{Mauritian})
 \glt `You will continue or stop drinking?'
 }
 \ex[*]{
@@ -1239,13 +1237,15 @@ Assuming the lexical types for subj-rsg-lexmes and subj-cont-lexemes in (\ref{rs
 %Posso : SUBJ  <>, Comps <2>, Arg-st <1[pro], 2VP[SUBJ <1>]>
 %Voglio SUBJ  <>, Comps <2>, Arg-st <NPi[pro], 2VP[SUBJ <NPi>]>
 \eal
-\ex	\type{posso} \impl
+\ex	
+\type{posso} `can':\\
 \avmtmp{
 	[subj & elist \\
 	comps & <\2> \\
 	arg-st & <\1[pro], \2[subj & \1]>]
 }\label{rais1}
-\ex \type{voglio}  \impl
+\ex 
+\type{voglio} `want':\\
 \avmtmp{
 	[subj & elist \\
 	comps & < \2> \\
@@ -1306,12 +1306,14 @@ can be raised or controlled \citep{Zaenenetal1985}. Thus the first argument of t
 \end{xlist}
 \end{exe}
 
-Turning to \word{majanji} `promise', in this type of commitment relation, the promiser must have semantic control over the action promised \citep{Farkas1988,Kroeger1993,SagandPollard1991}. The promiser should therefore be the actor of the downstairs verb. This semantic constraint interacts with the syntactic constraint that the controllee must be the subject, to predict that the controlled VP must be in AV voice, which places the Agent in subject role. The same facts obtain for other control verbs such as \word{paksa} `force'.
+Turning to \word{majanji} `promise', in this type of commitment relation, the promiser must have semantic control over the action promised \citep{Farkas1988,Kroeger1993,SagandPollard1991}. The promiser should therefore be the actor of the downstairs verb. This semantic constraint interacts with the syntactic constraint that the controllee must be the subject, to predict that the controlled VP must be in AV voice, which places the Agent in subject role. The same facts obtain for other control verbs such as \word{paksa} `force'.\footnote{
+The examples in (\mex{1}) are taken from \citew[ex 27]{WechslerandArka1998}.
+}
 
 \eal
 \ex[]{
 \gll Tiang majanji maang Nyoman pipis.\\
-     1 promise \textsc{av}.give Nyoman money\\\hfill\citep[ex 27]{WechslerandArka1998}
+     1 promise \textsc{av}.give Nyoman money\\
 \glt `I promised to give Nyoman money.' 
 }
 \ex[*]{ 
@@ -1324,22 +1326,24 @@ Turning to \word{majanji} `promise', in this type of commitment relation, the pr
 }
 \zl
 
-\ili{Balinese} also has subject-raising verbs like \word{ngenah} `seem':
+\ili{Balinese} also has subject-raising verbs like \word{ngenah} `seem':\footnote{
+The examples in (\mex{1}) are taken from \citew[ex 7]{WechslerandArka1998}.
+}
 
-\begin{exe}
-\ex \begin{xlist}
+\eal
 \ex 
 \gll Ngenah ia mobog.\\
-     seem 3 lie\\\hfill\citep[ex 7]{WechslerandArka1998}
+     seem 3 lie\\
 \glt `It seems that (s)he is lying.'
 \ex 
 \gll  Ia ngenah mobog.\\
       3 seem lie\\
 \glt `(S)he seems to be lying.'
-\end{xlist}
-\end{exe}
+\zl
 
-As predicted, the agent can be ``raised'' when the embedded verb is in the agentive voice, since it is the subject:
+As predicted, the agent can be ``raised'' when the embedded verb is in the agentive voice, since it is the subject:\footnote{
+The examples in (\mex{1}) are taken from \citew[ex 9]{WechslerandArka1998}.
+}
 %The same applies to a transitive verb in the agentive voice: the agent can %appear as the subject of \emph{ngenah} `seem' but not the patient.
 
 \eal
@@ -1352,7 +1356,7 @@ As predicted, the agent can be ``raised'' when the embedded verb is in the agent
 \ex[]{
 \gll Ci ngenah sajan ngengkebang kapelihan-ne.\\
      2 seem much \textsc{av}.hide mistake-3\POSS\\
-\glt `You seem to be hiding his/her wrongdoing.' \citep[ex 9]{WechslerandArka1998}
+\glt `You seem to be hiding his/her wrongdoing.'
 }
 \ex[?*]{ 
 \gll Kapelihan-ne ngenah sajan ci ngengkebang.\\
@@ -1360,7 +1364,9 @@ As predicted, the agent can be ``raised'' when the embedded verb is in the agent
 }
 \zl
 
-On the other hand, only the patient can be ``raised'' (because that is the subject) when the embedded verb is in the objective voice:
+On the other hand, only the patient can be ``raised'' (because that is the subject) when the embedded verb is in the objective voice:\footnote{
+The examples in (\mex{1}) are taken from \citew[ex 8]{WechslerandArka1998}.
+}
 
 \eal
 \judgewidth{?*}
@@ -1372,7 +1378,7 @@ On the other hand, only the patient can be ``raised'' (because that is the subje
 \ex[]{
 \gll Kapelihan-ne ngenah sajan engkebang ci.\\
      mistake-3\POSS{} seem much \textsc{ov}.hide 2 \\
-\glt `His/her wrongdoings seem to be hidden by you.' \citep[ex 8]{WechslerandArka1998}
+\glt `His/her wrongdoings seem to be hidden by you.'
 }
 \ex[?*]{
 \gll Ci ngenah sajan kapelihan-ne engkebang.\\
@@ -1454,7 +1460,7 @@ the following description. The complement of \word{pans} must have an \xarg coin
 \ex \type{pans} `think':\\
 \avmtmp{
 	[subj & <NP$_{\tag{i}}$ > \\
-	comps &	<[head &	[verb\\
+	comps &	<[head &	[\type*{verb}\\
 						xarg &	[ind & \tag{i}] ] \\
 			marking & pou
 			%cont & \[ind & \@2\]
@@ -1479,11 +1485,18 @@ Raising may also involve verbs taking a finite complement with a pronominal subj
 
 \eal
 \ex Peter looks like he's tired. / \# Mary is coming.
-\ex There looks like there's going to be a storm. \citep[ex 17]{Sag2007a}\\
+\ex There looks like there's going to be a storm.\footnote{
+\citet[\page 407]{Sag2007a}
+}
 \zl
 
-The verb \emph{look like} can thus have the subject of its sentential complement  be shared with its own subject:\\
-\emph{look like}: \argst \avmtmp{<\1, S[xarg & \1]>}
+The verb \emph{look like} can thus have the subject of its sentential complement  be shared with its
+own subject:
+\ea
+\emph{look like}:\\
+\avmtmp{
+[ \argst < \1, S[xarg & \1] > ]}
+\z
 
 This is also the case in \ili{English} tag questions, since the subject of the tag question must be expressed and shared with that of the matrix clause: 
 
@@ -1653,7 +1666,7 @@ verb \word{expect} takes a predicative adjective but not a preposition or a nomi
 \label{ex-expect}
 \ex I expect that man (to be) dead  by tomorrow. \citep[\page 102]{PollardandSag1994}
 \ex I expect that island *(to be) off the route. (p.\,103)
-\ex I expect that island *(to be) a good vacation spot.(p.\,103)
+\ex I expect that island *(to be) a good vacation spot. (p.\,103)
 \zl
 \ea
 \label{ex-get}
@@ -1813,7 +1826,7 @@ comps & < > ]
 	}
 		[
 		\avmtmp{
-        [\type*{V}
+        [V\\
         \phon <seems> \\
 		subj & <\1> \\
 		comps & <\2	[subj & <\1>] > ]
@@ -1836,7 +1849,7 @@ comps & < > ]
 \begin{forest}
 [
 \avmtmp{
-[\type*{S}
+[S\\
 \phon <Paul seems happy> \\
       subj & < > \\
       comps & < > ]
@@ -1857,7 +1870,7 @@ comps & < > ]
 	}
 		[
 		\avmtmp{
-		[\type*{V}
+		[V\\
 		\phon <seems>  \\
 		subj  & \2 \\
 		comps & <\3	[subj & \2] > ]
@@ -1912,7 +1925,7 @@ comps & < > ]
 \begin{forest}
 [
 \avmtmp{
-[\type*{S}
+[S\\
 \phon <Mary considers Paul happy> \\
       subj & < > \\
       comps & < > ]		
@@ -1933,7 +1946,7 @@ comps & < > ]
 	}
 		[
 		\avmtmp{
-		[\type*{V}
+		[V\\
 		\phon <considers> \\
 		subj  & <\3> \\
 		comps & <\1, \2 [subj & <\1> ] > ]		
@@ -2198,11 +2211,11 @@ Ann seems to buy more bagels than Sue seems cupcakes.
 
 This could be captured by having the relevant auxiliairies optionally inherit the complements of their verbal complement.\footnote{See \citew{KimandSag2002} for a comparison of \ili{French} and \ili{English} auxilaries, \citew{AG2002b-u} for a thorough analysis of \ili{French} auxiliaries as ``generalized'' raising verbs, inheriting not only the subject but also any complement from the past participle; such generalized raising was first suggested by \citet{HN89a,HN94a} for \ili{German} and has been adopted since in various analyses of verbal complexes in \ili{German} \citep{Kiss95a,Meurers2000b,Kathol2001a,Mueller99a,Mueller2002b}, \ili{Dutch} \citep{BvN98a} and \ili{Persian} \citep[Section~4]{MuellerPersian}. See also \crossrefchaptert{complex-predicates}.}
 A revised version of \emph{will} with complement inheritance could be the following:
-\inlinetodoobl{Anne: The VP should be typed \type{pro}. Stefan: I do not know how to do this.}
+\inlinetodoobl{Anne: The VP should be typed \type{pro}. Stefan: I do not know how to do this. I did it like JBK, hope this is correct. But you should explain this somewhere.}
 \ea
 \emph{will} (pseudogapping):\\
 \avmtmp{
-[ arg-st < \1, VP[\subj < \1 >, comps \2 ] > \+ \2 ]
+[ arg-st < \1, VP[\type{pro}, \subj < \1 >, comps \2 ] > \+ \2 ]
 }
 \z
 As observed by \citet{ArnoldandBorsley2008}, auxiliaries can be stranded in certain non-restrictive relative clauses such as (\ref{aux1}), no such possibility is open to non-auxiliary verbs (\ref{nonaux}) \crossrefchapterp{relative-clauses}:
