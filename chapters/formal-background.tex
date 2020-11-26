@@ -265,7 +265,7 @@ logical connectives (conjunction, disjunction, negation and
 implication) and relation symbols. So-called tags, boxed
 numbers, function as variables. (\ref{ex-noun}) shows a typical example
 in which \type{word}, \type{noun} and \type{plural} are sorts and
-\attrib{synsem}, \attrib{local}, \attrib{category}, etc.\ are attributes.\footnote{Tags, relations and logical connectives in descriptions will be illustrated later, in (\ref{ex-more-avms}).}
+\feat{synsem}, \feat{local}, \feat{category}, etc.\ are attributes.\footnote{Tags, relations and logical connectives in descriptions will be illustrated later, in (\ref{ex-more-avms}).}
 The AVM is a description of plural nouns.
 
 % \begin{exe}
@@ -379,11 +379,11 @@ Figure~\ref{ex-hier-decl} contains nontrivial feature declarations for the sorts
 \type{substantive}, \type{verb} and \type{noun}, and it also illustrates
 the idea behind feature inheritance. First of all, \type{verb} and
 \type{noun} have attributes which are only appropriate to them but to
-no other sort: \attrib{vform} is only appropriate to \type{verb},
-and \attrib{case} is only appropriate to \type{noun}. But there is
+no other sort: \feat{vform} is only appropriate to \type{verb},
+and \feat{case} is only appropriate to \type{noun}. But there is
 one more attribute appropriate to both due to feature inheritance:
-the attribute \attrib{prd} is declared appropriate to \type{substantive},
-and appropriateness declarations are inherited by subsorts, so \attrib{prd}
+the attribute \feat{prd} is declared appropriate to \type{substantive},
+and appropriateness declarations are inherited by subsorts, so \feat{prd}
 is also appropriate to \type{verb} and \type{noun}. The sort \emph{noun}
 inherits the declaration unchanged from \type{substantive}.
 
@@ -391,14 +391,14 @@ Finally, we have to consider attribute values and their inheritance
 mechanism. Whereas attributes are called appropriate \emph{to} a sort,
 I call a sort appropriate \emph{for} an attribute at a given sort when
 talking about attribute values. For example, the non-maximal sort
-\type{boolean} is declared appropriate for the attribute \attrib{prd}
+\type{boolean} is declared appropriate for the attribute \feat{prd}
 at \type{substantive}. This value declaration is also inherited by the
 subsorts, with a slight twist to it: at any subsort, the value for an
 attribute can become \emph{more specific} (but not less specific) than
 at its supersort(s), and this is what happens here at the subsort
 \type{verb} of \type{substantive}.  At \type{verb} the value of
-\attrib{prd} must be one particular subsort of \type{boolean}, namely
-\type{plus}.\footnote{The \type{plus} value for \attrib{prd} at verbs
+\feat{prd} must be one particular subsort of \type{boolean}, namely
+\type{plus}.\footnote{The \type{plus} value for \feat{prd} at verbs
   is introduced here to create a useful example; it is not usually
 found in grammars.}
 
@@ -412,11 +412,11 @@ the six species in the hierarchy. In addition, all attributes
 declared appropriate for a species (possibly by inheritance) must be
 present on objects of that species, with the values of course also
 obeying the feature declarations and being maximally specific. For
-example, an object of sort \type{noun} has \attrib{case} and
-\attrib{prd} properties. The object that is the \attrib{case} value
+example, an object of sort \type{noun} has \feat{case} and
+\feat{prd} properties. The object that is the \feat{case} value
 must be of sort \type{case} (because \type{case} is a species in the
 present example, unlike in real grammars where \type{case} has
-subsorts), and the sort of the \attrib{prd} value must be either
+subsorts), and the sort of the \feat{prd} value must be either
 \type{plus} or \type{minus}, one of the two species which are
 maximally specific subsorts of \type{boolean}.  With these
 restrictions, specifications like in Figure~\ref{ex-hier-decl} determine
@@ -498,20 +498,20 @@ but differ in their degree of explicitness:
 
 All AVMs in (\ref{ex-desc-n}) denote the same two configurations as
 the fully specific AVM description in (\ref{ex-n-full}): two
-\type{noun} structures with the \attrib{case} property \type{case} and
-the \attrib{prd} property \type{plus} or the \attrib{prd} value
+\type{noun} structures with the \feat{case} property \type{case} and
+the \feat{prd} property \type{plus} or the \feat{prd} value
 \type{minus}. But a description of these structures can be
 underspecified in many different ways. For \type{noun} structures in
 general (\ref{ex-n-n}), the two just described are the only two
 structural choices, as can be verified by inspecting
 Figure~\ref{ex-hier-decl}. The description could mention in addition
 to what (\ref{ex-n-n}) says that
-the structures have a \attrib{case} property, leaving its value
+the structures have a \feat{case} property, leaving its value
 underspecified (\ref{ex-n-o}), but that does not make a difference
 with respect to the shape of the structures satisfying the
-description. Moreover, the only \type{object}s with \attrib{case}
+description. Moreover, the only \type{object}s with \feat{case}
 (\ref{ex-o-o}) are nouns, but since that leaves exactly the two possible
-\attrib{prd} values \type{plus} and \type{minus}, (\ref{ex-o-o}) is
+\feat{prd} values \type{plus} and \type{minus}, (\ref{ex-o-o}) is
 yet another way to underspecify the two structures which
 ({\ref{ex-n-full}) describes exhaustively. Omitting the sort
   symbol \type{object} in the upper left-hand corner of (\ref{ex-o-o})
@@ -527,9 +527,9 @@ Grammar principles are descriptions which every structure is supposed
 to obey, together with all its substructures. The Head Feature
 Principle, shown in (\ref{ex-hfp}), is a frequent example. Every
 phrase whose syntax is a headed phrase (\type{hd-ph}) is such that its
-\attrib{head} value equals the \attrib{head} value of its head
+\feat{head} value equals the \feat{head} value of its head
 daughter, indicated by the repeated occurrence of tag \idx{1} as the
-value of the two \attrib{head} features.  Every structure which is
+value of the two \feat{head} features.  Every structure which is
 described by the AVM to the left of the implication symbol (in this
 case simply a sort, but see (\ref{ex-complex-ante})) must also
 fulfill the requirements in the AVM to its right. If something is not
@@ -538,7 +538,7 @@ not restricted by the Head Feature Principle because it is not described by the
 antecedent of the principle. At the same time, a structure which
 is not described by \type{hd-ph} still satisfies
 the Head Feature Principle as an implicational statement. For example,
-the \attrib{synsem} value of each phrase is usually assumed to be an
+the \feat{synsem} value of each phrase is usually assumed to be an
 object of sort \type{synsem}, i.e.\ it is not a phrase of sort
 \type{hd-ph}. As a
 \type{synsem} object, it is not described by the antecedent of
@@ -619,15 +619,15 @@ construct of HPSG's description language, relations. The consequent of
 the principle consists of an AVM description conjoined with three
 relational expressions.  Relations in HPSG often occur in
 connection with lists and sets, and so do the relations here: the
-binary relation \texttt{set-of-elements} relates the \attrib{retrieved} value
+binary relation \texttt{set-of-elements} relates the \feat{retrieved} value
 (a list) to a set \idx{4} containing the elements on list \idx{3} such
-that the set value \idx{2} of \attrib{pool} is a superset of \idx{4}
-(using the subset relation), and the set value \idx{1} of \attrib{qstore}
+that the set value \idx{2} of \feat{pool} is a superset of \idx{4}
+(using the subset relation), and the set value \idx{1} of \feat{qstore}
 contains those elements of \idx{2} which are not on the
-\attrib{retrieved} list (using set difference). In other words,
-each element of \attrib{pool} is either in \mbox{\attrib{qstore}} or
-a list element on \attrib{retrieved}, and nothing else is in \attrib{qstore}
-or on the \attrib{retrieved} list.\footnote{One
+\feat{retrieved} list (using set difference). In other words,
+each element of \feat{pool} is either in \mbox{\feat{qstore}} or
+a list element on \feat{retrieved}, and nothing else is in \feat{qstore}
+or on the \feat{retrieved} list.\footnote{One
   additional interesting property of this principle concerns the set
   designated by tag \idx{4}. Structures described by the consequent of
   the principle do not necessarily contain an attribute with the set
@@ -859,8 +859,8 @@ We assume that relations are at least unary.
 Relations in HPSG often express relationships between
 lists (\texttt{append}, \texttt{shuffle}) or sets (\texttt{union},
 \texttt{intersection}). Lists are usually encoded\label{page-list-encoding}
-in HPSG with attributes \attrib{first} and
-\attrib{rest}, and sorts \type{list}, \type{elist} (for empty list) and
+in HPSG with attributes \feat{first} and
+\feat{rest}, and sorts \type{list}, \type{elist} (for empty list) and
 \type{nelist} (for non-empty list), but of course the exact naming does not matter.
 A fragment of the sort hierarchy which declares the sorts and attributes
 for regular lists is shown in Figure~\ref{ex-list-decl}.
@@ -922,7 +922,7 @@ RSRL adds chains to all signatures.
 Informally, the extra symbols act very much like sorts and attributes for
 lists: \type{chain} for \type{list}, \type{echain} and \type{nechain} for
 \type{elist} and \type{nelist}, respectively, and the reserved symbols
-$\dagger$ and $\triangleright$ for \attrib{first} and \attrib{rest}.
+$\dagger$ and $\triangleright$ for \feat{first} and \feat{rest}.
 In order to integrate the reserved new sort symbols with any
 signature a linguist might specify, a distinguished sort \textit{metatop} serves as unique
 top element of the extended sort hierarchy. The extensions are defined for
@@ -1042,13 +1042,13 @@ for readability.}
   \ex
   \begin{xlist}
   \ex\label{ex-hfp-rsrl-a}
-  $\left(\its\sim\mbox{\type{hd-ph}}\right)\rightarrow$\\ % \wedge \its\attrib{dtrs}\sim\mbox{\type{headed-struc}}
-  $\left(\its\attrib{synsem local category head}\approx\right.$\\
- \hspace*{.1em} $\left.\its\attrib{head-dtr synsem local category head}\right)$
+  $\left(\its\sim\mbox{\type{hd-ph}}\right)\rightarrow$\\ % \wedge \its\feat{dtrs}\sim\mbox{\type{headed-struc}}
+  $\left(\its\feat{synsem local category head}\approx\right.$\\
+ \hspace*{.1em} $\left.\its\feat{head-dtr synsem local category head}\right)$
   \ex\label{ex-hfp-rsrl-b}
-   $\left(\its\sim\mbox{\type{hd-ph}}\right)\rightarrow$\\ % \wedge \its\attrib{dtrs}\sim\mbox{\type{headed-struc}}
-  $\exists x\left(\its\attrib{synsem local category head}~\approx x\ \wedge\right.$\\
-\hspace*{1.2em}  $\left.\its\attrib{head-dtr synsem local category head}\approx x\right)$
+   $\left(\its\sim\mbox{\type{hd-ph}}\right)\rightarrow$\\ % \wedge \its\feat{dtrs}\sim\mbox{\type{headed-struc}}
+  $\exists x\left(\its\feat{synsem local category head}~\approx x\ \wedge\right.$\\
+\hspace*{1.2em}  $\left.\its\feat{head-dtr synsem local category head}\approx x\right)$
   \end{xlist}
 \end{exe}
 
@@ -1398,11 +1398,11 @@ We are now ready to define the meaning of formul\ae\ in
 interpretations as sets of objects in an interpretation. A
 sort assignment formula constructed from a term, a reserved assignment
 symbol and a sort symbol such as
-$\its$\attrib{case}$\sim$\type{nominative} denotes the set
-of objects in the interpretation on which the \attrib{case} attribute
+$\its$\feat{case}$\sim$\type{nominative} denotes the set
+of objects in the interpretation on which the \feat{case} attribute
 is defined and, when interpreted on them, leads to an object of sort
-\type{nominative}; and the path equation $\its$\attrib{synsem local
-  category head} $\approx\its$\attrib{head-dtr synsem local category
+\type{nominative}; and the path equation $\its$\feat{synsem local
+  category head} $\approx\its$\feat{head-dtr synsem local category
   head} denotes those objects on which the two given paths are
 defined and lead to the same object. Relational formul\ae, the
 third kind of atomic formula, also denote sets of objects and will
@@ -1673,7 +1673,7 @@ grammar principle as follows:%
 \footnote{In RSRL syntax, (\ref{ex-word-order}) can be written as\\
   $\its\sim$\type{head-fill-ph} $\rightarrow$\\
   $\exists x_{1}\; \exists x_{2}\; \exists x_{3}$\\
-  $\left(\its\mbox{\attrib{phon}}\approx x_3\wedge\its\mbox{\attrib{head-dtr phon}}\approx x_2\wedge\its\mbox{\attrib{non-hd-dtrs first phon}}\approx x_1\wedge\mbox{\texttt{append}}(x_1,x_2,x_3)\right)$
+  $\left(\its\mbox{\feat{phon}}\approx x_3\wedge\its\mbox{\feat{head-dtr phon}}\approx x_2\wedge\its\mbox{\feat{non-hd-dtrs first phon}}\approx x_1\wedge\mbox{\texttt{append}}(x_1,x_2,x_3)\right)$
 }
 
 \ea
@@ -1692,7 +1692,7 @@ The filler daughter is the only non-head daughter in a head-filler phrase.
 In \ili{English}, the phonology of the filler daughter precedes the phonology
 of the head daughter. According to (\ref{ex-word-order}), a head-filler
 phrase has three components, \idx{1}, \idx{2}, and \idx{3} such that
-they are the list values of the \attrib{phon} attributes of the
+they are the list values of the \feat{phon} attributes of the
 non-head daughter, the head daughter and the phrase as a whole, and they
 are in the \texttt{append} relation (in the given order). But being in the
 \texttt{append} relation means that list \idx{3} is the concatenation
