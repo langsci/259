@@ -1,0 +1,23 @@
+#!/bin/tcsh -f
+
+
+foreach x (*.tex)
+echo $x
+sed -e 's/avmtmp/avm/g'   $x >$x.neu
+end
+
+
+#foreach x (*.tex)
+#echo $x
+#sed -e 's/subind}{Scrambling/subind}{Scrambling@\{\\it Scrambling\\\/\}/g' $x >$x.neu
+#perl -CIOED -p -e 's/\\isc{(\p{Script_Extensions=Han}+)}\\is{(\p{ASCII}+)}/\\isce{$1}{$2}/g' $x >$x.neu
+#end
+
+foreach x (*.tex)
+printf "."
+mv -f $x $x.old
+mv $x.neu $x
+end
+
+printf "\n"
+

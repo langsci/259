@@ -47,11 +47,11 @@ The real innovation HPSG brought to the interface between syntax and semantics i
 
 The semantic side of HPSG was initially rooted in Situation Semantics \citep[Chapter 4]{PollardandSag1987}. The choice of Situation Semantics is probably somewhat a matter of happenstance, and overall, nothing too crucial depended on that choice (and other choices have been explored since, as we detail below). However, this statement should not be construed as implying the choice was inconsequential. There were several interesting aspects of this choice for the study of the interface between syntax and semantics that is integral to any grammatical framework. We briefly mention a few here. A first interesting aspect of this choice is that the identification of arguments was not through an ordering but via keywords standing for role names, something that made it easier to model argument structure in subsequent work (see \crossrefchapteralt{arg-st}). A second aspect is the built-in ``intensionality'' of Situation Semantics. Since atomic formulas in Situation Semantics denote circumstances rather than truth values, and circumstances are more finely individuated than truth values, the need to resort to possible world semantics to properly characterize differences in the meaning of basic verbs, for example, is avoided. A third aspect of Situation Semantics that played an important role in HPSG is parameters. Parameters are variables that can be restricted and sorted, thus allowing for an easy semantic classification of types of NPs, something that HPSG's binding theory makes use of.
 
-Parameters also play an important role in early accounts of quantification; these accounts rely on restrictions on parameters that constrain how variables are anchored, akin to predicative conditions on discourse referents in Discourse Representation Theory \citep{KampandReyle1993}. Restrictions on parameters are illustrated with (\ref{donkey}), the (non-empty) semantic content of the common noun \word{donkey}, where the variable \ibox{1} is restricted to individuals that are donkeys, as expressed by the value of the attribute \attrib{rest}.\footnote{In \citet{PollardandSag1987}, which we discuss here, semantic relations are the values of a \attrib{reln} attribute and restrictions are single semantic relations rather than set-valued. To ensure historical accuracy, we use the signature that was used at the time.}
+Parameters also play an important role in early accounts of quantification; these accounts rely on restrictions on parameters that constrain how variables are anchored, akin to predicative conditions on discourse referents in Discourse Representation Theory \citep{KampandReyle1993}. Restrictions on parameters are illustrated with (\ref{donkey}), the (non-empty) semantic content of the common noun \word{donkey}, where the variable \ibox{1} is restricted to individuals that are donkeys, as expressed by the value of the attribute \feat{rest}.\footnote{In \citet{PollardandSag1987}, which we discuss here, semantic relations are the values of a \feat{reln} attribute and restrictions are single semantic relations rather than set-valued. To ensure historical accuracy, we use the signature that was used at the time.}
 
 \begin{exe}
 \ex\label{donkey}
-\avmtmp{
+\avm{
 [var & \1 \\
 rest & [reln & donkey \\
 		inst & \1]]
@@ -64,7 +64,7 @@ Because indices are restricted variables/parameters,  the model of quantificatio
 \begin{exe}
 \ex\label{donk-sn}
 
-\avmtmp{
+\avm{
 [quant & [det & forall \\
 			ind & [var & \1 \\
 					rest & [reln & donkey \\
@@ -75,13 +75,13 @@ scope & [reln & sneeze \\
 
 \end{exe}
 
-The subject NP contributes the value of the attribute \attrib{quant}, while the verb contributes the value of \attrib{scope}. The quantifier includes information on the type of quantifier contributed by the determiner (a universal quantifier in this case) and the index (a parameter restricted by the common noun).
+The subject NP contributes the value of the attribute \feat{quant}, while the verb contributes the value of \feat{scope}. The quantifier includes information on the type of quantifier contributed by the determiner (a universal quantifier in this case) and the index (a parameter restricted by the common noun).
 
-Because HPSG is a sign-based grammar, each constituent includes a \attrib{phon}ology and \attrib{sem}antic component as well as a \attrib{syn}tactic level of representation (along with other possible levels, e.g.\ information structure; see \crossrefchapteralt{information-structure}). Compositionality has thus always been directly incorporated by principles that regulate the value of the mother's \attrib{sem} attribute, given the \attrib{sem} values of the daughters and their mode of syntactic combination (as manifested by their syntactic properties). Different approaches to semantics within HPSG  propose variants of a Semantics Principle that constrains this relation. The Semantics Principle of \citet[109]{PollardandSag1987} is stated in English in (\ref{SP87}) (we assume for simplicity that there is a single complement daughter; Pollard and Sag define semantic composition recursively for cases of multiple complement daughters).
+Because HPSG is a sign-based grammar, each constituent includes a \feat{phon}ology and \feat{sem}antic component as well as a \feat{syn}tactic level of representation (along with other possible levels, e.g.\ information structure; see \crossrefchapteralt{information-structure}). Compositionality has thus always been directly incorporated by principles that regulate the value of the mother's \feat{sem} attribute, given the \feat{sem} values of the daughters and their mode of syntactic combination (as manifested by their syntactic properties). Different approaches to semantics within HPSG  propose variants of a Semantics Principle that constrains this relation. The Semantics Principle of \citet[109]{PollardandSag1987} is stated in \ili{English} in (\ref{SP87}) (we assume for simplicity that there is a single complement daughter; Pollard and Sag define semantic composition recursively for cases of multiple complement daughters).
 
 \eal \label{SP87}
 \ex
-If the semantic content (\ibox{1}) of the head daughter is of sort \type{circumstance} and the semantic content (\ibox{2}) of the complement daughter is of sort \type{quantifier}, the semantic content of the mother is \avmtmp{[quant & \2 \\ scope & \1]}.\\
+If the semantic content (\ibox{1}) of the head daughter is of sort \type{circumstance} and the semantic content (\ibox{2}) of the complement daughter is of sort \type{quantifier}, the semantic content of the mother is \avm{[quant & \2 \\ scope & \1]}.\\
 \ex Otherwise, the semantic contents of the head daughter and the mother are identical.
 \zl
 
@@ -98,31 +98,31 @@ In Mainstream Generative Grammar, there is an assumption that syntactic constitu
 
 \subsection{Quantifier scope}
 
-Until the mid-2000s, HPSG's ``standard'' model of the interface between the syntax and semantics of phrases that contain quantifiers adapted to HPSG the approach proposed in \citet{Cooper1975,Cooper1983}, i.e.\ so-called Cooper storage: when a quantified expression combines with another expression, the quantifier is put in a store, and various scopal relations correspond to the various nodes at which the quantifier can be retrieved from storage. Within HPSG, quantifier storage involves a \attrib{qstore} attribute where each quantifier starts, and at each node, quantifiers are either retrieved (part of the \attrib{retrieved} list) or continue to be on the mother's \attrib{qstore}. The relative scope of quantifiers itself is determined by the ordering of quantifiers on the \attrib{quants} list. The simplified tree in Figure~\ref{qu-sc} from \citet[324]{PollardandSag1994} illustrates the inverse scope reading of an English sentence containing two quantifiers.
+Until the mid-2000s, HPSG's ``standard'' model of the interface between the syntax and semantics of phrases that contain quantifiers adapted to HPSG the approach proposed in \citet{Cooper1975,Cooper1983}, i.e.\ so-called Cooper storage: when a quantified expression combines with another expression, the quantifier is put in a store, and various scopal relations correspond to the various nodes at which the quantifier can be retrieved from storage. Within HPSG, quantifier storage involves a \feat{qstore} attribute where each quantifier starts, and at each node, quantifiers are either retrieved (part of the \feat{retrieved} list) or continue to be on the mother's \feat{qstore}. The relative scope of quantifiers itself is determined by the ordering of quantifiers on the \feat{quants} list. The simplified tree in Figure~\ref{qu-sc} from \citet[324]{PollardandSag1994} illustrates the inverse scope reading of an \ili{English} sentence containing two quantifiers.
 
 \begin{figure}[htbp!]\centering
 \begin{forest}
 [%
-\avmtmp{
+\avm{
 	[quants & < \4 , \6 > \\
 nucleus & \5 \\
 retrieved & < \4 , \6 >]
 }
 	[%
-	\avmtmp{
+	\avm{
 		[ind & \1 \\
 	qstore & \{ \6 \} ]
 	}
 		[every student, roof]
 	]
 	[%
-	\avmtmp{
+	\avm{
 		[quants & < > \\
 		nucleus & \5 \\
 		qstore & \{ \4 \} ]
 	}
 		[%
-		\avmtmp{
+		\avm{
 			[quants & < > \\
 			nucleus & \5	[\type*{know}
 							knower & \1 \\
@@ -131,7 +131,7 @@ retrieved & < \4 , \6 >]
 			[knows]
 		]
 		[%
-		\avmtmp{
+		\avm{
 			[ind & \2 \\
 			qstore & \{ \4 \} ]
 		}
@@ -146,19 +146,19 @@ retrieved & < \4 , \6 >]
 
 %[NP [the woman, roof]]
 
-Both subject and object quantifiers start with their quantifiers (basically, something very similar to the representation in (\ref{donk-sn})) in a \attrib{qstore}. Since the reading of interest is the one where \word{a poem} outscopes \word{every student}, the quantifier introduced by \word{a poem} cannot be retrieved at the VP level. This is because the value of \attrib{quants} is the concatenation of the value of \attrib{retrieved} with the \attrib{quants} value of the head daughter. Were the quantifier introduced by \word{a poem} (\ibox{4}) retrieved at the VP level, the sole quantifier retrieved at the S level, the one introduced by \word{every student}, would outscope it. So, the only way for the quantifier introduced by \word{a poem} to outscope the quantifier introduced by \word{every student} is for the former to be retrieved at the S node just like the latter. Simplifying somewhat for presentational purposes, two principles govern how quantifiers are passed on from head daughter to mothers and how quantifier scope is assigned for retrieved quantifiers; they are stated in (\ref{quant-princ}) (adapted from \citealt[322--323]{PollardandSag1994}).
+Both subject and object quantifiers start with their quantifiers (basically, something very similar to the representation in (\ref{donk-sn})) in a \feat{qstore}. Since the reading of interest is the one where \word{a poem} outscopes \word{every student}, the quantifier introduced by \word{a poem} cannot be retrieved at the VP level. This is because the value of \feat{quants} is the concatenation of the value of \feat{retrieved} with the \feat{quants} value of the head daughter. Were the quantifier introduced by \word{a poem} (\ibox{4}) retrieved at the VP level, the sole quantifier retrieved at the S level, the one introduced by \word{every student}, would outscope it. So, the only way for the quantifier introduced by \word{a poem} to outscope the quantifier introduced by \word{every student} is for the former to be retrieved at the S node just like the latter. Simplifying somewhat for presentational purposes, two principles govern how quantifiers are passed on from head daughter to mothers and how quantifier scope is assigned for retrieved quantifiers; they are stated in (\ref{quant-princ}) (adapted from \citealt[322--323]{PollardandSag1994}).
 
 
 
 \eal \label{quant-princ}
 \ex\label{quant-inh}
-In a headed phrase, the \attrib{retrieved} value is a list whose set of elements is a subset of the union of the \attrib{qstore} of the daughters; the \attrib{qstore} value is the relative complement of that set.
+In a headed phrase, the \feat{retrieved} value is a list whose set of elements is a subset of the union of the \feat{qstore} of the daughters; the \feat{qstore} value is the relative complement of that set.
 \ex\label{quant-sc}
-In a headed phrase (of sort \type{psoa}, which stands for ``parameterized state of affairs''), the \attrib{quants} value is the concatenation of the \attrib{retrieved} value and the \attrib{quants} value of the semantic head.
+In a headed phrase (of sort \type{psoa}, which stands for ``parameterized state of affairs''), the \feat{quants} value is the concatenation of the \feat{retrieved} value and the \feat{quants} value of the semantic head.
 \zl
 
 
-(\ref{quant-inh}) ensures that quantifiers in storage are passed up the tree, except for those that are retrieved; (\ref{quant-sc}) ensures that quantifiers that are retrieved outscope quantifiers that were retrieved lower in the tree. Retrieval at the VP level entails narrow scope of quantifiers that occur in object position; wide scope of quantifiers that occur in object position entails retrieval at the S level. But retrieval at the S level of quantifiers that occur in object position does not entail wide scope, as the order of two quantifiers in the same \attrib{retrieved} list (i.e.\ retrieved at the same node) is unconstrained. Constraints on quantifier retrieval and scope underdetermines quantifier scope. To ensure that quantifiers are retrieved sufficiently ``high'' in the tree to bind bound variable uses of pronouns, e.g.\ \word{her} in (\ref{quant-ex}), Pollard and Sag propose the constraint in (\ref{quant-bind}).
+(\ref{quant-inh}) ensures that quantifiers in storage are passed up the tree, except for those that are retrieved; (\ref{quant-sc}) ensures that quantifiers that are retrieved outscope quantifiers that were retrieved lower in the tree. Retrieval at the VP level entails narrow scope of quantifiers that occur in object position; wide scope of quantifiers that occur in object position entails retrieval at the S level. But retrieval at the S level of quantifiers that occur in object position does not entail wide scope, as the order of two quantifiers in the same \feat{retrieved} list (i.e.\ retrieved at the same node) is unconstrained. Constraints on quantifier retrieval and scope underdetermines quantifier scope. To ensure that quantifiers are retrieved sufficiently ``high'' in the tree to bind bound variable uses of pronouns, e.g.\ \word{her} in (\ref{quant-ex}), Pollard and Sag propose the constraint in (\ref{quant-bind}).
 
 \begin{exe}
 \ex\label{quant-ex}
@@ -166,7 +166,7 @@ One of her$_{i}$ students approached [each teacher]$_{i}$. \citep[Example 27a]{P
 \end{exe}
 
 \begin{exe}
-\ex\label{quant-bind}A quantifier within a \attrib{content} value must bind every occurrence of that quantifier's index within that \attrib{content} value.  
+\ex\label{quant-bind}A quantifier within a \feat{content} value must bind every occurrence of that quantifier's index within that \feat{content} value.  
 \end{exe}
 
 The use of Cooper storage allows for a syntactically parsimonious treatment of quantifier scope ambiguities in that no syntactic ambiguity needs to be posited to account for what is a strictly semantic phenomenon. But as Pollard and Sag note (p.\,328), their model of quantifier scope does not account for the possible narrow scope interpretation of the quantifier \word{a unicorn} in (\ref{quant-rais}) (the interpretation according to which the speaker does not commit to the existence of unicorns). Raised arguments only occur once, in their surface position, and (\ref{quant-princ}a--b) ensure that quantifiers are never retrieved ``lower'' than their surface position.
@@ -175,19 +175,19 @@ The use of Cooper storage allows for a syntactically parsimonious treatment of q
 \ex\label{quant-rais}A unicorn appears to be approaching.
 \end{exe}
 
-\citet{PollardandYoo1998} tackle that problem, as well as take into account the fact that a sentence such as (\ref{ext-sc}) is ambiguous (i.e.\ the quantifier \word{five books} can have wide or narrow scope with respect to the meaning of \word{believe}). As Pollard and Yoo note, since quantifier storage and retrieval is a property of signs, and fillers (see \crossrefchapteralt{udc}) only share their \attrib{local} attribute values with arguments of the head (\word{read}) in (\ref{ext-sc}), the narrow scope reading cannot be accounted for. (\ref{quant-rais}) and (\ref{ext-sc}), among other similar examples, illustrate some of the complexities of combining a surface-oriented approach to syntax with a descriptively adequate model of semantic composition.
+\citet{PollardandYoo1998} tackle that problem, as well as take into account the fact that a sentence such as (\ref{ext-sc}) is ambiguous (i.e.\ the quantifier \word{five books} can have wide or narrow scope with respect to the meaning of \word{believe}). As Pollard and Yoo note, since quantifier storage and retrieval is a property of signs, and fillers (see \crossrefchapteralt{udc}) only share their \feat{local} attribute values with arguments of the head (\word{read}) in (\ref{ext-sc}), the narrow scope reading cannot be accounted for. (\ref{quant-rais}) and (\ref{ext-sc}), among other similar examples, illustrate some of the complexities of combining a surface-oriented approach to syntax with a descriptively adequate model of semantic composition.
 
 \begin{exe}
 \ex\label{ext-sc}
 Five books, I believe John read. (ambiguous)
 \end{exe}
 
-Pollard and Yoo's solution (p.\,419--420) amounts to making quantifier storage and retrieval a property of the \attrib{local} attribute and to restricting quantifier retrieval to semantically potent heads (so, the \word{to} of infinitive VPs cannot be a site for quantifier retrieval). The new feature geometry of \type{sign} that Pollard and Yoo propose is represented in (\ref{poll-yoo}). The pool of quantifiers collects the quantifiers on the \attrib{qstore} of its selected arguments (members of the \attrib{subj}, \attrib{comps}, and \attrib{spr} lists, and the value of \attrib{mod}, except for quantifying determiners and semantically vacuous heads like \word{to} or \word{be}) and the constraints in (\ref{sign-cons}) and (\ref{cons-PY}) \citep[423]{PollardandYoo1998} ensure proper percolation of quantifier store values within headed phrases as well as the semantic order of retrieved quantifiers.
+Pollard and Yoo's solution (p.\,419--420) amounts to making quantifier storage and retrieval a property of the \feat{local} attribute and to restricting quantifier retrieval to semantically potent heads (so, the \word{to} of infinitive VPs cannot be a site for quantifier retrieval). The new feature geometry of \type{sign} that Pollard and Yoo propose is represented in (\ref{poll-yoo}). The pool of quantifiers collects the quantifiers on the \feat{qstore} of its selected arguments (members of the \feat{subj}, \feat{comps}, and \feat{spr} lists, and the value of \feat{mod}, except for quantifying determiners and semantically vacuous heads like \word{to} or \word{be}) and the constraints in (\ref{sign-cons}) and (\ref{cons-PY}) \citep[423]{PollardandYoo1998} ensure proper percolation of quantifier store values within headed phrases as well as the semantic order of retrieved quantifiers.
 
 \begin{exe}
 \ex\label{poll-yoo}
 
-\avmtmp{
+\avm{
 [\type*{sign}
 phonology & list!(phon\_string)! \\
 synsem &	[local &	[category & category \\
@@ -201,7 +201,7 @@ retrieved & list!(quantifier)! ]
 %fmr12-21: turned rightarrow into Rightarrow to make consistent with (19)
 \begin{exe}
 \ex\label{sign-cons}
-\avmtmp{
+\avm{
 \emph{sign} \impl
 [synsem|loc &	[qstore & \1 \\
 				pool & \2 ] \\
@@ -216,13 +216,13 @@ $\land$ \ibox{1} = \ibox{2} $-$ \ibox{4}
 \ex\label{cons-PY}
 \begin{xlist}
 \ex \label{cons-PYa} The pool of the mother of a headed-phrase is identical to the quantifier store of the head daughter. 
-\ex \label{cons-PYb} For a semantically nonvacuous lexical head, the \attrib{quants} value is token-identical with the \attrib{retrieved} value.
+\ex \label{cons-PYb} For a semantically nonvacuous lexical head, the \feat{quants} value is token-identical with the \feat{retrieved} value.
 \end{xlist}
 \end{exe}
 
-What remains in the \attrib{qstore} of a sign is the quantifiers that were in the \attrib{pool} of (unretrieved) quantifiers minus quantifiers that were retrieved, according to the  constraint in (\ref{sign-cons}). Since the \attrib{pool} of  the sign's mother is the \attrib{qstore} of its head daughter as per constraint (\ref{cons-PYa}), a quantifier retrieved on a head daughter is not part of the \attrib{pool} of (unretrieved) quantifiers of the mother. 
+What remains in the \feat{qstore} of a sign is the quantifiers that were in the \feat{pool} of (unretrieved) quantifiers minus quantifiers that were retrieved, according to the  constraint in (\ref{sign-cons}). Since the \feat{pool} of  the sign's mother is the \feat{qstore} of its head daughter as per constraint (\ref{cons-PYa}), a quantifier retrieved on a head daughter is not part of the \feat{pool} of (unretrieved) quantifiers of the mother. 
 
-In a follow-up paper, \citet{Przepiorkowski1998b} proposed a strictly lexicalized retrieval mechanism which removes structural ambiguities arising from different possible retrieval sites for quantifiers along a syntactic head path, is compatible with trace-based and traceless analyses of extraction (Pollard and Yoo's analysis only covers trace-based extraction), and shifts all semantic structure under the \attrib{content} attribute.
+In a follow-up paper, \citet{Przepiorkowski1998b} proposed a strictly lexicalized retrieval mechanism which removes structural ambiguities arising from different possible retrieval sites for quantifiers along a syntactic head path, is compatible with trace-based and traceless analyses of extraction (Pollard and Yoo's analysis only covers trace-based extraction), and shifts all semantic structure under the \feat{content} attribute.
 
 %JPK 12-17 I find "under" OK. What do you think?  fmr12-18: agreed
 
@@ -230,7 +230,7 @@ In a follow-up paper, \citet{Przepiorkowski1998b} proposed a strictly lexicalize
 \subsection{Adjunct scope}
 \label{semantics-sec-adjunct-scope}
 
-HPSG phrase structure schemata are  built, for a significant part, around headed structures. In the case of the head-complement or head-subject schemata, syntactic headedness and semantic headedness match. The verb is the head of VPs and clauses, and the circumstance or state of affairs denoted by verbs typically takes as arguments the indices of its complements or subjects, and more generally, part of the \attrib{content} value of the verb takes as arguments part of the \attrib{content} value of its dependents. But in the case of head-adjunct structures, syntactic and semantic headedness do not match. The denotation of adjuncts often takes the denotation of heads as arguments. Thus, in (\ref{fast}), fastness is ascribed to Bob's running. Accordingly, the Semantics Principle distinguishes between head-adjunct structures and other structures, as shown in (\ref{sem-princ}) \citep[56]{PollardandSag1994}. (The principle we cite does not consider the quantifier retrieval we discussed in the previous section.)
+HPSG phrase structure schemata are  built, for a significant part, around headed structures. In the case of the head-complement or head-subject schemata, syntactic headedness and semantic headedness match. The verb is the head of VPs and clauses, and the circumstance or state of affairs denoted by verbs typically takes as arguments the indices of its complements or subjects, and more generally, part of the \feat{content} value of the verb takes as arguments part of the \feat{content} value of its dependents. But in the case of head-adjunct structures, syntactic and semantic headedness do not match. The denotation of adjuncts often takes the denotation of heads as arguments. Thus, in (\ref{fast}), fastness is ascribed to Bob's running. Accordingly, the Semantics Principle distinguishes between head-adjunct structures and other structures, as shown in (\ref{sem-princ}) \citep[56]{PollardandSag1994}. (The principle we cite does not consider the quantifier retrieval we discussed in the previous section.)
 
 \begin{exe}
 \ex\label{fast} Bob runs fast.
@@ -238,7 +238,7 @@ HPSG phrase structure schemata are  built, for a significant part, around headed
 
 \begin{exe}
 \ex\label{sem-princ}
-In a headed phrase, the \attrib{content} value is token-identical to that of the adjunct daughter if the \attrib{dtrs} value is of sort \type{head-adj-struc}, and to that of the head daughter otherwise.
+In a headed phrase, the \feat{content} value is token-identical to that of the adjunct daughter if the \feat{dtrs} value is of sort \type{head-adj-struc}, and to that of the head daughter otherwise.
 \end{exe}
 
 Unfortunately, the hypothesis that the content of phrases ``projects'' from the adjunct in the case of head-adjunct structures leads to difficulties in the case of so-called recursive modification, e.g.\ (\ref{rec-mod}), as \citet{Kasper1997} shows. The NP in (\ref{rec-mod}) denotes an existential quantifier whose restriction is a plan that is potentially controversial; intuitively speaking, what is potential is the controversiality of the plan, not it being a plan. But the Semantics Principle, the syntactic selection of modified expressions by modifiers, and lexical entries for intersective and non-intersective adjectives conspire to lead to the wrong meaning for recursive modification of the kind (\ref{rec-mod}) illustrates.
@@ -256,7 +256,7 @@ Since \word{controversial} selects for \word{plan}, combining their meaning lead
 %\ex\label{inter-adj-b} \sem{x$|$controversial'(x) \& senator'(x)}
 \ex\label{contr-pl-sem}
 
-\avmtmp{
+\avm{
 [\type*{nom-obj}
 index & \1 \\
 restr &	[reln & plan \\
@@ -270,7 +270,7 @@ But since adjuncts are the semantic head, the meaning of \word{potentially contr
 
 \begin{exe}
 \ex\label{pot-contr-pl-sem}
-\avmtmp{
+\avm{
 [\type*{nom-obj}
 index & \1 \\
 restr &	[reln & potential \\
@@ -289,9 +289,9 @@ Kasper's solution is to distinguish the inherent meaning of an expression (its r
 \ex\label{sem-princ-k}
 \begin{xlist}
 \ex\label{sem-princ-k-a}
-The semantic content of a head-adjunct phrase is token-identical to the \attrib{mod$|$econt} value of the adjunct daughter, and the \attrib{mod$|$icont} value of the adjunct daughter is token-identical to the adjunct daughter's \attrib{cont}.
+The semantic content of a head-adjunct phrase is token-identical to the \feat{mod$|$econt} value of the adjunct daughter, and the \feat{mod$|$icont} value of the adjunct daughter is token-identical to the adjunct daughter's \feat{cont}.
 \ex\label{sem-princ-k-b}
-For all other headed phrases, the \attrib{cont} value is token-identical to the \attrib{cont} value of the head daughter.
+For all other headed phrases, the \feat{cont} value is token-identical to the \feat{cont} value of the head daughter.
 \end{xlist}
 \end{exe}
 
@@ -304,7 +304,7 @@ The result of applying the revised Semantics Principle to \word{potentially cont
 \begin{figure}[htbp!]\centering
 \begin{forest}
 [%
-\avmtmp{
+\avm{
 	[head & \4 [mod &	[arg &	[cont &	[ind & \1 \\
 			             				restr & \2 ] ]\\
                     	econt &	[ind & \1 \\
@@ -313,7 +313,7 @@ The result of applying the revised Semantics Principle to \word{potentially cont
 cont & \5 ]
 }
 	[%
-	\avmtmp{
+	\avm{
 	[head|mod &	[arg & \8 \\
 				econt & \5 \\
 				icont & \5 ] \\
@@ -322,7 +322,7 @@ cont & \5 ]
 	}
 	]
 	[%
-	\avmtmp{
+	\avm{
 	\8	[head & \4 \\
 		cont & \3	[reln & controversial \\
 					inst & \1 ] ]
@@ -336,7 +336,7 @@ cont & \5 ]
 
 \begin{exe}
 \ex\label{contr-sem}
-\avmtmp{
+\avm{
 [head|mod &	[arg &	[cont &	[ind & \1\\
 							restr & \2]]\\
 		 			econt &	[ind & \1 \\
@@ -347,18 +347,18 @@ cont &	[reln & controversial \\
 }
 \end{exe}
 
-Critically, each kind of modifier specifies in its \attrib{mod$|$econt} value the combinatorial effects it has on the meaning of the modifier and modified combination; the \attrib{econt} value contains that result and will be inherited as \attrib{cont} value by the mother node. Intersective adjectives like \word{controversial} specify that their combinatorial effect is intersective, as shown in (\ref{contr-sem}); conjectural adverbs like \word{potentially}, on the other hand, specify their \attrib{cont} value as the result of applying their meaning to the \attrib{cont} value of the modified sign. As shown in the left daugther of Figure~\ref{pot-contr-sem}, the resulting \attrib{cont} value of \word{potentially} is identified by (\ref{sem-princ-k-a}) with its \attrib{icont} value (which is in turn lexically specified as identical with the \attrib{econt} value) when \word{potentially} combines as adjunct daughter with an intersective adjective such as \word{controversial} in a head-adjunct structure. Moreover, when the depicted phrase \word{potentially controversial} combines with a noun such as \word{plan} in another head-adjunct phrase, \ibox{5} and \ibox{5$'$} in Figure~\ref{pot-contr-sem} become identical, again by (\ref{sem-princ-k-a}), thereby also integrating the meaning of \word{potentially controversial} into the second conjunct of the \attrib{econt|restr} value of the depicted phrase. Now, since the \attrib{mod} value of the head in a head-adjunct phrase determines the \attrib{mod} value of the phrase, it means that \word{controversial} determines in its \attrib{econt}, in combination with its \attrib{arg} value, what it modifies (\word{plan}) and, ultimately, the \attrib{cont} value of the entire phrase \word{potentially controversial plan}, thus ensuring that its intersectivity is preserved even when it combines with a conjectural adverb. \citet{AsudehandCrouch2002} and \citet{Egg2004a} provide more recent solutions to the same problem through the use of a Glue Semantics approach to meaning composition within HPSG and semantic underspecification, respectively.
+Critically, each kind of modifier specifies in its \feat{mod$|$econt} value the combinatorial effects it has on the meaning of the modifier and modified combination; the \feat{econt} value contains that result and will be inherited as \feat{cont} value by the mother node. Intersective adjectives like \word{controversial} specify that their combinatorial effect is intersective, as shown in (\ref{contr-sem}); conjectural adverbs like \word{potentially}, on the other hand, specify their \feat{cont} value as the result of applying their meaning to the \feat{cont} value of the modified sign. As shown in the left daugther of Figure~\ref{pot-contr-sem}, the resulting \feat{cont} value of \word{potentially} is identified by (\ref{sem-princ-k-a}) with its \feat{icont} value (which is in turn lexically specified as identical with the \feat{econt} value) when \word{potentially} combines as adjunct daughter with an intersective adjective such as \word{controversial} in a head-adjunct structure. Moreover, when the depicted phrase \word{potentially controversial} combines with a noun such as \word{plan} in another head-adjunct phrase, \ibox{5} and \ibox{5$'$} in Figure~\ref{pot-contr-sem} become identical, again by (\ref{sem-princ-k-a}), thereby also integrating the meaning of \word{potentially controversial} into the second conjunct of the \feat{econt|restr} value of the depicted phrase. Now, since the \feat{mod} value of the head in a head-adjunct phrase determines the \feat{mod} value of the phrase, it means that \word{controversial} determines in its \feat{econt}, in combination with its \feat{arg} value, what it modifies (\word{plan}) and, ultimately, the \feat{cont} value of the entire phrase \word{potentially controversial plan}, thus ensuring that its intersectivity is preserved even when it combines with a conjectural adverb. \citet{AsudehandCrouch2002} and \citet{Egg2004a} provide more recent solutions to the same problem through the use of a Glue Semantics approach to meaning composition within HPSG and semantic underspecification, respectively.
 %fmr12-19: turned ``Glue semantics'' into Glue Semantics; correct?
 
 \section{Sorting semantic objects}
 
-One of the hallmarks of HPSG is that all grammatical objects are assigned a sort (see \crossrefchapteralt{properties} for details). This includes semantic objects. Sorting of semantic objects has been used profitably in models of lexical knowledge, in particular in models of argument structure phenomena. We refer the reader to \crossrefchaptert{arg-st} for details about argument structure and only provide an illustrative example here. Consider the constraint in (\ref{KD-03-sem}) from \citet[231]{KoenigandDavis2003}. It says that all verbs that denote a causal change of state, i.e.\ verbs whose \attrib{content} values are of sort \type{cause-rel},
+One of the hallmarks of HPSG is that all grammatical objects are assigned a sort (see \crossrefchapteralt{properties} for details). This includes semantic objects. Sorting of semantic objects has been used profitably in models of lexical knowledge, in particular in models of argument structure phenomena. We refer the reader to \crossrefchaptert{arg-st} for details about argument structure and only provide an illustrative example here. Consider the constraint in (\ref{KD-03-sem}) from \citet[231]{KoenigandDavis2003}. It says that all verbs that denote a causal change of state, i.e.\ verbs whose \feat{content} values are of sort \type{cause-rel},
 %JPK 12-20 I disambiguated the above
- link their causer argument to an NP that is the first member of the \attrib{arg-st} list. Critically, verbs like \word{frighten}, \word{kill}, and \word{calm} have as meanings a relation that is a subsort of \type{cause-rel} and are therefore subject to this constraint. Sorting lexical semantic relations thus makes for a compact statement of linking constraints. (The chapter on argument structure provides many more instances of the usefulness of sorting semantic relations, a hallmark of HPSG semantics.)
+ link their causer argument to an NP that is the first member of the \feat{arg-st} list. Critically, verbs like \word{frighten}, \word{kill}, and \word{calm} have as meanings a relation that is a subsort of \type{cause-rel} and are therefore subject to this constraint. Sorting lexical semantic relations thus makes for a compact statement of linking constraints. (The chapter on argument structure provides many more instances of the usefulness of sorting semantic relations, a hallmark of HPSG semantics.)
 
 \begin{exe}
 	\ex\label{KD-03-sem}
-\avmtmp{
+\avm{
 [content &	[\type*{cause-rel}
 			causer & \1 ] \\
 arg-st & <np, \ldots > ]
@@ -376,11 +376,11 @@ Until now, we have mostly covered how semantic composition works in an approach 
 
 The development of a more constructional HPSG in the mid-90s opened up new possibilities for modeling the interface between syntax and semantics. One of these possibilities is the ability of rich phrasal constructicons to model the shared semantic combinatorics of quite distinct constructional patterns. This is, for example, apparent in \citet{Sag1997}, where a single modification meaning is assigned to a family of relative constructions that differ markedly syntactically. This is also what \citet{GinzburgandSag2001} show with their analysis of interrogatives. But their analysis goes further in demonstrating that there may be advantages to a surface-oriented approach to syntax in that it correctly predicts an effect of the \emph{surface} syntax onto semantics for the interpretation of interrogatives, as we now show. 
 
-The approach to interrogatives that Ginzburg and Sag propose is new in that it does not rely on the traditional Hamblin semantics for questions, namely that the meaning of questions is the set of (exhaustive) answers; see \citet{Hamblin1973} and \citet{GroenendijkandStokhoff1997}. Rather, the meaning of questions consists of propositional abstracts (not sets of propositions). Parameters of the kind that have been part of HPSG approaches to semantics since the beginning are used to model these propositional abstracts. Because the meaning of questions consists of propositional abstracts, the meaning of  \word{wh}-phrases is not the same as that of generalized quantifiers either; rather, \word{wh}-phrases introduce a parameter (roughly, the equivalent of a lambda-abstracted variable). (\ref{ques-sem-a}) and (\ref{ques-sem-b}) provide examples of the meaning of \word{wh}-questions and polar questions, respectively \citep[137]{GinzburgandSag2001}, where the AVM that follows $\mapsto$ is a description of the value of the \attrib{content} attribute of the expression that precedes $\mapsto$. Note that polar questions are modeled as zero-parameter propositional abstracts.
+The approach to interrogatives that Ginzburg and Sag propose is new in that it does not rely on the traditional Hamblin semantics for questions, namely that the meaning of questions is the set of (exhaustive) answers; see \citet{Hamblin1973} and \citet{GroenendijkandStokhoff1997}. Rather, the meaning of questions consists of propositional abstracts (not sets of propositions). Parameters of the kind that have been part of HPSG approaches to semantics since the beginning are used to model these propositional abstracts. Because the meaning of questions consists of propositional abstracts, the meaning of  \word{wh}-phrases is not the same as that of generalized quantifiers either; rather, \word{wh}-phrases introduce a parameter (roughly, the equivalent of a lambda-abstracted variable). (\ref{ques-sem-a}) and (\ref{ques-sem-b}) provide examples of the meaning of \word{wh}-questions and polar questions, respectively \citep[137]{GinzburgandSag2001}, where the AVM that follows $\mapsto$ is a description of the value of the \feat{content} attribute of the expression that precedes $\mapsto$. Note that polar questions are modeled as zero-parameter propositional abstracts.
 
 \begin{exe}
 \ex\label{ques-sem-a}
-\avmtmp{
+\avm{
 Who left? $\mapsto$ \\
 [\type*{question}
 params &	\{[\type*{param}
@@ -393,7 +393,7 @@ prop &	[\type*{proposition}
 						leaver & \1 ] ] ] ]
 }
 \ex\label{ques-sem-b}
-\avmtmp{
+\avm{
 Did someone leave? $\mapsto$ \\
 [\type*{question}
 params & \{ \} \\
@@ -413,32 +413,32 @@ The meaning assigned to questions illustrated above relies on an ontology of mes
 \begin{forest}
 [\emph{message}
 	[%
-	\avmtmp{
+	\avm{
 		[\type*{austinian}
 		sit & situation \\
 		soa & soa]
 	}
 		[%
-		\avmtmp{
+		\avm{
 			[\type*{outcome}
 			soa & i-soa]
 		}
 		]
 		[%
-		\avmtmp{
+		\avm{
 			[\type*{proposition}
 			soa & r-soa]
 		}
 		]
 	]
 	[%
-	\avmtmp{
+	\avm{
 		[\type*{prop-constr}
         prop & proposition ]
 	}
 		[\emph{fact}]
 		[%
-		\avmtmp{
+		\avm{
 			[\type*{question}
 			params & set!(param)!]
 		}
@@ -455,7 +455,7 @@ Of concern to us here is less the specifics of this ontology of messages (or of 
 \ex\label{cl-typ}
 \begin{xlist}
 \ex\label{decl-cl}
-\avmtmp{
+\avm{
 \emph{decl-cl}:
 [cont & [\type*{austinian}
 soa & /\1 ] ]
@@ -463,14 +463,14 @@ $\rightarrow$
 H [cont & /\1]
 }
 \ex\label{inter-cl}
-\avmtmp{
+\avm{
 \emph{inter-cl}:
 [cont & question] $\rightarrow$  \ldots
 }
 \end{xlist}
 \end{exe}
 
-In contrast to earlier approaches to semantics in HPSG where combining a VP with a subject amounted to nothing more than adding the relevant information in the event structure (akin to functional application), this more constructional approach associates a type-shift with the ``traditional'' subject-predicate construction, from a state of affairs description to a proposition. In other words, the analysis of clause types familiar from traditional grammar plays an explicit role in the grammar, as they are associated  with a particular kind of semantic content.  Interrogative clauses (clauses of sort \type{inter-cl}) are partially defined by their message, i.e.\ as denoting questions. Different kinds of interrogatives (polar interrogatives, \word{wh}-interrogatives, and \word{in situ} interrogatives) can then be defined as subsorts of \type{inter-cl}. Because this constructional analysis of clause types is embedded in a multiple inheritance network of constructions, an elegant model of similarities in syntax that do and do not correspond to similarities in meaning becomes possible. For example, English declaratives, like typical \word{wh}-interrogatives, can be inverted (and therefore some declaratives are subject-auxiliary-inversion phrases, as in \word{Under no circumstance will I allow Tobi to go out at night}, see \citealt{Fillmore1999}) and, conversely, some interrogatives are not (\word{in situ} interrogatives, in particular), but some must be inverted (polar interrogatives). Embedding a constructional semantics (i.e.\ the association of meaning to particular kinds of clauses) in a multidimensional analysis of phrases allows a model that associates meaning to some structures.
+In contrast to earlier approaches to semantics in HPSG where combining a VP with a subject amounted to nothing more than adding the relevant information in the event structure (akin to functional application), this more constructional approach associates a type-shift with the ``traditional'' subject-predicate construction, from a state of affairs description to a proposition. In other words, the analysis of clause types familiar from traditional grammar plays an explicit role in the grammar, as they are associated  with a particular kind of semantic content.  Interrogative clauses (clauses of sort \type{inter-cl}) are partially defined by their message, i.e.\ as denoting questions. Different kinds of interrogatives (polar interrogatives, \word{wh}-interrogatives, and \word{in situ} interrogatives) can then be defined as subsorts of \type{inter-cl}. Because this constructional analysis of clause types is embedded in a multiple inheritance network of constructions, an elegant model of similarities in syntax that do and do not correspond to similarities in meaning becomes possible. For example, \ili{English} declaratives, like typical \word{wh}-interrogatives, can be inverted (and therefore some declaratives are subject-auxiliary-inversion phrases, as in \word{Under no circumstance will I allow Tobi to go out at night}, see \citealt{Fillmore1999}) and, conversely, some interrogatives are not (\word{in situ} interrogatives, in particular), but some must be inverted (polar interrogatives). Embedding a constructional semantics (i.e.\ the association of meaning to particular kinds of clauses) in a multidimensional analysis of phrases allows a model that associates meaning to some structures.
 %JPK 12-17 I simply deleted the following, as I don't think it adds much (since we say "some structures) and can indeed be confusing , while recognizing that they need not to. 
 It is similar to some versions of Construction Grammar (see \crossrefchapteralt{cxg}), but is weaker in that it does not require phrasal constructions to be associated with an unpredictable meaning (i.e.\ with more than the equivalent of functional application in Categorial Grammar-like approaches). 
 
@@ -491,7 +491,7 @@ One particularly interesting aspect of the constructional semantics of \citet{Gi
 \end{exe}
 
 The generalization seems to be that the scope of the parameters  introduced by \word{wh}-phrases that occur in filler position (i.e.\ as (part of) the filler daughter of a head-filler phrase) is constrained by its surface position, but \word{wh}-phrases that occur \word{in situ} are not so constrained. Thus, \word{who} in (\ref{baker-a})  (\word{what} in (\ref{baker-b})) cannot outscope the embedded clause, but \word{what} in (\ref{baker-a}) (\word{who} in (\ref{baker-b})) can.
-The explanation for this puzzling observation runs as follows. \word{Wh}-interrogatives are a subsort of interrogative clauses and head-filler phrases. They are thus subject to the Filler-Inclusion Constraint in (\ref{fic}) that requires the \attrib{wh} value of the filler to be a retrieved parameter (i.e.\ become part of the \attrib{params} set; $\uplus$ in the statement of the constraint stands for disjoint union, i.e.\ the intersection of the two sets is the empty set). 
+The explanation for this puzzling observation runs as follows. \word{Wh}-interrogatives are a subsort of interrogative clauses and head-filler phrases. They are thus subject to the Filler-Inclusion Constraint in (\ref{fic}) that requires the \feat{wh} value of the filler to be a retrieved parameter (i.e.\ become part of the \feat{params} set; $\uplus$ in the statement of the constraint stands for disjoint union, i.e.\ the intersection of the two sets is the empty set). 
 %the two sets cannot contain identical members). 
 %JPK 12-17 added a parenthesis explaining uplus
 %fmr12-18: how about: ``the intersection of the two sets is the empty set''? too complicated for informal readers?
@@ -500,7 +500,7 @@ This constraint ensures that \word{wh}-phrases that are fillers of a head-filler
 
 \begin{exe}
 \ex\label{fic}Filler Inclusion Constraint  \\
-\avmtmp{
+\avm{
 \emph{wh-inter-cl}:
 [cont & [params & \{ \1 \} $\uplus$ set] ]
 $\rightarrow$
@@ -525,10 +525,10 @@ It should be noted that the combination of a constructional and a surface"=orien
 %\ex\label{emb-is-ex}I wondered [Marc met who].
 \end{exe}
 
-We focus on the latter case, which involves an ``ordinary'' question interpretation, for simplicity. Since B's answer is syntactically a declarative subject-predicate clause, its meaning will be of sort \type{proposition} (as will that of any head-subject clause that is not a \word{wh}-subject clause). But the meaning associated with this construction is that of a question. So, we need a unary-branching construction that maps the propositional meaning onto the question meaning, i.e.\ that retrieves the stored parameter contributed by the \word{wh}-phrase and makes the \attrib{content} of the head-subject phrase the value of the \attrib{prop} attribute of a question. This is what is accomplished by the \type{is-inter-cl} construction defined in (\ref{is-inter-cl}). One of the subsorts of this construction is the one involved in discourse (\ref{dir-is-ex}) and defined in (\ref{dir-is-int-cl}) (the Independent Clause feature value ``$+$'' in (\ref{is-inter-cl}) is meant to prevent
-%in English sentences such as (\ref{emb-is-ex}), i.e.\ preventing 
+We focus on the latter case, which involves an ``ordinary'' question interpretation, for simplicity. Since B's answer is syntactically a declarative subject-predicate clause, its meaning will be of sort \type{proposition} (as will that of any head-subject clause that is not a \word{wh}-subject clause). But the meaning associated with this construction is that of a question. So, we need a unary-branching construction that maps the propositional meaning onto the question meaning, i.e.\ that retrieves the stored parameter contributed by the \word{wh}-phrase and makes the \feat{content} of the head-subject phrase the value of the \feat{prop} attribute of a question. This is what is accomplished by the \type{is-inter-cl} construction defined in (\ref{is-inter-cl}). One of the subsorts of this construction is the one involved in discourse (\ref{dir-is-ex}) and defined in (\ref{dir-is-int-cl}) (the Independent Clause feature value ``$+$'' in (\ref{is-inter-cl}) is meant to prevent
+%in \ili{English} sentences such as (\ref{emb-is-ex}), i.e.\ preventing 
 \word{in situ} interrogatives from being embedded interrogatives). 
-%JPK 12-17 edited what just precedes to make it English!
+%JPK 12-17 edited what just precedes to make it \ili{English}!
 Assigning distinct messages to
 different clause types while maintaining a surface-oriented approach requires quite a few such unary
 branching constructions whose function is strictly semantic.\footnote{\citet{MuellerSatztypen}
@@ -542,7 +542,7 @@ branching constructions whose function is strictly semantic.\footnote{\citet{Mue
 
 \begin{exe}
 \ex\label{is-inter-cl}
-\avmtmp{
+\avm{
 \emph{is-inter-cl}: \\
 [cat &	[ic & $+$ \\
 		subj & < > \\
@@ -551,7 +551,7 @@ $\rightarrow$
 H ![ ]!
 }
 \ex\label{dir-is-int-cl}
-\avmtmp{
+\avm{
 \emph{dir-is-inter-cl}:  \\
 [cont|prop & \1]
 $\rightarrow$
@@ -598,7 +598,7 @@ This is a point that was made clear a long time ago by Martin Kay in his work on
 
 \subsubsection{Why minimally recursive semantic representations}
 
-MRS developed out of computational semantic engineering considerations related to machine translation for face-to-face dialogue that started in the early 90s (see \citealt{Kayetal1992} for an overview of the \verbmobil project). As \citet{Copestakeetal1995} argue, syntactic differences between languages can lead to logically equivalent distinct semantic representations when using traditional ``recursive'' semantic representations. They point out, for example, that the English expression \word{fierce black cat} and Spanish \word{gato negro y feroz} would be given distinct semantic representations under standard assumptions, as shown in (\ref{gato}).
+MRS developed out of computational semantic engineering considerations related to machine translation for face-to-face dialogue that started in the early 90s (see \citealt{Kayetal1992} for an overview of the \verbmobil project). As \citet{Copestakeetal1995} argue, syntactic differences between languages can lead to logically equivalent distinct semantic representations when using traditional ``recursive'' semantic representations. They point out, for example, that the \ili{English} expression \word{fierce black cat} and \ili{Spanish} \word{gato negro y feroz} would be given distinct semantic representations under standard assumptions, as shown in (\ref{gato}).
 
 \begin{exe}
 \ex\label{gato}
@@ -610,7 +610,7 @@ $\lambda x$.(cat($x$) $\wedge$ (black($x$) $\wedge$ fierce($x$)))
 \end{xlist}
 \end{exe}
 
-These distinct semantic representations would make translating these simple nominal expressions from one language to the other difficult. Furthermore, some sentences may be similarly ambiguous in English and Spanish (for example, sentences that contain generalized quantifiers), and requiring the semantic disambiguation of these sentences prior to translating them into sentences that contain similar ambiguities is inefficient. Semantic representations should only be as disambiguated as the source language grammar entails. For these reasons and others they detail, \citet{Copestakeetal1995} propose to model the semantics of grammar via semantic representations that are as flat (or non-recursive) as possible. To achieve this minimal recursivity despite the fact that disambiguated scope relations among generalized quantifiers require embedding, they add additional variables or handles that serve as labels to particular relations in the flat list of relations and that can serve as ``arguments'' of scopal operators. (\ref{ex-mrs}) and its underspecified and fully disambiguated semantic representations in (\ref{ex-mrs-sem}) illustrate this informally and (\ref{ex-mrs-alt}) more formally. Subscripts on names of relations in the informal representation stand for labels of the formulas they are part of. Thus, $1$ in \word{every$_{1}$($x$, 3, $n$)} is a label for the entire formula. In the more explicit representation in (\ref{ex-mrs-alt}), the label of a formula is written before it and separated from it by a colon (e.g.\ h1:every(x,h3,h8)\,); 
+These distinct semantic representations would make translating these simple nominal expressions from one language to the other difficult. Furthermore, some sentences may be similarly ambiguous in \ili{English} and \ili{Spanish} (for example, sentences that contain generalized quantifiers), and requiring the semantic disambiguation of these sentences prior to translating them into sentences that contain similar ambiguities is inefficient. Semantic representations should only be as disambiguated as the source language grammar entails. For these reasons and others they detail, \citet{Copestakeetal1995} propose to model the semantics of grammar via semantic representations that are as flat (or non-recursive) as possible. To achieve this minimal recursivity despite the fact that disambiguated scope relations among generalized quantifiers require embedding, they add additional variables or handles that serve as labels to particular relations in the flat list of relations and that can serve as ``arguments'' of scopal operators. (\ref{ex-mrs}) and its underspecified and fully disambiguated semantic representations in (\ref{ex-mrs-sem}) illustrate this informally and (\ref{ex-mrs-alt}) more formally. Subscripts on names of relations in the informal representation stand for labels of the formulas they are part of. Thus, $1$ in \word{every$_{1}$($x$, 3, $n$)} is a label for the entire formula. In the more explicit representation in (\ref{ex-mrs-alt}), the label of a formula is written before it and separated from it by a colon (e.g.\ h1:every(x,h3,h8)\,); 
 %JPK 12-17 de-italicized as requested
 variables over labels are simply labels that do not correspond (yet) to labels of formulas ($h8$ and $h9$).\footnote{\citet{Copestake2007} presents a Neo-Davidsonian version of MRS called R(obust)MRS where arguments of predicates (aside from their event variable) are contributed via independent elementary predications. Copestake shows that RMRS can be profitably used with shallower analyses, ``including part-of-speech tagging, noun phrase chunking and stochastic parsers which operate without detailed lexicon'' (p.\,73); see \citet{PeldzusandSchlangen2012} for how RMRS allows for the incremental construction of meaning representations in dialogue systems.}
 
@@ -639,17 +639,17 @@ $h8=_{qeq}h5$, $h9=_{qeq}h4$
 
 
 
-To understand the use of handles, consider the expression \word{every$_{1}$\textup{(}x, 3, n\textup{)}}. The first argument of the generalized quantifier is the handle numbered 3, which is a label for the formula \word{dog$_{3}$\textup{(}$x$\textup{)}}. The formula that serves as the first argument of \word{every} is fixed:\ it is always the meaning of the nominal phrase that the determiner selects for. But to avoid embedding that relation as the restriction of the quantifier and to preserve the desired flatness of semantic representations, the second argument of \word{every} is not \word{dog$_{3}$\textup{(}$x$\textup{)}}, but the label of that formula (indicated by the subscript $3$ on the predication \word{dog$_{3}$\textup{(}$x$\textup{)}}). Now, in contrast to the quantifier's restriction, which must include the content of the head noun it combines with, the nuclear scope or body of the quantifier is not as restricted. In other words, the semantic representation determined by an MRS grammar of English does not fix the second argument of \word{every}, represented here as the variable over handles $n$. The same distinction applies to \word{some}: its first argument is fixed to the formula \word{cat$_{7}$\textup{(}$y$\textup{)}}, but its second argument is left underspecified, as indicated by the variable over numbered labels $m$. Resolving the scope ambiguity of the underspecified representation in (\ref{ex-mrs-sem-a}) amounts to deciding whether \word{every} takes the formula that contains \word{some} in its scope or the reverse; in the first case, $n=5$, in the second, $m=1$. Since the formula that encodes the meaning of the verb (namely, \mbox{\word{chase$_{4}$\textup{(}$e$, $x$, $y$\textup{)}})} is outscoped by the nuclear scope or body of both generalized quantifiers, either constraint will fully determine the relative scope of all formulas in (\ref{ex-mrs-sem}). Although it is possible to use a typed feature structure formalism to resolve scope ambiguities, \citet[309--311]{Copestakeetal1995} argue that it is more efficient for the relevant resolution process not to be part of the grammar and be left to a separate algorithm.
+To understand the use of handles, consider the expression \word{every$_{1}$\textup{(}x, 3, n\textup{)}}. The first argument of the generalized quantifier is the handle numbered 3, which is a label for the formula \word{dog$_{3}$\textup{(}$x$\textup{)}}. The formula that serves as the first argument of \word{every} is fixed:\ it is always the meaning of the nominal phrase that the determiner selects for. But to avoid embedding that relation as the restriction of the quantifier and to preserve the desired flatness of semantic representations, the second argument of \word{every} is not \word{dog$_{3}$\textup{(}$x$\textup{)}}, but the label of that formula (indicated by the subscript $3$ on the predication \word{dog$_{3}$\textup{(}$x$\textup{)}}). Now, in contrast to the quantifier's restriction, which must include the content of the head noun it combines with, the nuclear scope or body of the quantifier is not as restricted. In other words, the semantic representation determined by an MRS grammar of \ili{English} does not fix the second argument of \word{every}, represented here as the variable over handles $n$. The same distinction applies to \word{some}: its first argument is fixed to the formula \word{cat$_{7}$\textup{(}$y$\textup{)}}, but its second argument is left underspecified, as indicated by the variable over numbered labels $m$. Resolving the scope ambiguity of the underspecified representation in (\ref{ex-mrs-sem-a}) amounts to deciding whether \word{every} takes the formula that contains \word{some} in its scope or the reverse; in the first case, $n=5$, in the second, $m=1$. Since the formula that encodes the meaning of the verb (namely, \mbox{\word{chase$_{4}$\textup{(}$e$, $x$, $y$\textup{)}})} is outscoped by the nuclear scope or body of both generalized quantifiers, either constraint will fully determine the relative scope of all formulas in (\ref{ex-mrs-sem}). Although it is possible to use a typed feature structure formalism to resolve scope ambiguities, \citet[309--311]{Copestakeetal1995} argue that it is more efficient for the relevant resolution process not to be part of the grammar and be left to a separate algorithm.
 
 
 
 \subsubsection{The nitty-gritty}
 
-We now present a brief outline of how MRS works in typed feature structures. First, the content of an expression is of sort \type{mrs}. Structures of that sort consist of (1) a bag of relations or elementary predications (the value of \attrib{rels}), (2) a \attrib{hook}, which groups together the labels or handles that correspond to elementary predications that have widest local and global scope and the expression's index (these three semantic objects are what is visible to semantic functors), and (3) a set of constraints on handles that restrict or determine the scope of scope-relevant elementary predications (the value of \attrib{hcons} -- for handle constraints). Each constraint in the value of \attrib{hcons} consists of a greater or equal relation between handles. A representation of the structure of an object of sort  \type{mrs} is provided in (\ref{mrs-str}).
+We now present a brief outline of how MRS works in typed feature structures. First, the content of an expression is of sort \type{mrs}. Structures of that sort consist of (1) a bag of relations or elementary predications (the value of \feat{rels}), (2) a \feat{hook}, which groups together the labels or handles that correspond to elementary predications that have widest local and global scope and the expression's index (these three semantic objects are what is visible to semantic functors), and (3) a set of constraints on handles that restrict or determine the scope of scope-relevant elementary predications (the value of \feat{hcons} -- for handle constraints). Each constraint in the value of \feat{hcons} consists of a greater or equal relation between handles. A representation of the structure of an object of sort  \type{mrs} is provided in (\ref{mrs-str}).
 
 \begin{exe}
 \ex\label{mrs-str}
-\avmtmp{
+\avm{
 [\type*{mrs}
 hook &	[index & index \\
 		ltop & handle \\
@@ -665,7 +665,7 @@ Sentence (\ref{mrs-ex-sent}) and its (underspecified) \type{mrs} representation 
 \ex\label{mrs-ex-sent}
 Every dog probably sleeps.
 \ex\label{mrs-ex-sc}
-\avmtmp{
+\avm{
 [\type*{mrs}
 hook &	[\type*{hook}
 		gtop & \1 \\
@@ -702,16 +702,16 @@ hcons &	<[\type*{qeq}
 \end{exe}
 
 
-Members of \attrib{rels} correspond to the content of lexical entries while members of \attrib{hcons} constrain the relative scope of semantic arguments of members of \attrib{rels}. Now, although the grammar of English leaves the meaning of (\ref{mrs-ex-sent}) underspecified, it \emph{does} constrain some scope relations, and the \type{mrs} in (\ref{mrs-ex-sc}) therefore constrains how some elementary predications relate to each other. First, the identity between the value of \attrib{arg0} for both the \type{every\_rel} and \type{dog\_rel} elementary predications indicates that \word{every} in (\ref{mrs-ex-sent}) quantifies over dogs;  %fmr12-21: dog, not dogs? %JPK 12-21 yep, corrected
-\ibox{3} is the variable bound by the quantifier. And similarly, the value of \attrib{arg1} of \word{sleep\_rel} is lexically constrained to correspond to the index of the subject, itself constrained to be identical to the value of \attrib{arg0} for the \word{dog\_rel} predication (i.e.\ \ibox{3}). Second, \type{prbly\_rel} is required to outscope \type{sleep\_rel} (a \type{qeq} constraint either identifies its \attrib{harg} or \attrib{larg} or it constrains its \attrib{harg} to outscope its \attrib{larg}). %fmr12-21: larg instead of arg
-Similarly, the restriction of \type{every\_rel} is constrained to  outscope \type{dog\_rel} as \ibox{4} $=_{qeq}$ \ibox{6}. Finally, the global top (the value of \attrib{gtop}) is constrained to outscope the local top (the value of \attrib{ltop}). (To simplify, the local top is the handle of the elementary predication that is not a quantifier with the widest scope.) The semantic representation that the grammar of English motivates remains underspecified, as it does not specify what the value of the \attrib{body} of \type{every\_rel} is, in particular whether it is the handle of the \type{prbly\_rel} or \type{sleep\_rel} elementary predications. Resolving this scope ambiguity amounts to adding an \attrib{hcons} that identifies the value of \attrib{body} with either handle, i.e.\ \ibox{7} or \ibox{9}. 
+Members of \feat{rels} correspond to the content of lexical entries while members of \feat{hcons} constrain the relative scope of semantic arguments of members of \feat{rels}. Now, although the grammar of \ili{English} leaves the meaning of (\ref{mrs-ex-sent}) underspecified, it \emph{does} constrain some scope relations, and the \type{mrs} in (\ref{mrs-ex-sc}) therefore constrains how some elementary predications relate to each other. First, the identity between the value of \feat{arg0} for both the \type{every\_rel} and \type{dog\_rel} elementary predications indicates that \word{every} in (\ref{mrs-ex-sent}) quantifies over dogs;  %fmr12-21: dog, not dogs? %JPK 12-21 yep, corrected
+\ibox{3} is the variable bound by the quantifier. And similarly, the value of \feat{arg1} of \word{sleep\_rel} is lexically constrained to correspond to the index of the subject, itself constrained to be identical to the value of \feat{arg0} for the \word{dog\_rel} predication (i.e.\ \ibox{3}). Second, \type{prbly\_rel} is required to outscope \type{sleep\_rel} (a \type{qeq} constraint either identifies its \feat{harg} or \feat{larg} or it constrains its \feat{harg} to outscope its \feat{larg}). %fmr12-21: larg instead of arg
+Similarly, the restriction of \type{every\_rel} is constrained to  outscope \type{dog\_rel} as \ibox{4} $=_{qeq}$ \ibox{6}. Finally, the global top (the value of \feat{gtop}) is constrained to outscope the local top (the value of \feat{ltop}). (To simplify, the local top is the handle of the elementary predication that is not a quantifier with the widest scope.) The semantic representation that the grammar of \ili{English} motivates remains underspecified, as it does not specify what the value of the \feat{body} of \type{every\_rel} is, in particular whether it is the handle of the \type{prbly\_rel} or \type{sleep\_rel} elementary predications. Resolving this scope ambiguity amounts to adding an \feat{hcons} that identifies the value of \feat{body} with either handle, i.e.\ \ibox{7} or \ibox{9}. 
 
-Examples that include multiple quantifiers work in a similar way. Take the sentence in (\ref{2-quant-ex}) and the elementary predications for \word{every}, \word{chases}, and \word{some} (we only include relevant elementary predications and attributes for simplicity). We know that the body of \type{every\_rel} and \type{some\_rel} each outscope \word{chase\_rel} (so \ibox{1 } $=_{qeq}$ \ibox{3} and \ibox{2} $=_{qeq}$ \ibox{3}, where the left-hand side of the equality corresponds to the \attrib{harg} and the right-hand side to the \attrib{larg}).\footnote{\citet{Copestakeetal2005} do not require the nuclear scope of generalized quantifiers to outscope the predicate denoted by the verb they are syntactic dependents of. Since Lexical Resource Semantics does so -- and correctly so, as it seems to be a constraint on the interpretation of English sentences that contain generalized quantifiers -- we include additional \ibox{1 } $=_{qeq}$ \ibox{3} and \ibox{2} $=_{qeq}$ \ibox{3} constraints in the text and their effect in Figure~\ref{fig:MRS-tree} for ease of comparison. Nothing critical hinges on this issue.} But we do not know if \type{every\_rel} outscopes \type{some\_rel} or the reverse; adding either \attrib{hcons} \ibox{1} $=_{qeq}$ \ibox{2} or \ibox{2} $=_{qeq}$ \ibox{1} specifies which is the case. (This example illustrates that $=_{qeq}$ is not commutative, as it is meant to encode greater or equal scope.) Figure~\ref{fig:MRS-tree} provides a tree representation of the underspecified outscope relation induced by $=_{qeq}$ constraints; dashed lines indicate that there may be intervening semantic material between the operator and what it outscopes.
+Examples that include multiple quantifiers work in a similar way. Take the sentence in (\ref{2-quant-ex}) and the elementary predications for \word{every}, \word{chases}, and \word{some} (we only include relevant elementary predications and attributes for simplicity). We know that the body of \type{every\_rel} and \type{some\_rel} each outscope \word{chase\_rel} (so \ibox{1 } $=_{qeq}$ \ibox{3} and \ibox{2} $=_{qeq}$ \ibox{3}, where the left-hand side of the equality corresponds to the \feat{harg} and the right-hand side to the \feat{larg}).\footnote{\citet{Copestakeetal2005} do not require the nuclear scope of generalized quantifiers to outscope the predicate denoted by the verb they are syntactic dependents of. Since Lexical Resource Semantics does so -- and correctly so, as it seems to be a constraint on the interpretation of \ili{English} sentences that contain generalized quantifiers -- we include additional \ibox{1 } $=_{qeq}$ \ibox{3} and \ibox{2} $=_{qeq}$ \ibox{3} constraints in the text and their effect in Figure~\ref{fig:MRS-tree} for ease of comparison. Nothing critical hinges on this issue.} But we do not know if \type{every\_rel} outscopes \type{some\_rel} or the reverse; adding either \feat{hcons} \ibox{1} $=_{qeq}$ \ibox{2} or \ibox{2} $=_{qeq}$ \ibox{1} specifies which is the case. (This example illustrates that $=_{qeq}$ is not commutative, as it is meant to encode greater or equal scope.) Figure~\ref{fig:MRS-tree} provides a tree representation of the underspecified outscope relation induced by $=_{qeq}$ constraints; dashed lines indicate that there may be intervening semantic material between the operator and what it outscopes.
 
 \begin{exe}
 \ex\label{2-quant-ex}Every dog chases some cat.
 \ex\label{2-quant-sem}
-\avmtmp{
+\avm{
 [\type*{every\_rel}
 restr & handle \\
 body & \1 ]
@@ -747,27 +747,27 @@ lbl & \3 ]
 \caption{\label{fig:MRS-tree}A graphical representation of the underspecified scope relations induced by $=_{qeq}$ constraints for sentence (\ref{2-quant-ex})}
 \end{figure}
 
-Semantic composition within MRS is relatively simple and is stated in (\ref{mrs-comp}) \citep[313--314]{Copestakeetal2005}; the third clause of this semantic composition rule amounts to a case-based definition, as is true of all Semantics Principles  since \citet{PollardandSag1987}, as different constructions determine differently the \attrib{hook} of the head daughter (\citealt{Copestakeetal2005} only discuss intersective and scopal constructions in their paper).\footnote{A slot in (\ref{mrs-comp}--4) is defined as ``a semantic argument position in a word or phrase A that is associated with syntactic constraints on the word or phrase B whose semantics will supply that argument when the relevant grammar rule combines A and B'' \citep[313]{Copestakeetal2005}.}
+Semantic composition within MRS is relatively simple and is stated in (\ref{mrs-comp}) \citep[313--314]{Copestakeetal2005}; the third clause of this semantic composition rule amounts to a case-based definition, as is true of all Semantics Principles  since \citet{PollardandSag1987}, as different constructions determine differently the \feat{hook} of the head daughter (\citealt{Copestakeetal2005} only discuss intersective and scopal constructions in their paper).\footnote{A slot in (\ref{mrs-comp}--4) is defined as ``a semantic argument position in a word or phrase A that is associated with syntactic constraints on the word or phrase B whose semantics will supply that argument when the relevant grammar rule combines A and B'' \citep[313]{Copestakeetal2005}.}
 
 \begin{exe}
 \ex\label{mrs-comp}
 \begin{enumerate}
-\item The \attrib{rels} value of a phrase is the concatenation (append) of the \attrib{rels}
+\item The \feat{rels} value of a phrase is the concatenation (append) of the \feat{rels}
 values of the daughters.
-\item The \attrib{hcons} of a phrase is the concatenation (append) of the \attrib{hcons} values of the daughters.
-\item The \attrib{hook} of a phrase is the \attrib{hook} of the semantic head daughter, which is determined uniquely for each construction type.
-\item One slot of the semantic head daughter of a phrase is identified with the \attrib{hook} in the other daughter. 
+\item The \feat{hcons} of a phrase is the concatenation (append) of the \feat{hcons} values of the daughters.
+\item The \feat{hook} of a phrase is the \feat{hook} of the semantic head daughter, which is determined uniquely for each construction type.
+\item One slot of the semantic head daughter of a phrase is identified with the \feat{hook} in the other daughter. 
 \end{enumerate}
 \end{exe}
 
-This quite brief description of \attrib{mrs} illustrates what is attractive about it from an engineering point of view. Semantic composition is particularly simple:\ concatenation of lists (lists of elementary predications and constraints), percolation of the \attrib{hook} from the semantic head, and some general constraint on connectedness between the head daughter and the non-head daughter. Furthermore, resolving scope means adding $=_{qeq}$ constraints to a list of $=_{qeq}$, thus avoiding traversing the semantic tree to check on scope relations. Furthermore, a flat representation makes translation easier, as argued in \citet{Copestakeetal1995}, and has several other advantages from an engineering perspective as detailed in \citet{Copestake2009}. The ease flat representations provide comes at a cost, though, namely that semantic representations are cluttered with uninterpretable symbols (handles) and, more generally, do not correspond to sub-pieces of a well-formed formula. For example, we would expect the value of a quantifier restriction and nuclear scope to be, say, formulas denoting sets (as per \citealt{BarwiseandCooper1981}), not pointers to or labels of predications. This is not to say that a compositional, ``standard'' interpretation of MRS structures is not possible (see, for example, \citealt{Copestakeetal2001}); it is rather that the model-theoretic interpretation of MRS requires adding to the model hooks and holes, abstract objects of dubious semantic import. While it is true, as Copestake et al. point out, that abstract objects have been included in the models of other semantic approaches, DRT in particular \citep{Zeevat1989}, abstract objects in compositional specifications of DRT and other such dynamic semantic approaches are composed of semantically interpretable objects. In the case of DRT, the set of variables (discourse referents) that form the other component of semantic representations (aside from predicative conditions) are anchored to individuals in the ``traditional'' model-theoretic sense. Holes and hooks, on the other hand, are not necessarily so anchored, as labels (handles) do not have any interpretation in the universe of discourse.
+This quite brief description of \feat{mrs} illustrates what is attractive about it from an engineering point of view. Semantic composition is particularly simple:\ concatenation of lists (lists of elementary predications and constraints), percolation of the \feat{hook} from the semantic head, and some general constraint on connectedness between the head daughter and the non-head daughter. Furthermore, resolving scope means adding $=_{qeq}$ constraints to a list of $=_{qeq}$, thus avoiding traversing the semantic tree to check on scope relations. Furthermore, a flat representation makes translation easier, as argued in \citet{Copestakeetal1995}, and has several other advantages from an engineering perspective as detailed in \citet{Copestake2009}. The ease flat representations provide comes at a cost, though, namely that semantic representations are cluttered with uninterpretable symbols (handles) and, more generally, do not correspond to sub-pieces of a well-formed formula. For example, we would expect the value of a quantifier restriction and nuclear scope to be, say, formulas denoting sets (as per \citealt{BarwiseandCooper1981}), not pointers to or labels of predications. This is not to say that a compositional, ``standard'' interpretation of MRS structures is not possible (see, for example, \citealt{Copestakeetal2001}); it is rather that the model-theoretic interpretation of MRS requires adding to the model hooks and holes, abstract objects of dubious semantic import. While it is true, as Copestake et al. point out, that abstract objects have been included in the models of other semantic approaches, DRT in particular \citep{Zeevat1989}, abstract objects in compositional specifications of DRT and other such dynamic semantic approaches are composed of semantically interpretable objects. In the case of DRT, the set of variables (discourse referents) that form the other component of semantic representations (aside from predicative conditions) are anchored to individuals in the ``traditional'' model-theoretic sense. Holes and hooks, on the other hand, are not necessarily so anchored, as labels (handles) do not have any interpretation in the universe of discourse.
 
 
-An example of the model-theoretic opacity of handles is provided by the compositional semantics of intersective attributive adjectives. The \attrib{rels} value of \word{white horse}, for example, is as shown in (\ref{int-mod}) (after identification of handles due to the meaning composition performed by the \type{intersective\_phrase} rule that (intersective) adjectival modification is a subsort of).
+An example of the model-theoretic opacity of handles is provided by the compositional semantics of intersective attributive adjectives. The \feat{rels} value of \word{white horse}, for example, is as shown in (\ref{int-mod}) (after identification of handles due to the meaning composition performed by the \type{intersective\_phrase} rule that (intersective) adjectival modification is a subsort of).
 
 \begin{exe}
 \ex\label{int-mod}
-\avmtmp{
+\avm{
 [rels & <[\type*{white\_rel}
 		lbl & \1 \\
 		arg0 & \2]
@@ -778,13 +778,13 @@ An example of the model-theoretic opacity of handles is provided by the composit
 }
 \end{exe}
 
-The fact that the value of \attrib{arg0} is the same for both elementary predications (\ibox{2}) is model-theoretically motivated: both properties are predicated of the same individual. 
+The fact that the value of \feat{arg0} is the same for both elementary predications (\ibox{2}) is model-theoretically motivated: both properties are predicated of the same individual. 
 %JPK 12-17: No, it should be "of", this is a technical, philosophical use
-The fact that the value of \attrib{lbl} is identical (\ibox{1}) is also motivated if labels are used to help determine the scope of quantifiers; in a quantifier like \word{every white horse}, the content of \word{white} and \word{horse} have the same scope; they conjunctively serve as the restriction of \type{every\_rel} represented in  (\ref{every-hand}).
+The fact that the value of \feat{lbl} is identical (\ibox{1}) is also motivated if labels are used to help determine the scope of quantifiers; in a quantifier like \word{every white horse}, the content of \word{white} and \word{horse} have the same scope; they conjunctively serve as the restriction of \type{every\_rel} represented in  (\ref{every-hand}).
 
 \begin{exe}
 \ex\label{every-hand}
-\avmtmp{
+\avm{
 [\type*{every\_rel}
 restr & handle \\
 body & handle ]
@@ -832,12 +832,12 @@ Lexical items contribute semantic resources to utterances; every semantic repres
 The combinatorial semantics of phrases is encoded with structures of sort \type{lrs}:
 
 %1.\ combinatoric semantics
-%attributes: \attrib{lrs}, \attrib{excont}, \attrib{incont},
-%\attrib{parts}:
+%attributes: \feat{lrs}, \feat{excont}, \feat{incont},
+%\feat{parts}:
 
 \begin{exe}
   \ex\label{lrs-str}
-\avmtmp{
+\avm{
   [sem &	[\type*{lrs}
             excont & me\\
             incont & me\\
@@ -845,20 +845,20 @@ The combinatorial semantics of phrases is encoded with structures of sort \type{
 }
 \end{exe}
 
-Signs have an attribute \attrib{sem}antics with value
-\type{lrs}. External content (\attrib{excont}) and internal content
-(\attrib{incont}) designate two prominent aspects of the semantics of
+Signs have an attribute \feat{sem}antics with value
+\type{lrs}. External content (\feat{excont}) and internal content
+(\feat{incont}) designate two prominent aspects of the semantics of
 signs. Both of these attributes have
 values of sort \type{meaningful\_expression}, for short
-\type{me}. The attribute \attrib{excont} contains a term
+\type{me}. The attribute \feat{excont} contains a term
 that represents the meaning of the maximal syntactic projection of the sign
 and is built from semantic material contributed within the projection. The
-\attrib{incont} is that part of a lexical sign's representation which is
+\feat{incont} is that part of a lexical sign's representation which is
 outscoped by any scope-taking operator that it combines with within
-its syntactic projection. The \attrib{parts} list records all semantic
+its syntactic projection. The \feat{parts} list records all semantic
 resources contributed by a given sign. The LRS Projection Principle
 governs the percolation of these attribute values along the syntactic
-head path of phrases, whereas the \attrib{excont} and \attrib{incont}
+head path of phrases, whereas the \feat{excont} and \feat{incont}
 Principles determine the relationship of the respective attribute
 values to other semantic attribute values within local syntactic
 trees. The most important relationships are those of term identity and
@@ -872,39 +872,39 @@ to the \type{qeq} constraints of MRS.
     \ex\label{lrs-projection} LRS Projection Principle\\
     In each phrase,
     \begin{enumerate}
-    \item the \attrib{excont} values of syntactic head and mother are identical,
-    \item the \attrib{incont} values of syntactic head and mother are identical,
-    \item the list in the \attrib{parts} value contains all and only the elements
-    of the \attrib{parts} values of the daughters.
+    \item the \feat{excont} values of syntactic head and mother are identical,
+    \item the \feat{incont} values of syntactic head and mother are identical,
+    \item the list in the \feat{parts} value contains all and only the elements
+    of the \feat{parts} values of the daughters.
     \end{enumerate}
-    \ex\label{lrs-incont} \attrib{incont} Principle\\
-    In each \type{lrs}, the \attrib{incont} value is an element of the
-    \attrib{parts} list and a component of the \attrib{excont} value.
-    \ex\label{lrs-excont} \attrib{excont} Principle\\
-    First, in every phrase, the \attrib{excont} value of the non-head daughter
-    is an element of the non-head daughter's \attrib{parts} list. Second, in
-    every utterance, every subexpression of the \attrib{excont} value of the
-    utterance is an element of its \attrib{parts} list, and every element of
-    the utterance's \attrib{parts} list is a subexpression of the \attrib{excont}
+    \ex\label{lrs-incont} \feat{incont} Principle\\
+    In each \type{lrs}, the \feat{incont} value is an element of the
+    \feat{parts} list and a component of the \feat{excont} value.
+    \ex\label{lrs-excont} \feat{excont} Principle\\
+    First, in every phrase, the \feat{excont} value of the non-head daughter
+    is an element of the non-head daughter's \feat{parts} list. Second, in
+    every utterance, every subexpression of the \feat{excont} value of the
+    utterance is an element of its \feat{parts} list, and every element of
+    the utterance's \feat{parts} list is a subexpression of the \feat{excont}
     value.
   \end{xlist}
 \end{exe}
 
-The Projection Principle guarantees the percolation of \attrib{excont} and
-\attrib{incont} values along the head path of syntactic phrases, and it records
+The Projection Principle guarantees the percolation of \feat{excont} and
+\feat{incont} values along the head path of syntactic phrases, and it records
 the semantic resources available at each phrase based on the semantic
-contributions of their daughters (\ref{lrs-projection}). The \attrib{incont} Principle and the \attrib{excont} Principle manage the properties of the respective attribute values. The term with minimal scope of each lexeme must be contributed by the lexeme itself and must be semantically realized within the representation of the maximal syntactic head projection (\ref{lrs-incont}). The maximal semantic meaning contribution of a maximal syntactic projection must originate from within that maximal projection, and an utterance (as a distinguished maximal projection) consists of all and only those pieces of semantic representation which are contributed by some lexeme in the utterance (\ref{lrs-excont}). The meaning of an utterance is given by the semantic representation which is its \attrib{excont} value. An ambiguous utterance receives structural analyses that are potentially only distinguished by different \attrib{excont} values of their root node.
+contributions of their daughters (\ref{lrs-projection}). The \feat{incont} Principle and the \feat{excont} Principle manage the properties of the respective attribute values. The term with minimal scope of each lexeme must be contributed by the lexeme itself and must be semantically realized within the representation of the maximal syntactic head projection (\ref{lrs-incont}). The maximal semantic meaning contribution of a maximal syntactic projection must originate from within that maximal projection, and an utterance (as a distinguished maximal projection) consists of all and only those pieces of semantic representation which are contributed by some lexeme in the utterance (\ref{lrs-excont}). The meaning of an utterance is given by the semantic representation which is its \feat{excont} value. An ambiguous utterance receives structural analyses that are potentially only distinguished by different \feat{excont} values of their root node.
 
-The constraints in (\ref{lrs-essent-principles}) take care of the integrity of the semantic combinatorics. The task of the clauses of the Semantics Principle is to regulate the semantic restrictions on specific syntactic constructions (as in all previously discussed versions of semantics in HPSG). A quantificational determiner, represented as a generalized quantifier, which syntactically combines as non-head daughter with a nominal projection, integrates the \attrib{incont} of the nominal projection as a subterm into its restrictor and requires that its own \attrib{incont} (containing the quantificational expression) be identical with the \attrib{excont} of the nominal projection. This clause makes the quantifier take wide scope in the noun phrase and forces the semantics of the nominal head into the restrictor. In (\ref{lrs-introex}) we observe the effect of this clause by the placement of the predicate {\normalfont \sffamily dog} in the restrictor of the universal and the predicate {\normalfont \sffamily cat} in the restrictor of the existential quantifier.
+The constraints in (\ref{lrs-essent-principles}) take care of the integrity of the semantic combinatorics. The task of the clauses of the Semantics Principle is to regulate the semantic restrictions on specific syntactic constructions (as in all previously discussed versions of semantics in HPSG). A quantificational determiner, represented as a generalized quantifier, which syntactically combines as non-head daughter with a nominal projection, integrates the \feat{incont} of the nominal projection as a subterm into its restrictor and requires that its own \feat{incont} (containing the quantificational expression) be identical with the \feat{excont} of the nominal projection. This clause makes the quantifier take wide scope in the noun phrase and forces the semantics of the nominal head into the restrictor. In (\ref{lrs-introex}) we observe the effect of this clause by the placement of the predicate {\normalfont \sffamily dog} in the restrictor of the universal and the predicate {\normalfont \sffamily cat} in the restrictor of the existential quantifier.
 
-Another clause of the Semantics Principle governs the combination of quantificational NP arguments with verbal projections. If the non-head of a verbal projection is a quantificational NP, the \attrib{incont} of the verbal head must be a subexpression of the scope of the quantifier. Since this clause does not require immediate scope, other quantificational NPs which combine in the same verbal projection may take scope in between, as we can again see with the two possible scopings of the two quantifiers in (\ref{lrs-introex}), in particular in (\ref{lrs-introex1b}), where the subject quantifier intervenes between the verb and the object quantifier.
+Another clause of the Semantics Principle governs the combination of quantificational NP arguments with verbal projections. If the non-head of a verbal projection is a quantificational NP, the \feat{incont} of the verbal head must be a subexpression of the scope of the quantifier. Since this clause does not require immediate scope, other quantificational NPs which combine in the same verbal projection may take scope in between, as we can again see with the two possible scopings of the two quantifiers in (\ref{lrs-introex}), in particular in (\ref{lrs-introex1b}), where the subject quantifier intervenes between the verb and the object quantifier.
 
 
-The local semantics of signs is split from the combinatorial \type{lrs} structures in parallel to the separation of local syntactic structure from the syntactic tree structure. The local semantics remains under the traditional \attrib{content} attribute, where it is available for lexical selection by the valence attributes. The \attrib{local} value of the noun \word{dog} illustrates the relevant structure:
+The local semantics of signs is split from the combinatorial \type{lrs} structures in parallel to the separation of local syntactic structure from the syntactic tree structure. The local semantics remains under the traditional \feat{content} attribute, where it is available for lexical selection by the valence attributes. The \feat{local} value of the noun \word{dog} illustrates the relevant structure:
 
 \begin{exe}
   \ex\label{local-sem}
-\avmtmp{
+\avm{
  [\type*{local}
  cat|val &	[spr & <\upshape Det$_{\1}$>]\\
  content &	[index|dr & \1 \upshape \sffamily x \\
@@ -912,14 +912,14 @@ The local semantics of signs is split from the combinatorial \type{lrs} structur
 }
 \end{exe}
 
-The attribute \attrib{discourse-referent} (\attrib{dr}) contains the variable that will be the argument of the unary predicate {\normalfont \sffamily dog}, which is the \attrib{main} semantic contribution of the lexeme. The variable, {\normalfont \sffamily x}, does not come from the noun but is available to the noun by selection of the determiner by the valence attribute \attrib{spr}. The subscripted tag \ibox{1} on the \attrib{spr} list indicates the identity of \attrib{dr} values of the determiner and the nominal head \word{dog}. A principle of local semantics says that \attrib{main} values and \attrib{dr} values are inherited along the syntactic head path.
+The attribute \feat{discourse-referent} (\feat{dr}) contains the variable that will be the argument of the unary predicate {\normalfont \sffamily dog}, which is the \feat{main} semantic contribution of the lexeme. The variable, {\normalfont \sffamily x}, does not come from the noun but is available to the noun by selection of the determiner by the valence attribute \feat{spr}. The subscripted tag \ibox{1} on the \feat{spr} list indicates the identity of \feat{dr} values of the determiner and the nominal head \word{dog}. A principle of local semantics says that \feat{main} values and \feat{dr} values are inherited along the syntactic head path.
 
 
 \begin{figure}[htbp!]
 %\small
 \begin{forest}
 [%
-\avmtmp{
+\avm{
 	[phon & <\rm{every, dog} >\\
   \ldots\ cont & [index|dr & \tag{2a} {\normalfont \sffamily x}\\
                       main & \tag{3a} {\normalfont \sffamily dog}]\\
@@ -929,7 +929,7 @@ The attribute \attrib{discourse-referent} (\attrib{dr}) contains the variable th
 }
 \\ \& \ibox{$3$} $\triangleleft$ $\phi$
 	[%
-	\avmtmp{
+	\avm{
 		[phon & <{\rm every}>\\
 		\ldots\ cont &	[index|dr & \tag{2a} {\normalfont \sffamily x}\\
 	                  	main & \tag{2b} $\forall$]\\
@@ -939,7 +939,7 @@ The attribute \attrib{discourse-referent} (\attrib{dr}) contains the variable th
 	}
 	]
 	[%
-	\avmtmp{
+	\avm{
 		[phon & <\rm{dog} >\\
 		ss|l &	[cat|val & [spr & < {\rm Det}$_{\tag{2a}}$ >]\\
 	             cont &	[index|dr & \tag{2a}\\
@@ -955,16 +955,16 @@ The attribute \attrib{discourse-referent} (\attrib{dr}) contains the variable th
 \end{figure}
 
 The semantics of phrases follows from the interaction of the (lexical) selection of local semantic structures and the semantic combinatorics that results from the principles in (\ref{lrs-essent-principles}) and the clauses of the Semantics Principle.
-For ease of readability, Figure~\ref{every-dog-sem} omits the lambda abstractions from the generalized quantifier, chooses a notation from first order logic, and does not make all structure sharings between pieces of the logical representation explicit. The head noun \word{dog} contributes (on \attrib{parts}, \attrib{pts}), the predicate {\normalfont \sffamily dog} and the application of the predicate to a lexically unknown argument, \ibox{2a}, identical with the \attrib{dr} value of \word{dog}. As shown in (\ref{local-sem}), the \attrib{dr} value of the noun is shared with the \attrib{dr} value of the selected determiner, which is the item contributing the variable {\normalfont \sffamily x} to the representation. In addition, \word{every} contributes the quantifier and the application of the quantifier to its arguments. The clause of the Semantics Principle which restricts the combination of quantificational determiners with nominal projections identifies the \attrib{inc} of \word{every} with the \attrib{exc} of \word{dog}, and requires that the \attrib{inc} of dog (\ibox{3}) be a subterm of the restrictor of the quantifier, $\phi$ (notated as `\ibox{3} $\triangleleft$ $\phi$', conjoined to the AVM describing the phrase). The identification of the \attrib{exc} and \attrib{inc} of \word{every} follows from (\ref{lrs-essent-principles}b--c). According to this analysis, the semantic representation of the phrase \word{every dog} is a universal quantification with {\normalfont \sffamily dog(x)} in the restrictor and unknown scope ($\psi$). The scope will be determined when the noun phrase combines with a verb phrase. For example, such a verb phrase could be \word{barks}, as in  Figure~\ref{every-dog-barks-sem}. If its semantics is represented as a unary predicate {\normalfont \sffamily bark}, the predicate and its application to a single argument are contributed by the verb phrase, and local syntactic selection of the subject \word{every dog} by the verb \word{barks} identifies this argument as variable {\normalfont \sffamily x}, parallel to the selection of the quantifier's variable by \word{dog} above. The relevant clause of the Semantics Principle requires that {\normalfont \sffamily bark(x)} be a subterm of $\psi$, and the \attrib{exc}, \ibox{2}, of the complete sentence receives the value \mbox{\normalfont \sffamily $\forall$x (dog(x), bark(x))} as the only available reading in accordance with the \attrib{excont} Principle. %
+For ease of readability, Figure~\ref{every-dog-sem} omits the lambda abstractions from the generalized quantifier, chooses a notation from first order logic, and does not make all structure sharings between pieces of the logical representation explicit. The head noun \word{dog} contributes (on \feat{parts}, \feat{pts}), the predicate {\normalfont \sffamily dog} and the application of the predicate to a lexically unknown argument, \ibox{2a}, identical with the \feat{dr} value of \word{dog}. As shown in (\ref{local-sem}), the \feat{dr} value of the noun is shared with the \feat{dr} value of the selected determiner, which is the item contributing the variable {\normalfont \sffamily x} to the representation. In addition, \word{every} contributes the quantifier and the application of the quantifier to its arguments. The clause of the Semantics Principle which restricts the combination of quantificational determiners with nominal projections identifies the \feat{inc} of \word{every} with the \feat{exc} of \word{dog}, and requires that the \feat{inc} of dog (\ibox{3}) be a subterm of the restrictor of the quantifier, $\phi$ (notated as `\ibox{3} $\triangleleft$ $\phi$', conjoined to the AVM describing the phrase). The identification of the \feat{exc} and \feat{inc} of \word{every} follows from (\ref{lrs-essent-principles}b--c). According to this analysis, the semantic representation of the phrase \word{every dog} is a universal quantification with {\normalfont \sffamily dog(x)} in the restrictor and unknown scope ($\psi$). The scope will be determined when the noun phrase combines with a verb phrase. For example, such a verb phrase could be \word{barks}, as in  Figure~\ref{every-dog-barks-sem}. If its semantics is represented as a unary predicate {\normalfont \sffamily bark}, the predicate and its application to a single argument are contributed by the verb phrase, and local syntactic selection of the subject \word{every dog} by the verb \word{barks} identifies this argument as variable {\normalfont \sffamily x}, parallel to the selection of the quantifier's variable by \word{dog} above. The relevant clause of the Semantics Principle requires that {\normalfont \sffamily bark(x)} be a subterm of $\psi$, and the \feat{exc}, \ibox{2}, of the complete sentence receives the value \mbox{\normalfont \sffamily $\forall$x (dog(x), bark(x))} as the only available reading in accordance with the \feat{excont} Principle. %
 %In (\ref{every-dog-barks-sem}), \idx{2} spells out as {\normalfont \sffamily $\forall$x (dog(x), bark(x))}.
 
-%fmr12-19 decapitalized _e_very dog barks in caption, following the Polish figure
+%fmr12-19 decapitalized _e_very dog barks in caption, following the \ili{Polish} figure
 
 \begin{figure}
 %\small
 \begin{forest}
 [%
-\avmtmp{
+\avm{
 	[phon & < \rm{every, dog, barks} >\\
 	\ldots\ cont & [main & \tag{4a} {\normalfont \sffamily bark} ] \\
 	sem &	[exc & \2 !{\normalfont \sffamily $\forall$x ($\phi$,$\psi$)}! \\
@@ -973,7 +973,7 @@ For ease of readability, Figure~\ref{every-dog-sem} omits the lambda abstraction
 }
 \\ \& \ibox{$4$} $\triangleleft$ $\psi$
 	[%
-	\avmtmp{
+	\avm{
 		[phon & < \rm{every, dog} > \\
 		\ldots\ cont & [index|dr & \tag{2a} {\normalfont \sffamily x}\\
 						main & \tag{3a} {\normalfont \sffamily dog}]\\
@@ -984,7 +984,7 @@ For ease of readability, Figure~\ref{every-dog-sem} omits the lambda abstraction
 	\\ \& \ibox{$3$} $\triangleleft$ $\phi$
 	]
 	[%
-	\avmtmp{
+	\avm{
 		[phon & < \rm{barks} > \\
 		ss|l &	[cat|val & [subj & < NP$_{\tag{2a}}$ > ]\\
 				cont & 	[main & \tag{4a} {\normalfont \sffamily bark}]]\\
@@ -1040,7 +1040,7 @@ Consider the semantic representation of the \ili{Polish} sentence \word{nikt nie
 \small
 \begin{forest}
 [%
-\avmtmp{
+\avm{
 	[phon & < \rm{nikt, nie przyszed\l} > \\
 	\ldots\ cont & [main & \tag{4a} {\normalfont \sffamily come}] \\
 	sem &	[exc & \1 !{\normalfont \sffamily $\neg\exists$x ($\phi$,$\psi$)}! \\
@@ -1049,7 +1049,7 @@ Consider the semantic representation of the \ili{Polish} sentence \word{nikt nie
 }
 \\ \& \ibox{$4$} $\triangleleft$ $\psi$
 	[%
-	\avmtmp{
+	\avm{
 		[phon & < \rm{nikt} > \\
 		\ldots\ cont &	[index|dr & \tag{2a} {\normalfont \sffamily x}\\
 	                      main & \tag{3a} {\normalfont \sffamily person} ] \\
@@ -1060,7 +1060,7 @@ Consider the semantic representation of the \ili{Polish} sentence \word{nikt nie
 	\\ \& \ibox{$3$} $\triangleleft$ $\phi$ \& \ibox{$2$} $\triangleleft$ $\beta$
 	]
 	[%
-	\avmtmp{
+	\avm{
 		[phon & < \rm{nie przyszed\l} > \\
 		ss|l &	[cat|val &	[subj & < NP$_{\tag{2a}}$ > ] \\
              	cont & [main & \tag{4a} {\normalfont \sffamily come}] ]\\
@@ -1076,19 +1076,19 @@ Consider the semantic representation of the \ili{Polish} sentence \word{nikt nie
 \end{figure}
 
 Negated finite verbs in \ili{Polish} contribute a negation that must be realized
-within the verb's \attrib{excont} (\ibox{4\textup{b}} $\triangleleft$ \ibox{1}) and
-outscopes the \attrib{incont} of the verb (\ibox{4} $\triangleleft$ $\alpha$).
+within the verb's \feat{excont} (\ibox{4\textup{b}} $\triangleleft$ \ibox{1}) and
+outscopes the \feat{incont} of the verb (\ibox{4} $\triangleleft$ $\alpha$).
 Similarly, the existential quantifier of the n-word \word{nikt} `nobody' is
 outscoped by negation (\ibox{2} $\triangleleft$ $\beta$). However, in addition
 to the familiar restriction when the quantificational subject combines
-with the finite verb, Polish as a strict negative concord language requires
+with the finite verb, \ili{Polish} as a strict negative concord language requires
 that a negated finite verb be in the scope of at most one negation in
-its \attrib{excont}, entailing identity of the two negations,
+its \feat{excont}, entailing identity of the two negations,
 \ibox{2\textup{c}} $=$ \ibox{4\textup{b}}, and the single negation reading \word{nobody came} as
 the only admissible reading of the sentence shown in Figure~\ref{polish-nc-sem}.
-To capture obligatory negation marking on finite words in Polish, a second
+To capture obligatory negation marking on finite words in \ili{Polish}, a second
 principle of negative concord rules that if a finite verb is in the scope
-of negation in its \attrib{excont}, it must itself be a contributor of negation \citep[316]{RichterandSailer2001}.
+of negation in its \feat{excont}, it must itself be a contributor of negation \citep[316]{RichterandSailer2001}.
 
 The idea of identifying contributions from different constituents in
 an utterance is even more pronounced in cases of unreducible polyadic
@@ -1128,7 +1128,7 @@ of the right shape to be identified with the representation of
 (\ref{every-diff-lrs}) for (\ref{different-s-lrs}).
 \citet{Lahm2016b} presents an alternative account of such readings
 with \word{different} using Skolem functions which also hinges on
-LRS-specific techniques. \citet{IordachioaiaandRichter2015} study Romanian
+LRS-specific techniques. \citet{IordachioaiaandRichter2015} study \ili{Romanian}
 negative concord constructions and represent their readings using polyadic negative
 quantifiers; \citet{Lahm2018} develops a lexicalized theory
 of plural semantics.

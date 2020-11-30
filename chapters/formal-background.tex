@@ -50,9 +50,9 @@ with the intention to provide precise definitions.
 Instead they refer to various inspirations in the
 logics of typed feature structures or in predicate logic, informally
 characterize the intended formalisms, and explain them as they are
-used in concrete grammars of English. \citet{PollardSag1994} further clarify
+used in concrete grammars of \ili{English}. \citet{PollardSag1994} further clarify
 their intentions in an appendix which lists most (but not all) of the components
-of their grammar of English explicitly, and summarizes most of their core
+of their grammar of \ili{English} explicitly, and summarizes most of their core
 assumptions. With this strategy, both books leave room for
 interpretation.
 
@@ -134,7 +134,7 @@ writing.\label{formal:page-unification-end}
 
 %\#\# further explanation, including references to the literature where
 %the classical HPSG formalism was discussed and what these papers focused
-%on  --> if at all, this will be in Sections \ref{sec-alt-gr-meaning} and
+%on  --> if at all, this will be in Sections~\ref{sec-alt-gr-meaning} and
 %\ref{sec-alt-formalisms}
 
 This handbook article cannot disentangle the history of and relationships
@@ -206,12 +206,12 @@ a plural noun can have, with none of them missing.
 A single underspecified description can therefore
 describe many distinct linguistic objects. Grammatical descriptions
 often describe an infinity of objects. Again considering plural nouns,
-English can be thought of as having a very large number or an infinity
+\ili{English} can be thought of as having a very large number or an infinity
 of them due to morphological processes such as compounding, depending on
 the choice of morphological analysis.
 
 Descriptions are couched in a (language of a) feature logic rather
-than in English for precision. Linguistic objects as the subject of linguistic study
+than in \ili{English} for precision. Linguistic objects as the subject of linguistic study
 are sharply distinguished from their logical descriptions and are
 entities in the denotation of the grammatical descriptions.  The
 feature logic of HPSG can be seen as a particularly expressive variant
@@ -265,7 +265,7 @@ logical connectives (conjunction, disjunction, negation and
 implication) and relation symbols. So-called tags, boxed
 numbers, function as variables. (\ref{ex-noun}) shows a typical example
 in which \type{word}, \type{noun} and \type{plural} are sorts and
-\attrib{synsem}, \attrib{local}, \attrib{category}, etc.\ are attributes.\footnote{Tags, relations and logical connectives in descriptions will be illustrated later, in (\ref{ex-more-avms}).}
+\feat{synsem}, \feat{local}, \feat{category}, etc.\ are attributes.\footnote{Tags, relations and logical connectives in descriptions will be illustrated later, in (\ref{ex-more-avms}).}
 The AVM is a description of plural nouns.
 
 % \begin{exe}
@@ -280,7 +280,7 @@ The AVM is a description of plural nouns.
 % todo avm: type should be unnecessary
 \ea
 \label{ex-noun}
-\avmtmp{
+\avm{
 [\type*{word}
  synsem|local & [category [ head & noun ]\\
                  content|index|number & plural ] ]
@@ -331,12 +331,12 @@ Figure~\ref{ex-hier-decl}.
 \begin{forest} type hierarchy
   [object,
     calign=midpoint, calign children={2}{3},
-    [\avmtmp{[\type*{substantive} 
+    [\avm{[\type*{substantive} 
            prd & boolean]}
-      [\avmtmp{[\type*{verb}
+      [\avm{[\type*{verb}
              vform & vform\\
              prd & plus]}]
-      [\avmtmp{[\type*{noun} 
+      [\avm{[\type*{noun} 
              case & case]}]
     ]
     [case]
@@ -379,11 +379,11 @@ Figure~\ref{ex-hier-decl} contains nontrivial feature declarations for the sorts
 \type{substantive}, \type{verb} and \type{noun}, and it also illustrates
 the idea behind feature inheritance. First of all, \type{verb} and
 \type{noun} have attributes which are only appropriate to them but to
-no other sort: \attrib{vform} is only appropriate to \type{verb},
-and \attrib{case} is only appropriate to \type{noun}. But there is
+no other sort: \feat{vform} is only appropriate to \type{verb},
+and \feat{case} is only appropriate to \type{noun}. But there is
 one more attribute appropriate to both due to feature inheritance:
-the attribute \attrib{prd} is declared appropriate to \type{substantive},
-and appropriateness declarations are inherited by subsorts, so \attrib{prd}
+the attribute \feat{prd} is declared appropriate to \type{substantive},
+and appropriateness declarations are inherited by subsorts, so \feat{prd}
 is also appropriate to \type{verb} and \type{noun}. The sort \emph{noun}
 inherits the declaration unchanged from \type{substantive}.
 
@@ -391,14 +391,14 @@ Finally, we have to consider attribute values and their inheritance
 mechanism. Whereas attributes are called appropriate \emph{to} a sort,
 I call a sort appropriate \emph{for} an attribute at a given sort when
 talking about attribute values. For example, the non-maximal sort
-\type{boolean} is declared appropriate for the attribute \attrib{prd}
+\type{boolean} is declared appropriate for the attribute \feat{prd}
 at \type{substantive}. This value declaration is also inherited by the
 subsorts, with a slight twist to it: at any subsort, the value for an
 attribute can become \emph{more specific} (but not less specific) than
 at its supersort(s), and this is what happens here at the subsort
 \type{verb} of \type{substantive}.  At \type{verb} the value of
-\attrib{prd} must be one particular subsort of \type{boolean}, namely
-\type{plus}.\footnote{The \type{plus} value for \attrib{prd} at verbs
+\feat{prd} must be one particular subsort of \type{boolean}, namely
+\type{plus}.\footnote{The \type{plus} value for \feat{prd} at verbs
   is introduced here to create a useful example; it is not usually
 found in grammars.}
 
@@ -412,11 +412,11 @@ the six species in the hierarchy. In addition, all attributes
 declared appropriate for a species (possibly by inheritance) must be
 present on objects of that species, with the values of course also
 obeying the feature declarations and being maximally specific. For
-example, an object of sort \type{noun} has \attrib{case} and
-\attrib{prd} properties. The object that is the \attrib{case} value
+example, an object of sort \type{noun} has \feat{case} and
+\feat{prd} properties. The object that is the \feat{case} value
 must be of sort \type{case} (because \type{case} is a species in the
 present example, unlike in real grammars where \type{case} has
-subsorts), and the sort of the \attrib{prd} value must be either
+subsorts), and the sort of the \feat{prd} value must be either
 \type{plus} or \type{minus}, one of the two species which are
 maximally specific subsorts of \type{boolean}.  With these
 restrictions, specifications like in Figure~\ref{ex-hier-decl} determine
@@ -465,31 +465,31 @@ but differ in their degree of explicitness:
 \eal
 \label{ex-desc-n}
 \ex\label{ex-n-full} 
-\avmtmp{
+\avm{
        [\type*{noun}
         case & case\\
         prd & plus $\lor$ minus]
     }
 \ex\label{ex-n-n}
- \avmtmp{
+ \avm{
         [\type*{noun}]
     }
 \ex\label{ex-n-o}
-  \avmtmp{
+  \avm{
       [\type*{noun}
        case & object]
     }
 \ex\label{ex-o-o} 
-  \avmtmp{
+  \avm{
       [\type*{object}
         case & object]
         }
 \ex\label{ex-n-sfull} 
-   \avmtmp{
+   \avm{
    [\type*{noun}
         case & case\\
         prd & plus]
-   }  $\lor$ \avmtmp{
+   }  $\lor$ \avm{
         [\type*{noun}
          case & case\\
          prd & minus]
@@ -498,20 +498,20 @@ but differ in their degree of explicitness:
 
 All AVMs in (\ref{ex-desc-n}) denote the same two configurations as
 the fully specific AVM description in (\ref{ex-n-full}): two
-\type{noun} structures with the \attrib{case} property \type{case} and
-the \attrib{prd} property \type{plus} or the \attrib{prd} value
+\type{noun} structures with the \feat{case} property \type{case} and
+the \feat{prd} property \type{plus} or the \feat{prd} value
 \type{minus}. But a description of these structures can be
 underspecified in many different ways. For \type{noun} structures in
 general (\ref{ex-n-n}), the two just described are the only two
 structural choices, as can be verified by inspecting
 Figure~\ref{ex-hier-decl}. The description could mention in addition
 to what (\ref{ex-n-n}) says that
-the structures have a \attrib{case} property, leaving its value
+the structures have a \feat{case} property, leaving its value
 underspecified (\ref{ex-n-o}), but that does not make a difference
 with respect to the shape of the structures satisfying the
-description. Moreover, the only \type{object}s with \attrib{case}
+description. Moreover, the only \type{object}s with \feat{case}
 (\ref{ex-o-o}) are nouns, but since that leaves exactly the two possible
-\attrib{prd} values \type{plus} and \type{minus}, (\ref{ex-o-o}) is
+\feat{prd} values \type{plus} and \type{minus}, (\ref{ex-o-o}) is
 yet another way to underspecify the two structures which
 ({\ref{ex-n-full}) describes exhaustively. Omitting the sort
   symbol \type{object} in the upper left-hand corner of (\ref{ex-o-o})
@@ -527,9 +527,9 @@ Grammar principles are descriptions which every structure is supposed
 to obey, together with all its substructures. The Head Feature
 Principle, shown in (\ref{ex-hfp}), is a frequent example. Every
 phrase whose syntax is a headed phrase (\type{hd-ph}) is such that its
-\attrib{head} value equals the \attrib{head} value of its head
+\feat{head} value equals the \feat{head} value of its head
 daughter, indicated by the repeated occurrence of tag \idx{1} as the
-value of the two \attrib{head} features.  Every structure which is
+value of the two \feat{head} features.  Every structure which is
 described by the AVM to the left of the implication symbol (in this
 case simply a sort, but see (\ref{ex-complex-ante})) must also
 fulfill the requirements in the AVM to its right. If something is not
@@ -538,7 +538,7 @@ not restricted by the Head Feature Principle because it is not described by the
 antecedent of the principle. At the same time, a structure which
 is not described by \type{hd-ph} still satisfies
 the Head Feature Principle as an implicational statement. For example,
-the \attrib{synsem} value of each phrase is usually assumed to be an
+the \feat{synsem} value of each phrase is usually assumed to be an
 object of sort \type{synsem}, i.e.\ it is not a phrase of sort
 \type{hd-ph}. As a
 \type{synsem} object, it is not described by the antecedent of
@@ -567,12 +567,12 @@ rendering such occurrences of tags in the syntax of RSRL.
   \begin{xlist}
     \ex\label{ex-hfp}
     \type{hd-ph}
-%    \avmtmp{
+%    \avm{
 %      [\type*{phrase}
 %        dtrs & headed-struc]
 %    }
     $\Rightarrow$
-    \avmtmp{
+    \avm{
       [synsem$|$local$|$category$|$head & \1\\
        head-dtr$|$synsem$|$local$|$category$|$head & \1
       ]
@@ -582,7 +582,7 @@ rendering such occurrences of tags in the syntax of RSRL.
     \type{word} $\Rightarrow$ $\left(\mbox{LE$_1$} \vee \mbox{LE$_2$} \vee \ldots  \vee \mbox{LE$_n$} \right)$
     
 \ex\label{ex-semantics}
-\type{sign} $\Rightarrow$ \avmtmp{
+\type{sign} $\Rightarrow$ \avm{
 			[synsem$|$loc & [qstore & \@1 \\
 			 		 pool & \@2]\\
 					 retrieved & \@3] } \\
@@ -591,11 +591,11 @@ rendering such occurrences of tags in the syntax of RSRL.
 $\wedge$ \avmbox{1} $=$ \avmbox{2} $-$ \avmbox{4}
 
 \ex\label{ex-complex-ante}
-\avmtmp{
+\avm{
   [retrieved & nelist]
 }
 $\Rightarrow$
-\avmtmp{
+\avm{
   [synsem$|$local$|$content & psoa]
 }
 
@@ -619,15 +619,15 @@ construct of HPSG's description language, relations. The consequent of
 the principle consists of an AVM description conjoined with three
 relational expressions.  Relations in HPSG often occur in
 connection with lists and sets, and so do the relations here: the
-binary relation \texttt{set-of-elements} relates the \attrib{retrieved} value
+binary relation \texttt{set-of-elements} relates the \feat{retrieved} value
 (a list) to a set \idx{4} containing the elements on list \idx{3} such
-that the set value \idx{2} of \attrib{pool} is a superset of \idx{4}
-(using the subset relation), and the set value \idx{1} of \attrib{qstore}
+that the set value \idx{2} of \feat{pool} is a superset of \idx{4}
+(using the subset relation), and the set value \idx{1} of \feat{qstore}
 contains those elements of \idx{2} which are not on the
-\attrib{retrieved} list (using set difference). In other words,
-each element of \attrib{pool} is either in \mbox{\attrib{qstore}} or
-a list element on \attrib{retrieved}, and nothing else is in \attrib{qstore}
-or on the \attrib{retrieved} list.\footnote{One
+\feat{retrieved} list (using set difference). In other words,
+each element of \feat{pool} is either in \mbox{\feat{qstore}} or
+a list element on \feat{retrieved}, and nothing else is in \feat{qstore}
+or on the \feat{retrieved} list.\footnote{One
   additional interesting property of this principle concerns the set
   designated by tag \idx{4}. Structures described by the consequent of
   the principle do not necessarily contain an attribute with the set
@@ -659,20 +659,21 @@ discussion. \cite[8--9]{PollardSag1994} think of them as \emph{types} and
 want to construct them as a set of totally well-typed and
 sort-resolved abstract feature structures. Each such type is supposed
 to correspond to the set of token occurrences of the same utterance. For
-example, in this view, the English utterance \emph{Breakfast is ready},
+example, in this view, the \ili{English} utterance \emph{Breakfast is ready},
 which may occur as a concrete utterance token
 at different places and at different times, always belongs to the
 unique type \emph{Breakfast is ready}, rendered as an abstract feature
-structure licensed by an HPSG grammar of English.
+structure licensed by an HPSG grammar of \ili{English}.
 
-All HPSG
-model theories after \cite{PollardSag1994} give up the idea of
+All HPSG model theories after \cite{PollardSag1994} give up the idea of
 postulating types as objects in the intended
 grammar model and do not construct models which are populated with feature
 structures.\footnote{\cite[294]{Pollard99a} still uses the term \emph{feature
     structure}, but it is applied to a special kind of \emph{interpretation}
   in the sense of Definition~\ref{def-initial-int}. See the
-  more detailed characterization of these structures in Section~6 below.} \citet{King99a-u} suggests \emph{exhaustive models},
+  more detailed characterization of these structures in
+  Section~\ref{sec-alt-gr-meaning}\inlinetodoobl{Stefan: Check reference. This was hardcoded, I
+    changed to latex ref.} below.} \citet{King99a-u} suggests \emph{exhaustive models},
 collections of possible language tokens. Whereas two types are always
 distinct, linguistic tokens in
 exhaustive models can be isomorphic when they are different token
@@ -859,8 +860,8 @@ We assume that relations are at least unary.
 Relations in HPSG often express relationships between
 lists (\texttt{append}, \texttt{shuffle}) or sets (\texttt{union},
 \texttt{intersection}). Lists are usually encoded\label{page-list-encoding}
-in HPSG with attributes \attrib{first} and
-\attrib{rest}, and sorts \type{list}, \type{elist} (for empty list) and
+in HPSG with attributes \feat{first} and
+\feat{rest}, and sorts \type{list}, \type{elist} (for empty list) and
 \type{nelist} (for non-empty list), but of course the exact naming does not matter.
 A fragment of the sort hierarchy which declares the sorts and attributes
 for regular lists is shown in Figure~\ref{ex-list-decl}.
@@ -869,7 +870,7 @@ for regular lists is shown in Figure~\ref{ex-list-decl}.
 \begin{forest}
 type hierarchy
 [list
-  [\avmtmp{
+  [\avm{
     [\type*{nelist} first & object\\
      rest & list]}]
   [elist ]]
@@ -890,7 +891,7 @@ the existence of a sort hierarchy fragment like in Figure~\ref{ex-list-decl}.
   \ex
   \begin{xlist}
   \ex\label{list-w2-eles}
-  \avmtmp{
+  \avm{
     [\type*{nelist}
     first & synsem\\
     rest & [\type*{nelist}
@@ -899,7 +900,7 @@ the existence of a sort hierarchy fragment like in Figure~\ref{ex-list-decl}.
     ]
   }
   \ex\label{list-w2-brackets}
-  $\left<\mbox{\avmtmp{[\type*{synsem}]}, \avmtmp{[\type*{synsem}]}}\right>$
+  $\left<\mbox{\avm{[\type*{synsem}]}, \avm{[\type*{synsem}]}}\right>$
 
   \end{xlist}
 \end{exe}
@@ -922,7 +923,7 @@ RSRL adds chains to all signatures.
 Informally, the extra symbols act very much like sorts and attributes for
 lists: \type{chain} for \type{list}, \type{echain} and \type{nechain} for
 \type{elist} and \type{nelist}, respectively, and the reserved symbols
-$\dagger$ and $\triangleright$ for \attrib{first} and \attrib{rest}.
+$\dagger$ and $\triangleright$ for \feat{first} and \feat{rest}.
 In order to integrate the reserved new sort symbols with any
 signature a linguist might specify, a distinguished sort \textit{metatop} serves as unique
 top element of the extended sort hierarchy. The extensions are defined for
@@ -956,7 +957,7 @@ follows:
 
 \begin{exe}
   \ex
-  \avmtmp{
+  \avm{
     [\type*{nechain}
     $\dagger$ & synsem\\
     $\triangleright$ & [\type*{nechain}
@@ -1042,13 +1043,13 @@ for readability.}
   \ex
   \begin{xlist}
   \ex\label{ex-hfp-rsrl-a}
-  $\left(\its\sim\mbox{\type{hd-ph}}\right)\rightarrow$\\ % \wedge \its\attrib{dtrs}\sim\mbox{\type{headed-struc}}
-  $\left(\its\attrib{synsem local category head}\approx\right.$\\
- \hspace*{.1em} $\left.\its\attrib{head-dtr synsem local category head}\right)$
+  $\left(\its\sim\mbox{\type{hd-ph}}\right)\rightarrow$\\ % \wedge \its\feat{dtrs}\sim\mbox{\type{headed-struc}}
+  $\left(\its\feat{synsem local category head}\approx\right.$\\
+ \hspace*{.1em} $\left.\its\feat{head-dtr synsem local category head}\right)$
   \ex\label{ex-hfp-rsrl-b}
-   $\left(\its\sim\mbox{\type{hd-ph}}\right)\rightarrow$\\ % \wedge \its\attrib{dtrs}\sim\mbox{\type{headed-struc}}
-  $\exists x\left(\its\attrib{synsem local category head}~\approx x\ \wedge\right.$\\
-\hspace*{1.2em}  $\left.\its\attrib{head-dtr synsem local category head}\approx x\right)$
+   $\left(\its\sim\mbox{\type{hd-ph}}\right)\rightarrow$\\ % \wedge \its\feat{dtrs}\sim\mbox{\type{headed-struc}}
+  $\exists x\left(\its\feat{synsem local category head}~\approx x\ \wedge\right.$\\
+\hspace*{1.2em}  $\left.\its\feat{head-dtr synsem local category head}\approx x\right)$
   \end{xlist}
 \end{exe}
 
@@ -1152,7 +1153,7 @@ components. The first three of them will remain unchanged in full
 $\Sigma$ interpretations (Definition~\ref{def-full-interpretation}). The elements of $\Unive$
 are entities which populate the universe of structures. Their ontological
 status has been debated fiercely in HPSG, and will be discussed in
-Sections~\ref{sec-grammar-meaning} and \ref{sec-alt-gr-meaning}. For the
+Sections~\ref{sec-grammar-meaning} and~\ref{sec-alt-gr-meaning}. For the
 moment, assume that they are either linguistic objects or appropriate
 abstractions thereof. $\Speci$ assigns each object in the universe
 a species, which is another way of saying that each object is of exactly
@@ -1398,11 +1399,11 @@ We are now ready to define the meaning of formul\ae\ in
 interpretations as sets of objects in an interpretation. A
 sort assignment formula constructed from a term, a reserved assignment
 symbol and a sort symbol such as
-$\its$\attrib{case}$\sim$\type{nominative} denotes the set
-of objects in the interpretation on which the \attrib{case} attribute
+$\its$\feat{case}$\sim$\type{nominative} denotes the set
+of objects in the interpretation on which the \feat{case} attribute
 is defined and, when interpreted on them, leads to an object of sort
-\type{nominative}; and the path equation $\its$\attrib{synsem local
-  category head} $\approx\its$\attrib{head-dtr synsem local category
+\type{nominative}; and the path equation $\its$\feat{synsem local
+  category head} $\approx\its$\feat{head-dtr synsem local category
   head} denotes those objects on which the two given paths are
 defined and lead to the same object. Relational formul\ae, the
 third kind of atomic formula, also denote sets of objects and will
@@ -1548,7 +1549,7 @@ principles of a grammar such as the one presented by
 \citet{PollardSag1994} in logical notation, and the grammar principles
 receive an interpretation along the lines
 informally characterized by Pollard and Sag. A comprehensive logical
-rendering of their grammar of English can be found in Appendix~C of
+rendering of their grammar of \ili{English} can be found in Appendix~C of
 \citet{Richter2004a-u}. It includes the treatments of (finite) sets
 and of parametric sorts\is{sort!parametric} (such as \type{list(synsem)}), which are not
 specifically addressed -- but implicitly covered -- in
@@ -1673,14 +1674,14 @@ grammar principle as follows:%
 \footnote{In RSRL syntax, (\ref{ex-word-order}) can be written as\\
   $\its\sim$\type{head-fill-ph} $\rightarrow$\\
   $\exists x_{1}\; \exists x_{2}\; \exists x_{3}$\\
-  $\left(\its\mbox{\attrib{phon}}\approx x_3\wedge\its\mbox{\attrib{head-dtr phon}}\approx x_2\wedge\its\mbox{\attrib{non-hd-dtrs first phon}}\approx x_1\wedge\mbox{\texttt{append}}(x_1,x_2,x_3)\right)$
+  $\left(\its\mbox{\feat{phon}}\approx x_3\wedge\its\mbox{\feat{head-dtr phon}}\approx x_2\wedge\its\mbox{\feat{non-hd-dtrs first phon}}\approx x_1\wedge\mbox{\texttt{append}}(x_1,x_2,x_3)\right)$
 }
 
 \ea
 % todo avm remove &
 \label{ex-word-order}
   \type{head-fill-ph}  $\Rightarrow$ $\exists \idx{1}\; \exists \idx{2}\; \exists \idx{3}$ $\left(\mbox{
-  \avmtmp{
+  \avm{
     [phon \3\\
      non-hd-dtrs|first|phon \1 &\\
      head-dtr|phon \2 ]
@@ -1689,10 +1690,10 @@ grammar principle as follows:%
 \z
 
 The filler daughter is the only non-head daughter in a head-filler phrase.
-In English, the phonology of the filler daughter precedes the phonology
+In \ili{English}, the phonology of the filler daughter precedes the phonology
 of the head daughter. According to (\ref{ex-word-order}), a head-filler
 phrase has three components, \idx{1}, \idx{2}, and \idx{3} such that
-they are the list values of the \attrib{phon} attributes of the
+they are the list values of the \feat{phon} attributes of the
 non-head daughter, the head daughter and the phrase as a whole, and they
 are in the \texttt{append} relation (in the given order). But being in the
 \texttt{append} relation means that list \idx{3} is the concatenation
@@ -1719,20 +1720,20 @@ meaning of a grammar should support linguists in making such
 predictions with their grammars. However, the notion of $\Gamma$
 models in Definition~\ref{def-rsrl-model} is not strong enough for
 this purpose. To see this, suppose there is a signature $\Sigma$ which
-is fit to describe the entire English language, and there is a theory
+is fit to describe the entire \ili{English} language, and there is a theory
 $\theta$ which expresses correctly all and only what there is to say
-about English.  Interestingly, a $\left< \Sigma, \theta \right>$ model
-$\Inte$ of this perfect grammar of English can be arbitrarily small, as
+about \ili{English}.  Interestingly, a $\left< \Sigma, \theta \right>$ model
+$\Inte$ of this perfect grammar of \ili{English} can be arbitrarily small, as
 long as every object in the $\Sigma$ interpretation $\Inte$ is
 described by every grammar principle in $\theta$, as this is a condition
 on models of a grammar. Therefore a $\left< \Sigma, \theta \right>$
 model of our perfect grammar may consist of nothing but a structure of
 the single sentence \emph{Elon is going to Mars}. This follows from
 the definition of $\Gamma$ models, because any appropriate grammar of
-English must describe all objects that together make up this
+\ili{English} must describe all objects that together make up this
 well-formed sentence.  But this one-sentence-model of the grammar of
-English is obviously too small to count as a good candidate for
-the English language, because English contains much more than this
+\ili{English} is obviously too small to count as a good candidate for
+the \ili{English} language, because \ili{English} contains much more than this
 single sentence. We conclude that in arbitrarily chosen models, it
 cannot be detected if a grammar undergenerates or overgenerates.
 
@@ -1851,7 +1852,7 @@ of a concrete token in $\mathcal{L}$ did occur and will occur in the
 world, exhaustive models are a class of models. For T2 it does not
 matter how often the token utterance {\em Elon is going to Mars} is
 encountered at a concrete place and time in the world, because among
-the class of exhaustive models of English there is one with the
+the class of exhaustive models of \ili{English} there is one with the
 correct number of occurrences for this utterance and all other actual
 utterances, and that exhaustive model is the intended one. However,
 there is a crucial complication: it is clear that most conceivable
@@ -1882,7 +1883,7 @@ the language $\mathcal{L}$ that $\left< \Sigma, \theta\right>$
 describes.  The postulated intuitive correspondence is not explicated
 further, but it is expected that a trained linguist will recognize
 which object type a linguistic token encountered in the real world
-corresponds to. When observing a token expression of English in the
+corresponds to. When observing a token expression of \ili{English} in the
 world, for example in a situation in which someone exclaims \emph{Elon
   is going to Mars!}, the linguist recognizes the corresponding object
 type. The informality of the relationship between the denotation of a
@@ -1962,10 +1963,10 @@ structurally isomorphic, and each utterance token of language
 $\mathcal{L}$ which is judged grammatical finds a structurally
 isomorphic counterpart in the grammar's strong generative capacity.
 An occurrence of the question \emph{Is Elon really going to Mars?}, just
-like the occurrence of any other grammatical token of English, must
+like the occurrence of any other grammatical token of \ili{English}, must
 find a unique structurally isomorphic mathematical idealization in the
 strong generative capacity of an
-adequate grammar of English. With this requirement, T3 tightens the
+adequate grammar of \ili{English}. With this requirement, T3 tightens the
 connection between observables and the mathematical model, cutting out
 the types and establishing a much stricter link between the
 predictions of a grammar and the domain of empirical phenomena than
@@ -2002,7 +2003,7 @@ correspondence either of object types or of mathematical idealizations
 to (linguistically indistinguishable groups of) grammatical utterances
 in a language. \citet{Richter2007a}
 investigates the models of existing HPSG grammars, such as the fragment
-of English developed in \cite{PollardSag1994}, and notes that
+of \ili{English} developed in \cite{PollardSag1994}, and notes that
 T1 and T3 necessarily trigger an unintended one-to-many
 relationship between grammatical utterances and structures in the
 denotation of typical HPSG grammars: one token utterance leads to more than one
@@ -2065,8 +2066,8 @@ which contain non-isomorphic connected configurations of objects with
 the special property that each of these configurations corresponds to
 a grammatical utterance. According to T4, \emph{Elon must be on his way
   to Mars} corresponds to exactly one connected configuration in the
-minimal exhaustive model of a perfect grammar of English, and so does
-any other well-formed English utterance. Proposal T4
+minimal exhaustive model of a perfect grammar of \ili{English}, and so does
+any other well-formed \ili{English} utterance. Proposal T4
 is not forced to make any assumptions about the ontological status of
 the inhabitants of minimal exhaustive models of normal form grammars,
 since they do not have to be defined as a particular kind of
