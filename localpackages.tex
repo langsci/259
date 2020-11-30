@@ -73,7 +73,11 @@
 {\pageref{#1}--\pageref{#2}}%
 }
 
-%\selectlanguage{USenglish}
+% I am sick of fiddeling arround with babel. I want these shorthands also to work in commands I
+% define. St.Mü. 13.08.2020
+% e.g. with \iwithini
+\usepackage{german}
+\selectlanguage{USenglish}
 
 \usepackage{./styles/abbrev}
 
@@ -128,7 +132,7 @@
 }
 
 \avmdefinecommand{list}[list]{ attributes=\itshape } % define a new \list command
-   % Note: the label "list" will be out put in whatever font is currently active.
+   % Note: the label "list" will be output in whatever font is currently active.
 
 % \avm{
 % 	[subj  & \1 \\
@@ -139,21 +143,39 @@
 
 
 % https://github.com/langsci/langsci-avm/issues/33#issuecomment-671201576
-\avmsetup{extraskip=0pt}
+%\avmsetup{extraskip=0pt}
 
 
 %\let\asort\type*
 
 
+% remove this, once we really do without avm
 \usepackage{./styles/avm+}
 
+\let\idx\ibox
+\let\avmbox\ibox
 
-\renewcommand{\tpv}[1]{{\avmjvalfont\itshape #1}}
+% command to fontify attributes in ordinary text
+%\newcommand{\attrib}[1]{\textsc{#1}}
 
-% no small caps please
-\renewcommand{\phonshape}[0]{\normalfont\itshape}
 
-\regAvmFonts
+% some relation operators:
+%\newcommand{\append}[0]{\ensuremath{\oplus\hspace{.24em}}}
+%\newcommand{\shuffle}[0]{\ensuremath{\bigcirc\hspace{.24em}}}
+
+\def\relfont{\slshape}%
+%
+% command to fontify relations in avms 
+%\newcommand{\rel}[1]{{\relfont #1}}
+
+
+
+% \renewcommand{\tpv}[1]{{\avmjvalfont\itshape #1}}
+
+% % no small caps please
+% \renewcommand{\phonshape}[0]{\normalfont\itshape}
+
+% \regAvmFonts
 
 \usepackage{theorem}
 

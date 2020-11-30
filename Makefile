@@ -35,6 +35,7 @@ main.pdf: $(SOURCE)
 	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.sdx # ordering of references to footnotes
 	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.adx
 	sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.ldx
+	sed -i.backup 's/\\MakeCapital //g' main.adx
 # 	python3 fixindex.py
 # 	mv mainmod.adx $*.adx
 	makeindex -o main.and main.adx
@@ -355,10 +356,15 @@ proofreading: proofreading.pdf
 proofreading.pdf: main.pdf
 	pdftk main.pdf multistamp prstamp.pdf output proofreading.pdf 
 
+
 # extract all bibtex items and then remove irrelevant fields with --tool
 hpsg-handbook-bibliography.bib: $(Bibliographies) main.bcf
-	biber --output_format=bibtex --output-field-replace=location:address,journaltitle:journal,date:year --output-legacy-date main.bcf -O hpsg-handbook-bibliography_tmp.bib 
+	biber --output_format=bibtex --output-legacy-date main.bcf -O hpsg-handbook-bibliography_tmp.bib 
 	biber --tool --configfile=biber-tool.conf --output-field-replace=location:address,journaltitle:journal,date:year --output-legacy-dates hpsg-handbook-bibliography_tmp.bib -O hpsg-handbook-bibliography.bib
+
+check-bib: hpsg-handbook-bibliography.bib
+	biber --validate-datamodel references
+#	biber --tool --configfile=biber-tool.conf -V hpsg-handbook-bibliography_tmp.bib
 
 references.pdf: references.tex hpsg-handbook-bibliography.bib
 	xelatex references

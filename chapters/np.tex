@@ -210,12 +210,12 @@ the following \textsc{category} value:
 
 \begin{exe} 
 \ex\label{n}
-\begin{avm}
-[\type{category}         \\ 
- head  & \type{noun}     \\
- spr   & <Det>            \\
- comps & <PP\[\type{of}\]> ]
-\end{avm}
+\avmtmp{
+[\type*{category} \\
+head & noun \\
+spr & < Det > \\
+comps & < PP [\type{of}\, ] > ]
+}
 \end{exe}
 
 \noindent
@@ -230,11 +230,16 @@ and yields a nominal with an empty \textsc{spr} list, as spelled out in Figure~\
 \centering
 \begin{forest}
 sm edges
-[{[\textsc{head} \avmbox{1} \type{noun}, \textsc{spr} \eliste, \textsc{comps} \eliste]}
-		[\avmbox{2} Det [that]]
-		[{[\textsc{head} \avmbox{1}, \textsc{spr} \liste{\avmbox{2}}, \textsc{comps} \eliste]} 
-			[{[\textsc{head} \avmbox{1}, \textsc{spr} \liste{\avmbox{2}}, \textsc{comps} \liste{\avmbox{3}}]} [sister]]
-			[\avmbox{3} PP [of Leslie,roof]]]]	
+[%
+\avmtmp{[head \1 \type{noun}, spr < >, comps < >]}
+		[\ibox{2} Det [that]]
+		[%
+		\avmtmp{[head \1, spr < \2 >, comps < >]} 
+			[%
+			\avmtmp{[head \1, spr < \2 >, comps < \3 > ]}
+				[sister]
+			]
+			[\ibox{3} PP [of Leslie,roof]]]]	
 \end{forest}
 \caption{\label{les} Adnominal complements and specifiers}
 \end{figure}
@@ -257,9 +262,7 @@ i.e. noun, verb, adjective and preposition. Its value is of type \type{synsem}
 in the case of adjuncts and of type \type{none} otherwise.
 
 \begin{exe} 
-\ex   \type{substantive}: \begin{avm} 
-                          [mod ~ \type{synsem} $\vee$ \type{none}]  
-                          \end{avm} 
+\ex   \type{substantive}: \avmtmp{[mod & synsem $\vee$ none]}
 \end{exe} 
 
 \noindent
@@ -268,12 +271,12 @@ which lacks a specifier, as spelled out in (\ref{rd}).
 
 \begin{exe} 
 \ex\label{rd}
-\begin{avm}
-[\type{category}                              \\
- head [\type{adjective}                       \\
-       mod|loc|category [head & \type{noun}   \\
-                         spr  & \type{nelist}]]]
-\end{avm}
+\avmtmp{
+[\type*{category}
+head &	[\type*{adjective}
+		mod|loc|category &	[head & noun \\
+                         	spr & nelist] ] ]
+}
 \end{exe}
 
 \noindent
@@ -293,13 +296,22 @@ and the AP which it projects. As a consequence, the \textsc{mod(ified)} value of
 \centering
 \begin{forest}
 sm edges
-[{[\textsc{head} \avmbox{1} \type{noun}, {\sc spr} \eliste]}
-	[\avmbox{2} Det [that]]
-	[{[\textsc{head} \avmbox{1}, \textsc{spr} \liste{\avmbox{2}}]}
-		[{[\textsc{head} \avmbox{4}]}
-			[{[\textsc{head} \type{adv}]} [very]]
-			[{[\textsc{head} \avmbox{4} [\type{adj} \textsc{mod} \avmbox{3}]]} [tall]]]
-		[{\avmbox{3} [\textsc{head} \avmbox{1}, \textsc{spr} \liste{\avmbox{2}}]}, before drawing tree={x+=2em} [sister of Leslie, roof, before drawing tree={x+=2em}]]]]
+[%
+\avmtmp{[head \1 \type{noun}, spr < >]}
+	[\ibox{2} Det [that]]
+	[%
+	\avmtmp{[head \1, spr < \2 >]}
+		[%
+		\avmtmp{[head \4]}
+			[%
+			\avmtmp{[head \type{adv}]} [very]]
+			[%
+			\avmtmp{[head \4 [\type{adj} mod \3]]}
+				[tall]
+			]
+		]
+		[%
+		\avmtmp{\3 [head \1, spr < \2 >]}, before drawing tree={x+=2em} [sister of Leslie, roof, before drawing tree={x+=2em}]]]]
 \end{forest}
 \caption{\label{lea} Adnominal modifiers}
 \end{figure}
@@ -325,10 +337,8 @@ Technically, the \textsc{content} feature is declared for the same type of objec
 as the \textsc{category} feature, as spelled out in (\ref{local}). 
 
 \begin{exe} 
-\ex\label{local}  \type{local}: \begin{avm} 
-                   [category & \type{category}         \\
-                    content  & \type{semantic-object}]
-                   \end{avm} 
+\ex\label{local}  \type{local}: \avmtmp{[category & category \\
+										content & semantic-object] } 
 \end{exe} 
 
 \noindent 
@@ -356,11 +366,10 @@ and gender. This provides the means to model the type of agreement that
 is called \emph{index agreement} \crossrefchapterp[Section~\ref{agreement-sec-index-concord}]{agreement}.
 
 \begin{exe} 
-\ex  \type{index}: \begin{avm}
-                     [person & \type{person} \\
-                      number & \type{number} \\
-                      gender & \type{gender}] 
-                     \end{avm} 
+\ex  \type{index}: \avmtmp{
+                     [person & person \\
+                      number & number \\
+                      gender & gender] } 
 \end{exe} 
 
 \textsc{content} values of attributive adjectives are also of type \type{scope-object}. 
@@ -394,15 +403,15 @@ type \type{set} \citep[\page 23]{GS00}.}
 
 \begin{exe} 
 \ex\label{reddd}
-\begin{avm}
-[category|head [\type{adjective}                            \\
-                mod|loc|content [\type{scope-object}        \\
-                                 index & @1                   \\
-                                 restr & \avmbox{$\Sigma$} ]] \\
- content [index & @1                                          \\
-          restr & \{[\type{red}                               \\
-                     arg & @1 ]\} ~$\cup$~ \avmbox{$\Sigma$} ]]
-\end{avm}
+\avmtmp{
+[\punk{category|head}{	[\type*{adjective}
+						mod|loc|content	[\type*{scope-object}
+										index & \1 \\
+										restr & \tag{$\Sigma$} ] ]} \\
+content &	[index & \1 \\
+			restr &	\{[\type*{red}
+					arg & \1 ]\} $\cup$ \tag{$\Sigma$} ] ]
+}
 \end{exe}
 
 \noindent
@@ -424,7 +433,7 @@ and its value was of type \type{synsem}.}
 \end{sloppypar}
 
 \begin{exe} 
-\ex   \type{determiner}: \begin{avm} [spec ~ \type{semantic-object}] \end{avm}  
+\ex   \type{determiner}: \avmtmp{[spec & semantic-object]}
 \end{exe} 
 
 \noindent
@@ -436,16 +445,16 @@ of \emph{every} in (\ref{every}) \citep[204]{GS00}.
 
 \begin{exe} 
 \ex\label{every} 
-\begin{avm}
-[category|head [\type{determiner}        \\
-                spec [\type{parameter}   \\
-                      index & @1           \\
-                      restr & \avmbox{$\Sigma$} ]] \\
- content @2 [\type{every-rel}          \\
-             index & @1                  \\
-             restr & \avmbox{$\Sigma$} ] \\
- store \{ @2 \}]
-\end{avm}
+\avmtmp{
+[\punk{category|head}{	[\type*{determiner}
+						spec	[\type*{parameter}
+								index & \1 \\
+								restr & \tag{$\Sigma$} ] ]} \\
+content & \2 [\type*{every-rel}
+             index & \1 \\
+             restr & \tag{$\Sigma$} ] \\
+store & \{ \2 \} ]
+}
 \end{exe}
 
 \noindent 
@@ -476,11 +485,24 @@ would be affixed to the head noun \emph{Queen}, as in *\emph{the Queen's of Engl
 \centering
 \begin{forest}
 sm edges
-[{[\textsc{head} \avmbox{1} \type{noun}, \textsc{spr} \eliste]}
-	[{\avmbox{2} [\textsc{head} \avmbox{3} \type{det}, \textsc{spr} \eliste]}
-		[{\avmbox{4} [\textsc{head} \type{noun}, \textsc{spr} \eliste]} [the Queen of England, roof]]
-		[{[\textsc{head} \avmbox{3}, \textsc{spr} \liste{\avmbox{4}}]} ['s]]]
-	[{[\textsc{head} \avmbox{1}, \textsc{spr} \liste{\avmbox{2}}]} [sister]]]
+[%
+\avmtmp{[head \1 \type{noun}, spr < >]}
+	[%
+	\avmtmp{\2 [head \3 \type{det}, spr < >]}
+		[%
+		\avmtmp{\4 [head \type{noun}, spr < >]}
+			[the Queen of England, roof]
+		]
+		[%
+		\avmtmp{[head \3, spr < \4 >]}
+			['s]
+		]
+	]
+	[%
+	\avmtmp{[head \1, spr < \2 >]}
+		[sister]
+	]
+]
 \end{forest}
 \caption{\label{cousin} A phrasal specifier }  
 \end{figure}
@@ -496,19 +518,19 @@ sense \citep[\page 8--9]{Nerbonne92}.}
 
 \begin{exe} 
 \ex\label{poss}
-\begin{avm}
-[category [head [\type{determiner}                \\
-                 spec [\type{parameter}           \\
-                       index & @1                   \\
-                       restr & \avmbox{$\Sigma$} ]] \\
-           spr  <[index & @3]> ]                     \\
- content @2 [\type{the-rel}                       \\
-               index & @1                           \\
-               restr & \{[\type{poss-rel}           \\
-                          possessor & @3            \\
-                          possessed & @1 ]\} ~ $\cup$~ \avmbox{$\Sigma$} ] \\
- store \{ @2 \}]  
-\end{avm}
+\avmtmp{
+[category &	[head &	[\type*{determiner}
+					spec &	[\type*{parameter}
+							index & \1 \\
+							restr & \tag{$\Sigma$} ] ] \\
+			spr &	<[index & \3]> ] \\
+content & \2	[\type*{the-rel}
+				index & \1 \\
+				restr & \{[\type*{poss-rel}
+                          possessor & \3 \\
+                          possessed & \1 ]\} $\cup$ \tag{$\Sigma$} ] \\
+store & \{ \2 \} ]  
+}
 \end{exe}
 
 \noindent
@@ -542,11 +564,19 @@ result of the combination is a DP with an empty \textsc{comps} list, as in Figur
 \centering
 \begin{forest}
 sm edges
-[{[\textsc{head} \avmbox{1} \type{det}, \textsc{comps} \eliste]}
-	[{[\textsc{head} \avmbox{1}, \textsc{comps} \liste{\avmbox{4} NP}]} [that]]
-	[{\avmbox{4} [\textsc{head} \avmbox{2} \type{noun}, \textsc{comps} \eliste]}
-		[{[\textsc{head} \avmbox{2}, \textsc{comps} \liste{\avmbox{3}}]} [sister]]
-		[\avmbox{3} PP [of Leslie, roof]]]]
+[%
+\avmtmp{[head \1 \type{det}, comps < >]}
+	[%
+	\avmtmp{[head \1, comps < \4 NP >]}
+		[that]
+	]
+	[%
+	\avmtmp{\4 [head \2 \type{noun}, comps < >]}
+		[%
+		\avmtmp{[head \2, comps < \3 >]}
+			[sister]
+		]
+		[\ibox{3} PP [of Leslie, roof]]]]
 \end{forest}
 \caption{\label{net} Propagation of the \textsc{head} and \textsc{comps} values}
 \end{figure}
@@ -558,11 +588,11 @@ complementation and ordinary complementation. To model it, \citet[307--308]{Nett
 between major and minor \textsc{head} features: 
 
 \begin{exe} 
-\ex    \begin{avm}
-       [head [major [n & \type{boolean}   \\
-                     v & \type{boolean} ] \\
-              minor|fcompl \type{boolean}]]
-       \end{avm} 
+\ex    \avmtmp{
+       [head [major & [n & boolean   \\
+                     v & boolean ] \\
+              \punk{minor|fcompl}{boolean} ] ]
+       } 
 \end{exe} 
 
 \noindent
@@ -599,9 +629,17 @@ the mother, as in Figure~\ref{netter}.
 \centerfit{%
 \begin{forest}
 sm edges
-[{[\textsc{major} \avmbox{1}, \textsc{minor} \avmbox{2}]}
-		[{[\textsc{major} \avmbox{1}, \textsc{minor} \avmbox{2} \textsc{fcompl} +]} [that]]
-		[{[\textsc{major} \avmbox{1} [--V, +N[\type{sing}]], \textsc{minor$|$fcompl} --]} [sister of Leslie, roof]]]
+[%
+\avmtmp{[major \1, minor \2]}
+	[%
+	\avmtmp{[major \1, minor \2 fcompl $+$]}
+		[that]
+	]
+	[%
+	\avmtmp{[major \1 [$-$V, $+$N[\type{sing}]], minor|fcompl $-$]}
+		[sister of Leslie, roof]
+	]
+]
 \end{forest}}
 \caption{\label{netter} Propagation of the \textsc{major} and \textsc{minor} values}
 \end{figure}
@@ -915,19 +953,19 @@ and with the non-head daughter in head-nonargument phrases, as spelled out in
 (\ref{mark1}) and (\ref{mark2}) respectively. 
 
 \ea\label{mark1} 
-\type{head-argument-phrase}  ~ \impl ~
-\begin{avm}
-[synsem|loc|category|marking ~ @1 \type{marking}  \\
- head-dtr|synsem|loc|category|marking ~ @1] 
-\end{avm}
+\emph{head-argument-phrase} \impl \\
+\avmtmp{
+[synsem|loc|category|marking & \1 marking  \\
+ \punk{head-dtr|synsem|loc|category|marking}{ \1} ] 
+}
 \z
 \ea\label{mark2} 
-\type{head-nonargument-phrase} ~ \impl ~
-\begin{avm}
-[synsem|loc|category|marking ~ @1 \type{marking}   \\
- dtrs ~ <[synsem|loc|category|marking @1], @2 > \\
- head-dtr ~ @2 ]
-\end{avm}
+\emph{head-nonargument-phrase} \impl \\
+\avmtmp{
+[\punk{synsem|loc|category|marking}{ \1 marking}  \\
+ dtrs & <[synsem|loc|category|marking & \1], \2 > \\
+ head-dtr & \2 ]
+}
 \z
 
 \noindent
@@ -940,10 +978,10 @@ in (\ref{hefu}).
 
 \begin{exe}
 \ex\label{hefu} 
-\type{head-functor-phrase} ~ \impl ~ \\
-\begin{avm}
-[dtrs ~ <[synsem|loc|category|head|select ~ @1], [synsem ~ @1 ]>] 
-\end{avm}
+\type{head-functor-phrase} \impl \\
+\avmtmp{
+[dtrs & <[synsem|loc|category|head|select & \1], [synsem & \1 ]>] 
+}
 \end{exe} 
 
 \noindent
@@ -956,10 +994,10 @@ Construction.} In that case the \textsc{select} value of the non-head daughter i
 
 \begin{exe}
 \ex\label{hein} 
-\type{head-independent-phrase} ~ \impl ~\\
-\begin{avm}
-[dtrs ~ <[synsem|loc|category|head|select ~ \type{none}], X >]
-\end{avm}
+\type{head-independent-phrase} \impl \\
+\avmtmp{
+[dtrs & <[synsem|loc|category|head|select & none], X >]
+}
 \end{exe}    
 
 \begin{figure}
@@ -967,11 +1005,24 @@ Construction.} In that case the \textsc{select} value of the non-head daughter i
 \oneline{%
 \begin{forest}
 sm edges
-[{[\textsc{head} \avmbox{1} \type{noun}, \textsc{mark} \avmbox{2} \type{marked}]}
-	[{[\textsc{head$|$sel} \avmbox{4}, \textsc{mark} \avmbox{2}]} [that]]
-	[{\avmbox{4} [\textsc{head} \avmbox{1}, \textsc{mark} \avmbox{5} \type{unmarked}]}
-		[{[\textsc{head$|$sel} \avmbox{3}, \textsc{mark} \avmbox{5}]} [long]]
-		[{\avmbox{3} [\textsc{head} \avmbox{1}, \textsc{mark} \avmbox{5}]} [bridge]]]]
+[%
+\avmtmp{[head \1 \type{noun}, mark \2 \type{marked}]}
+	[%
+	\avmtmp{[head|sel \4, mark \2]}
+		[that]
+	]
+	[%
+	\avmtmp{\4 [head \1, mark \5 \type{unmarked}]}
+		[%
+		\avmtmp{[head|sel \3, mark \5]}
+			[long]
+		]
+		[%
+		\avmtmp{\3 [head \1, mark \5]}
+			[bridge]
+		]
+	]
+]
 \end{forest}}
 \caption{\label{markyy} Marking and selection in nominal projections}
 \end{figure}
@@ -1022,11 +1073,24 @@ and in which the resulting NP selects the unmarked plural noun
 \oneline{%
 \begin{forest}
 sm edges
-[{[\textsc{head} \avmbox{1} \type{noun}, \textsc{mark} \avmbox{2}]}
-	[{[\textsc{head} \avmbox{4} \type{noun} [\textsc{sel} \avmbox{3}], \textsc{mark} \avmbox{2}]}
-		[{[\textsc{head$|$sel} \avmbox{5}, \textsc{mark} \avmbox{2} \type{marked}]} [a]]
-		[{\avmbox{5} [\textsc{head} \avmbox{4}, \textsc{mark} \type{unmarked}]} [hundred]]]
-	[{\avmbox{3} [\textsc{head} \avmbox{1}, \textsc{mark} \type{unmarked}]} [pages]]]
+[%
+\avmtmp{[head \1 \type{noun}, mark \2]}
+	[%
+	\avmtmp{[head \4 \type{noun} [sel \3], mark \2]}
+		[%
+		\avmtmp{[head|sel \5, mark \2 \type{marked}]}
+			[a]
+		]
+		[%
+		\avmtmp{\5 [head \4, mark \type{unmarked}]}
+			[hundred]
+		]
+	]
+	[%
+	\avmtmp{\3 [head \1, mark \type{unmarked}]}
+		[pages]
+	]
+]
 \end{forest}}
 \caption{\label{glorie} A phrasal functor}
 \end{figure}
@@ -1185,10 +1249,10 @@ Clauses, for instance, are required to denote an object of type \type{message}
 \citep[41]{GS00}.
 
 \begin{exe}
-\ex \type{clause} ~ \impl ~ 
-\begin{avm}
-[synsem|loc|content ~ \type{message}] 
-\end{avm}
+\ex \emph{clause} \impl 
+\avmtmp{
+[synsem|loc|content & message]
+}
 \end{exe}
 
 \noindent
@@ -1275,18 +1339,19 @@ which derives gerunds from the homophonous present participles \citep[66]{Malouf
 
 \begin{exe}
 \ex 
-\begin{avm} 
-[head  & [\type{verb}          \\
-          vform \type{prp}]    \\
- subj  & <@1 np>               \\
- comps & @A                    \\
- spr   & < >]
-\end{avm} ~ \impl ~ \begin{avm} 
-                            [head  & \type{gerund}  \\
-                             subj  & <@1>           \\
-                             comps & @A             \\
-                             spr   & <@1>] 
-                            \end{avm}
+\avmtmp{
+[head &	[\type*{verb}
+		vform & prp] \\
+ subj  & < \1 np> \\
+ comps & \tag{A} \\
+ spr & < >]
+} \impl %
+\avmtmp{
+[head & gerund \\
+subj & < \1 > \\
+comps & \tag{A} \\
+spr & < \1 >] 
+}
 \end{exe}
 
 \noindent
@@ -1339,12 +1404,12 @@ the non-head daughter.}
 
 \begin{exe}
 \ex\label{acccx} 
-\type{nonfin-head-subj-cx} ~ \impl ~ 
-\begin{avm} 
-[synsem|loc|category|head|root ~ --                \\
- non-hd-dtr|synsem|loc|category|head [\type{noun}   \\
-                                      case ~ \type{acc}]]  
-\end{avm}
+\emph{nonfin-head-subj-cx} \impl \\
+\avmtmp{
+[synsem|loc|category|head|root & -- \\
+ \punk{non-hd-dtr|synsem|loc|category|head}{ [\type*{noun}
+                                      case & acc]} ]  
+}
 \end{exe} 
 
 \noindent
@@ -1362,12 +1427,12 @@ footnote~\ref{fn-possesive-s}.}
 \begin{exe} 
 \ex\label{gencx} 
 \type{noun-poss-cx} ~ \impl ~ 
-\begin{avm} 
-[synsem|loc [category|head ~ \type{noun}                \\
-             content ~ \type{scope-object}]             \\
- non-hd-dtr|synsem|loc|category|head [\type{noun}       \\
-                                      case ~ \type{gen}]] 
-\end{avm}
+\avmtmp{
+[synsem|loc &	[\punk{category|head}{ noun} \\
+				content & scope-object] \\
+\punk{non-hd-dtr|synsem|loc|category|head}{	[\type*{noun}
+                                      		case & gen]} ] 
+}
 \end{exe}
  
 \noindent
@@ -1448,9 +1513,17 @@ the lower NP. The structure of the head daughter is spelled out in Figure~\ref{a
 \centering
 \begin{forest}
 sm edges
-[{[\textsc{head} $\avmbox{1}$ \type{noun}, \textsc{mark} $\avmbox{2}$ \type{a}]}
-		[{[\textsc{head$|$sel} $\avmbox{3}$, \textsc{mark} $\avmbox{2}$]} [a]]
-		[{$\avmbox{3}$ [\textsc{head} $\avmbox{1}$, \textsc{mark} \type{unmarked}]} [bargain]]]
+[%
+\avmtmp{[head \1 \type{noun}, mark \2 \type{a}]}
+	[%
+	\avmtmp{[head|sel \3, mark \2]}
+		[a]
+	]
+	[%
+	\avmtmp{\3 [head \1, mark \type{unmarked}]}
+		[bargain]
+	]
+]
 \end{forest}
 \caption{\label{aprob} The NP \emph{a bargain}}
 \end{figure}
@@ -1469,9 +1542,17 @@ so that the AP is marked as well, as shown in Figure~\ref{sohow}.
 \centering
 \begin{forest}
 sm edges
-[{[\textsc{head} $\avmbox{3}$ \type{adj}, \textsc{mark} $\avmbox{1}$ \type{marked}]}
-		[{[\textsc{head$|$sel} $\avmbox{2}$, \textsc{mark} $\avmbox{1}$]} [so]]
-		[{$\avmbox{2}$ [\textsc{head} $\avmbox{3}$, \textsc{mark} \type{unmarked}]} [good]]]
+[%
+\avmtmp{[head \3 \type{adj}, mark \1 \type{marked}]}
+	[%
+	\avmtmp{[head|sel \2, mark \1]}
+		[so]
+	]
+	[%
+	\avmtmp{\2 [head \3, mark \type{unmarked}]}
+		[good]
+	]
+]
 \end{forest}
 \caption{\label{sohow} The AP \emph{so good}}
 \end{figure}
@@ -1545,20 +1626,20 @@ The types in the \textsc{clausality} dimension mainly capture semantic and
 category-specific properties, in analogy with the hierarchy of clausal phrases 
 in \citet{GS00}. One of the non-clausal phrase types is \type{nominal-parameter}: 
 
-\begin{exe}
-\ex\label{param} 
-\type{nominal-parameter} ~ \impl ~
-\begin{avm}
-[synsem|loc [category|head ~ \type{noun}                              \\
-             content [\type{parameter}                               \\
-                      index ~ @1                                       \\
-                      restr ~ \ibox{\Sigma_{1}} $\cup$ \ibox{\Sigma_{2}}]] \\
- dtrs <[synsem|loc|content|restr \ibox{\Sigma_{1}} ], @2>     \\
- head-dtr @2 [synsem|loc|content [\type{parameter}                  \\
-                                    index ~ @1                         \\
-                                    restr ~ \ibox{\Sigma_{2}} ]]]
-\end{avm}
-\end{exe}
+\ea
+\label{param} 
+\emph{nominal-parameter} \impl\\
+\avmtmp{
+[\punk{synsem|loc}{	[\punk{category|head}{ noun} \\
+					content &	[\type*{parameter}
+								index & \1 \\
+								restr & \tag{$\Sigma_1$} $\cup$ \tag{$\Sigma_2$}] ]} \\
+ dtrs & <[synsem|loc|content|restr \tag{$\Sigma_1$} ], \2> \\
+ head-dtr & \2 [synsem|loc|content	[\type*{parameter} \\
+                                    index & \1 \\
+                                    restr & \tag{$\Sigma_2$}] ] ]
+}
+\z
 
 \noindent
 The mother shares its index with the head daughter \iboxb{1} and 
@@ -1569,14 +1650,14 @@ the quantified nominals, which have a \textsc{content} value of type
 \type{quant-rel} \citep[203--205]{GS00}. A subtype of \type{nominal-parameter} is  
 \type{intersective-modification}, as defined in (\ref{mononom}).
 
-\begin{exe}
-\ex\label{mononom} 
-\type{intersective-modification} ~ \impl ~ 
-\begin{avm}
-[synsem|loc|content|index ~ @1      \\
- dtrs <[synsem|loc|content|index ~ @1 ], X > ]
-\end{avm}
-\end{exe}
+\ea
+\label{mononom} 
+\emph{intersective-modification} \impl\\
+\avmtmp{
+[\punk{synsem|loc|content|index}{ \1} \\
+ dtrs & <[synsem|loc|content|index & \1 ], X > ]
+}
+\z
 
 \noindent 
 This constraint requires the mother to share its index also with the 
@@ -1603,17 +1684,17 @@ value is, hence, of type \type{none}.
 In addition to the inherited properties, the BMC has some properties of its own.   
 They are spelled out in (\ref{bigmess2}).
 
-\begin{exe}
-\ex\label{bigmess2} 
-\type{big-mess-phr} ~ \impl ~ 
-\begin{avm}
- [ dtrs ~ <[\type{head-functor-phrase}                           \\
-            synsem|loc|category [head    & \type{adjective}      \\
-                                 marking & \type{marked}]], X > \\
- head-dtr [\type{regular-nominal-phrase}                         \\
-           synsem|loc|category|marking ~ \type{a}]]
-\end{avm}
-\end{exe}
+\eas
+\label{bigmess2} 
+\emph{big-mess-phr} \impl \\
+\avmtmp{
+ [dtrs &	<[\type*{head-functor-phrase} \\
+			synsem|loc|category &	[head & adjective \\
+                                 	marking & marked] ], X > \\
+head-dtr &	[\type*{regular-nominal-phrase}
+           	synsem|loc|category|marking & a] ]
+}
+\zs
 
 \noindent
 The head daughter is required to be a regular nominal phrase 
@@ -1674,19 +1755,19 @@ nearly all properties of its complement, as spelled out in (\ref{de}).
 
 \begin{exe} 
 \ex\label{de} 
-\begin{avm} 
-[category [head & @1                                    \\
-           subj & @A                                    \\
-           spr  & @B                                     \\
-           comps & <[category [head & @1                 \\
-                               subj & @A                 \\
-                               spr  & @B                 \\
-                               comps & < >              \\
-                               marking & \type{unmarked}] \\
-                     content @4 ]>                       \\ 
-           marking & \type{de}]                          \\
- content @4 ] 
-\end{avm}
+\avmtmp{
+[category &	[head & \1 \\
+           	subj & \tag{A} \\
+           	spr & \tag{B} \\
+           	comps & <[category &	[head & \1 \\
+									subj & \tag{A} \\
+									spr  & \tag{B} \\
+									comps & < > \\
+									marking & unmarked] \\
+					content & \4 ]> \\
+			marking & de ] \\
+ content & \4 ] 
+}
 \end{exe} 
 
 \noindent
@@ -1703,18 +1784,20 @@ the value of \textsc{spec} is of type \type{synsem}, as in \citet{ps2}, and not 
 
 \begin{exe} 
 \ex\label{coup} 
-\begin{avm} 
-[category|head [\type{adverb}                                 \\
-                spec|loc [category [head    & \type{noun}     \\
-                                    spr     & \type{nelist}   \\
-                                    marking & \type{de}]      \\
-                          content [index @1                    \\
-                                   restr \avmbox{$\Sigma$} ]]] \\ 
- content @2 [\type{beaucoup-rel}         \\
-               index @1                  \\
-               restr \avmbox{$\Sigma$} ] \\
- store \{ @2 \} ]
-\end{avm}
+\avmtmp{
+[\punk{category|head}{	[\type*{adverb} \\
+						spec|loc &	[category &	[head & noun \\
+                                   				spr & nelist \\
+                                    			marking & de] \\
+                          			content &	[index & \1 \\
+                                   				restr \tag{$\Sigma$}]
+                                   	]
+						]} \\ 
+ content & \2 [\type*{beaucoup-rel} \\
+               index & \1                  \\
+               restr & \tag{$\Sigma$}] \\
+ store & \{ \2 \} ]
+}
 \end{exe} 
 
 \noindent
@@ -1740,11 +1823,20 @@ shares with the NP as a whole, as spelled out in Figure~\ref{beau}.
 \oneline{%
 \begin{forest}
 sm edges
-[{[\textsc{head} \avmbox{1} \type{noun}, \textsc{mark} \avmbox{2} \type{marked}]}
-	[{[\textsc{head$|$sel} \avmbox{4}, \textsc{mark} \avmbox{2}]} [beaucoup;much]]
-	[{\avmbox{4} [\textsc{head} \avmbox{1}, \textsc{mark} \avmbox{5} \type{de}]}
-		[{[\textsc{head$|$sel} \avmbox{3}, \textsc{mark} \avmbox{5}]} [de;of]]
-		[{\avmbox{3} [\textsc{head} \avmbox{1}, \textsc{mark} \type{bare}]} [farine;flour]]]]
+[%
+\avmtmp{[head \1 \type{noun}, mark \2 \type{marked}]}
+	[%
+	\avmtmp{[head|sel \4, mark \2]} [beaucoup;much]]
+	[%
+	\avmtmp{\4 [head \1, mark \5 \type{de}]}
+		[%
+		\avmtmp{[head|sel \3, mark \5]} [de;of]]
+		[%
+		\avmtmp{\3 [head \1, mark \type{bare}]}
+			[farine;flour]
+		]
+	]
+]
 \end{forest}}
 \caption{\label{beau} An adverbial functor and a prepositional functor}
 \end{figure}

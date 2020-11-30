@@ -30,8 +30,7 @@ Work within HPSG has explored typologically-different and ge\-net\-i\-cal\-ly-di
 \begin{document}
 \maketitle
 \label{understudied-languages}
-	
-{\avmoptions{center}
+
 
 \section{Introduction}
 
@@ -42,7 +41,7 @@ Norwegian (ISO: nor) \citep{HH2004a-u},
 French (ISO: fra) \citep{AG2000a,AG2002b-u,abegod04,ABGT2006a-u}, 
 Spanish (ISO: spa) \citep{Marimon2013a-u}, 
 Portuguese (ISO: por) \citep{BC2008a-u}, 
-Mandarin Chinese (ISO: cmn) \citep{ML2013a,MLChinese,YF2014a-u}, 
+Mandarin Chinese (ISO: cmn) \citep{ML2013a,YF2014a-u}, 
 Japanese (ISO: jpn) \citep{SBB2016a}, and 
 Korean (ISO: kor) \citep{KYSB2011a-u}, among others. However, work within HPSG is not particularly well-known for exploring a wide range of typologically- and genetically-diverse languages, certainly not to the degree of its constraint-based lexicalist cousin, \isi{Lexical Functional Grammar}. Nevertheless, there has been work within HPSG on such languages; this chapter will discuss some of this work as well as suggesting some further avenues for HPSG work within these languages.
 
@@ -104,12 +103,12 @@ On the Miller \& Sag-style analysis of pro-indexes, the verb's \textsc{arg-st} l
 %
 \begin{exe}
 \ex\label{ARP} 
-\begin{avm}
-\tpv{word} $\Rightarrow$
- \[ \textsc{ss}\|\textsc{loc}\|\textsc{cat} & \[ \textsc{subj} & \@B \\
-    							\textsc{comps} & \@C		\] \\
- \avmspan{\textsc{arg-st} \ \ \@A \tpv{list(canonical)}  (= \@B $\oplus$ \@C) $\bigcirc$ \@D \tpv{list(non-canonical)}} \] 
-\end{avm} \\
+\emph{word} \impl
+\avmtmp{
+	[ss|loc|cat &	[subj & \tag{B} \\
+					comps & \tag{C}] \\
+	arg-st \tag{A} & list!(canonical)! \upshape (= \tag{B} \+ \tag{C}) \relax $\bigcirc$ \tag{D} list!(non-canonical)! ] 
+} \\
 \hfill{(cf.\ \citealt[171]{GSag2000a-u})} \
 \end{exe}
 %
@@ -119,19 +118,18 @@ So, returning to the \ili{Macushi} word \textit{ikoneka'p\^{\i}uya} `I made it' 
 % 
 \begin{exe}
 \ex \label{made it}
-\begin{avm}
-\[\textsc{ss}\|\textsc{loc} & \[ \textsc{cat} &   \[ \textsc{head} & \tpv{verb} \\
-								   \textsc{subj} & \elist \\
-								\textsc{comps} & \elist  \] \\ 
-			    	\textsc{cont} & \[ \textsc{rels} & \< \[\tp{make-rel} \\
-							\textsc{arg1} & \@1 \\
-							\textsc{arg2} & \@2 \] \> \] \] 	\\	
-\textsc{arg-st} & \q< \[\tpv{non-canonical}\]$_{\@1}$, \[\tpv{non-canonical}\]$_{\@2}$ \q> 									
-  \]
-\end{avm}
+\avmtmp{
+	[ss|loc &	[cat &	[head & verb \\
+						subj & < > \\
+						comps & < > ] \\ 
+				cont &	[rels &	<[\type*{make-rel}
+						arg1 & \1 \\
+						arg2 & \2 ]> ] ] 	\\	
+	arg-st & <[\type{non-canonical}]$_{\1}$, [\type{non-canonical}]$_{\2}$ > ]
+}
 \end{exe}
 %
-In (\ref{made it}), the word's \textsc{arg-st} list is comprised of two \textit{non-canonical} feature descriptions (corresponding to the maker argument with index \avmbox{1} and the made argument, with index \avmbox{2}). Yet, by the Argument Realization Principle, the \textsc{subj} and \textsc{comps} lists are empty. Consequently, \textit{ikoneka'p\^{\i}uya} `I made it', can be a clause by itself -- as it is in (\ref{mac a}) -- because it requires no other valents (that is, it has a ``saturation'' level on a par with a clause) and it is headed by a verb (just like a clause is). 
+In (\ref{made it}), the word's \textsc{arg-st} list is comprised of two \textit{non-canonical} feature descriptions (corresponding to the maker argument with index \ibox{1} and the made argument, with index \ibox{2}). Yet, by the Argument Realization Principle, the \textsc{subj} and \textsc{comps} lists are empty. Consequently, \textit{ikoneka'p\^{\i}uya} `I made it', can be a clause by itself -- as it is in (\ref{mac a}) -- because it requires no other valents (that is, it has a ``saturation'' level on a par with a clause) and it is headed by a verb (just like a clause is). 
 
 The specification of an empty list also contributes to ruling out examples like (\ref{mac b}) with a conominal. On the standard HPSG view of how valence is managed, no element with an empty valence list can combine with any possible valence-saturating syntactic entity, like an NP.\footnote{To truly rule out the NP from combining with the verb in Figure \ref{no conominal}, the NP would also need to not match any non-local requirements of the verb. } Thus, the grammar would correctly not license a tree like in Figure \ref{no conominal}.\footnote{The tree in Figure \ref{no conominal}, as well as other trees in this chapter, only provides the relevant attribute-value pairs, suppressing the geometry of features found in more articulated feature descriptions.}
 %
@@ -139,12 +137,12 @@ The specification of an empty list also contributes to ruling out examples like 
 \centering
 \begin{forest}
 [* 
-[NP[uur\^{\i}ya \\ `me.\textsc{erg}' ,tier=word,roof]] 
-[\begin{avm}
-\[ \textsc{head} & \tpv{verb} \\
-    	\textsc{subj} & \elist   \\
-	\textsc{comps} & \elist  \] 
-\end{avm} 
+	[NP[uur\^{\i}ya \\ `me.\textsc{erg}' ,tier=word,roof]] 
+	[\avmtmp{
+		[head & verb \\
+		subj & < >   \\
+		comps & < > ] 
+	} 
 [ikoneka'p\^{\i}uya \\ `I.made.it', tier=word]]]
 \end{forest}
 \caption{A tree of an illicit conominal--pro-index combination}
@@ -178,22 +176,20 @@ Let us consider a word, like the \ili{Basque} auxiliary \textit{dut} `\textsc{au
 %
 \begin{exe}
 \ex\label{unsp dut}
-\begin{avm}
-\[ \textsc{arg-st} & \< \[\tpv{synsem}\] , \[ \tp{synsem} \\
-								 \textsc{ss}\|\textsc{loc}\|\textsc{cont}\|\textsc{ind} & \tpv{3sg} \], ... \>
-\]
-\end{avm}
+\avmtmp{
+[ \textsc{arg-st} & <[\type{synsem}],	[\type*{synsem}
+										ss|loc|cont|ind & 3sg ], \ldots > ]
+}
 \end{exe}
 %
 To be consistent with (\ref{unsp dut}), the second \textsc{arg-st} list member just needs to be something that is semantically a third person. Therefore, the second \textsc{arg-st} list member could ultimately resolve to a \textit{non-canonical} feature description, as in (\ref{sp dut 1}): 
 %
 \begin{exe}
 \ex\label{sp dut 1}
-\begin{avm}
-\[  \textsc{arg-st} & \< \[\tpv{synsem}\], \[ \tp{non-canonical} \\
-							       \textsc{ss}\|\textsc{loc}\|\textsc{cont}\|\textsc{ind} & \tpv{3sg} \], ... \>
-\]
-\end{avm}
+\avmtmp{
+[arg-st & < [\type{synsem}],	[\type*{non-canonical}
+								ss|loc|cont|ind & 3sg ], \ldots > ]
+}
 \end{exe}
 %
 This resolution would be forced when no conominal is present (if this \textit{synsem} on the \textsc{arg-st} list resolved to the \textit{canonical} type and a conominal was not present, the \textsc{comps} list would illicitly not be emptied). The analysis would, in this condition, be identical to that of the pro-indexes provided in Section \ref{pro-indexes}.
@@ -203,11 +199,10 @@ However, the second \textsc{arg-st} list member could also ultimately resolve to
 %
 \begin{exe}
 \ex\label{sp dut 2}
-\begin{avm}
-\[  \textsc{arg-st} & \< \[\tpv{synsem}\], \[ \tp{canonical} \\
-							       \textsc{ss}\|\textsc{loc}\|\textsc{cont}\|\textsc{ind} & \tpv{3sg} \], ... \>
-\]
-\end{avm}
+\avmtmp{
+[arg-st & <[\type{synsem}],	[\type*{canonical}
+							ss|loc|cont|ind & 3sg ], \ldots > ]
+}
 \end{exe}
 %
 This resolution would be forced when a conominal is present (otherwise, the conominal could not be syntactically licensed). Thus, the analysis, in this condition, is like an instance of obligatorily co-present conominal and argument index (a \isi{gramm-index} in Haspelmath's terms). 
@@ -240,16 +235,19 @@ Thus, on Koenig \& Michelson's view (and in keeping with the terminology of the 
 \begin{figure}[htp]
 \centering
 \begin{forest}
-[ \begin{avm}
-\[ \textsc{head} & \tpv{verb} \\
-   \textsc{disloc} & \esetDB \]
-\end{avm} 
-	[ \begin{avm}
-    	 \[ \textsc{head} & \tpv{verb} \\
-   	\textsc{disloc} & \q\{ \@1 \q\}     \]
-   	\end{avm}
-	[ʌhahyoʔthi{\textperiodcentered}y\'{a}teʔ \\ `he will sharpen' , tier=word]]
-	[NP$_{\avmbox{1}}$ [laoto{\textperiodcentered}k\'{ʌ}{\textperiodcentered} \\ `his axe' ,tier=word,roof]] ]
+[%
+\avmtmp{
+	[head & verb \\
+	disloc & \{ \} ]
+} 
+	[%
+	\avmtmp{
+		[head & verb \\
+		disloc & \{\1\} ]
+	}
+		[ʌhahyoʔthi{\textperiodcentered}y\'{a}teʔ \\ `he will sharpen' , tier=word]]
+	[NP$_{\ibox{1}}$ [laoto{\textperiodcentered}k\'{ʌ}{\textperiodcentered} \\ `his axe' ,tier=word,roof]]
+]
 \end{forest}
 \caption{Licensing conominals on the direct syntax approach}
 \label{nonlocal tree}
@@ -266,16 +264,14 @@ One route to explore would be to use lexical rules to create \textsc{arg-st} or 
 %
 \begin{exe}
 \ex \label{lex rule}
-\begin{avm}
-\avml
-\[ \textsc{arg-st} & \@A \< \[\tpv{canonical}\] , \[ \tp{non-canonical} \\
-								 \textsc{ss}\|\textsc{loc}\|\textsc{cont}\|\textsc{ind} & \@1 \] \>\] \;
-$\mapsto$ \\								 
- \[  \textsc{ss}\|\textsc{loc}\|\textsc{cat}\|\textsc{comps} & \tpv{list} $\oplus$ \< \[\tpv{canonical} \\ 
-							  											  \textsc{ss}\|\textsc{loc}\|\textsc{cont}\|\textsc{ind} & \@1\] \>  \\
-				 \textsc{arg-st} & \@A 		   \] 
-\avmr
-\end{avm}
+\avmtmp{
+	[arg-st & \tag{A} <[\type{canonical}] ,	[ \type*{non-canonical}
+											ss|loc|cont|ind & \1] >]
+	$\mapsto$ \\								 
+	[ss|loc|cat|comps & list \+	<[\type*{canonical}
+								ss|loc|cont|ind & \1 ]> \\
+	arg-st & \tag{A} ]
+}
 \end{exe}
 %
 This approach might be a way to loosen the resource sensitivity of the usual valence regime, though a proposal along these lines would need to take care in considering whether any changes would be needed in the statement of the Argument Realization Principle (and if so, what form they should take) and if there would be any undesirable consequences to allowing single semantic arguments to correspond to more than one syntactico-semantic element.    
@@ -317,35 +313,40 @@ The example in (\ref{lezgian 2}) could be analyzed with the tree in Figure \ref{
 \centering
 \begin{forest}
 for tree={l sep=10 mm}
-[	\begin{avm}
-	\[  \textsc{head} & \@1 \\
-	 \textsc{subj} & \elist \\
-	 \textsc{comps} & \elist  \]	
-	 \end{avm}, 
-	[ \begin{avm} 
-	\@2 \[ \textsc{head} & \[ \tp{noun} \\
-						    \textsc{case} & \tpv{erg} \] \\
-	        	 \textsc{subj} & \elist \\
-	 	 \textsc{comps} & \elist  \]
-	\end{avm}
-	[aburu \\ `they']] 
-	[ \begin{avm} 
-	\[ \textsc{head} & \@1 \\
-	 \textsc{subj} & \q< \@2 \q> \\
-	 \textsc{comps} & \elist \] 
-	 \end{avm}, edge label={node[midway,above,outer sep=0.5 mm]{\textit{H}}}
-		[\begin{avm}
-		\@3 \[ \textsc{head} & \[ \tp{noun} \\
-						    \textsc{case} & \tpv{abs} \] \\
-         	 \textsc{subj} & \elist \\
-	 	\textsc{comps} & \elist  \]
-		\end{avm}
-		[zun \\ `me']] 
-		[\begin{avm}
-		\[ \textsc{head} & \@1\tpv{verb} \\
-		\textsc{subj} & \q< \@2 \q> \\
-		 \textsc{comps} & \q< \@3 \q>  \]
-		\end{avm}, edge label={node[midway,above,outer sep=0.5 mm]{\textit{H}}}
+[%
+\avmtmp{
+	[head & \1 \\
+	subj & < > \\
+	comps & < > ]	
+}, 
+	[%
+	\avmtmp{
+		\2 [head &	[\type*{noun}
+					case & erg ] \\
+		subj & < > \\
+		comps & < > ]
+	}
+		[aburu \\ `they']] 
+	[%
+	\avmtmp{
+		[head & \1 \\
+		subj & < \2 > \\
+		comps & < > ] 
+	}, edge label={node[midway,above,outer sep=0.5 mm]{\textit{H}}}
+		[%
+		\avmtmp{
+			\3 [head &	[\type*{noun}
+						case & abs ] \\
+			subj & < > \\
+			comps & < > ]
+		}
+			[zun \\ `me']]
+		[%
+		\avmtmp{
+			[head & \1 verb \\
+			subj & < \2 > \\
+			comps & < \3 >  ]
+		}, edge label={node[midway,above,outer sep=0.5 mm]{\textit{H}}}
 		[ajibda \\ `will shame']]
 	]
 ]	
@@ -364,13 +365,13 @@ In all known \isi{ergative} languages, the ergative--absolutive case pattern -- 
 %
 \begin{exe}
 \ex\label{simple erg}
-\begin{avm}
-\tpv{trans-v-lxm} $\Rightarrow$ 
-\[\textsc{ss}\|\textsc{loc}\|\textsc{cont}\|\textsc{key} &  \[\tp{act-und-rel} \\
-								   \textsc{arg1} & \@1 \\
-								   \textsc{arg2} & \@2\] \\
-\textsc{arg-st} & \< \[\textsc{case} &  \tpv{erg}\]$_{\@1}$,  \[\textsc{case} & \tpv{abs}\]$_{\@2}$ \> $\oplus$ \tpv{list} \]
-\end{avm}
+\emph{trans-v-lxm} \impl 
+\avmtmp{
+	[ss|loc|cont|key &	[\type*{act-und-rel}
+						arg1 & \1 \\
+						arg2 & \2 ] \\
+	arg-st & < [case & erg]$_{\1}$, [case & abs]$_{\2}$ > \+ list ]
+}
 \end{exe}
 %
 In (\ref{simple erg}), the \textit{transitive-verb-lexeme} (\textit{trans-v-lxm}) has an \textsc{arg-st} list with both an ergative and an absolutive argument. Key to this result is that the verb lexeme is associated with an \textit{actor-undergoer-relation} (\textit{act-und-rel}), and, in fact, this is the value of the \textsc{key} feature in (\ref{simple erg}), encoding the designated semantic relation relevant for case and linking (see \citealt{KD2006a-u} for more on the \textsc{key} feature). The \textit{act-und-rel} type designates semantic predicates with precisely the denotation behind the notion of ``primary transitive verb'' (see \citealt[75--134]{Davis2001a-u} for discussion of this type, other related types, and how these types fit into a hierarchy of semantic relations). Provided that the constraint in (\ref{simple erg}) is the only argument realization constraint to mention the ergative and absolutive cases, the ergative--absolutive collection of arguments would only be available with verbs with this particular sort of meaning.\footnote{Though to achieve more generality with the licensing of absolutive case, one might follow \citet[Chapter 7]{ball08thesis} and have separate linking constraints for absolutive and ergative case.} The overall linking constraint is placed on a \textit{trans-v-lxm}, so that (a) the case requirements are stated once for all the different inflected forms of the verb and (b) so these case requirements could also be inherited by other semantically appropriate verbs with even more arguments than the bivalent predicate illustrated in (\ref{simple erg}).     
@@ -403,19 +404,15 @@ The seemingly most common analysis of VSO languages \is{VSO order} in HPSG is th
 \begin{samepage}
 \begin{exe}
 \ex \label{h-a-v rule}
-\begin{avm}
-\avml
-\tpv{head-all-valents-schema} $\Rightarrow$  \\
-\[ \textsc{ss}\|\textsc{loc}\|\textsc{cat} & \[ \textsc{subj} & \elist \\
-						    \textsc{comps} & \elist  \]   \\
- \textsc{hd-dtr} & \[ \tp{word} \\
-				\textsc{ss}\|\textsc{loc}\|\textsc{cat} & \[ \textsc{subj} & \q< \@1 \q> \\
-										  \textsc{comps} & \q< \@2, ..., \@n \q> \] \] \\
-   \textsc{non-hd-dtrs}  & \q< \@1, \@2, ..., \@n \q>
-
-\]
-\avmr
-\end{avm} 
+\emph{head-all-valents-schema} \impl  \\
+\avmtmp{
+	[ss|loc|cat &	[subj & < > \\
+	comps & < >  ]   \\
+	hd-dtr &	[\type*{word}
+	ss|loc|cat &	[subj & < \1 > \\
+	comps & < \2, \ldots, \tag{n} > ] ] \\
+	non-hd-dtrs  & < \1, \2, \ldots, \tag{n} > ]
+} 
 \end{exe}
 \end{samepage}
 %
@@ -438,29 +435,33 @@ By the Head-All Valents Schema (and appropriate inherited constraints concerning
 \centering
 \begin{forest}
 for tree={l sep=10 mm}
-[ \begin{avm}
-  \[  \textsc{head} & \@1 \\
-	 \textsc{subj} & \elist \\
-	 \textsc{comps} & \elist  \]
-  \end{avm}	 
-[ \begin{avm}
- \[  \textsc{head} & \@1\tpv{verb} \\
-         			  \textsc{subj} & \q< \@2 \q> \\
-			  	  \textsc{comps} & \q< \@3 \q> \]
-\end{avm},  edge label={node[midway,above,outer sep=0.5 mm]{\textit{H}}}
-[minangalapak \\ `split']] 
-[ \begin{avm} 
-\@2 \[ \textsc{head} & \tpv{noun} \\
-         	 \textsc{subj} & \elist \\
-	 	  \textsc{comps} & \elist \]
-\end{avm}
-[it kogiw \\ `\textsc{nom} orangtuan', roof ]] 
-[\begin{avm}
-\@3 \[ \textsc{head} & \tpv{noun} \\
-          \textsc{subj} & \elist \\
-          \textsc{comps} & \elist \]
-\end{avm}
-[do ratu \\ `\textsc{gen} durian', roof]] 
+[%
+\avmtmp{
+	[head & \1 \\
+	subj & < > \\
+	comps & < >  ]
+}	 
+	[%
+	\avmtmp{
+		[head & \1 verb \\
+		subj & < \2 > \\
+		comps & < \3 > ]
+	},  edge label={node[midway,above,outer sep=0.5 mm]{\textit{H}}}
+		[minangalapak \\ `split']]
+	[%
+	\avmtmp{ 
+		\2 [head & noun \\
+		subj & < > \\
+		comps & < > ]
+	}
+		[it kogiw \\ `\textsc{nom} orangtuan', roof ]]
+	[%
+	\avmtmp{
+		\3 [head & noun \\
+		subj & < > \\
+		comps & < > ]
+	}
+		[do ratu \\ `\textsc{gen} durian', roof]] 
 ]
 \end{forest}
 \caption{Tree of (\ref{KD}) in the flat structure analysis}
@@ -493,15 +494,12 @@ On the binary branching head-initial analysis, VSO clauses are built out of seve
 %
 \begin{exe}
 \ex \label{h-v rule}
-\begin{avm}
-\avml
-\tpv{head-valent-schema} $\Rightarrow$  \\
-\[ \textsc{ss}\|\textsc{loc}\|\textsc{cat}\|\textsc{val} & \@A  \\
- \textsc{hd-dtr} & \[  \textsc{ss}\|\textsc{loc}\|\textsc{cat}\|\textsc{val}  \q< \@1 \q> $\oplus$ \@A \] \\
-   \textsc{non-hd-dtrs}  & \q< \@1 \q>
-\]
-\avmr
-\end{avm} 	
+\emph{head-valent-schema} \impl  \\
+\avmtmp{
+	[ss|loc|cat|val & \tag{A}  \\
+	hd-dtr &	[ss|loc|cat|val  < \1 > \+ \tag{A} ] \\
+	non-hd-dtrs & < \1 > ]
+}	
 \end{exe}
 %
 The rule in (\ref{h-v rule}) allows a head to combine with just one of its valents; in particular, the first one on its \textsc{val} list. This aspect of the ordering is crucial to ensure that the subject-NP-before-object-NP sequence is licensed.
@@ -512,35 +510,42 @@ Returning to the \ili{Kimaragang} example of (\ref{KD}), we can see how a struct
 \centering
 \begin{forest}
 for tree={l sep=10 mm}
-[ \begin{avm}
- \[ \textsc{head} & \@1 \\
-    \textsc{val} & \elist  \]
-\end{avm} 
-[\begin{avm}
-\[ \textsc{head} & \@1 \\
-    \textsc{val} & \q< \@3 \q> \]
-\end{avm}, edge label={node[midway,above,outer sep=0.5 mm]{\textit{H}}} 
-[ \begin{avm}
-\[  \textsc{head} & \@1\tpv{verb} \\
-    \textsc{val} & \q< \@2{,} \@3 \q> \]
-\end{avm}, edge label={node[midway,above,outer sep=0.5 mm]{\textit{H}}}
-[minangalapak \\ `split' ]]   
-[\begin{avm}
-\@2 \[ \textsc{head} & \tpv{noun} \\
-         	\textsc{val} & \elist  \]
-\end{avm}
-[it kogiw \\ `\textsc{nom} orangutan', roof ]]] 
-[\begin{avm}
-\@3 \[ \textsc{head} & \tpv{noun} \\
-         	\textsc{val} & \elist  \]
-\end{avm}
-[do ratu \\ `\textsc{gen} durian', roof]]]
+[%
+\avmtmp{
+	[head & \1 \\
+	val & < >  ]
+} 
+	[%
+	\avmtmp{
+		[head & \1 \\
+		val & < \3 > ]
+	}, edge label={node[midway,above,outer sep=0.5 mm]{\textit{H}}} 
+		[%
+		\avmtmp{
+			[head & \1 verb \\
+			val & < \2{,} \3 > ]
+		}, edge label={node[midway,above,outer sep=0.5 mm]{\textit{H}}}
+			[minangalapak \\ `split' ]]  
+		[%
+		\avmtmp{
+			\2 [head & noun \\
+			val & < >  ]
+		}
+			[it kogiw \\ `\textsc{nom} orangutan', roof ]]
+	] 
+	[%
+	\avmtmp{
+		\3 [head & noun \\
+		val & < >  ]
+	}
+		[do ratu \\ `\textsc{gen} durian', roof]]
+]
 \end{forest}
 \caption{Tree of (\ref{KD}) in the binary branching head-initial analysis}
 \label{KD tree 2}
 \end{figure}
 %
-Like in Figure \ref{KD tree}, in Figure \ref{KD tree 2}, the head verb requires a nominative and a genitive argument. However, instead of combining with both of these at the same time, the verb just combines with the initial nominative argument (\avmbox{2}), leaving the genitive argument (\avmbox{3}) to be passed up to the mother. At this second level of structure, the Head-Valent Schema again applies -- because there is still at least one element on the relevant head's \textsc{val} list -- integrating \avmbox{3} into the structure. The rule is barred, correctly, from applying to the root node of the tree in Figure  \ref{KD tree 2}, as this root node has an empty \textsc{val} list and the Head-Valent Schema requires the head daughter to have at least one valent.   
+Like in Figure \ref{KD tree}, in Figure \ref{KD tree 2}, the head verb requires a nominative and a genitive argument. However, instead of combining with both of these at the same time, the verb just combines with the initial nominative argument (\ibox{2}), leaving the genitive argument (\ibox{3}) to be passed up to the mother. At this second level of structure, the Head-Valent Schema again applies -- because there is still at least one element on the relevant head's \textsc{val} list -- integrating \ibox{3} into the structure. The rule is barred, correctly, from applying to the root node of the tree in Figure  \ref{KD tree 2}, as this root node has an empty \textsc{val} list and the Head-Valent Schema requires the head daughter to have at least one valent.   
  
  A noteworthy feature of the VSO binary branching head-initial analysis is its grouping of verb and the subject NP into a constituent. Exactly this sort of thing has been reported to occur in some verb-initial languages, like \ili{Malagasy} \citep{keenan2000}, suggesting the binary branching head-initial analysis might be preferable for such languages. In VSO languages without such evidence, it would seem that either the flat structure analysis or the binary branching head-initial analysis would be possible, all else being equal.  
  
@@ -557,8 +562,7 @@ In addition to revealing some of the more uniform aspects of HPSG, the above dis
 \section*{Acknowledgements}
 
 Thanks to Stefan M{\"u}ller, Robert Borsley, and Emily Bender for comments on this chapter. I alone am responsible for any remaining shortcomings. Thanks also to the editors, especially to Jean-Pierre Koenig (who served as the editors' in-person representative when I was first approached to write this chapter), for suggesting that a chapter like this one exist in this handbook.  
- 
-}
+
 
 {\sloppy
 

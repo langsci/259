@@ -216,26 +216,26 @@ their values. The complete specification is shown in
 \ea \label{fig:e-v-info-struc}
 Information structure in \cite[56]{EV96a}
         \leavevmode
-    \begin{avm}
-    [\tp{sign}\\
+\avmtmp{
+    [\type*{sign}
      synsem|local|context|info-struc & [focus & sign\\
                                         ground & [link & sign\\
                                                   tail & sign]
                                        ]
     ]     
-    \end{avm}
+}
 \z
 % \begin{figure}[htb!]
 %   \begin{center}
 %         \leavevmode
-%     \begin{avm}
+%     \avmtmp{
 %     [\tp{sign}\\
 %      synsem|local|context|info-struc & [focus & sign\\
 %                                         ground & [link & sign\\
 %                                                   tail & sign]
 %                                        ]
 %     ]     
-%     \end{avm}
+%     }
 %     \caption{Information structure in \cite{EV96a}}
 %     \label{fig:e-v-info-struc}
 %   \end{center}
@@ -256,13 +256,13 @@ sign. The basic setup is illustrated in \pref{fig:paggio-infostr}.
 % \begin{figure}[htb]
 %   \centering
 %         \leavevmode
-%     \begin{avm}
+%     \avmtmp{
 %     [\tp{sign}\\
 %      synsem|local|context|infostr & [focus & list-of-indices\\
 %                                      topic & list-fo-indices\\
 %                                      bg & list-of-indices]
 %     ]     
-%     \end{avm}
+%     }
 %   \caption{Information structure in \cite{Paggio2009a-u}}
 %   \label{fig:paggio-infostr}
 % \end{figure}
@@ -270,13 +270,13 @@ sign. The basic setup is illustrated in \pref{fig:paggio-infostr}.
 \ea\label{fig:paggio-infostr}
 Information structure in \cite[149]{Paggio2009a-u}:\\
         \leavevmode
-    \begin{avm}
-    [\tp{sign}\\
+\avmtmp{
+    [\type*{sign}\\
      synsem|local|context|infostr & [focus & list-of-indices\\
                                      topic & list-of-indices\\
                                      bg & list-of-indices]
     ]     
-    \end{avm}
+}
 \z
 
 Several approaches encode information structure as part of the \textsc{content},
@@ -293,20 +293,20 @@ end of the list). This type of list includes an explicit pointer
 to the last element of the list.
 \ea\label{fig:song-infostruc}
 Information structure in \cite{song-bender:2012} and \cite[116]{song2018}:\\
-    \begin{avm}
-    [\tp{sign}\\
-     synsem|local|content & [\tp{mrs}\\
-                             hook & [\tp{hook}\\
+\avmtmp{
+    [\type*{sign}\\
+     synsem|local|content & [\type*{mrs}\\
+                             hook & [\type*{hook}\\
                                      icons-key & info-str\\
                                       clause-key & event]\\
                              rels & diff-list\\
                              hcons & diff-list\\
-                             icons & \XlstI{\normalfont{!}\ ..., [\tp{info-str}\\
+                             icons & <\normalfont{!}\ \ldots, [\type*{info-str}\\
                                                  clause & individual\\
-                                                 target & individual], ...\ \normalfont{!}}
+                                                 target & individual], \ldots\ \normalfont{!}>
                            ]
     ]     
-    \end{avm}
+}
 \z
 The type \istype{info-str} \textit{info-str} used as the value for elements on the
 \textsc{icons} list is divided into an elaborate hierarchy with
@@ -370,17 +370,17 @@ is shown in \pref{fig:info-struc}.
 \ea
 The structure of \textsc{info"=struc} in \cite[165]{deKuthy2002a}:\\
 \leavevmode
-    \begin{avm}
-     [\tp{sign}\\
+\avmtmp{
+     [\type*{sign}\\
       phon & list\\
       synsem & synsem\\
       info-struc &
-      [\tp{info-struc}\\
+      [\type*{info-struc}\\
         focus & list-of-mes\\
         topic & list-of-mes
       ] 
      ]
-    \end{avm}
+}
     \label{fig:info-struc}
 \z
 The information structure is encoded in the attribute
@@ -419,26 +419,18 @@ particular accent. The two principles are shown in
 \pref{fig:engdahl-word-principle}.
 \ea
 Information structure of words \citep[56]{EV96a}:\\
-  \begin{tabular}{@{}l@{}l@{}l@{}}
-    \textit{word}\ \impl
-    &&
-   \begin{avm}
-    @1 [
-      phon|accent & A\\
-         info-struc|focus & @1
-      ]
-   \end{avm} 
-\\[5ex]
-    \textit{word}\ \impl
-    &&
-   \begin{avm}
-    @1 [
-      phon|accent & B\\
-         info-struc|ground|link & @1
-      ]
-   \end{avm} 
+\avmtmp{
+\emph{word}\ \impl
+    \1 [phon|accent & A\\
+         info-struc|focus & \1]
 
-    \end{tabular}
+\bigskip
+
+\emph{word}\ \impl
+    \1 [phon|accent & B\\
+         info-struc|ground|link & \1]
+} 
+
   \label{fig:engdahl-word-principle}
 \z
 Words with an A accent always contribute focal information, i.e., the
@@ -456,17 +448,18 @@ receives an accent or not, and whether it is a rising or falling
 accent, should it receive one.
 \ea
 Representing pitch accents and accent type hierarchy according to \citet[166]{deKuthy2002a}:\\
-    \begin{center}
-      \begin{tabular}{@{}l@{\hspace{4em}}l@{}}
-\begin{avm}
-      [\tp{sign}\\
-       phon & [phon-string \tpv{list}\\
-               accent \tpv{accent}
-              ]
-      ]
-    \end{avm}
-&
-\raisebox{-1.5cm}{\textit{\begin{forest}
+
+\begin{multicols}{2}
+\avmtmp{
+	[\type*{sign}\\
+	phon &	[phon-string & list \\
+	       accent & accent] ]
+}
+
+\columnbreak
+
+\textit{
+  \begin{forest}
         [accent
             [unaccented]
             [accented
@@ -474,11 +467,10 @@ Representing pitch accents and accent type hierarchy according to \citet[166]{de
                   [falling-accent]
             ]
         ]
-  \end{forest}}}
-\\
-     \end{tabular}
+  \end{forest}
+}
+\end{multicols}\unskip
     \label{fig:accent}
-    \end{center}\unskip
 \z
 
 The information structure of words is defined through the principle
@@ -488,19 +480,17 @@ information structure representation of that word, depending on the
 type of accent the word receives.
 \ea
 Principle assigning information structure to words \citep[167]{deKuthy2002a}:
-    \begin{tabular}{@{}l@{}l@{}l@{}}
+    \begin{tabular}{ll}
     \textit{word}\ \impl
     &
-    \begin{avm}[
-      phon|accent & falling-accent\\
-      ss|loc|cont|lf & @1\\
-      info-struc & [focus & \XlstI{@1}\\
-                    topic & \elst]
-      ]
-    \end{avm} & \ $\vee$ \\
-\\      
+	\avmtmp{
+		[phon|accent & falling-accent\\
+      	ss|loc|cont|lf & \1\\
+      	info-struc &	[focus & < \1 > \\
+                   		 topic & < >] ]
+    } $\lor$ \\ & \\
 %   &$\vee$\; &
-%   \begin{avm}
+%   \avmtmp{
 %     [
 %      phon|accent & rising-accent\\
 %      ss|loc|cont|lf & @1\\
@@ -510,15 +500,13 @@ Principle assigning information structure to words \citep[167]{deKuthy2002a}:
 %                   [focus & \XlstI{@1}\\
 %                    topic & \elst])
 %      ]
-%   \end{avm}\\[2em]
+%   }\\[2em]
 %    & $\vee$\;  \\
-  &   \begin{avm}
-     [
-      phon|accent & unaccented\\
-         info-struc & [focus & \elst\\
-                    topic & \elst]
-      ]
-   \end{avm} & \ $\vee$\   \ldots\\
+  &   \avmtmp{
+  		[phon|accent & unaccented\\
+		info-struc &	[focus & < > \\
+						topic & < > ] ]
+	  } $\lor$ \ldots
     \end{tabular}
     \label{fig:words}
 \z
@@ -538,26 +526,26 @@ subtypes are shown in~\pref{ex:song-icons-lex}.
 \label{ex:song-icons-lex}
 Lexical types specifying \textsc{icons} values \citep[137]{song2018}
 \ea
-\begin{avm}
-  [\tp{no-icons-lex-item}\\
+\avmtmp{
+  [\type*{no-icons-lex-item}\\
   mkg & [fc & na\\tp & na]\\
-  icons & \<\ \normalfont{!}\ \normalfont{!}\ \>]
-\end{avm}
+  icons & < \normalfont{!} \normalfont{!} >]
+}
 \ex
-\begin{avm}
-  [\tp{basic-icons-lex-item}\\
-  icons & \<\ \normalfont{!}\ \normalfont{!}\ \>]
-\end{avm}
+\avmtmp{
+  [\type*{basic-icons-lex-item}\\
+  icons & < \normalfont{!} \normalfont{!} >]
+}
 \ex
-\begin{avm}
-  [\tp{one-icons-lex-item}\\
-  icons & \<\ \normalfont{!}\ []\ \normalfont{!}\ \>]
-\end{avm}
+\avmtmp{
+  [\type*{one-icons-lex-item}\\
+  icons & < \normalfont{!} ![ ]! \normalfont{!} >]
+}
 \ex
-\begin{avm}
-  [\tp{two-icons-lex-item}\\
-  icons & \<\ \normalfont{!}\ []\ ,\ []\ \normalfont{!}\ \>]
-\end{avm}
+\avmtmp{
+  [\type*{two-icons-lex-item}\\
+  icons & < \normalfont{!} ![ ]! , ![ ]! \normalfont{!} >]
+}
 \z
 \z
 
@@ -612,38 +600,38 @@ the relevant \textsc{info"=struc} values is shown in
 Figure~\ref{fig:info-packaging}.
 
 \begin{figure}
-  \centering\avmoptions{}
+  \centering
            \begin{forest}
              [ S{[fin]}\\
-               \begin{avm}
-                 \[info-struc \[focus \@3\\
-                 ground\|link \@4\]\]
-               \end{avm}
-                [\idx{4}
+               \avmtmp{
+                 [info-struc [focus \3\\
+                 ground|link \4]]
+               }
+                [\ibox{4}
                  NP{[nom]}\\
-                \begin{avm}
-                  \[phon\|accent B\\
-                   info-struc\|ground\|link \@4\]
-                \end{avm}
+                \avmtmp{
+                  [phon|accent B\\
+                   info-struc|ground|link \4]
+                }
                  [{the president}, roof]
                  ]
-                [\idx{3}
+                [\ibox{3}
                  VP{[fin]}\\
-                \begin{avm}
-                  \[info-struc\|focus \@3\]
-                \end{avm}
-                     [\idx{2}
+                \avmtmp{
+                  [info-struc|focus \3]
+                }
+                     [\ibox{2}
                  VP{[fin]}\\
-                \begin{avm}
-                  \[phon\|accent u\]
-                \end{avm}
+                \avmtmp{
+                  [phon|accent u]
+                }
                  [hates]]
-                     [\idx{1}
+                     [\ibox{1}
                  NP{[acc]}\\
-                \begin{avm}
-                  \[phon\|accent A\\
-                   info-struc\|focus \@1\]
-                \end{avm}
+                \avmtmp{
+                  [phon|accent A\\
+                   info-struc|focus \1]
+                }
                   [{the Delft China Set}, roof]]
                 ]
              ]
@@ -696,12 +684,12 @@ in~\pref{fig:focus-backgr}.
 \ea
  A sign representation including information structure \citep[163]{deKuthy2002a}:
 \begin{center}
-    \begin{avm}
-      [s|loc|cont|lf  $\exists x \[book'\(x\) \wedge read'\(p,x\)\]$\\
-       info-struc  [focus & \XlstI{$\lambda y \exists x\[book'\(x\) \wedge read'\(y,x\)\]$}\\
-                     topic & \elst]
+    \avmtmp{
+      [s|loc|cont|lf & !$\exists x [book' (x) \wedge read' (p,x)]$!\\
+       info-struc & [focus & <!$\lambda y \exists x[book'(x) \wedge read'(y,x)]$!>\\
+                     topic & < >]
       ]
-    \end{avm}
+    }
 
     \label{fig:focus-backgr}
   \end{center}\unskip
@@ -716,52 +704,46 @@ project represent the most basic case: only those words bearing an
 accent are in the topic or in the focus of an utterance.
 \ea
 Principle 1: Extended focus projection principle \citep{dKM2003a}:\\
-  \textit{phrase} \impl \begin{tabular}[t]{@{}l@{}l@{}}
-    &
-    \begin{avm}
-      [
-      info-str|focus  @1\ $\oplus$ \rel{\normalfont{\textit{collect-focus}}}\,(@2)\\
-      head-dtr|info-str|focus @1\\
-      non-head-dtrs @2 ]
-    \end{avm} \ $\vee$\\[5ex]
-    & \begin{avm}
-      [phon|phon-str \normalfont{\textit{list}} $\oplus\,$ @2\\
-       ss|loc [cat|head & noun $\vee\,$ prep\\
-                 cont|lf & @3
-                ]\\
-       info-str|focus \XlstI{@3}\\
-       \rel{\normalfont{\textit{any-dtr}}}\,([phon|phon-str & @2\\
-                        ss|l|cont|lf & @4\\
-                        info-str|focus & \XlstI{@4}])
-      ] 
-    \end{avm} \  $\vee$\\\\
-    & \begin{avm}
-      [synsem|loc [cat|head & verb\\
-                 cont|lf & @3
-                ]\\
-       info-str|focus \XlstI{@3}\\
-       non-head-dtrs  \XlstI{...,[synsem [fpp \tpv{plus}\\
-                                          loc|cont|lf  @4]\\
-                                  info-str|focus \XlstI{@4}],...}] 
-    \end{avm} \ $\vee$ \ \ldots\\
-     \end{tabular}
-
+\begin{tabular}{rl}
+  \emph{phrase} \impl &
+    \avmtmp{
+      [info-str|focus & \1\ \+ \type{collect-focus} (\2) \\
+      \punk{head-dtr|info-str|focus}{\1}\\
+      non-head-dtrs & \2 ]
+    } $\lor$ \\ & \\ &
+    \avmtmp{
+    	[phon|phon-str \normalfont{\textit{list}} \+ \2\\
+      	ss|loc [cat|head & noun $\lor$ prep\\
+               cont|lf & \3 ]\\
+       info-str|focus <\3>\\
+       \type{any-dtr} ([phon|phon-str & \2\\
+                        ss|l|cont|lf & \4\\
+                        info-str|focus & <\4>]) ] 
+	} $\lor$ \\ & \\ &
+    \avmtmp{
+    	[synsem|loc [cat|head & verb\\
+        	         cont|lf & \3 ]\\
+       info-str|focus <\3>\\
+       non-head-dtrs  <\ldots,[synsem & [fpp & plus\\
+                                      \punk{loc|cont|lf}{\4} ] \\
+                              \punk{info-str|focus}{<\4>} ], \ldots>] 
+	} $\lor$ \ldots
+\end{tabular}
   \label{fig:focus-projection}
 \z
 In this case, the mother of a phrase just collects the focus values of
-all her daughters as ensured by the principle in~\pref{fig:focus-projection}.\footnote{The presentation differs from that in
+all her daughters as ensured by the principle in~\pref{fig:focus-projection}.%
+\footnote{The presentation differs from that in
   \citet{deKuthy2002a}; it is the one from \cite{dKM2003a}. Definitions of the auxiliary relations:\\
-\avmoptions{center}\smallAvmFonts
-\begin{avm}
-\begin{tabular}[t]{@{}l@{}}
-\rel{\normalfont{\textit{any-dtr}}}\,\(\@{1}\)\ := \[head-dtr & \@{1}\].\\ 
-\rel{\normalfont{\textit{any-dtr}}}\,\(\@{1}\)\ := \[non-head-dtrs &
-\rel{\normalfont{\mathit{element}}}\,\(\@{1}\)\].\\
-\\ 
-\rel{\normalfont{\textit{collect-focus}}}\,\(\,\elst\,\)\ := \elst.\\ 
-\rel{\normalfont{\textit{collect-focus}}}\,\(\,\<\[info-struc\|focus & \<\@{1}\>\] \ \| \@{2}\>\,\)\ := \<\@{1} \| \rel{\normalfont{\textit{collect-focus}}}\,\(\,\@{2}\,\) \>.
-\end{tabular}\end{avm}%\vspace{-2\baselineskip}
-} The relation \textit{collect-focus} ensures that from the list of non-head daughters, the \textsc{focus} value of every non-head daughter is added to the list of \textsc{focus} values of the entire phrase.
+\avmtmp{
+\emph{any-dtr}\,!(\1)! := [head-dtr & \1].\\ 
+\emph{any-dtr}\,!(\1)! := [non-head-dtrs & \normalfont{element} !(\1)!]. \smallskip\\
+\emph{collect-focus} !(! < > !)! := < >.\\ 
+\emph{collect-focus} ( <[info-struc|focus & <\1>] | \2> ) :=
+<\1 | \type{collect-focus} !(\2)! >.
+}%\vspace{-2\baselineskip}
+}
+The relation \textit{collect-focus} ensures that from the list of non-head daughters, the \textsc{focus} value of every non-head daughter is added to the list of \textsc{focus} values of the entire phrase.
 A similar principle is needed to determine the \textsc{topic} value of
 phrases.
 
@@ -794,12 +776,16 @@ of the lexical entry of the verb \textit{lieben} `love' which allows
 projection from the object but not from the subject:
 \ea
 The focus projection potential of \textit{lieben} \citep{dKM2003a}:\\
-  \begin{avm}
-    [ phon|phon-str  \XlstI{\phonfont{lieben}}\\
-    arg-st  \XlstI{[loc|cat|head [\tp{noun}\\case & nom]\\fpp
-      \tpv{minus}],\ [loc|cat|head [\tp{noun}\\case & acc]\\fpp
-      \tpv{plus}]} ]
-  \end{avm}
+  \avmtmp{
+    [ \punk{phon|phon-str}{< lieben >}\\
+    arg-st &	<[\punk{loc|cat|head}{[\type*{noun}
+  							 		 case & nom]} \\
+  				fpp & minus]
+  				,
+  				[\punk{loc|cat|head}{[\type*{noun}
+  									case & acc]} \\
+  				fpp & plus]> ]
+  }
 \label{fig:fpp-lieben}
 \z
 The third disjunct of the principle in~\pref{fig:focus-projection} then specifies under which circumstances
@@ -827,16 +813,16 @@ with every basic phrasal subtype (such as \textit{hd-comp, hd-spec,
 values across all phrasal subtypes.
 \ea
 Principle for focus inheritance \citep[155]{Paggio2009a-u}:\\
-  \type{focus-inheritance} \impl
-  \begin{avm}
+  \type{focus-inheritance} \impl \\
+  \avmtmp{
     [
-    synsem|loc|context & [focus & \XlstI{@2,@1}\\ 
-                           bg & @3]\\
-    hd|synsem|loc|context & [focus & @1\\
-                              bg & @3]\\
-   non-hd & [synsem|loc|context|focus & \XlstI{@2}\\
+    synsem|loc|context & [focus & <\2,\1>\\ 
+                           bg & \3]\\
+    hd|synsem|loc|context & [focus & \1\\
+                              bg & \3]\\
+   non-hd & [synsem|loc|context|focus & <\2>\\
              accent & true]]
-  \end{avm}
+  }
     \label{fig:focus-inheritance}
     \z
 The principle in \pref{fig:focus-inheritance} ensures that for
@@ -864,30 +850,30 @@ background and the topic values are empty and the mother collects
 the focus values from the head and the non-head
 daughters.\footnote{Again, the list specifications as formulated by
 \citet{Paggio2009a-u} are not entirely correct: if the head
-daughter's \textsc{focus} value \idx{2} is a list with more than
+daughter's \textsc{focus} value \ibox{2} is a list with more than
 one element, this list has to be added to the list of
 \textsc{focus} values of the mother.}
 \begin{figure}
-  \centering\avmoptions{}
+  \centering
            \begin{forest}
 [
-  \begin{avm}
-    \[\tp{decl-main-all-focus}\\
-       ctxt\|... & \[\tp{all-focus}\\
-                   topic & \elst\\
-                    focus & \XlstI{\@2,\@1}\\
-                     bg & \elst\]
-     \]
-  \end{avm}
+  \avmtmp{
+    [\type*{decl-main-all-focus}\\
+       ctxt|\ldots & [\type*{all-focus}\\
+                   topic & < >\\
+                    focus & <\2,\1>\\
+                     bg & < >]
+     ]
+  }
 [
-\begin{avm}
-  \[ctxt\|...\|focus & \XlstI{\@1}\]
-\end{avm}
+\avmtmp{
+  [ctxt|\ldots|focus & <\1>]
+}
 ]
 [
-\begin{avm}
-  \[ctxt\|...\|focus & \@2\]
-\end{avm}
+\avmtmp{
+  [ctxt|\ldots|focus & \2]
+}
 ]
 ]    
      \end{forest}
@@ -948,26 +934,24 @@ in~\pref{ex:song-focus-projection}.
 \label{ex:song-focus-projection}
 Focus projection lexical rules \citep[227]{song2018}:
 \ea
-\textit{no-focus-projection-rule}
-\impl
-\begin{avm}
-  [index & @1\\
-  icons-key & @2\\
-  val & [subj & \<[icons-key & non-focus]\>\\
-  comps & \<[mkg|fc $+$]\,\ [mkg|fc $-$\\icons \< \normalfont{! !}\>]\>]\\
-  c-cont|icons & \< \normalfont{!} @2[\tp{non-focus}\\target @1]\ !\>\\
+\emph{no-focus-projection-rule} \impl \\
+\avmtmp{
+  [index & \1\\
+  icons-key & \2\\
+  val & [subj & <[icons-key & non-focus]>\\
+  comps & <[mkg|fc $+$] [mkg|fc $-$\\icons < \normalfont{! !} >]>]\\
+  c-cont|icons & < \normalfont{!} \2[\type*{non-focus}\\target \1]\ \normalfont{!}>\\
   dtr \normalfont{\textit{lex-rule-infl-affixed}}]
-\end{avm}
+}
 \ex
-\textit{focus-projection-rule}
-\impl
-\begin{avm}
+\emph{focus-projection-rule} \impl \\
+\avmtmp{
   [
-  clause-key & @1\\
-  val|comps & \<[mkg|fc $-$\\index & @2]\,\ [mkg|fc $+$\\icons \< \normalfont{! [\normalfont{\textit{semantic-focus}}]\ !}\>]\>\\
-  c-cont|icons & \< \normalfont{!} [\tp{non-focus}\\target @2\\clause @1]\ !\>\\
+  clause-key & \1\\
+  val|comps & <[mkg|fc $-$\\index & \2]\,\ [mkg|fc $+$\\icons < \normalfont{! [\normalfont{\textit{semantic-focus}}] !}>]>\\
+  c-cont|icons & < \normalfont{!} [\type*{non-focus}\\target & \2\\clause & \1] \normalfont{!}>\\
   dtr \normalfont{\textit{lex-rule-infl-affixed}}]
-\end{avm}
+}
 \z
 \z
 
@@ -1028,28 +1012,28 @@ constraint on topicalization constructions including a topic-comment
 partitioning is formulated, as illustrated in
 Figure~\ref{fig:inv-topic-comment}.
 \begin{figure}
-  \centering\avmoptions{}
+  \centering
            \begin{forest}
 [
-  \begin{avm}
-    \[\tp{inv-topic-comment}\\
-       ctxt\|... & \[\tp{topic-comment}\\
-                   topic & \XlstI{\@1}\\
-                    focus & \@2\\
-                     bg & \XlstI{\@3,\@1}\]
-     \]
-  \end{avm}
+  \avmtmp{
+    [\type*{inv-topic-comment}\\
+       ctxt|\ldots & [\type*{topic-comment}\\
+                   topic & <\1>\\
+                    focus & \2\\
+                     bg & <\3,\1>]
+     ]
+  }
 [
-\begin{avm}
-  \[ctxt\|... & \[topic & \XlstI{\@1}\\
-                  bg & \XlstI{\@1}\]\]
-\end{avm}
+\avmtmp{
+  [ctxt|\ldots & [topic & <\1>\\
+                  bg & <\1>]]
+}
 ]
 [
-\begin{avm}
-  \[ctxt\|... & \[focus & \@2\\
-                  bg & \@3 \]\]
-\end{avm}
+\avmtmp{
+  [ctxt|\ldots & [focus & \2\\
+                  bg & \3 ]]
+}
 ]
 ]    
      \end{forest}
@@ -1081,31 +1065,31 @@ Licensing topic-comment structures in \cite{song2018}:
 \label{ex:song-topic-a}
 \textit{topic-comment}
 \impl
-\begin{avm}
+\avmtmp{
   [l-periph & $+$\\
   mkg & tp\\
   hd|mkg|tp & $-$\\
   nhd & [mkg & tp\\l-periph & $+$]]
-  \end{avm}
+  }
   \ex
   \label{ex:song-topic-b}
   \textit{top-scr-comp-head}
 \impl
-  \begin{avm}
-    [ha|val|comps \elst\\
+  \avmtmp{
+    [ha|val|comps < >\\
     nhd|icons-key \normalfont{\textit{constrast-topic}}]
-  \end{avm}
+  }
   \ex
   \label{ex:song-topic-c}
   \textit{wa-marker}
 \impl
-  \begin{avm}
-    [stem & \<\normalfont{\textit{wa}}\>\\
-    incons-key & @2\\
+  \avmtmp{
+    [stem & <\normalfont{\textit{wa}}>\\
+    incons-key & \2\\
     mkg & tp\\
-    comps & \<[index @1]\>\\
-    incons & \<\normalfont{!}\ @2[\tp{contrast-or-topic}\\target @1]\ \normalfont{!}\>]
-  \end{avm}
+    comps & <[index \1]>\\
+    incons & <\normalfont{!}\ \2[\type*{contrast-or-topic}\\target \1]\ \normalfont{!}>]
+  }
 \z
 \z
 The constraint in~\pref{ex:song-topic-a} on the phrasal subtype
@@ -1181,84 +1165,78 @@ is still defined by the principle shown in~\pref{fig:words2},
 depending on the type of accent the word receives.
 \ea
 Relating intonation and information structure for words \citep{DeKuthy.Meurers-11}:\\
-\avmoptions{active}%
-    \textit{word}\quad \impl\quad
-\begin{avm}
+    \emph{word}\quad \impl \\
+\avmtmp{
     % \begin{tabular}{@{}l@{}l@{}l@{}}
     % &&
     [
       phon|accent & accented\\
-      ss|loc|cont|lf & @1\\
-      struc-meaning & [focus & \XlstI{@1}\\
-%                       topic & \elst\\
-                        given & \elst]
+      ss|loc|cont|lf & \1\\
+      struc-meaning & [focus & <\1>\\
+%                       topic & < >\\
+                        given & < >]
       ]
 % \\
 % \\%   &$\vee$\; &
-%   \begin{avm}
+%   \avmtmp{
 %     [
 %      phon|accent & rising-accent\\
 %      ss|loc|cont|lf & @1\\
-%      info-struc &(  [focus & \elst\\
+%      info-struc &(  [focus & < >\\
 %                    topic & \XlstI{@1}]\\
 %   $\vee$\; \\
 %                   [focus & \XlstI{@1}\\
-%                    topic & \elst])
+%                    topic & < >])
 %      ]
-%   \end{avm}\\[2em]
-    \ $\vee$\; 
-
-     [
-      phon|accent & unaccented\\
-         struc-meaning & [focus & \elst\\
-%                       topic & \elst\\
-                       given & \elst]
-      ]
-    \ $\vee$\; 
-    \ldots
-   \end{avm}
+%   }\\[2em]
+    \ $\lor$
+     [phon|accent & unaccented\\
+     struc-meaning & [focus & < >\\
+%                    topic & < >\\
+                     given & < >] ]
+     $\lor$ \ldots
+   }
     \label{fig:words2}
 \z
 In addition, the Focus Projection Principle originally introduced in \cite{deKuthy2002a} and then extended in \cite{dKM2003a} is extended with a disjunct capturing focus
 projection in the presence of givenness \citep{DeKuthy.Meurers-11}. Figure~\ref{fig:verbal-focus-projection} shows the resulting principle.
 \ea
 Extended Focus Projection Principle including Givenness \citep{DeKuthy.Meurers-11}:\\
-\textit{phrase} \impl \begin{tabular}[t]{@{}l@{}l@{}}
-  &                        
-    \begin{avm}
-      [
-      struc-meaning|focus  @1\ $\oplus$ \normalfont{\textit{collect-focus}}\,(@2)\\
-      head-dtr|info-str|focus @1\\
-      non-head-dtrs @2 ]
-    \end{avm}  \ $\vee$\\[5ex]
- &  \begin{avm}
-      [phon|phon-str \normalfont{\textit{list}} $\oplus\,$ @2\\
-       ss|loc [cat|head & noun $\vee\,$ prep\\
-                 cont|lf & @3
+\begin{tabular}{rl}
+\emph{phrase} \impl &                 
+    \avmtmp{
+      [struc-meaning|focus  \1\ \+ \normalfont{\textit{collect-focus}}\,(\2) & \\
+      head-dtr|info-str|focus \1\\
+      non-head-dtrs \2 ]
+    } $\lor$ \\ & \\ &
+	\avmtmp{
+      [phon|phon-str \normalfont{\textit{list}} \+ \2\\
+       ss|loc [cat|head & noun $\lor$ prep\\
+                 cont|lf & \3
                 ]\\
-       struc-meaning|focus \XlstI{@3}\\
-       \rel{\normalfont{\textit{any-dtr}}}\,([phon|phon-str & @2\\
-                        ss|l|cont|lf & @4\\
-                        struc-meaning|focus & \XlstI{@4}])
+       struc-meaning|focus <\3>\\
+       \rel{\normalfont{\textit{any-dtr}}}\,([phon|phon-str & \2\\
+                        ss|l|cont|lf & \4\\
+                        struc-meaning|focus & <\4>])
       ] 
-    \end{avm}  \  $\vee$\\\\ %\\[16ex]
- &   \begin{avm}
+	} $\lor$ \\ & \\ &
+    \avmtmp{
       [synsem|loc [cat|head & verb\\
-                 cont|lf & @3
+                 cont|lf & \3
                 ]\\
-       struc-meaning|focus \XlstI{@3}\\
-       non-head-dtrs  \XlstI{ .., [synsem [fpp \tpv{plus}\\
-                                          loc|cont|lf  @4]\\
-                                  struc-meaning|focus \XlstI{@4}]\ , .. }] 
-    \end{avm}  \  $\vee$\\\\
- & \begin{avm}
-      [ss|loc|cont|lf  @3\\
-       struc-meaning|focus  \XlstI{@3}\\
-       \rel{dtrs-list(\rel{\normalfont{\textit{given-sign-list}}} $\bigcirc$ 
-                      <[ss|l|cont|lf & @4\\
-                      struc-meaning|focus & \XlstI{@4}]> 
+       struc-meaning|focus <\3>\\
+       non-head-dtrs  < .., [synsem [fpp \type*{plus}\\
+                                          loc|cont|lf  \4]\\
+                                  struc-meaning|focus <\4>]\ , .. >] 
+    } $\lor$ \\ & \\ &
+	\avmtmp{
+      [ss|loc|cont|lf  \3\\
+       struc-meaning|focus  <\3>\\
+       \rel{dtrs-list(\rel{\normalfont{\textit{given-sign-list}}} \shuffle
+                      <[ss|l|cont|lf & \4\\
+                      struc-meaning|focus & <\4>]> 
                       )}]
-\end{avm}  \ $\vee$ \ \ldots\\
+	} $\lor$ \ldots
      \end{tabular}
   \label{fig:verbal-focus-projection}
 \z
@@ -1266,17 +1244,14 @@ The new fourth disjunct of the Extended Focus Projection
 Principle\footnote{The auxiliary relations are defined
   as:
 \ea
-\avmoptions{center}\smallAvmFonts
-\begin{avm}
-\begin{tabular}[c]{@{}l@{}}
-\begin{tabular}[c]{@{}l@{}}
-\rel{\normalfont{\textit{dtrs-list}}}\,\(\<\@{1}\|\@{2}\>\) := \[head-dtr & \@{1}\\ non-hd-dtrs & \@{2}\]
-\end{tabular}\\
-\begin{tabular}[c]{@{}l@{}}
-\rel{\normalfont{\textit{given-sign-list}}} := \elst.\\
-\rel{\normalfont{\textit{given-sign-list}}} := \<\[ss\|l\|cont\|lf & \@1\\
-                          struc-meaning & \[given & \XlstI{\@1}\]\] \| \rel{\normalfont{\textit{given-sign-list}}}\>.\\
-\end{tabular}\end{tabular}\end{avm}
+\avmtmp{
+\emph{dtrs-list} !(!<\1|\2>!)! := [head-dtr & \1 \\ non-hd-dtrs & \2] \\
+
+\emph{given-sign-list} := < >. \\
+
+\emph{given-sign-list} := <[ss|l|cont|lf & \1\\
+                          struc-meaning & [given & <\1>]] | \type{given-sign-list} >.
+}
 \zlast} 
 captures the cases previously unaccounted for where given material in a
 focused phrase is deaccented. Focus in those examples can project from a
@@ -1289,7 +1264,7 @@ entire \textsc{lf} value of the mother's \textsc{content} is token
 identical to an element on the mother's \textsc{focus} list) if it is
 the case that the list of all daughters (provided by \type{dtrs-list}, a relational description of a list containing signs that are given)
 consists of \textit{given} signs into which a single \textit{focused}
-sign is shuffled ($\bigcirc$).\footnote{The relation ``shuffle'' $\bigcirc$ is used as originally introduced in  \cite{Reape94}: the result is a list that contains all element from the two input lists and the order of elements from the original lists is preserved, see also the discussion in \crossrefchaptert{order}.}  \footnote{If only binary structures are
+sign is shuffled ($\bigcirc$).\footnote{The relation ``shuffle'' $\bigcirc$ is used as originally introduced in  \cite{Reape94}: the result is a list that contains all element from the two input lists and the order of elements from the original lists is preserved, see also the discussion in \crossrefchaptert[Section~\ref{order:sec-domains}]{order}.}  \footnote{If only binary structures are
   assumed, as in the examples in this chapter, the principle can be
   simplified. Here, I kept the general version with recursive
   relations following \citet{dKM2003a}, which also
@@ -1366,8 +1341,8 @@ They thus introduce the following ID schema for Catalan:
   \textit{head-disloc"=struc} whose
   \textsc{head-dtr|""syn\-sem|""local|""category} value satisfies the
   description\\
-  \begin{avm} [head \type{verb} [vform \type{finite}], subcat \elst]
-  \end{avm}, and whose
+  \avmtmp{ [head \type{verb} [vform \type{finite}], subcat < >]
+  }, and whose
   \textsc{disloc"=dtrs|""context|""info"=struc} value is instantiated and
   for each \textsc{disloc"=dtr}, the
   \textsc{head-dtr|""synsem|""local|""content} value contains an element
@@ -1410,9 +1385,9 @@ additional feature \textsc{clitic} is introduced as appropriate for
     \ex \gll Pii simetehoun s' afti tin paragogi?\\
              who {take part} in that the production\\
     \trans `Who contributed to this production?'
-    \ex \gll Tin parastasi \textit{ti} skinothetise o Karolos \textsc{koun} ...\\
+    \ex \gll Tin parastasi \textit{ti} skinothetise o Karolos \textsc{koun} \ldots\\
     the performance  \textsc{fem.3sg.acc} directed the Karolos Koun\\
-   \trans `Karolos Koun directed the performance ...'
+   \trans `Karolos Koun directed the performance \ldots'
   \end{xlist}
 
 \end{exe}
@@ -1421,19 +1396,19 @@ The Linkhood Constraint shown in~\pref{fig:clld-constraint}
 ensures that links (i.e., elements whose \textsc{info"=struc|link} value
 is instantiated) can only be fillers that are ``duplicated'' in the
 morphology by a pronominal affix, i.e., it is required that there is an
-element \idx{1} on the \textsc{clitic} list of the head daughter that is structure-shared with the filler's \textsc{head} value. The use of the \isi{disjoint union} relation $\uplus$\footnote{\citet{AK2002a} provide no exact definition for the use of the symbol $\uplus$ (disjoint union), but a definition that is often used within HPSG approaches can be found in \citet{Manandhar94b-u}.} ensures that the singleton element \idx{1} representing the doubled clitic is the only element on the phrase's clitic list with these specifications. In addition, it is required that the filler-daughter \idx{2} is structure-shared with the \textsc{link} attribute in the information structure of the mother. 
+element \ibox{1} on the \textsc{clitic} list of the head daughter that is structure-shared with the filler's \textsc{head} value. The use of the \isi{disjoint union} relation $\uplus$\footnote{\citet{AK2002a} provide no exact definition for the use of the symbol $\uplus$ (disjoint union), but a definition that is often used within HPSG approaches can be found in \citet{Manandhar94b-u}.} ensures that the singleton element \ibox{1} representing the doubled clitic is the only element on the phrase's clitic list with these specifications. In addition, it is required that the filler-daughter \ibox{2} is structure-shared with the \textsc{link} attribute in the information structure of the mother. 
 \ea
 The Linkhood Constraint for clitic left dislocation phrases \citep[238]{AK2002a}:\\
-  \begin{avm}
-    [\tp{clitic-left-disloc-phrase}\\
-      info-struc|link & \{@2\}\\
-      clitic & {\small @{$\sum_2$}}]
+  \avmtmp{
+    [\type*{clitic-left-disloc-phrase}\\
+      info-struc|link & \{\2\}\\
+      clitic & {\small \tag{$\sum_2$}}]
 $\to$\ 
-  @2[phon|accent & u\\
-     head & @1], \textbf{H} [\tp{phrase}\\
-                              head & verb\\
-                              clitic & \{@1\}\ $\uplus$ @{$\sum_2$} ]
-\end{avm}
+  \2[phon|accent & u\\
+     head & \1], \textbf{H}[\type*{phrase}\\
+                             head & verb\\
+                             clitic & \{\1\}\ $\uplus$ \tag{$\sum_2$} ]
+}
   \label{fig:clld-constraint}
 \z
 The Linkhood Constraint thus has two purposes: it ensures clitic
@@ -1517,18 +1492,18 @@ representation).  The formalization of this principle provided by \citep{dKM2003
 \bigskip
 Webelhuth's generalization \citep{dKM2003a}:\\
 \begin{flushleft}
-\begin{avm}
-  [\tp{head-filler-phrase}\\
+\avmtmp{
+  [\type*{head-filler-phrase}\\
   non-head-dtr|synsem|loc|cat|head & verb]
-\end{avm}
+}
 \impl\ 
 \end{flushleft}
 \begin{flushright}
-\begin{avm}
-  [info-struc|focus <@1>\\
-  non-head-dtr  [info-struc|focus & <@1>\\
-  synsem|loc|cont|lf & @1]]\qquad
-\end{avm}\medskip
+\avmtmp{
+  [info-struc|focus <\1>\\
+  non-head-dtr  [info-struc|focus & <\1>\\
+  synsem|loc|cont|lf & \1]]\qquad
+}\medskip
 \label{fig:webelhuths-generalization}
 \end{flushright}\unskip
 \z
@@ -1541,24 +1516,84 @@ example such as (\ref{ex:nonerg-subj-fronted}) is illustrated in
 Figure~\ref{fig:focus-exponent}.
   \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{figures/vp-focus-exponent}
+%    \includegraphics[width=\textwidth]{figures/vp-focus-exponent}
+
+\resizebox{\textwidth}{!}{
+\begin{forest}
+[%
+\avmtmp{
+	[p|ps & <\type{Ein Außenseiter gewonnen hat hier noch nie}>\\
+	is|focus & <\1 !$\exists x[aussenseiter'(x) \land gewinnen'(x)]$!>]
+}
+	[%
+	\avmtmp{
+		[p|ps & <\type{Ein Außenseiter gewonnen}>\\
+		s|l & \2 [cont|lf & \1]\\
+		is|focus & < \1 > ]
+	},edge label={node[near end,above left]{F}}
+		[%
+		\avmtmp{
+			[p|ps & <\type{Ein Außenseiter}>\\
+			s &	[l|co|lf & \3 !$\lambda Q \exists x [aussenseiter'(x) \land Q(x)]$!\\
+				fpp & plus]\\
+			is|focus & < \3 >]
+		},edge label={node[near end,above left]{C}}
+			[%
+			\avmtmp{
+				[p|ps & <\type{Ein}>\\
+				is|focus & < >]
+			}
+			]
+			[%
+			\avmtmp{
+				[p &	[ps & <\type{Außenseiter}>\\
+						accent & falling]\\
+				s|l|co|lf & \4 !$\lambda y aussenseiter'(x)$!\\
+				is|focus & < \4 >]
+			}
+			]
+		]
+		[%
+		\avmtmp{
+			[p|ps & <\type{gewonnen}>\\
+			is|focus & < >]
+		},edge label={node[near end,above right]{H}}
+		]
+	]
+	[%
+	\avmtmp{
+		[p|ps & <\type{hat hier noch nie}>\\
+		is|focus & < >]
+	},edge label={node[near end,above right]{H}},s sep-=.5cm
+		[\avmtmp{[p|ps & <\type{hat}>\\is|focus & < >]},edge label={node[very near end,left]{H}},l+=4cm]
+		[\avmtmp{[p|ps & <\type{hier}>\\is|focus & < >]},edge label={node[very near end,left]{C}},l+=4cm]
+		[\avmtmp{[p|ps & <\type{noch nie}>\\is|focus & < >]},edge label={node[very near end,right]{C}},l+=4cm]
+		[%
+		\avmtmp{
+			[p|ps & < >\\
+			s & [l & \2\\
+				n|i|slash & \{ \2 \}] ]
+		},edge label={node[very near end,right]{C}},l+=4cm
+		]
+	]
+]
+\end{forest}
+}
     \caption{Partial VP fronting in \cite{dKM2003a}}
     \label{fig:focus-exponent}
-  \end{figure}
-  The entry of \textit{gewinnen} `to win' (the base form of the verb
-  \textit{gewonnen}) in (\ref{ex:nonerg-subj-fronted}) in
-  \pref{fig:lex-entry} encodes the lexical property that the
-  subject of this intransitive verb has focus projection potential.
+\end{figure}
+The entry of \textit{gewinnen} `to win' (the base form of the verb \textit{gewonnen}) in
+(\ref{ex:nonerg-subj-fronted}) in \pref{fig:lex-entry} encodes the lexical property that the subject
+of this intransitive verb has focus projection potential. 
 
 \ea
 \label{fig:lex-entry}
 The lexical entry of \textit{gewinnen} `to win':\\
-\avmoptions{center,active}%
-  \begin{avm}
-    [ phon & \XlstI{\phonfont{gewinnen}}\\
-    arg-st & \XlstI{[fpp  \tpv{plus}\\
-      loc|cat|head|case \tpv{nom}]} ]
-  \end{avm}
+  \avmtmp{
+    [ phon   & < gewinnen >\\
+      arg-st & <[fpp  \type*{plus}\\
+      \punk{loc|cat|head|case}{\type{nom}}]> ]
+  }
 \z
 
 Under the assumption that in (\ref{ex:nonerg-subj-fronted})
@@ -1611,10 +1646,10 @@ be acceptable. Just like the fronted verb phrases discussed in
 \cite{dKM2003a} above, \cite{BC2010a} propose
 analyzing multiple fronting constructions in German as head-filler
 phrases which in this case introduce a topic shift. Following the
-approach by \cite{Mueller2005d-unlinked}, multiple fronting
+approach by \cite{Mueller2005d}, multiple fronting
 configurations can be identified via the filler daughter which must
 have a \textsc{head|dsl} (double slash) value of type
-\textit{local}.\footnote{In \citegen{Mueller2005d-unlinked} formalization, filler daughters in multiple fronting configurations (and only in these) have a  \textsc{head|dsl} value of type \textit{local}, i.e., they contain information about an empty verbal head. The \textsc{dsl} (‘double slash’) feature is needed to model the HPSG equivalent of verb movement from the sentence-final position to initial position. } As introduced above, \cite{BC2010a} assume that an
+\textit{local}.\footnote{In \citegen{Mueller2005d} formalization, filler daughters in multiple fronting configurations (and only in these) have a  \textsc{head|dsl} value of type \textit{local}, i.e., they contain information about an empty verbal head. The \textsc{dsl} (‘double slash’) feature is needed to model the HPSG equivalent of verb movement from the sentence-final position to initial position. } As introduced above, \cite{BC2010a} assume that an
 information structure attribute is specified in \textit{synsem}
 objects, with the features \textsc{focus} and \textsc{topic} taking
 lists of \textit{elementary predications} as their values. In general,
@@ -1622,25 +1657,25 @@ multiple fronting \textit{head-filler} phrases are restricted by the
 constraint in~\pref{fig:multiplefronting}.
 \ea
 Relating multiple fronting to focus \citep[75]{BC2010a}:\\
-    \begin{avm}
-      [\tp{head-filler-phrase}\\
-      non-head-dtrs & \XlstI{[loc|cat|head|dsl & local]}]
-    \end{avm}
+    \avmtmp{
+      [\type*{head-filler-phrase}\\
+      non-head-dtrs & <[loc|cat|head|dsl & local]>]
+    }
 \impl\ 
-  \begin{avm}
-    [is & pres $\vee$ a-top-com $\vee$ ...]
-  \end{avm}
+  \avmtmp{
+    [is & pres $\vee$ a-top-com $\vee$ \ldots]
+  }
 
 \bigskip
-    \begin{avm}
-      [\tp{head-filler-phrase}\\
+    \avmtmp{
+      [\type*{head-filler-phrase}\\
         is & pres]
-    \end{avm}
+    }
 \impl\ 
-  \begin{avm}
-    [ss|loc|cat|head|dt & \XlstI{[loc|cont|rels @1]}\\
-      hd-dtr|ss|is|focus & \XlstI{@1}]
-  \end{avm}
+  \avmtmp{
+    [ss|loc|cat|head|dt & <[loc|cont|rels \1]>\\
+      hd-dtr|ss|is|focus & <\1>]
+  }
   \label{fig:multiplefronting}
 \z
 The first constraint ensures that \textit{head-filler} phrases that
@@ -1679,23 +1714,23 @@ principles needed for this interaction are shown in~\pref{fig:predicatepreposing
 \inlinetodostefan{Second constraint seems redundant since hd-fill-ph could be a supertype of pred-prepos-ph}
 \ea
 Predicate preposing phrases \citep{Webelhuth2007a-u}:\\
-  \begin{avm}
-    [\tp{aux-wd}\\
-      arg-st & \XlstI{{\normalfont{NP}}, gap-ss}]
-  \end{avm}
+  \avmtmp{
+    [\type*{aux-wd}\\
+      arg-st & <\normalfont{NP}, gap-ss>]
+  }
 \impl\ 
-\begin{avm}
+\avmtmp{
   [ss|status & foc\\
-   arg-st & \XlstI{[status & bg], gap-ss}]
-\end{avm}
+   arg-st & <[status & bg], gap-ss>]
+}
 
 \bigskip
 \type{pred-prepos-ph}
 \impl\ 
-\begin{avm}
-  [\tp{hd-fill-ph}\\
+\avmtmp{
+  [\type*{hd-fill-ph}\\
     non-hd-dtr & [ss|status & bg]]
-\end{avm}
+}
   
 
   \label{fig:predicatepreposing}
@@ -1776,23 +1811,23 @@ prosodic word. The constraint encoding this is shown in~\pref{fig:spanish-intona
 Intonational contour of Spanish declarative utterances \citep[142]{Bildhauer2008a}:\\
 %  \centering
   \begin{tabular}[t]{@{}l@{  }r@{}l@{}}
-  \begin{avm}
-    \normalfont{\textit{decl-tune(@1)}}\end{avm} & $\leftrightarrow$ & \begin{avm} @1 = @2 $\oplus$ \<[pa & low-high-star\\
-                                                                  bd & low]\> \end{avm}
+  \avmtmp{
+    \normalfont{\textit{decl-tune(\1)}}} & $\leftrightarrow$ & \avmtmp{ \1 = \2 \+ <[pa & low-high-star\\
+                                                                  bd & low]> }
 $\wedge$\\
 & &
-\begin{avm}
-  @2 = \normalfont{\textit{list}}([bd & none])
-\end{avm}
+\avmtmp{
+  \2 = \normalfont{\textit{list}}([bd & none])
+}
 $\wedge$\\
 & &
-\begin{avm}
-@2 = \normalfont{\textit{list}}([pa & none])\ $\shuffle$ \normalfont{\textit{list}}([pa & low-star-high])\end{avm}
+\avmtmp{
+\2 = \normalfont{\textit{list}}([pa & none])\ \shuffle \normalfont{\textit{list}}([pa & low-star-high])}
 \\[4ex]
-\begin{avm}
+\avmtmp{
 [\normalfont{\textit{sign}}\\
-  embed & $-$]\end{avm} & \impl & \begin{avm} [phon @1]\ $\wedge$ \normalfont{\textit{decl-tune}}(@1)
-  \end{avm}  \\
+  embed & $-$]} & \impl & \avmtmp{ [phon \1]\ $\wedge$ \normalfont{\textit{decl-tune}}(\1)
+  }  \\
   \end{tabular}
 \label{fig:spanish-intonation}
 \z
@@ -1806,13 +1841,13 @@ word in the phonological focus domain, which, in the case of a broad
 focus, can be the entire utterance. The principle formulated in Bildhauer's account is shown in~\pref{fig:focus-prominence}.
 \ea
 Focus prominence in Spanish \citep[146]{Bildhauer2008a}:\\
-  \begin{avm}
-    [\tp{sign}\\
-       cont & @1\\
-       foc & @1]
+  \avmtmp{
+    [\type*{sign}\\
+       cont & \1\\
+       foc & \1]
 \ \impl\
 [phon \normalfont{\textit{list}} $\oplus$ <[ut|dte & $+$]>]
-  \end{avm}
+  }
 
   \label{fig:focus-prominence}
 \z
@@ -1839,9 +1874,9 @@ is encoded via the constraint in~\pref{ex:song-mkg}.
 \ea
 \label{ex:song-mkg}
 Prosodic marking of focus \citep[159]{song2018}:\\
-\begin{avm}
- \type{lex-rule} \impl [ut|dte & @1\\mkg|fc & @1]
-\end{avm}
+\avmtmp{
+ \type{lex-rule} \impl [ut|dte & \1\\mkg|fc & \1]
+}
 \z
 Specific lexical principles for the A and B accents then ensure the
 correct information structural marking and specifiy which type of
@@ -1853,15 +1888,15 @@ in~\pref{ex:song-a-accent}.
 \label{ex:song-a-accent}
 Focus marking of A accents in English \citep[160]{song2018}:\\
 \type{fc-lex-rule} \impl
-\begin{avm}
+\avmtmp{
   [ut|dte & $+$\\
   pa & high-star\\
   mkg & fc-only\\
-  index & @1\\
-  incons-key & @2\\
-  c-cont|icons &  \<\ \normalfont{!} @2[\tp{semantic-focus}\\target @1]\ \normalfont{!}\ \> \\
+  index & \1\\
+  incons-key & \2\\
+  c-cont|icons &  <\ \normalfont{!} \2[\type*{semantic-focus}\\target \1]\ \normalfont{!}\ > \\
   dtr|head & +nv]
-\end{avm}
+}
 \z
 
 \section{Conclusion}

@@ -56,9 +56,6 @@ Finally, the dialogue theory \emph{KoS} that emerged in this way from work in HP
 \label{chap-pragmatics}
 
 
-{% start avmoptions scope
-\avmoptions{}
-
 \section{Introduction} 
 \label{sec:introduction}
 
@@ -187,34 +184,27 @@ For instance, it is part of the background information of the \isi{pronoun} \tex
 In the HPSG format of \citet[\page 20]{Pollard:Sag:1994}, this constraint is expressed as in (\ref{ex:she}), where \enquote{\textsc{head} \textit{noun}[\textsc{case} \textit{nom}]} abbreviates a head structure of type \textit{noun} which bears a case attribute with value \textit{nom} (nominative):
 %
 \ea \label{ex:she}
-\begin{avm}
-\[\asort{word} 
-\textsc{phon} & \q< she \q> \\
-\textsc{synsem} & 
-    \[\asort{synsem}
-    \textsc{local} & 
-        \[\asort{local}
-        \textsc{category} & \[\asort{cat} 
-                            \textsc{head} & \textit{noun}{\normalfont[\textsc{case} \textit{nom}]} \\
-                            \textsc{subcat} & \q<\quad\q>
-                            \] \\
-        \textsc{content} & \[\asort{ppro}  
-                            \textsc{index} & \@1\[\asort{ref}
-                            \textsc{per} & \textit{3rd} \\ \textsc{num} & \textit{sing} \\ 
-                            \textsc{gen} & \textit{fem}
-                                                \] \\
-                            \textsc{restr} & \{\quad\} 
-                            \] \\
-        \textsc{context} & \[\asort{context}  
-                            \textsc{background} & \{\[\asort{psoa}
-                            \textsc{reln} & \textit{female} \\
-                            \textsc{inst} & \@1
-                            \]\}
-                            \]
-        \]
-    \]
-\]
-\end{avm}
+\avmtmp{
+[\type*{word} 
+\phon <she> \\
+synsem & 
+    [\type*{synsem}
+    local & 
+        [\type*{local}
+        category &	[\type*{cat} 
+					head & noun[case & nom] \\
+					subcat & < > ] \\
+        content & [\type*{ppro}  
+                  index & \1	[\type*{ref}
+                           		per & 3rd \\
+								num & sing \\ 
+                            	gen & fem ] \\
+                  restr & \{ \} ] \\
+        context & [\type*{context}  
+                  background &	\{[\type*{psoa}
+								reln & female \\
+                            	inst & \1 ]\} ] ] ] ]
+}
 \z
 
 The \textsc{content} \isfeat{content} value is of type \textit{ppro} (\textit{personal-pronoun}), which is related to the NP type ($+$p, $-$a) from \emph{Government and Binding} theory \citep{Chomsky:1981} and interacts with HPSG's binding theory (see \crossrefchapteralt{binding}; see also \crossrefchapteralt{agreement}).
@@ -255,33 +245,24 @@ Here it is the truck, not the speaker, or rather the author of the note, that is
 This use of \textsc{context} is illustrated in (\ref{ex:I}), which is part of the lexical entry of \textit{I}. % (see the \crossrefchaptert{lexicon} on the lexicalist orientation of HPSG).
 %
 \ea \label{ex:I}
-\begin{avm}
-\[\asort{word}
-\textsc{phon} & \q< i \q> \\
-\textsc{synsem} & 
-    \[\asort{synsem}
-    \textsc{local} & 
-        \[\asort{local}
-        \textsc{content} & 
-            \[\asort{ppro}
-            \textsc{index} & \@1\[\asort{ref}
-                                \textsc{ref} & \textit{1st} \\
-                                \textsc{num} & \textit{sing}
-                                \] \\
-            \textsc{restr} & \{\} \\
-            \] \\
-        \textsc{context} & \[\asort{context}
-                            \textsc{c-inds} & \[\asort{psoa}
-                            \textsc{spkr} & \@1 \\
-                            % \textsc{addr} & \@2 \\
-                            % \textsc{time} & \@3 \\
-                            % \textsc{loc} & \@4
-                            \]
-                            \]
-        \]
-    \]
-\]
-\end{avm}
+\avmtmp{
+[\type*{word}
+\phon <i> \\
+synsem &	[\type*{synsem}
+			local &	[\type*{local}
+        			content &	[\type*{ppro}
+            					index & \1 [\type*{ref}
+                                			ref & 1st \\
+                                			num & sing ] \\
+            					restr & \{ \} ] \\
+        			context &	[\type*{context}
+                           		c-inds &	[\type*{psoa}
+                            				spkr & \1 \\
+                           				 	%addr & \2 \\
+                            				%time & \3 \\
+                            				%loc & \4
+                            				] ] ] ] ]
+}
 \z
 
 
@@ -332,21 +313,16 @@ The information packaging of the content values of a sentence is driven by phone
 The \textsc{context} extension for information structure on this account is given in (\ref{ex:focus-link-tail}):
 %
 \ea \label{ex:focus-link-tail}
-\begin{avm}
-\[\asort{context}
-\textsc{c-inds} & \[\quad\] \\
-\textsc{backgr} & \{\quad\} \\
-\textsc{info-str} & 
-    \[\asort{info-struc}
-    \textsc{focus} & \textit{set}(\textit{content}) \\
-    \textsc{ground} & 
-        \[\asort{ground}
-        \textsc{link} & \textit{set}(\textit{content}) \\
-        \textsc{tail} & \textit{set}(\textit{content}) 
-        \]
-    \]
-\]
-\end{avm}
+\avmtmp{
+[\type*{context}
+c-inds & [ ] \\
+backgr & \{ \} \\
+info-str &	[\type*{info-struc}
+			focus & set!(content)! \\
+			ground &	[\type*{ground}
+						link & set!(content)! \\
+        				tail & set!(content)! ] ] ]
+}
 \z
 
 
@@ -389,30 +365,25 @@ The semantic part of the lexical structure of \textit{dog} is given in (\ref{ex:
 The analysis of \isi{proper names} is pursued in a similar manner, amounting to the requirement that for a successful use of a proper name, the interlocutors have to know that the intended referent of this name actually bears the name in question.
 %
 \ea  \label{ex:dog}
-\begin{avm}
-  \[\asort{word}
-    \textsc{phon} & \q< dog \q> \\
-    \textsc{content} & \[\asort{ref}
-      \textsc{index} & \@1\] \\
-    \textsc{context} & \[\asort{context}
-      \textsc{c-inds} & \[\asort{psoa}
-        \textsc{spkr} & \@2 \\
-        \textsc{addr} & \@3
-      \] \\
-      \textsc{background} & \{
-      \[\asort{mutually-believe}
-        \textsc{experiencer} & \@2 \\
-        \textsc{standard} & \@3 \\
-        \textsc{soa} & \[\asort{normally-believe}
-          \textsc{experiencer} & \textit{English speakers} \\
-          \textsc{soa} & \[\asort{canis}
-            \textsc{inst} & \@1\]
-        \]
-      \]
-      \}
-    \]
-  \]
-\end{avm}
+	\oneline{
+\avmtmp{
+[\type*{word}
+\phon <dog> \\
+content &	[\type*{ref}
+			index & \1] \\
+context &	[\type*{context}
+			c-inds &	[\type*{psoa}
+						spkr & \2 \\
+						addr & \3 ] \\
+      		background &	\{[\type*{mutually-believe}
+							experiencer & \2 \\
+        					standard & \3 \\
+			soa &	[\type*{normally-believe}
+          			experiencer & English speakers \\
+          			soa &	[\type*{canis}
+							inst & \1] ] ]\} ] ]
+}
+	}
 \z
 
 Adding beliefs to \textsc{context} provides the representational means to integrate (at least some kinds of) presuppositions, illocutionary force and deferred reference \citep{Nunberg:1978} into grammar.
@@ -733,7 +704,7 @@ The expressions put to a \isi{clarification request} (\textit{the ball} and \tex
 %
 A generalised quantifier, however, denotes a \emph{set of sets}, which is at odds with its clarification potential in dialogue. 
 %
-Accordingly, in a series of works, a theory of \isi{quantified noun phrases} (QNPs) has been developed that refrains from type raising and that analyses QNPs in terms of the intuitively expected and clarificationally required denotations of types \ttrtype{individual} and \ttrtype{sets of individuals}, respectively  \citep{Purver:Ginzburg:2004,Ginzburg:Purver:2012,Ginzburg:2012,Cooper:2013,Luecking:Ginzburg:2018,Cooper:ms}. 
+Accordingly, in a series of works, a theory of \isi{quantified noun phrases} (QNPs) has been developed that refrains from type raising and that analyses QNPs in terms of the intuitively expected and clarificationally required denotations of types \emph{individual} and \emph{sets of individuals}, respectively  \citep{Purver:Ginzburg:2004,Ginzburg:Purver:2012,Ginzburg:2012,Cooper:2013,Luecking:Ginzburg:2018,Cooper:ms}. 
 %
 Since this dialogue-friendly improvement has been given in terms of the second, type-theoretical option and is lacking in the first, logical form-based option (which usually involves generalised quantifier analyses), there is an empirical advantage for the former over the latter, at least from a pragmatic, dialogue semantics viewpoint.
 
@@ -767,10 +738,11 @@ Records consist of fields of pairs of labels and objects, and record types consi
 Take for instance the schematic record in (\ref{ex:record}):
 %
 \ea \label{ex:record}
-\begin{avm}
-\[$l_0$ &=& \[$l_1$ &=& $o_1$ \\ $l_2$ &=& $o_2$\] \\
-$l_3$ &=& $o_3$ \]
-\end{avm}
+\avmtmp{
+[$l_0$ & = [$l_1$ & = $o_1$ \\
+			$l_2$ & = $o_2$] \\
+$l_3$ & = $o_3$]
+}
 \z
 
 Here, $o_1$, $o_2$ and $o_3$ are (real-world) objects, which are labelled by $l_1$, $l_2$ and $l_3$, respectively ($o_1$ and $o_2$ are additionally part of a sub-record labelled $l_0$).
@@ -780,30 +752,29 @@ Records can be \emph{witnesses} \is{witness} for record types.
 For instance, the record from (\ref{ex:record}) is a witness for the record type in (\ref{ex:record-type}) only in the case that the objects from the record are of the type required by the record type (i.e.\ $o_1 : T_1$, $o_2 : T_2$, $o_3 : T_3$), where objects and types are paired by same labelling.
 %
 \ea \label{ex:record-type}
-\begin{avm}
-\[$l_0$ &:& \[$l_1$ &:& $T_1$ \\ $l_2$ &:& $T_2$\] \\
-$l_3$ &:& $T_3$ \]
-\end{avm}
+\avmtmp{
+[$l_0$ & :	[$l_1$ & : $T_1$ \\
+			$l_2$ & : $T_2$] \\
+$l_3$ & : $T_3$ ]
+}
 \z
 
 The colon notation indicates a basic notion in TTR: a \emph{judgement}. 
 %
 A \isi{judgement} of the form $a : T$ means that object $a$ is of type $T$, or, put differently, that $a$ is a witness for $T$.
 %
-Judgements are used to capture basic classifications \is{classifications} like \textit{Marc Chagall is an individual} ($\mathit{mc} : \ttrtype{Ind}$), as well as propositional descriptions of situations \is{situation} like \textit{The cat is on the mat} for the situation depicted in Figure~\ref{fig:cat}, where Fritz the cat sits on mat m33. 
+Judgements are used to capture basic classifications \is{classifications} like \textit{Marc Chagall is an individual} ($\mathit{mc} : \emph{Ind}$), as well as propositional descriptions of situations \is{situation} like \textit{The cat is on the mat} for the situation depicted in Figure~\ref{fig:cat}, where Fritz the cat sits on mat m33. 
 %
 The \isi{record type} for the example sentence (ignoring the semantic contribution of the definite article for the sake of exposition\footnote{This record type corresponds to \textit{a cat is on a mat}.}) will be (\ref{ex:fritz-rt}):
 %
 \ea \label{ex:fritz-rt}
-\begin{avm}
-\[
-x & : & \ttrtype{Ind} \\
-c1 & : & cat(x) \\
-y & : & \ttrtype{Ind} \\
-c2 & : & mat(y)  \\
-c3 & : & on(x,y)
-\]
-\end{avm}
+\avmtmp{
+[x & : Ind \\
+c1 & : cat!(x)! \\
+y & : Ind \\
+c2 & : mat!(y)!  \\
+c3 & : on!(x,y)! ]
+}
 \z
 
 Note that the types labelled \enquote{c1}, \enquote{c2}, and \enquote{c3} in (\ref{ex:fritz-rt}) are \emph{dependent types}, \is{dependent type} since the veridicality of judgements involving these types depends on the objects that are assigned to the basic types \is{basic type} labelled \enquote{x} and \enquote{y}.
@@ -817,23 +788,19 @@ The participants of the depicted situation can be thought of as situations thems
 The scene in the figure then corresponds to the following record, which is of the type expressed by the record type from (\ref{ex:fritz-rt}):
 %
 \ea \label{ex:fritz-situation}
-\begin{avm}
-\[
-x & = & Fritz \\
-c1 & = & cat situation \\
-y & = & m33 \\
-c2 & = & mat situation \\
-c3 & = & relation situation
-\]
-% \quad : \quad
-% \[
-% x & : & \ttrtype{Ind} \\
-% c1 & : & cat(x) \\
-% y & : & \ttrtype{Ind} \\
-% c2 & : & mat(y)  \\
-% c3 & : & on(x,y)
-% \]
-\end{avm}
+\avmtmp{
+[x & = Fritz \\
+c1 & = cat situation \\
+y & = m33 \\
+c2 & = mat situation \\
+c3 & = relation situation ]
+%  & : 
+% [x & : Ind \\
+% c1 & : cat!(x)! \\
+% y & : Ind \\
+% c2 & : mat!(y)!  \\
+% c3 & : on!(x,y)!]
+}
 \z
 
 \begin{figure}[tb]
@@ -857,15 +824,15 @@ c3 & = & relation situation
 % \ea \label{ex:official-notation}
 % \begin{avm}
 % \[
-% x & : & \ttrtype{Ind} \\
-% c1 & : & \<$\lambda v$:\ttrtype{Ind} . cat($v$), \q<x\q>\> 
+% x & : & Ind \\
+% c1 & : & \<$\lambda v$:Ind . cat($v$), \q<x\q>\> 
 % \]
 % \end{avm}
 % \z
 % %
 % The predicational type c1 from (\ref{ex:official-notation}) is a function from individuals onto cats, i.e.\ it is of the Montagovian type $\langle e,t \rangle$, where the object abstracted over is to be found at path x in the record type. 
 % %
-% This function is characterised by the set of ordered pairs $\{\langle v, \ttrtype{cat}(v) \rangle \mid v : \ttrtype{Ind} \}$ and thereby is linked to a set theoretical notion of extension.
+% This function is characterised by the set of ordered pairs $\{\langle v, \emph{cat}(v) \rangle \mid v : \emph{Ind} \}$ and thereby is linked to a set theoretical notion of extension.
 
 Using type constructors, various types can be build out of basic and complex (dependent) types, such as set types and list types. 
 %
@@ -911,21 +878,15 @@ For more comprehensive and formal elaborations of TTR, see the references given 
 
 Signs as construed within HPSG can be reconstructed as record types of a specific kind \citep{Cooper:2008}.
 %
-For instance, (\ref{ex:hpsgttr-sign}) shows the record type (the judgement colon indicates that we now talk about TTR objects) for a general \isi{sign} according to \citet{Pollard:Sag:1994} (where \ttrtype{PhonType}, \ttrtype{CategoryType} and \ttrtype{SemType} denote obvious types -- see the Appendix for a minimal HPSG fragment defined in terms of TTR).
+For instance, (\ref{ex:hpsgttr-sign}) shows the record type (the judgement colon indicates that we now talk about TTR objects) for a general \isi{sign} according to \citet{Pollard:Sag:1994} (where \emph{PhonType}, \emph{CategoryType} and \emph{SemType} denote obvious types -- see the Appendix for a minimal HPSG fragment defined in terms of TTR).
 %
 \ea \label{ex:hpsgttr-sign}
-\begin{avm}
-\[
-phon &:& \ttrtype{list}(\ttrtype{PhonType}) \\
-synsem &:& 
-    \[local &:&
-        \[cat &:& \ttrtype{CategoryType} \\
-        content &:& \ttrtype{SemType} \\
-        context &:& \ttrtype{SemType}
-        \]
-    \]
-\]
-\end{avm}
+\avmtmp{
+[phon & : list!(PhonType)! \\
+synsem & :	[local & :	[cat & : CategoryType \\
+        				content & : SemType \\
+        				context & : SemType ] ] ]
+}
 \z
 
 Signs are extended by an interface to \isi{circumstantial features} of the utterance situation in terms of the \textsc{dgb-params} \isfeat{dgb-params} attribute, which corresponds to the \textsc{c-inds} from Section~\ref{sec:c-inds-background}.
@@ -952,19 +913,17 @@ the \isi{visual situation} and attended entities (\textit{VisualSit}).
 The TTR representation of a DGB following \citet{Ginzburg:2012} is given in (\ref{ex:dgb}), where \textit{LocProp} is the type of a \emph{locutionary proposition} (see (\ref{ex:locprop}) below) and \textit{poset} abbreviates \enquote{partially ordered set}.
 %
 \ea \label{ex:dgb}
-\begin{avm}
-\[
-spkr & : & \ttrtype{Ind} \\
-addr & : & \ttrtype{Ind} \\
-utt-time & : & \ttrtype{Time} \\
-c-utt & : &  addressing(spkr, addr, utt-time) \\
-facts & : & set(\ttrtype{Prop}) \\
-visualsit & : & \ttrtype{RecType} \\
-pending & : & list(\ttrtype{LocProp}) \\
-moves & : & list(\ttrtype{LocProp}) \\
-qud & : & poset(Question) \\
-\]
-\end{avm}
+\avmtmp{
+[spkr & :  Ind \\
+addr & :  Ind \\
+utt-time & :  Time \\
+c-utt & :   addressing!(spkr, addr, utt-time)! \\
+facts & :  set!(Prop)! \\
+visualsit & :  RecType \\
+pending & :  list!(LocProp)! \\
+moves & :  list!(LocProp)! \\
+qud & :  poset!(Question)! \\ ]
+}
 \z
 
 
@@ -984,22 +943,29 @@ The type of propositions and the relation to a situation semantics \is{situation
 %
 \ea \label{ex:propositions}
 \ea 
-\begin{avm}
-{\normalfont\ttrtype{Prop} $=_{\textit{def}}$} \[sit & : & \ttrtype{Record} \\ sit-type & : & \ttrtype{RecType}\]
-\end{avm}
+\avmtmp{
+\emph{Prop} $=_{\textit{def}}$
+[sit & : Record \\
+sit-type & : RecType ]
+}
 \ex 
-\begin{avm}
-{\normalfont A proposition $p =$}  \[sit & = & $s$ \\ sit-type & = & $T$\]\quad {\normalfont is true iff $s : T$}.
-\end{avm}
+\avmtmp{
+A proposition $p =$
+[sit & = $s$ \\
+sit-type & = $T$]
+is true iff $s : T$.
+}
 \z
 \z
 
-A special kind of proposition, namely \emph{locutionary propositions} (\ttrtype{LocProp}) \citep[\page 172]{Ginzburg:2012}, can be defined as follows:
+A special kind of proposition, namely \emph{locutionary propositions} (\emph{LocProp}) \citep[\page 172]{Ginzburg:2012}, can be defined as follows:
 %
 \ea \label{ex:locprop}
-\begin{avm}
-{\normalfont \ttrtype{LocProp} $=_{\textit{def}}$} \[sign & : & \ttrtype{Record} \\ sign-type & : & \ttrtype{RecType}\]
-\end{avm}
+\avmtmp{
+\emph{LocProp} $=_{\textit{def}}$
+[sign & : Record \\
+sign-type & : RecType ]
+}
 \z
 %
 Locutionary propositions are sign objects utilized to explicate \isi{clarification potential} (see Section~\ref{sec:sub-sentential-meanings}) and \isi{grounding}. 
@@ -1013,18 +979,15 @@ Intuitively, Ann signals with these sounds that she heard Ray's question, which 
 This intuition can be made precise by means of the following lexical entry (which is closely related to the meaning of \textit{mmh} given by \citealt[\page 163]{Ginzburg:2012}):
 %
 \ea \label{ex:ehh-hehh}
-\begin{avm}
-\[
-phon : \q< ehh hehh \q> \\
-cat : \[head={\normalfont\ttrtype{interjection}} &:& \ttrtype{syncat}\] \\
-dgb-params : \[spkr &:& \ttrtype{Ind} \\
-              addr &:& \ttrtype{Ind} \\
-              pending &:& \ttrtype{LocProp} \\
-              c2 &:& address(spkr,addr,pending)
-             \] \\
-cont={\normalfont\ttrtype{Understand}}(spkr,addr,dgb-params.pending) : {\normalfont\ttrtype{IllocProp}}
-\]
-\end{avm}
+\avmtmp{
+[phon & : < ehh hehh > \\
+cat & :	[head=\type{interjection} & : syncat ] \\
+dgb-params & :	[spkr & : Ind \\
+              	addr & : Ind \\
+              	pending & : LocProp \\
+              	c2 & : address!(spkr,addr,pending)! ] \\
+\punk{cont=\type{Understand}(spkr,addr,dgb-params.pending)}{: IllocProp} ]
+}
 \z
 
 Knowing how  to use feedback signals \is{feedback} \is{feedback signal} such as the one in (\ref{ex:ehh-hehh}) can be claimed to be part of \isi{linguistic competence}.
@@ -1040,15 +1003,13 @@ The mechanism that is responsible for the dynamics of dialogue and regiments the
 %
 A conversational rule is a mapping between an input and an output information state, where the input DGB is constrained by a type labelled \emph{preconditions} (\textsc{pre}) \is{preconditions, conversational rule} and the output DGB is subject to \textsc{effects}.\is{effects, conversational rule}
 %
-That is, a conversational rule can be notated in the following form, where \ttrtype{DGBType} is the type of dialogue gameboards defined in (\ref{ex:dgb}).
+That is, a conversational rule can be notated in the following form, where \emph{DGBType} is the type of dialogue gameboards defined in (\ref{ex:dgb}).
 %
 \ea \label{ex:pre-effect}
-\begin{avm}
-\[
-pre &:& \ttrtype{DGBType} \\
-effects &:& \ttrtype{DGBType}
-\]
-\end{avm}
+\avmtmp{
+[pre & : DGBType \\
+effects & : DGBType ]
+}
 \z
 
 Several basic conversational rules are defined in \citet[Chapter 4]{Ginzburg:2012} and some of them, namely those needed to analyse example (\ref{ex:Cambridge}) discussed above, are re-given below (with \enquote{Fact update/QUD-downdate} being simplified, however).
@@ -1061,56 +1022,61 @@ For details, we have to refer the reader to \citet{Ginzburg:2012}; we believe th
 %
 \begin{itemize}
 \item Free Speech:\par\medskip
-\begin{avm}
-\[
-pre &:& \[qud=\q<\q> &:& poset(Question)\] \\
-effects &:& TurnUnderspec \ttrmerge\ \[r : AbSemObj \\ R : IllocRel \\ LatestMove=R(spkr,addr,r) : IllocProp\] \\
-\]
-\end{avm}
+\avmtmp{
+[pre & :	[qud=< > & : poset!(Question)!] \\
+effects & : TurnUnderspec \ttrmerge\	[r : AbSemObj \\
+										R : IllocRel \\
+										LatestMove=R(spkr,addr,r) : IllocProp & ] ]
+}
 \item QSPEC:\par\medskip
-\begin{avm}
-\[
-pre &:& \[qud=\<q,Q\> &:& poset(Question)\] \\
-effects &:& TurnUnderspec \ttrmerge\ \[r : AbSemObj \\ R : IllocRel \\ LatestMove=R(spkr,addr,r) : IllocProp \\ c1 : Qspecific(r,q)\] \\
-\]
-\end{avm}
+\avmtmp{
+[pre & :	[qud=<q,Q> & : poset!(Question)!] \\
+effects & : TurnUnderspec \ttrmerge\	[r : AbSemObj \\
+										R : IllocRel \\
+										LatestMove=R(spkr,addr,r) : IllocProp & \\
+										c1 : Qspecific(r,q)] ]
+}
 \item Ask QUD-incrementation:\par\medskip
-\begin{avm}
-\[
-pre &:& \[q &:& Question \\ LatestMove=Ask(spkr,addr,q) &:& IllocProp\] \\
-effects &:& \[qud=\<q,pre.qud\> &:& poset(Question)\]
-\]
-\end{avm}
+\avmtmp{
+[pre & :	[q & : Question \\
+			LatestMove=Ask!(spkr,addr,q)! & : IllocProp] \\
+effects & :	[qud=<q,pre.qud> & : poset!(Question)!] ]
+}
 \item Assert QUD-incrementation:\par\medskip
-\begin{avm}
-\[
-pre &:& \[p &:& Proposition \\ LatestMove=Assert(spkr,addr,p) &:& IllocProp\] \\
-effects &:& \[qud=\<p?,pre.qud\> &:& poset(Question)\]
-\]
-\end{avm}
+\avmtmp{
+[pre & :	[p & : Proposition \\
+			LatestMove=Assert!(spkr,addr,p)! & : IllocProp ] \\
+effects & :	[qud=<p?,pre.qud> & : poset!(Question)!] ]
+}
 \item Accept:\par\medskip
-\begin{avm}
-\[
-pre &:& \[spkr &:& Ind \\ addr &:& Ind \\ p &:& Prop \\ LatestMove=Assert(spkr,addr,p) &:& IllocProp \\ qud=\<p?,subqud\> &:& poset(Question)\] \\
-effects &:& \[spkr=pre.addr &:& Ind \\ addr=pre.sprk &:& Ind \\ LatestMove=Accept(spkr,addr,p) &:& IllocProp\]
-\]
-\end{avm}
+\avmtmp{
+[pre & :	[spkr & : Ind \\
+			addr & : Ind \\
+			p & : Prop \\
+			LatestMove=Assert!(spkr,addr,p)! & : IllocProp \\ qud=<p?,subqud> & : poset!(Question)! ] \\
+effects & :	[spkr=pre.addr & : Ind \\
+			addr=pre.sprk & : Ind \\
+			LatestMove=Accept!(spkr,addr,p)! & : IllocProp] ]
+}
 \item Fact update/QUD-downdate (simplified): 
 \begin{itemize}
 \item
-\begin{avm}
-\[
-pre &:& \[q &:& Question \\ p &:& Prop \\ LatestMove=Accept(spkr,addr,p) &:& IllocProp \\ qud=\<q,subqud\> &:& poset(Question) \\ qbg &:& Qspecific(p,q) \] \\
-effects &:& \[facts=pre.facts $\cup$ \{p\} &:& Set(Prop) \\ qud=pre.qud $\setminus$ \{q\}\] 
-\]
-\end{avm}
+\avmtmp{
+[pre & :	[q & : Question \\
+			p & : Prop \\
+			LatestMove=Accept!(spkr,addr,p)! & : IllocProp \\
+			qud=<q,subqud> & : poset!(Question)! \\
+			qbg & : Qspecific!(p,q)! ] \\
+effects & :	[facts=pre.facts $\cup$ \{p\} & : Set!(Prop)! \\
+			qud=pre.qud $\setminus$ \{q\} ] ]
+}
 \item
-\begin{avm}
-\[
-pre &:& \[p &:& Prop \\ LatestMove=Accept(spkr,addr,p) &:& IllocProp \\ qud=\<p?,subqud\> &:& poset(Question) \] \\
-effects &:& \[facts=pre.facts $\cup$ \{p\} &:& Set(Prop) \\ qud=pre.qud $\setminus$ \{p?\}\] 
-\]
-\end{avm}
+\avmtmp{
+[pre & :	[p & :Prop \\
+			LatestMove=Accept!(spkr,addr,p)! & : IllocProp \\ qud=<p?,subqud> & : poset!(Question)! ] \\
+effects & :	[facts=pre.facts $\cup$ \{p\} & : Set!(Prop)! \\
+			qud=pre.qud $\setminus$ \{p?\} ] ]
+}
 \end{itemize}
 \end{itemize}
 
@@ -1131,29 +1097,25 @@ Additionally, we assume that subsentential utterances project to Austinian propo
 \hline 
 init. 
 &
-\begin{avm}
-\[
-participants &=& \{A,B\} \\
-Moves &=& \avmel \\
-qud &=& \avmel \\
-facts &=& cg0
-\]
-\end{avm}
+\avmtmp{
+[participants & = \{A,B\} \\
+Moves & = < > \\
+qud & = < > \\
+facts & = cg0 ]
+}
 &
 ---
 \\
 \hline
 1. 
 & 
-\begin{avm}
-\[
-spkr &=& A \\
-addr &=& B \\
-Moves &=& \< Assert(A,B,p(1)) \> \\
-qud &=& \< p?(1) \> \\
-facts &=& cg0
-\]
-\end{avm}
+\avmtmp{
+[spkr & = A \\
+addr & = B \\
+Moves & = < Assert!(A,B,p(1))! > \\
+qud & = < p?!(1)! > \\
+facts & = cg0 ]
+}
 & 
 \enquote{I've been at university.}  \par\bigskip
 Free Speech + Assert QUD-incrementation
@@ -1161,15 +1123,13 @@ Free Speech + Assert QUD-incrementation
 \hline
 2.
 &
-\begin{avm}
-\[
-spkr &=& B \\
-addr &=& A \\
-Moves &=& \< Ask(B,A,q(2)), Assert(A,B,p(1)) \> \\
-qud &=& \< q(2) \> \\
-facts &=& cg0 $\cup$ \{p(1)\}
-\]
-\end{avm}
+\avmtmp{
+[spkr & = B \\
+addr & = A \\
+Moves & = < Ask!(B,A,q(2)), Assert(A,B,p(1))! > \\
+qud & = < q!(2)! > \\
+facts & = cg0 $\cup$ \{p!(1)!\} ]
+}
 &
 \enquote{Which university?} \par\bigskip
 Accept + Ask QUD-incrementation
@@ -1177,16 +1137,15 @@ Accept + Ask QUD-incrementation
 \hline
 3.
 &
-\begin{avm}
-\[
-spkr &=& A \\
-addr &=& B \\
-Moves &=& \< Assert(A,B,p(3)), \\ Ask(B,A,q(2)), Assert(A,B,p(1)) \> \\
-qbg &=& About(p(3),q(2)) \\
-qud &=& \< p?(3), q(2) \> \\
-facts &=& cg0 $\cup$ \{p(1)\}
-\]
-\end{avm}
+\avmtmp{
+[spkr & = A \\
+addr & = B \\
+Moves & =	< Assert!(A,B,p(3))!, \\
+			Ask!(B,A,q(2)), Assert(A,B,p(1))! > \\
+qbg & = About!(p(3),q(2))! \\
+qud & = < p?!(3), q(2)! > \\
+facts & = cg0 $\cup$ \{p!(1)!\} ]
+}
 &
 \enquote{Cambridge.} \par\bigskip
 QSPEC (via \textit{About} relation) + Assert QUD-incrementation
@@ -1194,15 +1153,14 @@ QSPEC (via \textit{About} relation) + Assert QUD-incrementation
 \hline
 4.
 &
-\begin{avm}
-\[
-spkr &=& B \\
-addr &=& A \\
-Moves &=& \< Accept(B,A,p(3)), Assert(A,B,p(3)), \\ Ask(B,A,q(2)), Assert(A,B,p(1)) \> \\
-qud &=& \avmel \\
-facts &=& cg0 $\cup$ \{p(3), p(1)\}
-\]
-\end{avm}
+\avmtmp{
+[spkr & = B \\
+addr & = A \\
+Moves & =	< Accept!(B,A,p(3)), Assert(A,B,p(3))!, \\
+			Ask!(B,A,q(2)), Assert(A,B,p(1))!& > \\
+qud & = < > \\
+facts & = cg0 $\cup$ \{p!(3), p(1)!\} ]
+}
 &
 \enquote{Cambridge, um.} \par\bigskip
 Accept + Fact update/QUD-downdate
@@ -1210,15 +1168,15 @@ Accept + Fact update/QUD-downdate
 \hline
 5.
 &
-\begin{avm}
-\[
-spkr &=& B \\
-addr &=& A \\
-Moves &=& \< Ask(B,A,q(5)), \\ Accept(B,A,p(3)), Assert(A,B,p(3)), \\ Ask(B,A,q(2)), Assert(A,B,p(1)) \> \\
-qud &=& \< q(5) \> \\
-facts &=& cg0 $\cup$ \{p(3), p(1)\}
-\]
-\end{avm}
+\avmtmp{
+[spkr & = B \\
+addr & = A \\
+Moves & =	< Ask!(B,A,q(5))!, \\
+			Accept!(B,A,p(3)), Assert(A,B,p(3))!, \\
+			Ask!(B,A,q(2)), Assert(A,B,p(1))!& > \\
+qud &=  < q!(5)! > \\
+facts & = cg0 $\cup$ \{p!(3), p(1)!\} ]
+}
 &
 \enquote{what did you read?} \par\bigskip
 Free Speech + Ask QUD-incrementation
@@ -1226,16 +1184,16 @@ Free Speech + Ask QUD-incrementation
 \hline
 6.
 &
-\begin{avm}
-\[
-spkr &=& A \\
-addr &=& B \\
-Moves &=& \< Assert(A,B,p(6)), Ask(B,A,q(5)), \\ Accept(B,A,p(3)), Assert(A,B,p(3)), \\ Ask(B,A,q(2)), Assert(A,B,p(1)) \> \\
-qbg &=& About(p(6),q(5)) \\
-qud &=& \< p?(6), q(5) \> \\
-facts &=& cg0 $\cup$ \{p(3), p(1)\}
-\]
-\end{avm}
+\avmtmp{
+[spkr & = A \\
+addr & = B \\
+Moves & =	< Assert!(A,B,p(6)), Ask(B,A,q(5))!, \\
+			Accept!(B,A,p(3)), Assert(A,B,p(3))!,\\
+			Ask!(B,A,q(2)), Assert(A,B,p(1))!& > \\
+qbg & = About!(p(6),q(5))! \\
+qud & = < p?!(6), q(5)! > \\
+facts & = cg0 $\cup$ \{p!(3), p(1)!\} ]
+}
 &
 \enquote{History and English.} \par\bigskip
 QSPEC (via \textit{About} relation) + Assert QUD-incrementation
@@ -1243,15 +1201,16 @@ QSPEC (via \textit{About} relation) + Assert QUD-incrementation
 \hline
 7.
 &
-\begin{avm}
-\[
-spkr &=& B \\
-addr &=& A \\
-Moves &=& \< Accept(B,A,p(6)), \\ Assert(A,B,p(6)), Ask(B,A,q(5)), \\ Accept(B,A,p(3)), Assert(A,B,p(3)), \\ Ask(B,A,q(2)), Assert(A,B,p(1)) \> \\
-qud &=& \avmel \\
-facts &=& cg0 $\cup$ \{p(6), p(3), p(1)\}
-\]
-\end{avm}
+\avmtmp{
+[spkr & = B \\
+addr & = A \\
+Moves & =	< Accept!(B,A,p(6))!, \\
+			Assert!(A,B,p(6)), Ask(B,A,q(5))!, \\
+			Accept!(B,A,p(3)), Assert(A,B,p(3))!,\\
+			Ask!(B,A,q(2)), Assert(A,B,p(1))!&> \\
+qud & = < > \\
+facts & = cg0 $\cup$ \{p!(6), p(3), p(1)!\} ]
+}
 &
 \enquote{History and English.} \par\bigskip
 Accept + Fact update/QUD-downdate
@@ -1270,17 +1229,15 @@ On these grounds, a lexical entry for \enquote{hello} can be spelled out.
 \enquote{Hello} realises a greeting move (which is its content) and must be used discourse-initially (the \textsc{moves} list and the \textsc{qud} set have to be empty):
 %
 \ea
-\begin{avm}
-\[
-phon : \q< hello \q> \\
-cat : \[head=\textit{interjection} &:& \ttrtype{syncat}\] \\
-dgb-params : \[spkr &:& \ttrtype{Ind} \\ 
-               addr &:& \ttrtype{Ind} \\
-               moves=\avmel &:& list(\ttrtype{IllocProp}) \\ 
-               qud=\{\space\} &:& poset(\ttrtype{Question}) \] \\
-cont=Greet(spkr,addr): \ttrtype{IllocProp}
-\]
-\end{avm}
+\avmtmp{
+[phon & : < hello > \\
+cat & :	[head=\type{interjection} & : syncat ] \\
+dgb-params & :	[spkr & : Ind \\ 
+               addr & : Ind \\
+               moves=< > & : list!(IllocProp)! \\ 
+               qud=\{ \} & : poset!(Question)! ] \\
+\punk{cont=Greet(spkr,addr)}{: \textsc{IllocProp}} ]
+}
 \z 
 
 Discourse-dynamically, \enquote{hello} puts a greeting move onto the \textsc{moves} list of the dialogue gameboard, thereby initiates an interaction and invites for a countergreeting (the requirement for countergreeting is exactly that a greeting move is the element of the otherwise empty list of dialogue moves) -- giving rise to an \emph{adjacency pair} \is{adjacency pair} as part of the \isi{local management system} for dialogues investigated in \isi{conversational analysis} \citep{Schegloff:Sacks:1973}.
@@ -1298,14 +1255,13 @@ Thus, applying $p$? to an empty record $[]$ returns $p$, which is exactly what \
 The affirmative particle (used to answer a yes/no question) is a propositional lexeme which applies a polar question which is maximal in \textsc{qud} to an empty record \citep[cf.][\page 232]{Ginzburg:2012}:
 %
 \ea
-\begin{avm}
-\[
-phon : \q< yes \q> \\
-cat : \[head=\textit{partcl} &:& \ttrtype{syncat}\] \\
-dgb-params : \[qud=\[max &:& \ttrtype{PolQuestion} \\ rest &:& set(\ttrtype{Question})\] &:& poset(\ttrtype{Question}) \] \\
-cont=dgb-params.qud.max( [\space] ): \ttrtype{Prop}
-\]
-\end{avm}
+\avmtmp{
+[phon & : < yes > \\
+cat & :	[head=\type{partcl} & : syncat] \\
+dgb-params & :	[qud=[max & : PolQuestion \\
+				rest & : set!(Question)! ] & : poset!(Question)! ] \\
+\punk{cont=dgb-params.qud.max( [ ] ): \emph{Prop}}{} ]%todo punk doesnt work with !!
+}
 \z 
 %
 Due to its involvedness in \textsc{dgb-params.qud}, \enquote{yes} directly interacts with \isi{accept} and \isi{downdating}, as described above.
@@ -1369,22 +1325,25 @@ TTR has a counterpart to unification, namely the \emph{merge} construction.
 \ex Since merge types are complicated to define \citep[but see][]{Cooper:2012}, we follow the strategy of \citet{Cooper:2017:a} and illustrate the working of merges by means of some examples:
 \begin{enumerate}[label=(\roman*), leftmargin=6.5em]
 \item 
-\begin{avm}
-\[a &:& $T$ \\ b &:& $R$\]
-\quad\ttrmerge\space\space
-\[c &:& $S$\]
-\quad = \space
-\[a &:& $T$ \\ b &:& $R$ \\ c &:& $S$\]
-\end{avm}
+\avmtmp{
+[a & : T \\
+b & : R]
+\ttrmerge
+[c & : S]
+=
+[a & : T \\
+b & : R \\
+c & : S]
+}
 %%
 \item 
-\begin{avm}
-\[a &:& $T$ \]
-\quad\ttrmerge\space\space
-\[a &:& $R$ \]
-\quad = \space
-\[a &:& $T$ \ttrmerge\ $R$\]
-\end{avm}
+\avmtmp{
+[a & : T ]
+\ttrmerge
+[a & : R]
+=
+[a & : T \ttrmerge\ R]
+}
 \end{enumerate}
 \z
 \z
@@ -1398,37 +1357,30 @@ The notational convention is exemplified in (\ref{ex:tag-notation}) by means of 
 %
 \ea \label{ex:tag-notation}
 \ea
-\begin{avm}
-\[
-cat &:& \[head &:& \[agr$_{\@{1}}$ &:& \ttrtype{Agr}\] \\
-          spr &:& \<[cat &:& \[head &:& \[agr=\@{1} &:& \ttrtype{Agr}\]\]\>
-        \]
-\]
-\end{avm}
+\avmtmp{
+[cat & :	[head & :	[agr$_{\1}$ & : Agr] \\
+          	spr & : <[cat & : [head & : [agr=\1 & : Agr]]> ] ] ]
+}
 \ex 
-\begin{avm}
-\[
-cat &:& \[head &:& \[agr &:& \ttrtype{Agr}\] \\
-          spr &:& \<[cat &:& \[head &:& \[agr=/cat.head.agr &:& \ttrtype{Agr}\]\]\>
-        \]
-\]
-\end{avm}
+\avmtmp{
+[cat & : [head & : [agr & : Agr] \\
+          spr & : <[cat & : [head & : [agr=/cat.head.agr & : Agr]]> ] ] ]
+}
 \z
 \z 
 %
 The tag type notation alludes to the box notation common in HPSG work.
 
 
-\ttrtype{Agr} is defined as usual:
+\emph{Agr} is defined as usual:
 %
 \ea
-\ttrtype{Agr} $\coloneqq$
-\begin{avm}
-\[num &:& \ttrtype{Num} \\
-pers &:& \ttrtype{Per} \\
-gen &:& \ttrtype{Gen}
-\]
-\end{avm}
+\avmtmp{
+\emph{Agr} $\coloneqq$
+[num & : Num \\
+pers & : Per \\
+gen & : Gen ]
+}
 \z 
 
 % The grammar framework makes use of some grammar-specific types, which are enumerated (partly employing obvious abbreviations) in the following:
@@ -1458,15 +1410,13 @@ gen &:& \ttrtype{Gen}
 A basic \emph{sign} is a pairing of phonetic, syntactic and semantic information and follows the geometry in (\ref{ex:sign}): 
 %
 \ea \label{ex:sign}
-\ttrtype{sign} $\coloneqq$ 
-\begin{avm}
-\[
-phon &:& \ttrtype{Phoneme} \\
-cat &:& \ttrtype{SynCat} \\
-dgb-params &:& \ttrtype{RecType} \\
-cont &:& \ttrtype{SemObj} \\
-\]
-\end{avm}
+\emph{sign} $\coloneqq$ 
+\avmtmp{
+[phon & : Phoneme \\
+cat & : SynCat \\
+dgb-params & : RecType \\
+cont & : SemObj ]
+}
 \z
 
 Signs employ \textsc{dgb-params}, which host referential meanings that are witnessed among interlocutors. 
@@ -1480,92 +1430,82 @@ $R_2 = R_0 \wedge_{merge} R_1$,
 then $R_0$ can be moved to \textsc{q-params}, resulting in the following structure: \par\medskip 
  % \commentrhc{You should explain what you mean by $\setminus$. We would need an example to make sure this is working. }
  
-\begin{avm}
-\[
-dgb-params &:& $R_1$\\
+\avmtmp{
+[dgb-params & : $R_1$\\
 %\setminus R_0$ \\
-cont &=& \[q-params &:& $R_0$\]
-\]
-\end{avm}
+cont & = [q-params & : $R_0$] ]
+}
 \z
 
 
 
-A word is a sign with constituent type (\textsc{cxtype}) \ttrtype{word}.
+A word is a sign with constituent type (\textsc{cxtype}) \emph{word}.
 %
 Using the merge operation, the word extension on signs can represented compactly as in (\ref{ex:word}a), which expands to the structure given in (\ref{ex:word}b):
 %
 
 \ea \label{ex:word}
-\ea \ttrtype{word} $\coloneqq$ \ttrtype{sign} \ttrmerge\ \begin{avm}
-\[cxtype &:& \ttrtype{word}\]
-\end{avm} : \ttrtype{RecType}
+\ea \emph{word} $\coloneqq$ \emph{sign} \ttrmerge\
+\avmtmp{[cxtype & : word]} : \emph{RecType}
 \ex 
-\begin{avm}
-\[
-cxtype &:& \ttrtype{word} \\
-phon &:& \ttrtype{Phoneme} \\
-cat &:& \ttrtype{SynCat} \\
-dgb-params &:& \ttrtype{RecType} \\
-cont &:& \ttrtype{SemObj} 
-\]
-\end{avm}
+\avmtmp{
+[cxtype & : word \\
+phon & : Phoneme \\
+cat & : SynCat \\
+dgb-params & : RecType \\
+cont & : SemObj ]
+}
 \z
 \z
 
-Words -- that is, cxtype \ttrtype{word} -- are usually the result of lexical rules, whose input are lexemes.
+Words -- that is, cxtype \emph{word} -- are usually the result of lexical rules, whose input are lexemes.
 %
 Lexemes differ from words in their constituent type:
 %
 \ea
-\ttrtype{lexeme} $\coloneqq$ \ttrtype{sign} \ttrmerge\ \begin{avm}
-\[cxtype &:& \ttrtype{lexeme}\]
-\end{avm} : \ttrtype{RecType}
+\emph{lexeme} $\coloneqq$ \emph{sign} \ttrmerge\
+\avmtmp{[cxtype & : lexeme]}
+: \emph{RecType}
 \z
 
 A phrasal sign can be seen as a word with daughters:
 %
 \ea 
-\ea \ttrtype{phrase} $\coloneqq$ \ttrtype{sign} \ttrmerge\ \begin{avm}
-\[cxtype &:& \ttrtype{phrase} \\
-dtrs &:& \[nhd-dtrs &:& \ttrtype{List}(\ttrtype{Sign})\]\]
-\end{avm} : \ttrtype{RecType}
+\ea phrase $\coloneqq$ \emph{sign} \ttrmerge\
+\avmtmp{
+[cxtype & : phrase \\
+dtrs & : [nhd-dtrs & : List!(Sign)!]]
+} : \emph{RecType}
 \ex 
-\begin{avm}
-\[
-cxtype &:& \ttrtype{phrase} \\
-phon &:& \ttrtype{List}(\ttrtype{Phoneme}) \\
-cat &:& \ttrtype{SynCat} \\
-dgb-params &:& \ttrtype{RecType} \\
-cont &:& \ttrtype{SemObj} \\
-dtrs &:& \[% hd-dtr &:& \ttrtype{Sign} \\
-           nhd-dtrs &:& \ttrtype{List}(\ttrtype{Sign})
-         \]
-\]
-\end{avm}
+\avmtmp{
+[cxtype & : phrase \\
+phon & : List!(Phoneme)! \\
+cat & : SynCat \\
+dgb-params & : RecType \\
+cont & : SemObj \\
+dtrs & : [% hd-dtr & : Sign \\
+           nhd-dtrs & : List!(Sign)! ] ]
+}
 \z
 \z
 
 A headed phrase is a phrase with a prominent daughter, i.e.\ the head daughter:
 %
 \ea 
-\ea \ttrtype{hd-phrase} $\coloneqq$ \ttrtype{phrase} \ttrmerge\ 
-\begin{avm}
-\[dtrs &:& \[hd-dtr &:& \ttrtype{Sign}\]\]
-\end{avm} : \ttrtype{RecType}
+\ea \emph{hd-phrase} $\coloneqq$ \emph{phrase} \ttrmerge\ 
+\avmtmp{
+[dtrs & : [hd-dtr & : Sign]]
+} : \emph{RecType}
 \ex 
-\begin{avm}
-\[
-cxtype &:& \ttrtype{phrase} \\
-phon &:& \ttrtype{List}(\ttrtype{Phoneme}) \\
-cat &:& \ttrtype{SynCat} \\
-dgb-params &:& \ttrtype{RecType} \\
-cont &:& \ttrtype{SemObj} \\
-dtrs &:& \[hd-dtr &:& \ttrtype{Sign} \\
-           nhd-dtrs &:& \ttrtype{List}(\ttrtype{Sign})
-         \]
-\]
-\end{avm}
+\avmtmp{
+[cxtype & : phrase \\
+phon & : List!(Phoneme)! \\
+cat & : SynCat \\
+dgb-params & : RecType \\
+cont & : SemObj \\
+dtrs & : [hd-dtr & : Sign \\
+           nhd-dtrs & : List!(Sign)! ] ]
+}
 \z
 \z
 
@@ -1575,61 +1515,54 @@ This aspect of headedness is captured in terms of the \emph{head-feature princip
 %
 \ea \label{ex:HFP}
 HFP $\coloneqq$
-\begin{avm}
-\[
-cxtype &:& \ttrtype{phrase} \\
-cat &:& \[head$_{\@{2}}$ &:& \ttrtype{PoS}\] \\
-dtrs &:& \[hd-dtr &:& \[cat &:& \[head=\@{2} &:& \ttrtype{PoS}\]\] \\
-         \]
-\]
-\end{avm}
+\avmtmp{
+[cxtype & : phrase \\
+cat & : [head$_{\2}$ & : PoS] \\
+dtrs & : [hd-dtr & : [cat & : [head=\2 & : PoS]] ] ]
+}
 \z
 
 The fact that the daughters' locutions combine to the mother's utterance is captured in terms of a \enquote{phon principle}  (we use a slash notation in order to indicate paths starting at the outermost level of a feature structure):
 %
 \ea 
 PHON $\coloneqq$ \label{ex:phon-principle}
-\begin{avm}
-\[
-cxtype &:& \ttrtype{phrase} \\
-phon &:& \ttrtype{List}(/dtrs.hd.dtr/phon, /dtrs.nhd.dtrs/pos1.phon,  \\ && \ldots, /dtrs.nhd.dtrs/pos$n$.phon) 
-% dtrs &:& \[hd-dtr &:& \ttrtype{Sign} \\
-%           nhd-dtrs &:& \ttrtype{List}(\ttrtype{Sign})
-%         \]
-\]
-\end{avm}
+\avmtmp{
+[cxtype & : phrase \\
+phon & : List!(!/dtrs.hd.dtr/phon, /dtrs.nhd.dtrs/pos1.phon,  \\
+	& \ldots, /dtrs.nhd.dtrs/pos$n$.phon!)!
+% dtrs & : [hd-dtr & : Sign \\
+%           nhd-dtrs & : List!(Sign)!
+%         ]
+]
+}
 \z 
 
 Since  semantic composition rests on predication rather than unification, there is no analog to the semantic compositionality principle of \citet{Sag:Wasow:Bender:2003} in our account.
 %
 There is, however, something akin to semantic inheritance: we need to keep track of the contextual and quantificational paramaters contributed by the daughters of a phrase. 
 %
-This is achieved in terms of a \emph{dgb-params principle} (\ttrtype{DGBPP}) in (\ref{ex:dgbpp}) which unifies the daughters' \textsc{dgb-params} into the mother's \textsc{dgb-params}  (see \citealt[126 \textit{et seq.}]{Ginzburg:2012}  for a similar principle): 
+This is achieved in terms of a \emph{dgb-params principle} (\emph{DGBPP}) in (\ref{ex:dgbpp}) which unifies the daughters' \textsc{dgb-params} into the mother's \textsc{dgb-params}  (see \citealt[126 \textit{et seq.}]{Ginzburg:2012}  for a similar principle): 
 %
 \ea \label{ex:dgbpp}
 DGBPP $\coloneqq$ \label{ex:QPP} \par\medskip
 \oneline{%
-\begin{avm}
-\[
-cxtype &:& \ttrtype{phrase} \\
-dgb-params &:& \[/dtrs.hd-dtr.dgb-params\ \ttrmerge\ /dtrs.nhd-dtrs.pos1.dgb-params\ \ttrmerge \\ \ldots \ttrmerge\ /dtrs.nhd-dtrs.pos$n$.dgb-params
-             \] \\
-dtrs &:& \[hd-dtr &:& \[q-params &:& \ttrtype{RecType}\] \\
-           nhd-dtrs &:& \<pos1 &:& \[q-params &:& \ttrtype{RecType}\],  
-                         \ldots, 
-                         pos$n$ &:& \[q-params &:& \ttrtype{RecType}\]
-                        \>
-         \]
-\]
-\end{avm}
+\avmtmp{
+[cxtype & : phrase \\
+dgb-params & :	[/dtrs.hd-dtr.dgb-params\ \ttrmerge\
+				/dtrs.nhd-dtrs.pos1.dgb-params\ \ttrmerge&\\
+				\ldots \ttrmerge\ /dtrs.nhd-dtrs.pos$n$.dgb-params ] \\
+dtrs & : [hd-dtr & : [q-params & : RecType] \\
+           nhd-dtrs & : <pos1 : [q-params & : RecType], \ldots, 
+                         pos$n$ : [q-params & : RecType]> ] ]
+}
 }
 \z
 
-A headed phrase is well-formed when it is a headed phrase and it obeys the head feature principle, the phon principle and the dgb-params principle, which is expressed by extending \ttrtype{hd-phrase} by the following constraint:
+A headed phrase is well-formed when it is a headed phrase and it obeys the head feature principle, the phon principle and the dgb-params principle, which is expressed by extending \emph{hd-phrase} by the following constraint:
 %
 \ea \label{ex:hd-phrase}
-\ttrtype{hd-phrase} $\coloneqq$ 
-\ttrtype{hd-phrase} \ttrmerge\ {HFP} \ttrmerge\  {PHON} \ttrmerge\ {DGBPP}
+\emph{hd-phrase} $\coloneqq$ 
+\emph{hd-phrase} \ttrmerge\ {HFP} \ttrmerge\  {PHON} \ttrmerge\ {DGBPP}
 \z
 
 
@@ -1637,15 +1570,12 @@ Using this set-up, lexical entries, lexical rules and syntactic constructions ca
 \is{HPSG-TTR|)}
 
 
-%}% end avmoptions
  
 % \section*{Abbreviations}
 \section*{Acknowledgements}
 
 
-The work on this chapter by Lücking is partially supported by a public grant overseen by the French National Research Agency (ANR) as part of the program ``Investissements d'Avenir'' (reference: ANR-10-LABX-0083). It contributes to the IdEx Université de Paris -- ANR-18-IDEX-0001. Cooper's work was supported by the projects InCReD (Incremental Reasoning in Dialogue), VR project 2016-01162 and DRiPS (Dialogical Reasoning in Patients with Schizophrenia), Riksbankens jubileumsfond, P16-0805:1 and a grant from the Swedish Research Council (VR project 2014-39) for the establishment of the Centre for Linguistic Theory and Studies in Probability (CLASP) at the University of Gothenburg. The authors want to thank several anonymous reviewers for their comments. We thank in particular Bob Borsley, Stefan Müller and Frank Richter for detailed discussions and suggestions on earlier drafts of this chapter. Furthermore, we are grateful to Elizabeth Pankratz for her attentive remarks and for proofreading. 
-
-}% end avmoptions
+The work on this chapter by Lücking is partially supported by a public grant overseen by the French National Research Agency (ANR) as part of the program ``Investissements d'Avenir'' (reference: ANR-10-LABX-0083). It contributes to the IdEx Université de Paris -- ANR-18-IDEX-0001. Cooper's work was supported by the projects InCReD (Incremental Reasoning in Dialogue), VR project 2016-01162 and DRiPS (Dialogical Reasoning in Patients with Schizophrenia), Riksbankens jubileumsfond, P16-0805:1 and a grant from the Swedish Research Council (VR project 2014-39) for the establishment of the Centre for Linguistic Theory and Studies in Probability (CLASP) at the University of Gothenburg. The authors want to thank several anonymous reviewers for their comments. We thank in particular Bob Borsley, Stefan Müller and Frank Richter for detailed discussions and suggestions on earlier drafts of this chapter. Furthermore, we are grateful to Elizabeth Pankratz for her attentive remarks and for proofreading.
 
 
 {\sloppy

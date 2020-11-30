@@ -46,16 +46,42 @@
 %% ------------------------------------------------------------------------------
 \RequirePackage{xparse,array}
 \ProvidesExplPackage {langsci-avm}
-  {2020-07-15} {0.2.1}
+  {2020-10-12} {0.3.0-rc3}
   {AVMs and feature structures in LaTeX3}
+
+\msg_new:nnnn {avm} {lfgoptionmissing}
+  {  Missing~package~option~lfg~at~line~\msg_line_number:  }
+  {
+    You~issued~a~command~in~line~\msg_line_number:~that~is~only~available~when~
+    the~lfg~package~option~is~enabled.
+  }
+\bool_new:N \l__avm_lfg_bool
+\bool_new:N \l__avm_tikz_bool
+\DeclareOption{tikz}{ \bool_set_true:N \l__avm_tikz_bool }
+\DeclareOption{lfg}{ \bool_set_true:N \l__avm_lfg_bool }
+\ProcessOptions\relax
+\bool_if:NT \l__avm_tikz_bool
+  {
+    \RequirePackage{tikz}
+    \newcounter{l__avm_picture_counter}
+    \tl_new:N \l__avm_picture_name_prefix_tl
+  }
+\bool_if:NT \l__avm_lfg_bool
+  {
+    \cs_if_exist:NF \lBrack
+      {
+        \RequirePackage{etoolbox}
+        \AtEndPreamble { \RequirePackage{unicode-math} }
+      }
+  }
 \NewDocumentCommand{\avmtmp}{ O{} +m }
   {
     \c_group_begin_token
+    \keys_set:nn { avm } { #1 }
     \__avm_initialise_document_commands:
     \__avm_initialise_custom_commands:
     \tl_use:N \l__avm_defined_commands_tl
     \bool_set_true:N \l__avm_mode_bool
-    \keys_set:nn { avm } { #1 }
     \__avm_wrap:n { #2 }
     \c_group_end_token
   }
@@ -80,18 +106,22 @@
     values .initial:n      = {\itshape},
     tags .code:n           = {\cs_set:Nn \__avm_font_tag: {#1}},
     tags .initial:n        = {\footnotesize},
-    apptovalues .code:n    = {\cs_set:Nn \__avm_deinit_second_column: {#1}},
-    apptovalues .initial:n = {\/},
     singleton .code:n      = {\cs_set:Nn \__avm_font_singleton: {#1}},
     singleton .initial:n   = {\normalfont},
     switch .code:n         = {\tl_set:Nn \__avm_mode_switch_character {#1}},
     switch .initial:n      = { ! },
     extraskip .dim_set:N   = \l__avm_extra_skip_dim,
     extraskip .initial:n   = {\smallskipamount},
+    extraskip~in~every~row .bool_set:N = \l__avm_extraskip_bool,
     customise .code:n      = {\cs_set:Nn \__avm_initialise_custom_commands: {#1}},
     customise .initial:n   = { },
+    pic .bool_set:N        = \l__avm_picture_bool,
+    pic .default:n         = { true },
+    picname .tl_set:N      = \l__avm_picture_name_tl,
+    picname .initial:n    = {automatic},
     style .choice:,
-    style / narrow .code:n = {\delimiterfactor=997\delimitershortfall5pt},
+    style / narrow .code:n = {\int_set:Nn \l__avm_delimfactor_int {997}
+                           \dim_set:Nn \l__avm_delimshortfall_dim {5pt}},
   }
 
 \NewDocumentCommand{\avmdefinestyle}{ m m }
@@ -118,6 +148,7 @@
 \tl_new:N \l__avm_defined_commands_tl
 
 \cs_generate_variant:Nn \seq_set_split:Nnn { NVn }
+\cs_generate_variant:Nn \tl_if_eq:nnTF {VnTF}
 
 \bool_new:N \l__avm_in_first_column
 
@@ -131,6 +162,19 @@
   {
     \bool_set_false:N \l__avm_in_first_column
     \normalfont\__avm_font_value:
+  }
+
+
+\tl_const:Nn \l__avm_italics_tl {it}
+
+\cs_new:Nn \__avm_deinit_first_column:
+  {
+    \tl_if_eq:NNT \f@shape \l__avm_italics_tl {\/}
+  }
+
+\cs_new:Nn \__avm_deinit_second_column:
+  {
+    \tl_if_eq:NNT \f@shape \l__avm_italics_tl {\/}
   }
 
 \cs_new:Nn \__avm_kern_unused_columns:
@@ -149,6 +193,7 @@
   {
     \begin{tabular}{@{}
                     >{\__avm_init_first_column:}l
+                    <{\__avm_deinit_first_column:}
                     >{\__avm_init_second_column:}l
                     <{\__avm_deinit_second_column:}
                     @{}}
@@ -177,6 +222,37 @@
   {
     \__avm_parse_output:nw
       {  \__avm_module_end:\right\rbrack\c_math_toggle_token\__avm_extra_skip:  }
+  }
+\bool_if:NTF \l__avm_lfg_bool
+  {
+    \cs_new:Nn \__avm_replace_llbrack:
+      {
+        \__avm_parse_output:nw
+          {  \c_math_toggle_token\left\lBrack\__avm_module_begin:  }
+      }
+    \cs_new:Nn \__avm_replace_rrbrack:
+      {
+        \__avm_parse_output:nw
+          {  \__avm_module_end:\right\rBrack\c_math_toggle_token\__avm_extra_skip:  }
+      }
+  }
+  {
+    \cs_new:Nn \__avm_replace_llbrack:
+      {
+        \__avm_parse_output:nw
+          {
+            \msg_warning:nn {avm}{lfgoptionmissing}
+            \c_math_toggle_token\left.\__avm_module_begin:
+          }
+      }
+    \cs_new:Nn \__avm_replace_rrbrack:
+      {
+        \__avm_parse_output:nw
+          {
+            \msg_warning:nn {avm}{lfgoptionmissing}
+            \__avm_module_end:\right.\c_math_toggle_token\__avm_extra_skip:
+          }
+      }
   }
 \cs_new:Nn \__avm_replace_lparen:
   {
@@ -235,9 +311,9 @@
 \cs_new:Nn \__avm_initialise_document_commands:
   {
     \def\arraystretch{\tl_use:N \l__avm_arraystretch_tl}
-    \tabcolsep=\l__avm_tabcolsep_dim
-    \delimiterfactor=\l__avm_delimfactor_int
-    \delimitershortfall=\l__avm_delimshortfall_dim
+    \dim_set_eq:NN \tabcolsep \l__avm_tabcolsep_dim
+    \int_set_eq:NN \delimiterfactor \l__avm_delimfactor_int
+    \dim_set_eq:NN \delimitershortfall \l__avm_delimshortfall_dim
     \cs_if_exist:NTF \tag
       {  \RenewDocumentCommand{\tag}{m}{ \__avm_controls_tag:n {##1} } }
       {  \NewDocumentCommand{\tag}{m}{   \__avm_controls_tag:n {##1} } }
@@ -291,6 +367,41 @@
         { \__avm_controls_punk:nn {##1}{##2} } }
       {  \NewDocumentCommand{\punk}{m m}
         {  \__avm_controls_punk:nn {##1}{##2} } }
+    \DeclareDocumentCommand{\id}{m m}
+      {%
+        \hcoffin_set:Nw \l_tmpa_coffin
+          $\vcenter\bgroup\let\\\cr
+          \baselineskip\fontdimen10 \scriptfont2
+          \advance\baselineskip\fontdimen12 \scriptfont2
+          \lineskip3\fontdimen8 \scriptfont3
+          \lineskiplimit\lineskip
+          \ialign\bgroup
+          $\m@th\scriptstyle####$\hfil\crcr
+          ##1
+          \crcr\egroup\egroup$
+          \hcoffin_set_end:
+        \hcoffin_set:Nw \l_tmpb_coffin ##2 \hcoffin_set_end:
+        \coffin_join:NnnNnnnn \l_tmpb_coffin {l}{H}
+          \l_tmpa_coffin {r}{b}{1ex}{ -\coffin_dp:N \l_tmpb_coffin }
+        \coffin_typeset:Nnnnn \l_tmpb_coffin {l}{vc}{0pt}{0pt}
+      }
+    \bool_if:NT \l__avm_tikz_bool
+      {
+        \tl_if_eq:VnTF \l__avm_picture_name_tl {automatic}
+          {
+            \stepcounter{l__avm_picture_counter}
+            \tl_set:Nn \l__avm_picture_name_prefix_tl
+              {avm-\tl_use:N \thel__avm_picture_counter}
+          }
+          {
+            \tl_set_eq:NN \l__avm_picture_name_prefix_tl \l__avm_picture_name_tl
+          }
+        \DeclareDocumentCommand{\node}{m m}
+          {
+            \tikz [remember~picture,baseline=(\l__avm_picture_name_prefix_tl-##1.base)]
+            \node [inner~sep=0pt] (\l__avm_picture_name_prefix_tl-##1) {\strut ##2};
+          }
+      }
   }
 
 \cs_new_protected:Npn \__avm_wrap:n #1
@@ -356,6 +467,8 @@
         { \shuffle }{ \__avm_replace_circle: }
         { [  }{ \__avm_replace_lbrack: }
         { ]  }{ \__avm_replace_rbrack: }
+        { \[ }{ \__avm_replace_llbrack: }
+        { \] }{ \__avm_replace_rrbrack: }
         { (  }{ \__avm_replace_lparen: }
         { )  }{ \__avm_replace_rparen: }
         { \{ }{ \__avm_replace_lbrace: }

@@ -37,7 +37,7 @@ by work on Government \& Binding in the beginning, it turned out that reference 
 alone is not sufficient and that reference to the syntactic level of argument structure is
 required. Since the argument structure is tightly related to the thematic structure, HPSG's Binding
 Theory is a mix of aspects of thematic binding theories and entirely configurational theories. This
-discusses both the advantages of this new view and open issues.
+chapter discusses both the advantages of this new view and open issues.
 }
 
 
@@ -45,7 +45,10 @@ discusses both the advantages of this new view and open issues.
 \maketitle
 \label{chap-binding}
 
+\newtoggle{toolong}\togglefalse{toolong}
 
+
+%\if0
 \section{Introduction} 
 
 Binding Theories deal with questions of \isi{coreference} and \isi{agreement} of coreferring
@@ -73,16 +76,18 @@ $k$). Coreference of \emph{himself} and \emph{Mary} is ruled out in (\mex{0}b), 
 has an incompatible gender.
 
 At first look it may seem possible to account for the binding relations of reflexives on the
-semantic level: it seems to be the case that reflexives and their antecedents have to be semantic
+semantic level \citep{BP80a}: it seems to be the case that reflexives and their antecedents have to be semantic
 arguments of the same predicate.\footnote{%
-  See \citet{Riezler95a} for a way to formalize this in HPSG.
+  See \citet{Riezler95a} for a way to formalize this in HPSG. See \citew{RR93a} for an approach to
+  Binding mixing constraints on the semantic and syntactic level.% p. 678
 } For examples like (\mex{0}), this makes the right predictions,
 since the reflexive is the undergoer of \emph{likes} and the only possible antecedent is the actor of
 \emph{likes}. However, there are raising predicates like \emph{believe} not assigning semantic roles
 to their objects but nevertheless allowing coreference of the raised element and the subject of
 \emph{believe}:\footnote{%
  See \citealp[Chapter~3.5]{ps2} and \crossrefchapteralp{control-raising} on raising. The example
- (\mex{1}) is taken from \citew[\page 128]{MS98a}.%
+ (\mex{1}) is taken from \citew[\page 128]{MS98a}. See also \citew[\page 679]{RR93a} on Binding
+ Theory and raising.%
 }
 \ea
 John$_i$ believes himself$_i$ to be a descendant of Beethoven.
@@ -95,15 +100,28 @@ The example is due to \citet[\page 137]{ps2}. See the sources cited above for fu
 Kim believed there to be some misunderstanding about these issues.
 \z
 So, it really is the clause or -- to be more precise -- some syntactically defined local domain in
-which reflexive pronouns have to be bound.\footnote{%
+which reflexive pronouns have to be bound provided an appropriate antecedent is available.\footnote{%
 Another argument against a binding theory relying exclusively on semantics is different binding
 behavior in active and \isi{passive} sentences: since the semantic contribution is the same for active
 and passive sentences, the difference in binding options cannot be explained in semantics-based
-approaches. For more on passive see Section~\ref{binding-sec-passive}. For a general discussion of
+approaches. 
+%For more on passive see Section~\ref{binding-sec-passive}. 
+For a general discussion of
 thematic approaches to binding see \citew[Section~8]{PS92a} and \citew[Section~6.8.2]{ps2}.
 }
+In cases like (\mex{1}), no antecedent is available within the clause and in such situations a
+reflexive may be bound by an element outside the clause.
+\ea
+John$_i$ was going to get even with Mary. That picture of himself$_i$
+in the paper would really annoy her, as would the other stunts he had planned.\footnote{
+        \citew[\page 270]{ps2}.
+}
+\z
+Reflexives without an element that could function as a binder in a certain local domain are regarded
+as exempt from Binding Theory. Section~\ref{sec-excempt-anaphors} deals with so-called exempt anaphors in more detail.
 
-Personal pronouns can not refer to an antecedent within the same clause:
+Personal pronouns can not refer to an antecedent within the same domain of locality:
+% Clause is too strong: \emph{Mary's mother likes her.}
 \eal
 \ex[]{
 Peter$_i$ thinks that Mary$_j$ likes her$_{*i/*j/k}$.
@@ -170,21 +188,23 @@ conflicting definitions of c-command. The English version follows \citet[\page 1
 definition excludes c-command between sisters: ``Node X c-commands node Y if a sister of X dominates Y.''
 }
 
-To take an example, the NP node of
-\emph{John} c-commands all other nodes dominated by S. The V of \emph{thinks} c-commands everything
-within the CP including the CP node, the C of \emph{that} c-commands all nodes in S including also S
-and so on. The CP c-commands the \emph{think}-V, and the \emph{likes him}-VP c-commands the
-\emph{Paul}-NP. Per definition, a Y binds Z just in case Y and Z are coindexed and Y c-commands
-Z. One precondition for being coindexed (in English) is that the person, number, and gender features
-of the involved items are compatible.
+To take an example, the NP node of \emph{John} c-commands all other nodes dominated by S. The V of
+\emph{thinks} c-commands everything within the CP including the CP node, the C of \emph{that}
+c-commands all nodes in S including also S and so on. The CP c-commands the \emph{think}-V, and the
+\emph{likes him}-VP c-commands the \emph{Paul}-NP. Per definition, a Y binds Z just in case Y and Z
+are coindexed and Y c-commands Z. One precondition for being coindexed (in English) is that the
+person, number, and gender features of the involved items are compatible. Coindexing can be
+established with all kinds of nominal expressions including quantified ones and negated NPs like
+\emph{no animal} (see \citealp{BP81a}).
 
 Now, the goal is to find restrictions that ensure that reflexives are bound locally, personal
 pronouns are not bound locally and that referential expressions like proper names and full NPs are
 not bound by other expressions (anaphors, pronouns or fully referential expressions). The conditions that were developed for
 GB's Binding Theory are complex. They also account for the binding of traces that are the result of
-moving elements by transformations. While it is elegant to subsume filler-gap relations (and other
-relations between moved items and their traces) under a general Binding Theory, proponents of HPSG think that coreferential semantic indices and
-filler-gap
+moving elements by transformations (\citealp{Chomsky81a}, but given up in
+\citealp{Chomsky86a}). While it is elegant to subsume filler-gap relations (and other relations
+between moved items and their traces) under a general Binding Theory, proponents of HPSG think that
+coindexed semantic indices and filler-gap
 %% \inlinetodostefan{Bob:
 %% For GB binding theiry was concerned not just with A'-movement traces but also with A-movement traces, hence not just with filler-gap relations.  (1) and (2) were assumed to be bad for the sae reason as (3)
 %% %
@@ -195,8 +215,9 @@ filler-gap
 %% And of course all reflexives and reciprocals were assumed to be subject to binding theory, a position rejected in HPSG.
 %% }
 dependencies are crucially different.\footnote{\label{binding-fn-percolation-of-indices}%
-The treatment of relative and interrogative pronouns is special, but they have a special
-distribution that has to be accounted for. Relative clauses are the topic of Section~\ref{binding-sec-relative-pronouns}.
+The HPSG treatment of relative and interrogative pronouns is special, but they have a special
+distribution that has to be accounted for. See \crossrefchapterw{relative-clauses} on relative
+clauses in HPSG. %Relative clauses are the topic of Section~\ref{binding-sec-relative-pronouns}.
 \citet[Section~7.2.3]{Bredenkamp96a} was an early suggestion to model binding relations of personal pronouns and anaphors by
 the same means as filler-gap dependencies (see \crossrefchaptert{udc} for an overview of the
 mechanisms for dealing with unbounded dependencies\is{unbounded dependency}). Bredenkamp did not work out his proposal in detail (see
@@ -208,7 +229,7 @@ arguments of finite verbs are selected via one list: \comps (see \crossrefchapte
 subject of non-finite verbs in control\is{control} constructions is usually not realized and hence there is no
 subj-head schema that could take care of binding off the respective nonlocal dependency. Bredenkamp
 did not formulate disjointness constraints, but \citet{Hellan2005a} developed a way to do this. Like
-Bredenkamp's approach Hellan's approach has problems with binding by implicit subjects in control
+Bredenkamp's approach Hellan's approach has problems with binding by implicit subjects in \isi{control}
 constructions since his schemata for combining the subject with a VP containing a reflexive are not
 applicable because of the lack of an overt subject (see also \crossrefchapteralp{control-raising} on
 the treatment of control in HPSG). The only way out of this dilemma seems to be to assume a unary
@@ -218,11 +239,11 @@ projection\is{projection!unary}), in our opinion an unwanted consequence of this
 
 Note that percolating binding information seems to be the only way
 to account for binding data for HPSG variants assuming that linguistic objects do not have internal
-structure, \eg \sbcg. See \crossrefchaptert[Section~\ref{sec-sbcg}]{cxg} for discussion.
+structure, \eg \sbcg. See \crossrefchaptert[Section~\ref{cxg:sec-sbcg}]{cxg} for discussion.
 
 A variant of Binding Theory that uses the HPSG mechanism for nonlocal dependencies in an innovative
 way is discussed in Section~\ref{sec-bt-nonlocal}.%
-} The places of occurrence of gaps (if they are assumed at all)
+} The places of occurrence of traces (if they are assumed at all)
 is restricted by other components of the theory. For an overview of the treatment of nonlocal
 dependencies in HPSG see \crossrefchapterw{udc}.
 
@@ -250,7 +271,8 @@ discussion includes a discussion of Principle~C in its various variants.
 
 As was noted above, English pronouns and reflexives have to agree with their antecedents in
 gender. In addition there is agreement in person and number. This is modeled by assuming that
-referential units come with a referential index in their semantic representation. The following makeup for the semantic contribution of nominal objects is assumed:
+referential units come with a referential index in their semantic representation. (On referential
+indices and coindexation vs.\ coreference see \citealp[Section~6.3]{BP80a}.) The following makeup for the semantic contribution of nominal objects is assumed:
 \eas
 Representation of semantic information contributed by nominal objects adapted from \citet[\page
   248]{ps2}:\\
@@ -289,21 +311,22 @@ are devided into reflexives (\type{refl}) and reciprocals (\type{recp}).
 
 HPSG's Binding Theory differs from GB's Binding Theory in referring less to tree structures but
 rather to the notion of obliqueness of arguments of a head. The arguments of a head are represented
-in a list called the argument structure list. The list is the value of the feature \argst. The
+in a list called the argument structure list \crossrefchapterp{arg-st}. The list is the value of the feature \argst. The
 \argst elements are descriptions of arguments of a head containing syntactic and semantic properties
 of the selected arguments but not their daughters. So they are not complete signs but \type{synsem}
 objects. See \crossrefchaptert{properties} for more on the general setup of HPSG
 theories. The list elements are ordered with respect to their obliqueness, the least oblique element
-being the first element:\footnote{
+being the first element \citew[\page 266]{PS92a}:\footnote{
   While \citet[\page 120]{ps} use \citegen[]{KC77a} version of the Obliqueness Hierarchy in (i), they avoid the
-  terms \emph{direct object} and \emph{indirect object} in \citew[\page 266, 280]{PS92a} and \citew{ps2}.
+  terms \emph{direct object} and \emph{indirect object} in \citew[\page 266, 280]{PS92a} and
+  \citew[\page 24]{ps2}.
 \ea
 \label{def-obliqueness-hierarchy-ps87}
 \oneline{%
 \is{object!indirect}\is{object!direct}\is{subject}%
 \begin{tabular}[t]{@{}l@{\hspace{1ex}}l@{\hspace{1ex}}l@{\hspace{1ex}}l@{\hspace{1ex}}l@{\hspace{1ex}}l@{}}
 SUBJECT $>$ & DIRECT $>$ & INDIRECT $>$ & OBLIQUES $>$ & GENITIVES $>$  & OBJECTS OF\\
-             & OBJECT      & OBJECT        &               &                 & COMPARISON 
+            & OBJECT     & OBJECT       &              &                & COMPARISON 
 \end{tabular}%
 }
 \zlast
@@ -318,24 +341,25 @@ SUBJECT $>$ & PRIMARY $>$ & SECONDARY    $>$ & OTHER COMPLEMENTS\\
 \end{tabular}%
 %}
 \z
-This order was suggested by \citet{KC77a}. It corresponds to the level of syntactic activity of grammatical functions\is{grammatical function}. Elements
+This order was suggested by \citet[\page 66]{KC77a}. It corresponds to the level of syntactic activity of grammatical functions\is{grammatical function}. Elements
 higher in this hierarchy are less oblique and can participate more easily in syntactic constructions, like for instance,
 reductions in coordinated structures\is{coordination} \citep[\page 15]{Klein85},
 topic drop\is{topic drop}\is{Vorfeldellipse@{\it Vorfeldellipse}} \citep{Fries88b},
 non-matching free relative clauses\is{relative clause!free} 
 \parencites[Section~3]{Bausewein90}[\page 195]{Pittner95b}[\page 60--62]{Mueller99b}, 
-passive\is{passive} and relativization\is{relativization} \citep{KC77a}, and
+passive\is{passive} and relativization\is{relativization} \citep[\page 96, 68]{KC77a}, and
 depictive predicates\is{predicate!depictive secondary} \citep[Section~2]{Mueller2008a}.
-In addition, \citet{Pullum77a} argued that this hierarchy plays a role in constituent order\is{scrambling}\is{serialization} (but see Section~\ref{sec-argst-order}.)
+In addition, \citet{Pullum77a} and \citet[\page 174]{ps} argued that this hierarchy plays a role in
+constituent order\is{scrambling}\is{serialization}.
+% (but see Section~\ref{sec-argst-order}.)
 And, of course, it was claimed to play an important role in Binding Theory\is{Binding Theory} 
 (Grewendorf, \citeyear[\page 176]{Grewendorf83a}; \citeyear[\page 160]{Grewendorf85a}; \citeyear[\page 60]{Grewendorf88a}; \citealp[Chapter~6]{ps2}).
 
-The \argstl plays an important role for linking syntax to semantics. For example, the index of the
+The \argstl plays an important role for linking syntax to semantics \crossrefchapterp{arg-st}. For example, the index of the
 subject and the object of the verb \emph{like} are linked to the respective semantic roles in the
 representation of the verb:\footnote{%
-  NP\ind{1} is an abbreviation for a feature description of a nominal phrase with the index \ibox{1}
-  (see \crossrefchaptert{properties}). The feature description in (\mex{1}) is also an
-  abbreviation. Path information leading to \cont is omitted since it is irrelevant for the present discussion.%
+  NP\ind{1} is an abbreviation for a feature description of a nominal phrase with the index \ibox{1}. The feature description in (\mex{1}) is also an
+  abbreviation. Path information leading to \cont is omitted, since it is irrelevant for the present discussion.%
 }
 \eas
 \emph{like}:\\
@@ -350,7 +374,7 @@ cont & \ms{ ind  & event\\
 }
 \zs 
 A lot more can be said about linking in HPSG and the interested reader is referred to
-\crossrefchaptert{arg-st} for this.
+\citew{Wechsler95a-u}, \citew{Davis2001a-u}, \citew{DK2000b-u}, and \crossrefchapterw{arg-st} for this.
 
 After these introductory remarks, we can now turn to the details of HPSG's Binding Theory:
 Figure~\ref{fig-binding-argst} shows a version of Figure~\ref{fig-binding-gb} including \argst
@@ -374,12 +398,13 @@ sm edges without translation
 \caption{\label{fig-binding-argst}Tree configuration of examples for binding with \argst lists}
 \end{figure}
 The main points of HPSG's Binding Theory can be discussed with respect to this simple figure:
-anaphors have to be bound locally. The definition of the domain of locality is rather simple. One
+(non-exempt) anaphors have to be bound locally. The definition of the domain of locality is rather simple. One
 does not have to refer to tree configurations, since all arguments of a head are represented locally
 in a list. Simplifying a bit, reflexives and reciprocals must be bound to elements preceding them in
-the \argstl and a pronoun like \emph{him} must not be bound by a preceding element in the same \argstl.
+the \argstl (but see Section~\ref{sec-excempt-anaphors} for so-called exempt anaphors) and a pronoun like
+\emph{him} must not be bound by a preceding element in the same \argstl.
 
-To be able to specify the conditions on binding of anaphors, pronouns and non-pronouns some further
+To be able to specify the conditions on binding of anaphors, pronouns and non-pronouns, some further
 definitions are necessary. The following definitions are definitions of local \emph{o-command}, \emph{o-command}
 and \emph{o-bind}. The terms are reminiscent of \emph{c-command} and so on but we have an ``o''
 rather than a ``c'' here, which is supposed to indicate the important role of the obliqueness
@@ -407,16 +432,20 @@ is not (locally) o-bound, then it is said to be (\emph{locally}) \emph{o"=free}\
 (\ref{def-local-o-command-initial-version}) says that an \argst element locally o-commands any other \argst element
 further to the right of it. The condition of non-identity of the two elements under consideration in
 (\ref{def-local-o-command-initial-version}) and (\ref{def-o-command}) is necessary to deal with cases of \isi{raising}, in
-which one element may appear in various different \argstls. See Section~\ref{sec-binding-raising} below
-and \crossrefchaptert{control-raising} for discussion of raising in HPSG. The condition that Y has
+which one element may appear in various different \argstls. It is also needed to rule out unwanted
+command relations in the case of nonlocal dependencies since the local value of a filler is shared
+with its gap. See %Section~\ref{sec-binding-raising} below and 
+\crossrefchaptert{control-raising} for discussion of raising in HPSG and \crossrefchapterw{udc} on
+unbounded dependencies in HPSG. The condition that Y has
 to be referential excludes expletive pronouns\is{pronoun!expletive} like \emph{it} in \emph{it rains} from entering
 o-command relations. Such expletives are part of \argst and valence lists, but they are entirely
 irrelevant for Binding Theory, which is the reason for their exclusion in the
 definition. \citet[\page 258]{ps2} discuss the following examples going back to observations by
-\citet{FH83a-u} and \citet[\page 95]{Kuno87a-u}:\todostefan{check pages}
+\citet[\page 65]{FH83a-u} and \citet[\page 95]{Kuno87a-u}:
 
 \eal
-\ex They$_i$ made sure that it was clear to each other$_i$ that this need to be done.
+\ex They$_i$ made sure that it was clear to each other$_i$ that this need to be done immediately.
+% ps2 does not have "immediately", but Kuno has.
 \ex They$_i$ made sure that it wouldn't bother each other$_i$ to invite their respective friends to dinner.
 \zl
 According to \citet[Section~3.6]{ps2}, the \emph{it} is an expletive. They assume that extrapositions with
@@ -436,7 +465,7 @@ and gender information (in English), so that \emph{Mary} can bind \emph{herself}
 \emph{themselves} or \emph{himself}. With these definitions, the binding principles can now be stated
 as follows:
 
-\begin{principle-break}[HPSG Binding Theory]
+\begin{principle-break}[HPSG Binding Theory (preliminary)]
 \begin{description}
 \item [\isi{Principle A}] A locally o-commanded anaphor must be locally o-bound.
 \item [\isi{Principle B}] A personal pronoun must be locally o-free.
@@ -453,7 +482,7 @@ Mary likes himself.
 Since both \emph{Mary} and \emph{himself} are members of the \argstl of \emph{likes}, there is an NP
 that locally o-commands \emph{himself}. Therefore there should be a local o-binder. But since the
 indices are incompatible because of incompatible gender values, \emph{Mary} cannot o-bind
-\emph{himself}, \emph{himslef} is locally o-free and hence in conflict to Principle A.
+\emph{himself}, \emph{himself} is locally o-free and hence in conflict to Principle A.
 
 Similarly, the binding in (\mex{1}) is excluded, since \emph{Mary} locally o-binds the pronoun \emph{her}
 and hence Principle B is violated.
@@ -511,10 +540,14 @@ John$_i$ depends [on him$_{*i}$].
 Mary talked [to John$_i$] [about himself$_i$].
 }
 \zl
-As noted by \citet[\page 246]{ps2}, the second example is a problem for the GB Binding Theory since
-\emph{John} is inside the PP and does not c-command \emph{himself}.
-\inlinetodostefan{Bob: It is not obvious for GB why this is not like the following:
-Mary showed John's picture to himself.}
+As noted by \citet[\page 137, Section~6.5.6]{BP80a}, \citet[\page 226]{Chomsky81a}, and \citet[\page
+246]{ps2}, examples like the second one are a problem for the GB Binding Theory since \emph{John} is
+inside the PP and does not c-command \emph{himself}. 
+% \inlinetodostefan{Bob: It is not obvious for GB why this is not like the following:
+% Mary showed John's picture to himself.\\
+% Stefan: I do not understand this comment. Do you think \emph{John} is embedded under \emph{'s} and hence
+% this is also not c-commanding? So this means Pollard \& Sag were wrong here? If so, I would remove
+% the passage. Or do you say, there is another problem for GB's BT? I also added the reference to \citet{BP80a}. }
 \begin{figure}
 \begin{forest}
 sm edges without translation
@@ -541,14 +574,54 @@ has the same index as \emph{himself}. The \argstl of \emph{talked} is shown in (
 \z
 The Binding Theory applies as it would apply to ditransitive verbs. Since the first PP is less
 oblique than the second one, it can bind an anaphor in the second one. The same is true for the
-example in (\mex{-1}a): since the subject is less oblique than the PP object it locally o-commands
-it and even though the pronoun \emph{him} is embedded in a PP and not a direct argument of the verb
-the pronoun cannot be bound by \emph{him}. An anaphor would be possible within the PP object though.
+example in (\mex{-1}a): since the subject is less oblique than the PP object, it locally o-commands
+the PP and even though the pronoun \emph{him} is embedded in a PP and not a direct argument of the verb,
+the pronoun cannot be bound by \emph{John}. An anaphor would be possible within the PP object though.
 Of course the subject NP can bind NPs within both PPs: both \emph{to herself} and \emph{about
   herself} would be possible as well.
 
+A fourth binding principle is needed for languages that have so-called long-distance
+reflexives\label{page-long-distance-reflexives} as for example \ili{Mandarin Chinese} and \ili{Portuguese}
+\citep*{XPS94a-u,PX98a,BM99a}. In such languages, there are pronouns that may be bound locally or
+non-locally. Such pronouns are called Z-pronouns and the binding principle responsible for them is
+Principle~Z \citep[\page 171]{BM99a}. Adding Principle~Z to the preliminary version of HPSG's
+Binding Theory we get:
+\begin{principle-break}[HPSG Binding Theory]
+\begin{description}
+\item [\isi{Principle A}] A locally o-commanded anaphor must be locally o-bound.
+\item [\isi{Principle B}] A personal pronoun must be locally o-free.
+\item [\isi{Principle C}] A nonpronoun must be o-free.
+\item [\isi{Principle Z}] An o-commanded anaphor must be o-bound.
+\end{description}
+\end{principle-break}
+Principle~Z is like Principle~A but with the requirement that anaphors must be o-bound rather than
+locally o-bound. The requirement to be o-bound includes the option of being locally o-bound but
+nonlocal o-binding is possible as well. 
+
+When the symmetries between the various principles are further explored, the intriguing observation
+that emerges with respect to the empirical generalisations in the principles above is that they
+instantiate a square of logical oppositions\is{square of opposition} shown in
+Figure~\ref{bindingSquareOpposition} \parencites[Section~11.4]{BM99a}[\page 227]{Branco2006a-u}.
+\begin{figure}
+\centerline{\includegraphics[width=18pc]{figures/bindingSquareOpposition.pdf}}
+\caption{The Binding square of opposition}\label{bindingSquareOpposition}
+\end{figure}
+\is{square of duality}
+\inlinetodoobl{redraw figure}
+There are two pairs of \emph{contradictory} constraints, which are formed
+by the two diagonals, (Principles A, B) and (C, Z). One pair of \emph{contrary}
+constraints (they can be both false but cannot be both true) is given
+by the upper horizontal edge (A, C).  One pair of \emph{compatible}
+constraints (they can be both true but cannot be both false) is given
+by the lower horizontal edge (Z, B). Finally two pairs of
+\emph{subcontrary} constraints (the first coordinate implies the second,
+but not vice-versa) are obtained by the vertical edges, (A, Z) and (C, B).
+
+
 
 \section{Reconstruction}
+
+\inlinetodoopt{Drop this section?}
 
 Examples like (\mex{1}) are covered by HPSG's Binding Theory since \emph{himself} is fronted via
 HPSG's nonlocal mechanism (see \crossrefchapteralp{udc}) and there is a connection between the
@@ -566,7 +639,7 @@ rather then by deriving one structure from another one as is common in Transform
 there is no way to reconstruct some phrase with all its internal structure into the position of the
 trace. Since traces do not have daughters, $\__j$ in (\mex{1}a) has the same local properties (part
 of speech, case, referential index) as \emph{which of Claire's$_i$ friends} without having its internal structure.\footnote{
-  Some of the more recent theories of nonlocal dependencies even do without traces. See
+  Some of the more recent theories of nonlocal dependencies even do without traces \citep*{BMS2001a}. See
   \crossrefchaptert{udc} for details.
 }
 \eal
@@ -577,7 +650,10 @@ of speech, case, referential index) as \emph{which of Claire's$_i$ friends} with
 Since extracted elements are not reconstructed into the position where they would be usually
 located, (\mex{0}a) is not related to (\mex{1}):
 \inlinetodostefan{Bob: Is the important point that filler and gap only share a local object and not a synsem object so that there is no sense in which the filler occupies the position of the gap?
-Presumably things are different in SCBG in which a sign is shared in an unbounded dependency.}
+Presumably things are different in SCBG in which a sign is shared in an unbounded dependency.\\
+Stefan: The point is that traces do not have daughters. Therefore the o-command relation does not
+reach inside of the trace. There is just nothing below the trace. It is a terminal symbol without daughters. 
+}
 \ea
 We should let her$_i$ invite which of Claire's$_i$ friends to the party.
 \z
@@ -602,7 +678,7 @@ the account of (\ref{ex-which-of-clairs-friends}) would be lost.
 
 \section{A totally non-configurational binding theory}
 
-The initial definition of o-command contains the notion of domination and hence makes reference to
+The initial definition of o-command contains the notion of dominance and hence makes reference to
 tree structures. \citet[\page 279]{ps2} pointed out that the binding of \emph{John} by \emph{he} in
 (\mex{1}a) is correctly ruled out since \emph{he} o-commands the trace of \emph{John} and hence
 Principle~C is violated. But since they follow GPSG in assuming that English has no subject traces
@@ -621,11 +697,13 @@ notion of dominance.
 \subsection{Local o-command including subjects of embedded verbs}
 
 \citet[Section~6.8.3]{ps2} revise the definition of local o-command in a way that
-includes the subject of embedded verb phrases in order to combine \isi{control} and binding
-theory.\footnote{%
-  See also \citet{Branco2007a} for arguments that subjects of controlled verbs should be treated as
-  reflexives to be bound in the domain of the control verb.%
-} 
+includes the subject of embedded verb phrases in order to combine Control\is{control} and Binding
+Theory.
+% control is not the topic of this paper
+% \footnote{%
+%   See also \citet{Branco2007a} for arguments that subjects of controlled verbs should be treated as
+%   reflexives to be bound in the domain of the control verb.%
+% } 
 \ea
 Let Y and Z be \type{synsem} objects with distinct \localvs, Y referential. Then Y locally
 o-commands Z just in case either:
@@ -649,7 +727,8 @@ o-commands Z just in case either:
 \item Y locally o-commands some X having Z as its \subjv.
 \end{enumerate}
 \z
-\citet[\page 303]{ps2} assume the following valence for a subject control verb like \emph{promise}:
+\citet[\page 303]{ps2} assume the following valence for a subject control verb like \emph{promise}
+(\subcat is replaced by \subj):
 \ea
 \sliste{ NP$_i$(, NP), VP[\subj \sliste{ NP:\type{refl}$_i$ } ] }
 \z
@@ -676,7 +755,7 @@ Kim$_i$ was promised to leave by Sandy$_i$/Kim$_i$.
 John$_i$ was promised to leave by him$_i$.
 }
 \ex[?*]{
-John$_i$ was promised to leave by himslef$_i$.
+John$_i$ was promised to leave by himself$_i$.
 }
 \zl
 
@@ -688,8 +767,8 @@ strange:
 \glt Intended: `Somebody promised Klaus to leave early.'
 \z 
 The sentence is bad if the meaning is that somebody promises that he or she will leave early. It
-improves if Klaus will leave early together with the one who made the promise. And, as \citet[\page 129]{Mueller2002b}
-showed passivization of subject control verbs is possible in German:
+improves if Klaus will leave early together with the one who made the promise. And indeed, as \citet[\page 129]{Mueller2002b}
+showed, passivization of subject control verbs is possible in German:
 \eal
 % Es sei aber von beiden Seiten für nächstes Jahr versprochen worden, den Kinderfasching im RNZ ganz neu und vielleicht auch schöner
 % und stilvoller zu feiern. 
@@ -774,10 +853,8 @@ Let Y and Z be \type{synsem} objects with distinct \localvs, Y referential. Then
 \item Y o-commands some X that is a projection of Z (\ie the \headvs of X and Z are token-identical).
 \end{enumerate}
 \z
-This definition of course has the problem pointed out in the previous subsection. 
-\inlinetodostefan{
-Check whether there are examples in which one needs both an upstairs and a downstairs \argst.
-}
+This definition of course has the problem pointed out in the previous subsection. The o-command
+relation can be explained with respect to Figure~\ref{fig-explanation-o-command}.
 %While it would have been sufficient to require that Z is not raised in the definition of local o-command this seems
 %to be too strong in the general definition of o-command.
 \begin{figure}
@@ -795,7 +872,7 @@ sm edges without translation
           [J\feattab{\head \ibox{3},\\ \argst \sliste{ H, K }} [likes]]
           [K [him]]]]]]]
 \end{forest}
-\caption{Tree for explanation of the o-command relation}
+\caption{Tree for explanation of the o-command relation}\label{fig-explanation-o-command}
 \end{figure}
 
 According to the definition, B o-commands E by clause i. B o-commands F, since it o-commands E and E
@@ -837,11 +914,11 @@ See \crossrefchapterw[Section~\ref{sec:rc-pollard--sag}]{relative-clauses} and
 \citew{Mueller99b} on relative clauses. \citet{Sag97a} suggests an approach to relative clauses in
 which a special schema is assumed that combines the modified noun with a verbal projection. This
 approach does not have the problem mentioned here. However, prenominal adjuncts would remain
-problematic as \citegen{Mueller99a} example in (i) shows:
+problematic as the following example (based on \citew[\page 412]{Mueller99a}) shows:
 \ea
-\gll Er$_{*i}$ kennt die Karl$_i$ betrügende Frau.\\
-     he knows the Karl betraying woman\\
-\glt `He knows the woman betraying Karl.'
+\gll Sie$_{*i}$ kennt das Kim$_i$ begeisternde Buch.\\
+     she        knows the Kim     enthusing    book\\
+\glt `She knows the book enthusing Kim.'
 \z
 The adjectival participle behaves like a normal adjectival modifier. For Principle~C to make the
 right predictions, there should be a command relation between \emph{er} and the parts of the
@@ -853,23 +930,23 @@ There are two possible solutions that come to mind. The first one is pretty ad
 hoc: one can assume two different features for different purposes. There could be the normal index
 for establishing coindexation between heads and adjuncts and heads and arguments and there could be
 a further index for binding. Adjectives would then have a referential index for establishing
-coindexation with nouns and an additional index that is a state, which would be irrelevant for the
+coindexation with nouns and an additional index referring to a state, which would be irrelevant for the
 binding principles.
 % Way out: stipulate two sets of indices one for binding one for linking the semantics of
 % heads/adjuncts/arguments ...
 
 The second solution to the adjunct problem might be seen in defining o"=command with respect to the \depsl. The \depsl is a list
 of dependents that is the concatenation of the \argstl and a list of adjuncts that are introduced on
-this list \citep*{BMS2001a}. Binding would be specified with respect to \argst and dominance with
+this list \citep*[\page 12]{BMS2001a}. Binding would be specified with respect to \argst and dominance with
 respect to \deps (which includes everything on \argst). The lexical introduction of adjuncts has
-been criticized because of scope issues by \citet{LH2006a} and there are also problems related to
+been criticized because of scope issues by \citet[\page 153]{LH2006a} and there are also problems related to
 binding: \citet[\page 490]{HL96a} pointed out that there are differences when it comes to the
 interpretation of pronouns in examples like (\mex{1}a,b) and (\mex{1}c,d):
 \eal
 \ex They$_i$ went into the city without anyone noticing the twins$_{*i/j}$.
 \ex They$_i$ went into the city without the twins$_{*i/j}$ being noticed.
 \ex You can't say anything to them$_i$ without the twins$_{i/j}$ being offended.
-\ex You can't say anything about them, without Terry criticizing the twins$_{i/j}$ mercilessly.
+\ex You can't say anything about them$_i$ without Terry criticizing the twins$_{i/j}$ mercilessly.
 \zl
 While the subject pronoun cannot be coreferential with \emph{the twins} inside the adjunct, the object pronoun in
 (\mex{0}c,d) can. If we just register adjuncts on the \depsl, we are unable to refer to their
@@ -878,7 +955,11 @@ position in the tree and hence we cannot express any statement needed to cover t
 basically determines the trees it can appear in in English: the first element appears to the left of
 the verb as the subject and all other elements to the right of the verb as complements. However,
 this is just an artifact of the rather strict syntactic system of English, this is not the case for
-languages with freer constituent order like German, which causes problems to be discussed below (see Section~\ref{bt-sec-obliqueness-and-constituent-order}).
+languages with freer constituent order like German, which causes problems for Binding Theories not
+taking the linearization of elements into account (see \citealp[\page 140]{Grewendorf85a} and
+\citealp[\page 12]{Riezler95a} for crucial examples).
+%to be discussed below 
+%(see Section~\ref{bt-sec-obliqueness-and-constituent-order}).
 
 There is another issue related to the totally non-configurational version of the BT: in 1994, HPSG was strictly
 head-driven. There were rather few schemata and most of them were headed. Since then more and more
@@ -888,9 +969,11 @@ grammars is to assume a headless schema that combines the relative phrase and th
 it is extracted directly \citep[Section~2.7]{Mueller99b}. In addition there were proposals to analyze free
 relative clauses\is{relative clause!free} in a way in which the relative phrase is the head
 \citep[\page 383]{WK2003a}. So, if \emph{whoever} is the head of \emph{whoever is loved by John}, the whole
-relative clause is not a projection of \emph{loved} and hence the arguments of \emph{loved} will not
-be found by the definition of o-command in (\ref{def-non-configurational-o-command}). This means that \emph{John} is not o-commanded by
-\emph{he}, which predicts that the binding in (\mex{1}) is possible, but it is not.
+relative clause is not a projection of \emph{loved}. Furthermore, \emph{is loved by John} is not an argument
+of \emph{whoever} and hence there is no appropriate connection between the involved elements, which
+means that the arguments of \emph{loved} will not be found by the definition of o-command in
+(\ref{def-non-configurational-o-command}). This means that \emph{John} is not o-commanded by
+\emph{he}, which predicts that the binding in (\mex{1}) is possible, but it is not. 
 \ea
 He$_{*i}$ knows whoever is loved by John$_i$.
 \z
@@ -909,12 +992,12 @@ for another VP.
 %% \z
 
 
-I think there is no way of accounting for such cases without the notion of
-dominance. For those insisting on grammars without empty elements, the solution would be a fusion of
-the definition given in (\ref{def-non-configurational-o-command}) with the initial definition involving
-dominance in (\ref{def-o-command}). \citet{HL95b} suggested such a fusion. This is their definition
-of vc-command:
-\ea
+There seems to be no way of accounting for such cases without the notion of
+dominance (but see Section~\ref{sec-bt-nonlocal} for a lexical solution). For those insisting on
+grammars without empty elements, the solution would be a fusion of the definition given in
+(\ref{def-non-configurational-o-command}) with the initial definition involving dominance in
+(\ref{def-o-command}). \citet{HL95b} suggested such a fusion. This is their definition of vc-command:
+\eanoraggedright
 \label{def-vc-command-HL}
 v(alence-based) c-command:\\
 Let α be an element on a valence list that is the value of the valence feature γ and α' the \dtrs element whose \synsemv is structure-shared
@@ -947,7 +1030,7 @@ sm edges without translation
     [{PP}
       [without anybody noticing the twins,roof]]]]
 \end{forest}
-\caption{Example train for explaining vc-command: The subject vc-commands the adjunct because it is
+\caption{Example tree for explaining vc-command: the subject vc-commands the adjunct because it is
   in the valence list of the upper-most VP and this VP dominates the adjunct PP}\label{fig-vc-command-HL}
 \end{figure}
 For Figure~\ref{fig-vc-command-HL}, this entails that the object NP \emph{the car} vc-commands
@@ -969,7 +1052,7 @@ Principle~C is then revised as follows:
 Principle C: A non-pronominal must neither be bound under o-command nor under a vc-command relation.
 \z
 Walker uses the tree in Figure~\ref{fig-vc-command} to explain her definition of
-vc-command.\todostefan{The annotations should be extra not part of the node. Especially for the PP.}
+vc-command.
 %\ea
 %It was herself that Mary loved.
 %\z
@@ -978,7 +1061,7 @@ vc-command.\todostefan{The annotations should be extra not part of the node. Esp
 sm edges without translation
 [S
   [\ibox{1} NP [they]]
-  [{VP[\subj \sliste{ \ibox{1} } ] = γ'}
+  [{VP[\subj \sliste{ \ibox{1} } ]}, name=gamma
     [{VP[\subj \sliste{ \ibox{1} = α } ]}
       [V\feattab{ \subj \sliste{ \ibox{1} },\\
                   \comps \sliste{ \ibox{2} },\\
@@ -986,10 +1069,18 @@ sm edges without translation
          [bought]]
       [\ibox{2} NP
         [the car,roof]]]
-    [{PP = β'}
+    [PP, name=beta
       [without anybody noticing the twins,roof]]]]
+\node [right=2ex] at (beta)
+    {
+         = β'
+    };
+\node [right=8ex] at (gamma)
+    {
+         = γ'
+    };
 \end{forest}
-\caption{Example train for explaining vc-command: The subject vc-commands the adjunct because it is
+\caption{Example tree for explaining vc-command: the subject vc-commands the adjunct because it is
   in the valence list of the upper-most VP and this VP dominates the adjunct PP}\label{fig-vc-command}
 \end{figure}
 The second clause in the definition of vc-command is the same as before: it is based on local
@@ -1008,7 +1099,7 @@ object for *~\emph{Mary likes himself.} and hence one could not say that \emph{M
 \emph{himself}. Hence, there is a problem, whether one names it in the definition or not. It seems
 to be necessary to conceptualize binding conditions as something external to the core theory of
 HPSG: a filter that is applied on top of everything else as is common in more
-implementation-oriented approaches to HPSG in in the generate and test model of GB.
+implementation-oriented approaches to HPSG and in the generate and test model of GB.
 
 %% Ist nur inefficnet aber nciht schlimm, weil Prinzip C das negiert.
 %%
@@ -1027,8 +1118,9 @@ subject, while Walker's definition includes elements dominated by this VP only.\
 This difference will also matter in Section~\ref{sec-nominal-heads-as-binders}.
 
 
-\citeauthor{HL95b}'s examples involve a subject-object asymmetry. Interestingly, a similar subject-object asymmetry seems to exist in German, as \citet[\page
-  148]{Grewendorf85a} pointed out:
+\citeauthor{HL95b}'s examples involve a subject-object asymmetry. Interestingly, a similar
+subject-object asymmetry seems to exist in German, as \citet[\page 148]{Grewendorf85a} pointed
+out. The following example is based on his example:
 %% \eal
 %% \ex[]{
 %% \gll In Marias$_i$ Wohnung erwartete sie$_i$ ein Lustmolch.\\
@@ -1052,16 +1144,28 @@ This difference will also matter in Section~\ref{sec-nominal-heads-as-binders}.
 %% \glt Intended: `Maria waits for a lecher in her flat.'
 %% }
 %% \zl
+% \eal
+% \ex[]{
+% \gll In Marias$_i$ Wohnung erwartete sie$_i$ ein Lustmolch.\\
+%      in Maria's    flat     waits     her.\acc{}    a.\nom{}  lecher\\
+% \glt `A lecher waits for Maria in her flat.'
+% }
+% \ex[*]{
+% \gll In Marias$_i$ Wohnung erwartete sie$_i$ einen Lustmolch.\\
+%      in Maria's    flat    waits     she.\nom{}     a.\acc{} lecher\\
+% \glt Intended: `Maria waits for a lecher in her flat.'
+% }
+% \zl
 \eal
 \ex[]{
-\gll In Marias$_i$ Wohnung erwartete sie$_i$ ein Lustmolch.\\
-     in Maria's    flat     waits     her.\acc{}    a.\nom{}  lecher\\
-\glt `A lecher waits for Maria in her flat.'
+\gll In Marias$_i$ Wohnung erwartete sie$_i$ ein Blumenstrauß.\\
+     in Maria's    flat     waits     her.\acc{}    a.\nom{}  bouquet\\
+\glt `A bouquet waits for Maria in her flat.'
 }
 \ex[*]{
-\gll In Marias$_i$ Wohnung erwartete sie$_i$ einen Lustmolch.\\
-     in Maria's    flat    waits     she.\nom{}     a.\acc{} lecher\\
-\glt Intended: `Maria waits for a lecher in her flat.'
+\gll In Marias$_i$ Wohnung erwartete sie$_i$ einen Blumenstrauß.\\
+     in Maria's    flat    waits     she.\nom{}     a.\acc{} bouquet\\
+\glt Intended: `Maria waits for a bouquet in her flat.'
 }
 \zl
 While the fronted adjunct can bind the object in (\mex{0}a), binding the subject in (\mex{0}b) is
@@ -1082,18 +1186,12 @@ impossible because of adjuncts and the combination of configurational and non-co
 seems appropriate. The subject of the embedded verb should not be included among the local domain of
 VP embedding verbs.
 
-\inlinetodostefan{
-check raising issues.
-
-provide final definitions.
-}
-
+Section~\ref{sec-bt-nonlocal} discusses an alternative approach that collects indices in lists. This can be done in a
+way that can be used to get the adjunct bindings right.
+ 
 
 \section{Exempt anaphors}
-
-\inlinetodostefan{Bob: I think it would be good to mention earlier that unlike GB binding theory HPSG binding theory does not try to deal with all anaphors.
-
-I also think you might have sone more examples of exempt anaphors since this is quite important in Pollard and Sag.}
+\label{sec-excempt-anaphors}
 
 The statement of Principle A has interesting consequences: if an anaphor is not locally o-commanded,
 Principle A does not say anything about requirements for binding. This means that anaphors that are
@@ -1103,7 +1201,7 @@ initial in an \argstl may be bound outside of their local environment. The follo
 \ea
 John$_i$ was going to get even with Mary. That picture of himself$_i$
 in the paper would really annoy her, as would the other stunts he had planned.\footnote{
-        \citep[\page 270]{ps2}
+        \citew[\page 270]{ps2}.
 }
 \z
 
@@ -1118,7 +1216,8 @@ reflexives do not apply and hence both a pronoun and an anaphor is possible:
 
 \noindent
 Which of the pronouns is used is said to depend on the \emph{point of view} of the speaker
-(\citealp{Kuroda65a}, for further discussin and a list of references see \citealp[\page 270]{ps2}).
+(%\citealp{Kuroda65a-u}
+\citealp{Kuroda1973a-u}, for further discussion and a list of references see \citealp[\page 270]{ps2}).
 
 %% Unfortunately the situation is different in languages like German. The binding of a pronoun to the subject is strictly ungrammatical:
 %% \ea
@@ -1145,7 +1244,7 @@ However, as \citet[Section~20.4.6]{Mueller99a} pointed out, German does have sub
      eachother.\acc{} cold.is\\
 }
 \footnotetext{
-\citep[\page 349]{Fanselow86a}
+\citew[\page 349]{Fanselow86a}.
 }
 \ex[]{
 \gll Den Mann dürstet.\\
@@ -1220,16 +1319,16 @@ der Besitzer$_i$ seines$_{*i}$ Botes\\
 the owner        of.his       boat\\
 }
 \zl
-These examples would be covered by an \iwithini\is{i-within-i-Condition@\emph{i}-within"=\emph{i}"=Condition|(} as suggested by
+These examples would be covered by an \iwithinic\is{i-within-i-Condition@\emph{i}-within"=\emph{i}"=Condition|(} as suggested by
 \citet[\page 212]{Chomsky81a}. Chomsky's condition basically rules out configurations like the one
 in (\mex{1}):
 \ea
 ( \ldots{} x$_i$ \ldots{} )$_i$
 \z
-\citet[\page 244]{ps2} discuss the \iwithini in their discussion of GB's Binding Theory but do not
+\citet[\page 244]{ps2} discuss the \iwithinic in their discussion of GB's Binding Theory but do not
 assume anything like this in their papers. Nor was anything of this kind adopted anywhere else in
 th discussion of binding. Having such a constraint could be a good solution, but as
-\citet[]{Fanselow86a} working in GB pointed out, such a condition would also rule out cases like his examples in (\mex{1}):
+\citet[\page 343]{Fanselow86a} working in GB pointed out, such a condition would also rule out cases like his examples in (\mex{1}):
 \eal
 \ex
 \gll die sich$_i$ treue Frau$_i$\\
@@ -1243,7 +1342,7 @@ th discussion of binding. Having such a constraint could be a good solution, but
 German allows for complex prenominal adjectival phrases. The subject of the respective adjectives or
 adjectival participles are coindexed with the noun that is modified. Since the reflexive and
 reciprocal in (\mex{0}) are coindexed with the non-expressed subject and since this subject is
-coindexed with the modified noun \citep[Section~3.2.7]{Mueller2002b}, a general \iwithini cannot be formulated for HPSG
+coindexed with the modified noun \citep[Section~3.2.7]{Mueller2002b}, a general \iwithinic cannot be formulated for HPSG
 grammars of German. The problem also applies to English, although English does not have complex
 prenominal adjectival modifiers. Relative clauses basically produce a similar configuration:
 \ea
@@ -1256,8 +1355,12 @@ is coindexed with the antecedent noun of the relative clause, we have a parallel
 clauses and suggests a revision. However, the revised version would not rule out the examples above
 either, so it does not seem to be of much help.
 
-So some special constraint seems to be needed that rules out binding by and to the head of nominal
-constructions unless this binding is established by adnominal modifiers directly.\is{i-within-i-Condition@\emph{i}-within"=\emph{i}"=Condition|)}
+In a version of the Binding Theory that is based on command relations in tree configurations, some
+special constraint seems to be needed that rules out binding by and to the head of nominal 
+constructions unless this binding is established by adnominal modifiers directly. Section~\ref{sec-bt-nonlocal}
+discusses a novel approach to binding that accounts for i-within-i problems by explicitly collecting
+indices that are possible antecedents and excluding the unwanted indices in this collection.%
+\is{i-within-i-Condition@\emph{i}-within"=\emph{i}"=Condition|)}
 
 %This failure is similar to the failure in the
 %definition of c-command that can be found in \citew[\page 168]{SKS2013a-u}
@@ -1268,11 +1371,122 @@ constructions unless this binding is established by adnominal modifiers directly
 %% \z
 
 
+\section{Locality}
+\label{binding:sec-locality}
+
+\citet[Section~20.4.7]{Mueller99a} pointed out that examples like (\mex{1}) involving anaphors
+within coordinations are problematic for the HPSG Binding Theory:
+\ea
+\label{ex-sich-und-seine-familie}
+\gll Wir beschreiben ihm$_{i}$ [sich$_{i}$       und seine Familie].\\
+     we describe     him      \spacebr{}\self{} and his family\\
+\glt `We describe him and his family to him.'
+\z
+Since \emph{sich} is not local to \emph{ihm} and since reflexives are not excempt in German
+\citep[\page 158--159]{Kiss2012a}, \emph{ihn} would be expected as the only option for a pronominal element within
+the coordination.
+
+\citet[\page 112]{Fanselow87a} discussed such examples in the context of a GB-style Binding
+Theory. See also \citew[\page 420]{Mueller99a} for attested examples.
+% Such coordination examples are used since weight plays a role in ordering constituents and
+% putting the reflexives into a coordination makes the examples more natural.
+% %Reis73:522
+% %Hans_i läßt es zwischen Emma_j und sich_i / ihm_*i zum Streit kommen.
+% %
+% The example may still seem a bit artificial but there are attested examples from newspapers \citep[\page 420]{Mueller99a}:
+% \eal
+% \ex Die Erneuerung war ausschließlich auf Druck von außen zustande gekommen.
+% \gll Sie verdankte sich keineswegs dem Bedürfnis, vor sich und der Öffentlichkeit Rechenschaft
+% abzulegen.\footnotemark\\
+%      she to.be.due.to \self{} not.at.all the desire before \self{} and the public account to.give\\
+% \footnotetext{
+%         Taz UNIspezial WS 94/95, 10.15.94, p.\,16
+% }
+% \glt `This was not due to the the desire to give account to oneself and the public.'
+% \ex 
+% \gll Martin Walser versucht, sich und die Nation zu verstehen.\footnotemark\\
+%      Martin Walser tries     \self{} and the nation to understand\\
+% \footnotetext{
+%         taz, 12.10.98, p.\,1
+% }
+% \glt `Martin Walser tries to understand himself and the nation.'
+% \zl
+Such sentences pose a challenge for the way locality is defined as part of the definition of local
+o-command. Local o-command requires that the commander and the commanded phrase are members of the
+same \argstl (\ref{def-local-o-command}), but the result of coordinating two NPs is usually a complex NP with a plural index:
+\ea
+\gll Der Mann und die Frau kennen / * kennt das Kind.\\
+     the man  and the woman know {} {} knows the child\\
+\glt `The man and the woman know the child.'
+\z
+The NP \emph{der Mann und die Frau} `the man and the woman' is an argument of \emph{kennen} `to know'. The index of
+\emph{der Mann und die Frau} `the man and the woman' is local with respect to \emph{das Kind} `the child'. The indices of
+\emph{der Mann} `the man' and \emph{die Frau} `the woman' are embedded in the complex NP.
+
+For the same reason \emph{sich} is not local to \emph{ihm} in (\mex{-1}). This means that the anaphor is not locally o-commanded in any
+of the sentences and hence Binding Theory does not say anything about the binding of the reflexive
+in these sentences: the anaphors are exempt.
+
+For the same reason, \emph{ihn} `him' is not local to \emph{er} `he' in (\mex{1}b) and hence the
+binding of \emph{ihn} `him' to \emph{er} `he', which should be excluded by Principle~B, is not ruled out.
+\eal
+\label{ex-sorgt-fuer-sich-und-seine-familie}
+\ex
+\gll Er$_{i}$ sorgt nur für [sich$_{i}$ und seine Familie].\\
+     he      cares only for \spacebr{}\self{} and his family\\
+\glt `He cares for himself and his family only.'
+\ex 
+\gll Er$_{i}$ sorgt nur für [ihn$_{*i}$ und seine Familie].\\
+     he      cares only for \spacebr{}him and his family\\
+\zl
+%\inlinetodostefan{Bob: You could presumably propose a similar deletion-based account within a version of HPSG that has order domains. But it would presumably facce the samme objections as a transformational account.}
+If one assumed transformational theories of coordination deriving (\mex{0}) from (\mex{1}) (see for example
+\citealp[\page 303]{WC80a-u} and \citealp[\page 61, 67]{Kayne94a-u} for proposals to derive verb
+coordination from VP coordination plus deletion), the problem would be solved, but as has been
+pointed out frequently in the literature such transformation-based theories of coordinations have
+many problems \parencites[\page 102]{BV72}[\page 192--193]{Jackendoff77a}[\page143]{Dowty79a}[\page
+  104--105]{denBesten83a}{Klein85}{Eisenberg94a}[\page 471]{Borsley2005a} and nobody ever assumed
+something parallel in HPSG (see \crossrefchaptert{coordination} on coordination in HPSG).
+\ea
+\gll Er$_{i}$ sorgt nur für sich     und er$_{i}$ sorgt nur für seine Familie.\\
+     he      cares only for \self{} and he       cares only for his family\\
+\z
+
+\citet{RR93a} develop a Binding Theory that works at the level of syntactic or semantic
+predicates. Discussing the examples in (\mex{1}) they argue that the semantic representation is
+(\mex{2}) and hence their semantic restrictions on reflexive predicates apply.
+\eal
+\ex[]{
+The queen invited both Max and herself to our party.
+}
+\ex[*]{
+The queen$_1$ invited both Max and her$_1$ to our party.
+}
+\zl
+\ea
+the queen ($\lambda$ x (x invited Max \& x invited x))
+\z
+Such an approach solves the problem for coordinations with \emph{both \ldots{} and \ldots} having a
+distributive reading. \citet[\page 677]{RR93a} explicitly discuss coordinations with a collective
+reading. Since we have a collective reading in examples like
+(\ref{ex-sorgt-fuer-sich-und-seine-familie}), examples like (\ref{ex-sorgt-fuer-sich-und-seine-familie}) continue to pose a problem. There are
+however ways to cope with such data: one is to assume a construction-based account to binding
+domains. The details of an account that makes this possible will be discussed in Section~\ref{sec-bt-nonlocal}.
+
+The previous two sections discussed problems for the configuration-based Binding Theories. The two
+following sections deal with the role of the \argstl in binding. The following section discusses
+Austronesian languages arguing that the order of the elements in the \argstl should not reflect the
+grammatical functions of the \argst elements. Section~\ref{binding-sec-passive} deals with data from Russian and argues
+for a more complex representation within \argst involving empty elements like PRO (on the
+\argstl). This all leads to a novel approach to be discussed in Section~\ref{sec-bt-nonlocal} that assumes special
+lists for indices playing a role in binding.
 
 
-
+\iftoggle{toolong}{
 \section{A general Binding Theory with reference to obliqueness or language-specific binding conditions}
 
+This section takes a brief look at other languages and discusses whether the Binding Theory
+developed for English can be applied to them without changes.
 
 \subsection{Obliqueness and constituent order}
 \label{bt-sec-obliqueness-and-constituent-order}
@@ -1319,7 +1533,8 @@ It is an open issue how this situation can be resolved. One way is to make bindi
 (class) dependent and independent of the obliqueness hierarchy or to assume that it is verb (class)
 dependent and that verbs like those in (\ref{ex-dat-acc-verbs}) have a different order of elements
 in the \argstl. Of course this could have consequences for other parts of the grammar relying on the
-order of elements in the \argstl (see Section~\ref{sec-argst-order} for further discussion).
+order of elements in the \argstl (\eg determination of quantifier scope, \citealp{Kiss2001a}).
+% (see Section~\ref{sec-argst-order} for further discussion).
 
 Note also that (\ref{bsp-der-arzt-zeigte-dem}) causes a Principle C violation. Since accusative
 (direct object) is less oblique than dative (indirect object), \emph{ihn} `him' (locally) o-binds \emph{dem
@@ -1380,16 +1595,18 @@ then \emph{sich} would be exempt and \emph{der Mann} would be bound (Principle C
 \glt `At the carnival party, we presented him to himself.'
 \zl
 Examples like these seem to suggest that the two objects have the same obliqueness since the
-accusative can bind the dative and vice versa.\todostefan{reference} So, one could assume that these
-elements are not ordered on the \argstl.
+accusative can bind the dative and vice versa. So, one could assume that these
+elements are not ordered on the \argstl \citep[Section~5.2]{AMM2017a-u}.
 % No the binding in Moro is strict.
 %\citet{AMM2017a-u} suggested an account for double
 %object constructions in \ili{Moro} in which they assumed that the objects are in a set and hence not
 %ordered with respect to obliqueness. 
 While this would solve the problem of (\mex{0}), it would
 introduce another problem: reordering of arguments was accounted for by discharging arguments in an
-arbitrary order from an ordered list. Now, if the data structure from which elements are
-canceled is not ordered there is too much freedom and the result is \isi{spurious ambiguities}. 
+arbitrary order from an ordered list (\citealp[Section~2.4]{MuellerHPSGHandbook}; \crossrefchapteralp{order}). Now, if the data
+structure from which elements are canceled is not ordered there is too much freedom and the result
+is \isi{spurious ambiguities}. Apart from this, the order of the elements was used in accounts of
+quantifier scope \citep{Kiss2001a}.
 
 As \citet[\page 140]{Grewendorf85a} notes the reflexive must not precede its antecedent if the
 antecedent is an object:
@@ -1425,30 +1642,40 @@ summary}
 
 \subsection{Binding and prepositional objects}
 
+
 We already discussed the English examples in (\ref{ex-mary-talked-to-john-about-himself}) with two
 prepositional objects and showed that the second PP can contain a reflexive referring to a preceding
 PP and that HPSG's Binding Theory explains this nicely. However, the situation in German is
 different, as the following data from \citet[\page 58]{Grewendorf88a} show:
 \eal
 \ex 
-\gll Ich sprach mit Maria$_i$ über sie$_i$ / *sich.\\
-     I talked   with Maria about her {} \self\\
+\gll Ich sprach mit  Maria$_i$ über  sie$_i$ / * sich.\\
+     I talked   with Maria     about her    {} {} \self\\
 \glt `I talked with Maria about herself.'
 \ex 
-\gll Ich beklagte mich bei Maria$_i$ über sie$_i$ / *sich.\\
-     I complained myself at Maria    about her {} \self\\
+\gll Ich beklagte mich   bei Maria$_i$ über  sie$_i$ / * sich.\\
+     I complained myself at  Maria     about her    {} {} \self\\
 \glt `I complained to Maria about herself.'
 \zl
 
 
 The conclusion of the discussion in the previous two subsections is that a Binding Theory that is entirely based on
 obliqueness seems to be not possible and that language-specific binding rules referring to specific
-situation involving case and part of speech are necessary (see \citew[Chapter~6]{Grewendorf88a} for such rules
-for German in GB).
+situation involving case and part of speech are necessary.
+% Grewendorf gibt nur die, die wir auch haben. Objekt und PP
+%(see \citew[Chapter~6]{Grewendorf88a} for such rules
+%for German in GB).
+}% too long
 
-\subsection{Disentangeling \argst and grammatical functions}
+\section{Disentangeling \argst and grammatical functions}
 
-\citet{MS98a} discuss data from \ili{Toba Batak}, \ili{Western Austronesian} language. They assume that the
+So far we have discussed binding for English with some occasional reference to Mandarin Chinese,
+Portuguese and German. The question is whether Binding Theory is universal, that is, whether it is a
+set of constraints holding for all languages or whether language specific solutions are necessary,
+maybe involving a general machinery for establishing such solutions. In this section, we discuss
+approaches suggested for Austronesian languages.
+
+\citet{MS98a} discuss data from \ili{Toba Batak}, a \ili{Western Austronesian} language. They assume that the
 \argst elements are in the order actor and undergoer, but since Toba Batak has two ways to realize
 arguments, the so-called \emph{active voice}\is{voice!active} and the \emph{objective voice}\is{voice!objective} either of the arguments
 can be the subject. 
@@ -1462,7 +1689,7 @@ can be the subject.
      \textsc{ov}-see \textsc{pm} Torus \textsc{pm} Ria\\
 \glt `Torus sees/saw Ria.'
 \zl
-\citeauthor{MS98a} argue that verb and the adjacent NP form a VP which is combined with the final NP
+\citeauthor{MS98a} argue that the verb and the adjacent NP form a VP which is combined with the final NP
 to yield a full clause. They furthermore argue that neither sentence in (\mex{0}) is a passive or anti-passive
 variant of the other. Instead they suggest that the two variants are simply due to different
 mappings from argument structure (\argst) to surface valence (\subj and \comps). They provide the
@@ -1544,7 +1771,7 @@ actor (the initial element on the \argstl) that binds the non-initial one.
 \ex[*]{
 \gll [Di-ida          diri-na$_i$] si John$_i$\\
      \spacebr{}\textsc{ov}-saw self-his \textsc{pm} John\\
-\glt Intended: `John saw himself.' with \emph{himself} as the logical subject
+\glt Intended: `John saw himself.' with \emph{himself} as the (logical) subject
 }
 \ex[]{
 \gll [Di-ida          si John$_i$] diri-na$_i$\\
@@ -1562,36 +1789,24 @@ relations. This is unnecessary for \argst-based binding theories.
 
 The conclusion to be drawn from this section is that obliqueness should not be defined in terms of
 grammatical functions as was done in (\ref{def-obliqueness-hierarchy}) above but rather with reference to a thematic hierarchy
-as suggested by \citet{Jackendoff72a-u}.\todostefan{pages} This would not make a difference for languages like English, but for languages like
+as suggested by \citet{Jackendoff72a-u}.
+% Yes, the whole book
+This would not make a difference for languages like English, but for languages like
 \ili{Toba Batak} and \ili{Balinese} the arguments may be mapped to different grammatical functions
 depending on the voice the verb is realized in.
 
-\inlinetodostefan{
-Say that binding cannot happen on a thematic level because of raising.
-%\ea
-Peter believes himself to win.
-%\z
-believe(Peter,win(himself))
-%
-I show Peter to himself.
-%
-Peter was shown to myself by me.
-Peter was shown to me by me.
-%
-Passive active differences cannot be covered.
-%
-weil Hans sich nicht lachen sah
-sehen(Hans,nicht(lachen(sich)))
-}
 
+
+\iftoggle{toolong}{
 \section{Relative pronouns}
 \label{binding-sec-relative-pronouns}
 
 While relative pronouns share many properties with personal pronouns, the syntax of relative and
-interrogative clauses places additional demands on the distribution of the respective pronouns. For
-languages like German a relative clause consists of a relative phrase and a sentence in
+interrogative clauses places additional demands on the distribution of the respective pronouns (see
+\crossrefchapteralp{relative-clauses} for relative clauses in HPSG). For
+languages like German, a relative clause consists of a relative phrase and a sentence in
 which this relative phrase is missing. The relative phrase has to contain a relative word. Such
-relative clauses exist in English as well, but English has various types of relative clauses without
+relative clauses exist in English as well, but in addition, English has various types of relative clauses without
 relative phrases. Since we are interested in pronouns here, we consider the cases with relative
 pronouns. The simplest case is of course a relative clause with just a relative pronoun in initial position but as
 \citet[\page 109]{Ross67a} pointed out the relative pronoun may be deeply embedded.
@@ -1602,7 +1817,7 @@ Here's the minister [[in [the middle [of [whose sermon]]]] the dog barked].\foot
 }
 \ex Reports [the height of the lettering on the covers of which] the government prescribes should be
 abolished.\label{Ross-reports}\footnote{%
-\citew[\page 109]{Ross67a}.\nocite{Ross86a-u}
+\citew[\page 109]{Ross67a}.
 }
 \zl
 \citet[Chapter~5]{ps2} accounted for the distribution of relative pronouns by using a GPSG-style percolation
@@ -1617,15 +1832,15 @@ relative pronouns and their antecedent match in gender and number in languages l
 \eal
 \ex
 \gll der Junge, der über das Buch gesprochen hat\\
-     the boy    who about the book spoken has\\
+     the boy    who.\MAS.\SG{} about the book spoken has\\
 \glt `the boy who spoke about the book'
 \ex
 \gll die Frau, die über das Buch gesprochen hat\\
-     the woman who about the book spoken has\\
+     the woman who.\F.\SG{} about the book spoken has\\
 \glt `the woman who spoke about the book'
 \ex
 \gll die Jungen, die über das Buch gesprochen haben\\
-     the boys    who about the book spoken have\\
+     the boys    who.\PL{} about the book spoken have\\
 \glt `the boys who spoke about the book'
 \zl
 While there is a morphological distinction in the pronouns in German, the same effect can be
@@ -1653,6 +1868,7 @@ personal pronouns.
 %% } 
 For further discussion of relative clauses see \citew{Sag97a},
 \crossrefchaptert{relative-clauses} and \citew{Mueller99b}.
+}
 
 \if0 %\directorscut
 \section{Coindexing vs.\ coreference and pragmatic binding}
@@ -1671,7 +1887,7 @@ possibility in the discussion of examples like the ones in (\mex{1}):\footnote{
 }
 \eal
 \ex It isn't true that nobody voted for John$_{i}$. JOHN$_{j}$ voted for him$_{i}$. 
-        (in a context where both uses of {\em John\/} refer to the same person)
+        (in a context where both uses of \emph{John\/} refer to the same person)
 \ex He$_{i}$ [pointing to Richard Nixon] voted for Nixon$_{j}$.
 \zl
 
@@ -1890,6 +2106,7 @@ assumed) and binding principles that allow reference to the pragmatic index as a
 reference to the normal one.
 \fi 
 
+\iftoggle{toolong}{
 \section{Raising and o-command}
 \label{sec-binding-raising}
 
@@ -1897,8 +2114,8 @@ reference to the normal one.
 
 A further problem has to do with predicate complex constructions in languages like
 German. Researcher working on SOV languages like German, Dutch or Korean assume that the verbs form
-a verbal complex. The arguments of the embedded verb are attracted by the governing verb. This
-technique was developed in the framework of Categorial Grammar and taken over to HPSG by
+a verbal complex \crossrefchapterp{complex-predicates}. The arguments of the embedded verb are attracted by the governing verb. This
+technique was developed in the framework of Categorial Grammar \citep{Geach70a} and taken over to HPSG by
 \citet{HN89a,HN94a}. See also
 \crossrefchapterw{complex-predicates}. Figure~\ref{fig-verbal-complex-German} shows the analysis of
 the following example:
@@ -1943,7 +2160,7 @@ the argument of the embedded verb. The auxiliary \emph{wird} `will' selects \emp
 leave' \iboxb{4} and the arguments of \emph{überlassen} (\ibox{1}, \ibox{2}, \ibox{3}). The \argstl
 of \emph{wird} contains \emph{den Dieb} and \emph{sich} and hence \emph{den Dieb} locally o-binds
 \emph{sich}, but \emph{sich} also binds \emph{den Dieb} since \emph{sich} \iboxb{3} is
-less-oblique than the verbal complement \ibox{4} and \ibox{4} selects for \emph{den Dieb} \iboxb{2}. For the latter reason, Principle C is violated.  
+less oblique than the verbal complement \ibox{4} and \ibox{4} selects for \emph{den Dieb} \iboxb{2}. For the latter reason, Principle C is violated.  
 
 
 
@@ -1963,119 +2180,48 @@ Der Junge$_i$ ließ das Mädchen$_j$ das Boot für sich$_{i/j}$ reparieren.
 \citet[\page 9]{BMS2001a}:
 As observed by van Noord and Bouma (1996), complement inheritance is incompatible with the notion of ‘local domain’ that is crucial for binding theory. If binding applies to argument structure, however, and complement inheritance is defined for the valence feature COMPS only, the problem is avoided.
 
-
-
-\section{Locality}
-
-\citet[Section~20.4.7]{Mueller99a} pointed out that examples like (\mex{1}) involving anaphors
-within coordinations are problematic for the HPSG Binding Theory:
-\ea
-\label{ex-sich-und-seine-familie}
-\gll Wir beschreiben ihm$_{i}$ [sich$_{i}$       und seine Familie].\\
-     we describe     him      \spacebr{}\self{} and his family\\
-\glt `We describe him and his family to him.'
-\z
-\citet[\page 112]{Fanselow87a} discussed such examples in the context of a GB-style Binding
-Theory. Such coordination examples are used since weight plays a role in ordering constituents and
-putting the reflexives into a coordination makes the examples more natural.
-%Reis73:522
-%Hans_i läßt es zwischen Emma_j und sich_i / ihm_*i zum Streit kommen.
-%
-The example may still seem a bit artificial but there are attested examples from newspapers \citep[\page 420]{Mueller99a}:
-\eal
-\ex Die Erneuerung war ausschließlich auf Druck von außen zustande gekommen.
-\gll Sie verdankte sich keineswegs dem Bedürfnis, vor sich und der Öffentlichkeit Rechenschaft
-abzulegen.\footnotemark\\
-     she to.be.due.to \self{} not.at.all the desire before \self{} and the public account to.give\\
-\footnotetext{
-        Taz UNIspezial WS 94/95, 10.15.94, p.\,16
+\inlinetodoobl{Bob: This may well be too brief for some readers.}
 }
-\glt `This was not due to the the desire to give account to oneself and the public.'
-\ex 
-\gll Martin Walser versucht, sich und die Nation zu verstehen.\footnotemark\\
-     Martin Walser tries     \self{} and the nation to understand\\
-\footnotetext{
-        taz, 12.10.98, p.\,1
-}
-\glt `Martin Walser tries to understand himself and the nation.'
-\zl
-These sentences pose a challenge for the way locality is defined as part of the definition of local
-o-command. Local o-command requires that the commander and the commanded phrase are members of the
-same \argstl (\ref{def-local-o-command}), but the result of coordinating two NPs is usually a complex NP with a plural index:
-\ea
-\gll Der Mann und die Frau kennen / * kennt das Kind.\\
-     the man  and the woman know {} {} knows the child\\
-\glt `The man and the woman know the child.'
-\z
-The NP \emph{der Mann und die Frau} `the man and the woman' is an argument of \emph{kennen} `to know'. The index of
-\emph{der Mann und die Frau} `the man and the woman' is local with respect to \emph{das Kind} `the child'. The indices of
-\emph{der Mann} `the man' and \emph{die Frau} `the woman' are embedded in the complex NP.
-
-For the same reason \emph{sich} is not local to the subject of \emph{abzulegen} in (\mex{-1}) and
-not local to \emph{ihm} in (\mex{-2}). This means that the anaphor is not locally o-commanded in any
-of the sentences and hence Binding Theory does not say anything about the binding of the reflexive
-in these sentences: the anaphors are exempt.
-
-For the same reason, \emph{ihn} `him' is not local to \emph{er} `he' in (\mex{1}b) and hence the
-binding of \emph{ihn} `him' to \emph{er} `he', which should be excluded by Principle~B, i not ruled out.
-\eal
-\ex
-\gll Er$_{i}$ sorgt nur für [sich$_{i}$ und seine Familie].\\
-     he      cares only for \spacebr{}\self{} and his family\\
-\glt `He cares for himself and his family only.'
-\ex 
-\gll Er$_{i}$ sorgt nur für [ihn$_{*i}$ und seine Familie].\\
-     he      cares only for \spacebr{}him and his family\\
-\zl
-%\inlinetodostefan{Bob: You could presumably propose a similar deletion-based account within a version of HPSG that has order domains. But it would presumably facce the samme objections as a transformational account.}
-If one assumed transformational theories of coordination deriving (\mex{0}) from (\mex{1}) (see for example
-\citealp[\page 303]{WC80a-u} and \citealp[\page 61, 67]{Kayne94a-u} for proposals to derive verb
-coordination from VP coordination plus deletion), the problem would be solved, but as has been
-pointed out frequently in the literature such transformation-based theories of coordinations have
-many problems \parencites[\page 102]{BV72}[\page 192--193]{Jackendoff77a}[\page143]{Dowty79a}[\page
-  104--105]{denBesten83a}{Klein85}{Eisenberg94a}[\page 471]{Borsley2005a} and nobody ever assumed
-something parallel in HPSG (see \crossrefchaptert{coordination} on coordination in HPSG).
-\ea
-\gll Er$_{i}$ sorgt nur für sich     und er$_{i}$ sorgt nur für seine Familie.\\
-     he      cares only for \self{} and he       cares only for his family\\
-\z
 
 
-\if0 %directorscut
-\section{Linking, order, scope and binding}
-\label{sec-argst-order}
 
-While \citet{KC77a} showed that the obliqueness hierarchy is relevant for activeness of grammatical
-functions crosslinguistically, it is an open question whether this hierarchy should be assumed to
-hold for all lexemes in all languages and if so, whether it plays a role in the same phenomena
-universally. As was discussed by \crossrefchaptert{arg-st}, the \argstl plays an important role in
-linking theories. In an analysis of (\mex{1}a), \emph{the dog} is the direct object, while \emph{dem
-  Hund} bearing dative case is the indirect object in (\mex{1}b): 
-\eal
-\ex The elephant gave the dog a ball.
-\ex
-\gll Der Elephant gab  dem Hund einen Ball.\\
-     the.\nom{} elephant gave the.\dat{} dog  a.\acc{} ball\\\jambox*{(German)}
-\zl
-While \citet{Mueller99a} ordered arguments in valence lists  according to the obliqueness hierarchy in (\ref{def-obliqueness-hierarchy}),
-\citet{MuellerCoreGram} decided to keep the \argstls and hence also the linking patterns constant
-across languages. \citet{MuellerGermanic} analyzes the Germanic languages with \argstls having the
-same order of elements and linking patterns, the differences are captured by a different distribution
-of lexical and structural case and a different mapping from \argst to \spr and \comps. See
-\crossrefchaptert{case} for more on case assignment and \argst in HPSG.
+%\fi
 
-\citet{Kiss2005a} develops an account of quantifier scope determination for German arguing that scope
-is determined with respect to an unmarked order.\footnote{
-  See \citew{Hoehle82a} for a definition of \emph{normal order}.
-}
-The unmarked order is nominative, dative, accusative for most German verbs \citep{Hoehle82a}. This does not correspond
-to universal tendencies, according to which the direct object precedes the secondary object
-\citep{Pullum77a}. Kiss uses the \argstl to represent the unmarked constitutent order. The consequence is that
-German seems to require a nom, dat, acc order for (uniform) linking, constituent order, and scope
-and nom, acc, dat for binding. If this really is the case, one seems to need two separate lists
-to be able to represent both orders.
+% \if0 %directorscut
+% \section{Linking, order, scope and binding}
+% \label{sec-argst-order}
 
-\fi
+% While \citet{KC77a} showed that the obliqueness hierarchy is relevant for activeness of grammatical
+% functions crosslinguistically, it is an open question whether this hierarchy should be assumed to
+% hold for all lexemes in all languages and if so, whether it plays a role in the same phenomena
+% universally. As was discussed by \crossrefchaptert{arg-st}, the \argstl plays an important role in
+% linking theories. In an analysis of (\mex{1}a), \emph{the dog} is the direct object, while \emph{dem
+%   Hund} bearing dative case is the indirect object in (\mex{1}b): 
+% \eal
+% \ex The elephant gave the dog a ball.
+% \ex
+% \gll Der Elephant gab  dem Hund einen Ball.\\
+%      the.\nom{} elephant gave the.\dat{} dog  a.\acc{} ball\\\jambox*{(German)}
+% \zl
+% While \citet{Mueller99a} ordered arguments in valence lists  according to the obliqueness hierarchy in (\ref{def-obliqueness-hierarchy}),
+% \citet{MuellerCoreGram} decided to keep the \argstls and hence also the linking patterns constant
+% across languages. \citet{MuellerGermanic} analyzes the Germanic languages with \argstls having the
+% same order of elements and linking patterns, the differences are captured by a different distribution
+% of lexical and structural case and a different mapping from \argst to \spr and \comps. See
+% \crossrefchaptert{case} for more on case assignment and \argst in HPSG.
+
+% \citet{Kiss2001a} develops an account of quantifier scope determination for German arguing that scope
+% is determined with respect to an unmarked order.\footnote{
+%   See \citew{Hoehle82a} for a definition of \emph{normal order}.
+% }
+% The unmarked order is nominative, dative, accusative for most German verbs \citep{Hoehle82a}. This does not correspond
+% to universal tendencies, according to which the direct object precedes the secondary object
+% \citep{Pullum77a}. Kiss uses the \argstl to represent the unmarked constitutent order. The consequence is that
+% German seems to require a nom, dat, acc order for (uniform) linking, constituent order, and scope
+% and nom, acc, dat for binding. If this really is the case, one seems to need two separate lists
+% to be able to represent both orders.
+%\fi
+
 
 
 \section{\texorpdfstring{\argst}{ARG-ST} lists with internal structure}
@@ -2130,53 +2276,411 @@ The \argstl is not a simple list like the list for English but it is nested. The
 the lexeme \emph{kupitch} `buy' is contained in the \argstl of the passive. The logical subject is
 realized in the instrumental and the logical object is stated as PRO$_j$ on the embedded \argst but
 as full NP in the nominative on the top-most \argstl. This setup makes it possible to account for
-the fact that a long distance anaphor\footnote{%
-Long distance anaphors must obey the following binding principle:
-\ea
-Principle Z: A locally o-commanded long distance anaphor most be o-bound.
-\z
-This means that it either can be bound locally or by a suitable binder higher up in the structure.%
-}\todostefan{reference} like the reflexive in the PP may refer to one of the two
-subjects: the nominative NP in the upper \argstl and the NP in the instrumental in the embedded
-result. The PRO element is kept as a reflex of the argument structure of the lexeme. Such PRO
-elements play a role in binding phenomena in languages like \ili{Chi-Mwi:ni} also discussed by
-\citeauthor{MS98a}.
+the fact that a long-distance reflexive (see p.\,\pageref{page-long-distance-reflexives}) like the
+reflexive in the PP may refer to one of the two subjects: the nominative NP in the upper \argstl and
+the NP in the instrumental in the embedded list. The PRO element is kept as a reflex of the
+argument structure of the lexeme. Such PRO elements also play a role in binding phenomena in languages
+like \ili{Chi-Mwi:ni} also discussed by \citeauthor{MS98a}.
 
 In order to facilitate distributing the elements of such nested \argstls to valence features like
 \subj and \comps, \citet[\page 124, 140]{MS98a} use a complex relational constraint that basically flattens the
-nested \argst{}s again and removes all occurrences of PRO.
+nested \argst{}s again and removes all occurrences of PRO. An alternative would be to keep the
+\argstl for linking, case assignment, and scope and use additional lists related to the \argstl for
+binding. Such lists can contain PRO indices and additional indices for complex coordinations (see
+Section~\ref{binding:sec-locality}). We discuss an approach assuming additional lists in the
+following section.
+%\fi
 
 \section{Explicit constructions of lists with possible antecedents}
 \label{sec-bt-nonlocal}
 
-\citet{Branco2002a-u}
+The discussion of early HPSG approaches to binding revealed a number of problems. The proposals are
+based on tree configurations and on command relations. This is basically the conceptual inheritance
+of the GB Binding Theory, of course with a lot of improvements. The general problem seems to be that
+the command relations are defined in a uniform way not taking account of special configurations like
+coordinated structures and so on.
+
+Now, there is a more recent approach to binding that looks technical at first, but it is the
+solution to the problems caused by an approach assuming that one command relation that is supposed
+to work for all structures in all languages. \citet{Branco2002a} suggested an approach that collects
+indices that are available for binding in certain binding domains. Since the way in which indices
+relevant for binding are collected can be specified with reference to specific constructions the
+problems mentioned so far can be circumvented. 
+
+\citet{Branco2002a} argues that sentences with wrong bindings of pronouns and/or reflexives are not
+syntactically ill-formed but semantically deviant. For the representation of his Binding Theory, he
+assumes Underspecified Discourse Representation Theory (UDRT, \citealp{Reyle93b-u,FR95a-u}) as the
+underlying formalism for semantics (see also
+\crossrefchapteralp[Section~\ref{semantics:sec-semantic-underspecification}]{semantics}). 
+
+Similar to the notion assumed in Minimal Recursion Semantics (MRS, \citealp*{CFPS2005a}) there is an
+attribute for distinguished labels that indicate the upper (\textsc{l-max}) and lower
+(\textsc{l-min}) bound for quantifier scope, there is a set of subordination condition for
+quantifier scope (the \textsc{hcons} set in MRS), a list of semantic conditions (the \textsc{rels}
+set in MRS). In addition, \citeauthor{Branco2002a} suggests a feature \textsc{anaph(ora)} for handling
+the Binding Theory constraints. Information about the anaphoric potential of nominals is represented
+here. There is a reference marker represented under \textsc{r(eferene)-mark(er)} and there is a list
+of reference markers under \textsc{antec(edents)}. The list is set up in a way so that it contains
+the antecedent candidates of a nominal element. Furthermore, \citeauthor{Branco2002a} adds special
+lists containing antecedents for special types of anaphora. The lists are named after the binding
+principles that were already discussed in previous sections: \textsc{list-a} contains all reference
+markers of elements that locally o-command a certain nominal expression \emph{n} ordered with
+respect to their obliqueness, \textsc{list-z} contains all o-commanders also including everything
+from \textsc{list-a}. The elements in \textsc{list-z} may come from various
+embedded clauses and are also ordered with respect to their obliqueness. The list \textsc{list-u}
+contains all the reference markers in the discourse context including those not linguistically
+introduced. The list \textsc{list-lu} is an auxiliary list that will be explained below.
+\ea
+\avmtmp{
+[loc|cont & [\type*{udrs}
+              ls & [l-max & \1\\
+                    l-min & \1 ]\\
+	      subord & \{ \ldots \}\\
+	      conds  & \{ \ldots \}\\
+              anaph  & [r-mark & refm\\
+                        antec  & \list*(refm) ] ]\\
+  nonloc|bind & [\type*{bind}
+                 list-a  & \list*(refm) \\
+		 list-z  & \list*(refm) \\
+		 list-u  & \list*(refm) \\
+		 list-lu & \list*(refm) ] ]
+}
+\z
+The lists containing possible antecedents for various nominal elements are represented under
+nonlocal as the value of a newly introduced feature \feat{bind}. These binding lists differ from
+other \textsc{nonlocal} features in that nothing is ever removed from them (on unbounded dependencies
+and nonlocal features in general see \crossrefchapterw{udc}). Before we provide the principles that
+determine the list values, we explain an example:
+Figure~\ref{fig-every-student-thought-she-saw-herself} shows the relevant aspects of the analysis of (\mex{1}):
+\ea
+Every student thought that she saw herself.
+\z
+\begin{sidewaysfigure}
+\centering
+\resizebox{.8\textwidth}{!}{%
+\begin{forest}
+%sm edges
+[\avmtmp{
+   [ list-a  & < > \\
+     list-z  & < > \\
+     list-u  & < \1, \2, \3, \4, \5 >\\
+     list-lu & < \1, \2, \3, \4, \5 > ] }
+   [\avmtmp{
+     [ \ldots cont|conds & < \ldots [ arg-r & \1 ] \ldots > \\
+       \ldots |binding   & [ list-a  & < > \\
+                             list-z  & < > \\
+                             list-u  & < \1, \2, \3, \4, \5 >\\
+                             list-lu & < \1 > ] ]}
+     [ctx]]
+   [\avmtmp{
+     [ list-a  & < \2, \3 > \\
+       list-z  & < \2, \3 > \\
+       list-u  & < \1, \2, \3, \4, \5 >\\
+       list-lu & < \2, \3, \4, \5 > ]} 
+     [\avmtmp{
+       [ \ldots anaphora & [ r-mark & \3 \\
+                             var    & \2 \\ ]\\
+         \ldots |binding   & [ list-a  & < \2, \3 > \\
+                               list-z  & < \2, \3 > \\
+                               list-u  & < \1, \2, \3, \4, \5 >\\
+                               list-lu & < \2, \3 > ] ]} 
+       [every student, roof]]
+      [\avmtmp{
+          [ list-a  & < \2, \3 > \\
+            list-z  & < \2, \3 > \\
+            list-u  & < \1, \2, \3, \4, \5 >\\
+            list-lu & < \4, \5 > ]} 
+        [thought]
+        [e
+          [that]
+          [e
+            [\avmtmp{
+              [ \ldots anaphora & [ r-mark & \4 \\
+                                    antec  & < \1, \2, \3, \5 > \\ ]\\
+                \ldots |binding & [ list-a  & < \4, \5 > \\
+                                    list-z  & < \2, \3, \4, \5 > \\
+                                    list-u  & < \1, \2, \3, \4, \5 >\\
+                                    list-lu & < \4 > ] ]}
+              [she]]
+            [\avmtmp{
+                [ list-a  & < \4, \5 > \\
+                  list-z  & < \2, \3, \4, \5 > \\
+                  list-u  & < \1, \2, \3, \4, \5 >\\
+                  list-lu & < \5 > ] }
+              [saw]
+              [\avmtmp{
+                [ \ldots anaphora & [ r-mark & \5 \\
+                                      antec  & < \4 > \\ ]\\
+                  \ldots |binding & [ list-a  & < \4, \5 > \\
+                                      list-z  & < \2, \3, \4, \5 > \\
+                                      list-u  & < \1, \2, \3, \4, \5 >\\
+                                      list-lu & < \5 > ] ]}
+                [herself]]]]]]]]
+\end{forest}}
+\caption{Partial grammatical representation of \emph{Every student thought that she saw herself}.}\label{fig-every-student-thought-she-saw-herself}
+\end{sidewaysfigure}
+The noun phrase \emph{every student} introduces the reference marker (\textsc{r-mark}) \ibox{3} for e-type anaphora
+\citep{Evans80a-u} and as value of \textsc{var} the value used for bound-variable anaphora
+interpretations \citep{Reinhart83a-u}. This is \ibox{2} in the example. The pronouns \emph{she} and \emph{herself} introduce the
+reference markers \ibox{4} and \ibox{5} respectively. All these reference markers are added to the
+book keeping list \textsc{list-lu} of the respective lexical items: \emph{she} has \ibox{4} in its
+\listlu and \emph{herself} has \ibox{5} in this list. The noun phrase \emph{every student} has both
+the variable \ibox{2} and the reference marker \iboxb{3} in the \listlu. As can be seen by looking at the
+individual nodes in Figure~\ref{fig-every-student-thought-she-saw-herself}, the elements of \listlu
+in daughters are collected at the mother node. The element \emph{ctx} is an empty element that
+stands for the non-linguistic context. It is combined with one or more sentences to form a text
+fragment (see also \crossrefchapterw{pragmatics} for discourse models and HPSG). The \textsc{conds}
+list of the \emph{ctx} element contains semantic relations that hold of the world and all reference
+markers contained in these relations are also added to the \listlul. In the example this is just
+\ibox{1}. The example shows just one sentence that is combined with the empty head, but in principle
+there can be arbitrarily many sentences. The \listlul contains all reference markers contained in
+all sentences and the non-linguistic context. 
+
+The top node of Figure~\ref{fig-every-student-thought-she-saw-herself} is licensed by a schema that
+also identifies the \listu value with the \listlu value. The \listu value is shared between mothers
+and their daughters and since \listlu is a collection of all referential markers in the tree and
+this collection is shared with \listu at the top node, it is ensured that all nodes have an \listu
+value that contains all reference markers available in the whole discourse. In our example, all
+\listu values are \sliste{ \ibox{1}, \ibox{2}, \ibox{3}, \ibox{4}, \ibox{5} }.
+
+\lista values are determined with respect to the argument structures of governing heads. So the
+\lista value of \emph{thought} is \sliste{ \ibox{2}, \ibox{3} } and the one of \emph{saw} is
+\sliste{ \ibox{4}, \ibox{5} }. The \lista values of NP or PP arguments are identical to the ones of the head,
+hence \emph{she} and \emph{herself} have the same \lista value as \emph{saw} and \emph{every
+  student} has the same \lista value as \emph{thought}. Apart from this the \lista value is
+projected along the head path in non-nominal and non-prepositional projections. For further cases
+see \citet[\page 77]{Branco2002a}.
+
+The value of \listz is determined as follows \citep[\page 77]{Branco2002a}: for all sentences combined with the context element,
+the \listz value is identified with the \lista value. Therefore the \listz value of \emph{every
+  student thought that she saw herself} is \sliste{ \ibox{2}, \ibox{3} }: the \lista value is
+projected from \emph{thought} and then identified with the \listz value. In sentential daughters
+that are not at the top-level, the \listz value is the concatenation of the \listz value of the
+mother and the \lista value of the sentential daughter. In other non-filler daughters of a sign, the
+\listz value is structure shared with the \listz value of the sign. For example, \emph{she} and
+\emph{saw} and \emph{herself} have the same \listz value, namely \sliste{ \ibox{2}, \ibox{3},
+  \ibox{4}, \ibox{5} }.
+
+\citet[\page 78]{Branco2002a} provides the following lexical item for a pronoun:
+\eas
+Parts of the \synsemv for \emph{she}:\\
+\avmtmp{
+[loc|cont & [ ls & [l-max & \1\\
+                    l-min & \1 ]\\
+              subord & \{ \} \\
+	      conds  & \{ [label & \1\\
+                           dref  & \2 ] \}\\
+              anaph & [r-mark & \2\\
+                       antec  & \texttt{principleB}(\4,\3,\2)] ]\\
+  nonloc|bind & [list-a  & \3 \\
+		 list-z  & \list*(refm) \\
+		 list-u  & \4 \\
+		 list-lu & < \2 > \\] ] }
+\zs
+The interesting thing about the analysis is that all information that is needed to determine
+possible binders of the pronoun are available in the lexical item of the pronoun. The relational
+constraint \texttt{principleB} takes as input the \listal \ibox{3}, the \listu list \ibox{4} and the reference marker
+of the pronoun under consideration \iboxb{2}. The result of the application of \texttt{principleB} is the list
+of reference markers that does not contain elements locally o-commanding the pronoun, since all
+o-commanders of the reference marker \ibox{2}, which are contained in the \lista are removed from \listu (the
+list of all reference markers in the complete discourse). In the case of \emph{she} in our example,
+\texttt{principleB} returns the complete discourse \sliste{ \ibox{1}, \ibox{2}, \ibox{3}, \ibox{4},
+  \ibox{5} } minus all reference markers of elements less oblique than \ibox{4}, which is the empty
+list, minus \ibox{4} since the pronoun is not a possible antecedent of itself. So, the list of
+possible antecedents of \emph{she} is \sliste{ \ibox{1}, \ibox{2}, \ibox{3}, \ibox{5} }. This list
+contains \ibox{5} as a possible binder, which is of course unwanted. According to
+\citet[\page 84]{Branco2002a}, \emph{herself} as a binder of \emph{she} is ruled out, since
+\emph{she} binds \emph{herself}.
+
+The \synsemv for \emph{herself} is shown in (\mex{1}):
+\eas
+Parts of the \synsemv for \emph{herself}:\\
+\avmtmp{
+[loc|cont & [ ls & [l-max & \1\\
+                    l-min & \1 ]\\
+	      subord & \{ \} \\
+	      conds  & \{ [label & \1\\
+                           dref  & \2 ] \}\\
+              anaph & [r-mark & \2\\
+                       antec  & \texttt{principleA}(\3,\2)] ]\\
+  nonloc|bind & [list-a  & \3 \\
+		 list-z  & \list*(refm) \\
+		 list-u  & \list*(refm) \\
+		 list-lu & < \2 > \\] ]
+}
+\zs
+\lista contains the reference markers of locally o-commanding phrases \iboxb{3}. Together with the
+reference marker of \emph{herself} \iboxb{2}, \ibox{3} is the input to the relational constraint
+\texttt{principleA}. This constraint returns a list containing all possible binders for \ibox{2},
+that is, all elements of \ibox{3} that are less oblique than \ibox{2}. If there is no such element,
+the returned list is the empty list and the anaphor is exempt (see Section~\ref{sec-excempt-anaphors}).
+
+%{\sloppypar
+The example discussed here involved a personal pronoun and a reflexive. The antecedents were
+determined by the relational constraints \texttt{principleB} and \texttt{prin\-cipleA}. Further
+relational constraints are assumed for long-distance reflexives (\texttt{principleZ}) and normal
+referential NPs (\texttt{principleC}). \texttt{principleC} is part of the specification of the
+specifier used in non-lexical anaphoric nominals \citep[\page 79]{Branco2002a}.
+%}
+
+The setting up of the \lista and \listu list is flexible enough to take care of problems that are
+unsolvable in the standard HPSG approach (and in GB approaches). For example, the \listul of a noun
+phrase can be set up in such a way that the reference marker of the whole NP, which is introduced by
+the specifier is not contained in the \listul of the \nbar that is combined with it. As pointed out
+by \citet[\page 76]{Branco2002a}, this solves \emph{i-within-i} puzzles, which were discussed in Section~\ref{sec-nominal-heads-as-binders}.
+
+Note also that this flexibility in determining the lists of possible local antecedents on a
+construction specific basis makes it possible for the first time to account for puzzling data like
+the coordination data discussed in Section~\ref{binding:sec-locality}. If the coordination analysis
+standardly assumed in HPSG (see \crossrefchapterw{coordination}) is on the right track, a special
+rule for licensing coordination is needed and this rule can also incorporate the proper
+specification of binding domains with respect to coordination.
+
+% \citet{Branco2002a} defines the Binding Domains Principle, which consists of various clauses. Clause
+% I of BDP is responsible for ensuring that the values of {\sc list-u} and \mbox{{\sc list-lu}} are appropriately
+% setup at the different places in a grammatical representation:
+
+% \begin{exe}
+% \ex\label{bdp}
+% \textbf{Binding Domains Principle}, Clause I
+% \begin{xlisti}
+% \ex The {\sc list-lu} value is identical to the 
+% concatenation of the {\sc list-lu} values of its daughters in every sign;
+% \ex  the {\sc list-lu} and {\sc list-u} values are 
+% token-identical in a sign of sort {\it discourse};
+% \ex
+% \begin{xlisti}
+% \ex  the {\sc list-u} value is token-identical to each 
+% {\sc list-u} value of its daughters in a non-NP sign;
+% \ex in an NP sign {\it k}:
+
+% \begin{itemize}
+% %\begin{xlisti}
+% \ex in Spec-daughter, the {\sc list-u} value is the result of removing the 
+% elements of the {\sc list-a} value of Head-daughter from the {\sc list-u} value of {\it k};
+% \ex in Head-daughter, the {\sc list-u} value is the result of removing 
+% the value of {\sc r-mark} of Spec-daughter from the {\sc list-u} value of {\it k}.
+% %\end{xlisti}
+% \end{itemize}
+
+% \end{xlisti}
+% \end{xlisti}
+% \end{exe}
+
+
+% \noindent 
+% By virtue of (i.), {\sc list-lu} collects up to the outmost sign in a grammatical 
+% representation --- which is of sort {\it discourse} --- the markers contributed to the context
+% by each NP. Given (ii.), this list with all the markers is passed to the
+% {\sc list-u} value at this outmost sign. And (iii.) ensures that this
+% list with the reference markers in the context is propagated to every NP. 
+
+% Subclause (iii.ii) prevents self-reference loops
+% due to anaphoric interpretation, avoiding what is known 
+% in the literature as the i-within-i effect --- recall that the {\sc r-mark} value of non lexical NPs 
+% is contributed by the 
+% lexical representation of their determiners, in Spec-daughter 
+% position, as noted above.
+% \is{i-within-i effect}
+
+% The HPSG top ontology is thus extended with the new subsort {\it discourse} 
+% for signs: $sign \equiv word \vee phrase \vee discourse$. This new type of 
+% linguistic object corresponds to sequences of sentential signs.
+% A new Schema 0 is assumed combining a phonologically null object of sort \emph{context(ctx)} and a
+% list of non-head daughters.
+
+% As the issue of discourse structure is out
+% of the scope of this chapter, we adopted a very simple approach to the 
+% structure of discourses
+% which suffices for the present account of Binding Theory.
+% As discussed in the next \mbox{Section \ref{verif},} this object
+% of sort \emph{ctx} helps representing the contribution of the non linguistic context to the 
+% interpretation of anaphors.
+
+% As to the other two Clauses of the Binding Domains Principle, Clause II and Clause III,
+% they constrain the lists {\sc list-a} and {\sc list-z}, respectively,
+% whose values keep a record of o"=command relations.
+
+% BDP-Clause II is responsible for constraining {\sc list-a}:
+
+% \begin{exe}
+% \ex
+% \textbf{Binding Domains Principle}, Clause II
+% \begin{xlisti}
+% \ex	Head/Arguments: in a phrase, the {\sc list-a} value of its head, and of its nominal (or
+% nominal preceded by preposition) or trace Subject or Complement daughters are
+% token-identical;
+% \ex Head/Phrase:
+% \begin{xlisti}
+% \ex	in a non-nominal and non-prepositional sign, the {\sc list-a} values of a sign and its
+% head are token-identical;
+% \ex	in a prepositional phrase,
+% \begin{itemize}
+% \ex if it is a complement daughter, the {\sc list-a} values of the phrase and of its nominal
+% complement daughter are token-identical;
+% \ex otherwise, the {\sc list-a} values of the phrase and its head are token-identical;
+% \end{itemize}
+% \ex	in a nominal phrase,
+% \begin{itemize} 
+% \ex in a maximal projection, the {\sc list-a} value of the phrase and its Specifier daughter
+% are token-identical;
+% \ex in other projections, the {\sc list-a} values of the phrase and its head are
+% token-identical.
+% \end{itemize}
+% \end{xlisti}
+% \end{xlisti}
+% \end{exe}
+
+
+
+% % \avmtmp{
+% % [loc|cont & [ ls & [l-max & \1\\
+% %                     l-min & \1 ]\\
+% % 	      subord &  \{\} \\
+% % 	      conds & \{[label & \1\\
+% %                          dref  & \2 ]\}\\
+% %               anaph & [r-mark & \2\\
+% %                        antec  & \5 principleB(\4,\3,\2)] ]\\
+% %   nonloc|bind & { [list-a & \3 \\
+% % 		   list-z & list(refm) \\
+% % 		   list-u & \4 \\
+% % 		   list-lu & < \2 > \\] } ]
+% % }
+
+
+% % \begin{avm}
+% % \[{nonloc}udc & \[{udc} to-bind & nonloc1 \\
+% % 						                  inherited & nonloc1 \]\\
+% % 										bind & \[{bind} list-a & list(refm) \\
+% % 																										list-z & list(refm) \\
+% % 																										list-u & list(refm) \\
+% % 																										list-lu & list(refm) \] \]
+% % \end{avm}
+
+Summing up, it can be said that the lexical, list-based solution discussed in this last section
+provides flexibility in defining binding domains and can cope with the \iwithini problem and
+problems of locality. 
+
 
 
 
 \section{Conclusion}
 
-This chapter discussed several approaches to Binding Theory in HPSG. It is shown that approaches
-based on an obliqueness order are not sufficient for some languages, that language-specific binding
-rules are needed and that order (\eg scrambling in German) plays a role for binding which is not accounted for if obliqueness
-is made the sole criterion for legitimate bindings. 
-\inlinetodostefan{
-elaborate, give explicit rules for German
-}
-Examples from so-called pragmatic binding show
-that HPSG's Binding Theory has to be extended to include rules that account for bindings with
-pronouns with different number features and different gender features.
+We discussed several approaches to Binding Theory in HPSG. It was shown that the
+valence-based approach referring to the \argstl of lexical items has advantages over proposals
+exclusively referring to tree configurations. Since tree configurations play a minor role HPSG's
+Binding Theory, binding data does not force syntacticians to assume structures branching in a
+certain way. This sets HPSG apart from theories like Government \& Binding and Minimalism, in which
+empty nodes are assumed for sentences with ditransitive verbs in order to account for binding facts.
 
-It was shown that the right combination of non-configurational aspects (order of elements on a list
-with respect to a thematic hierarchy, allowing for expletives and raised arguments in the list and
-accounting for arguments not realized overtly) with configurational aspects (dominance relations
-including dominance of adjuncts) results in a novel and unique approach to many problems that do not
-have straightforward alternative analyses.
+A further highlight was the treatment of so-called exempt anaphors, that is, anaphors that are not
+commanded by a possible antecedent. \citet{PS92a} argued that these anaphors should not be regarded
+as constrained by the Binding Theory and hence that binding to antecedents outside of the clause or
+the projection are possible.
 
-\inlinetodostefan{
-So, I tried to see who first talked about coindexing. Reinhardt (1983) when she discusses (and argues against) coindexing mentions Langacker’s (1966) paper that introduced the notion of command and Ross’ (1967) dissertation in this context, but neither uses the term, it seems. So, I remembered Bach and Partee’s pioneering (1980) paper and after looking for a while, I found a copy and indeed they argue (as I remembered) against coreference and in favor of coindexing. They seem to talk as if they were the first to make the distinction and why, but maybe they were not. 
-
-I thought you might all find it interesting if you didn’t know about it (Bach and Partee’s paper is from a reprint in Partee’s (2004 collection of papers)).
-}
+Finally, we discussed a lexical approach to binding making all the relevant binding information
+available locally within lexical items of pronouns. This approach is flexible enough to deal with
+problematic aspects like the \iwithini situations and locality problems in coordinated structures.
 
 \section*{Abbreviations}
 
@@ -2186,9 +2690,9 @@ I thought you might all find it interesting if you didn’t know about it (Bach 
 \textsc{pm} & pivot marker\\
 \end{tabularx}
 
-\section{Todo}
+% \section{Todo}
 
-\citet{AGS1998a,Branco2002a-u,Branco:Marrafa:99,Pollard2005a,PX98a,PX2001a-u,Riezler95a,XMcF98a-u,Xue:Pollard:ea:94,Buering2005a-u}
+% \citet{AGS1998a,PX98a,PX2001a-u,Riezler95a,XMcF98a-u,XPS94a-u,Buering2005a-u}
 
 
 \section*{Acknowledgements}
@@ -2196,8 +2700,10 @@ I thought you might all find it interesting if you didn’t know about it (Bach 
 %The research reported in this chapter was partially supported by the 
 %Research Infrastructure for the Science and Technology of Language (\mbox{PORTULAN CLARIN}).
 
-I thank Anne Abeillé for discussion and Bob Levine for discussion and for making \citet{HL95b}
-available to me. Thanks go to Bob Borsley for detailed comments of an earlier version of the paper.
+I thank Anne Abeillé for discussion and Bob Levine for discussion.
+% and for making \citet{HL95b}
+% available to me. 
+Thanks go to Bob Borsley for detailed comments on an earlier version of the paper.
 
 
 {\sloppy
@@ -2228,6 +2734,8 @@ BMS2001: 44 adjuncts vs. complements. Binding cannot take place on ARG-ST
 *I told themi about [the twins’]i birthday.
 b. I only get themi presents on [the twins’]i birthday.
 
+
+Changes: Removed 
 
 
 \fi
