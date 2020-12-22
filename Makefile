@@ -63,7 +63,7 @@ stable.pdf: main.pdf
 
 
 chop: stable.pdf 
-	egrep "contentsline \{chapter\}" main.toc | egrep -o "\{[0-9]+\}\{chapter\*\.[0-9]+\}" |  egrep -o "[0-9]+\}\{chapter"|egrep -o "[0-9]+" > cuts.txt
+	egrep "contentsline \{chapter\}" main.toc |  egrep -o "[0-9]+\}\{chapter"|egrep -o "[0-9]+" > cuts.txt
 	egrep -o "\{chapter\}\{Indexes\}\{[0-9]+\}\{section\*\.[0-9]+\}" main.toc| egrep -o ".*\."|egrep -o "[0-9]+" >> cuts.txt
 	bash chopchapters.sh 13 chapters main
 # does not work on mac	
