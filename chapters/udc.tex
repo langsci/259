@@ -2531,16 +2531,44 @@ Similar to lexical \textsc{slash} introduction, \citet[\page 303]{Keller:95} ass
 extraposition rules, one for  complement extraposition, the other for
 adjunct extraposition. 
 
+%%% Original version
+% \ea
+% Complement Extraposition Lexical Rule\\
+
+% \avm{
+% [comps & \1 \+ <[loc & \4 [cat [head & verb $\lor$ prep \\
+% 			         comps & < > ] ] ] > \+ \2 \\
+% \punk{nonloc|inher|extra}{\3} ]}
+% $\mapsto$ \\
+% \flushright \avm{[comps & \1 \+ \2 \\
+%              \punk{nonloc|inher|extra}{\3 $\cup$ \{ \4 \}} ]}
+% \z
+% % \inlinetodoopt{Stefan: This LR would not work for relational nouns, since they select a complement
+% %   and the adjuncts modify an \nbar. Mention this?}
+% \eas
+% Adjunct Extraposition Lexical Rule\\
+% \avm{
+% 	[loc & \2 [cat|head & noun $\lor$ verb ] \\
+%     \punk{nonloc|inher|extra}{\1} ]}
+% $\mapsto$ \\
+% \flushright\avm{
+% [loc|cont \3\\
+%  nonloc|inher|extra & \1 $\cup$ \{[cat & [head & [\type*{prep $\lor$ rel}
+%                                                   mod|loc & \2 ] \\
+%                                    cont & \3 ] ] \} ]
+% }
+% \zs
+
 \ea
 Complement Extraposition Lexical Rule\\
 
 \avm{
 [comps & \1 \+ <[loc & \4 [cat [head & verb $\lor$ prep \\
 			         comps & < > ] ] ] > \+ \2 \\
-\punk{nonloc|inher|extra}{\3} ]}
+\punk{nonloc|extra}{\3} ]}
 $\mapsto$ \\
 \flushright \avm{[comps & \1 \+ \2 \\
-             \punk{nonloc|inher|extra}{\3 $\cup$ \{ \4 \}} ]}
+             \punk{nonloc|extra}{\3 $\cup$ \{ \4 \}} ]}
 \z
 % \inlinetodoopt{Stefan: This LR would not work for relational nouns, since they select a complement
 %   and the adjuncts modify an \nbar. Mention this?}
@@ -2548,18 +2576,19 @@ $\mapsto$ \\
 Adjunct Extraposition Lexical Rule\\
 \avm{
 	[loc & \2 [cat|head & noun $\lor$ verb ] \\
-    \punk{nonloc|inher|extra}{\1} ]}
+    \punk{nonloc|extra}{\1} ]}
 $\mapsto$ \\
 \flushright\avm{
 [loc|cont \3\\
- nonloc|inher|extra & \1 $\cup$ \{[cat & [head & [\type*{prep $\lor$ rel}
+ nonloc|extra & \1 $\cup$ \{[cat & [head & [\type*{prep $\lor$ rel}
                                                   mod|loc & \2 ] \\
                                    cont & \3 ] ] \} ]
 }
 \zs
 
+
 The complement extraposition rule is straightforward: it removes a
-valency from the \textsc{subcat} list and inserts its \textsc{local}
+valency from the \textsc{comps} list and inserts its \textsc{local}
 value into the \textsc{extra} set. 
 
 As for adjunct extraposition, the lexical rule  equally inserts an
@@ -2582,22 +2611,30 @@ dependencies, which are realised as extraposed daughters.\footnote{We
 \begin{exe}
   \ex Head-Extra Schema
 
-\inlinetodoobl{Stefan: \textsc{to-bind} is never explained.}
-\avm{
-	[synsem & [nonloc|inher|extra & \{ \} ] \\
-         dtrs & [head-dtr & [synsem|nonloc|to-bind|extra & \upshape \textsf{loc(\1)} ] \\
-	 extra-dtrs & \1 ] ]
+%\inlinetodoobl{Stefan: \textsc{to-bind} is never explained.}
+% \avm{
+% 	[synsem & [nonloc|extra & \{ \} ] \\
+%          dtrs & [head-dtr & [synsem|nonloc|to-bind|extra & \upshape \textsf{loc(\1)} ] \\
+% 	 extra-dtrs & \1 ] ]
+%        }
+       \avm{
+	[synsem & [nonloc|extra & \tag{x} ] \\
+         dtrs & [head-dtr & [synsem|nonloc|extra & \{\tag{1} ... \tag{n}\}
+         $\cup$ \tag{x}] \\
+	 extra-dtrs & < [synsem|loc & \tag{1}] ~... [synsem|loc & \tag{n}]> ] ]
 }
+
 \end{exe}
 
 Order of extraposed daughters amongst each other and with respect to
-the head is regulated by linear precedence statements (see \crossrefchapterw[Section~\ref{sec-id-lp}]{order} on linear
-precedence constraints).
+the head is regulated by linear precedence statements (see
+\crossrefchapterw[Section~\ref{sec-id-lp}]{order} on linear precedence
+constraints).
 
 \citet{Keller:95} discusses how salient differences between extraction
 and extraposition can be captured quite straightforwardly: to account,
 e.g., for the clause-boundedness, it will be sufficient to restrict
-the \textsc{inher|extra} set of clausal signs to be the empty
+the \textsc{extra} set of clausal signs to be the empty
 set. Similarly, since extraposition (\textsc{extra}) and extraction
 (\textsc{slash}) are implemented by different features, locality
 constraints imposed on \textsc{slash} will not hold for extraposition.
