@@ -3,7 +3,7 @@
 %	        ,collectionchapter
  	        ,biblatex
                 ,babelshorthands
-                ,newtxmath
+%                ,newtxmath
                 ,draftmode
                 ,colorlinks, citecolor=brown
 ]{langscibook}
@@ -16,8 +16,8 @@
   \togglepaper[22]
 }{}
 
-\newcommand{\mathplus}{{\normalfont +}}
-%\newcommand{\mathplus}{$+$}
+\newcommand{\mathplus}{\mbox{\normalfont +}}
+\newcommand{\emdash}{---}
 
 \author{Berthold Crysmann\affiliation{CNRS, Laboratoire de
     linguistique formelle, U Paris}
@@ -59,9 +59,9 @@
 Lexicalist approaches to grammar, such as HPSG, typically combine a
 fairly general syntactic component with a rich and articulate
 lexicon. While this makes for a highly principled syntactic
-component -- e.g.\ the grammar fragment of \ili{English} presented in
+component \emdash e.g.\ the grammar fragment of \ili{English} presented in
 \citet{Pollard94} contains only a handful of principles together with
-six rather general phrase structure schemata --, this decision places
+six rather general phrase structure schemata \emdash, this decision places
 quite a burden on the lexicon, an issue  known as lexical
 redundancy.
 
@@ -81,9 +81,9 @@ alternations, such as resultatives or the causative-inchoative
 alternation, as well as classical instances of grammatical function
 change, such as passives, applicatives or causatives. The crucial
 difference with respect to vertical redundancy is that we are not
-confronted with what is essentially a classificational problem --
-assigning lexical entries to a more general class and inheriting its
-properties --, but rather with a relation between lexical entries.
+confronted with what is essentially a classificational problem \emdash
+assigning lexical items to a more general class and inheriting its
+properties \emdash, but rather with a relation between lexical items.
 Morphological processes, both in word formation and inflection,
 crucially involve this latter type of redundancy: for example, in the
 case of deverbal adjectives in \textit{-able}, we find a substantial
@@ -100,37 +100,37 @@ horizontal redundancy in HPSG is by means of lexical rules
 \citep{Flickinger87}. Early HPSG embraced Bresnan's original
 conception of lexical rules as mappings between lexical items. To a
 considerable extent\footnote{See also the work by
-  \citet{meurers:towards,Meurers02}, providing a formal
+  \citet{Meurers02}, providing a formal
   description-level formalisation of lexical rules, as standardly used
   in HPSG.}, work on morphology and, in particular, derivational
 morphology has led to a reconceptualisation of lexical rules within
 HPSG: now, they are understood as partial descriptions of lexical
 items that are fully integrated into the hierarchical lexicon
-\citep{meurers:towards,Copestake:01,Koenig99}. As such, they are
+\citep{Koenig99}. As such, they are
 amenable to the same underspecification techniques that are used to
 generalise across classes of basic lexical items.
 
 %\subsection*{Tour of the chapter}
 
 %\bigskip\noindent Jib's nich.
+
+\medskip
+
 The chapter is structured as follows: in Section~\ref{sec:Deriv}, I
 shall present the main developments towards an inheritance-based view
 of derivational morphology within HPSG and provide pointers to
-concrete work within HPSG and beyond that has grown out of
-these efforts. 
-
-In Section~\ref{sec:Infl}, I shall discuss inflectional morphology,
-starting with an overview of the classical challenges (Section
-\ref{sec:InflChallenges}) and assess how the different types of
-inflectional theories -- Item-and-Arrangement (IA), Item-and-Process
-(IP), and Word"=and"=Paradigm (WP) -- fare with respect to these
-basic challenges (Section~\ref{sec:InflTypology}). Against this
-backdrop, I shall discuss previous work on inflection in HPSG
-(Section~\ref{sec:InflHPSG}).
-
-Section~\ref{sec:IbM} will be devoted to an introduction of
-Information-based Morphology, a recently developed HPSG subtheory of
-inflectional morphology.
+concrete work within HPSG and beyond that has grown out of these
+efforts. In Section~\ref{sec:Infl}, I shall discuss inflectional
+morphology, starting with an overview of the classical challenges
+(Section \ref{sec:InflChallenges}) and assess how the different types
+of inflectional theories \emdash Item-and-Arrangement (IA),
+Item-and-Process (IP), and Word"=and"=Paradigm (WP) \emdash fare with
+respect to these basic challenges
+(Section~\ref{sec:InflTypology}). Against this backdrop, I shall
+discuss previous work on inflection in HPSG
+(Section~\ref{sec:InflHPSG}). Section~\ref{sec:IbM} will be devoted to
+an introduction of Information-based Morphology, a recently developed
+HPSG subtheory of inflectional morphology.
 
 
 
@@ -191,11 +191,11 @@ formations, conversion, and  (subtractive) back formations
 
 Second, she conducts a detailed empirical study of \textit{-bar}
 `-able' affixation in \ili{German} and shows that besides regular
-\textit{-bar} adjectives, which derive from strictly transitive verbs and
+\textit{-bar} adjectives, which derive from transitive verbs and
 introduce both modality and a  passivisation effect, there is a 
 broader class of similar formations which adhere to some of the
 properties, but not others.
-\itd{redraw figure with fores styles. Edges to \ldots{} end to low.}
+
 \begin{figure}
   \centering
   \includegraphics[scale=1.15]{figures/Riehemann-crop.pdf}
@@ -495,13 +495,13 @@ type from one dimension with exactly one leaf type from the other.
 		[%
 		\avm{
 			[\type*{verbs}
-			cat & V]
+			cat & [hd & v]]
 		}
 			[%
 			\avm{
 				[\type*{kill-lxm}
 				ph & kill \\
-				cont &	[reln & kill-rel \\
+				cont &	[\type*{kill-rel} \\
 				act & index \\
 				und & index] ]
 			}, l sep+=1cm, name=a
@@ -511,7 +511,7 @@ type from one dimension with exactly one leaf type from the other.
 			\avm{
 				[\type*{resurrect-lxm}
 				ph & resurrect \\
-				cont &	[reln & resurrect-rel \\
+				cont &	[\type*{resurrect-rel} \\
 				act & index \\
 				und & index] ]
 			}, l sep+=1cm, name=b
@@ -524,10 +524,10 @@ type from one dimension with exactly one leaf type from the other.
 		\avm{
 			[\type*{trans-lxm}
 			cat &	[hd & v \\
-			subj & <NP$_{\tag{x}}$> \\
-			comps & <NP$_{\tag{y}}$> ] \\
-			cont &	[act & \tag{x} \\
-			und & \tag{y} ] ]
+			subj & <NP$_{\tag{1}}$> \\
+			comps & <NP$_{\tag{2}}$> ] \\
+			cont &	[act & \tag{1} \\
+			und & \tag{2} ] ]
 		}, l sep+=1cm, name=c
 			[resurrect-lxm $\land$ trans-lxm, tier=word, edge=dashed, name=3]
 		]
@@ -535,10 +535,10 @@ type from one dimension with exactly one leaf type from the other.
 		\avm{
 			[\type*{pass-lxm}
 			cat &	[hd & v \\
-			subj & <NP$_{\tag{y}}$> \\
-			comps & <PP$_{\tag{x}}$> ] \\
-			cont &	[act & \tag{x} \\
-			und & \tag{y} ] ]
+			subj & <NP$_{\tag{2}}$> \\
+			comps & <PP$_{\tag{1}}$> ] \\
+			cont &	[act & \tag{1} \\
+			und & \tag{2} ] ]
 		}, l sep+=1cm, name=d
 			[resurrect-lxm $\land$ pass-lxm, tier=word, edge=dashed, name=4]
 		]
@@ -572,72 +572,6 @@ pre-typing makes this type already a type in both dimensions.
   \centering
 
 
-%\resizebox{\textwidth}{!}{%  
-%  \psset{angleA=-90,angleB=90,arm=0pt}
-%    \tabcolsep.2\tabcolsep
-%  \begin{tabular}{ccccccc}
-%    \multicolumn{4}{c}{\tnode{lexeme}} \\[2ex]
-%    \multicolumn{2}{c}{\dnode{ROOT}}  & \multicolumn{2}{c}{\dnode{VALENCE}}\\[2ex]
-%    \multicolumn{2}{c}{\rnode{verbs}{
-%    \begin{avm}
-%      \[\asort{verbs}
-%      cat & \[hd & v\]\]
-%    \end{avm}
-%}} & \rnode{trans}{\begin{avm}
-%      \[  \asort{trans}
-%        cat & \[hd & v\\
-%          subj & \< NP$_{\@x}$ \>\\
-%          comps & \< NP$_{\@y}$ \>
-%                \]\\
-%       cont & \[act & {\@x}\\
-%       und & {\@y} \]
-%      \]
-%    \end{avm}}
-%        &
-%      \rnode{pass}{\begin{avm}
-%       \[\asort{pass}
-%
-%       cat & \[hd & v\\subj & \< NP$_{\@y}$ \>\\
-%       comps & \< PP$_{\@x}$ \>\]\\
-%     cont & \[act & {\@x}\\
-%       und & {\@y}\]
-%       \]
-%    \end{avm}}  \\[6em] 
-%    \rnode{own}{
-%    \begin{avm}
-%      \[ph & own\\
-%      cont & \[\asort{own-rel}
-%      act & index\\
-%      und & index\]\] 
-%    \end{avm}
-%}  & \rnode{have}{\begin{avm}
-%      \[ph & have\\
-%            cont & \[\asort{have-rel}
-%      act & index\\
-%      und & index\]
-%\] 
-%    \end{avm}
-%}  &
-%    \tnode{reg-trans} & \tnode{reg-pass}\\
-%
-%    \psset{linewidth=.6pt,nodesep=2pt}                                                                       
-%    \ncdiag{lexeme}{ROOT}
-%    \ncdiag{lexeme}{VALENCE}
-%    \ncdiag{ROOT}{verbs}
-%    \ncdiag{VALENCE}{trans}
-%    \ncdiag{VALENCE}{pass}
-%
-%    \ncdiag{trans}{reg-trans}
-%    \ncdiag{trans}{have}
-%    \ncdiag{pass}{reg-pass}
-%%    \ncdiag{pass}{rumored}
-%
-%    \ncdiag{verbs}{own}
-%    \ncdiag{verbs}{have}
-% %   \ncdiag{verbs}{rumored}
-%    
-%  \end{tabular}
-%}
 
 \resizebox{\textwidth}{!}{%
 	\begin{forest}
@@ -651,7 +585,8 @@ pre-typing makes this type already a type in both dimensions.
 		}, l sep+=1.5cm
 			[%
 			\avm{
-				[ph & own \\
+                          [\type*{own-lxm}
+                          ph & own \\
 				cont &	[\type*{own-rel}
 						act & index\\
 						und & index] ]
@@ -659,7 +594,8 @@ pre-typing makes this type already a type in both dimensions.
 			]
 			[%
 			\avm{
-				[ph & have\\
+                          [\type*{have-lxm}
+                          ph & have\\
 				cont &	[\type*{have-rel}
 						act & index\\
 						und & index] ]
@@ -672,10 +608,10 @@ pre-typing makes this type already a type in both dimensions.
 		\avm{
 			[\type*{trans}
 			cat &	[hd & v \\
-			subj & <NP$_{\tag{x}}$> \\
-			comps & <NP$_{\tag{y}}$> ] \\
-			cont &	[act & \tag{x} \\
-			und & \tag{y} ] ]
+			subj & <NP$_{\tag{1}}$> \\
+			comps & <NP$_{\tag{2}}$> ] \\
+			cont &	[act & \tag{1} \\
+			und & \tag{2} ] ]
 		}, name=trans
 			[reg-trans, tier=word]
 		]
@@ -683,10 +619,10 @@ pre-typing makes this type already a type in both dimensions.
 		\avm{
 			[\type*{pass}
 			cat &	[hd & v \\
-			subj & <NP$_{\tag{y}}$> \\
-			comps & <PP$_{\tag{x}}$> ] \\
-			cont &	[act & \tag{x} \\
-			und & \tag{y} ] ]
+			subj & <NP$_{\tag{2}}$> \\
+			comps & <PP$_{\tag{1}}$> ] \\
+			cont &	[act & \tag{1} \\
+			und & \tag{2} ] ]
 		}
 			[reg-pass, tier=word]
 		]
@@ -806,7 +742,7 @@ express the same property, but at least one of them also expresses
 some other property: e.g.\ many \ili{German} nouns form the dative plural by
 suffixation of \textit{-n}, but plural marking is often signalled
 additionally by stem modification (\textit{Umlaut}): while
-\textit{Kuttern-n} `tug(\textsc{m})-\textsc{dat.pl}' merely shows
+\textit{Kutter-n} `tug(\textsc{m})-\textsc{dat.pl}' merely shows
 cumulation of case and number, \textit{Mütter-n}
 `mother(\textsc{f}).\textsc{pl}-\textsc{dat.pl}' exhibits plural
 marking in both the inflectional ending and the fronting of the stem
@@ -1109,7 +1045,7 @@ Encoding paradigms by distributed disjunctions \citep[105]{Krieger:Nerbonne:93}:
 \avm{
 	[morph &	[stem & \2 \\
 				ending & \3 \{ $_{\$1}$  \normalfont ``e'', ``st'', ``t'', ``n'', ``t'', ``n''\} \\
-				form & \2 $+$ \3] \\
+				form & \2 $\mathplus $ \3] \\
 	synsem &	[local|head|agr & \{$_{\$1}$	[per & 1 \\
 												num & sg]
 												,
@@ -1290,7 +1226,7 @@ Sample types for \ili{Swahili}:
 \ex \textit{$\neg$1sg-neg}:\\
 	\avm{
 		[ph &	[aff &	[pref & < \normalfont ha, \ldots, \ldots > ] ] \\
-		cat  &	[head &	[$\mu$-feat &	[neg & $+$] ] ]]
+		cat  &	[head &	[$\mu$-feat &	[neg & $\mathplus $] ] ]]
 	}
 
 \ex \textit{1sg-pos}:\\
@@ -1303,7 +1239,7 @@ Sample types for \ili{Swahili}:
 \ex \textit{1sg-neg}:\\
 \avm{
 	[ph &	[aff &	[pref & < \normalfont si, < >, \ldots > ] ]\\
-	cat  &	[head &	[$\mu$-feat &	[neg & $+$ \\
+	cat  &	[head &	[$\mu$-feat &	[neg & $\mathplus $ \\
 									subj-agr &	[per & 1 \\
 												num & sg] ] ] ] ]
 }
@@ -1321,8 +1257,8 @@ limitation to a direct word-based perspective: situations where
 exponents from the same set of markers may (repeatedly) co-occur
 within a word cannot be captured without an intermediate level of
 rules. Such a situation is found with subject and object agreement
-markers in \ili{Swahili} -- so-called parallel position classes
-\citep{Stump93,Crysmann:Bonami:2016} --, as well as with exuberant
+markers in \ili{Swahili} \emdash so-called parallel position classes
+\citep{Stump93,Crysmann:Bonami:2016} \emdash, as well as with exuberant
 exponence in \ili{Batsbi} \citep{Harris09,Crysmann:2018:Batsbi}. We shall
 come back to the issue in Section~\ref{sec:ConstrGen}. Finally, since
 exponents are directly represented on an affix list under Koenig's
@@ -1664,7 +1600,7 @@ Morphological well-formedness:\\
 			[mph & \tag{e$_n$} \\
 			mud & \tag{m$_n$} \\
 			ms & \0] \} \\
-	ms & \tag{m$_1$} $\uplus\dots\uplus$ \tag{m$_n$} ]
+	ms & \tag{m$_1$} $\uplus \mbox{~\ldots~} \uplus$ \tag{m$_n$} ]
 }
 \z
 
@@ -1816,7 +1752,7 @@ vs.\ absence of the prefixal part (\textit{ge-}).
 [%
 \avm{
 	[mud &	\{[tam & ppp]\} \\
-	mph & < \ldots\ , [pc & 1] > ]
+	mph & < \ldots\  [pc & 1] > ]
 }
 	[pref,partition
 		[%
@@ -1834,12 +1770,12 @@ vs.\ absence of the prefixal part (\textit{ge-}).
 	[suff,partition
 		[%
 		\avm{
-			[mph & < \ldots , [ph & t]> ]
+			[mph & < \ldots  [ph & t]> ]
 		}
 		]
 		[%
 		\avm{
-			[mph & < \ldots , [ph & en]> ]
+			[mph & < \ldots  [ph & en]> ]
 		}
 		]
 	]
@@ -1851,8 +1787,8 @@ vs.\ absence of the prefixal part (\textit{ge-}).
 Figure~\ref{fig:Horizontal} shows how Online Type Construction provides
 a means to generalise these patterns in a straightforward way: while the
 common supertype still captures properties true of all four different
-realisations -- namely the property to be expressed and the fact that it
-involves at least a suffix --, concrete prefixal and suffixal realisation
+realisations \emdash namely the property to be expressed and the fact that it
+involves at least a suffix \emdash, concrete prefixal and suffixal realisation
 patterns are segregated into dimensions of their own (indicated by
 \fbox{\textsc{pref}} and \fbox{\textsc{suff}}). Systematic cross-classification
 (under unification) of types in \fbox{\textsc{pref}} with those in
@@ -1880,7 +1816,7 @@ type in each dimension. The maximal types of the hierarchy thus
 expanded serve as the basis for rule instances, i.e.\ actual
 rules.\footnote{\label{fn:OTC}There are two ways of conceptualising the status of
   Online Type Construction in grammar: under the dynamic view, hierarchies are
-  underspecified and the full range of admissible type and therefore
+  underspecified and the full range of admissible types and therefore
   the range of instances is inferred online. Under the more
   conservative static view, the underspecified description is merely a
   convenient shortcut for the grammar writer. In either case,
@@ -1935,7 +1871,7 @@ ordering  more specific rules before more general ones.}
         \ex For any leaf type $t_1$ with competitor $t_2$, expand
         $t_1$'s \textsc{ms} $\sigma$ with the negation of $t_2$'s
         \textsc{ms} $\sigma \wedge \tau$:
-        $\sigma \wedge \neg (\sigma \wedge \tau) \equiv \sigma \wedge
+        $\sigma \wedge \neg$ ($\sigma \wedge \tau$) $\equiv \sigma \wedge
         \neg \tau$.
       \end{xlist}
     \end{description}
@@ -2294,10 +2230,10 @@ with respect to Pāṇini's principle.
 
 Pure multiple exponence works somewhat differently from
 overlapping exponence: in Nyanja \citep{Stump01,Crysmann:14:OUP},
-class B adjectives (\ref{ex:NyanjaQualConc}) take two class markers to
+class B adjectives, such as \textit{kulu} `large' in (\ref{ex:NyanjaQualConc}) take two class markers to
 mark agreement with the head noun, one set of markers being the one
-normally used with class A adjectives (\ref{ex:NyanjaQual}), the other being attested with
-verbs (\ref{ex:NyanjaConc}). Both sets distinguish the same
+normally used with class A adjectives, such as \textit{bwino} `good' in (\ref{ex:NyanjaQual}), the other being attested with
+verbs, such as \textit{kula} `grow' (\ref{ex:NyanjaConc}). Both sets distinguish the same
 properties, i.e.\ nominal class.\label{Nyanja}\footnote{The examples in (\ref{ex:Nyanja}) are taken from \citew[6]{Stump01}.}
 
 \eal
@@ -2418,8 +2354,8 @@ cascaded rule model adopted by e.g.\ PFM
 directly represented as a property of exponents.
 
 Taking as a starting point the classical challenges from
-\citet{Stump93} -- portmanteau, ambifixal, reversed, and parallel
-position classes --, they developed an extended typology of variable
+\citet{Stump93} \emdash portmanteau, ambifixal, reversed, and parallel
+position classes \emdash, they developed an extended typology of variable
 morphotactics, i.e.\ systems, which depart from the kind of rigid
 ordering more commonly found in morphological systems.
 
@@ -2685,8 +2621,8 @@ both relative orders. Free permutation appears to present a
 challenge for cascaded rule models, such as PFM, whereas an analysis is almost
 trivial in IbM, as position can be underspecified. 
 
-\subsubsection*{Relative placement}
-
+%\subsubsection*{Relative placement}
+\medskip
 Inflectional morphology does not provide much evidence for internal
 structure. This is recognised in IbM by representing morphs on a flat
 list with simple position class indices. While a simple indexing by
@@ -2774,7 +2710,7 @@ be placed relative to this pivot (cf.~the agreement rule in Figure~\ref{fig:Ital
 	[%
 	\avm{
 		[mud & \{[\type{obj} ]\} \\
-		mph & <[pc & $4$ $+$]> ]
+		mph & <[pc & $4$ ]> ]
 	}
 		[%
 		\avm{
@@ -2804,7 +2740,7 @@ be placed relative to this pivot (cf.~the agreement rule in Figure~\ref{fig:Ital
 	\avm{
 		[mud & \{[\type{subj} ]\} \\
 		mph &	<[stm-pc & \tag{s}\\
-				pc & \tag{s} $+2$]> ]
+				pc & \tag{s} $\mathplus ~2$]> ]
 	}
 		[%
 		\avm{
@@ -2893,7 +2829,7 @@ underlyingly \citep{bonami-crysmann:2013}.
         	num & pl ]\}\\
      mph &	<[ph & <\normalfont jân>\\
         	1st-pc & \1\\
-     		pc & \1 $+ 1$ ]> ]
+     		pc & \1 $\mathplus ~1$ ]> ]
 }
 \end{exe}
 
@@ -2946,7 +2882,7 @@ markers and the properties they express.
 \begin{table}[htbp]
 %  \centering
   \small
-  \setlength{\tabcolsep}{.7\tabcolsep}
+  %\setlength{\tabcolsep}{.7\tabcolsep}
 \begin{tabular}{l|ll}
  \multicolumn{3}{c}{\textit{nokk} `beak'} \\
 \lsptoprule
@@ -2957,7 +2893,7 @@ markers and the properties they express.
   \textsc{part} & nokk-a & nokk-a-sid\\
 \lspbottomrule
 \end{tabular}
-\hfill
+\hspace{2em}
 \begin{tabular}{l|ll} 
 \multicolumn{3}{c}{\textit{õpik} `workbook'}\\
 \lsptoprule
@@ -3329,7 +3265,8 @@ partial rule descriptions.
 %      <!-- Local IspellDict: en_US-w_accents -->
 
 
+
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: t
+%%% TeX-master: "../main-morph"
 %%% End:
