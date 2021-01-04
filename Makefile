@@ -235,11 +235,11 @@ prepubs-latex-cp: prepublish-pdfs
 #	cp prepubs-chop-pdfs/07.pdf prepubs-pdfs/case.pdf
 #	cp prepubs-chop-pdfs/08.pdf prepubs-pdfs/nominal-structures.pdf
 #	cp prepubs-chop-pdfs/09.pdf prepubs-pdfs/argument-structure.pdf
-#	cp prepubs-chop-pdfs/10.pdf prepubs-pdfs/order.pdf
+	cp prepubs-chop-pdfs/10.pdf prepubs-pdfs/order.pdf
 ##	cp prepubs-chop-pdfs/11.pdf prepubs-pdfs/clitics.pdf
 #	cp prepubs-chop-pdfs/11.pdf prepubs-pdfs/complex-predicates.pdf
 #	cp prepubs-chop-pdfs/12.pdf prepubs-pdfs/control-raising.pdf
-#	cp prepubs-chop-pdfs/13.pdf prepubs-pdfs/unbounded-dependencies.pdf
+	cp prepubs-chop-pdfs/13.pdf prepubs-pdfs/unbounded-dependencies.pdf
 #	cp prepubs-chop-pdfs/14.pdf prepubs-pdfs/relative-clauses.pdf
 #	cp prepubs-chop-pdfs/15.pdf prepubs-pdfs/islands.pdf
 #	cp prepubs-chop-pdfs/16.pdf prepubs-pdfs/coordination.pdf
