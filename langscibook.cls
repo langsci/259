@@ -1771,39 +1771,40 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 
     \NewDocumentCommand{\includepaper}{m}{
         \bgroup
-		\renewcommand{\newlineCover}{\\}
-                \renewcommand{\documentclass}[2][]{}%
-                \renewcommand{\usepackage}[2][]{}%
-                \renewenvironment{document}{\begingroup}{\endgroup}
-                \includepaper@body
-                \begin{refsection}
-                \renewcommand{\lsCollectionPaperCitationText}{\fullciteFooter{#1footer}}
-                \include{#1}%
+		  \renewcommand{\newlineCover}{\\}
+          \renewcommand{\documentclass}[2][]{}%
+          \renewcommand{\usepackage}[2][]{}%
+          \renewenvironment{document}{\begingroup}{\endgroup}
+          \includepaper@body
+          \begin{refsection}
+            \renewcommand{\lsCollectionPaperCitationText}{\fullciteFooter{#1footer}}
+            \include{#1}%
             \if@partsw\relax\else% This switch controls whether the included chapter is in the range of \includeonly. It's from source2e.
             \addtocounter{page}{-1}
             \edef\lsCollectionPaperLastPage{\thepage}	% \lsCollectionPaperFirstPage is defined in \includepaper@body
             \addtocounter{page}{1}
-
-                %%% for citation in footer
-                %% preprocessing of author/editor names
-                \onlyAuthor
-                \renewcommand{\newlineCover}{}
-                \renewcommand{\newlineSpine}{}
-                \renewcommand{\newlineTOC}{}
-                \StrSubstitute{\@author}{,}{ and }[\authorTemp]
-                \StrSubstitute{\authorTemp}{\&}{ and }[\authorTemp]
-                \StrSubstitute{\lsCollectionEditor}{,}{ and }[\editorTemp]
-                \StrSubstitute{\editorTemp}{\&}{ and }[\editorTemp]
-
-                %% write bib entry to file
-                %% FIXME: the publisher field needs a final period, since this is not provided by \fullciteFooter together with DOIs.
-                \immediate\write\tempfile{@incollection{#1,author={\authorTemp},title={{\expandonce{\titleTemp}}},booktitle={{\expandonce{\lsCollectionTitle}}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},year={\lsYear},pages={\lsCollectionPaperFirstPage --\lsCollectionPaperLastPage},doi={\lsChapterDOI},keywords={withinvolume}}}
-                \immediate\write\tempfile{@incollection{#1footer,author={\authorTemp},title={{\expandonce{\titleTemp}}},booktitle={{\expandonce{\lsCollectionTitle}}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},year={\lsYear},pages={\lsCollectionPaperFirstPage --\lsCollectionPaperLastPage},doi={\lsChapterDOI},options={dataonly=true}}}
-                \fi% If the paper is not within \includeonly, don't do anything.
-                \end{refsection}
+            \lsCollectionMetadataToBibliography{#1}
+          \end{refsection}
         \egroup
     } %end NewDocumentCommand
 }{}
+
+\newcommand{\lsCollectionMetadataToBibliography}[1]{%
+  %% preprocessing of author/editor names
+  \onlyAuthor
+  \renewcommand{\newlineCover}{}
+  \renewcommand{\newlineSpine}{}
+  \renewcommand{\newlineTOC}{}
+  \StrSubstitute{\@author}{,}{ and }[\authorTemp]
+  \StrSubstitute{\authorTemp}{\&}{ and }[\authorTemp]
+  \StrSubstitute{\lsCollectionEditor}{,}{ and }[\editorTemp]
+  \StrSubstitute{\editorTemp}{\&}{ and }[\editorTemp]
+  
+  %% write bib entry to file
+  \immediate\write\tempfile{@incollection{#1,author={\authorTemp},title={{\expandonce{\titleTemp}}},booktitle={{\expandonce{\lsCollectionTitle}}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},year={\lsYear},pages={\lsCollectionPaperFirstPage --\lsCollectionPaperLastPage},doi={\lsChapterDOI},keywords={withinvolume}}}
+  \immediate\write\tempfile{@incollection{#1footer,author={\authorTemp},title={{\expandonce{\titleTemp}}},booktitle={{\expandonce{\lsCollectionTitle}}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},year={\lsYear},pages={\lsCollectionPaperFirstPage --\lsCollectionPaperLastPage},doi={\lsChapterDOI},options={dataonly=true}}}
+  \fi% If the paper is not within \includeonly, don't do anything.
+}
 
 \newcommand{\titleToHead}{}
 \newcommand{\titleTemp}{}
