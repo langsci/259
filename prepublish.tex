@@ -9,8 +9,10 @@
 % Some lines start with %. Remove the % to include them
 
 \documentclass[output=book
+		,multiauthors
+	        ,collection
+	        ,collectionchapter
  	        ,biblatex  
-                ,collection
                 ,babelshorthands
                 ,newtxmath
 %                ,colorlinks, citecolor=brown % for drafts
@@ -73,6 +75,17 @@
   \stepcounter{realpage}
 }
 
+% \let\oldchapter\chapter% Store \chapter in \oldchapter
+% \renewcommand{\chapter}{%
+%   \oldchapter%
+%   \setcounter{page}{1}%
+% }
+
+\makeatletter
+\apptocmd{\includepaper@body}{\setcounter{page}{0}}
+\makeatother
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%                                              %%%
 %%%             Frontmatter                      %%%
@@ -99,8 +112,8 @@
 %%
 \mainmatter          
 \typeout{mainmatter starts at \therealpage}
-\pagenumbering{roman}\counterwithin*{page}{chapter}%
-
+% is broken \counterwithin*{page}{chapter}%
+\pagenumbering{roman}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%                                              %%%
@@ -148,7 +161,7 @@
 % \includepaper{chapters/processing}
 % \includepaper{chapters/cl}
 % \includepaper{chapters/pragmatics}
-% \includepaper{chapters/sign-lg}
+% %\includepaper{chapters/sign-lg}
 % \includepaper{chapters/gesture}
 % %
 % \part{The broader picture}
