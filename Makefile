@@ -1,5 +1,6 @@
 # specify thh main file and all the files that you are including
 Bibliographies=$(wildcard Bibliographies/*.bib) localbibliography.bib 
+STYLE-PATH= ${HOME}/Library/texmf/tex/latex/
 
 SOURCE=  main.tex $(wildcard local*.tex) $(wildcard chapters/*.tex) $(Bibliographies) \
 langscibook.cls langsci-unified.bbx langsci-forest-setup.sty
@@ -250,7 +251,7 @@ prepubs-latex-cp: prepublish-pdfs
 	cp prepubs-chop-pdfs/21.pdf prepubs-pdfs/morphology.pdf
 #	cp prepubs-chop-pdfs/22.pdf prepubs-pdfs/semantics.pdf
 #	cp prepubs-chop-pdfs/23.pdf prepubs-pdfs/information-structure.pdf
-#	cp prepubs-chop-pdfs/24.pdf prepubs-pdfs/processing.pdf
+	cp prepubs-chop-pdfs/24.pdf prepubs-pdfs/processing.pdf
 #	cp prepubs-chop-pdfs/25.pdf prepubs-pdfs/cl.pdf
 #	cp prepubs-chop-pdfs/26.pdf prepubs-pdfs/dialogue.pdf
 #	cp prepubs-chop-pdfs/27.pdf prepubs-pdfs/sign-languages.pdf
@@ -258,7 +259,7 @@ prepubs-latex-cp: prepublish-pdfs
 #	cp prepubs-chop-pdfs/29.pdf prepubs-pdfs/hpsg-minimalism.pdf
 #	cp prepubs-chop-pdfs/30.pdf prepubs-pdfs/hpsg-categorial-grammar.pdf
 #	cp prepubs-chop-pdfs/31.pdf prepubs-pdfs/hpsg-lfg.pdf
-#	cp prepubs-chop-pdfs/32.pdf prepubs-pdfs/hpsg-dependency-grammar.pdf
+	cp prepubs-chop-pdfs/32.pdf prepubs-pdfs/hpsg-dependency-grammar.pdf
 #	cp prepubs-chop-pdfs/33.pdf prepubs-pdfs/hpsg-cxg.pdf
 
 
@@ -426,6 +427,12 @@ memo-install:
 
 avm-install:
 	cp -fp ~/Documents/Dienstlich/Projekte/LangSci/Git-HUB/langsci-avm/langsci-avm.sty .
+
+stmue-install:
+	cp -p ${STYLE-PATH}makros.2020.sty styles/
+	cp -p ${STYLE-PATH}abbrev.sty      styles/
+
+
 
 #housekeeping	
 clean:
