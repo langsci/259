@@ -52,9 +52,17 @@ font_mem_bot=4000000<br>
 
 
 Afterwards, call texhash to update the LaTeX format files.
+
 ------------------------------- 
 
+## Cloning
+Since this repository has a rather long history, if you have trouble downloading the complete git revision history (e.g. b/c of slow internet connection, limited disk space), it is possible to clone the repository with a limited number of revisions:
 
+```
+git clone git@github.com:langsci/259.git --depth n
+```
+
+where n is a number. Something between 10 and 100 is recommended.
 
 
 ## Contributors
