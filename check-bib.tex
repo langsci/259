@@ -1,0 +1,83 @@
+%% -*- coding:utf-8 -*-
+\documentclass{article}                              
+
+\usepackage[
+	natbib=true,
+	style=langsci-unified,
+	citestyle=langsci-unified,
+	datamodel=langsci,   % add authauthor and autheditor as possible fields to bibtex entries
+	%refsection=chapter,
+	maxbibnames=99,
+	uniquename=false,
+	mincrossrefs=99,
+	maxcitenames=2,
+	isbn=false,
+	autolang=hyphen,
+	language=english,
+	backend=biber,
+	indexing=cite,
+]{biblatex}
+
+% If the user provided a shortauthor in the bibtex entry, we use the authentic author (as with the
+% authorindex package) if it is defined, otherwise we use the author.
+% This gets F/T as shorthand right and puts the guys in the index.
+
+\renewbibmacro*{citeindex}{%
+  \ifciteindex
+    {\iffieldequalstr{labelnamesource}{shortauthor} % If biblatex uses shortauthor as the label of a bibitem
+      {\ifnameundef{authauthor}                     % we check whether there is something in authauthor
+        {\indexnames{author}}                       % if not, we use author
+        {\indexnames{authauthor}}}                  % if yes, we use authauthor
+      {\iffieldequalstr{labelnamesource}{author}    % if biblatex uses author we similarly test for
+                                                    % authauthor and use this field
+        {\ifnameundef{authauthor}% if defined use authauthor
+          {\indexnames{author}}
+          {\indexnames{authauthor}}} % if defined use this field
+        {\iffieldequalstr{labelnamesource}{shorteditor} % same for editor
+          {\ifnameundef{autheditor}
+            {\indexnames{editor}}
+            {\indexnames{autheditor}}}
+          {\indexnames{labelname}}}}}               % as a fallback we index on whatever biblatex used.
+    {}}
+
+
+% if no langid is set, it is English:
+% https://tex.stackexchange.com/a/279302
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map{
+      \step[fieldset=langid, fieldvalue={english}]
+    }
+  }
+}
+
+% If the user provided a shortauthor in the bibtex entry, we use the authentic author (as with the
+% authorindex package) if it is defined, otherwise we use the author.
+% This gets F/T as shorthand right and puts the guys in the index.
+
+\renewbibmacro*{citeindex}{%
+  \ifciteindex
+    {\iffieldequalstr{labelnamesource}{shortauthor} % If biblatex uses shortauthor as the label of a bibitem
+      {\ifnameundef{authauthor}                     % we check whether there is something in authauthor
+        {\indexnames{author}}                       % if not, we use author
+        {\indexnames{authauthor}}}                  % if yes, we use authauthor
+      {\iffieldequalstr{labelnamesource}{author}    % if biblatex uses author we similarly test for
+                                                    % authauthor and use this field
+        {\ifnameundef{authauthor}% if defined use authauthor
+          {\indexnames{author}}
+          {\indexnames{authauthor}}} % if defined use this field
+        {\iffieldequalstr{labelnamesource}{shorteditor} % same for editor
+          {\ifnameundef{autheditor}
+            {\indexnames{editor}}
+            {\indexnames{autheditor}}}
+          {\indexnames{labelname}}}}}               % as a fallback we index on whatever biblatex used.
+    {}}
+
+
+\bibliography{bib-abbr,biblio,localbibliography}
+
+\begin{document}
+\nocite{*}
+
+\printbibliography
+\end{document}
