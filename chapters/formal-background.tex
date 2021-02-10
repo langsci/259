@@ -30,7 +30,7 @@
 % \epigram{}
 \abstract{
   This chapter provides a very condensed introduction to a formalism for
-  \cite{PollardSag1994} and explains its fundamental concepts. It pays
+  \citew{PollardSag1994} and explains its fundamental concepts. It pays
   special attention to the model-theoretic meaning of HPSG grammars. In
   addition, it points out some links to other, related formalisms, such as
   feature logics of partial information, and to related
@@ -45,8 +45,7 @@
 \section{Introduction}
 \label{sec-introduction}
 
-The two HPSG books by Pollard and Sag
-\citep{PollardSag1987,PollardSag1994} do not present grammar formalisms
+The two HPSG books by \citet{PollardSag1987,PollardSag1994} do not present grammar formalisms
 with the intention to provide precise definitions.
 Instead they refer to various inspirations in the
 logics of typed feature structures or in predicate logic, informally
@@ -142,14 +141,14 @@ This handbook article cannot disentangle the history of and relationships
 between the various formalisms leading to an explication of the
 1994 version of HPSG, nor of those that existed and still exist in
 parallel. It sets out to clarify the terminology and
-structure of a formalism for \cite{PollardSag1994} and
+structure of a formalism for \citew{PollardSag1994} and
 presents a canonical formalism of the final version of
-HPSG in \cite{PollardSag1994}. Only occasionally will it point out some of
+HPSG in \citew{PollardSag1994}. Only occasionally will it point out some of
 the differences to its 1987 precursor where
 the older terminology is still present in current HPSG papers and
 may be confusing to an audience unaware of the different
-usages of terms. Similarly, it does not cover SBCG (Sign-Based
-Construction Grammar, \crossrefchaptert{cxg}).
+usages of terms. Similarly, it does not cover \added{the HPSG variant} Sign-Based
+Construction Grammar (SBCG; \citealt{Sag2012a}; \crossrefchapteralt[Section~\ref{cxg:sec-sbcg}]{cxg}).
 
 %I will clarify parallel terminological traditions and
 
@@ -182,7 +181,7 @@ handbook format.
 %terminology and main concepts
 
 This section presents an informal summary of the essentials of an HPSG
-formalism in the sense of \cite{PollardSag1994} as it emerged from their
+formalism in the sense of \citew{PollardSag1994} as it emerged from their
 original outline and its subsequent elaboration. From here on, the term
 ``HPSG formalism'' always refers to this tradition, unless explicitly
 stated otherwise.  All later sections in this chapter will flesh out
@@ -193,12 +192,12 @@ to skip ahead to Section~\ref{sec-signatures}.
 
 At the heart of HPSG is a fundamental distinction between descriptions
 and described objects: a grammar avails itself of descriptions with
-the purpose of describing linguistic objects.  \cite[17--18, 396]{PollardSag1994}
+the purpose of describing linguistic objects.  \citet[17--18, 396]{PollardSag1994}
 commit to the ontological assumption that linguistic objects only
 exist as complete objects. Partial linguistic objects do not
 exist. Descriptions of linguistic objects, however, are typically
 \emph{partial}, i.e.\ they do not mention many, or even most, properties of the
-objects in their denotation. They are \emph{underspecified}.
+objects in their denotation. They are \emph{underspecified}\is{underspecification}.
 A word can be described as being nominal
 and plural, leaving all its other properties (gender, case, number and
 category of its arguments, etc.) unspecified. But any
@@ -224,7 +223,7 @@ from some start symbol(s) \citep{PS2001a}.
 
 A small digression might be in order to prevent confusion arising from
 the co-existence of different versions of feature logics.  Varieties
-of HPSG more closely related to the tradition of \cite{PollardSag1987}
+of HPSG more closely related to the tradition of \citew{PollardSag1987}
 do not make the same distinction between descriptions and described
 objects. Instead they employ a notion of \emph{feature structures} as
 entities carrying \emph{partial information}. These partial feature
@@ -240,14 +239,14 @@ structure in the given algebra that carries the more specific
 information that is obtained when combining the previous two pieces of
 information (supposing they were not the same to begin with). These ideas and the
 properties of algebras employed by feature logics of partial information are
-still essential for all current HPSG implementation platforms (see \crossrefchaptert{cl}), which
+still essential for all current HPSG implementation platforms (see \crossrefchapteralt{cl}), which
 is presumably one of the reasons why the terminology of unification
 and unification-based grammars is still popular in the HPSG
-community. Returning to \cite{PollardSag1994}, in a certain
+community. Returning to \citew{PollardSag1994}, in a certain
 informal and casual sense, combining two non-contradictory descriptions
 into one single bigger description by logical conjunction could be
 called -- and often is called -- their unification. However, since the
-logical descriptions of HPSG in the tradition of \cite{PollardSag1994}
+logical descriptions of HPSG in the tradition of \citew{PollardSag1994}
 can no longer be arranged in an appropriate algebra, there is no
 technical interpretation of the term in this context.\footnote{This
   state of affairs is also responsible for the fact that
@@ -258,8 +257,10 @@ technical interpretation of the term in this context.\footnote{This
   relational expressions.}
 
 HPSG employs partial descriptions in all areas of grammar, comprising
-at least syntax, semantics \crossrefchapterp{semantics}, pragmatics \crossrefchapterp{pragmatics} and morphology \crossrefchapterp{morphology}. The
-descriptions are normally notated as AVMs and contain sort symbols (by
+at least syntax, semantics \crossrefchapterp{semantics}, pragmatics \crossrefchapterp{pragmatics}
+and morphology \crossrefchapterp{morphology}.\itdopt{add phonology with \citealp{BK94b}, \citealp{Hoehle99a-u}, and \citealp{Walther99a-u}?
+  And order the levels: phonology, morphology, syntax, \ldots?} 
+The descriptions are normally notated as AVMs and contain sort symbols (by
 convention in italics with lower case letters) and attribute symbols
 (in small caps). These are augmented by the standard
 logical connectives (conjunction, disjunction, negation and
@@ -283,8 +284,8 @@ The AVM is a description of plural nouns.
 \label{ex-noun}
 \avm{
 [\type*{word}
- synsem|local & [category [ head & noun ]\\
-                 content|index|number & plural ] ]
+ synsem|local & [category|head & noun\\
+                 \punk{content|index|number}{plural} ] ]
 }
 \z
 
@@ -310,26 +311,13 @@ interaction between sort hierarchy and feature declarations is
 regulated by assumptions about feature inheritance and feature value
 inheritance. This can best be explained with a small example, using
 the tiny (and slightly modified) fragment from the sort hierarchy and
-feature appropriateness of \cite{PollardSag1994} shown in
+feature appropriateness of \citew{PollardSag1994} shown in
 Figure~\ref{ex-hier-decl}.
 
 \begin{figure}
-% \begin{forest}
-% [{\footnotesize\textit{object}}
-% [{{\avmoptions{center}\begin{avm}\[\type*{substantive}
-% 						prd & boolean\]}}}
-%   [{{\avmoptions{center}\begin{avm}\[\type*{verb} vform & vform\\
-%                                                   prd & plus\]}}}]
-%   [{{\avmoptions{center}\begin{avm}\[\type*{noun} case & case\]}}}] ]
-% [{\footnotesize\textit{case}}]
-% [{\footnotesize\textit{vform}}]
-% [{\footnotesize\textit{boolean}}
-%   [{\footnotesize\textit{plus}}]
-%   [{\footnotesize\textit{minus}}] ]
-% ]
-% \end{forest}
 % todo alignment of AVMs and type north
-\begin{forest} type hierarchy
+\begin{forest} 
+type hierarchy
   [object,
     calign=midpoint, calign children={2}{3},
     [\avm{[\type*{substantive} 
@@ -350,19 +338,6 @@ Figure~\ref{ex-hier-decl}.
 \end{forest}
 \caption{\label{ex-hier-decl}Example of sort hierarchy with feature declarations}
 \end{figure}
-
-%\begin{exe}
-% \ex\label{ex-subst}
-%   substantive hierarchy
-% \ex\label{ex-bool}
-%   boolean hierarchy
-% \ex\label{ex-sub-decl}
-%   \type{substantive}:
-% \ex\label{ex-decl-verb}
-%   \type{verb}:
-% \ex\label{ex-decl-noun}
-%   \type{noun}:
-%\end{exe}
 
 According to Figure~\ref{ex-hier-decl}, a top sort \type{object} is
 the highest sort with immediate subsorts \type{substantive}, \type{case},
@@ -519,22 +494,23 @@ the top level of the description, yielding (\ref{ex-n-sfull}).
 
 Grammar principles are descriptions which every structure is supposed
 to obey, together with all its substructures. The Head Feature
-Principle, shown in (\ref{ex-hfp}), is a frequent example. Every
-phrase whose syntax is a headed phrase (\type{hd-ph}) is such that its
+Principle, shown in (\ref{ex-hfp}),
+\itdopt{(\mex{1}) is very far. Maybe split or move here?} is a frequent example. Every
+phrase whose syntax is a headed phrase (\type{\changed{headed-phrase}}) is such that its
 \feat{head} value equals the \feat{head} value of its head
 daughter, indicated by the repeated occurrence of tag \idx{1} as the
 value of the two \feat{head} features.  Every structure which is
 described by the AVM to the left of the implication symbol (in this
 case simply a sort, but see (\ref{ex-complex-ante})) must also
 fulfill the requirements in the AVM to its right. If something is not
-a \type{hd-ph}, it is
+a \type{\changed{headed-phrase}}, it is
 not restricted by the Head Feature Principle because it is not described by the
 antecedent of the principle. At the same time, a structure which
-is not described by \type{hd-ph} still satisfies
+is not described by \type{\changed{headed-phrase}} still satisfies
 the Head Feature Principle as an implicational statement. For example,
 the \feat{synsem} value of each phrase is usually assumed to be an
 object of sort \type{synsem}, i.e.\ it is not a phrase of sort
-\type{hd-ph}. As a
+\type{\changed{headed-phrase}}. As a
 \type{synsem} object, it is not described by the antecedent of
 (\ref{ex-hfp}), thereby still fulfilling the principle. In classical
 logic, $A \rightarrow B$ is equivalent to $\neg A \vee B$, so something
@@ -560,7 +536,7 @@ rendering such occurrences of tags in the syntax of RSRL.
   \ex\label{ex-more-avms}
   \begin{xlist}
     \ex\label{ex-hfp}
-    \type{hd-ph}
+    \type{\changed{headed-phrase}}
 %    \avm{
 %      [\type*{phrase}
 %        dtrs & headed-struc]
@@ -607,7 +583,7 @@ disjuncts in the consequent of the Word Principle.
 
 The semantic principle in (\ref{ex-semantics}), taken
 from \citew[420]{PY98a-u},\footnote{This principle is also discussed
-in the semantics chapter, \crossrefchapterw[example (\ref{sign-cons})]{semantics}.}
+in the semantics chapter, \crossrefchapterw[\page \pageref{sign-cons}]{semantics}.}
 illustrates one more syntactic
 construct of HPSG's description language, relations. The consequent of
 the principle consists of an AVM description conjoined with three
@@ -635,7 +611,7 @@ or on the \feat{retrieved} list.\footnote{One
   described as a chain.}
 
 The grammar principle (\ref{ex-complex-ante}), which is also from
-\cite[421]{PY98a-u}, is a case of a principle
+\citew[421]{PY98a-u}, is a case of a principle
 with a complex description in the antecedent,
 unlike (\ref{ex-hfp})--(\ref{ex-semantics}), in which the antecedent
 consists of a sort symbol. Any kind of description
@@ -649,7 +625,7 @@ restrictions of the signature and are completely well-formed with
 respect to the grammar principles. The nature of the \emph{linguistic
   objects} and how the relevant models of an HPSG grammar should be
 conceived of has been subject to intense
-discussion. \cite[8--9]{PollardSag1994} think of them as \emph{types} and
+discussion. \citet[8--9]{PollardSag1994} think of them as \emph{types} and
 want to construct them as a set of totally well-typed and
 sort-resolved abstract feature structures. Each such type is supposed
 to correspond to the set of token occurrences of the same utterance. For
@@ -659,10 +635,10 @@ at different places and at different times, always belongs to the
 unique type \emph{Breakfast is ready}, rendered as an abstract feature
 structure licensed by an HPSG grammar of \ili{English}.
 
-All HPSG model theories after \cite{PollardSag1994} give up the idea of
+All HPSG model theories after \citew{PollardSag1994} give up the idea of
 postulating types as objects in the intended
 grammar model and do not construct models which are populated with feature
-structures.\footnote{\cite[294]{Pollard99a} still uses the term \emph{feature
+structures.\footnote{\citet[294]{Pollard99a} still uses the term \emph{feature
     structure}, but it is applied to a special kind of \emph{interpretation}
   in the sense of Definition~\ref{def-initial-int}. See the
   more detailed characterization of these structures in
@@ -979,7 +955,7 @@ is, by contrast, easy to define, and, as long as it is not used
 for descriptions as complex as they occur in real grammars, its expressions are
 still transparent for everyone who is familiar with AVMs. Readers who
 want to explore how our description syntax relates to a formal syntax
-of AVMs are referred to \cite{Richter2004a-u} for details and a
+of AVMs are referred to \citew{Richter2004a-u} for details and a
 correspondence proof.
 
 The definition of the syntax of descriptions proceeds in two steps,
@@ -1036,11 +1012,11 @@ for readability.}
   \ex
   \begin{xlist}
   \ex\label{ex-hfp-rsrl-a}
-  $\left(\its\sim\mbox{\type{hd-ph}}\right)\rightarrow$\\ % \wedge \its\feat{dtrs}\sim\mbox{\type{headed-struc}}
+  $\left(\its\sim\mbox{\type{\changed{headed-phrase}}}\right)\rightarrow$\\ % \wedge \its\feat{dtrs}\sim\mbox{\type{headed-struc}}
   $\left(\its\feat{synsem local category head}\approx\right.$\\
  \hspace*{.1em} $\left.\its\feat{head-dtr synsem local category head}\right)$
   \ex\label{ex-hfp-rsrl-b}
-   $\left(\its\sim\mbox{\type{hd-ph}}\right)\rightarrow$\\ % \wedge \its\feat{dtrs}\sim\mbox{\type{headed-struc}}
+   $\left(\its\sim\mbox{\type{\changed{headed-phrase}}}\right)\rightarrow$\\ % \wedge \its\feat{dtrs}\sim\mbox{\type{headed-struc}}
   $\exists x\left(\its\feat{synsem local category head}~\approx x\ \wedge\right.$\\
 \hspace*{1.2em}  $\left.\its\feat{head-dtr synsem local category head}\approx x\right)$
   \end{xlist}
@@ -1083,9 +1059,8 @@ instead of $\Sigma$ descriptions. Descriptions are the syntactic units
 that linguists use in grammar writing. (\ref{ex-hfp-rsrl-a}) and (\ref{ex-hfp-rsrl-b}) are descriptions. Grammars, as we will see in
 Section~\ref{sec-grammar-meaning}, are written by declaring a signature
 and stating a set of descriptions. But before we can investigate grammars and
-what they mean, we
-have to explain the meaning of signatures and of descriptions.
-
+what they mean, we have to explain the meaning of signatures and of descriptions.
+\itdobl{No academic plural. Two \emph{we} here. Check paper.}
 
   
 \section{Meaning of signatures and descriptions}
@@ -1182,7 +1157,7 @@ added to signatures in
 Definition~\ref{def-sig-chains} above.  As pointed out there, chains
 are a construct which gives grammarians the flexibility to
 use (finite) lists in all the ways in which they are put in relations
-in actual HPSG grammars (see (\ref{ex-semantics}) for an example). %\footnote{The advantage is that objects can be treated as being ordered on a chain without actually occurring on a list. See \cite{Richter2004-u} for discussion.}
+in actual HPSG grammars (see (\ref{ex-semantics}) for an example). %\footnote{The advantage is that objects can be treated as being ordered on a chain without actually occurring on a list. See \citew{Richter2004-u} for discussion.}
 
 Since chains are provided by an extension of the set of sort symbols
 and attributes (Definition~\ref{def-sig-chains}), the interpretation of the additional symbols must be
@@ -1665,7 +1640,7 @@ l_3\right>$ iff $l_3$ is the concatenation of $l_1$ and $l_2$ (in that
 order). Then we can use this \texttt{append} relation in yet another
 grammar principle as follows:%
 \footnote{In RSRL syntax, (\ref{ex-word-order}) can be written as\\
-  $\its\sim$\type{head-fill-ph} $\rightarrow$\\
+  $\its\sim$\type{\changed{head-filler-phrase}} $\rightarrow$\\
   $\exists x_{1}\; \exists x_{2}\; \exists x_{3}$\\
   $\left(\its\mbox{\feat{phon}}\approx x_3\wedge\its\mbox{\feat{head-dtr phon}}\approx x_2\wedge\its\mbox{\feat{non-hd-dtrs first phon}}\approx x_1\wedge\mbox{\texttt{append}}(x_1,x_2,x_3)\right)$
 }
@@ -1673,7 +1648,7 @@ grammar principle as follows:%
 \ea
 % todo avm remove &
 \label{ex-word-order}
-  \type{head-fill-ph}  $\Rightarrow$ $\exists \idx{1}\; \exists \idx{2}\; \exists \idx{3}$ $\left(\mbox{
+  \type{\changed{head-filler-phrase}}  $\Rightarrow$ $\exists \idx{1}\; \exists \idx{2}\; \exists \idx{3}$ $\left(\mbox{
   \avm{
     [phon \3\\
      non-hd-dtrs|first|phon \1 &\\
@@ -1795,7 +1770,7 @@ $\mathcal{L}$.
 
 Section~\ref{sec-essentials} gave an informal overview of four
 different ways to conceive of models which explain the meaning of HPSG
-grammars: Theory T1 of \cite{PollardSag1994} views the adequate model
+grammars: Theory T1 of \citew{PollardSag1994} views the adequate model
 as a collection of the object types of the expressions of the language
 $\mathcal{L}$ that a given grammar describes. T2 by \citet{King99a-u}
 takes the intended model to be one from a class of models which contains
@@ -1929,7 +1904,7 @@ grammars admitting sets of abstract feature structures. In terms of
 the exhaustive models of T2, the abstract feature structures admitted
 by a grammar $\Gamma$ can be imagined as a normal form representation with
 the abstract feature structures (the linguistic types) serving as
-the objects $u$ in a canonical exhaustive model $\Inte$ of $\Gamma$.\footnote{This characterization is slightly simplistic; see \cite[Appendix A, Definition 80]{Richter2004a-u} for details. Abstract feature structures are in fact extended
+the objects $u$ in a canonical exhaustive model $\Inte$ of $\Gamma$.\footnote{This characterization is slightly simplistic; see \citew[Appendix A, Definition 80]{Richter2004a-u} for details. Abstract feature structures are in fact extended
   to \emph{canonical entities} to obtain canonical interpretations/models/exhaustive models.} The earlier ontological criticism of T1 amounts
 to rejecting the insinuation that linguists consider
 (abstract) feature structures the subject of their grammars and
@@ -1942,10 +1917,10 @@ Meaning theory T3 is positioned against the theory T1 of object types
 for classes of theoretically indistinguishable linguistic tokens, and
 against the theory T2 of perceiving the meaning of a grammar in an
 intended exhaustive model populated with actual and non-actual
-linguistic tokens.  With T3, \cite{Pollard99a} is firmly opposed to
+linguistic tokens.  With T3, \citet{Pollard99a} is firmly opposed to
 token models and sees mathematical idealizations as fundamental to
 grammatical meaning.  The concept of non-actual tokens is deemed
-unacceptable and self-contradictory. However, \cite{Pollard99a} also
+unacceptable and self-contradictory. However, \citet{Pollard99a} also
 rejects T1's ontological commitment to object types and wants to
 strengthen the relationship between the structures in the denotation
 of a grammar and empirically observable token expressions.  According
@@ -1963,14 +1938,14 @@ adequate grammar of \ili{English}. With this requirement, T3 tightens the
 connection between observables and the mathematical model, cutting out
 the types and establishing a much stricter link between the
 predictions of a grammar and the domain of empirical phenomena than
-the abstract feature structure models of \cite{PollardSag1994} offer
+the abstract feature structure models of \citew{PollardSag1994} offer
 with their appeal to conventional correspondence.
 
 T3 is spelled out on the basis of models
-(Definition~\ref{def-rsrl-model}),\footnote{\cite{Pollard99a} is in
+(Definition~\ref{def-rsrl-model}),\footnote{\citew{Pollard99a} is in
   fact based on Speciate Re-entrant Logic (SRL), King's precursor of
   RSRL, but a straightforward extension to full RSRL is provided in
-  \cite{Richter2004a-u}.} offering three alternative ways of
+  \citew{Richter2004a-u}.} offering three alternative ways of
 characterizing the strong generative capacity of a grammar. The
 structures in Pollard's models can be understood as pairs of
 interpretations $\Inte=\Interpretation$ and a root node $u$ whose set
@@ -1984,7 +1959,7 @@ models. By construction, they are all pairwise non-isomorphic, and
 with their internal (set-theoretic) structure, they can be assumed to
 be structurally isomorphic to grammatical utterance tokens of a
 language, in contrast to the abstract feature structures of
-\cite{PollardSag1994}. The canonical representations in the strong
+\citew{PollardSag1994}. The canonical representations in the strong
 generative capacity can be abstracted from each exhaustive model.
 
 
@@ -1996,7 +1971,7 @@ correspondence either of object types or of mathematical idealizations
 to (linguistically indistinguishable groups of) grammatical utterances
 in a language. \citet{Richter2007a}
 investigates the models of existing HPSG grammars, such as the fragment
-of \ili{English} developed in \cite{PollardSag1994}, and notes that
+of \ili{English} developed in \citew{PollardSag1994}, and notes that
 T1 and T3 necessarily trigger an unintended one-to-many
 relationship between grammatical utterances and structures in the
 denotation of typical HPSG grammars: one token utterance leads to more than one
@@ -2011,7 +1986,7 @@ structures are not mathematical idealizations of empirically
 observable grammatical utterances. In fact, many of the structures
 present in the strong generative capacity do not correspond to
 structures which can occur in grammatical utterances at all.\footnote{See
-  \cite[Section 4]{Richter2007a} for extensive discussion and 
+  \citew[Section 4]{Richter2007a} for extensive discussion and 
   examples.} While the abstract feature structures
 of T1 do not have substructures, the abstract feature structure admission
 relation relies on a mechanism with exactly the same effect: admitting
@@ -2153,3 +2128,4 @@ helpful suggestions which helped improve this chapter considerably.
 \end{document}
 
 
+%      <!-- Local IspellDict: en_US-w_accents -->
