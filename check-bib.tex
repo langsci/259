@@ -1,5 +1,18 @@
 %% -*- coding:utf-8 -*-
-\documentclass{article}                              
+\documentclass{article}
+% \documentclass[output=book
+%                 ,multiauthors
+% 	        ,collection
+% 	        ,collectionchapter
+%  	        ,biblatex  
+%                 ,babelshorthands
+% %                ,showindex
+%                 ,newtxmath
+%                 ,colorlinks, citecolor=brown 
+%                 ,draftmode
+% % 	        ,coverus
+% 		  ]{langscibook}                              
+
 
 \usepackage[
 	natbib=true,
@@ -17,6 +30,19 @@
 	backend=biber,
 	indexing=cite,
 ]{biblatex}
+
+\usepackage{xcolor,csquotes,german,my-xspace}
+\usepackage{./styles/eng-date,./styles/abbrev}
+
+\newcommand{\page}{}
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=false, citecolor=brown, pdfborder={0 0 0}}
+
+\let\citew\citealt
+
+\definecolor{lsDOIGray}{cmyk}{0,0,0,0.45}
+
 
 % If the user provided a shortauthor in the bibtex entry, we use the authentic author (as with the
 % authorindex package) if it is defined, otherwise we use the author.
@@ -74,7 +100,26 @@
     {}}
 
 
+% https://tex.stackexchange.com/a/111851/18561
+\DeclareSourcemap{
+    \maps[datatype=bibtex]{
+      \map{
+        \step[fieldsource=checked]
+        \step[fieldset=usera,origfieldval]
+    }
+  }
+}
+
+%\DeclareFieldFormat{usera}{\red{#1}}
+
+\AtEveryBibitem{
+\csappto{blx@bbx@\thefield{entrytype}}{\iffieldundef{usera}{\space \textcolor{red}{Not checked!}}{\space\textcolor{green}{\printfield{usera}}}}
+}
+
+
 \bibliography{bib-abbr,biblio,localbibliography}
+
+%\bibliography{bib-abbr,localbibliography}
 
 \begin{document}
 \nocite{*}
