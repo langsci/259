@@ -235,7 +235,7 @@ prepublish.pdf: $(SOURCE) prepublish.tex
 
 prepubs-latex-cp: prepublish-pdfs
 	cp prepubs-chop-pdfs/01.pdf prepubs-pdfs/basic-properties.pdf
-	cp prepubs-chop-pdfs/02.pdf prepubs-pdfs/evolution.pdf
+#	cp prepubs-chop-pdfs/02.pdf prepubs-pdfs/evolution.pdf
 	cp prepubs-chop-pdfs/03.pdf prepubs-pdfs/formal-background.pdf
 	cp prepubs-chop-pdfs/04.pdf prepubs-pdfs/lexicon.pdf
 	cp prepubs-chop-pdfs/05.pdf prepubs-pdfs/understudied-languages.pdf
@@ -258,16 +258,16 @@ prepubs-latex-cp: prepublish-pdfs
 	cp prepubs-chop-pdfs/21.pdf prepubs-pdfs/morphology.pdf
 	cp prepubs-chop-pdfs/22.pdf prepubs-pdfs/semantics.pdf
 	cp prepubs-chop-pdfs/23.pdf prepubs-pdfs/information-structure.pdf
-	cp prepubs-chop-pdfs/24.pdf prepubs-pdfs/processing.pdf
+#	cp prepubs-chop-pdfs/24.pdf prepubs-pdfs/processing.pdf
 	cp prepubs-chop-pdfs/25.pdf prepubs-pdfs/cl.pdf
 	cp prepubs-chop-pdfs/26.pdf prepubs-pdfs/dialogue.pdf
 #	cp prepubs-chop-pdfs/27.pdf prepubs-pdfs/sign-languages.pdf
 	cp prepubs-chop-pdfs/27.pdf prepubs-pdfs/gesture.pdf
-	cp prepubs-chop-pdfs/28.pdf prepubs-pdfs/hpsg-minimalism.pdf
+#	cp prepubs-chop-pdfs/28.pdf prepubs-pdfs/hpsg-minimalism.pdf
 	cp prepubs-chop-pdfs/29.pdf prepubs-pdfs/hpsg-categorial-grammar.pdf
 	cp prepubs-chop-pdfs/30.pdf prepubs-pdfs/hpsg-lfg.pdf
 	cp prepubs-chop-pdfs/31.pdf prepubs-pdfs/hpsg-dependency-grammar.pdf
-	cp prepubs-chop-pdfs/32.pdf prepubs-pdfs/hpsg-cxg.pdf
+#	cp prepubs-chop-pdfs/32.pdf prepubs-pdfs/hpsg-cxg.pdf
 
 
 # 
@@ -380,8 +380,8 @@ proofreading.pdf: main.pdf
 
 
 # extract all bibtex items and then remove irrelevant fields with --tool
-hpsg-handbook-bibliography.bib: $(Bibliographies) main.bcf
-	biber --output_format=bibtex --output-legacy-date main.bcf -O hpsg-handbook-bibliography_tmp.bib 
+hpsg-handbook-bibliography.bib: $(Bibliographies) bib handbook.pdf
+	biber --output_format=bibtex --output-legacy-date handbook.bcf -O hpsg-handbook-bibliography_tmp.bib 
 	biber --tool --configfile=biber-tool.conf --output-field-replace=location:address,journaltitle:journal,date:year --output-legacy-dates hpsg-handbook-bibliography_tmp.bib -O hpsg-handbook-bibliography.bib
 
 check-bib: hpsg-handbook-bibliography.bib
@@ -438,6 +438,7 @@ avm-install:
 stmue-install:
 	cp -p ${STYLE-PATH}makros.2020.sty     styles/
 	cp -p ${STYLE-PATH}abbrev.sty          styles/
+	cp -p ${STYLE-PATH}eng-date.sty        styles/
 	cp -p ${STYLE-PATH}Ling/article-ex.sty styles/
 
 
