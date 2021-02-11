@@ -11,11 +11,36 @@
 \DeclareDatamodelEntryfields[book,proceedings]{
   booktitle}
 
+% just to get rid of warnings, authors keep supplying publishers with article entries
+% St. Mü, 2021-02-11
 \DeclareDatamodelEntryfields[article]{
   publisher}
 
+% St. Mü. 2021-02-11
+% our maintainance field. It records whether an item was reviewed or not.
+%
 \DeclareDatamodelFields[type=field,datatype=literal]{checked}
 \DeclareDatamodelEntryfields{checked}
+
+\DeclareDatamodelFields[type=field,datatype=literal]{checkedseries}
+\DeclareDatamodelEntryfields{checkedseries}
+
+\DeclareDatamodelFields[type=field,datatype=literal]{checkednumber}
+\DeclareDatamodelEntryfields{checkednumber}
+
+
+% bibdesk stuff
+
+\DeclareDatamodelFields[type=field,datatype=literal]{stableurl}
+\DeclareDatamodelEntryfields{stableurl}
+
+\DeclareDatamodelFields[type=field,datatype=literal]{bdsk-url-1}
+\DeclareDatamodelEntryfields{bdsk-url-1}
+
+\DeclareDatamodelFields[type=field,datatype=literal]{date-modified}
+\DeclareDatamodelEntryfields{date-modified}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
 \ResetDatamodelConstraints
 
@@ -70,9 +95,24 @@
 \DeclareDatamodelConstraints[book,mvbook,mvcollection,mvreference]{
   \constraint[type=mandatory]{
     \constraintfield{title}
-%\constraintfield{series}
-%\constraintfield{number}
-  }
+    % Those books that are not in a series have the field opteries with the value none.
+    % There has to be either a series or an checkedseries. St. Mü. 2021.02.11
+    \constraintfieldsxor{
+        \constraintfield{series}
+        \constraintfield{checkedseries}
+      }
+   }
+   % if there is a field series, then there has to be either a number or this fake field checkednumber
+   % indicating that we searched for a number.
+   \constraint[type=conditional]{
+      \antecedent[quantifier=one]{
+        \constraintfield{series}
+      }
+      \consequent[quantifier=one]{
+          \constraintfield{number}
+          \constraintfield{checkednumber}
+      }
+    }
 }
 
 \DeclareDatamodelConstraints[inbook,bookinbook,suppbook]{
