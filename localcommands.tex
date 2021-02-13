@@ -1191,3 +1191,35 @@ collection.bib}
 
 
 
+
+% Needed for bibtex entry for Jackendoff's xbar syntax. Without it the bar would be off in itialics.
+
+% https://tex.stackexchange.com/questions/95014/aligning-overline-to-italics-font/95079#95079
+\newbox\usefulbox
+
+\makeatletter
+    \def\getslant #1{\strip@pt\fontdimen1 #1}
+
+    \def\skoverline #1{\mathchoice
+     {{\setbox\usefulbox=\hbox{$\m@th\displaystyle #1$}%
+        \dimen@ \getslant\the\textfont\symletters \ht\usefulbox
+        \divide\dimen@ \tw@ 
+        \kern\dimen@ 
+        \overline{\kern-\dimen@ \box\usefulbox\kern\dimen@ }\kern-\dimen@ }}
+     {{\setbox\usefulbox=\hbox{$\m@th\textstyle #1$}%
+        \dimen@ \getslant\the\textfont\symletters \ht\usefulbox
+        \divide\dimen@ \tw@ 
+        \kern\dimen@ 
+        \overline{\kern-\dimen@ \box\usefulbox\kern\dimen@ }\kern-\dimen@ }}
+     {{\setbox\usefulbox=\hbox{$\m@th\scriptstyle #1$}%
+        \dimen@ \getslant\the\scriptfont\symletters \ht\usefulbox
+        \divide\dimen@ \tw@ 
+        \kern\dimen@ 
+        \overline{\kern-\dimen@ \box\usefulbox\kern\dimen@ }\kern-\dimen@ }}
+     {{\setbox\usefulbox=\hbox{$\m@th\scriptscriptstyle #1$}%
+        \dimen@ \getslant\the\scriptscriptfont\symletters \ht\usefulbox
+        \divide\dimen@ \tw@ 
+        \kern\dimen@ 
+        \overline{\kern-\dimen@ \box\usefulbox\kern\dimen@ }\kern-\dimen@ }}%
+     {}}
+    \makeatother
