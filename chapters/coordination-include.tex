@@ -17,7 +17,6 @@
 
 
 %\if0
-\colorcodingexplanation
 
 \section{Introduction} 
 
@@ -301,7 +300,7 @@ proper names is marked by the lengthening of their final vowels \citep[\page
 \label{telugu}
 \gll kamalaa wimalaa poDugu \\ 
      Kamala Vimala tall\\
-\glt `Kamala and Vimala are tall'
+\glt `Kamala and Vimala are tall\add{.}'
 \z
 
 
@@ -317,7 +316,6 @@ Although prosodic phrasing is not generally believed to always align with syntac
  \avm{[synsem|loc|cat & \1]}.
 
 \ea 
-Coordination Schema:\\
 \avm{
 \type{coord-phr\added{ase}} \impl\\
 	[\punk{synsem|cat}{\1} \\
@@ -344,13 +342,13 @@ types:\footnote{Mouret's and Bı̂lbı̂ie's formulations are slightly different
 \ex
 \avm{
 \emph{simple-coord-phr\added{ase}} \impl \\
-	[dtrs & ne-list(<[coord & none]>) \+ ne-list([coord & crd ]) ]
+	[dtrs & ne-list(<[coord & none]>) \+ ne-list([coord & \added{\1} crd ]) ]
 }
 
 \ex
 \avm{
 \emph{omnisyndetic-coord\added{-phrase}}  \impl \\
-	[dtrs & ne-list([coord & crd ]) ]
+	[dtrs & ne-list([coord & \added{\1} crd ]) ]
 }\label{omni}
 \ex
 \avm{
@@ -358,6 +356,8 @@ types:\footnote{Mouret's and Bı̂lbı̂ie's formulations are slightly different
 	[dtrs & ne-list([coord & none ]) ]
 }
 \zl
+% Stefan: How does this work with structure sharing.
+% Rui: you could dummy bind [1] in 12a,b by adding a conjunction to (12a, b) stating [1] = T
 
 \noindent
 Here, we assume that the value of \textsc{coord} must be typed as \type{coord},
@@ -438,7 +438,6 @@ feature. See also \crossrefchaptert[\page \pageref{page-hfp}]{properties}.}
 
 \eas
 \label{rulem}\label{head-functor-construction}
-\added{Head-Functor Schema:}\\
 \avm{
 \emph{head-func\changed{tor-phrase}} \impl
 
@@ -493,6 +492,7 @@ It  preserves the \textsc{mrkg} feature when coordinands are themselves marked. 
 \gll Lee-to Kim\\
      Lee-and Kim\\\jambox{(\ili{Japanese})}
 %\itd{Stefan: But is this an affix? Then it does not work as an argument for syntactic structures}
+\itdobl{Clitic should be glossed by =.}
 \glt `Lee and Kim'
 \zl
 
@@ -673,9 +673,6 @@ See \citet[\page 33--36]{Bilbiie:08} for arguments that both types are attested 
 
 
 The correlative coordinate structure on the right is covered by (\ref{omni}), since it requires the \coord feature to be the same for all coordinands. 
-\itdobl{Stefan: but (\ref{omni}) does not say that the \coord feature has to be the same for all
-  coordinads. It says that the value has to be \type{crd}, so it can be any subtype. To make it the
-  same, structure sharing and a relational constraint walking through a list would be required.}
 %See  \S\ref{correlphr} for more discussion of correlative constructions in a broader context, beyond coordinate correlatives.
 
 
@@ -783,11 +780,11 @@ constructions have in common the fact that both daughters are marked by a specia
 
 \ea
 \label{correlphrr}
-\type{correl-construction} \impl\\
+\type{correl-\changed{phrase}} \impl\\
 \oneline{%
 \avm{
 [synsem|loc|cat|correl  \type{none}\\
- dtrs < [synsem|loc|cat|correl \type{corr-mrk} ],~\vspace{1mm}\\
+ dtrs < [synsem|loc|cat|correl \type{corr-mrk} ],~~~\vspace{1mm}\\
         [synsem|loc|cat|correl \type{corr-mrk} ] > ]
 }}
 \z
@@ -840,12 +837,10 @@ in (\ref{ecc}), where \type{the} is a sub-type of \type{corr-mrk} (i.e.\ is a co
 \z
 
 \noindent
-Similarly,  symmetric \ili{French} comparative correlatives can be  defined as
-in (\ref{ccf}), where \type{et} and \type{compar} are subtypes of \type{corr-mrk} and  \type{none} is the sub-type of \type{correl} indicating
-the absence of  correlative marking.\itd{Stefan: I do not understand the
-  explanation. \textsc{correl} is of type \type{correl} and \coord is of type \type{coord}, right?
-  But then you say that \type{et} is a subtype of \type{compar} and \type{none} of
-  \type{correl}. This seems to be mixed up. \type{none} and \type{et} should be subtypes of \type{coord}.}
+Similarly,  symmetric \ili{French} comparative correlatives can be  defined as in (\ref{ccf}), where
+both clauses are coordinated (the second one may be introduced by \emph{et} or without a conjunction) and
+introduced by a comparative correlative marker (\emph{plus} `more', \emph{moins} `less',
+\emph{mieux} `better'). 
 
 \ea
 \label{ccf}
@@ -1179,7 +1174,8 @@ which display hybrid agreement:
 The collective noun \emph{deca} `children' triggers feminine singular (morphosyntactic) agreement on
 NP-internal items, in this case the determiner \emph{ta} `that' and the adjective \emph{dobra}
 `good'.  There are  HPSG
-analyses that argue that what appears to be closest coordinand agreement is in fact agreement with
+analyses that argue that what appears to be Closest Conjunct Agreement (see
+Section~\ref{coordination:sec-cca} below) is in fact agreement with
 the whole coordinate NP, which has additional features inherited from the first and last
 coordinands. \citet[Section~5]{Villavicencio:Sadler:ea:05} propose two additional features:
 \textsc{lagr} (for the left-most coordinand) and \textsc{ragr} (for the right-most coordinand) for
@@ -1203,14 +1199,14 @@ The resolution of agreement information in coordination is not a trivial matter 
 
 
 \subsection{Agreement strategies with coordinate phrases}
-
+\label{coordination:sec-agreement-with-coordinate-phrases}
 
 In case of coordinands with conflicting agreement values, various resolution strategies are observed 
 crosslinguistically. For example, a coordination with a first person is first person, and a coordination with second person (and no first person) is second person:
 
 \eal
-\ex Paul and I like ourselves / *themselves.
-\ex Paul and you like yourselves / *themselves.
+\ex Paul and I like ourselves / * themselves.
+\ex Paul and you like yourselves / * themselves.
 \zl
 
 In gender-marking languages, coordination with conflicting gender values is often resolved to 
@@ -1258,12 +1254,12 @@ See \citew[434]{Villavicencio:Sadler:ea:05} for similar examples.}
 For person agreement, they use two list valued features \textsc{me} and \textsc{you}. A first person has a non-empty \textsc{me} list, second person has an empty \textsc{me} list and a non-empty \textsc{you} list, and third person has both empty lists.  Thus, coordinating a first with a third person yields a \textsc{me} feature with a non-empty list, and a \textsc{you} feature with a non-empty list, hence a first person phrase. Coordinating a third person with a second person yields a non-empty \textsc{you} list  and an empty \textsc{me} list, hence a second person phrase. This enables person and gender resolution by list concatenation over
 coordinands. 
 
-\subsubsection{Closest conjunct agreement}
-
+\subsubsection{Closest Conjunct Agreement}
+\label{coordination:sec-cca}
 
 As observed by \citet[186]{Corbet91}, many languages, including \ili{Romance}, \ili{Celtic},
 \ili{Semitic}, and \ili{Bantu} languages, also have another strategy: partial agreement with only
-one coordinand, the one closest to the target, called \emph{closest conjunct agreement}
+one coordinand, the one closest to the target, called \emph{Closest Conjunct Agreement}
 (CCA)\is{agreement!closest conjunct}. In the following examples, again from \ili{Portuguese} and
 taken from \citew{Villavicencio:Sadler:ea:05}, the determiner and prenominal adjective agree with
 the first noun (\ref{fo}a) and the postnominal adjective with the last noun (\ref{fo}b).
@@ -1836,14 +1832,11 @@ the list of \textsc{synsem} values of the daughters.
 \ea
 \label{lines}
 \label{schema-ac-cx}
-\added{Argument Cluster Schema:}\\
 \type{\changed{argument-cluster-phrase}} \impl\\ 
 \avm{ [head|cluster < \1, \ldots{}, \tag{n} >\\
        dtrs < [ synsem \1 ], \ldots{}, [synsem  \tag{n} ] > ]
 }
 \z
-\itdopt{Note: I expanded the type names since otherwise one could think ac-phrase is an abbreviation
-  of asymmetric-correl used above.}
 
 \noindent
 Mouret defines argument clusters as instances of the underspecified non"=headed construction
@@ -2010,7 +2003,7 @@ of \textsc{lid} is a list of semantic frames that canonically specify the meanin
  
 \eas
 \label{rnrcx}
-\type{rpe-\changed{phrase}} \impl\\
+\type{\changed{right-peripheral-ellipsis-phrase}} \impl\\
 \avm{
 	[mp & \tag{$L_1$} \+ \tag{$R_1$} \+ \tag{$R_2$} \+ \tag{$R_3$}\\
 	synsem & \0 \\
@@ -2066,7 +2059,7 @@ By requiring  \textsc{lid} identity, the rule prevents homophonous strings that 
 %(adapted from \citet[64]{buitelaar1998corelex})}\todostefan{Stefan: This is wrong. The page does not
 %contain examples}
 \ex[*] {Robin \textsc{swung}  and Leslie \textsc{tamed} [an unusual bat].\footnote{\citew[156]{levhubook}}}%OK
-\ex[*] {We need new \textsc{black}- and \textsc{floor}[boards].\footnote{adapted from \citew[\page 371]{artstein5})}}
+\ex[*] {We need new \textsc{black}- and \textsc{floor}[boards].\footnote{adapted from \citew[\page 371]{artstein5}}}
 \ex[*] {I caught \textsc{butter}- and \textsc{fire}[flies].\footnote{\citew[\page 274]{chaveslp}}}
 \ex[*] {There stood a \textsc{one-} and \textsc{well}-[armed man].\footnote{\citew[\page 869]{chavesrnr}}}
 \zl
@@ -2193,8 +2186,7 @@ and \citet[868]{chavesrnr}, where the Right-Node Raised expression is followed b
 
 
 Finally, let us now turn our attention to Gapping, as in 
-\emph{Robin likes Sam and Tim -- Sue}.\itd{Stefan: Sometimes you use `--' and sometimes \trace
-  as in (\mex{1}). This should be uniform.}
+\emph{Robin likes Sam and Tim \rep{--}{\trace} Sue}.
 There are elliptical accounts of Gapping  \citep{chaves06} as well as direct-interpretation accounts where the missing material is recovered from the preceding linguistic context  \citep{Mouret:06,Abeille:Blbie:Mouret:14,sangheepark}; see \crossrefchaptert[Section~\ref{ellipsis:sec-gapping}]{ellipsis}. The latter is illustrated in Figure~\ref{gfig}, in simplified format. Basically, the Question Under Discussion (QUD, \citealp{roberts96}) of the first clause is $\lambda y.\lambda x. \exists e(like(x,y))$ which is information that is shared across the clausal daughters as \ibox{1}.
 This allows the second coordinand to combine the two NPs with the verbal semantics, and recover the propositional meaning.
 
