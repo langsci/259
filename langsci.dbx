@@ -28,11 +28,11 @@
 \DeclareDatamodelFields[type=field,datatype=literal]{checked}
 \DeclareDatamodelEntryfields{checked}
 
-\DeclareDatamodelFields[type=field,datatype=literal]{checkedseries}
-\DeclareDatamodelEntryfields{checkedseries}
+% \DeclareDatamodelFields[type=field,datatype=literal]{checkedseries}
+% \DeclareDatamodelEntryfields{checkedseries}
 
-\DeclareDatamodelFields[type=field,datatype=literal]{checkednumber}
-\DeclareDatamodelEntryfields{checkednumber}
+% \DeclareDatamodelFields[type=field,datatype=literal]{checkednumber}
+% \DeclareDatamodelEntryfields{checkednumber}
 
 
 % bibdesk stuff
@@ -40,12 +40,14 @@
 \DeclareDatamodelFields[type=field,datatype=literal]{
    bdsk-url-1,
    bdsk-url-2,
+   bdsk-file-3,
    date-added,
    date-modified,
    read}
 \DeclareDatamodelEntryfields{
    bdsk-url-1,
    bdsk-url-2,
+   bdsk-file-3,
    date-added,
    date-modified,
    read}
@@ -110,6 +112,7 @@ opturl}
         \constraintfield{date}
         \constraintfield{year}
       }
+      \constraintfield{checked}  % uncomment for checking
     }
   }
 
@@ -124,28 +127,30 @@ opturl}
     \constraintfield{author}
     \constraintfield{journaltitle}
     \constraintfield{title}
+% st. mü. 2021-02-13 yes, we want volume and number
+% if there is no number, the number field should be filled with "none". This will be surpressed by
+% an output filter.
+    \constraintfield{volume}
+    \constraintfield{number}
+    \constraintfield{pages}
   }
 }
 
 \DeclareDatamodelConstraints[book,mvbook,mvcollection,mvreference]{
   \constraint[type=mandatory]{
     \constraintfield{title}
-    % Those books that are not in a series have the field opteries with the value none.
-    % There has to be either a series or an checkedseries. St. Mü. 2021.02.11
-    \constraintfieldsxor{
-        \constraintfield{series}
-        \constraintfield{checkedseries}
-      }
+    % Those books that are not in a series have the value none. St. Mü. 2021.02.11
+    % The value is suppressed by an outputfilter declaration for biblatex
+    \constraintfield{series}
    }
-   % if there is a field series, then there has to be either a number or this fake field checkednumber
-   % indicating that we searched for a number.
+   % if there is a series, there has to be a number. books without a number get the value none.
+   % The value none is suppressed by an output filter declaration for biblatex
    \constraint[type=conditional]{
       \antecedent[quantifier=one]{
         \constraintfield{series}
       }
-      \consequent[quantifier=one]{
+      \consequent[quantifier=all]{
           \constraintfield{number}
-          \constraintfield{checkednumber}
       }
     }
 }
