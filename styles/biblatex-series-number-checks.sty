@@ -1,0 +1,21 @@
+
+% https://tex.stackexchange.com/a/582962/18561
+
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map{
+       \step[fieldsource=series, match=\regexp{\Anone\Z}, final]
+       \step[fieldset=number, fieldvalue=none]
+    }
+  }
+}
+
+\DeclareFieldInputHandler{series}{%
+  \ifdefstring{\NewValue}{none}
+    {\def\NewValue{}}
+    {}}
+    
+\DeclareFieldInputHandler{number}{%
+  \ifdefstring{\NewValue}{none}
+    {\def\NewValue{}}
+    {}}
