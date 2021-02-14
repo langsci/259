@@ -61,7 +61,7 @@ is interpreted as a complex unit denoting a plurality.
 
 Generally, a coordinate structure has the same grammatical function and category as the coordinands:
 given a number of coordinands of category X, the distribution of the coordinate constituent that is
-obtained is again the same as of an X constituent, what \citet[\page 752]{pullumzwicky} refer \added{to} as \isi{Wasow's Generalization}.
+obtained is again the same as of an X constituent, what \citet[\page 752]{pullumzwicky} refer to as \isi{Wasow's Generalization}.
 In particular, this is what allows coordination to apply recursively:
 
 \eal
@@ -166,7 +166,7 @@ All of these are schematically depicted in (\ref{types}); see
 
 \noindent
  Finally, a single coordination strategy often serves to coordinate all types of constituent phrases, but in many languages, different coordination strategies only cover a subset of the types of phrases in the language. For example, in
-\ili{Japanese} the suffix \emph{to} is used for nominal coordination
+\ili{Japanese} the clitic \emph{to} is used for nominal coordination
 and \emph{te} is used for other coordinations.
 
 In what follows, we start by focusing on monosyndenton coordination. There are three possible
@@ -179,7 +179,7 @@ The flat branching approach (center) has also been  assumed in HPSG
 \citep{Abeille:05,Abeille06,Mouret:05,Mouret:06,Bilbiie:17}, and the totally flat approach (right)
 much less frequently  \citep{sagwasowbender,Sag:03}.\footnote{See \citet{Borsley2005a} for criticism
   of ConjP and of the binary branching analysis of coordinate structures with three
-  coordinands. \added{ConjP is also discussed in \crossrefchapterw[Section~\ref{sec-coordination-minimalism}]{minimalism}.}}
+  coordinands. ConjP is also discussed in \crossrefchapterw[Section~\ref{sec-coordination-minimalism}]{minimalism}.}
 
 \begin{figure}
 \hfill
@@ -288,8 +288,7 @@ That said, there are some reasons for assuming that the coordinator does in fact
 coordinand, as in (\ref{coordination:rule-coord-X}). First, in some languages of the world, the
 coordinator is a bound morpheme instead of a free morpheme. For example, verbs are coordinated by
 adding one of a set of suffixes to one of the coordinands in \ili{Abelam} (Papua New Guinea),
-%usually the prior one.\itd{Stefan: What does ``the prior one'' mean if there are three or more?}
-\changed{usually the first one in a coordination of two items}.
+usually the first one in a coordination of two items.
 Similarly, in \ili{Kanuri} (Nilo-Saharan), verb phrases are coordinated by marking the first verb
 with a conjunctive form affix, and in languages like \ili{Telugu} (Dravidian), the coordination of
 proper names is marked by the lengthening of their final vowels \citep[\page
@@ -300,7 +299,7 @@ proper names is marked by the lengthening of their final vowels \citep[\page
 \label{telugu}
 \gll kamalaa wimalaa poDugu \\ 
      Kamala Vimala tall\\
-\glt `Kamala and Vimala are tall\add{.}'
+\glt `Kamala and Vimala are tall.'
 \z
 
 
@@ -317,7 +316,7 @@ Although prosodic phrasing is not generally believed to always align with syntac
 
 \ea 
 \avm{
-\type{coord-phr\added{ase}} \impl\\
+\type{coord-phrase} \impl\\
 	[\punk{synsem|cat}{\1} \\
 	dtrs & <[synsem|loc|cat & \1 ]> \+ ne-list([synsem|loc|cat & \1 ]) ]
 }\label{coordparam2}
@@ -330,29 +329,38 @@ now, we are focusing on standard coordinations.
 
 In order to  account for the fact that different kinds of coordination strategies are possible,
 \citet[\page 260]{Mouret:06} and \citet[\page 205]{Bilbiie:17} define three subtypes of
-\type{coord-phr\added{ase}}, assuming a lexical feature \textsc{coord} to distinguish between   coordination
+\type{coord-phrase}, assuming a lexical feature \textsc{coord} to distinguish between   coordination
 types:\footnote{Mouret's and Bı̂lbı̂ie's formulations are slightly different in that the relevant
   feature is instead called \textsc{conj}, and a slightly different type hierarchy is assumed, with
   negative constraints like  \textsc{conj} $\not=$ \type{nil} being employed instead of
   \textsc{coord} \type{crd}. The current formulation   avoids negative constraints, though nothing
-  much hinges on this. Similar liberty is taken in subsequent constraints, for exposition purposes.}
+  much hinges on this. Similar liberty is taken in subsequent constraints, for exposition purposes.
+
+Strictly speaking tags that appear only once in a structure are illegitimate, since tags are about
+sharing values. The purpose of the tags in (\mex{1}a) and (\mex{1}b) is to ensure that all members
+in the list have the same \textsc{coord} value. A more precise way would add a constraint to
+(\mex{1}a) and (\mex{1}b) saying that \ibox{1} = $\top$, $\top$ (top) being the most general type in the type
+hierarchy. While this does not really add restrictive constraints on \ibox{1}, it makes sure that
+all list members of the second list get the same \textsc{coord} value, since all elements of the
+lists are [\textsc{coord} \ibox{1}] and since they are all shared with the \ibox{1} mentioned in
+\ibox{1} = $\top$.}
  
 
 \eal
 \ex
 \avm{
-\emph{simple-coord-phr\added{ase}} \impl \\
-	[dtrs & ne-list(<[coord & none]>) \+ ne-list([coord & \added{\1} crd ]) ]
+\emph{simple-coord-phrase} \impl \\
+	[dtrs & ne-list(<[coord & none]>) \+ ne-list([coord & \1 crd ]) ]
 }
 
 \ex
 \avm{
-\emph{omnisyndetic-coord\added{-phrase}}  \impl \\
-	[dtrs & ne-list([coord & \added{\1} crd ]) ]
+\emph{omnisyndetic-coord-phrase}  \impl \\
+	[dtrs & ne-list([coord & \1 crd ]) ]
 }\label{omni}
 \ex
 \avm{
-\emph{asyndetic-coord\added{-phrase}}  \impl \\
+\emph{asyndetic-coord-phrase}  \impl \\
 	[dtrs & ne-list([coord & none ]) ]
 }
 \zl
@@ -400,8 +408,8 @@ coordinator's lexical entry does not select any arguments, since it has none. In
 (\ref{le-coord-lexeme-marker}), we show the lexical entry for the conjunction, using current HPSG
 feature geometry. Note that the \textsc{mrkg} (marking) value of the coordinator is the same as the
 coordinand's, which makes this marker a bit unusual in that it is transparent. Thus, if \emph{and}
-coordinates S nodes that are \textsc{mrkg} \type{that} (i.e.\ CPs \added{in the analysis of
-  \citealt[Section~1.6]{ps2}}), then the result will be an S that is also \textsc{mrkg} \type{that},
+coordinates S nodes that are \textsc{mrkg} \type{that} (i.e.\ CPs in the analysis of
+  \citealt[Section~1.6]{ps2}), then the result will be an S that is also \textsc{mrkg} \type{that},
 and so on, for any given value of \textsc{mrkg}.\footnote{The semantics and pragmatics of
   coordination  is a particularly complex topic which we cannot do justice to here, especially when
   it comes to interactions with other phenomena such as quantifier scope and collective,
@@ -439,7 +447,7 @@ feature. See also \crossrefchaptert[\page \pageref{page-hfp}]{properties}.}
 \eas
 \label{rulem}\label{head-functor-construction}
 \avm{
-\emph{head-func\changed{tor-phrase}} \impl
+\emph{head-functor-phrase} \impl
 
 	[synsem|loc|cat [ subj  & \1 \\ 
                           comps & \2 \\
@@ -489,10 +497,8 @@ It  preserves the \textsc{mrkg} feature when coordinands are themselves marked. 
 \ex Lee [and Kim]\jambox{(\ili{English})}
 % St. Mü. 15.07.2020 removed the final bracket from "Lee [and Kim]]"
 \ex 
-\gll Lee-to Kim\\
-     Lee-and Kim\\\jambox{(\ili{Japanese})}
-%\itd{Stefan: But is this an affix? Then it does not work as an argument for syntactic structures}
-\itdobl{Clitic should be glossed by =.}
+\gll Lee=to Kim\\
+     Lee=and Kim\\\jambox{(\ili{Japanese})}
 \glt `Lee and Kim'
 \zl
 
@@ -545,7 +551,7 @@ Before moving on, we note that the weak head analysis of coordinators makes cert
 predictions that the marker analysis in (\ref{le-coord-lexeme-marker}) does not make. Since
 coordinands are selected as arguments in the former approach,  additional assumptions need to be
 made in order to prevent the  extraction of coordinands as in (\ref{cc}). If coordinands are
-\changed{arguments and hence listed in valence lists like \comps and \textsc{arg-st}}, then they are
+arguments and hence listed in valence lists like \comps and \textsc{arg-st}, then they are
 expected to be extractable (see \crossrefchapteralt[Section~\ref{sec:UDC:Middle}]{udc} and
 \crossrefchapteralt[\page
 \pageref{page-hpsg-traceless-account-arg-st-extraction-conjuncts}]{islands}). 
@@ -780,7 +786,7 @@ constructions have in common the fact that both daughters are marked by a specia
 
 \ea
 \label{correlphrr}
-\type{correl-\changed{phrase}} \impl\\
+\type{correl-phrase} \impl\\
 \oneline{%
 \avm{
 [synsem|loc|cat|correl  \type{none}\\
@@ -800,18 +806,18 @@ Naturally, \type{correl-construction} has various sub-types, each imposing parti
     [{\ldots{}}]
     [\type{declar-clause}
       [{\ldots{}}] 
-      [\type{correl-\changed{phrase}}, name=correl
+      [\type{correl-phrase}, name=correl
         [{\ldots{}}]
-        [\type{symmetric-correl-\changed{phrase}}, name = sym ] ] ] ]
+        [\type{symmetric-correl-phrase}, name = sym ] ] ] ]
   [\type{headedness}, 
-    [\type{non-headed-phr\added{ase}} 
+    [\type{non-headed-phrase} 
         [{\ldots{}}]
-        [\type{coord-phr\added{ase}}, name=coord]  ]
-    [\type{headed-phr\added{ase}}
+        [\type{coord-phrase}, name=coord]  ]
+    [\type{headed-phrase}
         [{\ldots{}}]
-        [\type{head-adj-phr\added{ase}}, name=adj
+        [\type{head-adj-phrase}, name=adj
           [{\ldots{}}]
-          [\type{asymmetric-correl-\changed{phrase}}, name = asym ] ] ]    
+          [\type{asymmetric-correl-phrase}, name = asym ] ] ]    
         ] ] 
 \draw  (coord.south) --(sym.north)
        (correl.south) --(asym.north);
@@ -826,7 +832,7 @@ in (\ref{ecc}), where \type{the} is a sub-type of \type{corr-mrk} (i.e.\ is a co
 
 \ea
 \label{ecc}
-\type{asymmetric-c\changed{orrel}-\changed{phrase}} \impl\\ %\type{assymetric-correl-cx} \& 
+\type{asymmetric-correl-phrase} \impl\\ %\type{assymetric-correl-cx} \& 
 \oneline{%
 \avm{
 [hd-dtr \1\\
@@ -844,7 +850,7 @@ introduced by a comparative correlative marker (\emph{plus} `more', \emph{moins}
 
 \ea
 \label{ccf}
-\type{symmetric-c\changed{orrel}-\changed{phrase}} \impl\\ %\type{symmetric-correl-cx} \& 
+\type{symmetric-correl-phrase} \impl\\ %\type{symmetric-correl-cx} \& 
 \oneline{%
 \avm{
 [dtrs < [synsem|loc|cat|correl & compar ], 
@@ -1035,7 +1041,7 @@ the coordination construction.
 % (Boolean, non-Boolean, etc.  agreement resolution, 1st conjunct agreement)
 
 
-Mispredictions also exist. We already discussed \changed{the example in (\ref{ex-did-you-make-and-your-asessable-income-is})}, concerning the feature \textsc{inv}, but there are others. For example, requiring that the \slashv of the coordinands be the same readily predicts \isi{Coordinate Structure Constraint} effects like 
+Mispredictions also exist. We already discussed the example in (\ref{ex-did-you-make-and-your-asessable-income-is}), concerning the feature \textsc{inv}, but there are others. For example, requiring that the \slashv of the coordinands be the same readily predicts \isi{Coordinate Structure Constraint} effects like 
 (\ref{cs1}), but it incorrectly rules out asymmetric coordination violation cases like (\ref{assym}). 
 See \citet{goldsmith}, \citet{lakoff86}, \citet{levinprince86}, and \citet{kehler} for more examples and discussion.
 
@@ -1353,7 +1359,7 @@ left-most coordinand), and \textsc{ragr} (for the right-most coordinand).
 
 \ea
 \avm{
-\type{nom-coord-ph\added{rase}} \impl\\
+\type{nom-coord-phrase} \impl\\
 	[\punk{synsem|loc|cat|head}{[lagr & \1 \\
                          		ragr & \2 ]} \\
 	dtrs &	<	[synsem|l|cat|head|lagr & \1 ], \ldots, [synsem|l|cat|head|ragr & \2]	> ]
@@ -1621,8 +1627,8 @@ among  others; see \citet[\page 169--170]{Chaves2013b-u}.
 \noindent
 Building on observations from \citet[417]{jacobson}, \citet{Sag:03} and others pointed out that the
 features of the mother are not simply the intersection of the features of the coordinands.  For
-example, verbs like \emph{remain} are compatible with both A\del{dj}P and NP complements, whereas
-\emph{grew} is only compatible with A\skp\del{dj}Ps.  This is shown in (\ref{republican}).  Crucially,
+example, verbs like \emph{remain} are compatible with both AP and NP complements, whereas
+\emph{grew} is only compatible with APs.  This is shown in (\ref{republican}).  Crucially,
 however, the information associated with the phrase \emph{wealthy and a Republican} somehow allows
 \emph{grew} to detect the presence of the nominal, as (\ref{show2}a) illustrates, even when the
 verbs are coordinated, as in (\ref{show2}b--d).
@@ -1736,7 +1742,7 @@ The fact that not all coordination of unlike categories can be reduced to deleti
 deletion is impossible, or that no phenomena involve deletion.
 We refer the reader to \crossrefchaptert{ellipsis} for more discussion about ellipsis.
 
-Consider, for example, the non-constituent \rep{constructions}{coordinations} in (\ref{lpecx}). 
+Consider, for example, the non-constituent coordinations in (\ref{lpecx}). 
 
 \eal
 \label{lpecx}
@@ -1763,7 +1769,7 @@ Here, {\it coord} is an abbreviation of the phonologies of coordinators, like
 
 \ea
 \label{lpec}
-\type{coord-phr\added{ase}} \impl\\
+\type{coord-phrase} \impl\\
 \oneline{%
 \avm{
 [phon & \1 \+ \2 \+ \0 \+ \3 \\
@@ -1832,7 +1838,7 @@ the list of \textsc{synsem} values of the daughters.
 \ea
 \label{lines}
 \label{schema-ac-cx}
-\type{\changed{argument-cluster-phrase}} \impl\\ 
+\type{argument-cluster-phrase} \impl\\ 
 \avm{ [head|cluster < \1, \ldots{}, \tag{n} >\\
        dtrs < [ synsem \1 ], \ldots{}, [synsem  \tag{n} ] > ]
 }
@@ -1840,7 +1846,7 @@ the list of \textsc{synsem} values of the daughters.
 
 \noindent
 Mouret defines argument clusters as instances of the underspecified non"=headed construction
-\type{\changed{argument-cluster-phrase}} with one daughter or more. The construction is valence
+\type{argument-cluster-phrase} with one daughter or more. The construction is valence
 saturated and clusters can be coordinated with one another.  He also postulates a lexical rule
 allowing (for example) a ditransitive verb to take a coordination of clusters as complement (this
 rule will also allow clusters for complements and adjuncts, assuming the latter are included in the
@@ -1881,7 +1887,7 @@ The respective NPs and PPs form a cluster that is licensed by (\ref{schema-ac-cx
 \textsc{cluster} values matched (see \citealt[\page 263]{Mouret:06} for details on this matching). The lexical item for \emph{give} is licensed by the lexical rule in (\ref{lr-cluster-selection}). This version of \emph{give} selects the cluster coordination rather than selecting the NP and PP directly.
 
 
-This approach is motivated by non-clausal coordinators (\textit{as well as} \added{and its \ili{French} equivalent} \textit{ainsi que}), which are possible in Argument Cluster Coordination, but cannot conjoin tensed VPs:
+This approach is motivated by non-clausal coordinators (\textit{as well as} and its \ili{French} equivalent \textit{ainsi que}), which are possible in Argument Cluster Coordination, but cannot conjoin tensed VPs:
 
 \eal
 \ex[] {John gave a book to Mary as well as a magazine to Sue.}
@@ -2003,7 +2009,7 @@ of \textsc{lid} is a list of semantic frames that canonically specify the meanin
  
 \eas
 \label{rnrcx}
-\type{\changed{right-peripheral-ellipsis-phrase}} \impl\\
+\type{right-peripheral-ellipsis-phrase} \impl\\
 \avm{
 	[mp & \tag{$L_1$} \+ \tag{$R_1$} \+ \tag{$R_2$} \+ \tag{$R_3$}\\
 	synsem & \0 \\
@@ -2186,7 +2192,7 @@ and \citet[868]{chavesrnr}, where the Right-Node Raised expression is followed b
 
 
 Finally, let us now turn our attention to Gapping, as in 
-\emph{Robin likes Sam and Tim \rep{--}{\trace} Sue}.
+\emph{Robin likes Sam and Tim \trace Sue}.
 There are elliptical accounts of Gapping  \citep{chaves06} as well as direct-interpretation accounts where the missing material is recovered from the preceding linguistic context  \citep{Mouret:06,Abeille:Blbie:Mouret:14,sangheepark}; see \crossrefchaptert[Section~\ref{ellipsis:sec-gapping}]{ellipsis}. The latter is illustrated in Figure~\ref{gfig}, in simplified format. Basically, the Question Under Discussion (QUD, \citealp{roberts96}) of the first clause is $\lambda y.\lambda x. \exists e(like(x,y))$ which is information that is shared across the clausal daughters as \ibox{1}.
 This allows the second coordinand to combine the two NPs with the verbal semantics, and recover the propositional meaning.
 
@@ -2264,7 +2270,7 @@ some accounts, the coordinator is a weak head, whereas in others it is a marker.
 structures are binary branching in some accounts but not so in others. Agreement is always local
 (with the whole coordinate phrase) in some approaches, whereas locality is abandoned by others
 % Borsley uses domains
-to account for Closest \changed{Conjunct} Agreement. Finally, in some accounts, non-constituent coordination
+to account for Closest Conjunct Agreement. Finally, in some accounts, non-constituent coordination
 involves some form of deletion, but in others no deletion operation is assumed.
 
  
@@ -2277,7 +2283,7 @@ involves some form of deletion, but in others no deletion operation is assumed.
 
 \section*{Acknowledgements}
 
-We are thankful to Bob Borsley, \added{Jean-Pierre Koenig,} Stefan Müller, and other reviewers for comments and suggestions on earlier drafts. 
+We are thankful to Bob Borsley, Jean-Pierre Koenig, Stefan Müller, and other reviewers for comments and suggestions on earlier drafts. 
 As usual, all errors and omissions are our own.
 
 
