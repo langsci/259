@@ -1,13 +1,13 @@
 %% -*- coding:utf-8 -*-
 \documentclass[output=book
-		,multiauthors
-	        ,collection
-	        ,collectionchapter
+%		,multiauthors
+%	        ,collection
+%	        ,collectionchapter
  	        ,biblatex  
                 ,babelshorthands
 %                ,showindex
                 ,newtxmath
-                ,colorlinks, citecolor=brown % for drafts
+%                ,colorlinks, citecolor=brown % for drafts
                 ,draftmode
 % 	        ,coverus
 		  ]{langscibook}                              
@@ -34,10 +34,30 @@
   }
 }
 
+\DeclareSourcemap{
+    \maps[datatype=bibtex]{
+      \map{
+        \step[fieldsource=urldate]
+        \step[fieldset=userb,origfieldval]
+    }
+  }
+}
+
+
 %\DeclareFieldFormat{usera}{\red{#1}}
 
 \AtEveryBibitem{
-\csappto{blx@bbx@\thefield{entrytype}}{\iffieldundef{usera}{\space \red{Not checked!}}{\space\green{\printfield{usera}}}}
+% not checked = red, checked = green
+%\csappto{blx@bbx@\thefield{entrytype}}{\iffieldundef{usera}{\space \red{Not
+%checked!}}{\space\green{\printfield{usera}}}}
+%
+% just not checked = red
+\csappto{blx@bbx@\thefield{entrytype}}{\iffieldundef{usera}{\space \red{Not checked!}}{}}
+% url but no urldate
+\csappto{blx@bbx@\thefield{entrytype}}{\iffieldundef{url}{}{\iffieldundef{userb}{\space \red{access date missing}{}}}}
+% series but no number
+% does not work since "none" values are dropped and not contained in the bibliography drawn from handbook.bcf 
+%\csappto{blx@bbx@\thefield{entrytype}}{\iffieldundef{series}{}{\iffieldundef{number}{\space \red{number is missing}}{}}}
 }
 
 

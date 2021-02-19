@@ -250,7 +250,7 @@ prepubs-latex-cp: prepublish-pdfs
 	cp prepubs-chop-pdfs/13.pdf prepubs-pdfs/unbounded-dependencies.pdf
 	cp prepubs-chop-pdfs/14.pdf prepubs-pdfs/relative-clauses.pdf
 	cp prepubs-chop-pdfs/15.pdf prepubs-pdfs/islands.pdf
-	cp prepubs-chop-pdfs/16.pdf prepubs-pdfs/coordination.pdf
+#	cp prepubs-chop-pdfs/16.pdf prepubs-pdfs/coordination.pdf
 	cp prepubs-chop-pdfs/17.pdf prepubs-pdfs/idioms.pdf
 	cp prepubs-chop-pdfs/18.pdf prepubs-pdfs/negation.pdf
 	cp prepubs-chop-pdfs/19.pdf prepubs-pdfs/ellipsis.pdf
@@ -398,6 +398,15 @@ references.pdf: references.tex hpsg-handbook-bibliography.bib
 
 references: references.pdf
 
+todo-localbib.unique.txt: handbook.bcf
+	biber -V handbook | grep -i warn | grep localbib | sort -u > todo-localbib.unique.txt
+
+bib-public: todo-localbib.unique.txt references.pdf
+	git commit -m "new version of bib" localbibliography.bib todo-localbib.unique.txt
+	git push -u origin
+	(cd ../../Bibliographien/biblio.bib; git commit -m "new version of bib" biblio.bib; git push -u origin)
+	scp references.pdf hpsg.hu-berlin.de:public_html/Pub/references.pdf
+
 paperhive: 
 	git branch gh-pages
 	git checkout gh-pages
@@ -436,10 +445,11 @@ avm-install:
 	cp -fp ~/Documents/Dienstlich/Projekte/LangSci/Git-HUB/langsci-avm/langsci-avm.sty .
 
 stmue-install:
-	cp -p ${STYLE-PATH}makros.2020.sty     styles/
-	cp -p ${STYLE-PATH}abbrev.sty          styles/
-	cp -p ${STYLE-PATH}eng-date.sty        styles/
-	cp -p ${STYLE-PATH}Ling/article-ex.sty styles/
+	cp -p ${STYLE-PATH}makros.2020.sty                   styles/
+	cp -p ${STYLE-PATH}abbrev.sty                        styles/
+	cp -p ${STYLE-PATH}eng-date.sty                      styles/
+	cp -p ${STYLE-PATH}biblatex-series-number-checks.sty styles/
+	cp -p ${STYLE-PATH}Ling/article-ex.sty               styles/
 
 
 
