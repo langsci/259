@@ -8,6 +8,7 @@
    stableurl}
 \DeclareDatamodelEntryfields{stableurl}
 
+
 % We also want to have this for books. Otherwise
 %
 % biber --validate-datamodel main
@@ -115,6 +116,18 @@ opturl}
       }
       \constraintfield{checked}  % uncomment for checking
     }
+    % if there is an URL then there should be a urldate field.
+    \constraint[type=conditional]{
+      \antecedent[quantifier=one]{
+        \constraintfield{url}
+      }
+      % biber/biblatex splits urldate into urlyear,urlmoth,ulrday
+      \consequent[quantifier=all]{
+          \constraintfield{urlyear}
+          \constraintfield{urlmonth}
+          \constraintfield{urlday}
+      }
+    }
   }
 
 
@@ -171,7 +184,7 @@ opturl}
   }
 }
 
-\DeclareDatamodelConstraints[book,mvbook,mvcollection,mvreference]{
+\DeclareDatamodelConstraints[book,mvbook,mvcollection,mvreference,incollection]{
   \constraint[type=mandatory]{
     \constraintfield{title}
     % Those books that are not in a series have the value none. St. Mü. 2021.02.11
