@@ -422,13 +422,13 @@ and so on, for any given value of \textsc{mrkg}.\footnote{The semantics and prag
 \ea
 \avm{
  %\type{coordinator} \impl
-	[\type*{coord-lexeme}
-	\phon < \type{and} > \\
-	synsem &	[loc &	[cat &	[head &	[\type*{coord}
-										sel & [loc & [cat & [coord & none \\
-										mrkg & \1 ] ] ] ] \\
-             					coord  & and \\
-             					mrkg & \1 ] ] ] ]
+[\type*{coord-lexeme}
+ \phon < \type{and} > \\
+ \punk{synsem|loc|cat}{[head & [\type*{coord}
+                           sel & [loc|cat & [coord & none \\
+                                             mrkg & \1 ] ] ] \\
+                   coord  & and \\
+             	   mrkg & \1 ]} ] 
 }\label{le-coord-lexeme-marker}
 \z
 
@@ -509,15 +509,14 @@ Since it is a weak head, it inherits most of  its syntactic features (\textsc{he
 \avm{
 [\type*{coord-lexeme}
  \phon  < and > \\
- synsem & [ loc & [ cat & [ head  & \0\\
-                            coord & and\\  
-                            mrkg  & \2\\
-                            subj  & \1\\
-                            comps & < [ loc [cat [head  & \0\\
-                                                  subj  & \1\\
-                                                  comps & \3\\
-                                                  mrkg  & \2 ] ] ] > \+ \3 ] ] ]
-                         ]
+ \punk{synsem|loc|cat}{[ head  & \1\\
+                    coord & and\\  
+                    subj  & \2\\
+                    comps & < [ loc|cat [head  & \1\\
+                                         subj  & \2\\
+                                         comps & \3\\
+                                         mrkg  & \4 ] ] > \+ \3\\
+                    mrkg  & \4 ]} ]
 }\label{lexcoordentry}
 \z
 
@@ -879,25 +878,25 @@ sm edges
 	S [subj & < > \\
 	comps & < > ]
 }
-	[\ibox{2}NP
+	[\ibox{1}NP
 		[Sam, roof]
 	]
 	[%
 	\avm{
-		VP [subj & < \2 > \\
-			comps & < > ]
+		VP [subj  & < \1 > \\
+		    comps & < > ]
 	} 
     	[%
     	\avm{
-    		VP [subj & < \2 > \\
-               comps & < > ]
+    		VP [subj  & < \1 > \\
+                    comps & < > ]
 		}
 			[ate cheese pizza, roof]
 		]
     	[%
     	\avm{
-			VP [subj & < \2 > \\
-				comps & < > ]
+			VP [subj  & < \1 > \\
+			    comps & < > ]
 		}
 			[and drank soda, roof]
 		]
@@ -1240,18 +1239,16 @@ See \citew[434]{Villavicencio:Sadler:ea:05} for similar examples.}
 \label{aguila}
 \type{nom-coord-phrase} \impl\\
 \avm{
-	[synsem &	[cont &	[index &	[num & pl \\
-									gen &	[m & \1 \+ \2 ] \\
-                                    pers &	[me  & \3 \+ \5\\
-                                                 you & \4 \+ \6 ] ] ] ] \\
-	dtrs &	<	[synsem &	[cont &	[index &	[gen &	[m & \1] \\
-                               					pers &	[me & \3 \\
-                                         				you & \4] ] ]] ]
-			,\\
-				[synsem &	[cont &	[index &	[gen &	[m & \2] \\
-                               					pers &	[me & \5 \\
-                                         				you & \6] ] ]] ] 
-			>
+[\punk{synsem|loc|cont|index}{[num & pl \\
+	                  gend & [m & \1 \+ \2 ] \\
+                          per & [me  & \3 \+ \5\\
+                              you & \4 \+ \6 ] ]} \\
+ dtrs &	< [synsem|loc|cont|index & [gend & [m & \1] \\
+                       	            per & [me  & \3 \\
+                                           you & \4] ] ],\\
+	  [synsem|loc|cont|index & [gend & [m & \2] \\
+                                    per & [me  & \5 \\
+                                           you & \6] ] ]  >
 	]
 }
 \zs
@@ -1772,10 +1769,10 @@ Here, {\it coord} is an abbreviation of the phonologies of coordinators, like
 \type{coord-phrase} \impl\\
 \oneline{%
 \avm{
-[phon & \1 \+ \2 \+ \0 \+ \3 \\
+[phon & \1 \+ \2 \+ \3 \+ \4 \\
  dtrs &	< [phon & \1 \+ \2 ne-list \\
 	   \punk{synsem|loc|cat|coord}{none}],
-	  [phon & \0 <(\type{coord})> \+ \1 \+ \3 ne-list \\
+	  [phon & \3 <(\type{coord})> \+ \1 \+ \4 ne-list \\
    	   \punk{synsem|loc|cat|coord}{crd}]	> ]
 }
 }
@@ -1802,9 +1799,9 @@ See \crossrefchaptert[Section~\ref{sec-domains}]{order} for more discussion abou
 
 \oneline{%    
 \begin{forest}
-[\avm{VP [phon & \1 \+ \2 \+ \0 \+ \3]} 
-	[\avm{VP [phon & < \type{give} > \+ \2 < \type{a, book, to, Mary} > ]}]
-	[\avm{VP [phon & \0 < \type{and} > \+ \1 < \type{give} > \+ \3 < \type{a, magazine, to, Sue} > ]}
+[\avm{VP [phon & \1 \+ \2 \+ \3 \+ \4]} 
+	[\avm{VP [phon & \1 < \type{give} > \+ \2 < \type{a, book, to, Mary} > ]}]
+	[\avm{VP [phon & \3 < \type{and} > \+ \1 < \type{give} > \+ \4 < \type{a, magazine, to, Sue} > ]}
 	[Coord]
 	[VP] ] ]
 \end{forest}
@@ -2012,7 +2009,7 @@ of \textsc{lid} is a list of semantic frames that canonically specify the meanin
 \type{right-peripheral-ellipsis-phrase} \impl\\
 \avm{
 	[mp & \tag{$L_1$} \+ \tag{$R_1$} \+ \tag{$R_2$} \+ \tag{$R_3$}\\
-	synsem & \0 \\
+	synsem & \1 \\
 	dtrs &	<[mp & \tag{$L_1$} \+ \tag{$L_2$}	<[phon & \tag{$p_1$}\\
 											lid & \1 ]
 											,\ldots{},
@@ -2024,7 +2021,7 @@ of \textsc{lid} is a list of semantic frames that canonically specify the meanin
  										,\ldots{},
  										[phon & \tag{$p_n$}\\
  										lid & \tag{n} ]> \+ \tag{$R_3$}\\
-			synsem & \0 ]> ]
+			synsem & \1 ]> ]
 }
 \zs
 
@@ -2212,12 +2209,12 @@ This allows the second coordinand to combine the two NPs with the verbal semanti
 	[%
 	\avm{
 		S [qud & \1 \\
-		content & \{ \0 $\exists e'$!(\type{like}(\type{robin,sam}))! \}]
+		content & \{ \2 $\exists e'$!(\type{like}(\type{robin,sam}))! \}]
 	}]
 	[%
 	\avm{
 		S [qud & \1 \\
-		content & \{ \0 $\land \exists e$!(\type{like}(\type{tim,sue}))! \}]
+		content & \{ \2 $\land \exists e$!(\type{like}(\type{tim,sue}))! \}]
 	}
 		[Conj [and] ]
 		[%
