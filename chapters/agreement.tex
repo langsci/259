@@ -37,6 +37,9 @@ Agreement is modeled in HPSG by assigning agreement features such as person, num
 
 %\epigram{\textit{There is nothing more likely to start disagreement among people or countries than an agreement.} \\ -- E. B. White }
 
+\itdopt{The abstract seems a bit technical for a standalone summary. Maybe rephrase?}
+\colorcodingexplanation
+
 
 \section{Introduction} 
 
@@ -45,9 +48,10 @@ Agreement is the systematic covariation between a semantic or formal property of
 %How does the grammar resolve the target form when the trigger is a coordinate NP whose conjuncts have conflicting agreement values?  
 This chapter reviews HPSG approaches to these questions of locality, grammatical representation,
 feature distribution, diachrony, semantic versus formal agreement, and mixed agreement. Agreement
-with coordinate phrases is discussed by \crossrefchaptert{coordination}.
+with coordinate phrases is discussed by \crossrefchaptert[Section~\ref{coordination:sec-agreement}]{coordination}.
 
-HPSG offers an integrated account of these phenomena.  In most cases the analysis of agreement phenomena does not involve any  special formal devices dedicated for agreement, comparable to the \textit{probe} and \textit{goal}, or the \textsc{agree} relation, found in \isi{Minimalist} accounts \citep{Chomsky2000b-u}.  Instead, the observed agreement phenomena arise as a side effect of other grammatical mechanisms responsible for valence saturation, the semantics of modification, and coreference.  
+HPSG offers an integrated account of these phenomena.\itdopt{which ones? Coordination agreement was
+  the most recent you mentioned.}  In most cases the analysis of agreement phenomena does not involve any  special formal devices dedicated for agreement, comparable to the \textit{probe} and \textit{goal}, or the \textsc{agree} relation, found in \isi{Minimalist} accounts \citep{Chomsky2000b-u}.  Instead, the observed agreement phenomena arise as a side effect of other grammatical mechanisms responsible for valence saturation, the semantics of modification, and coreference.  
 
 \section{Agreement as unification } 
 \label{unif-sec}\label{agreement:sec-unification}
@@ -57,7 +61,8 @@ Constraint-based formalisms such as HPSG are uniquely well-suited for modeling a
 Within such formalisms, agreement occurs when 
 multiple feature sets
  arising from distinct elements of a sentence specify information about a single abstract object, so that the information must be mutually consistent \citep{Kay:1984}.  
-The two forms are said to agree when the values imposed by the two constraints are compatible, while ungrammaticality results when they are incompatible.  For example the \ili{English} verb \textit{is} in (\ref{is}) specifies that its initial \argst list item, which is identified with the \subj list item, has third person, singular features.  In the mechanism of valence saturation, the NP list item in the value of \subj unifies with the feature description representing the \textsc{synsem} value of the subject NP.  The features specified by the verb for its subject and by the subject NP must be compatible; otherwise the representation for the resulting sentence is ill-formed, predicting ungrammaticality as in (\ref{sober}a).  
+The two forms are said to agree when the values imposed by the two constraints are compatible, while ungrammaticality results when they are incompatible.  For example the \ili{English} verb \textit{is} in (\ref{is}) specifies that its initial \argst list item,\footnote{
+\added{See \crossrefchaptert[Section~\ref{prop:sec-lexicon}]{properties} for an introduction covering argument structure (\argst) and valence features. \crossrefchaptert{arg-st} deal more intensively with \argst and linking.}} which is identified with the \subj list item, has third person, singular features.  In the mechanism of valence saturation, the NP list item in the value of \subj unifies with the feature description representing the \textsc{synsem} value of the subject NP.  The features specified by the verb for its subject and by the subject NP must be compatible; otherwise the representation for the resulting sentence is ill-formed, predicting ungrammaticality as in (\ref{sober}a).  
 
 \ea		
 \label{is} 
@@ -66,7 +71,7 @@ Simplified lexical sign for the verb \textit{is}:\\*
 [\phon < is > \\
 subj & < \1 > \\ 
 comps & < \2 > \\
-arg-st & < \1 NP[pers & 3rd \\
+arg-st & < \1 NP[\changed{per} & 3rd \\
                  num  & sg], \2 XP > ] 
 }
 \z
@@ -77,17 +82,24 @@ Simplified lexical signs for  \textit{I} and \textit{she}: \\*
 \avm{
 [\phon < I > \\
 head &	[\type*{noun}
-		pers & 1st \\
+		\changed{per} & 1st \\
 		num & sg ] ] 
 }
+\changed{\avm{
+[\phon < I > \\
+ head & noun\\
+ per  & 1st \\
+ num  & sg ]
+}}\hspace{1cm}
 \avm{
 [\phon  < she > \\
 head &	[\type*{noun}
-		pers & 3rd \\
+		\changed{per} & 3rd \\
 		num & sg \\
 		gen & fem ] ] 
 }
 \z
+\itdopt{You have the features as head features here, but later you have them as index features. Maybe put them at the top level of the AVM as I did in the second AVM.}
 
 \eal
 \label{sober}
@@ -100,14 +112,16 @@ The features supplied by the trigger and target must be consistent, but
 there is no general minimum requirement on how many features they specify.  Both of them can be, and typically are, underspecified for some agreement features.  For example, \isi{gender} is not specified by the verb in (\ref{is}) or the first pronoun in (\ref{entryfori}).   
 
 Since unification
-is commutative, the representation of an agreement construction is the same regardless of whether a feature originates from the trigger or the target.  This immediately accounts for common agreement behavior observed when triggers are underspecified  \citep{Barlow:1988}.  
+is commutative,\itdopt{
+Add a footnote and a pointer to \crossrefchaptert{formal-background}? Since unification is not assumed any longer.} the representation of an agreement construction is the same regardless of whether a feature originates from the trigger or the target.  This immediately accounts for common agreement behavior observed when triggers are underspecified  \citep{Barlow:1988}.  
 For example, \ili{Serbo-Croatian} is a grammatical gender language, where common nouns are assigned to the  masculine, feminine, or neuter gender.   The noun \textit{knjiga} `book’ in (\ref{old-book}) is feminine, so the modifying determiner and adjective appear in feminine form \citep[4, example\,(1)]{Wechsler+Zlatic:2003}.   
 
 \begin{exe}
 \ex \label{old-book}
 \gll Ov-a	star-a	knjig-a stalno  pad-a. \\
-this-\textsc{nom.f.sg}	old-\textsc{nom.f.sg}	book-\textsc{nom.sg} always fall-\textsc{3sg} \\
-\glt `This old book keeps falling.'  
+this-\textsc{nom.f.sg}	old-\textsc{nom.f.sg}	book-\textsc{nom.sg} always fall-\textsc{3sg} \\\hfill\added{(Serbo-Croatian)}
+\glt `This old book keeps falling.' 
+\itdopt{LGR has a way to gloss inherent gender: (\textsc{f}) Shall I do this?}
 \end{exe} 
 
 
@@ -118,19 +132,20 @@ However, some nouns are unspecified for gender, such as \textit{sudija}  `judge�
 \ex \label{sudija}
 \begin{xlist}
 \ex
-\gll 	Taj	stari	sudija	je	dobro	sudio.	 \\
-that.\textsc{m}	old.\textsc{m}	judge	\textsc{aux}	well	judged.\textsc{m} \\
+\gll Taj	stari	sudija	je	dobro	sudio.	 \\
+     that.\textsc{m}	old.\textsc{m}	judge	\textsc{aux}	well	judged.\textsc{m} \\\hfill\added{(Serbo-Croatian)}
 \glt `That old (male) judge judged well.'
 \ex 
- \gll
-	Ta	 stara	sudija	je	dobro	sudila. \\
-that.\textsc{f}	old.\textsc{f}	judge	\textsc{aux}	well	judged.\textsc{f}\\
+\label{ex-ta-stara-studija}
+ \gll Ta	      stara	     sudija	je	dobro	sudila. \\
+      that.\textsc{f} old.\textsc{f} judge	\textsc{aux}	well	judged.\textsc{f}\\
 	\glt `That old (female) judge  judged well.’
 \end{xlist}
 \end{exe}
 
 \noindent 
-Here the gender feature comes from the targets instead of the trigger.   This illustrates an advantage of constraint-based theories like HPSG over transformational accounts in which a feature is copied from the trigger, where it originates, to the target, where it is then realized.  The usual source of the feature (the noun) lacks it in (\ref{sudija}), a problem for the feature-copying view.   
+Here the gender feature comes from the targets instead of the trigger.   This illustrates an advantage of constraint-based theories like HPSG over transformational accounts in which a feature is copied from the trigger, where it originates, to the target, where it is then realized.  The usual source of the feature (the noun) lacks it in (\ref{sudija}), a problem for the feature-copying view.
+\itdopt{They would have a disjunction and two derivations. It is uggly and probaly psycholinguistically implausible, but hey \ldots. Just saying.}   
 
 The same problem occurs even more dramatically in \emph{pro}-drop\is{pro-drop@\emph{pro}-drop} languages.  Many languages
 allow subject pronouns to drop, and distinguish person, number, and/""or gender on the verb.  If those
@@ -138,7 +153,7 @@ features originate from the null subject, then there would have to be distinct n
 for each verbal and predicate adjective inflection \citep[64]{Pollard+Sag:1994}.  This would be more
 complex and stipulative, and moreover the paradigm of putative null pronouns would have to exactly
 match the set of distinctions drawn in the verb and adjective systems, rather than reflecting the
-pronoun paradigm.    HPSG avoids this suspicious assumption.  Null anaphora is modeled by allowing
+pronoun paradigm. HPSG avoids this suspicious assumption.  Null anaphora is modeled by allowing
 the \textit{pro}-dropped argument to appear on the \argst list but not a valence list like \subj or \comps (see \crossrefchapteralt{arg-st}).  For example, in the context given in (\ref{prodrop}) a \ili{Serbo-Croatian} speaker could omit the subject pronoun.  
 
 \begin{exe}
@@ -153,6 +168,7 @@ Context: Speaker comes home to find her bookcase mysteriously empty. \\
 
 \noindent
 The sign for the inflected participle specifies feminine plural features on the initial item in its \argst list.  The \subj list item is optional: 
+\itdopt{Cite somebody on this? For example \citew[\page 465]{MG2010a} suggested such an analysis for Persian.}
 
 \begin{exe} 
 \ex		\label{nestale} 
@@ -171,38 +187,43 @@ The feminine plural features are specified regardless of whether  the subject pr
 
 
 \section{Locality in agreement} 
+\label{agreement:sec-locality}
 
 \subsection{Argument and modifier agreement}
 \label{arg-mod-agr}
 
-In HPSG, the grammatical agreement of a predicator with its subject or object, or an adjective, determiner, or other modifier with its head noun, piggy-backs on the mechanism of valence saturation and modification.   Agreement is encoded in the grammar by adding features of person, number, gender, case, and deixis to the existing feature descriptions involved in syntactic and semantic composition.  This simple assumption is sufficient to explain the broad patterning of distribution of agreement, in contrast to the transformational approach where complex locality conditions must be stipulated.   
+In HPSG, the grammatical agreement of a predicator with its subject or object, or an adjective, determiner, or other modifier with its head noun, piggy-backs on the mechanism of valence saturation and modification.   Agreement is encoded in the grammar by adding features of person, number, gender, case, and deixis to the existing feature descriptions involved in syntactic and semantic composition.  This simple assumption is sufficient to explain the broad patterning of distribution of agreement, in contrast to the transformational approach where complex locality conditions must be stipulated (see also \crossrefchapteralt[Section~\ref{minimalism:sec-types-vs-operations}]{minimalism}).   
 
-In HPSG, predicate-argument agreement arises directly from the  valence saturation, as illustrated already in (\ref{is}) above.  Thus the locality conditions on the trigger-target relation follow from the conditions on the subject-head or complement"=head relation.   Similarly, attributive adjectives agree with nouns directly through the composition of the modifier with the head that it selects via the \textsc{mod} feature.  For example, the \ili{Serbo-Croatian} feminine adjective form \textit{stara} `old.\textsc{f}' in (\ref{sudija}b) specifies feminine singular features for the common noun phrase (N$'$) that it modifies.  
+In HPSG, predicate-argument agreement arises directly from \del{the} valence saturation, as illustrated already in (\ref{is}) above.  Thus the locality conditions on the trigger-target relation follow from the conditions on the subject-head or complement"=head relation.   Similarly, attributive adjectives agree with nouns directly through the composition of the modifier with the head that it selects via the \textsc{mod} feature.  For example, the \ili{Serbo-Croatian} feminine adjective form \textit{stara} `old.\textsc{f}' in (\ref{ex-ta-stara-studija})
+\itdopt{JP: Reference to (\mex{1}) instead of (\ref{ex-ta-stara-studija})?} specifies feminine singular features for the common noun phrase (N$'$) that it modifies.  
 
 \begin{exe} 
-\ex	\label{stara}  Simplified lexical sign for  \textit{stara}:\\*
+\ex	\label{stara}  Simplified lexical sign for  \textit{stara} \added{`old.\textsc{f}'}:\\*
 \avm{
 [\phon < stara > \\
-mod &	[head &	[\type*{noun}
-				num & sg \\
-				gend & fem] \\
-		comps & < > ] ]
+mod & [head &	[\type*{noun}
+                 num & sg \\
+		 gend & fem] \\
+       comps & < > ] ]
 }
 \end{exe}
+\itdopt{Remove \head?}
 
 \noindent
-In head-adjunct phrases, the \textsc{mod} value of the adjunct daughter is token-identical with the \textit{synsem} value of the head daughter.  So \textit{stara}'s feminine singular features  cannot conflict with the features of the noun it modifies.  
+In head-adjunct phrases, the \textsc{mod} value of the adjunct daughter is token-identical with the \synsem value of the head daughter.  So \textit{stara}'s feminine singular features  cannot conflict with the features of the noun it modifies \added{(see also \crossrefchapteralt[Section~\ref{np:sec-specifier-analysis}]{np})}.  
 
-The predicted locality conditions are also affected by the percolation of features from words to phrasal nodes, and this depends on the location of the features within the feature description.   Agreement features of the \textit{trigger} appear either within the \textsc{head} value or the semantic \textsc{content} value (these give rise to \textsc{concord} and \textsc{index} agreement, respectively; see Section~\ref{ind-con}).  In either case these features percolate from the trigger's head word to its maximal phrasal projection, due to the Head Feature Principle in the former case and the Semantics Principle in the latter.  For example the noun phrase \textit{the books} inherits its [\textsc{num} \textit{pl}] feature from the head word \textit{books}.  This determines plural agreement on a verb:  \textit{These books are/*is interesting.}  Apparent exceptions, where a target seems to fail to agree with the head of the trigger, are discussed below.   
+The predicted locality conditions are also affected by the percolation of features from words to phrasal nodes, and this depends on the location of the features within the feature description.   Agreement features of the \textit{trigger} appear either within the \textsc{head} value or the semantic \textsc{content} value (these give rise to \textsc{concord} and \textsc{index} agreement, respectively; see Section~\ref{ind-con}).  In either case these features percolate from the trigger's head word to its maximal phrasal projection, due to the Head Feature Principle \added{\crossrefchapterp[\pageref{page-hfp}]{properties}} in the former case and the Semantics Principle \added{\crossrefchapterp{semantics}} in the latter.  For example the noun phrase \textit{the books} inherits its [\textsc{num}~\textit{pl}] feature\itdopt{I find this strange. The feature is \textsc{num}. What you specified is a feature value combination. Also using ``inherits'' is dangerous since CxG people have strange ideas what inheritance could be. Replace by ``the noun phrase shares its \textsc{num} value with the value of its head and hence it is \type{pl}.''?} from the head word \textit{books}.  This determines plural agreement on a verb:  \textit{These books are/*is interesting.}  Apparent exceptions, where a target seems to fail to agree with the head of the trigger, are discussed below.\itdopt{Add ref to section.}   
 
-However, agreement features of the \textit{target} appear in neither the \textsc{head} nor the \textsc{content} value of the target form, but rather appear embedded in an  \textsc{arg-st} list item or \textsc{mod} features.  So agreement features of the target do not project to the  target's phrasal projection such as VP, S, or AP.  This is a welcome consequence.  If the subject agreement features of the verb projected to the VP, for example, we would expect to find VP-modifying adverbs that consistently agree with them, but we do not.\footnote{VP-modifying secondary predicates sometimes agree with their own subjects.  What we do not find are adjuncts that consistently agree with the subject agreement features of the VP even when the adjunct is not predicated of that subject.}  
+However, agreement features of the \textit{target} appear in neither the \textsc{head} nor the \textsc{content} value of the target form, but rather appear embedded in an  \textsc{arg-st} list item or \textsc{mod} features.  So agreement features of the target do not project to the  target's phrasal projection such as VP, S, or AP.  This is a welcome consequence.  If the subject agreement features of the verb projected to the VP, for example, we would expect to find VP-modifying adverbs that consistently agree with them, but we do not.\footnote{VP-modifying secondary predicates sometimes agree with their own subjects.  What we do not find are adjuncts that consistently agree with the subject agreement features of the VP \del{even} when the adjunct is not predicated of that subject.}  
 
 
 \section{Varieties of agreement target} 
 
+\itdopt{Add a brief description of what the subsections will be about.}
+
 \subsection{Anaphoric agreement}
 \label{ana-agr}
-In anaphoric agreement, an anaphoric pronoun agrees in person, number, and gender with its antecedent.  Since \citet{Pollard+Sag:1992,Pollard+Sag:1994}, anaphoric agreement has been analyzed in HPSG by assuming that person, number, and gender are formal features of the referential index associated with an NP.  Anaphoric binding in HPSG is modeled as coindexation, i.e.\ sharing of the \textsc{index} value, between the binder and bindee.  Thus any specifications for agreement features of the \textsc{index} contributed by the binder and bindee must be mutually consistent.  In (\ref{admire}), Principle A of the \isi{Binding Theory} requires the reflexive pronoun to be coindexed with an o-commanding item, here the subject pronoun: 
+In anaphoric agreement, an anaphoric pronoun agrees in person, number, and gender with its antecedent.  Since \citet{Pollard+Sag:1992,Pollard+Sag:1994}, anaphoric agreement has been analyzed in HPSG by assuming that person, number, and gender are formal features of the referential index associated with an NP.  Anaphoric binding in HPSG is modeled as coindexation, i.e.\ sharing of the \textsc{index} value, between the binder and bindee.  Thus any specifications for agreement features of the \textsc{index} contributed by the binder and bindee must be mutually consistent.  In (\ref{admire}), Principle A of the \isi{Binding Theory} \added{\crossrefchapterp{binding}} requires the reflexive pronoun to be coindexed with an o-commanding item, here the subject pronoun: 
 
 \begin{exe}
 \ex  
@@ -211,10 +232,10 @@ In anaphoric agreement, an anaphoric pronoun agrees in person, number, and gende
 \ex \textit{admire}:\\*
 \avm{
 [arg-st & < NP:	[\type*{ppro}
-				index & \1	[pers & 3rd \\
+				index & \1	[\changed{per} & 3rd \\
 							num & sg \\
 							gen & fem] ], NP:[\type*{ana}
-											index & \1	[pers & 3rd \\
+											index & \1	[\changed{per} & 3rd \\
 														num & sg \\
 														gen & fem] ]
 > ]
@@ -226,7 +247,7 @@ In anaphoric agreement, an anaphoric pronoun agrees in person, number, and gende
 The agreement features are formal features and not semantic ones, but the semantic correlates of person (speaker, addressee, other), number (cardinality), and gender (male, female, inanimate, etc.) are invoked under certain conditions (described in Section~\ref{pancake-sec}).   
 Thus \textsc{index} agreement is distinct from \textit{pragmatic agreement} whereby semantic features of two
 coreferential expressions must be semantically consistent in order for them to refer to a single
-entity.  \textsc{index} agreement is enforced only within the  syntactic domain defined by binding theory,
+entity.  \textsc{index} agreement is enforced only within the  syntactic domain defined by \changed{Binding Theory},
 while pragmatic agreement applies everywhere.   For example, feminine pronouns are sometimes used
 for ships, in addition to neuter pronouns.  Whichever gender is chosen, it must be consistent in
 binding contexts (example based on \citeauthor{Pollard+Sag:1994}'s \citeyear[79]{Pollard+Sag:1994} example (46a)):
@@ -239,29 +260,33 @@ binding contexts (example based on \citeauthor{Pollard+Sag:1994}'s \citeyear[79]
 \ex[ ]{The ship lurched, and then she righted herself.  It is a fine ship.}
 \ex[*]{The ship lurched, and then she righted itself.}
 \ex[*]{The ship lurched, and then it righted herself.}
+\itdopt{Swap order of c and d?}
 \end{xlist}
 \end{exe}
 
 \noindent
 The bound reflexive must agree formally with its antecedent, while other
-coreferential pronouns need not agree, as they are not coarguments of the antecedent and not subject to the structural binding theory.  
+coreferential pronouns need not agree, as they are not coarguments of the antecedent and not subject to the structural \changed{Binding Theory}.  
 
 In grammatical gender languages, where common nouns are conventionally assigned to a gender, an anaphoric pronoun appearing outside the binding domain of its antecedent can generally agree with that antecedent either formally or, if it is semantically appropriate (such as an animate, sexed entity), it can alternatively agree pragmatically.  In most situations pronouns allow either pragmatic or \textsc{index} agreement with their
-antecedents.  For example, pronouns coreferential with the \ili{Serbo-Croatian} grammatically neuter diminutive noun \textit{devoj\v{c}e} `girl' can appear in either neuter or feminine gender \citep[from][198]{Wechsler+Zlatic:2003}:
+antecedents.  For example, pronouns coreferential with the \ili{Serbo-Croatian} grammatically neuter diminutive noun \textit{devojče} `girl' can appear in either neuter or feminine gender \citep[from][198]{Wechsler+Zlatic:2003}:\footnote{
+\added{See also \citew[Section~20.4.4.]{Mueller99a} for a discussion of similar cases in German and of problems for HPSG's Binding Theory.}
+}
 
 \begin{exe}
 \ex \label{girl}
-\gll 	Ovo	                      malo                           devoj\v{c}e$_i$         je          u\v{s}lo.  \\
+\gll 	Ovo	                      malo                           devojče$_i$         je          ušlo.  \\
          this.\textsc{n.sg} 	 little.\textsc{n.sg}   girl.\textsc{n.sg} 	\textsc{aux.3sg} entered.\textsc{n.sg}  \\
- %        \glt this is the translation  
+\glt `This little girl entered.'
+\itdopt{Has devojče inherent gender? It would be (N). Added without a dot before it.}
 %\end{exe}
 \begin{xlist}
 \ex  
-\gll 	Ono$_i$	je	htelo	da	telefonira. \\
-		it.\textsc{n.sg}  	\textsc{aux.sg}  	wanted.\textsc{n.sg}  	that	telephone   \\
+\gll Ono$_i$	      je	      htelo	           da	telefonira. \\
+     it.\textsc{n.sg} \textsc{aux.sg} wanted.\textsc{n.sg} that	telephone   \\
 \ex  
-\gll 	Ona$_i$	je	htela	da	telefonira. \\
-		she.\textsc{f.sg}  	\textsc{aux.sg}  	wanted.\textsc{f.sg}  	that	telephone \\
+\gll Ona$_i$	je	htela	da	telefonira. \\
+     she.\textsc{f.sg}  	\textsc{aux.sg}  	wanted.\textsc{f.sg}  	that	telephone \\
 \glt `This little $\mbox{girl}_i$ came in.  $\mbox{She}_i$ wanted to use the telephone.'
 \end{xlist}
 \end{exe}
@@ -272,8 +297,8 @@ with the antecedent while the feminine pronoun (\ref{girl}b) reflects its refere
 
 \begin{exe}
 \ex \label{girl2}
-\gll 	Devoj\v{c}e            je               volelo              samo                  /  ?* samu              sebe. \\
-        girl.\textsc{nom.n.sg} \textsc{aux3.sg} liked.\textsc{n.sg} own.\textsc{acc.n.sg} {} {} \textsc{acc.f.sg} self.\textsc{acc} \\
+\gll 	Devojče            je               volelo              samo                  /  ?* samu              sebe. \\
+        girl.\textsc{nom.n.sg} \textsc{aux.3.sg} liked.\textsc{n.sg} own.\textsc{acc.n.sg} {} {} \textsc{acc.f.sg} \changed{\textsc{self}}.\textsc{acc} \\
 \glt `The girl liked herself.'
 \end{exe}
 
@@ -282,11 +307,10 @@ Again, this illustrates \textsc{index} agreement in the domain defined by the st
 
 
 
-
-
 \subsection{Grammatical agreement: \textsc{index} and \textsc{concord}}
 \label{ind-con}\label{agreement-sec-index-concord}
-As noted above, in  HPSG agreement effectively piggy-backs on other independently justified grammatical processes.  Anaphoric agreement is a side-effect of binding (Section~\ref{ana-agr}) while  grammatical agreement is a side-effect of valence saturation and modification (Section~\ref{arg-mod-agr}).  The formal HPSG analysis of a particular agreement process mainly consists of positing agreement features somewhere in the feature structure; the observed properties follow from the location of those agreement features.  With regard to the location of the features, grammatical agreement bifurcates into two types, \textsc{index} and \textsc{concord}.\footnote{The \textsc{index}/""\textsc{concord} theory is sketched in  \citet[Chapter~2]{Pollard+Sag:1994} and \citet{Kathol99b}, and developed in detail in  \citet{Wechsler+Zlatic:2000,Wechsler+Zlatic:2003}, all in the HPSG framework.  It has since been adopted into LFG (\citealt{king+dalrymple:2004}, inter alia) and GB/Minimalism \citep{Danon:2009}.}  (The attribute name  \textsc{concord} was introduced by \citealt[799]{Wechsler+Zlatic:2000}, \citealt[14]{Wechsler+Zlatic:2003}; precursors to the idea were treated as \textsc{head} features in \citealt{Pollard+Sag:1994}, and called \textsc{agr} by \citealt{Kathol99b}.)   The best way to understand this bifurcation of agreement, and indeed the operation of grammatical agreement systems generally, is by considering their diachronic origin.   Although our primary goal is the description of synchronic grammar, a look at diachrony can help explain the forms that the grammar takes, and can also provide clues as to the best formalization of it.  
+
+As noted above, in  HPSG agreement effectively piggy-backs on other independently justified grammatical processes.  Anaphoric agreement is a side-effect of binding (Section~\ref{ana-agr}) while  grammatical agreement is a side-effect of valence saturation and modification (Section~\ref{arg-mod-agr}).  The formal HPSG analysis of a particular agreement process mainly consists of positing agreement features somewhere in the feature \rep{structure}{description}; the observed properties follow from the location of those agreement features.  With regard to the location of the features, grammatical agreement bifurcates into two types, \textsc{index} and \textsc{concord}.\footnote{The \textsc{index}/""\textsc{concord} theory is sketched in  \citet[Chapter~2]{Pollard+Sag:1994} and \citet{Kathol99b}, and developed in detail in  \citet{Wechsler+Zlatic:2000,Wechsler+Zlatic:2003}, all in the HPSG framework.  It has since been adopted into LFG (\citealt{king+dalrymple:2004}, inter alia) and GB/Minimalism \citep{Danon:2009}.}  (The attribute name  \textsc{concord} was introduced by \citealt[799]{Wechsler+Zlatic:2000}, \citealt[14]{Wechsler+Zlatic:2003}; precursors to the idea were treated as \textsc{head} features in \citealt[\added{Section~2.5.1}]{Pollard+Sag:1994}, and called \textsc{agr} by \citealt{Kathol99b}.)   The best way to understand this bifurcation of agreement, and indeed the operation of grammatical agreement systems generally, is by considering their diachronic\is{diachrony} origin.   Although our primary goal is the description of synchronic grammar, a look at diachrony can help explain the forms that the grammar takes, and can also provide clues as to the best formalization of it.  
 
 Within the diachronic literature on agreement there are thought to be two different lexical sources for agreement inflections: (i) incorporated pronouns and (ii) incorporated noun classifiers \citep{greenberg:1978}.  
 %Going back further, the noun classifiers derive from semantically superordinate common nouns meaning `animal’, `man’, `woman’, and so on.  
@@ -300,11 +324,11 @@ As explained above, structural anaphoric binding involves identifying (structure
 
 \begin{exe} 
 
-\ex 	\label{is2}
+\ex\label{is2}\label{le-is}
 	Simplified sign for \textit{is}, illustrating \textsc{index} agreement:\\*
 \avm{
 [\phon < is > \\
-subj & < NP [content|index &	[pers & 3rd \\
+subj & < NP [content|index &	[\changed{per} & 3rd \\
 								num & sg ] ] > \\ 
 comps & < XP > ]
 }
@@ -315,14 +339,15 @@ comps & < XP > ]
 Sign for  \textit{I}, illustrating  \textsc{index} features:\\*
 \avm{
 [\phon < I > \\
-content|index & \1	[pers & 1st \\
-					num & sg ] \\
-context & speaker!(\1)! ]
+\punk{content|index}{ \1	[\changed{per} & 1st \\
+					num & sg ]} \\
+context &  speaker(\1) ]
 }
+\itdopt{In \citew[94]{ps2} speaker is a feature not a relation. \textsc{c-indices|speaker}.}
 \end{exe}
 
 \noindent
-This finite verb form specifies third person singular features of its subject's referential index.  
+The finite verb form in (\ref{le-is}) specifies third person singular features of its subject's referential index.  
 
 One salient distinguishing characteristic of \textsc{index} agreement is that it includes the \textsc{person} feature.  The only known diachronic source of the \textsc{person} feature is from pronouns.  Therefore, the other type of agreement, \textsc{concord}, lacks the \textsc{person} feature (as we will see below).  
 
@@ -343,7 +368,7 @@ The classifier morphemes in turn derive historically from lexical common nouns d
 \begin{xlist}
 \ex \label{wallaby1} Stage I: \\
 \gll 	Gagu	   wamanggal	  kerre    ngeben-da. \\
-	     animal	wallaby	      big	      1\textsc{sg.sb.aux}-shoot \\
+	     animal	wallaby	      big	      1\textsc{sg.sb.aux}-shoot \\\hfill\added{(Ngan’gityemerri)}
 \glt `I shot a big wallaby.’	
 \ex \label{wallaby2} Stage II: \\
 \gll 	Gagu	   wamanggal	   gagu	kerre	    ngeben-da. \\
@@ -354,6 +379,9 @@ The classifier morphemes in turn derive historically from lexical common nouns d
 	male=youth		male=mine	\textsc{3sg.aux}-return-\textsc{foc} \\
 \glt 	`My initiand son has just returned.’ 
 \end{xlist}
+\itdopt{Stefan: Minimal pairs would be better. c is different.}
+\itdobl{JP: I assume this was meant to be SUBJ as per the LGR. If not, the meaning of this glossing abbreviation should be put in an Appendix at the end of the paper.}
+\itdopt{JP: Should I know the meaning of ``initiand''?}
 \end{exe}
 
 \noindent
@@ -366,9 +394,11 @@ Along with the number and gender features, the \textsc{concord} value is assumed
 
 \begin{exe}
 \ex  \label{fell}
-\gll 	Moja 	stara	 knjiga	je pala.  \\
+\gll 	Moja 	stara	 knjiga	je pala.\footnotemark  \\
 my.\textsc{f.nom.sg}  old.\textsc{f.nom} 	book.\textsc{nom.sg} 	\textsc{aux.3.sg}  fall.\textsc{pprt.f.sg} \\
-\glt`My old book fell.' \citep[18]{Wechsler+Zlatic:2003}
+\footnotetext{\citew[18]{Wechsler+Zlatic:2003}}
+\glt `My old book fell.' \hfill\added{(Serbo-Croatian)}
+\itdopt{Gloss inherent gender?}
 \end{exe}
 
 \noindent
@@ -383,7 +413,7 @@ The nominative singular noun form \emph{knjiga} specifies its agreement features
                                                   num  & \1 sing\\
                                                   gen  & \2 fem ]]\\ 
                            spr  & < (AP [\type{poss}, concord \3 ] ) > ]\\ 
-              content & [ index & \tag{i} [pers & 3rd\\ 
+              content & [ index & \tag{i} [\changed{per} & 3rd\\ 
                                            num  & \1\\ 
                                            gen  & \2 ]\\ 
                           restr & \{ !$book(i)$! \} ]]] 
@@ -396,7 +426,7 @@ The nominative singular noun form \emph{knjiga} specifies its agreement features
 %%                                            gen & \ibox{2}\it{fem}\]\]\\ 
 %%                       spr \, \<\ \, (AP\[$poss$; concord \ibox{3}\]\) \, \> \]\\ 
 %% content & \[ 
-%% index & \@i\[pers & \it{3rd}\\ num & \ibox{1}\\ gen & \ibox{2}\]\\ 
+%% index & \@i\[\changed{per} & \it{3rd}\\ num & \ibox{1}\\ gen & \ibox{2}\]\\ 
 %% restr & \{ $book(i)$ \} 
 %% \]\] 
 %% \end{avm}
@@ -405,7 +435,8 @@ The nominative singular noun form \emph{knjiga} specifies its agreement features
 \noindent
 The specifier (\textsc{spr}) is shown as AP because the possessive phrase is categorically an adjective phrase in \ili{Serbo-Croatian}.  The features in the overlap between \textsc{concord} and \textsc{index} are normally shared as in this example.  But with some special nouns, features can be asymmetrically specified in only one of the two values (with no reentrancy linking them, of course).  This leads to mismatches between \textsc{concord} and \textsc{index} targets, discussed in Section~\ref{mismatch} below.
 
-The phi features also appear within the \textsc{head} value, as shown in (\ref{knjiga-avm}), so that adjunct APs can agree with those features.  For example, concord by the attributive adjective \textit{stara} `old' is guaranteed because its \textsc{mod} feature is specified for feminine singular features, as shown in (\ref{stara}) in Section~\ref{arg-mod-agr} above.   
+The phi features also appear within the \textsc{head} value, as shown in (\ref{knjiga-avm}), so that adjunct APs can agree with those features.  For example, concord by the attributive adjective \textit{stara} `old' is guaranteed because its \textsc{mod} feature is specified for feminine singular features, as shown in (\ref{stara}) in Section~\ref{arg-mod-agr} above.
+\itdopt{(\ref{stara}) does not have a \textsc{concord} feature. But maybe this is OK.}
 
 
 \subsection{Conclusion}
@@ -452,31 +483,30 @@ Regarding (\ref{impeached}), \citet[564--565]{Mccloskey:1991} observes that sing
 \ex \label{barbe}
  \begin{xlist}
 \ex   
-\gll   La sentinelle	{\`{a} la barbe}	a \'{e}t\'{e}	\{ prise / *pris \} 	{en otage}.  \\
-		the.\textsc{f} sentry	bearded	\textsc{aux} been	
-		{} taken.\textsc{f.sg} {} taken.\textsc{m}	 {} hostage \\
-\glt		`The bearded sentry was taken hostage.’
+\gll La             sentinelle {\`{a} la barbe} a            \'{e}t\'{e} \{~prise                          /  *pris~\} 	                 {en otage}.  \\
+     the.\textsc{f} sentry     bearded          \textsc{aux} been        \hphantom{\{~}taken.\textsc{f.sg} {} \hphantom{*}taken.\textsc{m} hostage \\
+\glt `The bearded sentry was taken hostage.’
 \ex   
-\gll   Dupont	est	\{ comp\'{e}tent /		comp\'{e}tente \}. \\
-		Dupont	is	{} competent.\textsc{m.sg} {}	competent.\textsc{f.sg} {} \\
-\glt		`Dupont \{ a man / a woman \} is competent.’
+\gll Dupont est	\{~comp\'{e}tent                      /	comp\'{e}tente~\}. \\
+     Dupont is	\hphantom{\{~}competent.\textsc{m.sg} {}	competent.\textsc{f.sg}\\
+\glt `Dupont \{ a man / a woman \} is competent.’
  \end{xlist}
 \end{exe} 
 
 \noindent
 The grammatically feminine noun \textit{sentinelle} `sentry'  triggers feminine agreement regardless of the sex of the sentry; but in (\ref{barbe}b) feminine agreement indicates that Dupont is female while masculine agreement indicates that Dupont is male.  
 
-How does the grammar negotiate between formal and semantic agreement?  In HPSG, syntactic and semantic representations are composed in tandem, making the framework well suited to address this question.   It was addressed in early HPSG work, including \cite[Chapter~1]{Pollard+Sag:1994}.   The specific approach due to \cite{Wechsler:2011} exploits the underspecification of agreement features (see Section~\ref{unif-sec}).  I posit the Agreement Marking Principle (AMP), which states that target agreement features are semantically interpreted whenever the trigger is underspecified for the formal grammatical features to which the target would normally be sensitive.   The subject phrases in (\ref{clothes}) are specified for number due to the formal features of the head nouns, but those in (\ref{impeached}) are not, as a (coordinate) clause has no grammatical source for those features.  Consequently, by the AMP, the verb's number feature is semantically interpreted in (\ref{impeached}).  Similarly, \textit{sentinelle} in (\ref{barbe}a) gives its formal feminine gender feature to the subject, while \textit{Dupont} lacks a gender specification, triggering the semantic interpretation of the target adjectives in (\ref{barbe}b): feminine is interpreted as `female'.    
+How does the grammar negotiate between formal and semantic agreement?  In HPSG, syntactic and semantic representations are composed in tandem, making the framework well suited to address this question.   It was addressed in early HPSG work, including \citew[Chapter~1]{Pollard+Sag:1994}.   The specific approach due to \citew{Wechsler:2011} exploits the underspecification of agreement features (see Section~\ref{unif-sec}).  I posit the \isi{Agreement Marking Principle (AMP)}, which states that target agreement features are semantically interpreted whenever the trigger is underspecified for the formal grammatical features to which the target would normally be sensitive.   The subject phrases in (\ref{clothes}) are specified for number due to the formal features of the head nouns, but those in (\ref{impeached}) are not, as a (coordinate) clause has no grammatical source for those features.  Consequently, by the AMP, the verb's number feature is semantically interpreted in (\ref{impeached}).  Similarly, \textit{sentinelle} in (\ref{barbe}a) gives its formal feminine gender feature to the subject, while \textit{Dupont} lacks a gender specification, triggering the semantic interpretation of the target adjectives in (\ref{barbe}b): feminine is interpreted as `female'.    
 
 Agreement targets generally have a default form for use when there is no trigger or the normal agreement relation is blocked for some reason.   
-Blocking of agreement comes about in various situations; here we  consider a case where the trigger is interpreted metonymically, \is{metonymy} apparently resulting in a reassignment of the referential index.  \ili{Swedish} predicate adjectives normally agree with their subjects in number (either singular or plural) and grammatical gender, either neuter (\textsc{nt}) or `common' gender (\textsc{com}), the gender held in common between masculine and feminine: 
+Blocking of agreement comes about in various situations; here we  consider a case where the trigger is interpreted metonymically, \is{metonymy} apparently resulting in a reassignment of the referential index.  \ili{Swedish} predicate adjectives normally agree with their subjects in number (either singular or plural) and grammatical gender, either neuter (\textsc{n}) or `common' gender (\textsc{com}), the gender held in common between masculine and feminine: 
 
 \begin{exe} 
 \ex \label{huset}
  \begin{xlist}
 \ex 
-\gll 	Hus-et 	är	gott. \\
-		house-\textsc{def.n.sg}	is	good.\textsc{n.sg} \\
+\gll Hus-et 	är	gott. \\
+     house-\textsc{def.n.sg}	is	good.\textsc{n.sg} \\\hfill\added{(Swedish)}
 \glt	`The house is good.’
 \ex   
 \gll  Pannkaka-n 	är	god. \\
@@ -495,12 +525,12 @@ As shown in (\ref{huset}), a predicate adjective is inflected for number, and, i
 \begin{exe} 
 \ex \label{pannkakor}
 \gll   Pannkak-or 	är	gott. \\
-	pancake-\textsc{pl}	be.\textsc{prs}	good.\textsc{n.sg} \\
+	pancake-\textsc{pl}	be.\textsc{prs}	good.\textsc{n.sg} \\\hfill\added{(Swedish)}
 \glt	`Situations involving pancakes are good.’ (e.g. `Eating pancakes is good.’)
 \end{exe}
 
 \noindent
-In general, \ili{Swedish} predicate adjectives appear in neuter singular when there is no triggering NP, such as with clausal subjects (see (\ref{extrap}a) below).  \citet{Wechsler+Zlatic:2003} posit the index type \textit{unm} (`unmarked') for  referential indices that lack phi features, such as those introduced by verbs.   So \textit{gott} has a \subj list item whose index  is disjunctively specified for either neuter singular or type \textit{unm}.  
+In general, \ili{Swedish} predicate adjectives appear in neuter singular when there is no triggering NP, such as with clausal subjects (see (\ref{extrap}a) below).  \citet{Wechsler+Zlatic:2003}\addpages posit the index type \textit{unm} (`unmarked') for  referential indices that lack phi features, such as those introduced by verbs.   So \textit{gott} has a \subj list item whose index  is disjunctively specified for either neuter singular or type \textit{unm}.  
 
 The lack of agreement in (\ref{pannkakor}) then arises because the subject phrase refers, not to the pancakes, but to a situation involving them; hence its referential index is distinct from the one lexically introduced by the noun \textit{pannkakor}.  A rule shifts the index and encodes the metonymic relation between the entity and the situation involving it.  This  is implemented with a non-branching phrasal construction in \citet[82, example\,(20)]{Wechsler:2013}:
 
@@ -508,7 +538,7 @@ The lack of agreement in (\ref{pannkakor}) then arises because the subject phras
 \begin{exe} 
 \ex	
 \label{metonymy}
-\textit{metonymy-ctx:}\\
+\textit{metonymy-\changed{phrase}} \added{\impl} \\
 \avm{
 [mtr &	[syn & NP \\
 		sem &	[index & s$_{unm}$ \\
@@ -561,7 +591,7 @@ The two-feature (\textsc{index/concord}) theory of agreement was originally moti
 \begin{xlist}
 \ex
 \gll   Vous		\^{e}tes		loyal. \\
-		you.\textsc{pl}		be.\textsc{2pl}	loyal.\textsc{m.sg} \\
+		you.\textsc{pl}		be.\textsc{2pl}	loyal.\textsc{m.sg} \\\hfill\added{(French)}
 \glt		`You (singular, formal, male) are loyal.’ 
 \ex 
 \gll	Vous		\^{e}tes		loyaux. \\
@@ -575,13 +605,14 @@ The two-feature (\textsc{index/concord}) theory of agreement was originally moti
 
 ``Polite plural pronouns'' of this kind are found in many languages of the world \citep{Head:1978}.   The cross-linguistic agreement patterns observed in typological studies \citep{Comrie:1975,Wechsler:2011} confirm the predictions of the theory.  Taken together, suppositions (i) and (iii) from the previous paragraph entail that any person agreement targets agreeing with polite pronouns should show formal, rather than semantic, agreement.  Targets lacking person, meanwhile, can vary across languages.  This pattern is confirmed for all languages with polite plurals that have been surveyed, including \ili{Romance} languages; Modern \ili{Greek}; \ili{Germanic} (\ili{Icelandic}); West, South and East \ili{Slavic}; \ili{Hindi}; Gbaya (Niger-Congo);  Kobon and Usan (Papuan); and Sakha (Turkic) (see \citealt{Comrie:1975} and \citealt{Wechsler:2011}).   
  
-The \textsc{index/concord} distinction plays a crucial role in this account of mixed agreement.  An earlier hypothesis, proposed by \citet{Kathol99b}, is that \ili{French} predicate adjectives are grammatically specified for semantic  agreement with their subjects, while finite verbs show formal agreement.  But a plurale tantum noun such as \textit{ciseaux} `scissors’ triggers syntactic agreement on the predicate adjective:
+The \textsc{index/concord} distinction plays a crucial role in this account of mixed agreement.  An earlier hypothesis, proposed by \citet{Kathol99b}\addpages, is that \ili{French} predicate adjectives are grammatically specified for semantic  agreement with their subjects, while finite verbs show formal agreement.  But a plurale tantum noun such as \textit{ciseaux} `scissors’ triggers syntactic agreement on the predicate adjective:
 	
 \begin{exe} 
 \ex\label{ciseaux}
-\gll   Ces	ciseaux	sont	g\'{e}niaux!	(*g\'{e}nial!) \\
-		these.\textsc{pl}	scissors(\textsc{m.pl})	are.\textsc{pl} 	brilliant.\textsc{m.pl}	\hphantom{(*}brilliant.\textsc{m.sg} \\
+\gll Ces	       ciseaux	               sont	       g\'{e}niaux!	       (*g\'{e}nial!) \\
+     these.\textsc{pl} scissors(\textsc{m.pl}) are.\textsc{pl} brilliant.\textsc{m.pl} \hphantom{(*}brilliant.\textsc{m.sg} \\\hfill\added{(French)}
 \glt		`These scissors are cool!’ 
+\itdopt{JP: I don’t see why the agreement features are optional.\\Stefan: Brackets are for inherent features.}
 \end{exe}
 
 \noindent
@@ -589,6 +620,7 @@ As far as the syntax is concerned, \textit{ciseaux} `scissors’ is an ordinary 
  
 
 \section{Agreement defined on other structures}
+
 So far our look at grammatical agreement has focused primarily on agreement defined on local grammatical relations like subject, object, and modifier.  In this section we look at HPSG analyses of two other types of agreement, namely long-distance and superficial agreement.  
 
 \subsection{Long-distance agreement}
@@ -596,54 +628,56 @@ So far our look at grammatical agreement has focused primarily on agreement defi
 
 The simple picture of locality in the previous sections is challenged by the phenomenon of long-distance agreement, where the trigger appears within a clause subordinate to the one headed by the target verb.  Long-distance agreement has been observed in a number of languages, including \ili{Tsez} (Nakh-Dagestanian; \citealt{polinsky+potsdam:2001}), \ili{Hindi}-Urdu \citep{bhatt:2005}, and \ili{Passamaquoddy} (Athabaskan; \citealt{bruening:2001,LeSourd:2018}).  
 
-\ili{Passamaquoddy} long-distance agreement is illustrated by this sentence \citep[example\,(5)]{LeSourd:2018}, with the relevant elements indicated in bold:
-\inlinetodostefan{I would like to replace bold by italics.}
+\ili{Passamaquoddy} long-distance agreement is illustrated by this sentence \citep[example\,(5)]{LeSourd:2018}, with the relevant elements indicated in \bolddescriptionintext:
+\inlinetodostefan{I replaced bold by italics.}
 
 \begin{exe}
 \ex\label{baskets}
-\gll N-kosic\'{i}y-a-\textbf{k}  [eli- P\'{i}yel -litah\'{a}si-t           {[eli-kis-ankum-\'{i}-hti-t}   \textbf{n\`{i}kt}  \textbf{ehp\'{i}c-ik}	{poson\'{u}ti-yil]]} \\
-     1-know-\textsc{dir-prox.pl} \spacebr{}thus- Peter -think-\textsc{3an} { \spacebr{}thus-\textsc{pst}-sell-\textsc{3/1-prox.pl-3an}}         those.\textsc{prox}  woman-\textsc{prox.pl}     basket-\textsc{in.pl}\\
-\glt `I know that Peter thinks that those women sold me the baskets.’
+\gll N-kosicíy-a-\textbfemph{k}  [eli- Píyel -litah\'{a}si-t           {[eli-kis-ankum-í-hti-t}   \textbfemph{n\`{i}kt}  \textbfemph{ehpíc-ik}	{poson\'{u}ti-yil]]} \\
+     1-know-\textsc{dir-prox.pl} \spacebr{}thus- Píyel -think-\textsc{3an} { \spacebr{}thus-\textsc{pst}-sell-\textsc{3/1-prox.pl-3an}}         those.\textsc{prox}  woman-\textsc{prox.pl}     basket-\textsc{in.pl}\\\hfill\added{(Passamaquoddy)}
+\glt `I know that Píyel thinks that those women sold me the baskets.’
 \end{exe}
 
 \noindent
-The \textit{-k} suffix on the matrix verb \textit{kosic\'{i}y} `know' marks plural, deictically proximate agreement with the phrase \textit{n\`{i}kt ehp\'{i}cik} `those women'  in the doubly embedded subordinate clause.  \citet{LeSourd:2018} analyzes \ili{Passamaquoddy} long distance agreement in the HPSG framework.   He notes that  \ili{Passamaquoddy} long distance agreement is parallelled by long-distance raising, in which an NP in the matrix clause is coreferential with an implicit argument of a subordinate clause \citep[example\,(4)]{LeSourd:2018}:  
+The \textit{-k} suffix on the matrix verb \textit{kosicíy} `know' marks plural, deictically proximate agreement with the phrase \textit{n\`{i}kt ehpícik} `those women'  in the doubly embedded subordinate clause.  \citet{LeSourd:2018} analyzes \ili{Passamaquoddy} long distance agreement in the HPSG framework.   He notes that  \ili{Passamaquoddy} long distance agreement is parallelled by long-distance raising, in which an NP in the matrix clause is coreferential with an implicit argument of a subordinate clause \citep[example\,(4)]{LeSourd:2018}:  
 
 \begin{exe}
 \ex\label{baskets2}
-\gll N-kosic\'{i}y-a-\textbf{k} \textbf{n\`{i}kt}  \textbf{ehp\'{i}c-ik}$_i$ [eli- P\'{i}yel -litah\'{a}si-t  [eli-kis-ankum-\'{i}-hti-t  \textbf{e$_i$} 	{poson\'{u}ti-yil]]} \\
-     1-know-\textsc{dir-prox.pl} those.\textsc{prox}  woman-\textsc{prox.pl} \spacebr{}thus- Peter -think-\textsc{3an} \spacebr{}thus-\textsc{pst}-sell-\textsc{3/1-prox.pl-3an}         {}    basket-\textsc{in.pl}\\
-\glt `I know about those women$_i$ that Peter thinks that they$_i$ sold me the baskets.’
+\gll N-kosicíy-a-\textbfemph{k} \textbfemph{n\`{i}kt}  \textbfemph{ehpíc-ik}$_i$ [eli- Píyel -litah\'{a}si-t  [eli-kis-ankum-í-hti-t  \textbfemph{e$_i$} 	{poson\'{u}ti-yil]]} \\
+     1-know-\textsc{dir-prox.pl} those.\textsc{prox}  woman-\textsc{prox.pl} \spacebr{}thus- Píyel -think-\textsc{3an} \spacebr{}thus-\textsc{pst}-sell-\textsc{3/1-prox.pl-3an}         {}    basket-\textsc{in.pl}\\\hfill\added{(Passamaquoddy)}
+\glt `I know about those women$_i$ that Píyel thinks that they$_i$ sold me the baskets.’
 \end{exe}
 
 \noindent
 \ili{Passamaquoddy} speakers report that sentences (\ref{baskets}) and (\ref{baskets2}) suggest the subject of `know' (the speaker) is familiar with the women.  This provides evidence that the phrase `those women' in (\ref{baskets2}) is an argument of the matrix verb `know', as implied by the translation.  
 %(In other words, this is a prolepsis construction.)
-Similarly, the matrix clause (\ref{baskets}) contains a null argument (cross-referenced by the proximate plural \textit{-k}  suffix), which is  cataphoric to `those women'.  Hence a more literal translation of (\ref{baskets}) is `I know about them$_i$ that Peter thinks that those women$_i$ sold me the baskets.'\footnote{LeSourd notes that \ili{Passamaquoddy} lacks Principle~C effects, so cataphora of this kind is permitted.}  What the long-distance agreement and raising constructions share is simply that the matrix object is coreferential with some argument contained in the subordinate clause.  The following lexical entry for the verb root \textit{kosic\'{i}y} `know' captures that:
+Similarly, the matrix clause (\ref{baskets}) contains a null argument (cross-referenced by the proximate plural \textit{-k}  suffix), which is  cataphoric to `those women'.  Hence a more literal translation of (\ref{baskets}) is `I know about them$_i$ that Píyel thinks that those women$_i$ sold me the baskets.'\footnote{LeSourd notes that \ili{Passamaquoddy} lacks Principle~C effects, so cataphora of this kind is permitted.}  What the long-distance agreement and raising constructions share is simply that the matrix object is coreferential with some argument contained in the subordinate clause.  The following lexical entry for the verb root \textit{kosicíy} `know' captures that:
 
  \begin{exe}
 \ex\label{know}
-\textit{kosic\'{i}y} `know': \\
+\textit{kosicíy} `know': \\
 \avm{
-[\phon < kosic\'{i}y > \\
-arg-st & < NP$_i$ , NP$_j$, S:[restr < \ldots [prd|arg & j ] \ldots> ]> ]
+[\phon < kosicíy > \\
+arg-st & < NP$_i$ , NP$_j$, S:[restr < \ldots\added{,} [prd|arg & j ]\added{,} \ldots> ]> ]
 }  
 \end{exe}
+\itdobl{I checked LeSourd. He does not have structures involving a path \textsc{prd|arg}. He uses PRD$_j$ to refer to a predicate with the index $j$. Also it does not work with \textsc{arg} as one of the arguments, since the argument roles are \textsc{arg1}, \ldots \textsc{argn} or more specificlike \textsc{actor}. I would suggest using PRD$_j$ as in the original. Of course this begs the question how the index is accessed. I guess one would need a function returning all indices from a certain predication. Also adapt text below.} 
 
 \noindent
 LeSourd adopts the version of HPSG described in the \citet{Sag+etal:2003} textbook, which uses a simplified Minimal Recursion Semantics. The semantic restrictions feature (\textsc{restr}) takes as its value a list of elementary predications (\textsc{prd}).  The list for each node is a concatenation of the restrictions of the daughter nodes.  Thus every semantic argument contained within the S complement, whether overt or null, will correspond to some argument (\textsc{arg}) of an elementary predication (\textsc{prd}) in S's \textsc{restr} list.  The lexical entry in (\ref{know}) stipulates that the matrix object NP corefers with some such argument.    In conclusion, \ili{Passamaquoddy} long-distance agreement is really the anaphoric agreement of a pronoun with an antecedent in a higher clause.  
-
+\itdopt{JP: This is an odd way of putting it, as the -k suffix is not a pronoun. I would simply drop “of a pronoun” and have “anaphoric agreement .}
 
 \subsection{Superficial agreement}
+\label{agreement:sec-superficial-agreement}
 
- In some languages, string adjacency of the trigger and target, rather than a grammatical relation such as subject or modifier, is a grammatical condition on agreement. This may arise because person agreement derives historically from pronoun incorporation, and a basic syntactic precondition for incorporation is string adjacency between the pronoun and the head into which it incorporates \citep{givon:1976,ariel:1999,wechsler+epps+coppock:2010,fuss:2005}.  If the trigger occupies the syntactic position that the pronoun occupied prior to incorporation (for example because the trigger is itself a pronoun) then the result is that trigger and target are adjacent.  For example, West \ili{Flemish} complementizers agree with an immediately following subject, even though the complementizer and subject are not related by any grammatical relation \citep{Haegeman:1992}.  To take another example, \citet{Borsley:2009} analyzes \ili{Welsh} superficial agreement in the HPSG framework, citing examples like the following:
+In some languages, string adjacency of the trigger and target, rather than a grammatical relation such as subject or modifier, is a grammatical condition on agreement. This may arise because person agreement derives historically from pronoun incorporation, and a basic syntactic precondition for incorporation is string adjacency between the pronoun and the head into which it incorporates \citep{givon:1976,ariel:1999,wechsler+epps+coppock:2010,fuss:2005}.  If the trigger occupies the syntactic position that the pronoun occupied prior to incorporation (for example because the trigger is itself a pronoun) then the result is that trigger and target are adjacent.  For example, West \ili{Flemish} complementizers agree with an immediately following subject, even though the complementizer and subject are not related by any grammatical relation \citep{Haegeman:1992}\addpages.  To take another example, \citet{Borsley:2009} analyzes \ili{Welsh} superficial agreement in the HPSG framework, citing examples like the following:
 
 \begin{exe}
 \ex \label{welsh}
 \begin{xlist}
 \ex
 \gll 	Gwelon nhw ddraig. \\
-see.\textsc{past.3pl} they dragon \\
+see.\textsc{past.3pl} they dragon \\\hfill\added{(Welsh)}
 \glt `They saw a dragon.’
 \ex 
 \gll 	arno fo \\
@@ -657,7 +691,7 @@ see.\textsc{past.1sg} I and Megan horse \\
 \end{exe}
 
 \noindent
-The trigger is the subject in (\ref{welsh}a), object in (\ref{welsh}b), and the first conjunct of a coordinate subject in (\ref{welsh}c).  But in every case, ``An agreeing element agrees with an immediately following noun phrase if and only if the latter is a pronoun'' \citep[example\,(48)]{Borsley:2009}. \citet[example\,(99)]{Borsley:2009} expresses this as an HPSG implicational constraint using the \textsc{dom}ain feature from linearization theory \citep{reape:1994,Mueller95c,Mueller99a,Kathol:2000}:
+The trigger is the subject in (\ref{welsh}a), object in (\ref{welsh}b), and the first conjunct of a coordinate subject in (\ref{welsh}c).  But in every case, ``An agreeing element agrees with an immediately following noun phrase if and only if the latter is a pronoun'' \citep[\changed{237}]{Borsley:2009}. \citet[\changed{257}]{Borsley:2009} expresses this as an HPSG implicational constraint using the \textsc{dom}ain feature from linearization theory (\citealt{reape:1994,Mueller95c,Mueller99a,Kathol:2000}; see also \crossrefchapteralt[Section~\ref{sec-domains}]{order}):
 
 \begin{exe}
 \ex \label{welshrule}
@@ -666,19 +700,29 @@ The trigger is the subject in (\ref{welsh}a), object in (\ref{welsh}b), and the 
 \end{exe}
 
 \noindent
-The \textsc{dom}ain list encodes linear precedence between constituents that are not necessarily sisters.  In (\ref{welshrule}) the \textsc{agr} value is the set of phi features of the target; the colon following NP represents the semantic \textsc{content} attribute; and the subscripted tag \ibox{2} is the \textsc{index} value.  The rule states that when a constituent bearing the \textsc{agr} attribute is immediately followed by a personal pronoun (content of type \textit{ppro}), then the \textsc{agr} value is identified with the pronoun's index (shown here as  \ibox{2}), that is, it agrees with a right-adjacent pronoun.  
+The \textsc{dom}ain list encodes linear precedence between constituents that are not necessarily sisters.  In (\ref{welshrule}) the \textsc{agr} value is the set of phi features of the target; the colon following NP represents the semantic \textsc{content} attribute; and the subscripted tag \ibox{2} is the \textsc{index} value.  The rule states that when a constituent bearing the \textsc{agr} attribute is immediately followed by a personal pronoun (content of type \textit{ppro}), then the \textsc{agr} value is identified with the pronoun's index (shown here as \ibox{2}\,), that is, it agrees with a right-adjacent pronoun.  
 
 
 
 \section{Conclusion} 
 
-Agreement is analyzed in HPSG by assigning phi features to specific locations in the feature descriptions representing the grammar.  Anaphoric agreement results from phi features appearing on the referential indices of the binder and bindee, together with the assumption that binding consists of the identification of those indices.  Verbal agreement with subjects and objects results when phi features appear on the verb's \argst list items that are identified with the \textsc{synsem} values of the subject and object phrases.  Modifier agreement with heads occurs when phi features appear within the \textsc{mod} value of the modifier.  According to the \textsc{index}/\textsc{concord} theory, when agreement is historically descended from anaphoric agreement of incorporated pronouns, then those features within the \argst list or \textsc{mod} items are located  on the referential index; while otherwise they are collected in the \textsc{concord} feature and placed within the value of the \textsc{head} features.   The locality conditions on agreement follow from the normal operation of the grammar in which those phi features are embedded.  Some cases of agreement seem to exist outside those conditions.  Long-distance agreement has been analyzed as a kind of anaphoric agreement within a prolepsis construction, and superficial agreement has been defined on string adjacency and precedence, within linearization theory.  
+Agreement is analyzed in HPSG by assigning phi features to specific locations in the feature descriptions representing the grammar.\itdopt{JP: I would avoid “representing” in the context of descriptions, as it can be confusing. What about “that make up..”}  Anaphoric agreement results from phi features appearing on the referential indices of the binder and bindee, together with the assumption that binding consists of the identification of those indices.  Verbal agreement with subjects and objects results when phi features appear on the verb's \argst list items that are identified with the \textsc{synsem} values of the subject and object phrases.  Modifier agreement with heads occurs when phi features appear within the \textsc{mod} value of the modifier.  According to the \textsc{index}/\textsc{concord} theory, when agreement is historically descended from anaphoric agreement of incorporated pronouns, then those features within the \argst list or \textsc{mod} items are located  on the referential index; while otherwise they are collected in the \textsc{concord} feature and placed within the value of the \textsc{head} features.   The locality conditions on agreement follow from the normal operation of the grammar in which those phi features are embedded.  Some cases of agreement seem to exist outside those conditions.  Long-distance agreement has been analyzed as a kind of anaphoric agreement within a prolepsis construction, and superficial agreement has been defined on string adjacency and precedence, within linearization theory. 
+\itdopt{you did not mention prolepsis before. Maybe do so.} 
 
 \section*{Abbreviations}
 
 \inlinetodostefan{add \textsc{pprt}}
 
-%\section*{Acknowledgements}
+\textsc{dir}
+
+\textsc{an}
+
+\textsc{in}
+
+
+\section*{Acknowledgements}
+
+\itdopt{Thank somebody?}
 
 %\printbibliography[heading=subbibliography,notkeyword=this]
 
@@ -689,3 +733,6 @@ Agreement is analyzed in HPSG by assigning phi features to specific locations in
 \printbibliography[heading=subbibliography,notkeyword=this] 
 }
 \end{document}
+
+
+%      <!-- Local IspellDict: en_US-w_accents -->
