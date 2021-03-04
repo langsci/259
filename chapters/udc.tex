@@ -93,7 +93,7 @@ following, the filler and the gap are of the same category:
 \label{ex:UDC:3} 
 \ex[]{ [\textsubscript{NP} Who] did Kim talk to \trace{} (NP)?}
 \ex[]{ [\textsubscript{PP} To whom] did Kim talk \trace{} (PP)?}
-\ex[]{ [\textsubscript{AP} How long] is a piece of string \trace{} (AP)?}  
+\ex[]{ [\textsubscript{AP} How long] is \rep{a}{this} piece of string \trace{} (AP)?}  
 \ex[]{\label{ex-how-quickly-did-you}
 {}[\textsubscript{AdvP} How quickly] did you do it \trace{}  (AdvP)?}
 \zl
@@ -150,7 +150,7 @@ $\begin{array}{@{}l@{}}
   Why\\
 \end{tabular}\right\}
 \end{array}$
-did you talk to Lee\trace{}?
+did you talk to Lee \trace{}?
 \z
 
 \noindent 
@@ -210,7 +210,7 @@ constituent.\footnote{The basic approach derives from the earlier
   feature's name equally derives from this heritage, referring to the
   GPSG notation whereby X/Y stands for a category X containing a gap of
   category Y.} 
-Much HPSG work assumes the feature geometry (\ref{ex:UDC:9}), following \citet[Chapter~4]{Pollard:Sag:94}:
+Much HPSG work assumes the feature geometry \add{in} (\ref{ex:UDC:9}), following \citet[Chapter~4]{Pollard:Sag:94}:
 
 \ea
 \label{ex:UDC:9}
@@ -221,7 +221,7 @@ HPSG feature geometry: nonlocal and local features\\
 			category & category \\
 			content & content ] \\
 	nonlocal &	[\type*{nonlocal}
-				slash & set!(local)! \\
+				slash & \avmset*(local) \\
 				\ldots ] ]
 }
 \z
@@ -250,7 +250,8 @@ What did you put \trace{} on the table?
 \end{exe}
 
 \noindent
-Because the V contains an NP gap, it will be [\textsc{slash} \{NP\}], and so
+Because the V contains an NP gap,\itdopt{this will be unusual for most readers. The verb contains a
+  gap? Maybe say more/things differently?} it will be [\textsc{slash} \{NP\}], and so
 will the constituents that contain it, with the exception of the complete
 sentence. Thus, we have the schematic structure illustrated in Figure~\ref{fig:UDC:11}. 
 
@@ -291,7 +292,8 @@ Obviously, we need to ask what ensures that the \textsc{slash} feature plays jus
 the right role here. First, however, we need to say more about gaps.
 
 On the view of gaps we are focusing on here, they are only represented in
-\textsc{arg-st} lists. Thus, the verb \emph{put} in (\ref{ex:UDC:10})
+\textsc{arg-st} lists.\itdopt{
+Explain what \argst stands for. Crossref to basic properties and arg-st chapter.} Thus, the verb \emph{put} in (\ref{ex:UDC:10})
  has a gap in its
 \textsc{arg-st} list and therefore only a PP in its \textsc{comps} list and
 in constituent structure. Gaps have the feature make up given in
@@ -318,7 +320,7 @@ assumptions:
 \label{ex:UDC:13}
 \ex
 The \textsc{slash} value of a head is normally the same as the union of the \textsc{slash} values of its
-arguments.
+arguments.\itdopt{dependents?}
 
 \ex
 The \textsc{slash} value of a phrase is normally the same as that of its head.
@@ -344,7 +346,7 @@ sm edges without translation
       [{PP[\slasch \{ \}]} [on the table, roof]]]]]
 \end{forest}
 \caption{\label{fig:UDC:14}Head-driven \textsc{slash} feature percolation}
-   
+\itdopt{It may be helpful to visualize the flow of information.}   
 \end{figure}
 
 
@@ -370,13 +372,17 @@ the tree, as in (\ref{ex:UDC:15}).
 The top of the dependency in Figures~\ref{fig:UDC:11}
 and~\ref{fig:UDC:14} is a head-filler phrase and
 the constraint on head-filler phrases needs to ensure that the higher S
-is [\textsc{slash} \{ \}]. One might propose the following constraint:
+is [\textsc{slash} \{ \}]. One might propose the following constraint:\footnote{
+\added{We use shorthands rather than full AVMs. For example \SLASH is located under
+  \textsc{synsem|nonloc} and \comps under \textsc{synsem|loc|cat}. See \crossrefchapterw[Section~\ref{prop:sec-elements}]{properties}
+  for details.
+}}
 
 \ea
 %\label{fig:UDC:16}
 Head-filler phrase (singleton \textsc{slash} set):\\
 %   \small
-\emph{head-filler-ph} \impl\\
+\emph{head-filler-ph\added{rase}} \impl\\
 \avm{
 	[slash & \{ \} \\
 	hd-dtr & \1	[comps & < >\\
@@ -401,7 +407,7 @@ Head-filler phrase:\footnote{Some HPSG work employs a \textsc{to-bind} feature
   work and dispenses with this feature.
 
 }\\
-\emph{head-filler-ph} \impl\\
+\emph{head-filler-ph\added{rase}} \impl\\
 \avm{
 [slash & \3 \\
  hd-dtr & \1 [comps & < > \\
@@ -466,28 +472,17 @@ represented in \textsc{arg-st} lists
 this view, the verb \textit{put} will have the
 following syntactic properties:
 
-\begin{figure}
-\centering
-	\avm{
-		[head & verb \\
-		slash & \{ \2 \} \\
-                subj & < \1 >\\
-                comps & < \3 >\\
-		arg-st & < \1 NP, NP[local & \2 \\ 
-			      slash & \{ \2 \} ], \3 PP > ]
-	}
-
-   \caption{\label{fig:UDC:20}Representation of a slashed verb (traceless)}
-\end{figure}
-
-%\if0
-%\Tree  [ put ].{\begin{avm}
-	%	\[head & verb\\
-	%	slash & \{ \@1 \}\\
-	%	\textsc{arg-st} & \< NP \[local & \@1 \\slash & \{ \@1 \}\], PP \>\]
-	%\end{avm}
-%}
-%\fi
+\ea
+Representation of a slashed verb (traceless):\\
+\avm{
+[head & verb \\
+ subj & < \1 >\\
+ comps & < \2 >\\
+ slash & \{ \3 \} \\
+ arg-st & < \1 NP, NP[local & \3 \\ 
+	      slash & \{ \3 \} ], \2 PP > ]
+}
+\z
 
 \noindent
 We ignore the \textsc{comps} feature and the issue of what ensures that the verb
@@ -514,7 +509,7 @@ sm edges without translation
 		\avm{
 			[head & verb \\
 			slash & \{ \} \\
-			arg-st & < \2 NP, \3 PP > ]
+			arg-st & < \2\,NP, \3 PP > ]
 		}
 			[put]]
 		[%
@@ -588,7 +583,7 @@ categories.\footnote{Coordination is a problem for any empty category,
  A second argument in favour of a traceless approach comes from
  languages which morphologically treat slashed transitives on a par
  with intransitives, like \ili{Hausa} \citep{crysmann_b04yom} or
- \ili{Mauritian} Creole \ili{French} \citep[Chapter~4]{Henri10}. In \ili{Hausa}
+ \ili{Mauritian} Creole \ili{French} \citep{Henri10}. In \ili{Hausa}
  and \ili{Mauritian}, verbs morphologically register whether a direct
  object is realised locally or not: in both languages, a ``short''
  form is used with locally realised direct objects, whereas the long
@@ -598,14 +593,14 @@ categories.\footnote{Coordination is a problem for any empty category,
 
 \ea
 \gll Sun hūtā̀.\\
-  \textsc{3pl.cmpl} rest.\textsc{a}\\
+  \textsc{3pl.cmpl} rest.\textsc{a}\\\hfill\added{(Hausa)}
 \glt `They rested.' \hfill \label{ex:UDC:Hau:intr}
 \z
 \eal
 \label{ex:UDC:Hau:tr}
     \ex\label{ex:UDC:Hau:tr:a} 
     \gll Sun rāzànā.\footnotemark\\
-         \textsc{3pl.cmpl} terrorise.\textsc{a}\\
+         \textsc{3pl.cmpl} terrorise.\textsc{a}\\\hfill\added{(Hausa)}
          \footnotetext{\citet[632]{newman_p00}}
     \glt `They terrorised (someone).'
     \ex\label{ex:UDC:Hau:tr:b} 
@@ -628,7 +623,7 @@ are classified into one of seven morphological grades.\footnote{We
   \citet{jaggar01:_hausa} for details, and \citet{crysmann_b04yom} for
   evidence in favour of a morphological treatment. } Intransitives
 only have a single form (A-form), which is characterised by a long
-vowel (in grade 1), cf. (\ref{ex:UDC:Hau:intr}). Transitives, however,
+vowel (in grade 1), cf.\ (\ref{ex:UDC:Hau:intr}). Transitives, however,
 display an alternation depending on the mode of realisation of the
 direct object: if used intransitively, they pattern with intransitive
 verbs in using the A-form (long vowel in grade 1), but with an in situ
@@ -670,10 +665,11 @@ and non-local arguments alike, it is clear that agreement controllers
 cannot be identified in a general fashion in terms of the valence
 features of word-level signs: thus, if agreement relations need to make
 reference to valence rather than argument structure, this can only be
-\inlinetodoobl{JP: Is the difference between lexemes and words
-  explained anywhere? BC: It should be, but there must be a better
-  place than the chapter on UDCs!}
-established at the level of lexemes. The relevant evidence comes from
+established at the level of lexemes.\footnote{
+\added{Lexemes are basic lexical items. Lexemes of inflectable parts of speech are mapped to
+  words. See \crossrefchaptert[Section~\ref{properties:lexemes-and-words}]{properties} for
+  more on the notion of lexeme.}
+} The relevant evidence comes from
 languages, where the highest argument on \textsc{arg-st} does not
 necessarily correspond to the highest grammatical function, i.e.
 \textsc{subj} valence: while some ergative languages display agreement
@@ -879,7 +875,7 @@ different:
 \noindent
 The examples in (\ref{ex:UDC:25}) show that a gap is possible in
 object position in a complement clause whether or not it is introduced
-by \emph{that}. In contrast, the examples in (\ref{ex:UDC:26}) suggest
+by \emph{that}.\itdopt{Say that this is the that trace effect? To make Minimalists feel welcome?} In contrast, the examples in (\ref{ex:UDC:26}) suggest
 that a gap is only possible in subject position in a complement clause
 if it is not introduced by
 \emph{that}. \citet[Chapter~4.4]{Pollard:Sag:94} approach this
@@ -1113,7 +1109,9 @@ Principle, which stipulates that a phrase and its head have the same
 value for \textsc{slash} except at the top of a dependency (see, e.g.\
 \citealt{Bouma:Malouf:Sag:01}: 20). An alternative approach developed
 in \citet[Chapter~5.1]{Ginzburg:Sag:01} uses the Generalised Head
-Feature Principle for this purpose. This says that a headed phrase and
+Feature Principle for this purpose.\footnote{
+  \added{See also \crossrefchapterw[\pageref{properties:ex-generalized-head-feature-principle}]{properties} for an explicit formulation of the constraint.}
+} This says that a headed phrase and
 its head daughter have the same \textsc{synsem} values unless some
 other constraint requires something different. Among other things,
 this ensures that a headed phrase and its head daughter normally have
@@ -1126,8 +1124,8 @@ associated higher structure (see \citealt{hukari.levine:adjunct};
 \citealt[Section~3.2]{Bouma:Malouf:Sag:01}). \ili{Irish} provides one of many
 examples that have been discussed. In \ili{Irish}, the verbal particle
 \emph{goN} only occurs with structures that do not contain gaps, while
-\emph{aL} only occurs between a filler and a gap. The following \citep[26]{BMS2001a}
-illustrate:\footnote{In some accounts these particles are taken to be
+\emph{aL} only occurs between a filler and a gap. The following 
+illustrate \citep[26]{BMS2001a}:\footnote{In some accounts these particles are taken to be
   complementisers. The N indicates that \emph{go} triggers nasal
   mutation while L indicates that \emph{a} triggers lenition.}
 
@@ -1140,9 +1138,11 @@ illustrate:\footnote{In some accounts these particles are taken to be
 \glt `I thought that he would be there.'}
 
 \ex[]{
-\gll An fear aL shíl mé aL bheadh ann.\\
+\gll \rep{A}{a}n fear aL shíl mé aL bheadh ann\del{.}\\
      the man \textsc{vpart} thought I \textsc{vpart} would.be there\\
 \glt `the man that I thought would be here'}
+\itdobl{The original was small and without dot. And it is an NP so no punctuation and no capital at
+  the beginning.}
 \zl
 
 \noindent
@@ -1208,14 +1208,16 @@ gap. Thus, examples like the following are no problem:
 \ex[]{ What did Kim [[ cook \trace{} for two hours] and [eat \trace{} in four
 minutes]]?}
 
-\ex[]{ Which person did you [invite \trace{} [without thinking \trace{} would
+\ex[]{
+\label{ex-which-person-did-you-invite-without-thinking}
+Which person did you [invite \trace{} [without thinking \trace{} would
 actually come]]?}
 \end{xlist}
 \end{exe}
 
 \noindent
 Example (\ref{ex:UDC:37}a), where the two gaps are in a coordinate structure
-is standardly said to be a case of \isi{across-the-board extraction}. (\ref{ex:UDC:37}b) is traditionally seen as involving an
+is standardly said to be a case of \isi{across-the-board extraction} \added{\citep{Ross67a,Williams78a}}. (\ref{ex-which-person-did-you-invite-without-thinking}) is traditionally seen as involving an
 ordinary gap followed by a parasitic gap. However, for HPSG, all these
 gaps have essentially the same status (see \citealt{Levine:Hukari:06}
 and \citealt{Chaves:12} for extensive discussion).
@@ -1236,7 +1238,8 @@ possibilities. Moreover, head-filler phrases can have quite different
 properties in different constructions.
 
 In the introduction to this chapter we mentioned
-\emph{wh}-interrogatives and relative clauses as two examples of
+\emph{wh}-interrogatives and relative clauses\footnote{
+\added{See also \crossrefchapterw{relative-clauses} for a more detailed discussion of relative clauses.}} as two examples of
 unbounded dependency constructions. In \ili{English} the former always involve
 a head-filler-phrase,\footnote{On some analyses of examples like the
   following, \emph{who} is just a subject and not a filler:
@@ -1244,7 +1247,9 @@ a head-filler-phrase,\footnote{On some analyses of examples like the
 Who knows the answer?
 \z
 However, for other work, this is a filler just like the
-  \emph{wh}-elements in the text.} while the later sometimes do but
+  \emph{wh}-elements in the text.
+\itdopt{Which text? Replace by ``just like the \emph{wh}-elements in examples like (someref)'' or
+  ``just like the \emph{wh}-elements in the examples discussed so far''?}} while the later sometimes do but
 sometimes do not. There are \emph{wh}-relatives and
 non-\emph{wh}-relatives of various kinds. \ili{English}
 \emph{wh}-interrogatives and \emph{wh}-relatives look quite similar.
@@ -1262,11 +1267,11 @@ following show, both may be finite or non-finite:
 \eal
 \label{ex:UDC:39}
 \ex[]{
-someone [who I should talk to \trace]
+someone [who I should talk to \trace{}]
 }
 \ex[]{
 \label{ex:someone-to-whom-to-talk}
-someone [to whom to talk \trace]
+someone [to whom to talk \trace{}]
 }
 \zl
 
@@ -1322,7 +1327,8 @@ Topicalisation sentences such as the following are another:
 \noindent
 Unlike \emph{wh}-interrogatives and \emph{wh}-relatives, these are
 always finite. Also required to be finite are what have been called
-\emph{the}-clauses (\citealp{Borsley:04}; \citealp[490--494,524--527]{Sag:10a}, \citealp{Borsley:11}), the components of
+\emph{the}-clauses (\citealp{Borsley:04}; \citealp[490--494, 524--527]{Sag:10a};
+\citealp{Borsley:11}; \added{\crossrefchapteralt[Section~\ref{coord:sec-comparative-correlatives}]{coordination}}), the components of
 comparative correlatives\is{comparative correlative} such as (\ref{ex:UDC:45}).
 
 \begin{exe}
@@ -1359,7 +1365,15 @@ highlighted involves a number of subtypes of the type
 \begin{figure}
   \centering
 
-  \includegraphics{figures/BB-head-fill-hier-crop}
+\begin{forest}
+type hierarchy
+[head-filler-phrase
+  [wh-interr-cl]
+  [wh-rel-cl]
+  [top-cl]
+  [the-cl]]
+\end{forest}
+
   \caption{\label{fig:UDC:48}Hierarchy of head-filler phrases}
   
 \end{figure}
@@ -1367,7 +1381,7 @@ highlighted involves a number of subtypes of the type
 
 As was noted in \crossrefchapteralt{properties}, much HPSG work assumes two distinct sets of
 phrase types. Assuming this position, \emph{wh-interr-cl} will not just
-be a subtype of \emph{head-filler-ph} but also a subtype of
+be a subtype of \emph{head-filler-ph\added{rase}} but also a subtype of
 \emph{interr-cl}, the type \emph{wh-rel-cl} will also be a subtype of
 \emph{rel-cl}, and \emph{top-cl} and \emph{the-cl} will both be subtypes
 of \emph{decl-cl}. This gives the type hierarchy in Figure~\ref{fig:UDC:49}.
@@ -1377,6 +1391,8 @@ of \emph{decl-cl}. This gives the type hierarchy in Figure~\ref{fig:UDC:49}.
 
   \includegraphics{figures/BB-extraction-function-hier-crop}
   \caption{\label{fig:UDC:49}Hierarchy of extraction clause types (preliminary)}
+\itdobl{Redraw with forest, use head-filler-phrase as every where else in the paper. Stefan: I can
+  do this.}
   
 \end{figure}
 
@@ -1387,8 +1403,8 @@ interrogatives share, most obviously interrogative semantics.
 Constraints on \emph{rel-cl} will capture what all relatives have in
 common, especially modifying an appropriate nominal
 constituent.\footnote{Non-restrictive relatives can also modify various
-  kinds of non-nominal constituents. See \citet{Arnold:04} and
-  \citet{Arnold:Borsley:08}.% \inlinetodoopt{Stefan: And there are also free relatives functioning as arguments.}
+  kinds of non-nominal constituents. See \citew{Arnold:04},
+  \citew{Arnold:Borsley:08}\added{, and \crossrefchapterw[Section~\ref{sec:rc-non-restr-suppl}]{relative-clauses}}.% \inlinetodoopt{Stefan: And there are also free relatives functioning as arguments.}
 } Finally, constraints on \emph{decl-cl}
 will capture the properties on declaratives, especially declarative
 semantics.  Constraints on \emph{wh-interr-cl} and \emph{wh-rel-cl}
@@ -1401,7 +1417,7 @@ non-finite \emph{wh}-relatives only allow a PP filler while finite
 necessary to postulate two subtypes of \emph{wh-rel-cl}. As for the
 fact that \emph{the}-clauses may contain the complementiser
 \emph{that}, one way to deal with this is to postulate a subtype of
-\emph{head-filler-ph}, \emph{standard-head-fill-ph}, with
+\emph{head-filler-ph\added{rase}}, \emph{standard-head-fill-ph}, with
 \emph{wh-interr-cl}, \emph{wh-rel-cl}, and \emph{top-cl} as its
 subtypes. This new type will be subject to a constraint preventing its
 head from containing a complementiser. The type \emph{the-cl} will not
@@ -1413,6 +1429,8 @@ the type hierarchy in Figure~\ref{fig:UDC:50}.
   \centering
   \includegraphics{figures/BB-extraction-function-hier-full-crop}
   \caption{\label{fig:UDC:50}Hierarchy of extraction clause types (final)}
+\itdobl{Redraw with forest, use head-filler-phrase as every where else in the paper. Stefan: I can
+  do this.}
   
 \end{figure}
 %
@@ -1556,13 +1574,13 @@ Lexical representation of relative complementiser \textit{that}:\\*
 				    slash & \{ NP[index & \tag{i} ] \} $\cup$ \1 ] > ] \\
 	   nonlocal & [slash & \1 ] ] ]
 }
-  
+\itdopt{Explain why NP rather than N$'$? Cite Kiss?}
 \z
 
 \noindent
 This says that \emph{that} takes a finite clause as its complement and
 modifies an NP, that the \textsc{slash} value of the clause includes an NP which
-is coindexed with the antecedent noun selected via \textsc{mod}, and that any additional members of the
+is coindexed with the antecedent noun\itdopt{Here you talk about noun rather than NP} selected via \textsc{mod}, and that any additional members of the
 complement's \textsc{slash} set form the \textsc{slash} set of \emph{that}. Normally there
 will be no other members and \emph{that} will be [\textsc{slash}
 \{\}].\footnote{This is essentially the approach that is taken to
@@ -1711,13 +1729,16 @@ analysing free relatives and head-filler phrases as subtypes of
 
 \begin{figure}
   \centering
+\begin{forest}
+type hierarchy
+[filler-phrase 
+  [head-filler-phrase]
+  [free-relative]]
+\end{forest}
 
-  \includegraphics{figures/BB-filler-phrase-crop}
-  \caption{\label{fig:UDC:67}Hierarchy of filler phrases}
-  
+\caption{\label{fig:UDC:67}Hierarchy of filler phrases}
 \end{figure}
 
-\noindent
 \type{filler-phrase} will be subject to a constraint like that proposed earlier
 for head-filler phrases except that it will say nothing about the
 head-daughter. \type{head-filler-phrase} will be subject to a constraint
@@ -1739,6 +1760,12 @@ mismatches between the case requirement that is internal to the relative
 clause and the one that is selected for the free relative as a whole,
 he suggests a unary schema that mediates between the
 different case requirements.}%
+\itdopt{You may leave this the way it is, but defaults will not work, since the case information is
+  needed. What you suggest is defaults in syntax. This leads directly to hell. This is not done what
+  is done elsewhere. All other defaults can be replaced by non-default representations. One has to
+  know what the upstairs case can be. And in the case of free relatives this is just the cases of
+  less oblique grammatical functions, \eg for a PP relative phrase the upstairs function can be
+  NP-nom and NP-acc. No way you do this with defaults.}
 \is{relative clause!free|)}
 
 \section{Resumptive pronouns}
@@ -1775,8 +1802,8 @@ ATB extraction in \ili{Hebrew}:
 \end{exe}
 
 \noindent
-Subsequent work on \ili{Persian} \citep{taghvaipour:phd:05}, \ili{Welsh}
-\citep{Borsley:13} and \ili{Hausa} \citep{Crysmann:12} essentially follows
+Subsequent work on \ili{Persian} \citep{Taghvaipour2005a}, \ili{Hausa} \citep{Crysmann:12}, and \ili{Welsh}
+\citep{Borsley:13} essentially follows
 Vaillette, using ATB extraction as the main indicator for treating
 resumptive dependencies in a similar way to gap dependencies. What all these
 works have in common is that they rely on a single non-local
@@ -1809,20 +1836,21 @@ resumptive.
 % Cite ex. (44) and (45)
 \eal
 \ex[]{
+\label{ex-dymar-r-dyn-resumptive}
 \gll Dyma ’r dyn y credodd Dafydd [y si [y gwelodd Mair (o)]].\footnotemark\\
-     here.is the man \textsc{prt} believe.\textsc{past.3s} Dafydd \spacebr{}the rumour
-     \spacebr{}\textsc{prt} see.\textsc{past.3s} Mair \hphantom{(}he\\
+     here.is the man \textsc{prt} believe.\textsc{past.3\changed{sg}} Dafydd \spacebr{}the rumour
+     \spacebr{}\textsc{prt} see.\textsc{past.3\changed{sg}} Mair \hphantom{(}he\\
 \footnotetext{\citet[91]{Borsley.2010}}
 \glt `Here’s the man who David believed the rumour that Mair saw.'}
 \ex[]{ 
 \gll Dyma ’r dyn y credodd Dafydd [y si [y cest ti ’r llythyr ’na ganddo (fo)]].\footnotemark\\
      here.is the man \textsc{prt} believe.\textsc{past.3sg} Dafydd \spacebr{}the rumour
-     \spacebr{}\textsc{prt} get.\textsc{past.2sg} you the letter \textsc{dem} with.\textsc{3s.m} \hphantom{(}him\\
+     \spacebr{}\textsc{prt} get.\textsc{past.2sg} you the letter \textsc{dem} with.\textsc{3\changed{sg}.m} \hphantom{(}him\\
 \footnotetext{\citet[92]{Borsley.2010}}
 \glt `Here’s the man who David believed the rumour that you got that letter from.'}
 \ex[*]{ 
 \gll Dyma ’r ffenest darais i [’r bachgen [dorrodd (hi) ddoe]].\footnotemark\\
-     that.is the window hit.\textsc{past.1s} I \spacebr{}the boy \spacebr{}break.\textsc{past.3s} \hphantom{(}she yesterday\\
+     that.is the window hit.\textsc{past.1\changed{sg}} I \spacebr{}the boy \spacebr{}break.\textsc{past.3\changed{sg}} \hphantom{(}she yesterday\\
 \footnotetext{\citet[92]{Borsley.2010}}
     }
 \zl
@@ -1841,7 +1869,9 @@ the extraction path (middle), \citet[97]{Borsley.2010} formulates what is
 probably the most simple and straightforward approach to
 resumption. In essence, he proposes ``that we need structures in which
 a slashed preposition or noun has not a slashed argument but a
-pronominal argument coindexed with its slashed value''. Consequently,
+pronominal argument coindexed with its slashed value''.\itdopt{What is a ``slashed value''? Its
+  ``\SLASH value''? If you change things, please remove quotation marks since it is not a literal
+  quote any longer.} Consequently,
 he extends Slash Amalgamation to optionally include a
 \textsc{slash} element coindexed with an unslashed pronominal
 argument. This move licenses \ili{Welsh} resumptives in a structure like the
@@ -1851,20 +1881,21 @@ one in Figure~\ref{fig:WelshResump} below.
   \centering
 \begin{forest}
 sm edges without translation
+[%
+\avm{
+   [head & \1 prep $\lor$ noun \\
+    slash & \{ \2 NP$_i$ \}]}
 	[%
 	\avm{
-		[head & \1 prep $\lor$ noun \\
-		slash & \{ \2 NP$_i$ \}]
-	}
-		[%
-		\avm{
-			[head & \1 \\
-			slash & \{ \2 \} \\
-			arg-st & < \ldots, \3, \ldots{} >]
-		}]
-		[\ibox{3} NP$_i$]
+	  [head & \1 \\
+	   slash & \{ \2 \} \\
+	   arg-st & < \ldots, \3, \ldots{} >] }]
+        [\added{\ldots}]
+	[\ibox{3} NP$_i$]
 	[\ldots]]
 \end{forest}
+\itdobl{Without the \ldots{} I added the tree suggests that the resumptive is always the first
+  daughter which does not seem to be the case in (\ref{ex-dymar-r-dyn-resumptive}).}
     \caption{\label{fig:WelshResump}Representation of Welsh resumptives}  
 \end{figure}
 
@@ -1887,7 +1918,7 @@ the \ili{Welsh} data, but it also addresses McCloskey's generalisation
 \citep[192]{mccloskey02:_resum_succes_cyclic_local_operat} that resumptives
 are always the ordinary pronouns, since no lexical ambiguity between
 slashed and unslashed pronouns is
-involved.\footnote{Cf. e.g.\ \citet[\page 54--55]{AbeilleGodard07} for an ambiguity
+involved.\footnote{Cf.\ e.g.\ \citet[\page 54--55]{AbeilleGodard07} for an ambiguity
   approach, treating reentrancy of \textsc{local} and \textsc{slash}
   as optional for \ili{French} pronouns. }
 
@@ -1955,7 +1986,10 @@ while the type \textit{local} always minimally includes indexical
 information, its subtypes \textit{full-local} and \textit{weak-local}
 differ as to the amount of additional information that must or must
 not be present. For \textit{full-local}, which is appropriate for
-\textit{synsem}, this includes categorial and full semantic
+\textit{synsem},
+\itdobl{There seems to be a problem with formulation here. How can a type be appropriate for another
+  type? Replace ``which is appropriate for synsem'' by ``for which \textsc{cat} is appropriate''?}
+this includes categorial and full semantic
 information, whereas exactly categorial information is excluded for
 \textit{weak-local}.
 
@@ -2018,6 +2052,7 @@ information, whereas exactly categorial information is excluded for
 \end{forest}  
   
 %\inlinetodoobl{Stefan: The types are different in the cited reference.}
+\itdobl{refer to figure in the text}
 \caption{\label{fig:local}Hierarchy of \textit{local} \citep[\page 202]{Crysmann:16}}
   
 \end{figure}
@@ -2048,32 +2083,8 @@ sm edges without translation
 \end{forest}
 %\inlinetodoobl{Stefan: This is not in the cited reference.}
 \caption{\label{fig:synsem}Hierarchy of \textit{synsem} objects \citep[\page 202]{Crysmann:16}}
+\itdobl{refer to figure in the text}
 \end{figure}
-
-%%     \begin{tree}
-%%     \psset{treesep=24ex,levelsep=10ex, linewidth=.5pt}
-%%     \br{
-%%       \begin{avm}
-%%         \[\asort{synsem}
-%%         loc & full-local\\
-%%         nloc & non-local\]
-%%       \end{avm}
-%%     }{
-%%       \avmoptions{top} \psset{treesep=24ex,levelsep=24ex} \br{
-%%         \begin{avm}
-%%           \[\asort{slashed}
-%%           loc & \[cont|index & \@1\]\\
-%%           nloc & \[sl \{ \[cont|index & \@1\] \}\]\]
-%%         \end{avm}
-%%       }{\psset{linestyle=solid} \lf{
-%%           \begin{avm}
-%%             \[\asort{gap}
-%%           loc & \@1 full-local\\
-%%           nloc & \[sl & \{ \@1 \}\]\]
-%%         \end{avm}
-%%       } \lf{\textit{resump}
-%%       } }}
-%% \end{tree}
 
 The hierarchy of \textit{local} types provides for the possibility
 that \textit{local} types on \textsc{slash} may only be partially
@@ -2138,7 +2149,7 @@ observable case marking.
 
 % That claim is the main argument of the thesis and distributed over
 % several chapters 
-Some questions still remain: \citet[Section~6.5]{taghvaipour:phd:05}
+Some questions still remain: \citet[Section~6.5]{Taghvaipour2005a}
 suggests that in \ili{Persian}, the distribution of gaps vs.\ resumptives is
 partly determined by the constructional properties of the top of the
 dependency, showing different patterns for \emph{wh}-extraction, free
@@ -2163,7 +2174,7 @@ techniques may be fruitfully explored.
 
 
 %\begin{itemize}
-%\item Evidence for a \textsc{slash} analysis %\citep{Vaillette:01,Vaillette:02,taghvaipour:phd:05,Borsley:10,Borsley:13,Crysmann:12,Crysmann:16,Crysmann:17} 
+%\item Evidence for a \textsc{slash} analysis %\citep{Vaillette:01,Vaillette:02,Taghvaipour2005a,Borsley:10,Borsley:13,Crysmann:12,Crysmann:16,Crysmann:17} 
 %\item The nature of resumptive pronouns \citep{Borsley:10,Alotaibi:Borsley:13,Crysmann:12,Crysmann:16,Crysmann:17} 
 %\end{itemize}
 
@@ -2214,7 +2225,7 @@ pronouns undergo agreement with the antecedent noun, as e.g.\ in
 \eal
 \ex
 \gll das Buch, [\textit{das} mich inspirierte]\\
-     \textsc{def.n.sg} book(\textsc{n})\textsc{.sg} \hphantom[\textsc{rel.n.sg} me inspired\\
+     \textsc{def.n.s} book(\textsc{n})\textsc{.sg} \hphantom[\textsc{rel.n.sg} me inspired\\
 \glt `the book that inspired me'
 \ex
 \gll die Person, [\textit{die} mich inspirierte]\\
@@ -2222,7 +2233,7 @@ pronouns undergo agreement with the antecedent noun, as e.g.\ in
 \glt `the person that inspired me'
 \ex
 \gll das Buch, [[\textit{dessen} / *\textit{deren} Rezension] mir gefiel]\\
-     \textsc{def.n.sg} book(\textsc{n})\textsc{.sg} \hphantom{[[}\textsc{rel.n.sg.poss} {} \hphantom{*}\textsc{rel.f.sg.poss} review(\textsc{f}).\textsc{s} me pleased\\
+     \textsc{def.n.sg} book(\textsc{n})\textsc{.sg} \hphantom{[[}\textsc{rel.n.sg.poss} {} \hphantom{*}\textsc{rel.f.sg.poss} review(\textsc{f}).\textsc{sg} me pleased\\
 \glt `the book the review of which I liked'
 \ex
 \gll die Autorin, [[\textit{deren} / *\textit{dessen} Roman] mir gefiel]\\
@@ -2242,8 +2253,7 @@ a single \isi{Nonlocal Feature Principle} that generalises from
 \textsc{rel}, defining the value of each non-local feature of the
 mother as the set union of the nonlocal features of the
 daughters. See, however, \citet[Section~4.2]{Sag:97} and
-\citet[Chapter~7]{Ginzburg:Sag:01}\addpages
-for head-driven formulation of nonlocal feature percolation.
+\citet[Chapter~7]{Ginzburg:Sag:01} for \add{a} head-driven formulation of nonlocal feature percolation.
 
 One observation regarding pied piping in languages such as \ili{English} or
 \ili{German} pertains to the fact that \emph{wh}"=words tend to surface in
@@ -2253,6 +2263,7 @@ element on \textsc{arg-st}. This enables them to rule out
 (\ref{ex:WhPiedPipingOblique}b) while still being able to account for
 standard pied-piping with prepositional phrases
 (\ref{ex:WhPiedPiping}d).
+\itdobl{(\mex{1}a) is not mentioned in the text.}
 
 \begin{exe}
   \ex \label{ex:WhPiedPipingOblique}
@@ -2266,7 +2277,7 @@ standard pied-piping with prepositional phrases
 Indeed, from a cross-linguistic perspective, pied-piping of
 prepositions appears to be the far less marked option when compared to
 preposition stranding, which appears to be a peculiarity of
-\ili{English}. This is supported not only by the ban on preposition
+\ili{English}.\itdopt{Cite \citet{Riemsdijk78a}?} This is supported not only by the ban on preposition
 stranding in \ili{German}, \ili{French}, and many other languages, but it is also
 corroborated by the distribution of resumptives (see Section~\ref{sec:UDC:ResumptivePronouns}).
 
@@ -2275,7 +2286,10 @@ involves a second unbounded dependency: in addition to a
 \textsc{slash} dependency between the pied-piped filler and the
 extraction site, just like the ones we have discussed throughout this
 chapter, \textsc{que} or \textsc{rel} establish dependencies within
-the filler itself.
+the filler itself.\footnote{
+\added{See also \crossrefchapterw[Section~\ref{rc:sec-internal-structure}]{relative-clauses} on pied
+  piping.}
+}
 
 \subsection{Multiple \emph{wh}"=questions}
 
@@ -2296,7 +2310,7 @@ According to the theory of \citet{Ginzburg:Sag:01}, only fillers in
 interrogative clauses are \emph{wh}"=marked, and \emph{wh}"=marking
 serves to ensure that a \emph{wh}"=quantifier contained in the filler
 is interpreted as a parameter of the local interrogative clause. In
-situ \emph{wh}"=phrases, by contrast, are still quantifiers, so they
+situ \emph{wh}"=phrases, by contrast, are still\itdopt{why ``still''?} quantifiers, so they
 may scope higher than their syntactic position suggests.
 \citet[Section~5.3]{Ginzburg:Sag:01} follow \citet[Section~8.2]{Pollard:Sag:94} in adopting a
 \isi{Cooper storage}, which enables them to have the in situ
@@ -2307,7 +2321,10 @@ that a \emph{wh}"=interrogative is marked as such by a filler
 containing a \emph{wh}"=word, but it also fixes the semantic scope of
 ex-situ \emph{wh}"=phrases to their syntactic
 scope.\footnote{\citet{kathol:scope-marking} uses the \textsc{que}
-  feature in his analysis of partial \emph{wh}"=fronting in \ili{German}. }
+  feature in his analysis of partial \emph{wh}"=fronting in \ili{German}.
+\itdopt{Why is this footnote here? To contrast the feature name WH with QUE? Maybe ``uses the
+  feature QUE'' would be better.}
+ }
 In situ \emph{wh}"=quantifiers, by contrast, are permitted to take
 arbitrarily wide scope.
 
@@ -2322,12 +2339,12 @@ examples in (\ref{ex:WhMultFront}) taken from \citew[163]{Penn:99}.
 \label{ex:WhMultFront}
 \ex[]{
 \gll Ko koga si mislio da je voleo?\\
-     who whom \textsc{cl.2s} thought Comp \textsc{cl.3s} loved\\
+     who whom \textsc{cl.2sg} thought \textsc{comp} \textsc{cl.3sg} loved\\\hfill\added{(Serbo-Croatian)}
 \glt `Who did you think loved whom?'}
 \ex[*]{\gll Ko si koga mislio da je voleo?\\
-     who  \textsc{cl.2s} whom thought Comp \textsc{cl.3s} loved\\
-     \glt
+     who  \textsc{cl.2sg} whom thought \textsc{comp} \textsc{cl.3sg} loved\\
    }
+\itdopt{changed s to sg for LGR compliance.}
 \zl
 
 \noindent
@@ -2344,7 +2361,7 @@ the contrast in (\ref{ex:WhMultFront}), that multiple fronted
 \emph{wh}"=phrases are treated as a constituent, as far as
 linearisation is concerned. \citet{Penn:99} proposes a topological
 analysis based on extended word order domains
-\citep{Reape:90,kathol_a00} in order to reconcile multiple fronted
+(\citealt{Reape:90,Reape94a,kathol_a00}\added{; \crossrefchapteralt[Section~\ref{sec-domains}]{order}}) in order to reconcile multiple fronted
 constituents with the second position property: in essence, multiple
 fillers are assigned to the same initial topological field and
 linearisation of clitics proceeds relative to that same initial field.
@@ -2378,7 +2395,7 @@ However, \emph{wh} in situ may even be an unmarked, or even the default
 option for the expression of \emph{wh}"=interrogatives:
 \citet[Section~6.2]{Johnson:Lappin:97}, studying Iraqi\il{Arabic!Iraqi|(} Arabic, made the important
 observation that \emph{wh}"=fronting is optional in this language,
-posing a challenge for transformational models at the time.  In Iraqi
+posing a challenge for transformational\is{Minimalism} models at the time.  In Iraqi
 Arabic\il{Arabic!Iraqi}, a \emph{wh}"=interrogative may be realised ex situ, as in
 (\ref{ex:Iraqi}a) or in situ, as in (\ref{ex:Iraqi}b).
 
@@ -2386,7 +2403,7 @@ Arabic\il{Arabic!Iraqi}, a \emph{wh}"=interrogative may be realised ex situ, as 
 \label{ex:Iraqi}
 \ex[]{
 \gll Mona shaafat meno?\footnotemark\\
-     Mona saw whom\\
+     Mona saw whom\\\hfill\added{(Iraqi\il{Arabic!Iraqi|(} Arabic)}
 \footnotetext{\citet[318]{Johnson:Lappin:97}}
 \glt `Who did Mona see?'}
 \ex[]{
@@ -2409,14 +2426,14 @@ involved. While feature percolation for in situ
 \emph{wh}"=constructions cannot escape finite clauses (cf.\ the
 contrast in (\ref{ex:IraqiLoc}a,b), ex situ \emph{wh}"=interrogatives,
 involving a \textsc{slash} dependency, are obviously not subject to
-this restriction, as witnessed by (\ref{ex:IraqiLoc}c).\footnote{The examples in (\ref{ex:IraqiLoc}) are from \citew[318]{Johnson:Lappin:97}}
+this restriction, as witnessed by (\ref{ex:IraqiLoc}c).\footnote{The examples in (\ref{ex:IraqiLoc}) are from \citew[318]{Johnson:Lappin:97}.}
 
 
     
 \eal \label{ex:IraqiLoc}
 \ex[]{
 \gll Mona raadat tijbir Su'ad tisa'ad meno?\\
-      Mona wanted to.force Su'ad to.help who\\
+      Mona wanted to.force Su'ad to.help who\\\hfill\added{(Iraqi\il{Arabic!Iraqi|(} Arabic)}
 \glt `Who did Mona want to force Su'ad to help?'}
 \ex[*]{
 \gll Mona tsawwarat Ali ishtara sheno?\\
@@ -2438,7 +2455,7 @@ clauses, as shown in (\ref{ex:Coptic}).
 \ea
 \label{ex:Coptic}
 \gll ere əm=mɛɛʃe tʃoː əmmɔ=s [tʃe ang nim]?\footnotemark\\
-     \textsc{rel} \textsc{def.pl}=crowd say \textsc{prep=3f.sg} \spacebr{}that I who\\
+     \textsc{rel} \textsc{def.pl}=crowd say \textsc{prep=3f.sg} \spacebr{}that I who\\\hfill\added{(Coptic Egyptian\il{Egyptian!Coptic})}
 \footnotetext{\citet[72]{Crysmann:Reintges:14}}
 \glt `Who do the crowds say that I am?'  (Luke 9,18)
 \end{exe}
@@ -2474,24 +2491,24 @@ following examples by \citep[\page 4, 11]{Keller:94a} and
 
 \eal
 \ex[]{
-\gll Planck hat [die Entdeckung \_$_i$ ] gemacht, [daß Licht Teilchennatur hat.]$_i$\footnotemark\\
-     Planck has the discovery {} {} made \spacebr{}that light {particle nature} has\\
+\gll Planck hat [die Entdeckung \_$_i$] gemacht, [daß Licht Teilchennatur hat.]$_i$\footnotemark\\
+     Planck has \spacebr{}the discovery {} made \spacebr{}that light particle.nature has\\\hfill\added{(German)}
 \footnotetext{\citet[4]{Keller:94a}}
 \glt `Planck made the discovery that light has particle properties.'}
 \ex[*]{
-\gll [Daß Licht Teilchennatur hat]$_i$  hat Planck [die Entdeckung \_$_i$ ] gemacht.\footnotemark\\
-      \spacebr{}that light {particle nature} has  has Planck the discovery {} {} made \\
+\gll [Daß Licht Teilchennatur hat]$_i$  hat Planck [die Entdeckung \_$_i$] gemacht.\footnotemark\\
+      \spacebr{}that light particle.nature has  has Planck \spacebr{}the discovery {} made \\
 \footnotetext{\citet[11]{Keller:94a}}}
 \zl
 \eal
 \ex[]{
-\gll Ich habe [eine Frau \_$_i$ ] getroffen, [die das Stück gelesen hat]$_i$.\footnotemark\\
-     I   have \spacebr{}a woman {} {} met \spacebr{}who the play read has\\
+\gll Ich habe [eine Frau   \_$_i$] getroffen, [die das Stück gelesen hat]$_i$.\footnotemark\\
+     I   have \spacebr{}a woman {} met \spacebr{}who the play read has\\
 \footnotetext{\citet[G.][\page 219]{mueller96:_extrap_and_succes_cyclic}}
 \glt `I met the woman who has read the play.'}
 \ex[*]{
-\gll [die das Stück gelesen hat]$_i$, habe ich [eine Frau \_$_i$ ] getroffen.\footnotemark\\
-      \spacebr{}who the play read has have I \spacebr{}a woman {} {} met \\
+\gll [die das Stück gelesen hat]$_i$, habe ich [eine Frau \_$_i$] getroffen.\footnotemark\\
+      \spacebr{}who the play read has have I \spacebr{}a woman {} met \\
 \footnotetext{\citet[G.][\page 219]{mueller96:_extrap_and_succes_cyclic}}
 }
 \zl
@@ -2502,18 +2519,18 @@ the \isi{Right Roof Constraint} \citep[Section~5.1.2]{ross_j67}.
 
 \ea
 \gll Was$_i$ hat Hans gesagt, [daß           wir \_$_i$ kaufen sollten]?\\
-     what    has Hans said    \spacebr{}that we {} buy should\\
+     what    has Hans said    \spacebr{}that we {} buy should\\\hfill\added{(German)}
 \glt `What did Hans say that we should buy?'
 \z
 \eal
 \ex[]{
 \gll [Daß Peter sich auf das Fest \_$_i$ gefreut hat, [das Maria veranstaltet hat,]$_i$ ] hat niemanden gewundert.\footnotemark\\
       \spacebr{}that Peter SELF on the party {} looked.forward has \spacebr{}which Maria organised has {} has no.one surprised\\
-\footnotetext{(\citealp[\page 11]{wiltschko94:_extrap_in_german}; \citealp[\page 10]{Keller:94a})}
+\footnotetext{\cites[\page 11]{wiltschko94:_extrap_in_german}[\page 10]{Keller:94a}}
 \glt `That Peter was looking forward to the party that Maria had organised, did not surprise anyone.'}
 \ex[*]{\gll [Daß Peter sich auf das Fest \_$_i$ gefreut hat],  hat niemanden gewundert, [das Maria veranstaltet hat]$_i$\footnotemark\\
       \spacebr{}that Peter SELF on the party {} looked.forward has  has no.one surprised \spacebr{}which Maria organised has\\
-\footnotetext{(\citealp[\page 11]{wiltschko94:_extrap_in_german}; \citealp[\page 10]{Keller:94a})}}
+\footnotetext{\cites[\page 11]{wiltschko94:_extrap_in_german}[\page 10]{Keller:94a}}}
 \zl
 
 
@@ -2559,7 +2576,7 @@ adjunct extraposition.
 % \zs
 
 \ea
-Complement Extraposition Lexical Rule\\
+Complement Extraposition Lexical Rule:\\
 
 \avm{
 [comps & \1 \+ <[loc & \4 [cat [head & verb $\lor$ prep \\
@@ -2572,7 +2589,7 @@ $\mapsto$ \\
 % \inlinetodoopt{Stefan: This LR would not work for relational nouns, since they select a complement
 %   and the adjuncts modify an \nbar. Mention this?}
 \eas
-Adjunct Extraposition Lexical Rule\\
+Adjunct Extraposition Lexical Rule:\\
 \avm{
 	[loc & \2 [cat|head & noun $\lor$ verb ] \\
     \punk{nonloc|extra}{\1} ]}
@@ -2586,8 +2603,8 @@ $\mapsto$ \\
 \zs
 
 
-The complement extraposition rule is straightforward: it removes a
-valency from the \textsc{comps} list and inserts its \textsc{local}
+The complement extraposition rule is straightforward: it removes \rep{a
+valency}{an argument} from the \textsc{comps} list and inserts its \textsc{local}
 value into the \textsc{extra} set. 
 
 As for adjunct extraposition, the lexical rule  equally inserts an
@@ -2606,9 +2623,10 @@ dependencies, which are realised as extraposed daughters.\footnote{We
   ambiguity that could arise from string-vacuous extraposition. See
   \citet[\page 304--305]{Keller:95} for details. \textsf{loc($x$)} denotes a function
   which takes as $x$ a list of elements of type \type{sign} and
-  returns a set containing the \locvs of the elements of $x$.}
+  returns a set containing the \locvs of the elements of $x$.
+\itdobl{loc is not used any longer in your schema.}}
 \begin{exe}
-  \ex Head-Extra Schema
+  \ex Head-Extra Schema:
 
 %\inlinetodoobl{Stefan: \textsc{to-bind} is never explained.}
 % \avm{
@@ -2618,11 +2636,11 @@ dependencies, which are realised as extraposed daughters.\footnote{We
 %        }
        \avm{
 	[synsem & [nonloc|extra & \tag{x} ] \\
-         dtrs & [head-dtr & [synsem|nonloc|extra & \{\tag{1} ... \tag{n}\}
+         dtrs & [head-dtr & [synsem|nonloc|extra & \{\tag{1}, \ldots{}, \tag{n}\}
          $\cup$ \tag{x}] \\
-	 extra-dtrs & < [synsem|loc & \tag{1}] ~... [synsem|loc & \tag{n}]> ] ]
+	 extra-dtrs & < [synsem|loc & \tag{1}], \ldots{}, [synsem|loc & \tag{n}]> ] ]
 }
-
+\itdobl{Well, if you modify it anyway, you can go to NON-HEAD-DTRS and no DTRS right away.}
 \end{exe}
 
 Order of extraposed daughters amongst each other and with respect to
@@ -2679,8 +2697,8 @@ in equal measure, cf.~(\ref{ex:ExtraNP}b).
 \label{ex:ExtraNP}
 
 \ex[]{
-\gll Man hat [die Frau [des Boten \_$_i$ ]] beschimpft, [der den Befehl überbrachte]$_i$.\footnotemark\\
-     one has \spacebr{}the wife \spacebr{}of.the messenger {} {} scolded \spacebr{}who the order delivered\\
+\gll Man hat [die Frau [des Boten \_$_i$]] beschimpft, [der den Befehl überbrachte]$_i$.\footnotemark\\
+     one has \spacebr{}the wife \spacebr{}of.the messenger {}  scolded \spacebr{}who the order delivered\\\hfill\added{(German)}
 \footnotetext{\citet[259]{haider96:_downr_down_to_right}}
 \glt `People have scolded the wife of the messenger who delivered the order.'}
 \ex[*] {
@@ -2721,7 +2739,7 @@ extraction-like property of complement extraposition:
 \gll Das Verlies  hat er, [als er \_$_i$ verließ], gelacht.\footnotemark\\
      the dungeons has he  \spacebr{}when he {}  left laughed\\
 \footnotetext{\citet[261]{haider96:_downr_down_to_right}}
-\glt `He laughed when he left the dungeons.'
+\glt \added{Intended:} `He laughed when he left the dungeons.'
 }
 \z
 
@@ -2732,7 +2750,7 @@ extraction to the right.
 
 Similar in spirit to \citet{culicover90:_extrap_and_compl_princ},
 \citet{kiss_t02nllt} suggests that relative clause extraposition can
-target any referential index introduced within the clause the relative
+target any referential index introduced within the clause the relative \added{clause}
 attaches to.  To that end, he proposes a set valued \textsc{anchor}
 feature that indiscriminately percolates up the tree the index (and
 handle) of any nominal expression. In situ and extraposed relative
@@ -2742,7 +2760,7 @@ adjoin to.\footnote{See
   \crossrefchaptert[Section~\ref{sec-minimal-recursion-semantics}]{semantics}
   for an overview of Minimal Recursion Semantics, the meaning
   description language assumed by Kiss'
-  approach.}$^,$\footnote{\citet{crysmann_b04rlc} proposes to
+  approach.\itdopt{Does the approach assume something? Maybe ``in Kiss' appraoch''.}}$^,$\footnote{\citet{crysmann_b04rlc} proposes to
   synthesise the approach by \citet{kiss_t02nllt} with that of
   \citet{Keller:95}, using a two-step percolation mechanism that
   effectively controls for spurious ambiguity.}
@@ -2774,13 +2792,15 @@ sm edges
          [{N\usebox{\onebox}} [Beweis;proof] ] 
          [{NP\usebox{\twobox}} 
            [{D\usebox{\emptybox}} [der;of.the] ]
-           [{N\usebox{\twobox}} [Theorie;theory] ] ] ] ]
+           [{N\usebox{\twobox}} [Theorie$_j$;theory] ] ] ] ]
      [{V\usebox{\emptybox}} [erbracht;produced] ] ] 
   [S [an die$_j$ niemand glaubt;in which nobody believes,roof] ] ]
 \end{forest}
 }
 }
-
+\caption{Captain: add some caption}
+\itdobl{add caption}
+\itdopt{can we use [1] and [2]? The i and j looks ugly. In any case the $_j$ is missing at theory.}
 \end{figure}
 
 The claim about the locality of complement extraposition has not been
@@ -2794,7 +2814,7 @@ clause extraposition that equally defy the \isi{Complex NP Constraint}.
       I have \spacebr{}of \spacebr{}the attempt \spacebr{}of.a proof \spacebr{}of.the hypothesis {} {}
       heard \spacebr{}that there numbers exist which the following conditions
       fulfil\\
-\footnotetext{\citet[St.][223]{mueller_s02lc}}
+\footnotetext{St. \citet[223]{mueller_s02lc}}
       \glt `I have heard of the attempt at a proof of the hypothesis
       that there are numbers which fulfil the following conditions.'
     }  
@@ -2814,7 +2834,7 @@ clause extraposition that equally defy the \isi{Complex NP Constraint}.
 
 Consequently, he suggests that complement extraposition and adjunct
 extraposition should both be handled by the same mechanism, i.e.\ a
-non-local \textsc{extra} feature \citep{Keller:95,Mueller99a}.
+non-local \textsc{extra} feature \parencites{Keller:95}[Section~13.2]{Mueller99a}.
 
 \citet{crysmann_b09xtra} challenges Müller's unified analysis on the
 grounds that it severely overgenerates.  While he concedes that
@@ -2858,7 +2878,7 @@ extraposition proceeds and the verb that governs it.
 \zl
 
 While this effect for complement extraposition is similar to what has
-been observed for PP extraction out of NPs \citep{deKuthy2002a}, cf. the
+been observed for PP extraction out of NPs \citep{deKuthy2002a}, cf.\ the
 examples in (\ref{ex:RemnantSemantic}), it is of
 note that no such contrasts can be found for adjunct extraposition:
 
@@ -2869,10 +2889,12 @@ note that no such contrasts can be found for adjunct extraposition:
 \footnotetext{\citet[381]{Crysmann2013a}}
 \glt `He has read a book about the theory which is under considerable debate at present.'}  
 \ex{
-\gll Er hat [ein Buch [über die Theorie \_$_i$ ]] geklaut, [die derzeit kontrovers diskutiert wird]$_i$.\\
+\gll Er hat [ein Buch [über die Theorie \_$_i$ ]] geklaut, [die derzeit kontrovers diskutiert wird]$_i$.\footnotemark\\
     he has \spacebr{}a book(\textsc{n}) \spacebr{}about the theory(\textsc{f}) {} {} stolen \spacebr{}{which.\textsc{f}} currently controversially discussed is\\
 \footnotetext{\citet[381]{Crysmann2013a}}
 \glt `He has stolen a book about the theory which is under considerable debate at present.'}
+
+
 \end{xlist}
 \end{exe}
 
@@ -2880,7 +2902,7 @@ note that no such contrasts can be found for adjunct extraposition:
 \citet{crysmann_b09xtra} unifies the anaphoric approach of
 \citet{kiss_t02nllt} for adjunct extraposition with the
 rightward-extraction approach of \citet{Keller:95} and
-\cite{Mueller99a}, and suggests that both processes should be modelled
+\citet{Mueller99a}, and suggests that both processes should be modelled
 by the same set-valued non-local feature (\textsc{extra}), but that
 elements on that set should be distinguished as to whether they are
 mainly anaphoric elements (\textit{weak-local}), or full-fledged
@@ -2966,15 +2988,17 @@ Thus, this does not seem a viable approach.
 kind of gap. As noted above, in a normal gap, the \textsc{local} value and the
 \textsc{slash} value match. However, as \citet{webelhuth08} noted, there is no
 reason why we should not under some circumstances have what he calls a
-``dishonest gap'', one whose \textsc{local} value and \textsc{slash} value do not match.
+``dishonest gap''\is{gap!dishonest}, one whose \textsc{local} value and \textsc{slash}
+value\itdopt{should be \SLASH element, since the \SLASH value is a set. also below ``value of \SLASH''} do not match.
 Developing this approach, \citet{Arnold:Borsley:10} propose that when an
 auxiliary has an unrealised complement, the complement optionally has a
 certain kind of nominal as the value of \textsc{slash}, which is realised as
 relative \emph{which}. When \textsc{slash} has the empty set as its value, the
-result is an auxiliary complement ellipsis sentence. When \textsc{slash} has the
-nominal value, we have a dishonest gap, because the value of \textsc{local} is
+result is an auxiliary complement ellipsis sentence. When \textsc{slash} \rep{has the
+nominal value}{contains a nominal element}, we have a dishonest gap, because the value of \textsc{local} is
 whatever the auxiliary requires, normally a VP of some kind, and the
 result is an ASRC.
+\itdopt{Since ASRC is used only once, you may give the full name rather than the abbreviation.}
 
 A rather different type of example, discussed, among others, by
 \citet[Chapter~2]{Bresnan01}, \citet[25--26]{Bouma:Malouf:Sag:01}, and \citet{Webelhuth:12},
@@ -3042,13 +3066,7 @@ sm edges without translation
 	 \caption{\label{fig:UDC:Tree:ThatHeMightBeWrong}``Dishonest'' gap }
 \end{figure}
  
- %% \Tree [ \qroof{That he might be wrong}.{S} \qroof{he didn't think of}.{S\\
- %%   \begin{avm}
- %%     \[slash \{ NP \}\]
- %%   \end{avm}
- %% } ].S
- 
-\noindent
+
 On this analysis, the initial clause is not a filler, and the
 construction is not a head-filler phrase. However, the analysis involves
 a normal unbounded dependency except at the top. In contrast, the Arnold
@@ -3077,14 +3095,19 @@ HPSG provide an appropriate way to capture both the similarities among
 the many unbounded dependency constructions and the variety of ways in
 which they differ. The general approach seems to compare quite
 favourably with the approaches that have been developed within other
-approaches.
+\rep{approaches}{frameworks}.
 
 \section*{Appendix: Unbounded dependencies in Sign-Based Construction Grammar}
 \label{udc:sec-SBCG}
 
 This chapter has concentrated on the approach to unbounded
 dependencies that has been developed with Constructional HPSG. As
-has been discussed in a number of chapters, a version of HPSG called
+has been discussed in a number of chapters,\footnote{
+\added{See \citew[Section~\ref{prop:sec-sbcg}]{chapters/properties} and \citew[Section~\ref{cxg:sec-sbcg}]{chapters/cxg} for a general comparison of
+  Constructional HPSG and SBCG. \citet{chapters/evolution} discuss the
+  evolution of HPSG and the pages \pageref{page-sbcg-start}--\pageref{page-sbcg-end} deal with the
+  HPSG variant SBCG.}
+} a version of HPSG called
 Sign-Based Construction Grammar (SBCG) was developed in the 2000s,
 which differs from Constructional HPSG in a number of ways
 \citep{Sag:12}. Among other things, it has a somewhat different
@@ -3104,7 +3127,7 @@ associate a mother sign (\textsc{mtr}) with a list of daughter signs
 \avm{
 	[\type*{cx}
       mtr & sign \\
-      dtrs & list!(sign)! \\
+      dtrs & \list*(sign) \\
     hd-dtr & sign ]
 }
 
@@ -3150,7 +3173,7 @@ and the \textsc{rel} feature used in relative clauses \citep[\page 166]{Sag:12}.
 and gap differ in the same way in SBCG and Constructional HPSG,
 but for different reasons.
 
-At the bottom of dependency, things are rather different. The SBCG
+At the bottom of \add{the} dependency, things are rather different. The SBCG
 analysis allows a member of the \textsc{arg-st} list of a lexical head
 to appear not as a member of the word’s \textsc{valence} list, but as
 a member of its \textsc{gap} list. We can illustrate with
@@ -3206,12 +3229,13 @@ different from HPSG. As discussed in
 Section~\ref{sec:UDC:BasicApproach}, HPSG gaps have a non-empty
 \textsc{slash} value. Here, gaps are just ordinary signs which appear
 in a \textsc{gap} list and not in a \textsc{valence} list.
+\itdopt{Here, there is an accumulation of sentence initial ``here'', which you may want to change.}
 
 This is an interesting alternative to the approach outlined in the
 main body of this chapter. However, it would need to be extended to
 account for some of the phenomena considered here.
 
-\added{See also \crossrefchapterw[Section~\ref{cxg:sec-sbcg}]{cxg} for a more general comparison of Constructional HPSG and SBCG.}
+
 
 
 \section*{Abbreviations}
@@ -3227,6 +3251,9 @@ account for some of the phenomena considered here.
 
 
 \section*{Acknowledgements}
+
+Stefan Müller was a real pain in the neck since he kept on asking for changes. But we want to thank
+him wholeheartedly for reminding us to put something into the acknowledgements section.
 
 \itd{Stefan: Add something?}
 
