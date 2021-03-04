@@ -1,6 +1,13 @@
 \DeclareDatamodelFields[type=list, datatype=name]{
-  authauthor,autheditor}
-\DeclareDatamodelEntryfields{authauthor,autheditor}
+  authauthor,autheditor,sortname}
+\DeclareDatamodelEntryfields{authauthor,autheditor,sortname}
+
+% for URLs like jstor URLs and MIT handle URLs, ACL antology
+
+\DeclareDatamodelFields[type=field,datatype=literal]{
+   stableurl}
+\DeclareDatamodelEntryfields{stableurl}
+
 
 % We also want to have this for books. Otherwise
 %
@@ -11,11 +18,71 @@
 \DeclareDatamodelEntryfields[book,proceedings]{
   booktitle}
 
+% just to get rid of warnings, authors keep supplying publishers with article entries
+% St. Mü, 2021-02-11
 \DeclareDatamodelEntryfields[article]{
   publisher}
+
+% St. Mü. 2021-02-11
+% our maintainance field. It records whether an item was reviewed or not.
+%
+\DeclareDatamodelFields[type=field,datatype=literal]{checked}
+\DeclareDatamodelEntryfields{checked}
+
+% \DeclareDatamodelFields[type=field,datatype=literal]{checkedseries}
+% \DeclareDatamodelEntryfields{checkedseries}
+
+% \DeclareDatamodelFields[type=field,datatype=literal]{checkednumber}
+% \DeclareDatamodelEntryfields{checkednumber}
+
+
+% bibdesk stuff
+
+\DeclareDatamodelFields[type=field,datatype=literal]{
+   bdsk-url-1,
+   bdsk-url-2,
+   bdsk-file-3,
+   date-added,
+   date-modified,
+   read}
+\DeclareDatamodelEntryfields{
+   bdsk-url-1,
+   bdsk-url-2,
+   bdsk-file-3,
+   date-added,
+   date-modified,
+   read}
+
+% opt fields
+
+\DeclareDatamodelFields[type=field,datatype=literal]{
+%optdate,
+opteditor,
+optchapter,
+optisbn,
+optissn,
+optmonth,
+optpublisher,
+optschool,
+opturl,
+optyear}
+
+\DeclareDatamodelEntryfields{
+%optdate,
+opteditor,
+optchapter,
+optisbn,
+optissn,
+optmonth,
+optpublisher,
+optschool,
+opturl}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
 \ResetDatamodelConstraints
 
+% St. Mü. 2021-02-10
 \DeclareDatamodelConstraints[
   article,
   book,
@@ -47,8 +114,55 @@
         \constraintfield{date}
         \constraintfield{year}
       }
+      \constraintfield{checked}  % uncomment for checking
+    }
+    % if there is an URL then there should be a urldate field.
+    \constraint[type=conditional]{
+      \antecedent[quantifier=one]{
+        \constraintfield{url}
+      }
+      % biber/biblatex splits urldate into urlyear,urlmoth,ulrday
+      \consequent[quantifier=all]{
+          \constraintfield{urlyear}
+          \constraintfield{urlmonth}
+          \constraintfield{urlday}
+      }
     }
   }
+
+
+\DeclareDatamodelConstraints[
+  article,
+%  book,
+  inbook,
+%  bookinbook,
+%  suppbook,
+%  booklet,
+%  collection,
+  incollection,
+  suppcollection,
+%  manual,
+%  misc,
+%  mvbook,
+%  mvcollection,
+%  online,
+%  patent,
+%  periodical,
+%  suppperiodical,
+%  proceedings,
+  inproceedings%,
+%  reference,
+%  inreference,
+%  report,
+%  set,
+%  thesis,
+%  unpublished
+]{
+    \constraint[type=mandatory]{
+      \constraintfield{pages}  % uncomment for checking
+    }
+  }
+
 
 \DeclareDatamodelConstraints[set]{
   \constraint[type=mandatory]{
@@ -61,15 +175,32 @@
     \constraintfield{author}
     \constraintfield{journaltitle}
     \constraintfield{title}
+% st. mü. 2021-02-13 yes, we want volume and number
+% if there is no number, the number field should be filled with "none". This will be surpressed by
+% an output filter.
+    \constraintfield{volume}
+    \constraintfield{number}
+    \constraintfield{pages}
   }
 }
 
-\DeclareDatamodelConstraints[book,mvbook,mvcollection,mvreference]{
+\DeclareDatamodelConstraints[book,mvbook,mvcollection,mvreference,incollection]{
   \constraint[type=mandatory]{
     \constraintfield{title}
-%\constraintfield{series}
-%\constraintfield{number}
-  }
+    % Those books that are not in a series have the value none. St. Mü. 2021.02.11
+    % The value is suppressed by an outputfilter declaration for biblatex
+    \constraintfield{series}
+   }
+   % if there is a series, there has to be a number. books without a number get the value none.
+   % The value none is suppressed by an output filter declaration for biblatex
+   \constraint[type=conditional]{
+      \antecedent[quantifier=one]{
+        \constraintfield{series}
+      }
+      \consequent[quantifier=all]{
+          \constraintfield{number}
+      }
+    }
 }
 
 \DeclareDatamodelConstraints[inbook,bookinbook,suppbook]{
@@ -77,6 +208,11 @@
     \constraintfield{author}
     \constraintfield{title}
     \constraintfield{booktitle}
+    \constraintfield{publisher}
+    \constraintfieldsxor{
+       \constraintfield{address}
+       \constraintfield{location}
+    }
   }
 }
 
@@ -94,6 +230,11 @@
   \constraint[type=mandatory]{
     \constraintfield{editor}
     \constraintfield{title}
+    \constraintfield{publisher}
+    \constraintfieldsxor{
+       \constraintfield{address}
+       \constraintfield{location}
+    }
   }
 }
 
@@ -105,6 +246,11 @@
     \constraintfield{booktitle}
 %\constraintfield{series}
 %\constraintfield{number}
+    \constraintfield{publisher}
+    \constraintfieldsxor{
+       \constraintfield{address}
+       \constraintfield{location}
+    }
   }
 }
 
@@ -155,14 +301,26 @@
 \DeclareDatamodelConstraints[proceedings,mvproceedings]{
   \constraint[type=mandatory]{
     \constraintfield{title}
+    \constraintfield{editor}
+    \constraintfield{publisher}
+    \constraintfieldsxor{
+       \constraintfield{address}
+       \constraintfield{location}
+    }
   }
 }
 
 \DeclareDatamodelConstraints[inproceedings]{
   \constraint[type=mandatory]{
     \constraintfield{author}
+    \constraintfield{editor}
     \constraintfield{title}
     \constraintfield{booktitle}
+    \constraintfield{publisher}
+    \constraintfieldsxor{
+       \constraintfield{address}
+       \constraintfield{location}
+    }
   }
 }
 

@@ -11,6 +11,7 @@
 ]{langscibook}
 
 \IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
+  \usepackage{../nomemoize}
   \input{../localpackages}
   \input{../localcommands}
   \input{../locallangscifixes.tex}
@@ -30,7 +31,7 @@
 \abstract{HPSG assumes Phrase Structure (PS), a partonomy, in contrast with Dependency Grammar (DG),
   which recognises Dependency Structure (DS), with direct relations between individual words and no
   multi-word phrases. The chapter presents a brief history of the two approaches, showing that DG
-  matured in the late nineteenth century, long before the influential work by Tesnière, while Phrase Structure Grammar (PSG) started somewhat later with Bloomfield’s enthusiastic adoption of Wundt’s ideas. Since DG embraces almost as wide a range of approaches as PSG, the rest of the chapter focuses on one version of DG, Word Grammar. The chapter argues that classical DG needs to be enriched in ways that bring it closer to PSG: each dependent actually adds an extra node to the head, but the nodes thus created form a taxonomy, not a partonomy; coordination requires strings; and in some languages the syntactic analysis needs to indicate phrase boundaries. Another proposed extension to bare DG is a separate system of relations for controlling word order, which is reminiscent of the PSG distinction between dominance and precedence. The ``head-driven'' part of HPSG corresponds in Word Grammar to a taxonomy of dependencies which distinguishes grammatical functions, with complex combinations similar to HPSG’s re-entrance. The chapter reviews and rejects the evidence for headless phrases, and ends with the suggestion that HPSG could easily move from PS to DG.}
+  matured in the late nineteenth century, long before the influential work by Tesnière, while Phrase Structure Grammar (PSG) started somewhat later with Bloomfield’s enthusiastic adoption of Wundt’s ideas. Since DG embraces almost as wide a range of approaches as PSG, the rest of the chapter focuses on one version of DG, Word Grammar. The chapter argues that classical DG needs to be enriched in ways that bring it closer to PSG: each dependent actually adds an extra node to the head, but the nodes thus created form a taxonomy, not a partonomy; coordination requires strings; and in some languages the syntactic analysis needs to indicate phrase boundaries. Another proposed extension to bare DG is a separate system of relations for controlling word order, which is reminiscent of the PSG distinction between dominance and precedence. The ``head-driven'' part of HPSG corresponds in Word Grammar to a taxonomy of dependencies which distinguishes grammatical functions, with complex combinations similar to HPSG’s re-entrancy. The chapter reviews and rejects the evidence for headless phrases, and ends with the suggestion that HPSG could easily move from PS to DG.}
 %\maketitle
 
 
@@ -101,10 +102,13 @@ This chapter reviews the relations between HPSG and the very long DS tradition o
 
 Where, then, does this discussion leave the notion of a phrase? In PS, phrases are basic units of the analysis, alongside words; but even DS recognises phrases indirectly because they are easily defined in terms of dependencies as a word plus all the words which depend, directly or indirectly, on it. Although phrases play no part in a DS analysis, it is sometimes useful to be able to refer to them informally (in much the same way that some PS grammars refer to grammatical functions informally while denying them any formal status).
 
-Why, then, does HPSG use PS rather than DS? As far as I know, PS was simply default syntax in the circles where HPSG evolved, so the choice of PS isn’t the result of a conscious decision by the founders, and I hope that this chapter will show that this is a serious question which deserves discussion.%
-%
-\footnote{Indeed, I once wrote a paper (which was never published) called ``Taking the PS out of HPSG'' – a title I was proud of until I noticed that PS was open to misreading, not least as ``Pollard and Sag''. Carl and Ivan took it well, and I think Carl may even have entertained the possibility that I might be right – possibly because he had previously espoused a theory called ``Head Grammar'' (HG).}%
-%
+Why, then, does HPSG use PS rather than DS? As far as I know, PS was simply default syntax in the circles where HPSG evolved, so the choice of PS isn’t the result of a conscious decision by the founders, and I hope that this chapter will show that this is a serious question which deserves discussion.\footnote{%
+  Indeed, I once wrote a paper (which was never published) called ``Taking the PS out of HPSG'' – a
+  title I was proud of until I noticed that PS was open to misreading, not least as ``Pollard and
+  Sag''. Carl and Ivan took it well, and I think Carl may even have entertained the possibility that
+  I might be right – possibly because he had previously espoused a theory called ``Head Grammar''
+  (HG).%
+}
 Unfortunately, the historical roots and the general dominance of PS have so far discouraged discussion of this fundamental question.
 
 HPSG is a theoretical package where PS is linked intimately to a collection of other assumptions; and the same is true for any theory which includes DS, including my own Word Grammar
@@ -309,7 +313,7 @@ The comparison requires some understanding of WG, so what follows is a brief tut
 	\item[The Cognitive Principle] \label{it:CogPrin}Language uses the same general cognitive processes and resources as general cognition, and has access to all of them.
 \end{description}
 
-This principle is of course merely a hypothesis which may turn out to be wrong, but so far it seems correct \citep[494]{MuellerGT-Eng2}, and it is more compatible with HPSG than with the innatist ideas underlying Chomskyan linguistics \citep{Berwick&co2013}. In WG, it plays an important part because it determines other parts of the theory.
+This principle is of course merely a hypothesis which may turn out to be wrong, but so far it seems correct \citep[494]{MuellerGT-Eng2}, and it is more compatible with HPSG than with the innatist ideas underlying Chomskyan linguistics \citep{Berwick:Chomsky2013a-u}. In WG, it plays an important part because it determines other parts of the theory.
 
 On the one hand, cognitive psychologists tend to see knowledge as a network of related concepts \citep[252]{Reisberg2007}, so WG also assumes that the whole of language, including grammar, is a conceptual network (\citealt[1]{Hudson84a-u}; \citeyear[1]{Hudson2007a-u}). One of the consequences is that the AVMs of HPSG are presented instead as labelled network links; for example, we can compare the elementary example in (\mex{1}) of the HPSG lexical item for a \ili{German} noun \citep[264]{MuellerGT-Eng2} with an exact translation using WG notation.
 
@@ -535,7 +539,7 @@ Another potential argument for PS, and against DS, is based on coordination: coo
 
 But of course, in a classic DS analysis \emph{Mary} is also attached directly to \emph{came}, without an intervening VP node, so \emph{came in} is not a complete syntactic item and this approach to coordination fails, so we have a prima facie case against DS. (For coordination in HPSG, see \crossrefchapteralt{coordination}.)
 
-Fortunately, there is a solution: sets \citep[404--421]{Hudson90a-u}. We know from the vast experimental literature (as well as from everyday experience) that the human mind is capable of representing ordered sets (strings) of words, so all we need to assume is that we can apply this ability in the case of coordination. The members of a set are all equal, so their relation is symmetrical; and the members may share properties (e.g.\ a person’s children constitute a set united by their shared relation to that person as well as by a multitude of other shared properties). Moreover, sets may be combined into supersets, so both conjuncts such as \emph{came in} and \emph{sat down} and coordinations (\emph{came in} and \emph{sat down}) are lists. According to this analysis, then, the two lists (\emph{came}, \emph{in}) and (sat, down) are united by their shared subject, Mary, and combine into the coordination ((\emph{came}, \emph{in}) (\emph{sat}, \emph{down})). The precise status of the conjunction \emph{and} remains to be determined. The proposed analysis is shown in network notation in Figure~\ref{fig:10}.
+Fortunately, there is a solution: sets \citep[404--421]{Hudson90a-u}. We know from the vast experimental literature (as well as from everyday experience) that the human mind is capable of representing ordered sets (strings) of words, so all we need to assume is that we can apply this ability in the case of coordination. The members of a set are all equal, so their relation is symmetrical; and the members may share properties (e.g.\ a person’s children constitute a set united by their shared relation to that person as well as by a multitude of other shared properties). Moreover, sets may be combined into supersets, so both conjuncts such as \emph{came in} and \emph{sat down} and coordinations (\emph{came in} and \emph{sat down}) are lists. According to this analysis, then, the two lists (\emph{came}, \emph{in}) and (\emph{sat}, \emph{down}) are united by their shared subject, Mary, and combine into the coordination ((\emph{came}, \emph{in}) (\emph{sat}, \emph{down})). The precise status of the conjunction \emph{and} remains to be determined. The proposed analysis is shown in network notation in Figure~\ref{fig:10}.
 
 \begin{figure}
 	\centering
@@ -658,12 +662,12 @@ This turns out to be problematic in dealing with \ili{Welsh} soft mutation \cite
 \begin{exe}
 	\ex \label{ex:14}
 	\gll Prynodd y ddynes \underline{\smash{delyn}}. (telyn)\\
-	buy.\textsc{past}.3\textsc{s} the woman harp\\
+	buy.\textsc{pst}.3\textsc{s} the woman harp\\
 	\glt ‘The woman bought a harp.’
 
 	\ex \label{ex:15}
 	\gll Gwnaeth y ddynes [\underline{werthu} telyn]. (gwerthu)\\
-	do.\textsc{past}.3\textsc{s} the woman sell.\textsc{inf} harp\\
+	do.\textsc{pst}.3\textsc{s} the woman sell.\textsc{inf} harp\\
 	\glt ‘The woman sold a harp.’
 \end{exe}
 
@@ -671,24 +675,24 @@ Soft mutation is sensitive to syntax, so although ‘harp’ is the object of a 
 
 A standard PS explanation for such facts (and many more) is the ``XP Trigger Hypothesis'': that soft mutation is triggered on a subject or complement (but not an adjunct) immediately after an XP boundary \citep[226]{BorsleyTallermanWillis2007}. The analysis contains two claims: that mutation affects the first word of an XP, and that it is triggered by the end of another XP. The first claim seems beyond doubt: the mutated word is simply the first word, and not necessarily the head. Examples such as (\ref{ex:16}) are conclusive.
 
-\begin{exe}
-	\ex \label{ex:16}
-	\gll Dw i [\underline{lawn} mor grac â chi]. (llawn)\\
-	be.\textsc{pres}.1\textsc{s} I full as angry as you\\
-	\glt ‘I’m just as angry as you.’
-\end{exe}
+\ea
+\label{ex:16}
+\gll Dw i [\underline{lawn} mor grac â chi]. (llawn)\\
+     be.\textsc{prs}.1\textsc{s} I full as angry as you\\
+\glt ‘I’m just as angry as you.’
+\z
 
 The second claim is less clearly correct; for instance, it relies on controversial assumptions about null subjects and traces in examples such as (\ref{ex:17}) and (\ref{ex:18}) (where \emph{t} and \emph{pro} stand for a trace and a null subject respectively, but have to be treated as full phrases for purposes of the XP Trigger Hypothesis in order to explain the mutation following them).
 
 \begin{exe}
 	\ex \label{ex:17}
 	\gll Pwy brynodd \emph{t} delyn? (telyn)\\
-	who buy.\textsc{past}.3\textsc{s} \emph{t} harp\\
+	who buy.\textsc{pst}.3\textsc{s} \emph{t} harp\\
 	\glt ‘Who bought a harp?’
 
 	\ex \label{ex:18}
 	\gll Prynodd \emph{pro} delyn. (telyn)\\
-	buy.\textsc{past}.3\textsc{s} \emph{pro} harp\\
+	buy.\textsc{pst}.3\textsc{s} \emph{pro} harp\\
 	\glt ‘He/she bought a harp.’
 \end{exe}
 
@@ -762,7 +766,10 @@ However, this default pattern allows exceptions, and because ``position'' and ``
 \end{figure}
 
 It could be objected that this is a lot of formal machinery for such a simple matter as word order. However, it is important to recognise that the conventional left-right ordering of writing is just a written convention, and that a mental network (which is what we are trying to model in WG) has no left-right ordering. Ordering a series of objects (such as words) is a complex mental operation, which experimental subjects often get wrong, so complex machinery is appropriate.
-Moreover, any syntactician knows that language offers a multiplicity of complex relations between dependency structure and word order. To take an extreme example, non-configurational languages pose problems for standard versions of HPSG (for which Bender suggests solutions) as illustrated by a \ili{Wambaya} sentence, repeated here as (\ref{ex:19}) \citep{Bender2008a,Nordlinger1998}:
+Moreover, any syntactician knows that language offers a multiplicity of complex relations between
+dependency structure and word order. To take an extreme example, non-configurational languages pose
+problems for standard versions of HPSG (for which Bender suggests solutions) as illustrated by a
+\ili{Wambaya} sentence, repeated here as (\ref{ex:19}) \parencites[\page 8]{Bender2008a}{Nordlinger1998}:
 
 \begin{exe}
 	\ex \label{ex:19}
@@ -771,7 +778,7 @@ Moreover, any syntactician knows that language offers a multiplicity of complex 
 	\glt ‘(His) mother gave (him) milk with grog in it.’
 \end{exe}
 
-The literal gloss shows that both ‘grog’ and ‘milk’ are marked as accusative, which is enough to allow the former to modify the latter in spite of their separation. The word order is typical of many Australian non-configurational languages: totally free within the clause except that the auxiliary verb (glossed here as \textsc{3sg.past}) comes second (after one dependent word or phrase). Such freedom of order is easily accommodated if landmarks are independent of dependencies: the auxiliary verb is the root of the clause’s dependency structure (as in \ili{English}), and also the landmark for every word that depends on it, whether directly or (crucially) indirectly. Its second position is due to a rule which requires it to precede all these words by default, but to have just one ``preceder''. A simplified structure for this sentence (with \ili{Wambaya} words replaced by \ili{English} glosses) is shown in Figure~\ref{fig:13}, with dotted arrows below the words again showing landmark and position relations. The dashed horizontal line separates this sentence structure from the grammar that generates it. In words, an auxiliary verb requires precisely one preceder, which isa descendant. ``Descendant'' is a transitive generalisation of ``dependent'', so a descendant is either a dependent or a dependent of a descendant. The preceder precedes the auxiliary verb, but all other descendants follow it.
+The literal gloss shows that both ‘grog’ and ‘milk’ are marked as accusative, which is enough to allow the former to modify the latter in spite of their separation. The word order is typical of many Australian non-configurational languages: totally free within the clause except that the auxiliary verb (glossed here as \textsc{3sg.pst}) comes second (after one dependent word or phrase). Such freedom of order is easily accommodated if landmarks are independent of dependencies: the auxiliary verb is the root of the clause’s dependency structure (as in \ili{English}), and also the landmark for every word that depends on it, whether directly or (crucially) indirectly. Its second position is due to a rule which requires it to precede all these words by default, but to have just one ``preceder''. A simplified structure for this sentence (with \ili{Wambaya} words replaced by \ili{English} glosses) is shown in Figure~\ref{fig:13}, with dotted arrows below the words again showing landmark and position relations. The dashed horizontal line separates this sentence structure from the grammar that generates it. In words, an auxiliary verb requires precisely one preceder, which isa descendant. ``Descendant'' is a transitive generalisation of ``dependent'', so a descendant is either a dependent or a dependent of a descendant. The preceder precedes the auxiliary verb, but all other descendants follow it.
 
 \begin{figure}
 	\centering
@@ -781,7 +788,7 @@ The literal gloss shows that both ‘grog’ and ‘milk’ are marked as accusa
 %below dashed line
 %first row
 \node[draw](grog) at (0,-2){\strut grog};
-\node[draw](3rd)[right of=grog]{\strut 3sg.past};
+\node[draw](3rd)[right of=grog]{\strut 3sg.pst};
 \node[draw](mother)[right of=3rd, node distance=2.5cm]{\strut mother};
 \node[draw](give)[right of=mother, node distance=2cm]{\strut give};
 \node[draw](milk)[right of=give, node distance=2cm]{\strut milk};
@@ -876,6 +883,7 @@ Bloomfield assumed that phrases could be either headed (endocentric) or not (exo
 Such strings can be handled by the mechanism already introduced for coordination, namely ordered sets.
 
 The WG claim, then, is that when words hang together syntactically, they form phrases which always have a head. Is this claim tenable? There are a number of potential counterexamples including (\ref{ex:21})--(\ref{ex:24}):
+\itd{Stefan: use emph rather than underline?}
 
 \settowidth\jamwidth{(Arnold \& Borsley, 2014)}
 \eal
@@ -929,7 +937,24 @@ wg
 	\label{fig:14}
 \end{figure}
 
-Example (\ref{ex:23}) is offered by Jackendoff as a clear case of headlessness, but there is an equally obvious headed analysis of \emph{student after student} in which the structure is the same as in commonplace NPN examples like \emph{box of matches}. The only peculiarity of Jackendoff’s example is the lexical repetition, which is beyond most theories of syntax. For WG, however, the solution is easy: the second N token isa the first, which allows default inheritance. This example illustrates an idiomatic but generalisable version of the NPN pattern in which the second N isa the first and the meaning is special; as expected, the pattern is recursive. The grammatical subnetwork needed to generate the syntactic structure for such examples is shown (with solid lines) in Figure~\ref{fig:15}; the semantics is harder and needs more research. What this diagram shows is that there is a subclass of nouns called here ``noun\textsubscript{npn}'', which is special in having as its complement a preposition with the special property of having another copy of the same noun\textsubscript{npn} as its complement. The whole construction is potentially recursive because the copy itself inherits the possibility of a preposition complement, but the recursion is limited by the fact that this complement is optional (shown as ``0,1'' inside the box, meaning that its quantity is either 0 (absent) or 1 (present)). Because the second noun isa the first, if it has a prepositional complement this is also a copy of the first preposition – hence \emph{student after student after student}, whose structure is shown in Figure~\ref{fig:15} with dashed lines.
+Example\label{dg:page-npn-construction} (\ref{ex:23}) is offered by Jackendoff as a clear case of
+headlessness, but there is an equally obvious headed analysis of \emph{student after student} in
+which the structure is the same as in commonplace NPN examples like \emph{box of matches}. The only
+peculiarity of Jackendoff’s example is the lexical repetition, which is beyond most theories of
+syntax. For WG, however, the solution is easy: the second N token isa the first, which allows
+default inheritance. This example illustrates an idiomatic but generalisable version of the NPN
+pattern in which the second N isa the first and the meaning is special; as expected, the pattern is
+recursive. The grammatical subnetwork needed to generate the syntactic structure for such examples
+is shown (with solid lines) in Figure~\ref{fig:15}; the semantics is harder and needs more
+research. What this diagram shows is that there is a subclass of nouns called here
+``noun\textsubscript{npn}'', which is special in having as its complement a preposition with the
+special property of having another copy of the same noun\textsubscript{npn} as its complement. The
+whole construction is potentially recursive because the copy itself inherits the possibility of a
+preposition complement, but the recursion is limited by the fact that this complement is optional
+(shown as ``0,1'' inside the box, meaning that its quantity is either 0 (absent) or 1
+(present)). Because the second noun isa the first, if it has a prepositional complement this is also
+a copy of the first preposition – hence \emph{student after student after student}, whose structure
+is shown in Figure~\ref{fig:15} with dashed lines.
 
 \begin{figure}
 	\centering
@@ -1086,7 +1111,7 @@ Pied-piping presents well-known challenges. Take, for example, (\ref{ex:32}) \ci
 
 According to WG, \emph{whose} (which as a determiner is head of the phrase \emph{whose sermon}) is both an adjunct of its antecedent \emph{minister} and also the head of the relative verb \emph{barked}, just as in the simpler example. The challenge is to explain the word order: how can \emph{whose} have dependency links to both \emph{minister} and \emph{barked} when it is surrounded, on both sides, by words on which it depends? Normally, this would be impossible, but pied-piping is special. The WG analysis \citep{Hudson2018a} locates the peculiarities of pied-piping entirely in the word order, invoking a special relation ``pipee'' which transfers the expected positional properties of the relative pronoun (the ``piper'') up the dependency chain – in this case, to the preposition \emph{in}.
 
-And so we finish this review of complex dependencies by answering the question that exercised the minds of the \ili{Arabic} grammarians in the Abbasid Ca\-liph\-ate: is mutual dependency possible? The arrow notation of WG allows grammars to generate the relevant structures, so the answer is yes, and HPSG can presumably achieve the same effect by means of re-entrance; so this conclusion reflects another example of theoretical convergence.
+And so we finish this review of complex dependencies by answering the question that exercised the minds of the \ili{Arabic} grammarians in the Abbasid Ca\-liph\-ate: is mutual dependency possible? The arrow notation of WG allows grammars to generate the relevant structures, so the answer is yes, and HPSG can presumably achieve the same effect by means of re-entrancy; so this conclusion reflects another example of theoretical convergence.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1236,7 +1261,17 @@ Roughly speaking, each boxed item in this diagram corresponds to an AVM in a sta
 In short, modern HPSG could easily be transformed into a version of DS, with a separate AVM for each word. As in DS, the words in a sentence would be represented as an ordered list interrelated partly by the ordering and partly by the pairwise dependencies between them. This transformation is undeniably possible. Whether it is desirable remains to be established by a programme of research and debate which will leave the theory more robust and immune to challenge.
 
 
-%\section*{Abbreviations}
+\section*{Abbreviations}
+
+
+
+\begin{tabularx}{.99\textwidth}{@{}lX}
+\textsc{prop} & proprietive\\
+\textsc{nm}   & non-masc. (class II--IV)\\
+\textsc{ii}   & noun class II\\
+\textsc{iv}   & noun class IV\\
+\end{tabularx}
+
 
 \section*{Acknowledgements}
 

@@ -1,0 +1,128 @@
+%% -*- coding:utf-8 -*-
+\documentclass{article}
+% \documentclass[output=book
+%                 ,multiauthors
+% 	        ,collection
+% 	        ,collectionchapter
+%  	        ,biblatex  
+%                 ,babelshorthands
+% %                ,showindex
+%                 ,newtxmath
+%                 ,colorlinks, citecolor=brown 
+%                 ,draftmode
+% % 	        ,coverus
+% 		  ]{langscibook}                              
+
+
+\usepackage[
+	natbib=true,
+	style=langsci-unified,
+	citestyle=langsci-unified,
+	datamodel=langsci,   % add authauthor and autheditor as possible fields to bibtex entries
+	%refsection=chapter,
+	maxbibnames=99,
+	uniquename=false,
+	mincrossrefs=99,
+	maxcitenames=2,
+	isbn=false,
+	autolang=hyphen,
+	language=english,
+	backend=biber,
+	indexing=cite,
+]{biblatex}
+
+\usepackage{xcolor,csquotes,german,my-xspace}
+\usepackage{./styles/eng-date,./styles/abbrev}
+
+\newcommand{\page}{}
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=false, citecolor=brown, pdfborder={0 0 0}}
+
+\let\citew\citealt
+
+\definecolor{lsDOIGray}{cmyk}{0,0,0,0.45}
+
+
+% If the user provided a shortauthor in the bibtex entry, we use the authentic author (as with the
+% authorindex package) if it is defined, otherwise we use the author.
+% This gets F/T as shorthand right and puts the guys in the index.
+
+\renewbibmacro*{citeindex}{%
+  \ifciteindex
+    {\iffieldequalstr{labelnamesource}{shortauthor} % If biblatex uses shortauthor as the label of a bibitem
+      {\ifnameundef{authauthor}                     % we check whether there is something in authauthor
+        {\indexnames{author}}                       % if not, we use author
+        {\indexnames{authauthor}}}                  % if yes, we use authauthor
+      {\iffieldequalstr{labelnamesource}{author}    % if biblatex uses author we similarly test for
+                                                    % authauthor and use this field
+        {\ifnameundef{authauthor}% if defined use authauthor
+          {\indexnames{author}}
+          {\indexnames{authauthor}}} % if defined use this field
+        {\iffieldequalstr{labelnamesource}{shorteditor} % same for editor
+          {\ifnameundef{autheditor}
+            {\indexnames{editor}}
+            {\indexnames{autheditor}}}
+          {\indexnames{labelname}}}}}               % as a fallback we index on whatever biblatex used.
+    {}}
+
+
+% if no langid is set, it is English:
+% https://tex.stackexchange.com/a/279302
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map{
+      \step[fieldset=langid, fieldvalue={english}]
+    }
+  }
+}
+
+% If the user provided a shortauthor in the bibtex entry, we use the authentic author (as with the
+% authorindex package) if it is defined, otherwise we use the author.
+% This gets F/T as shorthand right and puts the guys in the index.
+
+\renewbibmacro*{citeindex}{%
+  \ifciteindex
+    {\iffieldequalstr{labelnamesource}{shortauthor} % If biblatex uses shortauthor as the label of a bibitem
+      {\ifnameundef{authauthor}                     % we check whether there is something in authauthor
+        {\indexnames{author}}                       % if not, we use author
+        {\indexnames{authauthor}}}                  % if yes, we use authauthor
+      {\iffieldequalstr{labelnamesource}{author}    % if biblatex uses author we similarly test for
+                                                    % authauthor and use this field
+        {\ifnameundef{authauthor}% if defined use authauthor
+          {\indexnames{author}}
+          {\indexnames{authauthor}}} % if defined use this field
+        {\iffieldequalstr{labelnamesource}{shorteditor} % same for editor
+          {\ifnameundef{autheditor}
+            {\indexnames{editor}}
+            {\indexnames{autheditor}}}
+          {\indexnames{labelname}}}}}               % as a fallback we index on whatever biblatex used.
+    {}}
+
+
+% https://tex.stackexchange.com/a/111851/18561
+\DeclareSourcemap{
+    \maps[datatype=bibtex]{
+      \map{
+        \step[fieldsource=checked]
+        \step[fieldset=usera,origfieldval]
+    }
+  }
+}
+
+%\DeclareFieldFormat{usera}{\red{#1}}
+
+\AtEveryBibitem{
+\csappto{blx@bbx@\thefield{entrytype}}{\iffieldundef{usera}{\space \textcolor{red}{Not checked!}}{\space\textcolor{green}{\printfield{usera}}}}
+}
+
+
+\bibliography{bib-abbr,biblio,localbibliography}
+
+%\bibliography{bib-abbr,localbibliography}
+
+\begin{document}
+\nocite{*}
+
+\printbibliography
+\end{document}

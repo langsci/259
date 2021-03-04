@@ -1,5 +1,6 @@
 # specify thh main file and all the files that you are including
 Bibliographies=$(wildcard Bibliographies/*.bib) localbibliography.bib 
+STYLE-PATH= ${HOME}/Library/texmf/tex/latex/
 
 SOURCE=  main.tex $(wildcard local*.tex) $(wildcard chapters/*.tex) $(Bibliographies) \
 langscibook.cls langsci-unified.bbx langsci-forest-setup.sty
@@ -53,9 +54,16 @@ languagecandidates:
 languagesused:
 	egrep -oh "\\il.*{[A-Z]['a-zA-Z-]+}" chapters/*tex |grep -o  "[A-Z].*"
 
-trees:
-	xelatex main.tex
-	python3 styles/memoize/memomanager.py split main.mmz
+trees: memos
+
+# to eliminate the risk of jumping trees build the complete pdf without
+# memozation (main.tex does load nomemoize) and then latex compile-memos-hpsg-handbook.tex
+# (which does load memoize, ignores \addlines and does not have the bibliography compiled) and call the extraction script after this.
+memos: cleanmemo main.pdf
+	xelatex -shell-escape compile-memos-hpsg-handbook
+	python3 memomanager.py split compile-memos-hpsg-handbook.mmz
+
+
 
 stable.pdf: main.pdf
 	cp main.pdf stable.pdf
@@ -75,8 +83,8 @@ chop: stable.pdf
 
 
 commit-stable: chop 
-	git commit -m "automatic creation of stable.pdf and chapters" chapters/collection.bib chapters-pdfs/ stable.pdf
-	git push -u origin
+#	git commit -m "automatic creation of stable.pdf and chapters" chapters/collection.bib chapters-pdfs/ stable.pdf
+#	git push -u origin
 
 stable-commit: commit-stable
 
@@ -226,40 +234,40 @@ prepublish.pdf: $(SOURCE) prepublish.tex
 	xelatex -shell-escape prepublish
 
 prepubs-latex-cp: prepublish-pdfs
-#	cp prepubs-chop-pdfs/01.pdf prepubs-pdfs/basic-properties.pdf
+	cp prepubs-chop-pdfs/01.pdf prepubs-pdfs/basic-properties.pdf
 #	cp prepubs-chop-pdfs/02.pdf prepubs-pdfs/evolution.pdf
-#	cp prepubs-chop-pdfs/03.pdf prepubs-pdfs/formal-background.pdf
-#	cp prepubs-chop-pdfs/04.pdf prepubs-pdfs/lexicon.pdf
-#	cp prepubs-chop-pdfs/05.pdf prepubs-pdfs/understudied-languages.pdf
-#	cp prepubs-chop-pdfs/06.pdf prepubs-pdfs/agreement.pdf
-#	cp prepubs-chop-pdfs/07.pdf prepubs-pdfs/case.pdf
-#	cp prepubs-chop-pdfs/08.pdf prepubs-pdfs/nominal-structures.pdf
-#	cp prepubs-chop-pdfs/09.pdf prepubs-pdfs/argument-structure.pdf
+	cp prepubs-chop-pdfs/03.pdf prepubs-pdfs/formal-background.pdf
+	cp prepubs-chop-pdfs/04.pdf prepubs-pdfs/lexicon.pdf
+	cp prepubs-chop-pdfs/05.pdf prepubs-pdfs/understudied-languages.pdf
+	cp prepubs-chop-pdfs/06.pdf prepubs-pdfs/agreement.pdf
+	cp prepubs-chop-pdfs/07.pdf prepubs-pdfs/case.pdf
+	cp prepubs-chop-pdfs/08.pdf prepubs-pdfs/nominal-structures.pdf
+	cp prepubs-chop-pdfs/09.pdf prepubs-pdfs/argument-structure.pdf
 	cp prepubs-chop-pdfs/10.pdf prepubs-pdfs/order.pdf
 ##	cp prepubs-chop-pdfs/11.pdf prepubs-pdfs/clitics.pdf
-#	cp prepubs-chop-pdfs/11.pdf prepubs-pdfs/complex-predicates.pdf
-#	cp prepubs-chop-pdfs/12.pdf prepubs-pdfs/control-raising.pdf
+	cp prepubs-chop-pdfs/11.pdf prepubs-pdfs/complex-predicates.pdf
+##	cp prepubs-chop-pdfs/12.pdf prepubs-pdfs/control-raising.pdf
 	cp prepubs-chop-pdfs/13.pdf prepubs-pdfs/unbounded-dependencies.pdf
-#	cp prepubs-chop-pdfs/14.pdf prepubs-pdfs/relative-clauses.pdf
-#	cp prepubs-chop-pdfs/15.pdf prepubs-pdfs/islands.pdf
+	cp prepubs-chop-pdfs/14.pdf prepubs-pdfs/relative-clauses.pdf
+	cp prepubs-chop-pdfs/15.pdf prepubs-pdfs/islands.pdf
 #	cp prepubs-chop-pdfs/16.pdf prepubs-pdfs/coordination.pdf
-#	cp prepubs-chop-pdfs/17.pdf prepubs-pdfs/idioms.pdf
-#	cp prepubs-chop-pdfs/18.pdf prepubs-pdfs/negation.pdf
-#	cp prepubs-chop-pdfs/19.pdf prepubs-pdfs/ellipsis.pdf
+	cp prepubs-chop-pdfs/17.pdf prepubs-pdfs/idioms.pdf
+	cp prepubs-chop-pdfs/18.pdf prepubs-pdfs/negation.pdf
+	cp prepubs-chop-pdfs/19.pdf prepubs-pdfs/ellipsis.pdf
 #	cp prepubs-chop-pdfs/20.pdf prepubs-pdfs/binding.pdf
 	cp prepubs-chop-pdfs/21.pdf prepubs-pdfs/morphology.pdf
-#	cp prepubs-chop-pdfs/22.pdf prepubs-pdfs/semantics.pdf
-#	cp prepubs-chop-pdfs/23.pdf prepubs-pdfs/information-structure.pdf
+	cp prepubs-chop-pdfs/22.pdf prepubs-pdfs/semantics.pdf
+	cp prepubs-chop-pdfs/23.pdf prepubs-pdfs/information-structure.pdf
 #	cp prepubs-chop-pdfs/24.pdf prepubs-pdfs/processing.pdf
-#	cp prepubs-chop-pdfs/25.pdf prepubs-pdfs/cl.pdf
-#	cp prepubs-chop-pdfs/26.pdf prepubs-pdfs/dialogue.pdf
+	cp prepubs-chop-pdfs/25.pdf prepubs-pdfs/cl.pdf
+	cp prepubs-chop-pdfs/26.pdf prepubs-pdfs/dialogue.pdf
 #	cp prepubs-chop-pdfs/27.pdf prepubs-pdfs/sign-languages.pdf
-#	cp prepubs-chop-pdfs/28.pdf prepubs-pdfs/gesture.pdf
-#	cp prepubs-chop-pdfs/29.pdf prepubs-pdfs/hpsg-minimalism.pdf
-#	cp prepubs-chop-pdfs/30.pdf prepubs-pdfs/hpsg-categorial-grammar.pdf
-#	cp prepubs-chop-pdfs/31.pdf prepubs-pdfs/hpsg-lfg.pdf
-#	cp prepubs-chop-pdfs/32.pdf prepubs-pdfs/hpsg-dependency-grammar.pdf
-#	cp prepubs-chop-pdfs/33.pdf prepubs-pdfs/hpsg-cxg.pdf
+	cp prepubs-chop-pdfs/27.pdf prepubs-pdfs/gesture.pdf
+#	cp prepubs-chop-pdfs/28.pdf prepubs-pdfs/hpsg-minimalism.pdf
+	cp prepubs-chop-pdfs/29.pdf prepubs-pdfs/hpsg-categorial-grammar.pdf
+	cp prepubs-chop-pdfs/30.pdf prepubs-pdfs/hpsg-lfg.pdf
+	cp prepubs-chop-pdfs/31.pdf prepubs-pdfs/hpsg-dependency-grammar.pdf
+#	cp prepubs-chop-pdfs/32.pdf prepubs-pdfs/hpsg-cxg.pdf
 
 
 # 
@@ -268,8 +276,8 @@ prepublish: prepubs-latex-cp
 #             prepubs-pdfs/case.pdf prepubs-pdfs/relative-clauses.pdf prepubs-pdfs/islands.pdf prepubs-pdfs/idioms.pdf \
 #             prepubs-pdfs/negation.pdf prepubs-pdfs/semantics.pdf prepubs-pdfs/hpsg-minimalism.pdf prepubs-pdfs/hpsg-dg.pdf prepubs-pdfs/hpsg-cxg.pdf
 	rsync -a -e ssh prepubs-pdfs/ hpsg.hu-berlin.de:/var/www/html/Projects/HPSG-handbook/PDFs
-	git commit -m "automatic creation of prepublished chapters" prepubs-pdfs/
-	git push -u origin
+#	git commit -m "automatic creation of prepublished chapters" prepubs-pdfs/
+#	git push -u origin
 
 
 #	scp prepubs-pdfs/32.pdf hpsg.hu-berlin.de:public_html/Pub/hpsg-minimalism.pdf
@@ -372,8 +380,8 @@ proofreading.pdf: main.pdf
 
 
 # extract all bibtex items and then remove irrelevant fields with --tool
-hpsg-handbook-bibliography.bib: $(Bibliographies) main.bcf
-	biber --output_format=bibtex --output-legacy-date main.bcf -O hpsg-handbook-bibliography_tmp.bib 
+hpsg-handbook-bibliography.bib: $(Bibliographies) bib handbook.pdf
+	biber --output_format=bibtex --output-legacy-date handbook.bcf -O hpsg-handbook-bibliography_tmp.bib 
 	biber --tool --configfile=biber-tool.conf --output-field-replace=location:address,journaltitle:journal,date:year --output-legacy-dates hpsg-handbook-bibliography_tmp.bib -O hpsg-handbook-bibliography.bib
 
 check-bib: hpsg-handbook-bibliography.bib
@@ -389,6 +397,15 @@ references.pdf: references.tex hpsg-handbook-bibliography.bib
 	xelatex references
 
 references: references.pdf
+
+todo-localbib.unique.txt: handbook.bcf
+	biber -V handbook | grep -i warn | grep localbib | sort -u > todo-localbib.unique.txt
+
+bib-public: todo-localbib.unique.txt references.pdf
+	git commit -m "new version of bib" localbibliography.bib todo-localbib.unique.txt
+	git push -u origin
+	(cd ../../Bibliographien/biblio.bib; git commit -m "new version of bib" biblio.bib; git push -u origin)
+	scp references.pdf hpsg.hu-berlin.de:public_html/Pub/references.pdf
 
 paperhive: 
 	git branch gh-pages
@@ -426,6 +443,15 @@ memo-install:
 
 avm-install:
 	cp -fp ~/Documents/Dienstlich/Projekte/LangSci/Git-HUB/langsci-avm/langsci-avm.sty .
+
+stmue-install:
+	cp -p ${STYLE-PATH}makros.2020.sty                   styles/
+	cp -p ${STYLE-PATH}abbrev.sty                        styles/
+	cp -p ${STYLE-PATH}eng-date.sty                      styles/
+	cp -p ${STYLE-PATH}biblatex-series-number-checks.sty styles/
+	cp -p ${STYLE-PATH}Ling/article-ex.sty               styles/
+
+
 
 #housekeeping	
 clean:

@@ -1,0 +1,91 @@
+%% -*- coding:utf-8 -*-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                                              %%%
+%%%     Language Science Press Master File       %%%
+%%%         follow the instructions below        %%%
+%%%                                              %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% This is the same as main, but with memoize.
+% It is much faster to compile. Use at your own risk.
+ 
+% Everything following a % is ignored
+% Some lines start with %. Remove the % to include them
+
+\documentclass[output=book
+		,multiauthors
+	        ,collection
+	        ,collectionchapter
+ 	        ,biblatex  
+                ,babelshorthands
+%                ,showindex
+                ,newtxmath
+                ,colorlinks, citecolor=brown % for drafts
+                ,draftmode
+% 	        ,coverus
+		  ]{langscibook}                              
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% load memoize before german.sty
+
+\usepackage{memoize} 
+\memoizeset{readonly}
+% see below for further settings
+
+
+% put all additional commands you need in the 
+% following files. If you do not know what this might 
+% mean, you can safely ignore this section
+
+\input{localmetadata.tex}
+\input{localpackages.tex}
+\input{localhyphenation.tex}
+\input{localcommands.tex} 
+
+\input{locallangscifixes.tex}
+
+\input{bibliographies-include}
+
+\memoizeset{
+  memo filename prefix={chapters/hpsg-handbook.memo.dir/},
+  register=\todo{O{}+m},
+  prevent=\todo,
+}
+
+% This adds a checked field to the automatically generated footer items for crossreference. If they
+% are cited, one can print the checked field (as done in check-hpsg) to see quickly that these items
+% are ok.
+\patchcmd{\lsCollectionMetadataToBibliography}{\immediate\write\tempfile{@incollection{#1,author={\authorTemp},title={{\expandonce{\titleTemp}}},booktitle={{\expandonce{\lsCollectionTitle}}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},year={\lsYear},pages={\lsCollectionPaperFirstPage--\lsCollectionPaperLastPage},doi={\lsChapterDOI},keywords={withinvolume}}}}{\immediate\write\tempfile{@incollection{#1,author={\authorTemp},title={{\lsCollectionPaperFooterTitle}},booktitle={{\lsCollectionTitle}},editor={\editorTemp},publisher={Language
+        Science Press.},Address={Berlin},series={Empirically Oriented Theoretical Morphology and Syntax},year={2021},pages={\lsCollectionPaperFirstPage--\lsCollectionPaperLastPage},checked={auto created},keywords={withinvolume}}}}
+
+% We also add the field to the handbook.tex file so that it ends up in handbook.bcf, from where we
+% can extract the bibtex items. Yes, I know, it's compliacted. St. Mü. 10.02.2021.
+
+% This has to be added to the langsci.dbx Datamodel
+
+% https://tex.stackexchange.com/q/163303/5764
+%\DeclareDatamodelFields[type=field,datatype=literal,nullok=true]{checked}
+%\DeclareDatamodelEntryfields{checked}
+
+
+\input{hpsg-handbook-include}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                                              %%%
+%%%                  END                         %%%
+%%%                                              %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% you can create your book by running
+% xelatex main.tex
+%
+% you can also try a simple 
+% make
+% on the commandline
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-engine: xetex
+%%% End:

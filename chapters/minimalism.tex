@@ -11,6 +11,7 @@
 ]{langscibook}
 
 \IfFileExists{../localcommands.tex}{%hack to check whether this is being compiled as part of a collection or standalone
+  \usepackage{../nomemoize}
   \input{../localpackages}
   \input{../localcommands}
   \input{../locallangscifixes.tex}
@@ -50,18 +51,17 @@ are descendants of the transformation"=generative approach to syntax, which Chom
 1950s. HPSG is a result of the questioning of transformational analyses\footnote{%
 By \emph{transformational analyses} we mean analyses which derive structures from structures, especially
 by movement, whether the movement is the product of transformational rules, a general license to
-move, or the internal merge mechanism. 
-
+move, or the Internal Merge mechanism.} that emerged in the late
+1970s. This led to \isi{Lexical Functional Grammar} \citep{BK82a} and \isi{Generalized Phrase Structure Grammar} \citep*{GKPS85a}, and then in
+the mid-1980s to HPSG (\citealt{ps}; see \crossrefchapteralt{evolution} for more on the origins of HPSG).\footnote{
 We make no attempt to provide an introduction to HPSG in this chapter. For an introduction to the
 various aspects of the framework, see the other chapters of this handbook. For example,
-non-transformational analyses of the passive are dealt with in \crossrefchaptert{lexicon},
+non-transformational analyses of the passive are dealt with in \crossrefchaptert[Section~\ref{arg-st:sec-passives}]{arg-st},
 constituent order in \crossrefchaptert{order}, and unbounded dependencies in \crossrefchaptert{udc}. The
 question of whether scrambling, passive, and nonlocal dependencies should be handled by the same
 mechanism (\eg transformations) or whether these phenomena are distinct and should be analyzed by
-making use of different mechanisms is discussed in \citew[Chapter~20]{MuellerGT-Eng3}.%
-} that emerged in the late
-1970s. This led to \isi{Lexical Functional Grammar} \citep{BK82a} and \isi{Generalized Phrase Structure Grammar} \citep{GKPS85a}, and then in
-the mid-1980s to HPSG (\citealt{ps}; see \crossrefchapteralt{evolution} for more on the origins of HPSG). Minimalism in contrast
+making use of different mechanisms is discussed in \citew[Chapter~20]{MuellerGT-Eng4}.%
+} Minimalism in contrast
 remains committed to transformational, i.e., movement, analyses. It is simpler in some respects than
 the earlier Government \& Binding framework \citep{Chomsky81a}, but as we will see below, it involves a variety of
 complexities. 
@@ -162,11 +162,11 @@ defined by \citet[\page 4]{Chomsky65a}, namely as a framework that provides an e
 characterization of the theories developed within it.
 %CxG \citep*[\page 501]{FKoC88a}
 When we refer to work in Government \& Binding or Minimalism, we follow \citet[\page 3]{CJ2005a} in using
-the term \emph{Mainstream Generative Grammar}. It should be kept in mind that there is another
+the term \emph{Mainstream Generative Grammar} (MGG). It should be kept in mind that there is another
 meaning associated with the term \emph{generative}. A generative grammar in the latter sense
 generates a set \citep[\page 13]{Chomsky57a}. HPSG is not generative in this sense but rather model-theoretic. See \citet{PS2001a}
 for differences between generative-enumerative and model-theoretic approaches. See also
-\crossrefchaptert{formal-background} and \crossrefchaptert{processing}.
+\crossrefchaptert{formal-background} and \crossrefchaptert[Section~\ref{sec-processing-constraint-based}]{processing}.
 }
 Thus, it is not uncommon to find lengthy appendices setting out formal analyses. See, for
 example, \citegen{Sag97a} paper on \ili{English} relative clauses\is{relative clause},
@@ -176,7 +176,7 @@ considerable influence in \isi{computational linguistics}. Sometimes theoretical
 with computer implementations, which show that the analyses are consistent and complete, \eg all
 publications coming out of the \isi{CoreGram} project \citep{MuellerCoreGram} and the HPSG textbook
 for \ili{German} that comes with implementations corresponding to the individual chapters of the book
-\citep{MuellerGrammix}. It has been noticed both by theorietical linguists \citep[\page 163]{Bierwisch63a} and
+\citep{MuellerGrammix}. It has been noticed both by theoretical linguists \citep[\page 163]{Bierwisch63a} and
 by theoretically-oriented computational linguists \citep[\page 20]{Abney96a} that the interaction of phenomena
 is so complex that most normal human beings cannot deal with this complexity, and formalization and
 implementation actually helps enormously to understand language in its full depth. For more on the
@@ -191,7 +191,7 @@ with
 %. Thus, in a 1980 conversation, Chomsky remarked that ``I do not see any point in formalizing for
 %the sake of formalizing'' (see 
 \citet[73]{HuybregtsRiemsdijk.1982} and in discussions between \citet{Pullum89b} and \citet[\page 146]{Chomsky90a},
-and this view seems fairly standard within Minimalism; see also the discussion in \citew[Section~3.6.2]{MuellerGT-Eng1}. \citet[\page 28]{CL95a-u}
+and this view seems fairly standard within Minimalism; see also the discussion in \citew[Section~3.6.2]{MuellerGT-Eng4}. \citet[\page 28]{CL95a-u}
 attempt to justify the absence of detailed analyses when they suggest that providing a rule 
 system from which some set of phenomena can be derived is not ``a real result'' since ``it is often
 possible to devise one that will more or less work''. Instead, they say, ``the task is now to show how
@@ -237,7 +237,7 @@ for. These are all important matters.
 
 The general absence of detailed formal analyses has also led to Minimalism having little impact on
 computational linguistics. There has been some work that has sought to implement Minimalist ideas
-\citep{Stabler2001a,FG2012a,Fong2014a}, but Minimalism has not had anything like the productive
+\citep{Stabler2001a,FG2012a,Fong2014a,Torr2019a-u}, but Minimalism has not had anything like the productive
 relation with computational work that HPSG has enjoyed (see \crossrefchapteralt{cl}). Existing Minimalist implementations are, rather, toy
 grammars analyzing very simple sentences; some are not faithful to the theories they are claimed to
 be implementing,\footnote{%
@@ -255,18 +255,21 @@ input. For example, Stabler's test sentences have the form as in (\mex{1}).
 \ex the king be -s eat -ing
 \ex the king -s will -s have been eat -ing the pie
 \zl
-See \citet[Section~4.7.2]{MuellerGT-Eng3} for discussion. Torr implemented a large-scale grammar
-\citep[\page 2487]{TSSC2019a}, but he also uses a \slasch passing mechanism and ``around 45''
-versions of Move and Merge (p.\,2488) in comparison to the two versions usually assumed in
+See \citet[Section~4.7.2]{MuellerGT-Eng4} for discussion. Torr implemented a large-scale grammar
+(\citealt*[\page 2487]{TSSC2019a}; \citealt{Torr2019a-u}), but he also uses a \slasch passing mechanism and ``around 45''
+versions of Move and Merge \citep[\page 2488]{TSSC2019a} in comparison to the two versions usually assumed in
 Minimalism (Move and Merge, or Internal and External Merge). Torr's work cannot be discussed here in 
-detail due to space limitations, but a discussion will be part of the next edition of Müller's
-grammatical theory textbook.
+detail due to space limitations, but is discussed in more detail in \citet[\page
+177--180]{MuellerGT-Eng4}. Müller shows that Torr's MG derivations are equivalent to an HPSG analysis
+assuming Reape-style discontinuous constituents (\citealt{Reape94a};
+\crossrefchapteralt[Section~\ref{sec-domains}]{order}) and a \slasch passing mechanism.
 
 
 Summing up: The fact that certain variants of Minimalism share properties with Categorial Grammar
+\itdsecond{cite for Categorial Grammar, and this cannot be a summary since CG has not been mentioned before}
 has been noticed early on \citep{BE95a}. Directional Minimalist Grammars were compared to CG and HPSG
-by \citet{MuellerUnifying}. Minimalist Grammars (MGs) were extended to include GPSG-style \slasch passing mechanisms by
-\citet{Kobele2008a} and continue to use them in the versions of \citet{TS2016a}. We believe that
+by \citet[Section~2.3]{MuellerUnifying}. Minimalist Grammars (MGs) were extended to include GPSG-style \slasch passing mechanisms by
+\citet{Kobele2008a} and they continue to use \slasch passing in the versions of \citet{TS2016a} and \citet{Torr2019a-u}. We believe that
 this work is fruitful and well-formalized, but formalization is insufficient for most of the work in
 Minimalism, and ideas from other frameworks are more often than not ignored.
 
@@ -277,7 +280,7 @@ There are, then, issues surrounding the quantity of data that is considered in M
 also issues surrounding its quality \citep{Schuetze2016a}. Research in HPSG is typically quite careful about data and often
 makes use of corpus and experimental data (see for example
 \citealt*{AA2017a-u,Mueller99a,Mueller2002b,BC2010a,MBC2012a,Chaves2013a-u,Miller2013a}; \citealt[Chapter~7]{VanEynde2015a-u};
-\citealt{ACS2016a-u}; \citealt{SAHM2019a-u}
+\citealt{ACS2016a-u}; \citealt{SAHM2019a-u}; \citealt{Winckel2020a}
 for examples of work with attested examples and for experimental\is{experiment} work).
 This use of corpus data and attested examples is based on the insight that \isi{introspection} alone is not sufficient, given that an
 enormous amount of time is spent on working out analyses, and it would be unfortunate if these analyses
@@ -298,7 +301,7 @@ questionable judgments often used at crucial points in the argumentation''. She 
 that the framework encourages ``lack of concern for the data, above and beyond what is unfortunately
 already the norm in formal syntax, because the connection between analysis and data is allowed to be
 remote''. Similar things could be said about a variety of Minimalist work. Consider, for example,
-\citet{AounLi.2003}, who argue for quite different analyses of \emph{that}-relatives and
+\citet{AL2003a-u}, who argue for quite different analyses of \emph{that}-relatives and
 \emph{wh}-relatives on the basis of the following (supposed) contrasts, which appear to represent
 nothing more than their own judgements (p.\,110--112):
 %\inlinetodostefan{dialectal variation}
@@ -334,16 +337,16 @@ William's (\mex{1}b), and corpus examples like (\mex{1}c, d) can be found as wel
 \ex The words had the effect of lending an additional clarity and firmness of outline to the picture
     of himself which Bill had already drawn in his mind--of a soulless creature sunk in hoggish
     slumber.\footnote{
-      Wodehouse, P.G. 1917. \emph{Uneasy Money}, London: Methuen \& Co., p.\,186,
+      Wodehouse, P.G. 1917. \emph{Uneasy Money}, London: Methuen \& Co., p.\,186,\\
       \url{http://www.literaturepage.com/read.php?titleid=uneasymoney&abspage=186},
-      2018-09-18.
+      2021-02-01.
 }
 \ex She refused to allow the 
 picture of himself, which he had sent her, to be hung, 
 and it was reported that she ordered all her portraits 
 and busts of him to be put in the lumber attics.\footnote{
- Jerrold, Clare. 1913. \emph{The married life of Queen Victoria}, London: G.\ Bells \& Sons, Ltd.
- \url{https://archive.org/stream/marriedlifeofque00jerruoft/marriedlifeofque00jerruoft_djvu.txt}, 2018-09-19.
+ Jerrold, Clare. 1913. \emph{The married life of Queen Victoria}, London: G.\ Bells \& Sons, Ltd.\\
+ \url{https://archive.org/stream/marriedlifeofque00jerruoft/marriedlifeofque00jerruoft_djvu.txt}, 2021-02-01.
 }
 %% \ex The words had the effect of lending an additional clarity and firmness of outline to the picture
 %% of himself which Bill had already drawn in his mind--of a soulless creature sunk in hoggish
@@ -364,11 +367,13 @@ not do a quick check before working out rather complex analyses.
 
 Note that we are not just taking one bad example of Minimalist work. It is probably the case that
 papers with dubious judgments can be found in any framework, if only due to the repetitions
-of unwarranted claims made by others. The point is that Aoun \& Li are influential (quoted by 455
-other publications as of September 14, 2018). Others rely on these judgments or the analyses that were
+of unwarranted claims made by others. The point is that \citeauthor{AL2003a-u} are influential 
+(quoted by 534 other publications as of February 2, 2021). 
+%(quoted by 455 other publications as of September 14, 2018). 
+Others rely on these judgments or the analyses that were
 motivated by them. New conclusions are derived from analyses, since theories make predictions. If
 this process continues for a while, an elaborate theoretical edifice results that is not
-empirically supported. Note furthermore that the criticism raised here is not the sqabble of two
+empirically supported. Note furthermore that the criticism raised here is not the squabble of two
 authors working in an alternative framework. This criticism also comes from practitioners of
 Mainstream Generative Grammar. For example, Wolfgang Sternefeld and Hubert Haider, both very
 prominent figures in the \ili{German} Generative Grammar school, criticized the scientific standards in
@@ -488,7 +493,8 @@ This line of argument would be reasonable if a complex innate language
 faculty were an established fact, but it isn't, and since \citet*{HCF2002a}, it seems to have been
 rejected within Minimalism. It follows that ideas about an innate language faculty should not be
 used to guide research on individual languages. Rather, as \citet[25]{MuellerCoreGram} puts it,
-``grammars should be motivated on a language-specific basis''. Does this mean that other languages are
+``grammars should be motivated on a language-specific basis'' (This view was already entertained by
+\citet[\page 35, 43]{Boas1911a-u}). Does this mean that other languages are
 irrelevant when investigating a specific language? Clearly not. As \Citeauthor{MuellerCoreGram}
 also says, ``In situations where more than one analysis would be compatible with a given dataset
 for language X, the evidence from language Y with similar constructs is most welcome and can be used
@@ -497,7 +503,7 @@ practice, any linguist working on a new language will use apparently similar phe
 languages as a starting point. It is important, however, to recognize that apparently similar
 phenomena may turn out upon careful investigation to be significantly different.\footnote{%
   Equally, of course, apparently rather different phenomena may turn out on careful investigation to
-  be quite similar. For further discussion of HPSG and comparative syntax, see \citew{Borsley2018a}.%
+  be quite similar. For further discussion of HPSG and comparative syntax, see \citew{Borsley2020a}.%
 } 
 
 \section{Different views of grammar}
@@ -515,6 +521,7 @@ view of grammar. It assumes that grammar involves just a few general operations.
 that semantics and morphology are simple reflections of syntax. We comment on each of these matters
 in the following subsections. 
 
+\begin{sloppypar}
 Whereas HPSG is a declarative or constraint-based approach, Minimalism seems to be firmly committed
 to a procedural approach. \citet[219]{Chomsky95a-u} remarks that: ``We take L [a particular language]
 to be a generative procedure that constructs pairs (π, λ) that are interpreted at the
@@ -527,13 +534,16 @@ knowledge that is used in \isi{performance} has a procedural character (see
 Section~\ref{sec-minimalism-processing} on processing). Rather, the fact that this knowledge is used in
 both \isi{production} and \isi{comprehension} suggests that it should be neutral between the two and hence
 declarative. See also \crossrefchaptert[Section~\ref{sec-processing-constraint-based}]{processing} on this point.
+\end{sloppypar}
 
 Another difference between constraint-based and generative-enumerative approaches is that the first
-type of proposal provides a way to get graded acceptability into the picture \citep[Section~3.1]{PS2001a}. Since HPSG grammars
-are basically feature-value pairs with equality (or other relations) between values, it is possible
-to weigh constraints, admit constraint violations, and work with structures with
-violated constraints (see for example \citealp{SK2005a} on cumulative constraint violation). So looking at the sentences in (\mex{1}), we see that more and more constraints
-are violated:\inlinetodostefan{E: It is not totally clear to me how the examples in (8) connect to the issue of HPSG possibly including weighted constraints and graded acceptability. Can you add a sentence that clarifies this connection?}
+type of proposal provides a way to get graded acceptability into the picture
+\citep[Section~3.1]{PS2001a}. Since HPSG grammars are basically feature-value pairs with equality
+(or other relations) between values, it is possible to weigh constraints, admit constraint
+violations, and work with structures with violated constraints (see for example \citealp{SK2005a} on
+cumulative constraint violation). So looking at the sentences in (\mex{1}), we see that more and
+more constraints are violated:
+
 \eal
 \ex[]{
 I am the chair of my department.
@@ -554,8 +564,15 @@ Me are chair the of me’s department.
 Me are chair the me’s department of.
 }
 \zl
+(\mex{0}b) violates constraints on subject verb agreement
+\crossrefchapterp[Section~\ref{agreement:sec-unification}]{agreement}, (\mex{0}b) additionally
+violates constraints on case assignment \crossrefchapterp{case}, (\mex{0}c) additionally has a pronoun with the
+possessive marker instead of a possessive pronoun, (\mex{0}d) additionally violates the
+linearization constraint regarding determiners and nouns \crossrefchapterp{order} and (\mex{0}e)
+violates the order constraints on prepositions and the NPs depending on them. By assuming
+(differently) weighted constraints for agreement, case assignment, selection, and ordering, one can
+capture the difference in acceptability of the sequences in (\mex{0}).
 
-\noindent
 In comparison to this, a generative-enumerative grammar enumerates a set, and a
 sequence either is in the set or it is not.\footnote{%
 For a discussion of Chomsky's
@@ -574,14 +591,15 @@ of acceptability, see \citew[\page 29]{PS2001a}.
 %% of possession. All this information follows from constraints imposed on the verb by the surrounding structure.
 
 For further discussion of the issues, see Section~\ref{sec-minimalism-processing} of
-this paper and \eg \citet{PS2001a}, \citet{Postal2003a}, \citeauthor{SW2011a}
-\citeyearpar{SW2011a,SW2015a}, and \crossrefchaptert{processing}.  
+this chapter and \eg \citet{PS2001a}, \citet{Postal2003a}, \citeauthor{SW2011a}
+(\citeyear[Section~10.4.2]{SW2011a}; \citeyear[\page 52]{SW2015a}), and \crossrefchaptert[Section~\ref{sec-processing-constraint-based}]{processing}.  
 
 \subsection{Underspecification}
 
 Another crucial difference between HPSG and Minimalism is that HPSG allows for the underspecification of
 information. In the absence of constraints, all principle options are possible. This is different in
-Minimalism. All structures that are derivable are predetermined by the numeration. Features have to
+Minimalism. All structures that are derivable are predetermined by the numeration (one of the
+various sets of items preselected from the lexicon for an analysis; see also fn.\,\ref{fn-numeration}). Features have to
 be specified, and they determine movement and properties of the derived objects. The general
 characterization of the frameworks is: 
 \eal
@@ -590,13 +608,13 @@ characterization of the frameworks is:
 \zl
 Let us consider some examples. 
 The availability of type hierarchies makes it possible to underspecify part of speech
-information. For example, \citet{Sag97a} assumes that complementizer (\type{comp}) and verb
+information. For example, \citet[\page 457]{Sag97a} assumes that complementizer (\type{comp}) and verb
 (\type{verb}) have a common supertype \type{verbal}. A head can then select for a complement with the category \type{verbal}. So rather
-than specifying two lexical items with different valence information or one with a disjunctive
+than specifying two lexical items with different valence information or equivalently one with a disjunctive
 specification \type{verb} $\vee$ \type{comp}, one has just one lexical item selecting for
 % Adger2003:294 empty comp
 \type{verbal}. Similarly, schemata (grammar rules) can contain underspecified types. A daughter in a
-dominance schema can have a value of a certain types that subsumes a number of other
+dominance schema can have a value of a certain type that subsumes a number of other
 types. Let's say three. Without this underspecification one would need three schemata: one for every
 subtype of the more general type.
 
@@ -649,7 +667,7 @@ p.\,\pageref{page-scrambling-scope} for wrong predictions from movement-based ap
 
 
 \subsection{Types and constraints vs.\ general operations}
-\label{sec-types-vs-operations}
+\label{sec-types-vs-operations}\label{minimalism:sec-types-vs-operations}
 
 The declarative-procedural contrast is an important one, but the contrast between the complex
 systems of types and constraints that are assumed within HPSG and the few general operations that
@@ -681,7 +699,7 @@ with a phrasal head. \citet[\page 146]{Chomsky2008a} calls items merged with the
 and those merged with the second variant \emph{later-merged}.
 
 Agree\is{Agree|(}, as one might suppose, offers an approach to various kinds of agreement phenomena. It involves
-a \isi{probe}, which is a feature or features of some kind on head, and a goal, which the head
+a \isi{probe}, which is a feature or features of some kind on a head, and a goal, which the head
 c-commands\is{c-command}.
 %% \footnote{%
 %%   It is not necessary to state the c-command restriction since it is assumed that linguistic objects are built
@@ -692,7 +710,7 @@ c-commands\is{c-command}.
 At least normally, the probe is a linguistic object with an uninterpretable feature or features with no value, and
 the goal has a matching interpretable feature or features with appropriate values \citep[\page
   3--5]{Chomsky2001a-u}.\footnote{%
- Chomsky also assumes that the goal additionally has an uninterpretable feature of some kind to render it `active'. In the case of subject-verb agreement, this is a Case feature on the subject.
+ Chomsky also assumes that the goal additionally has an uninterpretable feature of some kind to render it ``active''. In the case of subject-verb agreement, this is a Case feature on the subject.
 }
 Agree values the uninterpretable feature or features and they are ultimately deleted, commonly after they have triggered some morphological effect. Agree can be represented as in Figure~\ref{fig:min-agree} (where the ``u'' prefix identifies a feature as uninterpretable, and we have just one uninterpretable feature on the probe and just one matching interpretable feature on the goal).
 %% The goal also has an uninterpretable feature of some kind to render it ``active''. 
@@ -719,9 +737,10 @@ empty nodes
 	[{}
 	[X \\ {[\textit{u}F1 v]}]
 	[{}
-	[Y \\ {\makebox[3em]{[F1 v]}}, roof]]]
+	[Y \\ {\makebox[4em]{[F1 v]}}, roof]]]
 \end{forest}
 \caption{\label{fig:min-agree}Agree}\is{Agree}
+%\itd{Stefan: Does the u have to be stretched out as valued?}
 \end{figure}
 Unsurprisingly, subject-verb agreement is one manifestation of Agree, where X is T(ense) and Y is a
 nominal phase -- for Minimalism a DP -- inside the complement of T.\footnote{%
@@ -729,7 +748,13 @@ It is assumed within Minimalism that subjects originate inside the complement of
 T presumably has two uninterpretable features, person and number, and the DP has two matching interpretable features. Here, and elsewhere,
 Agree is a non-local\is{locality} relation involving elements which are not sisters. This contrasts
 with the situation in HPSG, in which subject-verb agreement is a consequence of a relation between
-the subject and its VP sister and a relation between the VP and the V that heads it.\is{Agree|)}
+the subject and its VP sister and a relation between the VP and the V that heads
+it.\footnote{\added{
+See also \crossrefchaptert{agreement} for a discussion of agreement in
+HPSG. Section~\ref{agreement:sec-locality} deals with locality issues.}
+}\is{Agree|)}
+% \itd{Stefan: The agreement chapter says that it is done via \argst. Does our statement reflect this?
+% Bob: I think the wording is still okay. Verbs impose restrictions on the first member of their ARG-ST list and hence impose restrictions on the single member of their SUBJECT list. The VPs they head have the same value for SUBJ and have an appropriate subject as a sister.}
 
 Finally, Move\is{Move|(}, also called Internal Merge\is{Merge!Internal}, is an operation which makes a copy of a constituent of some
 expression and merges it with that expression \parencites[Section~4.4]{Chomsky95a-u}[\page
@@ -743,7 +768,7 @@ nice empty nodes
 [{}
   [X]
   [{},tier=flat
-    [{\makebox[3em]{Y}}, roof]]]
+    [{\makebox[3em]{\ldots{} Y \ldots}}, roof]]]
 \end{forest}
 \hspace{1em}
 \raisebox{4\baselineskip}{$\Rightarrow$}
@@ -756,14 +781,14 @@ nice empty nodes
   [{}
     [X]
     [{},tier=flat
-      [{\makebox[3em]{\sout{Y}}}, roof]]]]
+      [{\makebox[3em]{\ldots{} \sout{Y} \ldots}}, roof]]]]
 \end{forest}
 \caption{\label{fig:min-move}Move}\is{Move}
 \end{figure}
 
 This covers both the A$'$-movement\is{movement!A$'$} process assumed for \isi{unbounded dependency} constructions
 such as \emph{wh}-interrogatives\is{interrogative} and the A-movement\is{movement!A} process assumed for \isi{raising} sentences and
-passives. A question arises about so"=called head"=movement, where a head moves to a higher head
+passives. A question arises about so"=called head"=movement\is{movement!head}, where a head moves to a higher head
 position. This appears to mean that it must be possible for the copy to be merged with the head of
 the expression that contains it. However, this is incompatible with the widely assumed \isi{extension
 condition}, which requires Merge to produce a larger structure. One response is the idea espoused in
@@ -779,7 +804,12 @@ been as poorly investigated. \citep[95, fn.\,9]{Newmeyer2005a}
 \end{quote}
 Sometimes it is difficult to derive the properties of constructions from the properties of visible
 lexical elements. But there is a simple solution: postulate an invisible element. The result is a
-large set of invisible\is{empty element} functional heads\is{head!functional}. As we will see in Section~\ref{sec-cartography}, these heads do the work in Minimalism that is done by phrase types and the constraints on them in HPSG.
+large set of invisible\is{empty element} functional heads\is{head!functional}. As we will see in
+%Section~\ref{sec-morphology-minimalism} and 
+Section~\ref{minimalism-sec-empty-elements-for-relative-clauses} with respect to various patterns of
+  relative clauses and in Section~\ref{sec-cartography} with respect to Rizzi-style topic and focus
+  phrases, these heads do the work in Minimalism that is done by phrase types and the constraints
+on them in HPSG.  
 
 Although Minimalism is a procedural approach and HPSG a declarative one, there are some
 similarities between Minimalism and early HPSG, the approach presented in \citet{ps,ps2}. In much
@@ -886,8 +916,10 @@ with complex \emph{wh}"=phrases (so"=called \isi{pied-piping}) as they are attes
 \ex He gave me [what money] he had.
 \zl
 The example in (\mex{0}a) is from one of the standard references on free relative clauses:
-\citew[\page 333]{BG78a}, which is also cited in other mainstream generative work, such as
-\citew{GR81}. (\mex{0}b) is from \citew[\page 1068]{HPP2002a-u}, a descriptive grammar of \ili{English}.
+\citew[\page 333]{BG78a}, which appeared in the main MGG journal \emph{Linguistic Inquiry}
+and is also cited in other mainstream generative work on free relative clauses, such as
+\citew{GR81} and \citew{Riemsdijk2006b}. (\mex{0}b) is from \citew[\page 1068]{HPP2002a-u}, a
+descriptive grammar of \ili{English}. 
 
 Apart from the fact that complex \emph{wh}"=phrases are possible, there is even more challenging data in the area of
 free relative clauses: the examples in (\mex{1}) and (\mex{2}) show that there are non-matching free
@@ -906,8 +938,9 @@ relative clauses:
      where.upon one self with a Pro-form  refer   can  {}        is  a    constituent\\
 %      {`What you can refer to with a Pro-form, [\ldots] is a constituent.'}
 \footnotetext{%
-        From the main text of: G{\"u}nther Grewendorf, {\em Aspekte der deutschen Syntax. Eine Rektions-Bindungs-Analyse}.
-        Studien zur deutschen Grammatik, number 33. T\"ubingen: Gunter Narr Verlag. 1988, p.\,16, quoted from \citew[\page 61]{Mueller99b}.
+        From the main text of: Günther Grewendorf. 1988. \emph{Aspekte der deutschen Syntax: Eine
+          Rektions”=Bindungs”=Analyse} (Studien zur deutschen Grammatik 33). Tübingen: Gunter Narr
+        Verlag, p.\,16, quoted from \citew[\page 61]{Mueller99b}. 
       }
 \glt `If you can refer to something with a Pro-form, [\ldots] it is a constituent.'
 \ex
@@ -934,6 +967,8 @@ projected, but he does not have a solution for nonmatching free relative clauses
 footnote on page 187. The same is true for Citko's analysis \citeyearpar{Citko2008a}, in which the
 extracted XP can provide the label. So, even though the data has been known for decades, it is ignored by
 authors and reviewers, and foundational work is built on shaky empirical ground. See
+%\citew[Section~2.1]{MuellerUnifying} and
+% 2016 enthält noch das Chomsky-Papier
 \citew[Section~4.6.2]{MuellerGT-Eng1} for a more detailed discussion of labelling.
 
 
@@ -943,6 +978,7 @@ authors and reviewers, and foundational work is built on shaky empirical ground.
 %% \ili{English} usually has underspecified case.
 
 \subsection{Feature deletion and ``crashing at the interfaces''}
+\label{minimalism:sec-deletion-of-features}
 
 In Section~\ref{sec-types-vs-operations}, we mentioned Case as an uninterpretable feature which
 renders a DP active. Like other uninterpretable features, this is deleted as a result of Agree
@@ -971,7 +1007,7 @@ clauses as the one in (\mex{1}b):
      I meet who.\acc{} I meet want.to\\
 \glt `I meet whoever I like to meet.'
 \zl
-\emph{wen} is the accusative object in the relative clause. Since it is an object, its case feature
+\emph{wen} `who' is the accusative object in the relative clause. Since it is an object, its case feature
 will be checked by the selecting verb \emph{treffen} `meet'. \emph{wen} will then be a DP without
 any case information. However, the case of the relative phrase in free relative clauses is not
 arbitrary. It is important for the integration of the free relative clause in the matrix clause. The
@@ -1009,7 +1045,7 @@ non-headed expressions, \eg coordination and the \isi{NPN construction} discusse
 Sections~\ref{sec-coordination-minimalism} and~\ref{sec-npn-minimalism}, respectively.
 
 As emphasized above, a further important feature of Minimalism is the view that semantics and
-morphology are simple reflections of syntax. The basic architiecture assumed in Minimalism is shown
+morphology are simple reflections of syntax. The basic architecture assumed in Minimalism is shown
 in Figure~\ref{fig-architecture-phases}. Both phonology and semantics are read off the structures
 produced by syntax.
 \begin{figure}
@@ -1188,7 +1224,9 @@ For typical Generative Semantics proposals of this kind, see \citew{McCawley68b-
 \citew{Postal70a-u}. Like Minimalism, Generative Semantics was characterized by extremely complex
 syntactic structures and for similar reasons. See \citew[Chapter~4]{Newmeyer86a-u} for discussion.%
 }
- Thus, \citet{HK93a-u} argue that (\ref{ex:min-kim-shelved}) derives from a structure like that of (\ref{ex:min-kim-put}).
+Thus, \citet{HK93a-u} 
+% [\page 56--61] but it really is the whole paper
+argue that (\ref{ex:min-kim-shelved}) derives from a structure like that of (\ref{ex:min-kim-put}).
 \eal
 \ex Kim shelved the books.\label{ex:min-kim-shelved}
 \ex Kim put the books on the shelf.\label{ex:min-kim-put}
@@ -1255,7 +1293,6 @@ The cat chased the dog.
 +(south:0.4cm) .. (ed.south);
 \end{forest}
 }\is{category!functional!T}
-\vspace{-1.2ex}
 \caption{\label{abb-tp-vp-morphology}TP/VP analysis of simple English sentences}
 \end{figure}%
 The verbal stem moves to the T head to pick up the \suffix{ed} suffix.
@@ -1264,7 +1301,11 @@ Similarly, the fact that nouns in
 \ili{English} and other languages are marked for number leads to the assumption that there is a Num(ber)
 head at the heart of noun phrase structure. These elements are not solely motivated by
 morphology. The assumption that verbs move to T and nouns to Num in some languages but not others
-provides a way of accounting for cross-linguistic word order differences \citep{Pollock89a-u}.
+provides a way of accounting for cross-linguistic word order differences
+\citep{Pollock89a-u}.\footnote{
+  See \crossrefchapterw{negation} for a discussion of Pollock's proposal.
+% it is all over the chapter, so no section is given.
+}
 %% \inlinetodostefan{
 %%  wonder if we should say more about this. The assumption that V moves to T in \ili{French} but \ili{English} I
 %%  supposed to explain the fact that \ili{French} has V + pas while \ili{English} not + V.
@@ -1276,7 +1317,7 @@ or derived lexemes. Hence, analyses like these are out of the question.
 
 \subsubsection{Binary branching}
 
-Another\is{branching|(} source of complexity which also predates Minimalism is the assumption that
+Another\is{branching|(} source of complexity, which also predates Minimalism, is the assumption that
 all structures are binary branching. As  \citet[112--116]{CJ2005a} note, this idea goes back to the
 1980s. It entails that there can be no structures of the form in
 Figure~\ref{fig:min-trinary}. Rather all structure must take the form in
@@ -1334,8 +1375,9 @@ Section~\ref{subsec:min-simplicity}.\is{branching|)}
 As noted in Section~\ref{sec:min-views-grammar}, the simplicity of the Minimalist grammatical system
 means the properties of constructions must largely derive from the lexical items that they
 contain. Hence, the properties of lexical items are absolutely central to Minimalism, and often this
-means the properties of phonologically empty items\is{empty element}, especially empty functional heads\is{head!functional}. Thus, such elements are central feature of Minimalist syntactic structures. These elements do much the same work as
-phrase types\is{type} and the associated constraints in HPSG. 
+means the properties of phonologically empty items\is{empty element}, especially empty functional
+heads\is{head!functional}. Thus, such elements are a central feature of Minimalist syntactic
+structures. These elements do much the same work as phrase types\is{type} and the associated constraints in HPSG. 
 
 The contrast between the two frameworks can be illustrated with unbounded dependency
 constructions. Detailed HPSG analyses of various unbounded dependency constructions are set out in
@@ -1394,7 +1436,7 @@ although it may be a clause with a gap in subject position. When the \emph{wh}-p
 else, the following clause shows auxiliary-initial order if it is a main clause and subject-initial
 order if it is not. Non-finite \emph{wh}-interrogatives are a simple matter, especially as the
 filler does not have to be restricted in the way that it does in non-finite
-\emph{wh}-relatives. \citet{GSag2000a-u} present an analysis which has two types for finite
+\emph{wh}-relatives. \citet[Section~6.5.2, 6.5.3]{GSag2000a-u} present an analysis which has two types for finite
 \emph{wh}-interrogatives, one for subject-\emph{wh}-interrogatives such as those in
 (\ref{ex:min-who-knows}) and (\ref{ex:min-i-wonder}), and another for
 non-subject-\emph{wh}-interrogatives such as those in (\ref{ex:min-who-kim-talk}) and
@@ -1417,7 +1459,7 @@ crucial.
 \ex The bagels, I like.	                        \jambox{(topicalized clause)}
 \ex {Kim is more intelligent [than Lee is].     \jambox{(comparative-clause)}}
 \ex {Kim is hard [to talk to].                  \jambox{(\emph{tough}-complement-clause)}}	
-\ex {Lee is too important [to talk to].         \jambox{(\emph{too}-complement-clause)}}
+\ex {Lee is too unimportant [to talk to].       \jambox{(\emph{too}-complement-clause)}}
 \ex {[The more people I met], [the happier I became]. \hspace{2em}{(\emph{the}-clauses)}}
 \zl 
 Each of these constructions will require at least one empty complementizer. Thus, a comprehensive
@@ -1426,7 +1468,7 @@ But with a large unstructured set of complementizers there can be no distinction
 shared by some or all elements and properties restricted to a single element. There are a variety of shared properties. Many of the
 complementizers will take a finite complement, many others will take a non-finite complement, and
 some will take both. There will also be complementizers which take the same set of specifiers. Most
-will not attract an auxiliary, but some will, not only the compementizer in an example like
+will not attract an auxiliary, but some will, not only the complementizer in an example like
 (\ref{ex:min-who-kim-talk}) but also the complementizers in the following, where the auxiliary is in
 italics: 
 \eal
@@ -1477,7 +1519,7 @@ by both PF and LF \citep{Gussenhoven83-u}. Another
 way of dealing with the data is to employ empty elements that are responsible for a certain
 ordering of elements and that can be interpreted in the semantics. The accounts of Rizzi and Cinque
 are very prominent in this school of thought. For example, \citet{Rizzi97a-u} suggests an analysis of
-the left periphery of clauses that incorporate special functional projections for topic and
+the left periphery of clauses that incorporates special functional projections for topic and
 focus. His analysis is shown in Figure~\ref{fig-left-periphery-Rizzi}.
 \begin{figure}
 \centering
@@ -1521,7 +1563,7 @@ focus. His analysis is shown in Figure~\ref{fig-left-periphery-Rizzi}.
 \end{figure}%
 In comparison, no such projections exist in HPSG theories. HPSG grammars are surface-oriented and the
 syntactic labels correspond for the most part to classical part of speech categorizations. So in examples with
-frontings like (\mex{1}), the whole object is a verbal projection and not a Topic phrase, a Focus
+frontings like (\mex{1}), the whole linguistic object is a verbal projection and not a Topic phrase, a Focus
 Phrase, or a Force phrase.
 \ea
 Bagels, I like.
@@ -1529,8 +1571,11 @@ Bagels, I like.
 Of course the fronted elements may be topics or foci, but this is a property that is represented
 independently of syntactic information in parts of feature descriptions having to do with
 \isi{information structure}. For treatment of information structure in HPSG, see
-\citew{EV96a}, \citew{deKuthy2000a}, and also \crossrefchaptert{information-structure}. On determination of clause types\is{clause type}, see
-\citew{GSag2000a-u} and \citew{MuellerSatztypen}. For general discussion of the representation of
+\citew{EV96a}, \citew{deKuthy2002a}, \citew{Song2017a-u} and also
+\crossrefchaptert{information-structure}. On determination of clause types\is{clause type}, see 
+\citew{GSag2000a-u} 
+% the types are all over the book
+and \citew{MuellerSatztypen}. For general discussion of the representation of
 information usually assigned to different linguistic ``modules''\is{modularity} and on ``interfaces''\is{interface}
 between them in theories like LFG and HPSG, see \citew{Kuhn2007a}.
 
@@ -1595,16 +1640,17 @@ HPSG structures.
 %%                     \comps \sliste{ NP }}]
 %%         [NP]]]]]
 %% \end{forest}
-\caption{\label{fig-adverbial-phrasen-cartography}Treatment of adverbial phrases in Cartographic approaches and in HPSG}
+\caption{\label{fig-adverbial-phrasen-cartography}Treatment of adverbial phrases in Cartographic
+  approaches and in HPSG}
 \end{figure}
 While the adverbs (Adv$_1$ and Adv$_2$ in the figure) attach to verbal projections in the HPSG
 analysis (S and VP are abbreviations standing for verbal projections with different valence
 requirements), the Cartographic approach assumes empty heads that select a clausal projection and
 provide a specifier position in which the adverbs can be realized. For the sake of exposition we
-called these heads FAdv$_1$ and FAdv$_2$. For example, FAdv$_2$ can combine with the VP and licences
+called these heads FAdv$_1$ and FAdv$_2$. For example, FAdv$_2$ can combine with the VP and licenses
 an Adv$_2$ in its specifier position. As is clear from the figure, the Cartographic approach is more
-complex since it involves two additional categories (FAdv$_1$ and FAdv$_2$) and nine nodes for the
-adverbial combination rather than five.
+complex since it involves two additional categories (FAdv$_1$ and FAdv$_2$) and eight nodes for the
+adverbial combination rather than four.
 %% If nonlocal dependencies are involved and fillers are combined with gapped
 %% constituents, the result is still a verbal projection.
  
@@ -1635,21 +1681,21 @@ properties of linguistic items that are deeply embedded.
 %% }
 
 If one believed in Universal Grammar (which researchers working
-in HPSG usually do not) and in innately specified constraints on adverb order, one would not assume
+in HPSG usually do not, see also \citegen{chapters/understudied-languages} chapter on
+  understudied languages and universals) and in innately specified constraints on adverb order, one would not assume
 that all languages contain the same structures, some of which are
 invisible. Rather, one would assume linearization constraints (see
-\crossrefchapteralt[Section~2]{order}) to hold crosslinguistically.\footnote{%
+\crossrefchapteralt[Section~\ref{sec-id-lp}]{order}) to hold crosslinguistically.\footnote{%
   Adjuncts are usually not siblings in local structures in HPSG (but see \citealt{Kasper94a} and
   \citealt[\page 62, 71]{BvN98a}). There are nevertheless ways to
   impose order constraints on non-siblings. \citet*{EEU92a} discuss one approach; another approach
   would be to have Reape-style order domains \citep{Reape94a} in addition to the immediate dominance
-  schemata for head-adjunct combination. See \crossrefchapterw{order} for more on order domains.
+  schemata for head-adjunct combination. See \crossrefchapterw[Section~\ref{sec-domains}]{order} for more on order domains.
 } If adverbs
 of a certain type do not exist in a language, the linearization constraints would not do any
 harm. They just would never apply, since there is nothing to apply to \citep[\page 46]{MuellerCoreGram}.
 
-For actual HPSG analyses dealing with adverb order, see \citew{KM2005a}.
-\todostefan{This does not exist: AG2004a or is it in \ili{French}?} 
+For actual HPSG analyses dealing with adverb order, see \citew{KM2005a} and \citew{AG2004b-u}.
 The work of \citet{KM2005a} is particularly interesting here since the authors provide an analysis of the
 intricate \ili{Thai} aspect system and explicitly compare their analysis to Cinque-style analyses.
 
@@ -1674,13 +1720,13 @@ non-head. Most outsiders agree that this is too simple.
 
 \subsubsection{Binary branching, VPs, and verb-initial clauses}
 
-We look first at binary branching.\footnote{
-  In addition to structures with two or more branches, HPSG uses unary branching\is{brnaching!unary} structures both in syntax
+We\label{minimalism:page-binding-branching-start} look first at binary branching.\footnote{
+  In addition to structures with two or more branches, HPSG uses unary branching\is{branching!unary} structures both in syntax
   and in the lexicon (lexical rules\is{lexical rule} basically are unary branching structures); see
-  \citet{Meurers2001a} and \crossrefchaptert[Section~\ref{lexicon-sec-lexical-rules}]{lexicon}.
+  \crossrefchaptert[Section~\ref{lexicon-sec-lexical-rules}]{lexicon}.
   For example, unary branching syntactic rules are used for semantic \isi{type shifting}
-  \citep{Partee87a-u}. For respective HPSG analyses see \citew[\page 91--92]{Flickinger2008a} and
-  \citew{MuellerPredication}. The lack of unary branching structures in Minimalism is
+  \citep{Partee87a-u}. For respective HPSG analyses see \citew[\page 91--92]{Flickinger2008a},
+  \citew[\page 241--242]{Gerbl2007a} and \citew[\page 225]{MuellerPredication}. The lack of unary branching structures in Minimalism is
   no problem since empty heads\is{empty element} can be used instead. The empty head projects the
   properties that would be otherwise assigned to the mother node of the unary projection. See for
   example \citew[\page 370]{Ramchand2005a}. So, while the effects of unary projections can be
@@ -1722,7 +1768,7 @@ structure in Figure~\ref{fig:gave-lee-book-Larson}.
 \end{figure}
 It is assumed that the verb originates in the lower VP and is moved into the higher VP.
 The higher V position to which the verb moves is commonly labelled \emph{v} (``\littlev'') and the higher phrase \emph{v}P.
-The main argument for such an analysis appears to involve anaphora\is{anapher}\is{Binding Theory}, especially contrasts like the following:
+The main argument for such an analysis appears to involve anaphora\is{anaphor}\is{Binding Theory|(}, especially contrasts like the following:
 \eal\label{ex:min-john-showed}
 \ex[]{John showed Mary herself in the picture.}
 \ex[*]{John showed herself Mary in the picture.}
@@ -1737,7 +1783,7 @@ reverse is not possible.
 If constraints on anaphora refer to constituent structure as suggested by \citet{Chomsky81a}, the contrast
 suggests that the second NP should be lower in the structure than the first NP. But, as suggested by
 \citet{PS92a}, it is assumed in HPSG that constraints on anaphora refer not
-to constituent structure but to a list containing all arguments in order of \isi{obliquenss}, in recent
+to constituent structure but to a list containing all arguments in order of \isi{obliqueness}, in recent
 versions of HPSG the \argstl (see also \crossrefchapteralt{binding}). On this view, anaphora can provide no argument for the
 complex structure in Figure~\ref{fig:gave-lee-book-Larson}. Therefore, both flat structures and binary branching structures
 with different branching directions as in Figure~\ref{fig:gave-lee-book-Mueller} are a viable option in HPSG.
@@ -1755,11 +1801,13 @@ with different branching directions as in Figure~\ref{fig:gave-lee-book-Mueller}
   direction differing from Larson-type structures}
 \end{figure}
 Müller (\citeyear[Section~2.4]{MuellerHPSGHandbook}; \citeyear{MuellerGermanic}) argues for such
-binary branching structures as a result of parametrizing the Head-Complement Schema\is{schema!Head-Complement} for various
+binary branching structures as a result of parametrising the Head-Complement Schema\is{schema!Head-Complement} for various
 variants of constituent order (head-initial and head-final languages with fixed constituent order
-and languages like \ili{German} and \ili{Japanese} with freer constituent order).
+and languages like \ili{German} and \ili{Japanese} with freer constituent order).\is{Binding Theory|(}\label{minimalism:page-binding-branching-end}
 
-The fact that Merge combines two expressions also means that the auxiliary-initial clause in (\ref{ex:min-will-kim}) cannot have a flat structure with both subjects and complement(s) as sisters of the verb, as in Figure~\ref{fig:will-kim}.
+The fact that Merge combines two expressions also means that the auxiliary-initial clause in
+(\ref{ex:min-will-kim}) cannot have a flat structure with both subjects and complement(s) as sisters
+of the verb, as in Figure~\ref{fig:will-kim}. 
 \ea
 Will Kim be here?\label{ex:min-will-kim}
 \z
@@ -1806,15 +1854,15 @@ has verb-initial order in all types of finite clause. Here are some relevant exa
 \glt `Emrys will walk to the town.'
 \ex\label{ex:min-megan-said}
 \gll Dywedodd Megan [cerddith Emrys i 'r dre].\\
-     say.\textsc{past}.\textsc{3sg} Megan \spacebr{}walk.\textsc{fut}.\textsc{3sg} Emrys to the town\\
+     say.\textsc{pst}.\textsc{3sg} Megan \spacebr{}walk.\textsc{fut}.\textsc{3sg} Emrys to the town\\
 \glt `Megan said Emrys will walk to the town.'
 \zl
 A variety of transformational work, including work in Minimalism, has argued for an analysis like Figure~\ref{fig:will-kim-b} for \ili{Welsh} finite clauses (see, \eg \citealt{JonesThomas.1977}, \citealt{Sproat.1985}, \citealt{Sadler.1988}, \citealt{Rouveret.1994}, and \citealt{Roberts.2005}). But \citet{Borsley.2006b} argues that there is no theory-neutral evidence for a structure of this kind. Hence, at least for \ili{Welsh}, it seems that a simpler flat structure like Figure~\ref{fig:will-kim} is preferable.\footnote{%
 	\citet{Borsley.2016} argues for a similar flat structure for the Caucasian ergative SOV language \ili{Archi}.%
 } Note that we do not argue that structures like the one in Figure~\ref{fig:will-kim-b} are not
 appropriate for any language. The analogue to head-movement analyses is standard among HPSG grammarians of \ili{German} and there is data from apparent multiple
-frontings that makes an analysis which is the HPSG analogue of head-movement unavoidable. See \citew{MuellerGS} for a
-book-length discussion of \ili{German} clause structure. \crossrefchaptert[Section~4.1]{order} also discusses
+frontings that makes an analysis which is the HPSG analogue of head-movement unavoidable \citep{Mueller2003b,Mueller2005d}. See \citew{MuellerGS} for a
+book-length discussion of \ili{German} clause structure. \crossrefchaptert[Section~\ref{sec-head-movement}]{order} also discusses
 head-movement in HPSG.
 
 
@@ -1823,12 +1871,15 @@ head-movement in HPSG.
 
 We turn now to the idea that all structures are headed. For HPSG, and many other approaches, there
 are headed structures and non-headed structures. Probably the most important example of the latter
-are coordinate structures such as those in (\ref{ex:min-kim-lee}) (see \citealt{Sag2003a-u} and \crossrefchapteralt{coordination} for HPSG analyses).
+are coordinate structures such as those in (\ref{ex:min-kim-lee}) (see \citealt{Sag2003a-u} and
+\crossrefchapteralt{coordination} for HPSG analyses. Section~\ref{coord:sec-headedness} of
+the latter work explicitly deals with headedness.).
 \ea[]{
-[Kim and Lee] [wrote poems and painted pictures].}\label{ex:min-kim-lee}
+[Kim and Lee] [write poems and paint pictures].
+}\label{ex:min-kim-lee}
 \z
 Much work in Minimalism assumes that coordinate structures are headed by the conjunction
-\parencites[\page 596]{Larson90a-u}[\page 89]{Radford93a-u}[Chapter~6]{Kayne94a-u}{Johannessen98a-u}[\page 8]{vanKoppen2005a-u}[\page 474]{Boskovic2009a-u}[\page 27]{Citko2011a-u}.\footnote{
+\parencites[\page 596]{Larson90a-u}[\page 89]{Radford93a-u}[Chapter~6]{Kayne94a-u}[\page 109]{Johannessen98a-u}[\page 8]{vanKoppen2005a-u}[\page 474]{Boskovic2009a-u}[\page 27]{Citko2011a-u}.\footnote{
   \citet[\page 57]{Kayne94a-u} differs from other proposals in not assuming the category Conj for
   the conjunction. Instead, he uses \xnull as the category in his structured examples. Since X is an
   underspecified variable, his theory is underdetermined: while a ConjP is not compatible with any
@@ -1836,21 +1887,25 @@ Much work in Minimalism assumes that coordinate structures are headed by the con
   needs to work out a theory that determines the properties of the projected XP in relation to
   the coordinated items. We discuss this below.
 }
-This suggests that both coordinate structures in (\ref{ex:min-kim-lee}) are conjunction phrases. This is
-highly problematic since the category of the phrases plays a role in accounting for their external
-distribution. So the VPs \emph{wrote poems} and \emph{painted pictures} have to be combined with a
-DP/NP to form a complete sentence. But according to the ConjP theory \emph{Kim and Lee} is not a DP
-or NP it is a ConjP and hence incompatible with any requirements. Similarly, a T head in the
-analysis of (\mex{0}) requires a VP argument but instead of a VP \emph{wrote poems and painted
-  pictures} there is only a ConjP.\footnote{
-If one considers the part of speech labels only, one would expect the two ConjPs to be interchangeable, but of course they are
-not:
-\ea[*]{[Wrote poems and painted pictures] [Kim and Lee].}\label{ex:min-sang-dance}
+This suggests that both coordinate structures in (\ref{ex:min-kim-lee}) are conjunction phrases. 
+% This is highly problematic since the category of the phrases plays a role in accounting for their external
+% distribution. So the VPs \emph{write poems} and \emph{paint pictures} have to be combined with a
+% DP/NP to form a complete sentence. But according to the ConjP theory \emph{Kim and Lee} is not a DP
+% or NP it is a ConjP and hence incompatible with any requirements. Similarly, a T head in the
+% analysis of (\mex{0}) requires a VP argument but instead of a VP \emph{write poems and paint
+%   pictures} there is only a ConjP.
+This in turn suggests that it should be possible for the two coordinate structures in (\mex{0}) to replace each other, giving (\mex{1}).
+\ea
+{}[Write poems and paint pictures] [Kim and Lee]
 \z
-Of course, the two ConjPs are not exactly of the same category, since there may be further features that
-distinguish the two. But how these features are distributed between the conjuncts and the
-mother is not worked out.
-
+Obviously, this is not possible.\footnote{%
+% If one considers the part of speech labels only, one would expect the two ConjPs to be interchangeable, but of course they are
+% not:
+% \ea[*]{[Write poems and paint pictures] will [Kim and Lee].}\label{ex:min-sang-dance}
+% \z
+% Of course, the two ConjPs are not exactly of the same category, since there may be further features that
+% distinguish the two. But how these features are distributed between the conjuncts and the
+% mother is not worked out.
 For a more detailed critique of the ConjP approach, see \citet{Borsley2005a}.%
 }
 %% \inlinetodostefan{
@@ -1975,12 +2030,14 @@ constructions are best treated by a phrasal configuration in which these highly 
 properties are handled. The construction is discussed in more detail in \crossrefchaptert{cxg}, and
 Bargmann's analysis within HPSG is provided. Bargmann's analysis also captures multiple repetitions
 of the PN sequence, as in (\ref{minimalism:ex-npn-iteration}). Up until now there have been few
-proposals for NPN in the Minimalist framework: \citet{Travis2003a} and G.\ \citet{GMueller2011a}. G.\ Müller develops a \isi{reduplication} account. He states that reduplication
+proposals for NPN in the Minimalist framework: \citet{Travis2003a} and G.\
+\citet[Section~3]{GMueller2011a}. G.\ Müller develops a post-syntactic \isi{reduplication}
+account, which he assumes to be purely phonological (p.\,235). He states that reduplication
 applies to words only and claims that \ili{German} differs from \ili{English} in not allowing adjective noun
 sequences in NPN constructions. He is aware of the possibility of these constructions in \ili{English}
 (\emph{miserable day after miserable day}) and states that his analysis is intended to account for
 the \ili{German} data only. While this on its own is already a serious shortcoming of the analysis, the empirical claim
-does not hold water either, as the following example from \crossrefchaptert{cxg} shows:
+does not hold water either, as the following example from \crossrefchaptert[\page \pageref{ex-schwarzen-stein}]{cxg} shows:
 \ea
 \gll Die beiden tauchten nämlich geradewegs wieder aus dem heimischen Legoland auf, wo sie im
 Wohnzimmer, schwarzen Stein um schwarzen Stein, vermeintliche Schusswaffen nachgebaut
@@ -1988,7 +2045,7 @@ hatten.\footnotemark\\
      the two    surfaced namely straightaway again   from the home Legoland \particle{} where they
      in.the living.room black brick after black brick alleged firearms recreated had\\%\german
 \footnotetext{
-  taz, 05.09.2018, p.\,20, quoted from \citew[\page \pageref{ex-schwarzen-stein}]{chapters/cxg}.
+  Attested example from the newspaper taz, 05.09.2018, p.\,20, quoted from \citew[\page \pageref{ex-schwarzen-stein}]{chapters/cxg}.
 }
 \glt `The two surfaced straightaway from their home Legoland where they had recreated alleged
 firearms black brick after black brick.'
@@ -2019,14 +2076,14 @@ Merge. In the next section we look at unbounded dependencies, but first we consi
 dependencies in passives, unaccusatives, raising sentences, and scrambling. The following illustrate
 the first three of these:
 \eal\label{ex:min-kim-has-seems}
-\ex Kim has been hit.
+\ex Kim has been elected.
 \ex Kim has disappeared.
 \ex Kim seems to be clever.
 \zl
 These differ from unbounded dependency constructions in that, whereas the gaps in the latter are
 positions in which overt NPs can appear, this is not true of the supposed gap positions in (\mex{0}):
 \eal
-\ex[*]{It has been hit Kim.}
+\ex[*]{It has been elected Kim.}
 \ex[*]{It has disappeared Kim.} 
 \ex[*]{It seems Kim to be clever.} 
 \zl 
@@ -2048,7 +2105,8 @@ The mother gave [the girl] [a cookie].
 \zl
 The analysis assumed in recent Minimalist work differs in detail but is movement-based like its
 predecessors. While movement-based approaches seem to work well for \isi{SVO} languages like \ili{English}, they
-are problematic for \isi{SOV} languages like \ili{German}. To see why, consider the examples in (\mex{1}):
+are problematic for \isi{SOV} languages like \ili{German}. To see why, consider the examples in
+(\mex{1}), which are based on an observation by \citet[Section~4.4.3]{Lenerz77}:
 \eal
 \label{ex-passive-German-no-movement}
 \ex 
@@ -2076,7 +2134,7 @@ assumes that there is an empty expletive pronoun\is{empty element}\is{pronoun!ex
 in the subject position of sentences such as (\mex{0}b) as well as in the subject position of sentences with an
 impersonal passive\is{passive!impersonal} such as (\mex{1}):\footnote{%
 	See \citew[\page 11--12]{Koster86a} for a parallel analysis for \ili{Dutch}\il{Dutch} as well as 
-	\citew{Lohnstein2014a} for a movement"=based account of the passive that also involves an
+	\citew[\page 180]{Lohnstein2014a} for a movement"=based account of the passive that also involves an
         empty expletive for the analysis of the impersonal passive.
 }
 \ea
@@ -2090,7 +2148,8 @@ be required and of course, approaches that do not have to assume very specific i
 preferable. For further discussion of language acquisition see Section~\ref{sec-acquisition-minimalism}.% and \crossrefchaptert{acquisition}.
 
 HPSG does not have this problem, since the passive is treated by lexical rules that map verbal stems onto
-participle forms with a reduced argument structure list. The first element (the subject in the
+participle forms with a reduced argument structure list (\citealt[\page 215]{ps};
+\citealt{Mueller2003e}; \citealt{MOe2013a}; \crossrefchapteralt[Section~\ref{arg-st:sec-passives}]{arg-st}). The first element (the subject in the
 active voice) is suppressed so that the second element (if there is any) becomes the first. In SVO languages
 like \ili{English} and \ili{Icelandic}, this element is realized before the verb: there is a valence feature for
 subjects/specifiers, and items that are realized with the respective schema are serialized to the
@@ -2098,7 +2157,7 @@ left of the verb. In SOV languages like \ili{German} and \ili{Dutch}, the subjec
 and hence it is not put in a designated position before the finite verb \crossrefchapterp[Section~\ref{sec-svo-sov}]{order}. No movement is
 involved in this valence-based analysis of the passive. The problem of MGG analyses is that they mix two phenomena: passive and subject
 requirement. Since these two phenomena are kept separate in HPSG, problems like the one discussed
-above can be avoided. See \citew[Section~3.4, Chapter~20]{MuellerGT-Eng1} for further discussion.
+above can be avoided. See \citew[Section~3.4 and Chapter~20]{MuellerGT-Eng1} for further discussion.
 
 \subsubsubsection{Scrambling}
 
@@ -2117,7 +2176,7 @@ the arguments, two of which are given in (\mex{1}):
 \gll {}[weil] das Buch der Mann der Frau gibt\\
      \spacebr{}because the.\acc{} book the.\nom{} man the.\dat{} woman gives\\
 \zl
-It was long argued that scrambling should be handled as movement as well \citep{Frey93a}.
+It has been long argued that scrambling should be handled as movement as well \citep{Frey93a}.
 \begin{figure}
 \scalebox{.8}{%
 \begin{forest}
@@ -2166,11 +2225,14 @@ however, then there are two possible readings \citep[\page 185]{Frey93a}:
 \glt `It is not the case that he offered at least one publisher almost every poem.'
 \ex 
 \gll Es ist nicht der Fall, daß er fast jedes Gedicht$_i$ mindestens einem Verleger \_$_i$ anbot.\\
-	 it is not the case that he almost every poem at.least one publisher {} offered\\
-\glt `It is not the case that he offered almost every poem to at least one publisher.'
+     it is not the case that he almost every poem at.least one publisher {} offered\\
+\glt `It is not the case that he offered almost every poem to at least one publisher.' or
+     `It is not the case that he offered at least one publisher almost every poem.'
 \zl
+(\mex{0}a) is unambiguous with \emph{at least one} scoping over \emph{almost every} but (\mex{0}b)
+has two readings: one in which \emph{almost every} scopes over \emph{at least one} (surface order)
+and one in which \emph{at least one} scopes over \emph{almost every} (reconstructed underlying order).
 
-\noindent
 It turns out that approaches assuming traces run into problems, as they predict certain readings
 which do not exist for\label{page-scrambling-scope}
 sentences with multiple traces (see \citealp[\page 146]{Kiss2001a} and
@@ -2186,9 +2248,10 @@ over \emph{mindestens einem Verleger} `at least one publisher'. However, this re
 The alternative to movement"=based approaches are so-called ``base-generation'' approaches in which
 the respective orders are derived directly. \citet{Fanselow2001a}, working within the Minimalist
 Program, suggests such an analysis in which arguments can be combined with their heads in any
-order. This is the HPSG analysis that was suggested by \citet{Gunji86a} for \ili{Japanese} and is
+order. This is the HPSG analysis that was suggested by \citet[Section~4.1]{Gunji86a} for \ili{Japanese} and is
 standardly used in HPSG grammars of \ili{German}
-\citep{HN94a,Kiss95a,Meurers99a,Mueller2003a,MuellerGS}. See also \crossrefchaptert{order}.
+\parencites[\page 8]{HN89a}[\page 221]{Kiss95b}[\page 199]{Meurers99b}[\page 7]{Mueller2005c}{MuellerGS}. See also \crossrefchaptert[\page
+\pageref{hcs-binary}--\pageref{order:page-scrambling-end}]{order}.
 
 \citet[\page 308]{SE2002a} discuss analogous examples from \ili{Japanese}, which they credit to
 Kazuko Yatsushiro\ia{Yatsushiro, Kazuko}. They develop an analysis where the first step is to move
@@ -2222,9 +2285,10 @@ constituent matching it. Consider, \eg the following:
 Within Minimalist assumptions, it is more or less necessary to assume that such examples contain an
 invisible filler (a so-called \isi{empty operator}). Unless there is some independent evidence for such
 invisible fillers, they are little more than an ad hoc device to maintain the Move/Internal Merge
-approach. Within the HPSG \slasch"=based approach to unbounded dependencies, there is no assumption
-that there should always be a filler at the top of an unbounded dependency (\citealp[Chapter~4]{ps2}, see also \crossrefchapteralt{udc}). Hence, the examples in
-(\ref{ex:min-empty-operator}) are completely unproblematic. 
+approach. Within the HPSG \textsc{slash}"=based approach to unbounded dependencies, there is no assumption
+that there should always be a filler at the top of an unbounded dependency
+(\citealp[Chapter~4]{ps2}, see also \crossrefchapteralt[\pageref{udc:page-no-filler-start}--\pageref{udc:page-no-filler-end}]{udc}). Hence, the examples in
+(\ref{ex:min-empty-operator}) are completely unproblematic.  
 
 \subsubsubsection{Filler without gaps: Resumptive pronouns}
 
@@ -2232,31 +2296,40 @@ There are also unbounded dependency constructions which seem to have not a gap b
 \eal
 \ex
 \gll Pa	ddyn werthodd Ieuan y ceffyl iddo \emph{fo}?\\
-     which man sell.\textsc{past}.\textsc{3sg} Ieuan the horse to.\textsc{3sgm} he\\
+     which man sell.\textsc{pst}.\textsc{3sg} Ieuan the horse to.\textsc{3sg.m} he\\
 \glt`Which man did Ieuan sell the horse to?'
 \ex 
 \gll y dyn werthodd Ieuan y ceffyl iddo \emph{fo}\\
-the man sell.\textsc{past}.\textsc{3sg} Ieuan the horse to.\textsc{3sgm} he\\
+the man sell.\textsc{pst}.\textsc{3sg} Ieuan the horse to.\textsc{3sg.m} he\\
 \glt`the man that Ieuan sold the horse to'
 \zl
 \citet{Willis.2011} and \citet{Borsley.2010,Borsley2013a-u} present evidence that \ili{Welsh} RPs involve
 the same mechanism as gaps. Within Minimalism, this means that they must involve Move/Internal
 Merge.\footnote{%
-  \citet{Rouveret2008a-u} sketches a Minimalist analysis of \ili{Welsh} RPs which does not involve movement. For
-  criticisms of this analysis, see \citew{Borsley2015a}.
+  \citet{Rouveret2008a-u} 
+% whole paper
+sketches a Minimalist analysis of \ili{Welsh} RPs which does not involve movement. For
+  criticisms of this analysis, see \citew[\page 13--14]{Borsley2015a}.
 } But one expects to see a gap where Move/Internal Merge has applied. One Minimalist response
 suggests that instead of being deleted, the copy left behind by Move/Internal Merge is somehow
-turned into a pronoun (see \citealt{McCloskey.2006}). A problem for this approach is that it makes
+turned into a pronoun (see \citealt[\page 110]{McCloskey.2006}). A problem for this approach is that it makes
 it surprising that RPs universally look like ordinary pronouns \citep{McCloskey2002a-u}.
+% \itd{Stefan:
+%   Why is this surprising? If one strategy is to spell out copies as pronouns, this is expected,
+%   isn't it?
+% Bob: The point is that if some pronouns are taken from the lexicon while others arise in the course of the derivation, you really have two types of pronoun and there is no reason why they always look the same.  
+% As we note, this objection was made by McCloskey in earlier work (McCloskey 2002: 192 to be precise)
+% and it has been accepted by others, notably Asudeh.
+% }
 Another approach exploits the complexity of
 Minimalist structures and proposes that there is a gap in the structure somewhere near the RP.
-Thus, for example, \citet{Willis.2011} proposes that examples like those in (\mex{0}) with an RP in
+Thus, for example, \citet[\page 216]{Willis.2011} proposes that examples like those in (\mex{0}) with an RP in
 prepositional object position have a coindexed operator in the specifier position of PP, which
 undergoes movement. Similar approaches are outlined in \citet{AounChoueiriHornstein2001a-u} and
 \citet{Boeckx.2003}. For detailed objections to both approaches, see
-\citet[Section~3]{Borsley2013a-u}. Within the \slasch"=based approach of HPSG, there is no reason to
+\citet[Section~3]{Borsley2013a-u}. Within the \slasch-based approach of HPSG, there is no reason to
 think that there will always be a gap at the bottom of a dependency, and it is not difficult to
-accommodate RPs. See \citet{Vaillette2001b}, \citet{Taghvaipour2010a-u}, \citet{Borsley2013a-u}, and \citet{crysmann_b10fg,Crysmann2016a-u} for slightly
+accommodate RPs. See \citet{Vaillette2001b}, \citet{Taghvaipour2010a-u}, \citet{Borsley2013a-u}, and \citet{crysmann_b10fg,Crysmann2016b-u} for slightly
 different approaches.\footnote{% 
 	Also relevant here are examples with more than one gap such as the following:
 	\eal
@@ -2265,7 +2338,7 @@ different approaches.\footnote{%
 	\zl
 	There have been various attempts to accommodate such examples within the Move/Internal Merge
         approach, but it is not clear that any of them is satisfactory. In contrast, such examples
-        are expected within the \slasch"=based approach \citep{LS2003a-u}. See also \citet[Section~4.6]{ps2}.%
+        are expected within the \slasch-based approach \citep{LS2003a-u}. See also \citet[Section~4.6]{ps2}.%
 }
 See also \crossrefchaptert{udc} for a more detailed discussion of nonlocal dependencies and for
 further comparison between the HPSG and Minimalist approaches to unbounded dependencies, see
@@ -2315,7 +2388,7 @@ We noted in Section~\ref{sec:min-views-grammar} that whereas HPSG is a declarati
 constraint-based approach to grammar, Minimalism has a procedural view of grammar. This contrast
 means that HPSG is much more suitable than Minimalism for incorporation into an account of the
 processes that are involved in linguistic performance.\footnote{
-  See \citet{BK82a} for an early argument that an approach which can be readily incrporated into an account of linguistic performance is prefereable to one which cannot.
+  See \citet{BK82a} for an early argument that an approach which can be readily incorporated into an account of linguistic performance is preferable to one which cannot.
 }\todostefan{Tom: read \citet{MacDonald2013a-u}}
 
 The most obvious fact about linguistic performance is that it involves both production and
@@ -2356,7 +2429,7 @@ how to construct syntactic structures means that it is well-suited for incorpora
 of linguistic performance. In fact this is not at all the case. The way standard
 Minimalism\footnote{%
 For a discussion of non-standard versions like \citet{Phillips2003a} and \citet{Chesi2015a-u}, see
-\citew{SW2011a} and \citew[\page 525]{MuellerGT-Eng3}.%
+\citew[Section~10.5]{SW2011a} and \citew[\page 527]{MuellerGT-Eng4}.%
 } constructs syntactic structures is quite unlike the way speakers and hearers construct them. Speakers begin
 with representations of meanings they want to communicate and gradually turn them into an
 appropriate sequence of sounds, constructing whatever syntactic structures are necessary to do
@@ -2368,15 +2441,21 @@ parallel \citep{Marslen-Wilson75a,TSKES95a,TSKES96a}. Information about phonolog
 world knowledge (as in the examples (\ref{ex-sheep-pen-processing}) above) are used as soon as they
 are available. Hence, parsing (\mex{1}) is an incremental process: the hearer hears \emph{Kim} first,
 and as soon as the first sounds of \emph{may} reach her, the available information is integrated
-and hypotheses regarding further parts of the utterance are built.\footnote{
+and hypotheses regarding further parts of the utterance are built.\footnote{\label{fn-numeration}%
   Note that the architecture in Figure~\ref{fig-architecture-phases} poses additional problems. A
   \emph{\isi{numeration}} is a selection of lexical items that is used in a derivation. Since a multitude
   of empty elements is assumed in Minimalist analyses, it is unclear how such a numeration is
   constructed, since it cannot be predicted at the lexical level which empty elements will be needed in the course of a
-  derivation. Due to the empty elements, there are infinitely many possible numerations that might be
-  appropriate for the analysis of a given input string.%
-%The problem would disappear if derivations
-%  could draw lexical items from the lexicon directly.
+  derivation. Due to the empty elements, there may be infinitely many possible numerations
+% \itd{JP:
+%     really infinitely many? Like for type raising in semantics, where you could type raise ad
+%     infinitum, but you choose the simplest type raising that allows you to derive the meaning (I
+%     think Partee discusses that in either a 1984 or 1987 paper).} 
+that might be  appropriate for the analysis of a given input string. For processing regimes this
+would beg the question how the different numerations are involved in processing. Are all these
+numerations worked with in parallel? This would be rather implausible due to limitations in
+short-term memory.
+%The problem would disappear if derivations could draw lexical items from the lexicon directly.
 }
 \ea
 Kim may go to London.
@@ -2714,8 +2793,9 @@ out. Remnant movement analyses are sometimes suggested for partial verb phrase f
 \glt `Nobody read the book.'
 \z
 \noindent
-With such a system in place, the reorderings can be derived as follows: the element 5 can move to the left of 4. The unit containing 4 and 5 can move to the left of 3 and [[5 [4 \trace]] [3
-    \trace]] can move to the left of 2 and so on.
+With such a system in place, the reorderings can be derived as follows: the element 3 is combined
+with 4, 4 moves to the left of 3. The result is combined with 2 and then the unit containing 3
+and 4 can move to the left of 2 and [[4 [3 \trace]] [2 \trace]] is combined with 1 and then moved to the left of 1.
 % « remnant movement » : the reader wont uderstand what you mean unless
 % you give a (published) reference and an example ; I’m not sure this is
 % usefull here ; my advice would be to shorten this part about
@@ -2741,7 +2821,7 @@ island\is{island} constraints should not be modelled by hard constraints in comp
 
 It is true that
 the basic formalism does not pose any strong restrictions on what could be said in an HPSG
-theory. As \citet{Pollard96a} points out, this is the way it should be. The formalism should not be
+theory. As \citet{Pollard97a} points out, this is the way it should be. The formalism should not be
 the constraining factor. It should be powerful enough to allow everything to be expressed in
 insightful ways and in fact, the basic formalism of HPSG has Turing power, the highest power in the
 \isi{Chomsky hierarchy} \citep{Pollard99a}. This means that the general formalism is above the complexity that is usually
@@ -2766,6 +2846,19 @@ linguistic objects. This corresponds to Merge in Minimalism, without the restric
 %% If this is right, a restrictive meta-theory constraining theories for all languages is not a
 %% realistic expectation at the present time.%
 \is{Minimalism|)}
+
+\section{Conclusion}
+
+We have looked in this chapter at the variety of ways in which HPSG and the Minimalist framework
+differ. We have considered a number of differences of approach and outlook, including different
+attitudes to formalization and empirical data. We have highlighted different views of what grammar
+is, especially contrasting the HPSG declarative approach and the Minimalist derivational
+approach. We have also explored the very different views of syntactic structure that prevail in the
+two frameworks, emphasising both the many ways in which Minimalist structures are more complex, but
+also the ways in which they are simpler. Finally we have looked at psycholinguistic issues, considering
+both processing and acquisition. In all these areas we have found reasons for favouring HPSG. We
+conclude, then, that HPSG is the more promising of the two frameworks.
+
 
 
 %\section*{Abbreviations}

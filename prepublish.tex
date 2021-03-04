@@ -9,11 +9,9 @@
 % Some lines start with %. Remove the % to include them
 
 \documentclass[output=book
-		,modfonts
-		,nonflat
+		,multiauthors
 	        ,collection
 	        ,collectionchapter
-	        ,collectiontoclongg
  	        ,biblatex  
                 ,babelshorthands
                 ,newtxmath
@@ -34,17 +32,23 @@
 
 \input{locallangscifixes.tex}
 
-\patchcmd{\includepaper}{\immediate\write\tempfile{@incollection{#1,author={\authorTemp},title={{\lsCollectionPaperFooterTitle}},booktitle={{\lsCollectionTitle}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},year={\lsYear},pages={\lsCollectionPaperFirstPage --\lsCollectionPaperLastPage},doi={\lsChapterDOI},keywords={withinvolume}}}}{\immediate\write\tempfile{@incollection{#1,author={\authorTemp},title={{\lsCollectionPaperFooterTitle}},booktitle={{\lsCollectionTitle}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},series={Empirically Oriented Theoretical Morphology and Syntax},year={2021},note={To appear},keywords={withinvolume}}}}
 
-% \lsYear does not work, so I hardcoded the year as 2019
+\input{localcommands.tex} 
 
-\patchcmd{\includepaper}{\immediate\write\tempfile{@incollection{#1footer,author={\authorTemp},title={{\lsCollectionPaperFooterTitle}},booktitle={{\lsCollectionTitle}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},year={\lsYear},pages={\lsCollectionPaperFirstPage--\lsCollectionPaperLastPage},doi={\lsChapterDOI},options={dataonly=true}}}}{\immediate\write\tempfile{@incollection{#1footer,author={\authorTemp},title={{\lsCollectionPaperFooterTitle}},booktitle={{\lsCollectionTitle}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},pubstate={2021},note={Prepublished version},addendum={[Preliminary page numbering]},options={dataonly=true}}}}
+
+%\tracingpatches
+\patchcmd{\lsCollectionMetadataToBibliography}{\immediate\write\tempfile{@incollection{#1,author={\authorTemp},title={{\expandonce{\titleTemp}}},booktitle={{\expandonce{\lsCollectionTitle}}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},year={\lsYear},pages={\lsCollectionPaperFirstPage --\lsCollectionPaperLastPage},doi={\lsChapterDOI},keywords={withinvolume}}}}{\immediate\write\tempfile{@incollection{#1,author={\authorTemp},title={{\lsCollectionPaperFooterTitle}},booktitle={{\lsCollectionTitle}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},series={Empirically Oriented Theoretical Morphology and Syntax},year={2021},note={To appear},keywords={withinvolume}}}}
+
+% \lsYear does not work, so I hardcoded the year as 2021
+
+%\patchcmd{\includepaper}{\immediate\write\tempfile{@incollection{#1footer,author={\authorTemp},title={{\lsCollectionPaperFooterTitle}},booktitle={{\lsCollectionTitle}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},year={\lsYear},pages={\lsCollectionPaperFirstPage--\lsCollectionPaperLastPage},doi={\lsChapterDOI},options={dataonly=true}}}}{\immediate\write\tempfile{@incollection{#1footer,author={\authorTemp},title={{\lsCollectionPaperFooterTitle}},booktitle={{\lsCollectionTitle}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},pubstate={2021},note={Prepublished version},addendum={[Preliminary page numbering]},options={dataonly=true}}}}
+
+\patchcmd{\lsCollectionMetadataToBibliography}{\immediate\write\tempfile{@incollection{#1footer,author={\authorTemp},title={{\expandonce{\titleTemp}}},booktitle={{\expandonce{\lsCollectionTitle}}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},year={\lsYear},pages={\lsCollectionPaperFirstPage --\lsCollectionPaperLastPage},doi={\lsChapterDOI},options={dataonly=true}}}}{\immediate\write\tempfile{@incollection{#1footer,author={\authorTemp},title={{\expandonce{\titleTemp}}},booktitle={{\expandonce{\lsCollectionTitle}}},editor={\editorTemp},publisher={Language Science Press.},Address={Berlin},pubstate={2021},note={Prepublished version},addendum={[Preliminary page numbering]},options={dataonly=true}}}}{\typeout{Patch succesful}}{\typeout{patch failed}}
+
 
 
 \cfoot{Prepublished draft of \today, \currenttime}
 
-
-\input{localcommands.tex} 
 
 % let's pretend there is nothing left to do:
 \renewcommand{\todostefan}[1]{}
@@ -52,6 +56,20 @@
 \renewcommand{\inlinetodostefan}[1]{}
 \renewcommand{\inlinetodoopt}[1]{}
 \renewcommand{\inlinetodoobl}[1]{}
+
+\renewcommand{\itd}[1]{}
+\renewcommand{\itdgreen}[1]{}
+\renewcommand{\itdblue}[1]{}
+%\renewcommand{\itdred}[1]{}
+\renewcommand{\added}[1]{#1}
+\renewcommand{\changed}[1]{#1}
+\renewcommand{\addedthis}{}
+\renewcommand{\iaddpages}{}
+\renewcommand{\add}[1]{}
+\renewcommand{\del}[1]{#1}
+\renewcommand{\rep}[2]{#1}
+\renewcommand{\hilite}[1]{#1}
+\renewcommand{\com}[1]{}
 
 
 % fix, remove once forest is updated
@@ -70,6 +88,17 @@
 \AtBeginDocument{%
   \stepcounter{realpage}
 }
+
+% \let\oldchapter\chapter% Store \chapter in \oldchapter
+% \renewcommand{\chapter}{%
+%   \oldchapter%
+%   \setcounter{page}{1}%
+% }
+
+\makeatletter
+\apptocmd{\includepaper@body}{\setcounter{page}{0}}
+\makeatother
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%                                              %%%
@@ -92,13 +121,13 @@
 %\lsCollectionPaperFrontmatterMode % Enter the Frontmatter Mode. 
 %\includepaper{chapters/prefaceEd}
 % \includepaper{chapters/prefaceEd2}
-\lsCollectionPaperMainmatterMode % Leave the Frontmatter Mode 
+%\lsCollectionPaperMainmatterMode % Leave the Frontmatter Mode from pre 2020 version
 \setcounter{chapter}{0} % Reset the chapter counter so that preceeding prefaces are not counted
 %%
 \mainmatter          
 \typeout{mainmatter starts at \therealpage}
-\pagenumbering{roman}\counterwithin*{page}{chapter}%
-
+% is broken \counterwithin*{page}{chapter}%
+\pagenumbering{roman}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%                                              %%%
@@ -146,7 +175,7 @@
 \includepaper{chapters/processing}
 \includepaper{chapters/cl}
 \includepaper{chapters/pragmatics}
-\includepaper{chapters/sign-lg}
+%\includepaper{chapters/sign-lg}
 \includepaper{chapters/gesture}
 %
 \part{The broader picture}

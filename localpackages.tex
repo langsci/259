@@ -30,6 +30,8 @@
 \providecommand{\largerpage}{}
 \renewcommand{\largerpage}[1][1]{\enlargethispage{#1\baselineskip}}
 
+\usepackage{./styles/biblatex-series-number-checks}
+
 
 \usepackage{langsci-lgr}
 
@@ -38,12 +40,13 @@
 %\usepackage{./styles/forest/forest}
 \usepackage{langsci-forest-setup}
 
-\usepackage{nomemoize} 
-\memoizeset{
-  memo filename prefix={chapters/hpsg-handbook.memo.dir/},
-  register=\todo{O{}+m},
-  prevent=\todo,
-}
+% is loaded in main etc.
+% \usepackage{nomemoize} 
+% \memoizeset{
+%   memo filename prefix={chapters/hpsg-handbook.memo.dir/},
+%   register=\todo{O{}+m},
+%   prevent=\todo,
+% }
 
 \usepackage{tikz-cd}
 
@@ -126,6 +129,7 @@
 %    delimfactor = 900,
 %    delimfall   = 10pt
 }
+
 \avmdefinecommand{form}[form]
   {
     attributes  = \itshape%,
@@ -133,6 +137,8 @@
 %    delimfall   = 10pt
 }
 
+% \set was already taken
+\avmdefinecommand{avmset}[set]{ attributes=\itshape } % define a new \set command
 \avmdefinecommand{list}[list]{ attributes=\itshape } % define a new \list command
    % Note: the label "list" will be output in whatever font is currently active.
 
@@ -142,6 +148,11 @@
 % 	deps  & < \1 > \+ \2
 % 	]
 % }
+
+
+\avmdefinecommand{nelist}[ne-list]{ attributes=\itshape } % define a new \nelist command
+   % Note: the label "ne-list" will be output in whatever font is currently active.
+
 
 
 % https://github.com/langsci/langsci-avm/issues/33#issuecomment-671201576
@@ -156,8 +167,12 @@
 
 % copied over from avm+.sty
 % some relation operators:
-\newcommand{\append}[0]{\ensuremath{\oplus\hspace{.24em}}}
-\newcommand{\shuffle}[0]{\ensuremath{\bigcirc\hspace{.24em}}}
+%\newcommand{\append}[0]{\ensuremath{\oplus\hspace{.24em}}}
+%\newcommand{\shuffle}[0]{\ensuremath{\bigcirc\hspace{.24em}}}
+
+\newcommand{\append}[0]{\ensuremath{\oplus}\xspace}
+\newcommand{\shuffle}[0]{\ensuremath{\bigcirc}\xspace}
+
 
 % command to fontify relations in avms 
 \newcommand{\rel}[1]{\texttt{#1}}
@@ -406,4 +421,5 @@
 
 %\newcommand{\pslabel}[1]{}
 
-
+% remove when finished
+\usepackage{proofread}

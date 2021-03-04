@@ -29,9 +29,50 @@
 \newcommand{\inlinetodoobl}[1]{\todo[color=red!40,inline]{\footnotesize #1}\xspace}
 
 \newcommand{\itd}[1]{\inlinetodoobl{#1}}
+\newcommand{\itdobl}[1]{\inlinetodoobl{#1}}
+\newcommand{\itdopt}[1]{\inlinetodoopt{#1}}
+
+\newcommand{\itdsecond}[1]{}
+
+\newcommand{\itddone}[1]{}
+\newcommand{\LATER}[1]{}
+
+
+
+% A. Red: Simple typos, errors in the AVMs (only a couple) to take care of on the editorial side, no need to contact the authors
+% B.: Green: Wording changes which do not necessarily require authors’ approval, but are not just typos/errors
+% C.: Blue: Comments to the author that they don’t have to take care of, but after all, the authors might be interested to have the comments for future revisions. 
+% D.: Purple: Comments to the editors about something we need to keep in mind or do. Nothing for you
+
+\newcommand{\colorcodingexplanation}{\todo[color=green!40,inline]{%
+Explanation of colors of Bubbles:\\
+A.: Red: Simple typos, errors in the AVMs (only a couple) to take care of on the editorial side, no need to contact the authors\\
+B.: Green: Wording changes which do not necessarily require authors’ approval, but are not just typos/errors\\
+C.: Blue: Comments to the author that they don’t have to take care of, but after all, the authors
+might be interested to have the comments for future revisions.\\
+Explanation of colors of text:\\
+Red: newly added material (crossreferences to other chapters and other references)\\
+Orange: changed material, please check\\
+Blue: suggestions for deletion
+}}
+% D.: Purple: Comments to the editors about something we need to keep in mind or do. Nothing for you
+
+
+\newcommand{\itdgreen}[1]{\todo[color=green!40,inline]{\footnotesize #1}\xspace}
+\newcommand{\itdblue}[1]{\todo[color=blue!40,inline]{\footnotesize #1}\xspace}
+
+% for editing, remove later
+\usepackage{xcolor}
+\newcommand{\added}[1]{{\red #1}}
+\newcommand{\addedthis}{\todostefan{added this}}
+
+\newcommand{\changed}[1]{\textcolor{orange}{#1}}
+\newcommand{\deleted}[1]{\textcolor{blue}{#1}}
+
 
 \newcommand{\addpages}{\todostefan{add pages}}
-\newcommand{\iaddpages}{\inlinetodoobl{add pages}}
+%\newcommand{\iaddpages}{\inlinetodoobl{add pages}}
+\newcommand{\iaddpages}{\yel[add pages]{pages}\xspace}
 \newcommand{\addref}{\todostefan{add reference}}
 \newcommand{\inlineaddpages}{\inlinetodostefan{add pages}}
 \newcommand{\addglosses}{\todostefan{add glosses}}
@@ -39,7 +80,7 @@
 
 \newcommand{\spacebr}{\hphantom{[}}
 
-\newcommand{\danish}{\jambox{(\ili{Danish})}}
+\newcommand{\danishep}{\jambox{(\ili{Danish})}}
 \newcommand{\english}{\jambox{(\ili{English})}}
 \newcommand{\german}{\jambox{(\ili{German})}}
 \newcommand{\yiddish}{\jambox{(\ili{Yiddish})}}
@@ -50,9 +91,18 @@
 \newcommand{\crossrefchapterp}[2][]{(\citealp*[#1]{chapters/#2}, Chapter~\ref{chap-#2} of this volume)}
 \newcommand{\crossrefchapteralt}[2][]{\citealt*[#1]{chapters/#2}, Chapter~\ref{chap-#2} of this volume}
 \newcommand{\crossrefchapteralp}[2][]{\citealp*[#1]{chapters/#2}, Chapter~\ref{chap-#2} of this volume}
+
+\newcommand{\crossrefcitet}[2][]{\citet*[#1]{chapters/#2}} 
+\newcommand{\crossrefcitep}[2][]{\citep*[#1]{chapters/#2}}
+\newcommand{\crossrefcitealt}[2][]{\citealt*[#1]{chapters/#2}}
+\newcommand{\crossrefcitealp}[2][]{\citealp*[#1]{chapters/#2}}
+
+
 % example of optional argument:
 % \crossrefchapterp[for something, see:]{name}
 % gives: (for something, see: Author 2018, Chapter~X of this volume)
+
+
 
 \let\crossrefchapterw\crossrefchaptert
 
@@ -393,8 +443,8 @@ $}}
 
 % clean that up and do not use \def (killing other stuff defined before)
 %\if 0
-\newcommand\DEL{\textsc{del}}
-\newcommand\del{\textsc{del}}
+%\newcommand\DEL{\textsc{del}}
+%\newcommand\del{\textsc{del}}
 
 \newcommand\conn{\textsc{conn}}
 \newcommand\CONN{\textsc{conn}}
@@ -1136,10 +1186,54 @@ collection.bib}
 
 
 \let\textnobf\textit
-
+% instead of "in bold" write "in italics"
+\newcommand{\bolddescriptionintext}{italics\xspace}
 
 % Berthold
 \newcommand{\mathplus}{+}
 % \mbox{\normalfont +}}
 \newcommand{\emdash}{--\xspace}
 
+
+% Stefan to get the space remvoed infront of the : in Bargmann NPN discussion
+%\DeclareMathSymbol{:}{\mathord}{operators}{"3A}
+% used {:\,} instead
+
+
+% for cxg.tex needed for includonly to find the counter.
+\newcounter{croftyears} 
+
+
+
+
+% Needed for bibtex entry for Jackendoff's xbar syntax. Without it the bar would be off in itialics.
+
+% https://tex.stackexchange.com/questions/95014/aligning-overline-to-italics-font/95079#95079
+\newbox\usefulbox
+
+\makeatletter
+    \def\getslant #1{\strip@pt\fontdimen1 #1}
+
+    \def\skoverline #1{\mathchoice
+     {{\setbox\usefulbox=\hbox{$\m@th\displaystyle #1$}%
+        \dimen@ \getslant\the\textfont\symletters \ht\usefulbox
+        \divide\dimen@ \tw@ 
+        \kern\dimen@ 
+        \overline{\kern-\dimen@ \box\usefulbox\kern\dimen@ }\kern-\dimen@ }}
+     {{\setbox\usefulbox=\hbox{$\m@th\textstyle #1$}%
+        \dimen@ \getslant\the\textfont\symletters \ht\usefulbox
+        \divide\dimen@ \tw@ 
+        \kern\dimen@ 
+        \overline{\kern-\dimen@ \box\usefulbox\kern\dimen@ }\kern-\dimen@ }}
+     {{\setbox\usefulbox=\hbox{$\m@th\scriptstyle #1$}%
+        \dimen@ \getslant\the\scriptfont\symletters \ht\usefulbox
+        \divide\dimen@ \tw@ 
+        \kern\dimen@ 
+        \overline{\kern-\dimen@ \box\usefulbox\kern\dimen@ }\kern-\dimen@ }}
+     {{\setbox\usefulbox=\hbox{$\m@th\scriptscriptstyle #1$}%
+        \dimen@ \getslant\the\scriptscriptfont\symletters \ht\usefulbox
+        \divide\dimen@ \tw@ 
+        \kern\dimen@ 
+        \overline{\kern-\dimen@ \box\usefulbox\kern\dimen@ }\kern-\dimen@ }}%
+     {}}
+    \makeatother
