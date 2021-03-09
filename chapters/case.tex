@@ -28,7 +28,7 @@
 % \chapterDOI{} %will be filled in at production
 
 %\epigram{Change epigram in chapters/03.tex or remove it there }
-\abstract{The aim of this chapter is to provide an outline of HPSG work on grammatical case.  Two issues that attracted much attention of HPSG pracitioners in the 1990s and early 2000s are the locality of case assignment, especially so-called structural case assignment, as well as case syncretism and underspecification; they are discussed in two separate sections. The third section summarises other work on case carried out within HPSG, including some computational efforts, as well as investigations of case phenomena at the syntax-semantics interface and at the border of syntax and morphology.}
+\abstract{The aim of this chapter is to provide an outline of HPSG work on grammatical case.  Two issues that attracted much attention of HPSG pracitioners in the 1990s and early 2000s are the locality of case assignment, especially so-called structural case assignment, as well as case syncretism and underspecification; they are discussed in two separate sections. The final section summarises other work on case carried out within HPSG, including some computational efforts, as well as investigations of case phenomena at the syntax-semantics interface and at the border of syntax and morphology.}
 
 
 \begin{document}
@@ -45,14 +45,14 @@ The aim of this chapter is to provide an overview of HPSG work on grammatical ca
 \section{Structural case assignment}
 \label{sec:case:str}
 
-\citet{ps2} did not envisage a~separate theory of case:\footnote{This section is to some extent based on \citet[Section~3.4]{Prze99b} and Chapter~4; see also \citet[Chapter~14]{MuellerLehrbuch3}.} “Nominative case assignment takes place directly within the lexical entry of the finite verb”, while “the subject \path{subcat} element of a nonfinite verb […] does not have a case value specified” (\pg{30}).  However, they added in a footnote on the same page that “for languages with more complex case systems, some sort of distinction analogous to the one characterized in GB work as `inherent' vs.~`structural' is required.”  
+\citet{ps2} did not envisage a~separate theory of case:\footnote{This section is to some extent based on \citet[Section~3.4 and Chapter~4]{Prze99b}; see also \citet[Chapter~14]{MuellerLehrbuch3}.} “Nominative case assignment takes place directly within the lexical entry of the finite verb”, while “the subject \path{subcat} element of a nonfinite verb […] does not have a case value specified” (\pg{30}).  However, they added in a footnote on the same page that “for languages with more complex case systems, some sort of distinction analogous to the one characterized in GB work as `inherent' vs.~`structural' is required.”  
 
 In the transformational \isi{Government and Binding} theory of the 1980s (GB; \citealt{chom:81,chom:86a}), “inherent” -- or “lexical” -- case is understood as rigidly assigned by the head and independent of syntactic environment, while “structural” case varies with the structural context (e.g., \citealt[70]{Haider85b}).  This difference can be illustrated on the basis of the following examples from \ili{German} (\citealt[63]{Prze99b}, based on data from \citealt{HM94a}):
 \eal
 \label{ex:unterstutzen}
 \ex
 \gll Der Mann unterstützt \emph{den} \emph{Installateur}. \\ 
-      the man.\NOM{} supports the plumber.\ACC{}\\
+      the man.\NOM{} supports the plumber.\ACC{}\\\hfill(German)
 \glt    `The man is supporting the plumber.'
 \ex
 \gll \emph{Der} \emph{Installateur} wird unterstützt. \\
@@ -67,7 +67,7 @@ In the transformational \isi{Government and Binding} theory of the 1980s (GB; \c
 \label{ex:helfen}
 \ex
 \gll  Der Mann hilft \emph{dem} \emph{Installateur}. \\
-      the man.\NOM{} helps the plumber.\DAT{}\\
+      the man.\NOM{} helps the plumber.\DAT{}\\\hfill(German)
 \glt `The man is helping the plumber.'
 \ex
 \gll  \emph{Dem} \emph{Installateur} wird geholfen. \\
@@ -77,7 +77,6 @@ In the transformational \isi{Government and Binding} theory of the 1980s (GB; \c
 \gll  das Helfen \emph{des} \emph{Installateurs} \\
       the helping the plumber.\GEN{}\\
 \glt    `the help from/*for the plumber'
-\itdopt{Shouldn't this be agentive? Like ``helping'' rather than ``help''?}
 \zl
 In~\rref{ex:unterstutzen}, both arguments of the verb \textsc{unterstützen}\footnote{Note the convention of using small capitals to typeset lemmata.} `support’ receive structural case: the patient argument occurs in the accusative in~\aref{ex:unterstutzen}, in the nominative in~\bref{ex:unterstutzen}, and in the genitive in~\cref{ex:unterstutzen}.  Similarly, the agent argument is in the nominative in~\aref{ex:unterstutzen}, but it may only occur in the genitive in \cref{ex:unterstutzen}; hence, the single argument marked as genitive in~\cref{ex:unterstutzen} is ambiguous between the agent and the patient.  In the case of \rref{ex:helfen}, the agent argument of \textsc{helfen} `help’ is similarly assigned structural case, but the patient argument receives a~rigid inherent case: it is always the dative, so, e.g., the genitive in~\cref{ex:helfen} may only be understood as marking the agent.
 
@@ -140,117 +139,45 @@ case assignment principles.  Similarly, they argue that the last three (i.e., ap
 nominative) may also be assigned lexically, in which case they are stable across various syntactic
 environments.  These empirical observations are translated into the \ftype{case} hierarchy in Figure~\ref{fig:case:germ}.
 \begin{figure}
-\hspace*{-1em}
-\begin{tikzpicture}[text height=1.5ex,text depth=.25ex,
-  % inner sep=2pt,
-  node distance=5em,
-  baseline=10.75em]\small\it
-\node (snom) {snom};
-\node (sgen) [right of=snom] {sgen};
-\node (sacc) [right of=sgen] {sacc};
-\node (lgen) [right of=sacc] {lgen};
-\node (ldat) [right of=lgen] {ldat};
-\node (lacc) [right of=ldat] {lacc};
-\node (acc) [above of=sacc] {acc};
-\node (dat) [left of=acc] {dat};
-\node (gen) [left of=dat] {gen};
-\node (nom) [left of=gen] {nom};
-\node (structural) [above of=lgen, xshift=3em] {structural};
-\node (lexical) [above of=lacc] {lexical};
-\node (morph-case) [above right of=gen] {morph-case};
-\node (syn-case) [above right of=structural] {syn-case};
-\node (case) [above of=acc, node distance=7em] {case};
-\draw (case.south) -- (morph-case.north);
-\draw (case.south) -- (syn-case.north);
-\draw (morph-case.south) -- (nom.north);
-\draw (morph-case.south) -- (gen.north);
-\draw (morph-case.south) -- (dat.north);
-\draw (morph-case.south) -- (acc.north);
-\draw (syn-case.south) -- (structural.north);
-\draw (syn-case.south) -- (lexical.north);
-\draw (nom.south) -- (snom.north);
-\draw (gen.south) -- (sgen.north);
-\draw (gen.south) -- (lgen.north);
-\draw (dat.south) -- (ldat.north);
-\draw (acc.south) -- (sacc.north);
-\draw (acc.south) -- (lacc.north);
-\draw (structural.south) -- (snom.north);
-\draw (structural.south) -- (sgen.north);
-\draw (structural.south) -- (sacc.north);
-\draw (lexical.south) -- (lgen.north);
-\draw (lexical.south) -- (ldat.north);
-\draw (lexical.south) -- (lacc.north);
-\end{tikzpicture}
+\begin{forest}
+type hierarchy
+[case
+  [morph-case, for children={l sep+=2\baselineskip}
+    [nom,name=nom]
+    [gen,name=gen
+      [lgen,edge to=lexical,tier=max]]
+    [dat
+      [ldat,edge to=lexical,tier=max]]
+    [acc,name=acc
+      [lacc,edge to=lexical,tier=max]]]
+  [syn-case, for children={l sep+=2\baselineskip}
+    [lexical,name=lexical]
+    [structural
+      [snom,edge to=nom,tier=max]
+      [sgen,edge to=gen,tier=max]
+      [sacc,edge to=acc, calign with current,tier=max]]]]
+\end{forest}
+% \begin{forest}
+% type hierarchy
+% [case
+%   [morph-case
+%     [nom,name=nom,l sep+=2\baselineskip]
+%     [gen,name=gen,l sep+=2\baselineskip
+%       [lgen,edge to=lexical]]
+%     [dat,l sep+=2\baselineskip
+%       [ldat,edge to=lexical]]
+%     [acc,name=acc,l sep+=2\baselineskip
+%       [lacc,edge to=lexical]]]
+%   [syn-case
+%     [lexical,name=lexical]
+%     [structural,l sep+=2\baselineskip
+%       [snom,edge to=nom]
+%       [sgen,edge to=gen]
+%       [sacc,edge to=acc, calign with current]]]]
+% \end{forest}
 \caption{\citegen[\page 207]{HM94a} case hierarchy for German encoding the structural/lexical distinction}
 \label{fig:case:germ}
 \end{figure}
-\itdopt{Note: The figure differs from what is in the paper. Stefan will redo it with type hierarchy style for forest.}
-
-% \begin{examples}
-% \item
-% \attop{ 
-%   \hspace*{2em}\makebox[28em][c]{{
-%       \footnotesize
-%       \it
-%       \setlength{\unitlength}{0.17ex}
-%       \thinlines
-%       \begin{picture}(600,250)(-300,-100)
-%                                 %
-%         \put(0,100){\makebox(0,0){case}}
-%         \put(-150,50){\makebox(0,0){morph-case}}
-%         \put(150,50){\makebox(0,0){syn-case}}
-%         \put(0,90){\line(5,-1){120}}
-%         \put(0,90){\line(-5,-1){120}}
-%                                 %\bezier{148}(0,90)(145,70)(145,60)
-%                                 %\bezier{148}(0,90)(-145,70)(-145,60)
-%                                 %
-%         \put(70,-10){\makebox(0,0){structural}}
-%         \put(210,-10){\makebox(0,0){lexical}}
-%         \put(150,40){\line(3,-2){60}}
-%         \put(150,40){\line(-2,-1){80}}
-%                                 %\bezier{95}(150,40)(210,10)(210,0)
-%                                 %\bezier{95}(150,40)(70,10)(70,0)
-%                                 %
-%         \put(-270,-10){\makebox(0,0){nom}}
-%         \put(-190,-10){\makebox(0,0){gen}}
-%         \put(-110,-10){\makebox(0,0){dat}}
-%         \put(-30,-10){\makebox(0,0){acc}}
-%         \put(-150,40){\line(-3,-1){120}}
-%         \put(-150,40){\line(3,-1){120}}
-%         \put(-150,40){\line(-1,-1){40}}
-%         \put(-150,40){\line(1,-1){40}}
-%                                 %\bezier{103}(-150,40)(-270,10)(-270,0)
-%                                 %\bezier{60}(-150,40)(-190,10)(-190,0)
-%                                 %\bezier{60}(-150,40)(-110,10)(-110,0)
-%                                 %\bezier{103}(-150,40)(-30,10)(-30,0)
-%                                 %
-%         \put(-170,-70){\makebox(0,0){snom}}
-%         \put(-90,-70){\makebox(0,0){sgen}}
-%         \put(-30,-70){\makebox(0,0){sacc}}
-%         \put(-270,-20){\line(5,-2){100}}
-%         \put(-190,-20){\line(5,-2){100}}
-%         \put(-30,-20){\line(0,-2){40}}
-%                                 %
-%         \put(210,-70){\makebox(0,0){lacc}}
-%         \put(130,-70){\makebox(0,0){ldat}}
-%         \put(50,-70){\makebox(0,0){lgen}}
-%         \put(-190,-20){\line(6,-1){240}}
-%         \put(-110,-20){\line(6,-1){240}}
-%         \put(-30,-20){\line(6,-1){240}}
-%                                 %
-%         \put(210,-20){\line(-4,-1){160}}
-%         \put(210,-20){\line(-2,-1){80}}
-%         \put(210,-20){\line(0,-1){40}}
-%                                 %
-%         \put(70,-20){\line(-6,-1){240}}
-%         \put(70,-20){\line(-4,-1){160}}
-%         \put(70,-20){\line(-5,-2){100}}
-%                                 %
-%       \end{picture}
-%       }
-%     }
-% }
-% \zl
 
 Particular verbs may assign specific lexical cases to their arguments, e.g., \ftype{ldat}.  They may also specify arguments as bearing structural case, in which case only the \ftype{str}(\ftype{uctural}) supertype is mentioned in the lexicon.  For example, the lexical entries for \textsc{unterstützen} `support’ and \textsc{helfen} `help’ contain the following subcategorisation requirements:
 \eal
@@ -264,9 +191,9 @@ Assuming a~similar \ftype{case} hierarchy for \ili{Icelandic}, the difference be
 \ex \textsc{elska}: [\path{subcat}~\sliste{ NP[\type{str}], \ldots }] 
 \ex \textsc{vanta}: [\path{subcat}~\sliste{ NP[\type{lacc}], \ldots }]
 \zl
-Since \citet{Pollard94a} and \citet{HM94a}, such representations of case requirements are generally adopted in HPSG,\footnote{Recent examples being \citew[169]{MyPF2018a} and \textcites[Chapter~7]{MuellerLFGphrasal}{MuellerGermanic}.} with the only difference that \path{subcat} is currently replaced with \path{arg-st}.  The point where different approaches diverge is how exactly structural case is resolved to a~specific morphological case.
+Since \citet{Pollard94a} and \citet{HM94a}, such representations of case requirements are generally adopted in HPSG,\footnote{Recent examples being \citew[169]{MyPF2018a} and \textcites[Chapter~7.2.1]{MuellerLFGphrasal}.} with the only difference that \path{subcat} is currently replaced with \path{arg-st}.  The point where different approaches diverge is how exactly structural case is resolved to a~specific morphological case.
 
-The simplest principle would resolve the case of the first \ftype{str} argument of a~pure (non-gerundial) verb to nominative, i.e., to \ftype{snom}, the case of any subsequent \ftype{str} argument of a~pure verb to accusative, i.e., to \ftype{sacc}, and the case of any \ftype{str} argument of a~nominalisation to \ftype{sgen}.  Unfortunately, this simple principle would not work in various cases of raising, e.g., in the case of the \ili{Icelandic} data above.  While the “quirky” cases in~\rref{isl:acc}–\rref{isl:gen} would be properly taken care of by this approach – once the subject is assigned a~specific lexical case it is outside of the realm of a~principle resolving structural cases – structural subjects raised to a~higher verb would be assigned specific case twice (or more times, in the case of longer raising chains): on the \path{subcat} (or \path{arg-st}) of the lower verb and on the \path{subcat} (or \path{arg-st}) of the raising verb (see \crossrefchapteralt{control-raising} on the analyis of raising in HPSG).  This would not necessarily lead to problems in the case of raising to subject verbs, as in~\aref{isl:nom}, as the structural argument would be the subject in both subcategorisation frames, so its case would be resolved to \ftype{snom} twice, but it would create a~problem in the case of raising to object verbs, as in~\bref{isl:nom}, as the case of the raised argument would be resolved to the nominative on the lower subcategorisation frame and to the accusative on the higher frame.  So, the problem is not limited to \ili{Icelandic}, but may be observed in any language with raising to object (also known as Exceptional Case Marking or Accusativus cum Infinitivo or AcI), including \ili{German} (cf., e.g., \citealt[231]{HM94a}): if a~structural argument occurs on a~number of \path{subcat} or \path{arg-st} lists, it should be assigned specific morphological case according to its position on just one of them – the highest one.
+The simplest principle would resolve the case of the first \ftype{str} argument of a~pure (non-gerundial) verb to nominative, i.e., to \ftype{snom}, the case of any subsequent \ftype{str} argument of a~pure verb to accusative, i.e., to \ftype{sacc}, and the case of any \ftype{str} argument of a~nominalisation to \ftype{sgen}.  Unfortunately, this simple principle would not work in various cases of raising, e.g., in the case of the \ili{Icelandic} data above.  While the “quirky” cases in~\rref{isl:acc}–\rref{isl:gen} would be properly taken care of by this approach – once the subject is assigned a~specific lexical case it is outside of the realm of a~principle resolving structural cases – structural subjects raised to a~higher verb would be assigned specific case twice (or more times, in the case of longer raising chains): on the \path{subcat} (or \path{arg-st}) of the lower verb and on the \path{subcat} (or \path{arg-st}) of the raising verb.\footnote{See \crossrefchapteralt{control-raising}, on the analysis of raising in HPSG.}  This would not necessarily lead to problems in the case of raising to subject verbs, as in~\aref{isl:nom}, as the structural argument would be the subject in both subcategorisation frames, so its case would be resolved to \ftype{snom} twice, but it would create a~problem in the case of raising to object verbs, as in~\bref{isl:nom}, as the case of the raised argument would be resolved to the nominative on the lower subcategorisation frame and to the accusative on the higher frame.  So, the problem is not limited to \ili{Icelandic}, but may be observed in any language with raising to object (also known as Exceptional Case Marking or Accusativus cum Infinitivo or AcI), including \ili{German} (cf., e.g., \citealt[231]{HM94a}): if a~structural argument occurs on a~number of \path{subcat} or \path{arg-st} lists, it should be assigned specific morphological case according to its position on just one of them – the highest one.
 
 Both \citet{Pollard94a} and \citet{HM94a} account for such facts via configurational case principles, e.g.~\citew[209]{HM94a}:
 \ea\label{hm:cp}
@@ -295,7 +222,7 @@ Both \citet{Pollard94a} and \citet{HM94a} account for such facts via configurati
   NP[\ftype{str}], it is called the (\textit{syntactically}) \notion{internal
     argument} of that sign.
 \z
-\citet[209–210]{HM94a} formalize this \princ{Case Principle} by
+\citet[209–210]{HM94a} formalise this \princ{Case Principle} by
 giving the following constraints:
 \ea \label{ex:cons:snom}
 \avm{
@@ -341,17 +268,43 @@ dtrs & [\type*{h-c-str}
 [dtrs|head-dtr|\ldots|subcat & < \type{synsem}, NP![\type{sgen}]! >, \ldots ]
 }
 \z
-Note that the locus of this \princ{Case Principle} is \ftype{phrase} and that it makes reference to \ftype{head-complement-structure} values of the \path{daughters} (\path{dtrs}) attribute.  In this sense, this principle is configurational.  Similar principles were proposed for \ili{Korean} \citep{Yoo93a-u,brat:96}, \ili{English} \citep{Grover95a-u} and \ili{Polish} \citep{prze:95b}, \emph{inter alia}.
+Note that the locus of this \princ{Case Principle} is \ftype{phrase} and that it makes reference to
+\ftype{head-complement-structure} values of the \path{daughters} (\path{dtrs}) attribute.  In this
+sense, this principle is configurational.  Similar principles were proposed for \ili{Korean}
+\citep{Yoo93a-u,brat:96}, \ili{English} \citep{Grover95a-u} and \ili{Polish} \citep{prze:95b},
+\emph{inter alia}.
 
-This configurational approach to case assignment is criticised in \citet{prze:96,Prze99b,Prze99} on the basis of conceptual and theory-internal problems.  The conceptual problem is that a~configurational analysis is employed for what is usually considered an essentially local phenomenon, one concerned with the relation between a~head and its dependents \citep{blak:94}.  The – more immediate – theory-internal problem is that such configurational case principles are restricted to locally realised arguments, and are not necessarily compatible with those – dominant since \citet[Chapter~9]{ps2} – HPSG analyses of extraction which do not assume traces and with those HPSG approaches to cliticisation in which the clitic is realised as an affix rather than as a~tree-configurational constituent (cf., e.g., \citealt{MS97a-u} on \ili{French} and \citealt{Monachesi99a-u} on \ili{Italian}).
+This configurational approach to case assignment is criticised in \citet{prze:96,Prze99b,Prze99} on
+the basis of conceptual and theory-internal problems.  The conceptual problem is that
+a~configurational analysis is employed for what is usually considered an essentially local
+phenomenon, one concerned with the relation between a~head and its dependents \citep{blak:94}.  The
+– more immediate – theory-internal problem is that such configurational case principles are
+restricted to locally realised arguments, and are not necessarily compatible with those – dominant
+since \citet[Chapter~9]{ps2} – HPSG analyses of extraction which do not assume traces and with those
+HPSG approaches to cliticisation in which the clitic is realised as an affix rather than as
+a~tree-configurational constituent (cf., e.g., \citealt{MS97a-u} on \ili{French} and
+\citealt{Monachesi99a-u} on \ili{Italian}).
 
-The solution proposed in \citet{prze:96,Prze99b,Prze99} is to resolve structural cases directly within \path{arg-st}, via local principles operating at the level of the \ftype{category} of a~word (where both head information and argument structure information – but not constituent structure – are available) rather than at the level of \ftype{phrase}.  This seems to bring back the problem, discussed in connection with the \ili{Icelandic} data above, of raised arguments, which occur on a~number of \path{arg-st} lists.  The innovation of \citet{prze:96,Prze99b,Prze99} is the proposal to mark, within \textsc{arg-st}, whether a~given argument is realised locally (either tree-con\-fi\-gu\-ra\-tio\-nal\-ly, or as a~gap to be filled higher on, or as an affix) or not.  If it is realised locally, it may be assigned appropriate case; if it is not (because it is raised), its structural case must be resolved higher up.  On this setup, the above constraints \rref{ex:cons:snom}–\rref{ex:cons:sacc} responsible for the assignment of structural nominative and accusative are replaced with the following two constraints (and similarly for the structural genitive):\footnote{The antecedents of such principles could be further constrained to apply to \ftype{word}s only. As usual, `$\oplus$' indicates concatenation of lists.}
+The solution proposed in \citet{prze:96,Prze99b,Prze99} is to resolve structural cases directly
+within \path{arg-st}, via local principles operating at the level of the \ftype{category} of a~word
+(where both head information and argument structure information – but not constituent structure –
+are available) rather than at the level of \ftype{phrase}.  This seems to bring back the problem,
+discussed in connection with the \ili{Icelandic} data above, of raised arguments, which occur on
+a~number of \path{arg-st} lists.  The innovation of \citet{prze:96,Prze99b,Prze99} is the proposal
+to mark, within \textsc{arg-st}, whether a~given argument is realised locally (either
+tree-con\-fi\-gu\-ra\-tio\-nal\-ly, or as a~gap to be filled higher on, or as an affix) or not.  If
+it is realised locally, it may be assigned appropriate case; if it is not (because it is raised),
+its structural case must be resolved higher up.  On this setup, the above constraints
+\rref{ex:cons:snom}–\rref{ex:cons:sacc} responsible for the assignment of structural nominative and
+accusative are replaced with the following two constraints (and similarly for the structural
+genitive):\footnote{The antecedents of such principles could be further constrained to apply to
+  \ftype{word}s only. As usual, `$\oplus$' indicates concatenation of lists.} 
 \ea
 \label{nonc:cp:germ1}
 \avm{
 [head & verb \\
-arg-st & <[arg NP![\type{str}]! \\
-		realized $+$]> \+ \2 ]
+arg-st & < [arg  \upshape NP![\type{str}]! \\
+	    realized $+$] > \+ \2 ]
 \impl
 [arg-st & <[arg  NP![\type{snom}]!]> \+ \2 ]
 }
@@ -359,12 +312,12 @@ arg-st & <[arg NP![\type{str}]! \\
 \ex \label{nonc:cp:germ2}
 \avm{
 [head & verb \\
-arg-st & \1 nelist \+ <[arg NP![\type{str}]! \\
-                      realized $+$]> \+ \2 ]
+ arg-st & \1 nelist \+ <[arg \upshape NP![\type{str}]! \\
+                        realized $+$ ]> \+ \2 ]
 \impl
 
 \hfill
-[arg-st & \1 \+ <[arg  NP![\type{snom}]!]> \+ \2 ]
+[arg-st & \1 \+ <[arg  NP![\type{sacc}]!]> \+ \2 ]
 }
 \z
 Obviously, for such constraints to work, values of \path{arg-st} must be lists of slightly more complex objects than \ftype{synsem} (these are now values of \path{arg} within such more complex objects), and additional principles must make sure that values of \path{realized} are instantiated properly (see \citealt[78–79]{Prze99b} for details).
@@ -391,8 +344,8 @@ While this non-configurational approach to syntactic case assignment was motivat
 
 Let us illustrate the last point with some \ili{Finnish} data from~\citet[\page 57, 59]{mali:93}:
 \eal
-\label{subj}
 \ex 
+\label{subj}
 \gll Liisa muisti matkan vuoden. \\
      Liisa.\NOM{} remembered trip.\ACC{} year.\ACC{}\\\hfill(Finnish)
 \glt  `Liisa remembered the trip for a year.'
@@ -432,7 +385,7 @@ cf.~\rref{adv1}–\rref{adv2}.
 
 Given such facts,
 \citet{mali:93} claims that syntactic case is assigned in \ili{Finnish} on
-the basis of the grammatical function hierarchy and that (at least some) adjuncts
+the basis of the grammatical function hierarchy and that at least some adjuncts
 belong to this hierarchy.  Moreover, as evidenced by
 \rref{adv1}–\rref{adv2}, adjuncts do not form a single class in this
 hierarchy: although the multiplicative adverbial \emph{yksi kerta} is
@@ -461,7 +414,6 @@ extended \path{arg-st} to nominative, whether this element is the first element 
 not (it is not in the case of \rref{obj}–\rref{adv2}), and whether it corresponds to the subject,
 the direct object or an adjunct.  The second constraint resolves the structural
 case of all subsequent elements, if any, to accusative.
-\itdopt{This approach allowing for the first element with structural case being not the first element in the list is what I suggested in \citew{Mueller2002b}. I argue that in the remote passive the \argst list may start with a dative so that the raised object is the first element with structural case although being in second position (p.\,157). The same works for Icelandic in \citew{MuellerGermanic}. It would be great if you could add this somewhere here.}
 
 
 
@@ -470,7 +422,8 @@ case of all subsequent elements, if any, to accusative.
 \section{Case syncretism and neutrality}
 \label{sec:case:syn}
 
-Another important strand of HPSG work on case concerns situations in which a~single syncretic form seems to simultaneously bear two (or more) case values, as in the following examples involving \isi{coordination}, \isi{free relatives} and \isi{parasitic gaps}:
+Another important strand of HPSG work on case concerns situations in which a~single syncretic form seems to simultaneously bear two (or more) case values, as in the following examples involving \isi{coordination}, \isi{free relatives} and \isi{parasitic gaps}:\footnote{
+See also the respective chapters in this handbook. \citet[\pageref{coordination:page-case-syncretism-start}--\pageref{coordination:page-case-syncretism-end}]{chapters/coordination} deal with case syncretism in coordinated structures, \citet[Section~\ref{sec:rc-free-relatives}]{chapters/relative-clauses} deal with free relatives and \citet[\pageref{ex-which-person-did-you-invite-without-thinking}]{chapters/udc} deal with parasitic gaps.}
 \begin{exe} 
 \ex
 \label{ex:syn:pc} \ili{Polish} coordination \citep[701–702]{Dyla84}:
@@ -525,7 +478,6 @@ Another important strand of HPSG work on case concerns situations in which a~sin
 In~\aref{ex:syn:pc}, the fronted syncretic accusative/genitive form \emph{kogo} `who’ satisfies the requirements of the two coordinated verbal constituents: in one, \emph{lubi} `likes’ requires an accusative object, and in the other, \emph{nienawidzi} `hates’ expects a~genitive object.  A~form which is not syncretic between (at least) these two cases cannot occur in the place of \emph{kogo}; this is illustrated in~\bref{ex:syn:pc}, where the element putatively shared by the two verbal constituents is syncretic between accusative and nominative, rather than accusative and genitive.  The \ili{English} example~\rref{ex:syn:ec} is similar and involves the relative pronoun \emph{who}, syncretic between accusative and nominative.  The well-known example~\rref{ex:syn:gc} illustrates essentially the same phenomenon in \ili{German}: the form \emph{Frauen} `women’, which is fully syncretic with respect to case, simultaneously satisfies the accusative requirement of \emph{findet} `finds’ and the dative requirement of \emph{hilft} `helps’.  By contrast, this joint requirement is not satisfied either by \emph{Männer}, which is accusative (among other cases) but not dative, or by \emph{Männern}, which is dative but not accusative.  The other two examples show that this phenomenon is not restricted to coordination.  In~\rref{ex:syn:gfr}, the syncretic form \emph{was} `what’ simultaneously satisfies the constraint that the object of \emph{gegeben} `given’ is accusative and that the subject of \emph{ist} `is’ is nominative.  Similarly, the extracted \emph{who} in~\rref{ex:syn:epg} seems to simultaneously bear the accusative case assigned by the preposition \emph{of} and the nominative case of the subject of \emph{should}.
 
 Such examples were at one point considered problematic not only for HPSG, but for unification-based theories in general \citep{Ingria90}.  The reason is that, on the straightforward approach to case, they should all be ungrammatical.  For example, in the case of \aref{ex:syn:gc}, the assignment of the accusative to the object of \emph{findet} `finds’ should clash with the assignment of the dative to the object of \emph{hilft} `helps’, as both objects are realised by the same noun \emph{Frauen} `women’.  In other words, the attempt to unify accusative and dative should fail.  
-\itdopt{This seems to be the place for crossreferencing \crossrefchaptert{udc} and \crossrefchaptert{relative-clauses}, but I cannot find a plausible way to do it. If you find one, please do.}
 
 The solution first proposed by \citet[207–208]{LHC2001a-u} is to enrich the \ftype{case} hierarchy
 in such a~way that the unification of two different morphological cases does not necessarily result
@@ -535,29 +487,37 @@ accusative are structural cases in \ili{English}, they propose the part of the s
 case hierarchy shown in Figure~\ref{fig:daniels18}.\footnote{Type names follow the convention in \citet{dani:01}, for increased uniformity with the remainder of this section.}
 %\pagebreak
 \begin{figure}
-\begin{tikzpicture}[text height=1.5ex,text depth=.25ex,
-  % inner sep=2pt,
-  node distance=3em,
-  baseline=5.25em]\small\it
-\node (p-acc) {p-acc};
-\node (p-acc1) [right of=p-acc] {};
-\node (p-nom-acc) [right of=p-acc1] {p-nom-acc};
-\node (p-nom1) [right of=p-nom-acc] {};
-\node (p-nom) [right of=p-nom1] {p-nom};
-\node (acc) [above of=p-acc1] {acc};
-\node (nom) [above of=p-nom1] {nom};
-\node (p-nom-acc1) [above of=p-nom-acc] {};
-\node (case) [above of=p-nom-acc1] {case};
-\draw (case.south) -- (acc.north);
-\draw (case.south) -- (nom.north);
-\draw (acc.south) -- (p-acc.north);
-\draw (acc.south) -- (p-nom-acc.north);
-\draw (nom.south) -- (p-nom.north);
-\draw (nom.south) -- (p-nom-acc.north);
-\end{tikzpicture}
-% \mbox{}\\\includegraphics[scale=.35]{daniels18.png}
+% \begin{tikzpicture}[text height=1.5ex,text depth=.25ex,
+%   % inner sep=2pt,
+%   node distance=3em,
+%   baseline=5.25em]\small\it
+% \node (p-acc) {p-acc};
+% \node (p-acc1) [right of=p-acc] {};
+% \node (p-nom-acc) [right of=p-acc1] {p-nom-acc};
+% \node (p-nom1) [right of=p-nom-acc] {};
+% \node (p-nom) [right of=p-nom1] {p-nom};
+% \node (acc) [above of=p-acc1] {acc};
+% \node (nom) [above of=p-nom1] {nom};
+% \node (p-nom-acc1) [above of=p-nom-acc] {};
+% \node (case) [above of=p-nom-acc1] {case};
+% \draw (case.south) -- (acc.north);
+% \draw (case.south) -- (nom.north);
+% \draw (acc.south) -- (p-acc.north);
+% \draw (acc.south) -- (p-nom-acc.north);
+% \draw (nom.south) -- (p-nom.north);
+% \draw (nom.south) -- (p-nom-acc.north);
+% \end{tikzpicture}
+\begin{forest}
+type hierarchy
+[case 
+   [acc
+      [p-acc]
+        [p-nom-acc ]] 
+   [nom
+      [,identify=!P]
+      [p-nom ]]]
+\end{forest}
 \caption{Case hierarchy for English encoding case syncretism}\label{fig:daniels18} 
-\itdopt{I will redraw this with forest. Shouldn't nominative be to the left? For me, nominative is first. Applies to other figures as well.}
 \end{figure}
 % \begin{verbatim}
 %              scase
@@ -585,15 +545,13 @@ A~situation often perceived as dual to such case neutrality, sometimes called �
 \ex\label{ex:dis:pl}
 \ili{Polish} \citep[175]{Prze99b}: \\ [1ex]
 \gll Dajcie wina i całą świnię! \\
-    give wine.\GEN{} and whole.\ACC{} pig.\ACC{}\\
-\itdopt{show valence at dajcie?}
+    give(\textsc{obj.acc/gen}) wine.\GEN{} and whole.\ACC{} pig.\ACC{}\\
 \glt `Serve (some) wine and a whole pig!’
 \ex\label{ex:dis:ru} \ili{Russian} \citep[11]{levy:01}: \\ [1ex]
-\gll V{\v c}era ves' den' on pro{\v z}dal svoju podrugu Irinu i zvonka ot svoego brata Grigorija. \\
-    yesterday all day he expected self's.\ACC{} girlfriend.\ACC{} Irina.\ACC{} and call.\GEN{} from self's brother Grigory\\
+\gll V{\v c}era ves' den' on pro{\v z}dal svoju         podrugu           Irinu i zvonka ot svoego brata Grigorija. \\
+     yesterday  all  day  he expected(\textsc{obj.acc/gen})     self's.\ACC{} girlfriend.\ACC{} Irina.\ACC{} and call.\GEN{} from self's brother Grigory\\
 \glt `Yesterday he waited all day for his girlfriend Irina and for a~call from his brother Grigory.’
 \zl
-\itdopt{Mark the valence of give and expected as in the examples before?}
 In \ili{Polish}, the object of the verb \emph{dajcie} `give’ is normally in the accusative, but may also be realised as the genitive, when its meaning is partitive; in~\rref{ex:dis:pl}, the object is a~coordination of such a~genitive noun \emph{wina} `(some) wine’ and the accusative \emph{całą świnię} `whole pig’.  Similarly, according to \citet{levy:01}, the \ili{Russian} verb \emph{pro{\v z}dal} `awaited’ may combine with accusative or genitive, and in~\rref{ex:dis:ru} it happily combines with a~coordinate phrase containing both.
 
 If such “accusative and genitive” coordinate phrases bear case at all, the value of this grammatical category must be something like \ftype{acc+gen}.  Note that this situation differs from case neutrality discussed above: a~syncretic case such as \ftype{p-acc-gen} intuitively corresponds to intersection: a~nominal bearing this case is accusative and genitive at the same time.  On the other hand, the intuition behind \ftype{acc+gen} is that of union: a~(coordinated) nominal with this case value has accusative elements and genitive elements, so it may fill a~position disjunctively specified as requiring accusative \emph{or} genitive.  However, \ftype{acc+gen} coordinate phrases cannot fill either purely accusative positions (because such phrases contain genitive – i.e., non-accusative – conjuncts), or purely genitive positions (because of accusative – i.e., non-genitive – conjuncts), or positions simultaneously specified as accusative \emph{and} genitive, as in~\rref{ex:syn:pc} above (for both reasons).
@@ -814,8 +772,7 @@ two general classes) which make the spreading of the nominative possible, 10 of 
 five groups, one of the two classes) license the spreading of the accusative.  On the syntactic
 side, the dependents of such nominal arguments are raised to become valency elements of the
 governing verbs.  In particular, dependents of the subject are raised to the valence list
-  for subjects \path{subj}, resulting in multiple valency subjects.
-\itdopt{I find the term ``multiple valency subjects'' strange. Is this supposed ``multiple subjects''? Represented in valence lists? Maybe ``multiple subjects valency''?}  Configurational
+for subjects \path{subj}, resulting in multiple elements within the \subjl of a single verb. Configurational
 case assignment rules constrain the value of case of each valency subject to nominative, and of each
 valency complement to accusative.  The paper does not discuss the (im)possibility of formulating
 such case assignment rules non-configurationally, within local \path{arg-st} (or \path{deps}), but
@@ -855,6 +812,7 @@ I~would like to thank the following colleagues for their comments on a~previous 
 {\sloppy 
 \printbibliography[heading=subbibliography,notkeyword=this] 
 }
+
 
 \end{document}
 
