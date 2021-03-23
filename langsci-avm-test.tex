@@ -51,7 +51,39 @@ Basic case:
 				nonlocal \ldots]
 	]
 }
+\avm[delimfactor=950, delimfall=5pt]{
+	[\type*{sign}
+	phon & \list*(phon)\\
+	synsem &	[\type*{synsem}
+				local &	[\type*{local}
+						category &	[\type*{category}
+									head & part-of-speech\\
+									subj & \list*(synsem)\\
+									comps & \list*(synsem)]\\
+						content & \ldots\\
+						context & \ldots]\\
+				nonlocal \ldots]
+	]
+}
+\avm[delimfactor=980, delimfall=8pt]{
+	[\type*{sign}
+	phon & \list*(phon)\\
+	synsem &	[\type*{synsem}
+				local &	[\type*{local}
+						category &	[\type*{category}
+									head & part-of-speech\\
+									subj & \list*(synsem)\\
+									comps & \list*(synsem)]\\
+						content & \ldots\\
+						context & \ldots]\\
+				nonlocal \ldots]
+	]
+}
 \z
+
+The last example seems to be about right. The manual should explain what the delimfactor and
+delimfall values do and give some examples.
+
 
 Special cases:
 
@@ -357,10 +389,15 @@ applied here. Always.
 \item \#97: Move type up? Not for types including letters like \emph{t} or \emph{l}.
 
 \ea
+% \avm[delimfactor=950, delimfall=5pt]{
+% [\type*{sign}
+% phonology & list!(phon\_string)!  ]
+% }
 \avm{
 [\type*{sign}
 phonology & list!(phon\_string)!  ]
-
+}
+\avm{
 [\type*{head}
  vform & fin ]
 }
@@ -371,6 +408,9 @@ placed in one line (e.g. two AVMs beside each other) and then the baselines of t
 be identical. This would be terrible.''
 
 ``Maybe what you really want isn't so much messing around with individual letters, but rather setting tighter options for the enclosing bracket delimiter, e.g.: \verb+\avm[delimfactor=950, delimfall=5pt] {}+.''
+
+Interestingly the delimfactor does not seem to make a difference for simple AVMs like the ones in
+(\mex{0}), but it does affect the ones at the very beginning.
 
 
 \item \#99: space after \verb+\uplus+, \#106: space is different for \verb-\+- within the same avm
