@@ -1,0 +1,513 @@
+%% -*- coding:utf-8 -*-
+\documentclass[output=book
+		,modfonts
+		,nonflat
+	        ,collection
+	        ,collectionchapter
+	        ,collectiontoclongg
+ 	        ,biblatex  
+                ,babelshorthands
+%                ,showindex
+                ,newtxmath
+                ,colorlinks, citecolor=brown 
+                ,draftmode
+% 	        ,coverus
+		  ]{langscibook}                              
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% put all additional commands you need in the 
+% following files. If you do not know what this might 
+% mean, you can safely ignore this section
+
+\input{localmetadata.tex}
+\input{localpackages.tex}
+\input{localhyphenation.tex}
+\input{localcommands.tex} 
+
+\usepackage{lipsum}
+
+\begin{document}
+
+\maketitle                
+\frontmatter
+
+\currentpdfbookmark{Contents}{name} % adds a PDF bookmark
+%%
+\mainmatter          
+
+Basic case:
+\ea
+\avm{
+	[\type*{sign}
+	phon & \list*(phon)\\
+	synsem &	[\type*{synsem}
+				local &	[\type*{local}
+						category &	[\type*{category}
+									head & part-of-speech\\
+									subj & \list*(synsem)\\
+									comps & \list*(synsem)]\\
+						content & \ldots\\
+						context & \ldots]\\
+				nonlocal \ldots]
+	]
+}
+\avm[delimfactor=950, delimfall=5pt]{
+	[\type*{sign}
+	phon & \list*(phon)\\
+	synsem &	[\type*{synsem}
+				local &	[\type*{local}
+						category &	[\type*{category}
+									head & part-of-speech\\
+									subj & \list*(synsem)\\
+									comps & \list*(synsem)]\\
+						content & \ldots\\
+						context & \ldots]\\
+				nonlocal \ldots]
+	]
+}
+\avm[delimfactor=980, delimfall=8pt]{
+	[\type*{sign}
+	phon & \list*(phon)\\
+	synsem &	[\type*{synsem}
+				local &	[\type*{local}
+						category &	[\type*{category}
+									head & part-of-speech\\
+									subj & \list*(synsem)\\
+									comps & \list*(synsem)]\\
+						content & \ldots\\
+						context & \ldots]\\
+				nonlocal \ldots]
+	]
+}
+\z
+
+The last example seems to be about right. The manual should explain what the delimfactor and
+delimfall values do and give some examples.
+
+
+Special cases:
+
+
+\begin{enumerate}
+\item \#49 The distance after numerated examples with AVMs is too small (order.tex)
+
+\begin{exe}\ex\label{x:rc-79}  Lexical rule for propositional attitude predicates in \ili{French}\\
+\avm{
+	[ % cat & \[ head & v \]\\
+	comps & < CP[slash & \{ \1 [\type*{prl}
+		                    cont|index & \2 ] \} $\cup$ \3 ]  > \+ \ldots\\
+        slash & \{ \1 \} $\cup$ \4 ]
+}
+$\mapsto$\\
+\flushright
+\avm{
+	[slash & \{ [\type*{nprl}
+		     cat & \upshape PP\subscr{de \2} ] \} $\cup$ \4 ]
+}
+\end{exe}%
+\lipsum[1][1-4]
+
+\item \#59, \#115: Brackets () are too tall.
+\ea
+\avm{
+[\type*{passive-verb}
+ arg-st  & \2 ( \+ < ! PP[\type{by}]$_i$ ! > )\\
+ lex-dtr & [\type*{stem}
+            head   & verb\\
+            arg-st & < \1$_i$ > \+ \2 < NP, \ldots > ]]  
+}
+\z
+
+\ea 
+\avm{
+\type{coord-phrase} \impl\\
+	[\punk{synsem|cat}{\1} \\
+	dtrs & <[synsem|loc|cat & \1 ]> \+ ne-list([synsem|loc|cat & \1 ]) ]
+}\label{coordparam2}
+\z
+
+\eal
+\ex
+\avm{
+\emph{simple-coord-phrase} \impl \\
+	[dtrs & ne-list(<[coord & none]>) \+ ne-list([coord & \1 crd ]) ]
+}
+
+\ex
+\avm{
+\emph{omnisyndetic-coord-phrase}  \impl \\
+	[dtrs & ne-list([coord & \1 crd ]) ]
+}\label{omni}
+\ex
+\avm{
+\emph{asyndetic-coord-phrase}  \impl \\
+	[dtrs & ne-list([coord & none ]) ]
+}
+\zl
+
+
+
+\item \#64: spacing between values is different when \verb+\punk+ is involved
+
+\ea
+\avm{
+\type{nom-coord-phrase} \impl
+	[\punk{synsem|loc|cont|index}{ \1} \\
+	 dtrs & < [ ], \ldots, [synsem|loc|cont|index & \1 ] > ]
+}
+\z
+
+\item \#65:
+
+\ea
+\avm{
+  [lhs : & [cat : & \textit{command} \\
+            modality : & \2 \\
+            content : & \1 \\
+            time : & \3 ] \\
+   rhs : & [dtr1 : & [cat : & \textit{located\_command} \\
+                      modality : & \6 \\
+                      content : & \1!\textup{[}location\textup{]}! \\
+                      time : & \7
+                      ] \\
+            dtr2 : & [cat : & \textit{spatial\_gesture} \\
+                      content : & \5 \\
+                      modality :& \9 \\
+                      time :& \tag{10}
+                      ]
+            ] \\
+   constraints : & \{overlap(\7,\tag{10}) $\lor$ follow(\7,\tag{10},\texttt{4}s) \\
+                     total-time(\7,\tag{10},\3) \\ 
+                     assign-modality(\6,\9,\2)
+                    \}
+   ]
+}
+\z
+
+\item \#70: very often AVMs without alignment are needed. There can be cases where the alignment is needed
+on some levels but not at all levels.
+\eal
+\ex \avm{
+[\punk{mother|syn|val|comps}{< >} \\
+head-dtr & \0	[\type*{word}
+                syn|val|comps & \tag{A} ] \\
+dtrs & < \0 > \+ \tag{A} nelist ]
+}
+\ex \avm{
+[\type*{sem-obj}
+index  & s \\
+frames & <[\type*{eating-fr}
+	   label & l\\
+	   sit   & s\\
+	   ingestor & i\\
+	   ingestible & j]> ]
+}
+\ex \avm{
+[\phon < I > \\
+content|index & \1 [per & 1st \\
+		    num & sg ] \\
+context &  !$speaker(\1)$! 
+]
+}
+
+\ex 
+
+\avm{
+[ head & \1\\
+  head-dtr & [ head & \1 ] ]
+}
+
+
+\zl
+
+Desired encoding: (with \verb+\phon+ working)
+\eal
+\ex \avm{
+[phon < I > \\
+content|index  \1 [per & 1st \\
+		   num & sg ] \\
+context   !$speaker(\1)$! ]
+}
+
+
+\ex \avm{
+[\type*{sign}
+phonology list!(phon\_string)! \\
+synsem 	[local &	[category & category \\
+						content & content \\
+						qstore & set!(quantifier)! \\
+						pool & set!(quantifier)! ] ] \\
+retrieved  list!(quantifier)! ]
+}
+\zl
+
+\item \#71 alignment and escape via !
+
+\ea
+\avm{
+	[\type*{reg-bar-adj}
+	\punk{phon}{\1 \+ \phonliste{ bar }} \\
+	\punk{morph-b}{<[\type*{trans-verb}
+			  phon \; \1 \\
+			  synsem|loc  [cat|comps & < NP ![\type{acc}]!\ind{2} > \+ \3 \\
+			               cont|nuc  & \4 [act & index \\
+			                               und & \2] ] ] >} \\
+	synsem|loc &	[cat	[head  & adj \\
+				 subj  & < NP\ind{2} > \\
+				 comps & \3 ] \\
+			 cont|nuc  [reln    & $\diamond$ \\
+				    und     & \2 \\
+				    soa-arg & \4 ] ] ]
+}
+\z
+
+\item \#78 distance too narrow between lines in avms (probably some setting)
+
+\ea
+\avm{
+	[\type*{scope-obj}
+	index & \1 \\
+	restr &	\{
+			[\type*{fact}
+			prop|soa  &	[\type*{soa}
+						nuc &	[\type*{person}
+								instance & \1 ] ] ], \\
+            [\type*{fact}
+            prop|soa &	[\type*{soa}
+            			nuc &	[\type*{speak\_to}
+            					speaker & Kim\\
+            					addressee & \1 ] ] ]
+      		\} 
+	] 
+}
+\z
+
+\item \#79: The alignment of tags is to the number not to the box
+
+\ea
+\avm{\emph{head-filler-phrase} \impl\\
+[slash  & \1 \\
+ hd-dtr & [head & verbal \\
+ 	   slash & \{ \2 \} $\uplus$ \1 ] \\
+ \punk{non-hd-dtrs}{ <[local &  \2 ]>} ]
+}
+\z
+I am not sure whether I want the box to be aligned or the number.
+
+
+\item \#81: The text is too high in \verb+< >+.
+
+\ea
+\avm{
+[subj  & < PRO >]
+}
+\z
+
+
+\item \#85: AVMs in type hierarchies are not at the top
+
+\begin{forest} 
+type hierarchy
+[object,
+    calign=midpoint, calign children={2}{3},
+    [\avm{[\type*{substantive} 
+           prd & boolean]}
+      [\avm{[\type*{verb}
+             vform & vform\\
+             prd & plus]}]
+      [\avm{[\type*{noun} 
+             case & case]}]
+    ]
+    [case]
+    [vform]
+    [boolean
+      [plus]
+      [minus]
+    ]
+  ]
+\end{forest}
+
+\item \#92: commas and angle brackets with AVMs and line breakes, angle brackets too small
+\ea
+\avm{
+[\punk{synsem|loc|cont|index}{[num & pl \\
+	                  gend & [m & \1 \+ \2 ] \\
+                          per & [me  & \3 \+ \5\\
+                              you & \4 \+ \6 ] ]} \\
+ dtrs &	< [synsem|loc|cont|index & [gend & [m & \1] \\
+                       	            per & [me  & \3 \\
+                                           you & \4] ] ],\\
+	  [synsem|loc|cont|index & [gend & [m & \2] \\
+                                    per & [me  & \5 \\
+                                           you & \6] ] ]  >
+	]
+}
+\z
+The brackets seem to not see the comma. Apart from this they are too small (should span the whole AVMs)
+
+
+\item \#93 something is needed for aligning AVM at top \verb+\atop+ does not seem to work
+
+
+I want both AVMs to appear at the top right below the heading. \verb+\attop+ does not work since it puts the following AVM on the next line.
+\ea
+\label{entryfori}
+Simplified lexical signs for  \textit{I} and \textit{she}: \\*
+\avm{
+[\phon < I > \\
+head &	[\type*{noun}
+		pers & 1st \\
+		num & sg ] ] 
+}\hspace{1cm}
+\avm{
+[\phon  < she > \\
+head &	[\type*{noun}
+		pers & 3rd \\
+		num & sg \\
+		gen & fem ] ] 
+}
+\z
+Felix provided solution with minipage, but could there be an option for calling \verb+\avm+? And if
+so, could forest enable this by default?
+
+
+\item \#94: The I touches the bracket.
+
+\ea
+\avm{
+[\phon < I > \\
+head &	[\type*{noun}
+		pers & 1st \\
+		num & sg ] ] 
+}
+\z
+
+Felix: This is normal in \LaTeX. Stefan: Yes, but there is italics correction and it has to be
+applied here. Always.
+
+
+\item \#97: Move type up? Not for types including letters like \emph{t} or \emph{l}.
+
+\ea
+% \avm[delimfactor=950, delimfall=5pt]{
+% [\type*{sign}
+% phonology & list!(phon\_string)!  ]
+% }
+\avm{
+[\type*{sign}
+phonology & list!(phon\_string)!  ]
+}
+\avm{
+[\type*{head}
+ vform & fin ]
+}
+\z
+
+Felix: ``I don't think this is a good idea. For one, consider what would happen if two types are
+placed in one line (e.g. two AVMs beside each other) and then the baselines of these types would not
+be identical. This would be terrible.''
+
+``Maybe what you really want isn't so much messing around with individual letters, but rather setting tighter options for the enclosing bracket delimiter, e.g.: \verb+\avm[delimfactor=950, delimfall=5pt] {}+.''
+
+Interestingly the delimfactor does not seem to make a difference for simple AVMs like the ones in
+(\mex{0}), but it does affect the ones at the very beginning.
+
+
+\item \#99: space after \verb+\uplus+, \#106: space is different for \verb-\+- within the same avm
+
+
+\ea
+\avm{
+\emph{wh-inter-cl}:
+[cont & [params & \{ \1 \} $\uplus$ set] ]
+}
+\z
+
+And this is \#106:
+\ea
+\avm{
+[comps & \1 \+ <[loc & \4 [cat [head & verb $\lor$ prep \\
+			         comps & < > ] ] ] > \+ \2  ]}
+\z
+There was different space after the two $\oplus$. This is fixed. But the space before and after
+$\oplus$ is still different.
+
+\ea
+\avm{
+[ subcat & < > $\lor$ < \type{synsem} > ]}
+\z
+The space before and after $\lor$ differs.
+
+
+\item \#101: space is missing due to exclamation marks in avms
+
+\ea
+\avm{
+	[phon & < \rm{every, dog, barks} >\\
+	\ldots\ cont & [main & \tag{4a} {\normalfont \sffamily bark} ] \\
+	sem &	[exc & \2 !{\normalfont \sffamily $\forall$x ($\phi$,$\psi$)}! \\
+			inc & \4 !{\normalfont \sffamily bark(x)}!\\
+			pts & <\2, \tag{2a}, \tag{2b}, \3, \tag{3a}, \4, \tag{4a}>]]
+}
+\z
+The exclamation mark seems to eat the space. Felix: Hardcode space.
+
+
+
+
+\item \#108: Punk causes extra newline
+
+\ea
+\avm{
+[arg-st & <[arg & \upshape NP![\type{str}]! \\
+            \punk{realized}{$+$} ]> ] }
+\z 
+
+\item \#109: distance betweeen lines not eaqual when normal brackets are used
+
+\ea
+\avm{
+		[\type*{phrase}
+		phon & \list*(phon)\\
+		synsem & synsem\\
+		dtrs & \list*(sign) ]
+	}
+\z
+
+What I want here is the normal brackets: (). The distance between \phon and \synsem is bigger than
+between \synsem and \dtrs. This is how it should look like:
+
+\ea
+\avm{
+		[\type*{phrase}
+		phon & \upshape !\textit{list}(\textit{phon})!\\
+		synsem & synsem\\
+		dtrs & \upshape !\textit{list}(\textit{sign})! ]
+	}
+\z
+I guess the problem is due to the fact that normal brackets are not used but bigger brackets.
+
+
+\item The space between \ibox{1} and NP is larger than the space between bracket and \ibox{1}.
+
+\ea
+\avm{
+	[arg-st & < \1 NP, \2 NP > \\
+	valence & < \1, \2 > \\
+	gap & < > ]
+}
+\z
+
+\end{enumerate}
+
+\end{document} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%                  END                         %%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-engine: xetex
+%%% End:
