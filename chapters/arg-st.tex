@@ -961,7 +961,8 @@ Again, it is unclear that underlying semantic differences across languages in th
 \is{thematic role|see{semantic role, participant role, thematic hierarchy}|(}
 
 The \textsc{arg-st} list constitutes the syntactic side of the mapping between semantic roles and syntactic dependents.  As \argst is merely an ordered list of arguments, without any semantic ``labels'', it contains no counterparts to thematic role types, such as \textsc{agent}, \textsc{patient}, \textsc{theme}, or \textsc{goal}.  Thematic roles like these, however, have been a mainstay of linking in Generative Grammar since \citet{Fillmore1968} and have antecedents going back to P\={a}\d{n}ini.
-Ranking them in a\is{thematic hierarchy|see{thematic roles}} \emph{thematic hierarchy}, and labeling each of a predicator's semantic roles with a unique thematic role, then yields an ordering of roles analogous to the ordering on the \argst list.  Indeed, it would not be difficult to import this kind of system into HPSG, as a means of determining the order of elements on the \argst list.  However, HPSG researchers have generally avoided using a thematic hierarchy, for reasons we now briefly set out.
+%JPK 3-26-21 next sentence edited as per Stefan's suggestion
+Ranking them in a\is{thematic hierarchy|see{thematic roles}} \emph{thematic hierarchy}, and labeling each of a predicator's semantic roles (e.g., \feat{eater} and \feat{food} for the verb \word{eat}) with a unique thematic role (e.g., \feat{agent} and \feat{patient} for \word{eat}), then yields an ordering of roles analogous to the ordering on the \argst list.  Indeed, it would not be difficult to import this kind of system into HPSG, as a means of determining the order of elements on the \argst list.  However, HPSG researchers have generally avoided using a thematic hierarchy, for reasons we now briefly set out.
 
 \citet{Fillmore1968} and many others thereafter have posited a small set of disjoint thematic roles, with each of a predicator's participant roles assigned exactly one thematic role.
 Thematic hierarchies depend on these properties for a consistent linking theory, but they do not hold up well to formal scrutiny.
@@ -1914,7 +1915,7 @@ Although the three cases we have outlined result in an extended \argst, the ways
 \begin{exe}
 \ex\label{res-lr}
 
-\changed{\avm{
+\avm{
 [key  & \1 \\
  rels & \2 <\ldots, \1, \ldots > ]
 }
@@ -1922,7 +1923,7 @@ Although the three cases we have outlined result in an extended \argst, the ways
 \avm{
 [key  & \3 cause-rel \\
  rels & \2 \+ < \3 > ]
-}}
+}
 \end{exe}
 
 
@@ -1930,30 +1931,31 @@ Although the three cases we have outlined result in an extended \argst, the ways
 %JPK 1-29-20: The causal relation is added to the list of RELS. It's flat (MRS), but isn't that what is needed for resultatives? 51 is oversimplified in many ways,  but it seems to me to get the idea across. Am I missing something.
 %SW 1-29-20:   51 seems a little too vague.  e.g. it could represent resultative or causative. 
 %JPK 1-31-20: I agree, but I am not sure it is worth going into more details. You think we should? 
-The entries of the \isi{clause union} verbs are simply stipulated to include on their \argst lists the syntatic arguments of their (lexical) verbal arguments in (\ref{faire-ent}).
+The entries of the \isi{clause union} verbs are simply stipulated to include on their \argst lists the syntatic arguments of their (lexical) verbal arguments in (\ref{faire-ent}); see \crossrefchaptert{complex-predicates} for details on approaches to complex predicates in HPSG.
+%JPK 3-26-21 changed to avoid shuffle
 %TD 13 Jan. 20: reworded the definition of shuffle
 %SW: jan 28. sorry, I rereworded it.  they dont have to be 'intermixed' do they?  ALERT
 % TD 28 Jan. 20: Thanks; that's better
-The symbol $\bigcirc$\is{$\bigcirc$} in this rule is known as ``shuffle''\is{shuffle}; it represents any list 
+%The symbol $\bigcirc$\is{$\bigcirc$} in this rule is known as ``shuffle''\is{shuffle}; it represents any list 
 % in which the elements of the two lists are intermixed
-containing the combined elements of the two lists, but with the relative ordering of elements on each list preserved.\footnote{
-See \crossrefchapterw[\pageref{order:rel-shuffle}]{order} for more on the shuffle operator.}
+%containing the combined elements of the two lists, but with the relative ordering of elements on each list preserved.\footnote{
+%See \crossrefchapterw[\pageref{order:rel-shuffle}]{order} for more on complex predicates.}
 
 \begin{exe}
 \ex\label{faire-ent}
 \avm{
 	[arg-st & <\ldots, [head   & verb \\
-			    arg-st & \1 ] > \shuffle \1 ]
+			    arg-st & \1 ] > $\oplus$ \1 ]
 }
 \end{exe} 
 
 \noindent
-In (\ref{faire-ent}), shuffling the members of the verbal complement's \argst list with those of the main verb's \argst list allows us to represent a possible reordering of them (for example in passivization -- depending on one's approach to passivization
+%In (\ref{faire-ent}), shuffling the members of the verbal complement's \argst list with those of the main verb's \argst list allows us to represent a possible reordering of them (for example in passivization -- depending on one's approach to passivization
 %JPK 3-21-21 One possibility: We are here alluding to other people's work. \itdopt{but didn't you just say that you assume a lexical rule for passive? I am afraid that the shuffling admits too much freedom.}
- in HPSG; see \crossrefchaptert{complex-predicates}).
+ %in HPSG; see \crossrefchaptert{complex-predicates}).
 %JPK 13 Jan 2020: Added a definition of the shuffle operation
-\itdopt{I never saw this shuffling in the \argstl. I think it causes chaos. If it is suggested
-  somewhere in the literature, you should cite those proposing it. (And blame them. =;-)}
+%\itdopt{I never saw this shuffling in the \argstl. I think it causes chaos. If it is suggested
+%  somewhere in the literature, you should cite those proposing it. (And blame them. =;-)}
 
 Finally, (negative) adverbs that select for a verb (VP) are added to the \argst of the verb they select, as shown in (\ref{neg-lr}). 
 
@@ -2124,7 +2126,7 @@ To summarize, a lexical argument structure is an abstraction or generalization o
 if that were the whole story, then the phrasal theory would be viable. But it is not. As it turns out, lexically-encoded valence structure, once abstracted, can alternatively be used in other ways: among other possibilities, the predicator (crucially including its valence structure) can be coordinated with other predicators that have a similar valence structure, or it can serve as the input to lexical rules specifying a new word or lexeme bearing a systematic relation to the input word.   The phrasal approach prematurely commits to a single phrasal position for the realization of 
 a semantic argument.  In contrast, a lexical argument structure gives a word the appropriate flexibility to account for the full range of expressions found in natural language.   
  
-\itdopt{add conclusion/summary?}
+%\itdopt{add conclusion/summary?}
 
 %\section*{Abbreviations}
 \section*{Acknowledgements}
