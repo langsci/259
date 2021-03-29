@@ -139,42 +139,46 @@ case assignment principles.  Similarly, they argue that the last three (i.e., ap
 nominative) may also be assigned lexically, in which case they are stable across various syntactic
 environments.  These empirical observations are translated into the \ftype{case} hierarchy in Figure~\ref{fig:case:germ}.
 \begin{figure}
+% See https://github.com/langsci/259/issues/117#issuecomment-800589939
 \begin{forest}
-type hierarchy
-[case
-  [morph-case, for children={l sep+=2\baselineskip}
-    [nom,name=nom]
-    [gen,name=gen
-      [lgen,edge to=lexical,tier=max]]
-    [dat
-      [ldat,edge to=lexical,tier=max]]
-    [acc,name=acc
-      [lacc,edge to=lexical,tier=max]]]
-  [syn-case, for children={l sep+=2\baselineskip}
-    [lexical,name=lexical]
-    [structural
-      [snom,edge to=nom,tier=max]
-      [sgen,edge to=gen,tier=max]
-      [sacc,edge to=acc, calign with current,tier=max]]]]
+  type hierarchy,
+  for level={3}{l+=2\baselineskip},
+  [case
+    [morph-case
+      [nom,name=nom]
+      [gen,name=gen
+        [lgen,edge to=lexical]]
+      [dat
+        [ldat,edge to=lexical]]
+      [acc,name=acc        [lacc,edge to=lexical]]]
+    [syn-case
+      [lexical,name=lexical]
+      [structural
+        [snom,edge to=nom]
+        [sgen,edge to=gen]
+        [sacc,edge to=acc, calign with current]]]]
 \end{forest}
-% \begin{forest}
-% type hierarchy
-% [case
-%   [morph-case
-%     [nom,name=nom,l sep+=2\baselineskip]
-%     [gen,name=gen,l sep+=2\baselineskip
-%       [lgen,edge to=lexical]]
-%     [dat,l sep+=2\baselineskip
-%       [ldat,edge to=lexical]]
-%     [acc,name=acc,l sep+=2\baselineskip
-%       [lacc,edge to=lexical]]]
-%   [syn-case
-%     [lexical,name=lexical]
-%     [structural,l sep+=2\baselineskip
-%       [snom,edge to=nom]
-%       [sgen,edge to=gen]
-%       [sacc,edge to=acc, calign with current]]]]
-% \end{forest}
+\begin{forest}
+  type hierarchy,
+  % for level={2}{l sep+=2\baselineskip},    % this works, too
+  for level={3}{l+=2\baselineskip},
+  for tree={content format/.wrap value={\noexpand\raisebox{0pt}[1.2ex][0pt]{#1}}},
+  [case
+    [morph-case
+      [nom,name=nom]
+      [gen,name=gen
+        [lgen,edge to=lexical]]
+      [dat
+        [ldat,edge to=lexical]]
+      [acc,name=acc
+        [lacc,edge to=lexical]]]
+    [syn-case
+      [lexical,name=lexical]
+      [structural
+        [snom,edge to=nom]
+        [sgen,edge to=gen]
+        [sacc,edge to=acc, calign with current]]]]
+\end{forest}
 \caption{\citegen[\page 207]{HM94a} case hierarchy for German encoding the structural/lexical distinction}
 \label{fig:case:germ}
 \end{figure}
