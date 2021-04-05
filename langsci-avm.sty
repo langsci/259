@@ -101,6 +101,10 @@
     delimfactor .initial:n = {1000},
     delimfall .dim_set:N   = \l__avm_delimshortfall_dim,
     delimfall .initial:n   = {0pt},
+    framewidth .dim_set:N  = \l__avm_fillmore_kay_boxrule_dim,
+    framewidth .initial:n  = {1pt},
+    framesep .dim_set:N    = \l__avm_fillmore_kay_boxsep_dim,
+    framesep .initial:n    = {3pt},
     attributes .code:n     = {\cs_set:Nn \__avm_font_attribute: {#1}},
     attributes .initial:n  = {\scshape},
     types .code:n          = {\cs_set:Nn \__avm_font_type: {#1}},
@@ -322,7 +326,11 @@
     \__avm_parse_output:nw
       {
         \__avm_module_end:\c_math_toggle_token\group_end:\hbox_set_end:
-        \fbox{\box_use:N \l__avm_fillmore_kay_box}\__avm_extra_skip:
+        \group_begin:
+        \dim_set_eq:NN \fboxrule \l__avm_fillmore_kay_boxrule_dim
+        \dim_set_eq:NN \fboxsep \l__avm_fillmore_kay_boxsep_dim
+        \fbox{\box_use:N \l__avm_fillmore_kay_box}
+        \group_end: \__avm_extra_skip:
       }
   }
 \cs_new:Nn \__avm_replace_plus:
@@ -339,14 +347,16 @@
   }
 
 \cs_new:Npn \__avm_controls_tag:n #1
-  { \fboxsep.25ex\fbox{\normalfont\__avm_font_tag: #1} }
+  { \fboxsep.25ex\fboxrule.4pt\fbox{\normalfont\__avm_font_tag: #1} }
 \cs_new:Npn \__avm_controls_type:n #1
   { \c_group_begin_token\normalfont\__avm_font_type: #1\c_group_end_token }
 \cs_new_protected:Npn \__avm_controls_type_starred:n #1
   {
     \bool_set_false:N \l__avm_in_first_column
     \normalfont\__avm_font_type: #1
-    \__avm_deinit_second_column:\span\hspace*{-2\tabcolsep}
+    \bool_if:NTF \l__avm_align_bool
+      { \__avm_deinit_second_column:\span\hspace*{-2\tabcolsep} }
+      { \__avm_deinit_single_column:}
     \peek_meaning_ignore_spaces:NTF \\ {} {\\}
   }
 \cs_new_protected:Npn \__avm_controls_punk:nn #1 #2

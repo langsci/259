@@ -236,30 +236,30 @@ prepublish.pdf: $(SOURCE) prepublish.tex
 prepubs-latex-cp: prepublish-pdfs
 	cp prepubs-chop-pdfs/01.pdf prepubs-pdfs/basic-properties.pdf
 #	cp prepubs-chop-pdfs/02.pdf prepubs-pdfs/evolution.pdf
-	cp prepubs-chop-pdfs/03.pdf prepubs-pdfs/formal-background.pdf
-	cp prepubs-chop-pdfs/04.pdf prepubs-pdfs/lexicon.pdf
+#	cp prepubs-chop-pdfs/03.pdf prepubs-pdfs/formal-background.pdf
+#	cp prepubs-chop-pdfs/04.pdf prepubs-pdfs/lexicon.pdf
 	cp prepubs-chop-pdfs/05.pdf prepubs-pdfs/understudied-languages.pdf
-	cp prepubs-chop-pdfs/06.pdf prepubs-pdfs/agreement.pdf
-	cp prepubs-chop-pdfs/07.pdf prepubs-pdfs/case.pdf
+#	cp prepubs-chop-pdfs/06.pdf prepubs-pdfs/agreement.pdf
+#	cp prepubs-chop-pdfs/07.pdf prepubs-pdfs/case.pdf
 	cp prepubs-chop-pdfs/08.pdf prepubs-pdfs/nominal-structures.pdf
-	cp prepubs-chop-pdfs/09.pdf prepubs-pdfs/argument-structure.pdf
-	cp prepubs-chop-pdfs/10.pdf prepubs-pdfs/order.pdf
+#	cp prepubs-chop-pdfs/09.pdf prepubs-pdfs/argument-structure.pdf
+#	cp prepubs-chop-pdfs/10.pdf prepubs-pdfs/order.pdf
 ##	cp prepubs-chop-pdfs/11.pdf prepubs-pdfs/clitics.pdf
 	cp prepubs-chop-pdfs/11.pdf prepubs-pdfs/complex-predicates.pdf
 ##	cp prepubs-chop-pdfs/12.pdf prepubs-pdfs/control-raising.pdf
 	cp prepubs-chop-pdfs/13.pdf prepubs-pdfs/unbounded-dependencies.pdf
-	cp prepubs-chop-pdfs/14.pdf prepubs-pdfs/relative-clauses.pdf
+#	cp prepubs-chop-pdfs/14.pdf prepubs-pdfs/relative-clauses.pdf
 	cp prepubs-chop-pdfs/15.pdf prepubs-pdfs/islands.pdf
 #	cp prepubs-chop-pdfs/16.pdf prepubs-pdfs/coordination.pdf
-	cp prepubs-chop-pdfs/17.pdf prepubs-pdfs/idioms.pdf
+#	cp prepubs-chop-pdfs/17.pdf prepubs-pdfs/idioms.pdf
 	cp prepubs-chop-pdfs/18.pdf prepubs-pdfs/negation.pdf
 	cp prepubs-chop-pdfs/19.pdf prepubs-pdfs/ellipsis.pdf
-#	cp prepubs-chop-pdfs/20.pdf prepubs-pdfs/binding.pdf
+	cp prepubs-chop-pdfs/20.pdf prepubs-pdfs/binding.pdf
 	cp prepubs-chop-pdfs/21.pdf prepubs-pdfs/morphology.pdf
 	cp prepubs-chop-pdfs/22.pdf prepubs-pdfs/semantics.pdf
 	cp prepubs-chop-pdfs/23.pdf prepubs-pdfs/information-structure.pdf
 #	cp prepubs-chop-pdfs/24.pdf prepubs-pdfs/processing.pdf
-	cp prepubs-chop-pdfs/25.pdf prepubs-pdfs/cl.pdf
+#	cp prepubs-chop-pdfs/25.pdf prepubs-pdfs/cl.pdf
 	cp prepubs-chop-pdfs/26.pdf prepubs-pdfs/dialogue.pdf
 #	cp prepubs-chop-pdfs/27.pdf prepubs-pdfs/sign-languages.pdf
 	cp prepubs-chop-pdfs/27.pdf prepubs-pdfs/gesture.pdf
@@ -399,7 +399,7 @@ references.pdf: references.tex hpsg-handbook-bibliography.bib
 references: references.pdf
 
 todo-localbib.unique.txt: handbook.bcf
-	biber -V handbook | grep -i warn | grep localbib | sort -u > todo-localbib.unique.txt
+	biber -V handbook | grep -i warn | grep localbib | sort -uf > todo-localbib.unique.txt
 
 bib-public: todo-localbib.unique.txt references.pdf
 	git commit -m "new version of bib" localbibliography.bib todo-localbib.unique.txt
@@ -450,6 +450,7 @@ stmue-install:
 	cp -p ${STYLE-PATH}eng-date.sty                      styles/
 	cp -p ${STYLE-PATH}biblatex-series-number-checks.sty styles/
 	cp -p ${STYLE-PATH}Ling/article-ex.sty               styles/
+	cp -p ${STYLE-PATH}Ling/merkmalstruktur.sty          styles/
 
 
 
@@ -469,6 +470,9 @@ clean:
 
 cleanmemo:
 	rm -f *.mmz chapters/*.mmz chapters/*.memo.dir/*
+
+clean-memos: cleanmemo
+
 
 # do not use this, we have to keep langsci's ccby.pdf
 #realclean: clean
