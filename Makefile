@@ -256,7 +256,7 @@ prepubs-latex-cp: prepublish-pdfs
 	cp prepubs-chop-pdfs/19.pdf prepubs-pdfs/ellipsis.pdf
 	cp prepubs-chop-pdfs/20.pdf prepubs-pdfs/binding.pdf
 	cp prepubs-chop-pdfs/21.pdf prepubs-pdfs/morphology.pdf
-	cp prepubs-chop-pdfs/22.pdf prepubs-pdfs/semantics.pdf
+#	cp prepubs-chop-pdfs/22.pdf prepubs-pdfs/semantics.pdf
 	cp prepubs-chop-pdfs/23.pdf prepubs-pdfs/information-structure.pdf
 #	cp prepubs-chop-pdfs/24.pdf prepubs-pdfs/processing.pdf
 #	cp prepubs-chop-pdfs/25.pdf prepubs-pdfs/cl.pdf
@@ -266,7 +266,7 @@ prepubs-latex-cp: prepublish-pdfs
 #	cp prepubs-chop-pdfs/28.pdf prepubs-pdfs/hpsg-minimalism.pdf
 	cp prepubs-chop-pdfs/29.pdf prepubs-pdfs/hpsg-categorial-grammar.pdf
 	cp prepubs-chop-pdfs/30.pdf prepubs-pdfs/hpsg-lfg.pdf
-	cp prepubs-chop-pdfs/31.pdf prepubs-pdfs/hpsg-dependency-grammar.pdf
+#	cp prepubs-chop-pdfs/31.pdf prepubs-pdfs/hpsg-dependency-grammar.pdf
 #	cp prepubs-chop-pdfs/32.pdf prepubs-pdfs/hpsg-cxg.pdf
 
 
