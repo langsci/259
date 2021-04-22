@@ -290,15 +290,21 @@ substitution/.style={edge={<-,dashed},l+=\baselineskip},
 
 \forestset{
   % Easy extra edges
+%  edge to'/.style 2 args={
+%    tikz+={\path[#2](#1.parent anchor)--(.child anchor);}
+%  },
   edge to'/.style 2 args={
-    tikz+={\path[#2](#1.parent anchor)--(.child anchor);}
-  },
+   tikz+={\path[#2](#1.parent anchor)--([yshift=\forestoption{child anchor yshift}].child anchor);},
+  }, 
   edge to/.style={
     edge to'/.expanded={\unexpanded{#1}}{\forestoption{edge}},
   },
+%  edge from'/.style 2 args={
+%    tikz+={\path[#2](.parent anchor)--(#1.child anchor);}
+%  },
   edge from'/.style 2 args={
-    tikz+={\path[#2](.parent anchor)--(#1.child anchor);}
-  },
+   tikz+={\path[#2](.parent anchor)--(\forestoption{child anchor yshift}]#1.child anchor);}
+  }, 
   edge from/.style={
     edge from'/.process=_O{#1}{#1.edge},
   },
