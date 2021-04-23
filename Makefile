@@ -234,7 +234,7 @@ prepublish.pdf: $(SOURCE) prepublish.tex
 	xelatex -shell-escape prepublish
 
 prepubs-latex-cp: prepublish-pdfs
-	cp prepubs-chop-pdfs/01.pdf prepubs-pdfs/basic-properties.pdf
+#	cp prepubs-chop-pdfs/01.pdf prepubs-pdfs/basic-properties.pdf
 #	cp prepubs-chop-pdfs/02.pdf prepubs-pdfs/evolution.pdf
 #	cp prepubs-chop-pdfs/03.pdf prepubs-pdfs/formal-background.pdf
 #	cp prepubs-chop-pdfs/04.pdf prepubs-pdfs/lexicon.pdf
@@ -253,7 +253,7 @@ prepubs-latex-cp: prepublish-pdfs
 #	cp prepubs-chop-pdfs/16.pdf prepubs-pdfs/coordination.pdf
 #	cp prepubs-chop-pdfs/17.pdf prepubs-pdfs/idioms.pdf
 	cp prepubs-chop-pdfs/18.pdf prepubs-pdfs/negation.pdf
-	cp prepubs-chop-pdfs/19.pdf prepubs-pdfs/ellipsis.pdf
+#	cp prepubs-chop-pdfs/19.pdf prepubs-pdfs/ellipsis.pdf
 	cp prepubs-chop-pdfs/20.pdf prepubs-pdfs/binding.pdf
 	cp prepubs-chop-pdfs/21.pdf prepubs-pdfs/morphology.pdf
 #	cp prepubs-chop-pdfs/22.pdf prepubs-pdfs/semantics.pdf
