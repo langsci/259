@@ -32,22 +32,38 @@
     {\def\NewValue{}}
     {}}
 
-\DeclareFieldInputHandler{editor}{%
-  \ifdefstring{\NewValue}{none}
+
+% https://tex.stackexchange.com/a/594287/18561
+% List and name fields are quite a bit more complicated implementation-wise.
+
+% Often you don't get to see that and the only thing you have to worry about is using the appropriate commands for lists and name fields instead of fields. Here you will need \DeclareListInputHandler and \DeclareNameInputHandler instead of \DeclareFieldInputHandler.
+
+% That is, however, not enough, because the internal structure of lists and name fields is more
+% complex than that of a field. For a field its contents are saved directly in a macro, but lists and
+% name fields have a more complex structure. So while none in the input comes out as none for a field,
+% the internal representation of none for a list is {none} and for a name it is
+% {{hash=334c4a4c42fdb79d7ebc3e73b517e6f8}{family={none}, familyi={n\bibinitperiod}}} (the hash in
+% particular is subject to change if the Unicode algorithms are updated, you can grab the correct has
+% from the .bbl file). So you need to test against slightly different values for \NewValue.
+
+\DeclareNameInputHandler{editor}{%
+  \ifdefstring
+    {\NewValue}
+    {{{hash=334c4a4c42fdb79d7ebc3e73b517e6f8}{family={none}, familyi={n\bibinitperiod}}}}
     {\def\NewValue{}}
     {}}
 
-\DeclareFieldInputHandler{address}{%
-  \ifdefstring{\NewValue}{none}
+\DeclareListInputHandler{publisher}{%
+  \ifdefstring{\NewValue}{{none}}
     {\def\NewValue{}}
     {}}
 
-\DeclareFieldInputHandler{location}{%
-  \ifdefstring{\NewValue}{none}
+\DeclareListInputHandler{address}{%
+  \ifdefstring{\NewValue}{{none}}
     {\def\NewValue{}}
     {}}
 
-\DeclareFieldInputHandler{publisher}{%
-  \ifdefstring{\NewValue}{none}
+\DeclareListInputHandler{location}{%
+  \ifdefstring{\NewValue}{{none}}
     {\def\NewValue{}}
     {}}
