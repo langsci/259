@@ -257,7 +257,7 @@ prepubs-latex-cp: prepublish-pdfs
 	cp prepubs-chop-pdfs/20.pdf prepubs-pdfs/binding.pdf
 	cp prepubs-chop-pdfs/21.pdf prepubs-pdfs/morphology.pdf
 #	cp prepubs-chop-pdfs/22.pdf prepubs-pdfs/semantics.pdf
-	cp prepubs-chop-pdfs/23.pdf prepubs-pdfs/information-structure.pdf
+#	cp prepubs-chop-pdfs/23.pdf prepubs-pdfs/information-structure.pdf
 #	cp prepubs-chop-pdfs/24.pdf prepubs-pdfs/processing.pdf
 #	cp prepubs-chop-pdfs/25.pdf prepubs-pdfs/cl.pdf
 	cp prepubs-chop-pdfs/26.pdf prepubs-pdfs/dialogue.pdf
@@ -404,8 +404,14 @@ todo-localbib.unique.txt: handbook.bcf
 bib-public: todo-localbib.unique.txt references.pdf
 	git commit -m "new version of bib" localbibliography.bib todo-localbib.unique.txt
 	git push -u origin
-	(cd ../../Bibliographien/biblio.bib; git commit -m "new version of bib" biblio.bib; git push -u origin)
+	(cd ../../Bibliographien/; git commit -m "new version of bib" biblio.bib; git push -u origin)
 	scp references.pdf hpsg.hu-berlin.de:public_html/Pub/references.pdf
+
+
+bib-public-git: references.pdf
+	cp references.pdf hpsg-handbook-bibliography.bib ../HPSG-Handbook-Bib/
+	(cd ../HPSG-Handbook-Bib/; git commit -m "new version of bib" references.pdf hpsg-handbook-bibliography.bib; git push -u origin)
+
 
 paperhive: 
 	git branch gh-pages
