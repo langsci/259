@@ -1,4 +1,4 @@
-%% Time-stamp: <2021-05-08 15:40:52 admin>
+%% Time-stamp: <2021-05-12 19:23:42 admin>
 %% -*- coding:utf-8 -*-
 
 % This is the body of the paper. It should compile with latex and xelatex
@@ -55,7 +55,7 @@ LFG represents grammatical relations in a \textit{functional structure} or f-str
 % St. Mü. reformulation:
 % But \citet{Bender2008a} proposes that elements of the \compsl are not cancelled-off and hence are projected from daughters to mothers, which results in something similar to f-structure, since information about arguments is no longer strictly local to the predicate that selects for them.
 But in \citegen{Bender2008a} 
-version of HPSG, the \compsl functions very much like LFG's f-structure (see Section~\ref{nonconfig-sec}).  This chapter explores the utility of various formal devices for the description of natural language grammars, but since those devices are not exclusively intrinsic to one framework, this discussion does not bear on the comparative utility of the frameworks themselves. For a comparison of the representational architectures and formal assumptions of the two theories, see \citet{Przepiorkowski2021a}, which complements this chapter. 
+version of HPSG, the \compsl functions very much like LFG's f-structure (see Section~\ref{nonconfig-sec} below).  This chapter explores the utility of various formal devices for the description of natural language grammars, but since those devices are not exclusively intrinsic to one framework, this discussion does not bear on the comparative utility of the frameworks themselves. For a comparison of the representational architectures and formal assumptions of the two theories, see \citet{Przepiorkowski2021a}, which complements this chapter. 
 
 
  
@@ -132,7 +132,6 @@ The correspondence function from c-structures to f-structures, $\phi$, defines a
 \phraserule{VP}{\rulenode{V\\ \Updown}
                 \optrulenode{NP\\(\up \textsc{obj}) $=$ \Down}}}
 
-\itdopt{The \updown is not aligned with the V and other nodes. It seems to be to far left.}
 \zl
 
 \eal \label{lex} 
@@ -197,15 +196,15 @@ Each node in the c-structure maps to an f-structure, that is, to a set of attrib
 \begin{forest}
 sm edges without translation
 [S$_{f_1}$ 
-  [\csn{(\ensuremath{f_1} \LFGfeat{subj}) $=$ \ensuremath{f_2}}{NP$_{f_2}$}
-    [\csn{\ensuremath{f_2\ =\ f_4}}{Det$_{f_4}$} [this$_{f_7}$\\
+  [\csn{(\ensuremath{f_1} \LFGfeat{subj}) $=$ \ensuremath{f_2}}{NP\rlap{$_{f_2}$}}
+    [\csn{\ensuremath{f_2\ =\ f_4}}{Det\rlap{$_{f_4}$}} [this$_{f_7}$\\
                          {(\ensuremath{f_4} \LFGfeat{num}) $=$ \LFGfeat{sg}}\\
                          {(\ensuremath{f_4} \LFGfeat{prox}) $=$ \LFGfeat{+}}]]
-    [\csn{\ensuremath{f_2\ =\ f_5}}{N$_{f_5}$}   [lion$_{f_8}$\\
+    [\csn{\ensuremath{f_2\ =\ f_5}}{N\rlap{$_{f_5}$}}   [lion$_{f_8}$\\
                          {(\ensuremath{f_5} \LFGfeat{pred}) $=$ \predvall{lion}}\\
                          {(\ensuremath{f_5} \LFGfeat{num}) $=$ \LFGfeat{sg}}]]]
-  [\csn{\ensuremath{f_1 =\ f_3}}{VP$_{f_3}$}
-    [\csn{\ensuremath{f_3 =\ f_6}}{V$_{f_6}$}   [roars$_{f_9}$\\
+  [\csn{\ensuremath{f_1 =\ f_3}}{VP\rlap{$_{f_3}$}}
+    [\csn{\ensuremath{f_3 =\ f_6}}{V\!\rlap{$_{f_6}$}}   [roars$_{f_9}$\\
                          {(\ensuremath{f_6} \LFGfeat{pred}) $=$ `roar$\langle (\up \LFGfeat{subj})  \rangle $'}
                          \\ {(\ensuremath{f_6}\ \LFGfeat{tense}) $=$ \LFGfeat{pres}}\\
                   {(\ensuremath{f_6}\ \LFGfeat{subj}) $=$ \ensuremath{f_9}}\\
@@ -273,7 +272,7 @@ Taking heads first, the VP node annotated with \Updown\ is an \textit{f-structur
 
 Functional projections like DP, IP, and CP are typically assumed to form a ``shell'' over the lexical projections NP, VP, AP, and PP (plus CP can appear over S).  While this assumption is widespread in transformational approaches, its origins can be found in non-transformational  research, including early LFG:  CP was proposed in \citegen[141]{fassifehri81} LFG treatment of \ili{Arabic}, and IP (the idea of the sentence as functional projection) is found in \citegen{Falk83a-u} LFG analysis of the \ili{English} auxiliary system (Falk called it ``MP'' instead of ``IP'').\footnote{For more on the origins of extended projections see \citet[124--125]{BATW2016a}.}  
 
-Extended projections are formally implemented in LFG by having the functional head (such as D) and its lexical complement (such as NP) be f-structure co-heads.  See for example the DP \textit{this lion} in Figure~\ref{dp-tree}, where D, NP, and N are all annotated with \Updown,\itdobl{too much space before comma} hence the DP, D, NP, and N nodes all map to the same f-structure.  What makes this identity possible is that function words lack a \textsc{pred} feature that would otherwise indicate a semantic form.\footnote{The attribute \LFGfeat{pred} ostensibly stands for \qterm{predicate}, but really it means something more like \scare{has semantic content}, as there are lexical items, such as proper names, which have \LFGfeat{pred} features but are not predicates under standard assumptions.}  Content words such as \textit{lion} have such a feature ([\LFGfeat{pred} \predvall{lion}]), and so if the D had one as well, then they would clash in the f-structure.  Note more generally that the f-structure flattens out much of the hierarchical structure of the corresponding c-structure. 
+Extended projections are formally implemented in LFG by having the functional head (such as D) and its lexical complement (such as NP) be f-structure co-heads.  See for example the DP \textit{this lion} in Figure~\ref{dp-tree}, where D, NP, and N are all annotated with \Updown, hence the DP, D, NP, and N nodes all map to the same f-structure.  What makes this identity possible is that function words lack a \textsc{pred} feature that would otherwise indicate a semantic form.\footnote{The attribute \LFGfeat{pred} ostensibly stands for \qterm{predicate}, but really it means something more like \scare{has semantic content}, as there are lexical items, such as proper names, which have \LFGfeat{pred} features but are not predicates under standard assumptions.}  Content words such as \textit{lion} have such a feature ([\LFGfeat{pred} \predvall{lion}]), and so if the D had one as well, then they would clash in the f-structure.  Note more generally that the f-structure flattens out much of the hierarchical structure of the corresponding c-structure. 
 
 \begin{figure}
 \centering
@@ -392,7 +391,7 @@ sm edges without translation
       {(\up \LFGfeat{pers}) $=$ 3}\\
       {(\up \LFGfeat{num}) $=$ \LFGfeat{sg}}\\
       {(\up \LFGfeat{gend}) $=$ \LFGfeat{fem}} ]]
-[\csn{\Updown}{I$'$}
+[\csn{\Updown}{I\rlap{$'$}}
     [\csn{\Updown}{I} [is\\ 
     {(\up \LFGfeat{fin}) $=$ +}\\
     {(\up \LFGfeat{subj}) = \down}\\
@@ -414,7 +413,7 @@ sm edges without translation
  [\csn{\Updown}{C} [is]]
 [\csn{\Updown}{IP} 
   [\csn{(\up\LFGfeat{subj}) $=$ \down}{DP} [she]]
-  [\csn{\Updown}{I$'$}
+  [\csn{\Updown}{I\rlap{$'$}}
  %   [\csn{\updown}{I} [is]]
     [\csn{\Updown}{AP} [mad\\
     %{(\up \LFGfeat{pred}) $=$ `mad$\langle (\up\LFGfeat{subj}) \rangle $'}
@@ -432,7 +431,7 @@ sm edges without translation
                      num & \vall{sg} \\ 
                      pers & \vall{3} \\ 
                      gend & \vall{fem} ] \\
-            pred & \predvall{mad$\langle$ (\lfgfst{f} \LFGfeat{subj})$\rangle$} \\
+            pred & \predvall{mad$\langle$(\lfgfst{f} \LFGfeat{subj})$\rangle$} \\
             fin  & $+$ ]
 }
 \z
@@ -606,7 +605,7 @@ The complementarity between the appearance of a pronominal inflection and an ana
                   
 \section{Lexical mapping}
 LFG and HPSG both adopt \textit{lexical approaches to argument structure} in the sense of \citet{MWArgSt}: a verb or other predicator is equipped with a valence structure indicating the grammatical expression of its semantic arguments as syntactic dependents.  Both frameworks have complex systems for mapping semantic arguments to syntactic dependents that are designed to capture prevailing semantic regularities within a language and across languages.   The respective systems differ greatly in their notation and formal properties, but it is unclear whether 
-there are any theoretically interesting differences, such as types of analysis that are available in one but not the other.  This section identifies some of the most important  analogues across the two systems, namely LFG's \isi{Lexical Mapping Theory} \citep[LMT;][Chapter 14]{BATW2016a} and the theory of macro-roles proposed by Davis and Koenig for HPSG (\citealt{Davis96a-u,DK2000b-u}; see \crossrefchapteralt{arg-st}).\itdopt{add section to reference? Please tell me which section.}\footnote{A recent alternative to LMT based on Glue Semantics has been developed by \citet{asudeh;giorgolo-lfg12} and \citet{asudeh;ea14-lfg}, incorporating the formal mapping theory of \citet{findlay16}, which in turn is based on \citet{kibort07}. It preserves the monotonicity of LMT, discussed below, but uses Glue Semantics to model argument realization and valence alternations. \citet{MuellerLFGphrasal} discusses this Glue approach in contrast to HPSG approaches in light of lexicalism and argument structure. Note, though, that despite what might be implied by the title of the \citeauthor{MuellerLFGphrasal} volume, the \citeauthor{asudeh;ea14-lfg} treatment is not \emph{necessarily} \qterm{phrasal} (i.e., non-lexicalist). The  Glue framework assumed by \citeauthor{asudeh;ea14-lfg} can accommodate either a lexicalist or non-lexicalist position. It is a theoretical matter as to which is correct.}
+there are any theoretically interesting differences, such as types of analysis that are available in one but not the other.  This section identifies some of the most important  analogues across the two systems, namely LFG's \isi{Lexical Mapping Theory} \citep[LMT;][Chapter 14]{BATW2016a} and the theory of macro-roles proposed by Davis and Koenig for HPSG (\citealt{Davis96a-u,DK2000b-u}; see \crossrefchapteralt[Section~\ref{arg-st:sec-linking}]{arg-st}).\footnote{A recent alternative to LMT based on Glue Semantics has been developed by \citet{asudeh;giorgolo-lfg12} and \citet{asudeh;ea14-lfg}, incorporating the formal mapping theory of \citet{findlay16}, which in turn is based on \citet{kibort07}. It preserves the monotonicity of LMT, discussed below, but uses Glue Semantics to model argument realization and valence alternations. \citet{MuellerLFGphrasal} discusses this Glue approach in contrast to HPSG approaches in light of lexicalism and argument structure. Note, though, that despite what might be implied by the title of the \citeauthor{MuellerLFGphrasal} volume, the \citeauthor{asudeh;ea14-lfg} treatment is not \emph{necessarily} \qterm{phrasal} (i.e., non-lexicalist). The  Glue framework assumed by \citeauthor{asudeh;ea14-lfg} can accommodate either a lexicalist or non-lexicalist position. It is a theoretical matter as to which is correct.}
  
 In LMT, the argument structure is a list of a verb's argument slots, each labeled with a thematic role type such as Agent, Instrument, Recipient, Patient, Location, and so on, in the tradition of Charles Fillmore's \textit{Deep Cases} \citep{Fillmore68,Fillmore77} and P\={a}\d{n}ini's \textit{k\={a}rakas} \citep{kiparsky+staal:1969}.  The ordering is determined by a thematic hierarchy that reflects priority for subject selection.\footnote{The particular ordering proposed in \cite[23]{BresnanK89a-u} and 
 \cite[329]{BATW2016a} is the following:  
@@ -729,14 +728,14 @@ sm edges without translation
 \avm{
 \lfgfst{f}[ top  & \rnode{top}{[ ``\textup{Ann}'' ]} \\
             subj & [ ``I'' ] \\
-pred &  \predvall{think$\leftangle$ (\lfgfst{f} \LFGfeat{subj}) (\lfgfst{f} \LFGfeat{comp}) $\rightangle$}\\
+pred &  \predvall{think$\leftangle$(\lfgfst{f} \LFGfeat{subj}) (\lfgfst{f} \LFGfeat{comp}) $\rightangle$}\\
 comp & \lfgfst{g}[  subj & [ ``\vall{he}'' ] \\
-		    pred & \predvall{like$\leftangle$ (\lfgfst{g} \LFGfeat{subj})(\lfgfst{g} \LFGfeat{obj}) $\rightangle$}\\
+		    pred & \predvall{like$\leftangle$(\lfgfst{g} \LFGfeat{subj})(\lfgfst{g} \LFGfeat{obj}) $\rightangle$}\\
 		    obj  & \rnode{obj}{} ] ]
 }
 \z
 % ASH-HELP:  needs curvy line from TOP to OBJ
-\nccurve[ncurv=4.6,angleA=0,angleB=0,linewidth=.5pt]{top}{obj}
+\nccurve[ncurv=5.6,angleA=0,angleB=0,linewidth=.5pt]{top}{obj}
 
 \noindent
 HPSG accounts are broadly similar.  One HPSG version relaxes the requirement that the arguments specified in the lexical entry of a verb or other predicator must all appear in its valence lists.    Arguments are represented by elements of the \textsc{arg-st} list, so the list for the verb \textit{like} contains two NPs, one each for the subject and object.  In a sentence with no extraction, those \textsc{arg-st} list items map to the valence lists, the  first item appearing in \textsc{subj} and any remaining ones in \textsc{comps}.  To allow for extraction, one of those \textsc{arg-st} list items is permitted to appear on the \textsc{slash} list instead.  The \textsc{slash} list item is then passed up the tree by means of strictly local constraints, until it is bound by the topicalized phrase (see \crossrefchapteralt{udc} and \citealt{BMS2001a}).   
@@ -914,11 +913,11 @@ The f-structure for (\ref{seem}) is shown here (with simplified structures for \
 \avm{
 \lfgfst{f}[ subj  & \rnode{top}{[ ``\textup{Pam}'' ]} \\
             pred  & \predvall{seem$\leftangle$(\lfgfst{f} \LFGfeat{xcomp})$\rightangle$(\lfgfst{f} \LFGfeat{subj})}\\
-            xcomp & \lfgfst{g}[ pred & \predvall{visit$\leftangle$ (\lfgfst{g} \LFGfeat{subj})(\lfgfst{g} \LFGfeat{obj}) $\rightangle$}\\
+            xcomp & \lfgfst{g}[ pred & \predvall{visit$\leftangle$(\lfgfst{g} \LFGfeat{subj})(\lfgfst{g} \LFGfeat{obj})$\rightangle$}\\
 				subj & \rnode{obj}{} \\
 				obj  & [ ``\textup{Fred}'' ] ] ]
 }
-\nccurve[ncurv=7,angleA=0,angleB=0,linewidth=.5pt]{top}{obj}
+\nccurve[ncurv=8,angleA=0,angleB=0,linewidth=.5pt]{top}{obj}
 \end{exe}
 % ASH-HELP:  needs curvy line from TOP to OBJ
 
@@ -929,8 +928,8 @@ Turning next to equi, similar proposals have been made in both frameworks, such 
 Pam hopes to visit Fred.
 \begin{xlist} 
 \ex	
-\word{hope}: \qquad \feqs{(\up \textsc{pred}) $=$ `hope$\leftangle (\up \textsc{subj})(\up \textsc{xcomp}) \rightangle$'\\
-  (\up \textsc{comp subj pred})  $=$  `\LFGfeat{pro}'\\
+\word{hope}: \qquad \feqs{(\up \textsc{pred}) $=$ `hope$\leftangle (\up \textsc{subj})(\up \textsc{comp}) \rightangle$'\\
+  (\up \textsc{comp subj pred})  $=$  `pro'\\
   (\up \LFGfeat{subj index}) $=$ (\up \LFGfeat{comp subj index})}
 \ex 
 \word{hope}:  \qquad  $[$ \textsc{arg-st} $\langle$ \,NP$_\ibox{1}$, VP[\textit{inf}, \textsc{subj} $\langle$ NP$_\ibox{1}$ $ \rangle ] \rangle ]$
@@ -939,7 +938,6 @@ Pam hopes to visit Fred.
 The LFG entry for \textit{hope} in (\ref{hope}a) is adapted from \citet[572]{dalrymple;ea19}. It states that the subject of the controlled infinitival is a pronominal that is coindexed with the subject of the control verb.  Similarly, the subscripted tags in (\ref{hope}b) represent coindexing between the subject of the control verb and the controlled subject of the complement. 
 
 
-\noindent
 One interesting difference between the two frameworks concerns the representation of restrictions on the grammatical function of the target of control or raising.   The basic HPSG theory of control and raising \citep[for example, the one presented in][132--145]{ps2} allows only for control (or raising) of subjects and not complements.  More precisely, it allows for control/raising of the outermost or final dependent to be combined with the verbal projection that is a complement of the control verb.  This is because of the list cancellation regime that operates with valence lists (on non-cancellation theories, see Section~\ref{nonconfig-sec}).  The expression VP in  (\ref{seem}b/\ref{hope}b) represents an item with an empty \textsc{comps} list.  In a simple \ili{English} clause, the verb combines with its complement phrases to form a VP constituent, with which the subject is then combined to form a clause.  Assuming the same order of combination in the control or raising structure, it is not possible to raise or control the complement of a structure that contains a structural subject, as in (\ref{seemless}a):
 
 \begin{exe} 
@@ -957,9 +955,9 @@ The intended meaning would be that of (\ref{seemless}b).  The passive voice is n
 \label{lfg-seemless}
  {(\up \textsc{subj})  $=$  (\up \textsc{xcomp} \textsc{obj})}
 \end{exe}
-At the same time, the HPSG framework allows for mechanisms that can be used to violate the restriction to subjects, and many such mechanisms have been proposed, including the adoption of something similar to an f-structure in HPSG (this is the non-cancellation theory described in Section~\ref{nonconfig-sec}).  This illustrates the point made in Section~\ref{design-sec} above, that the framework was originally designed to capture locality conditions, but is flexible enough to capture non-local relations as well.  
+At the same time, the HPSG framework allows for mechanisms that can be used to violate the restriction to subjects, and such mechanisms have been proposed, including the adoption of something similar to an f-structure in HPSG (this is the non-cancellation theory described in Section~\ref{nonconfig-sec}).  This illustrates the point made in Section~\ref{design-sec} above, that the framework was originally designed to capture locality conditions, but is flexible enough to capture non-local relations as well.  
 
-This raises the question of whether the restriction to subject controllees is universal. In fact, it appears that some languages allow the control of non-subjects, but it is still unclear whether these control relations are established via the grammatical relations and therefore justify equations such as (\ref{lfg-hopeless}).  For instance, \citet{kroeger:1993} shows that \ili{Tagalog} has two types of control relation.  In the more specialized type, which occurs only with a small set of verbs or in a special construction in which the downstairs verb appears in non-volitive mood, both the controller and controllee must be subjects.  Kroeger analyzes this type using a functional control equation like the one in (\ref{seem}a).  In the more common type of \ili{Tagalog} control, the controllee must be the Actor argument, while the grammatical relations of controllee and controller are not restricted.  (\ili{Tagalog} has a rich voice system, often called a focus marking system, regulating which argument of a verb is selected as its subject.)  This latter type of \ili{Tagalog} control is defined on argument structure (Actors, etc.), so a-structure rather than f-structure is appropriate for representing the control relations.
+This raises the question of whether the restriction to subject controllees is universal. In fact, it appears that some languages allow the control of non-subjects, but it is still unclear whether these control relations are established via the grammatical relations and therefore justify equations such as (\ref{lfg-seemless}).  For instance, \citet{kroeger:1993} shows that \ili{Tagalog} has two types of control relation.  In the more specialized type, which occurs only with a small set of verbs or in a special construction in which the downstairs verb appears in non-volitive mood, both the controller and controllee must be subjects.  Kroeger analyzes this type using a functional control equation like the one in (\ref{seem}a).  In the more common type of \ili{Tagalog} control, the controllee must be the Actor argument, while the grammatical relations of controllee and controller are not restricted.  (\ili{Tagalog} has a rich voice system, often called a focus marking system, regulating which argument of a verb is selected as its subject.)  This latter type of \ili{Tagalog} control is defined on argument structure (Actors, etc.), so a-structure rather than f-structure is appropriate for representing the control relations.
 
 % Instead of functional control, Kroeger analyzes this latter type of control with\-in LFG as \textit{anaphoric control}, in which the controllee has the status of a null pronoun whose antecedent is the controller.  In anaphoric control, the f-structures of the controller and controllee are not identified, and instead each has its own \LFGfeat{pred} feature.  An anaphoric control analysis of (\ref{hope}) would involve a structure resembling (\ref{hopefs}) except that the curved line would be eliminated and the \LFGfeat{subj} of \textit{visit} would contain the feature [\LFGfeat{pred} \predvall{pro}].  In the HPSG analogue of anaphoric control, an element of a valence list represents a null pronoun in the following sense:  the rules mapping the valence lists to the phrase structure do not project such an element, and it is accorded the semantic and syntactic properties of a pronoun, such as definiteness and/or specificity, and binding features.
 
@@ -1134,15 +1132,14 @@ natural deduction format, in which each connective has an elimination rule (\for
 % %     \end{lfgprooftree}
 % %   \end{tabular}
 
-\ex \label{ex:implE}  Functional application : Implication elimination \hfill (modus ponens)\medskip\\ 
-\itdopt{Do we need the space before `:'? Shouldn't there be a : at the end of the heading? Consistency with the rest of the volume. In the heading it is not math mode.}  
+\ex \label{ex:implE}  Functional application~:~Implication elimination \hfill (modus ponens)\medskip\\ 
     \begin{prooftree}
       \hypo{f:A \multimap B} \hypo{a:A}
       \infer2[$\multimap_{\mathcal{E}}$]{f(a):B}
     \end{prooftree}\medskip\\
 
 \ex \label{ex:implI} 
-    Functional abstraction : Implication introduction \hfill (hypothetical reasoning)\medskip\\ 
+    Functional abstraction~:~Implication introduction \hfill (hypothetical reasoning)\medskip\\ 
     \begin{prooftree}
       \hypo{[a:A]\textsuperscript{1}} 
       \ellipsis{}{f:B}
