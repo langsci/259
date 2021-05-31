@@ -35,7 +35,176 @@
 %%
 \mainmatter          
 
-Basic case:
+AVMs are feature value pairs:
+\ea
+\avm{
+[
+a1 & v1\\
+a2 & v2\\
+a3 & v3 ]}
+\z
+The values can be simple as in (\mex{0}) or complex as in (\mex{1}):
+\ea
+\avm{
+[
+a1 & [ a11 & v11\\
+       a12 & v12]\\
+a2 & [ a21 & v21\\
+       a22 & v22]\\
+a3 & v3 ]}
+\z
+
+AVMs may have a type. The type is like an atomic value and typeset in italics.
+\ea
+\avm{
+[\type*{t1}
+a1 & v1\\
+a2 & v2\\
+a3 & v3 ]}
+\z
+
+\ea
+\avm{
+[
+a1 & [\type*{t11} 
+       a11 & v11\\
+       a12 & v12]\\
+a2 & [ a21 & v21\\
+       a22 & v22]\\
+a3 & v3 ]}
+\z
+Values can be lists:
+\ea
+\avm{
+[
+a1 & [\type*{t11} 
+       a11 & < v111, v112 >\\
+       a12 & v12]\\
+a2 & [ a21 & v21\\
+       a22 & v22]\\
+a3 & v3 ]}
+\z
+
+The elements in the list can be quite large and the brackets should adapt to this:
+\ea
+	\scalebox{.95}{
+\avm{
+	[\type*{mrs}
+		hook &	[\type*{hook}
+			ltop & \1 \\
+			index & \2 ] \\
+		rels & <[\type*{relation}
+				pred & \_the\_q \\
+				lbl & \3 \\
+				arg0 & \4 \\
+				rstr & \5 \\
+				body & \6 ],
+			[\type*{relation}
+				pred & compound \\
+				lbl & \7 \\
+				arg0 & \8 \\
+				arg1 & \4 \\
+				arg2 & \9 ],
+			[\type*{relation}
+				pred & udef\_q \\
+				lbl & \tag{10} \\
+				arg0 & \9 \\
+				rstr & \tag{11} \\
+				body & \tag{12} ], \\
+			[\type*{relation}
+				pred & \_cherry\_n\_1 \\
+				lbl & \tag{13} \\
+				arg0 & \9 ],
+			[\type*{relation}
+				pred & \_tree\_n\_of \\
+				lbl & \7 \\
+				arg0 & \4 ],
+			[\type*{relation}
+				pred & \_blossom\_v\_1 \\
+				lbl & \1 \\
+				arg0 & \2 \\
+				arg1 & \4 ] 
+				\\ > \\
+		hcons & <[\type*{qeq}
+				harg & \5 \\
+				larg & \7 ],
+			[\type*{qeq}
+				harg & \tag{11} \\
+				larg & \tag{13} ] > ]
+}
+}
+\z
+
+
+Values can be structure shared by tags. These tags are visualized by numbered tags:
+\ea
+\avm{
+[
+a1 & [\type*{t11} 
+       a11 & \1\\
+       a12 & v12]\\
+a2 & [ a21 & \2\\
+       a22 & \1]\\
+a3 & \2 ]}
+\z
+
+
+Values can be related by functions:
+\ea
+\avm{
+[
+a1 & [\type*{t11} 
+       a11 & f(\1)\\
+       a12 & v12]\\
+a2 & [ a21 & \2\\
+       a22 & \1]\\
+a3 & \2 ]}
+\z
+ 
+It is also possible to combine values with operators:
+\ea
+\avm{
+[
+a1 & [\type*{t11} 
+       a11 & \1\\
+       a12 & v12]\\
+a2 & [ a21 & \1 \+ \2]\\
+a3 & \2 ]}
+\z
+
+Lists can be combined by operators, usually $\oplus$ (append) is used, but $\bigcirc$ (shuffle) is also sometimes used:
+\ea
+\avm{
+[
+a1 & [\type*{t11} 
+       a11 & < v111 > \+ < v112 >\\
+       a12 & v12] ]}
+\z
+
+Relations are usually typeset in a special font:
+\ea
+\avm{
+[
+a1 & [\type*{t11} 
+       a11 & \texttt{collect-indices}(\1, \2)\\
+       a12 & v12] ]}
+\z
+
+Relations can also be put next to the AVM:
+\ea
+\avm{
+[
+a1 & [\type*{t11} 
+       a11 & \3\\
+       a12 & v12] ] $\wedge$ \texttt{collect-indices}(\1, \2, \3)}
+\z
+
+
+
+The following AVMs are complex AVMs the type names should not sit too low at the opening
+bracket. The AVMs in (\mex{1}) are typeset with different settings for delimfactor and
+delimfall. These keys should be explained in the maual in more detail. delimfactor=980 and
+delimfall=8pt seem to work best. They should be made the default.
 \ea
 \avm{
 	[\type*{sign}
@@ -89,7 +258,8 @@ Special cases:
 
 
 \begin{enumerate}
-\item \#49 The distance after numerated examples with AVMs is too small (order.tex)
+\item % Issue \#49 (order.tex)
+The distance after numerated examples with AVMs should be the same as with other numbered examples.
 
 \begin{exe}\ex\label{x:rc-79}  Lexical rule for propositional attitude predicates in \ili{French}\\
 \avm{
@@ -106,15 +276,21 @@ $\mapsto$\\
 }
 \end{exe}%
 \lipsum[1][1-4]
+\ea
+This is a text example.
+\z
+\lipsum[1][1-4]
 
-\item \#59, \#115: Brackets () are too tall.
+
+\item 
+\label{brackets-too-large}
+%\#59, \#115: 
+The brackets () should have the size of the element they are enclosing. 
+%In the example (\mex{1}) they are too tall.
 \ea
 \avm{
 [\type*{passive-verb}
- arg-st  & \2 ( \+ < ! PP[\type{by}]$_i$ ! > )\\
- lex-dtr & [\type*{stem}
-            head   & verb\\
-            arg-st & < \1$_i$ > \+ \2 < NP, \ldots > ]]  
+ arg-st  & \2 ( \+ < ! PP[\type{by}]$_i$ ! > )]
 }
 \z
 
@@ -147,8 +323,10 @@ $\mapsto$\\
 
 
 
-\item \#64: spacing between values is different when \verb+\punk+ is involved
+\item 
+%\#64: spacing between values is different when \verb+\punk+ is involved
 
+The space after an attribute should be the same independent of the usage of \verb+\punk+.
 \ea
 \avm{
 \type{nom-coord-phrase} \impl
@@ -157,25 +335,14 @@ $\mapsto$\\
 }
 \z
 
-\item \#65:
+\item 
+%\#65:
 
+There should be a way to have three lines in curly brackets with the brackets being adjusted to the
+longest line rather to the last one.
 \ea
 \avm{
-  [lhs : & [cat : & \textit{command} \\
-            modality : & \2 \\
-            content : & \1 \\
-            time : & \3 ] \\
-   rhs : & [dtr1 : & [cat : & \textit{located\_command} \\
-                      modality : & \6 \\
-                      content : & \1!\textup{[}location\textup{]}! \\
-                      time : & \7
-                      ] \\
-            dtr2 : & [cat : & \textit{spatial\_gesture} \\
-                      content : & \5 \\
-                      modality :& \9 \\
-                      time :& \tag{10}
-                      ]
-            ] \\
+  [
    constraints : & \{overlap(\7,\tag{10}) $\lor$ follow(\7,\tag{10},\texttt{4}s) \\
                      total-time(\7,\tag{10},\3) \\ 
                      assign-modality(\6,\9,\2)
@@ -184,65 +351,88 @@ $\mapsto$\\
 }
 \z
 
-\item \#70: very often AVMs without alignment are needed. There can be cases where the alignment is needed
-on some levels but not at all levels.
+\item 
+%\#70: 
+AVMs without alignment are needed very often. There can be cases where the alignment is needed
+on some levels but not at all levels. For example, the following AVM cannot be properly done with
+\verb+punk+. And \verb+punk+ is in the way of a WYSIWYG encoding.
 \eal
-\ex \avm{
-[\punk{mother|syn|val|comps}{< >} \\
-head-dtr & \0	[\type*{word}
-                syn|val|comps & \tag{A} ] \\
-dtrs & < \0 > \+ \tag{A} nelist ]
-}
-\ex \avm{
-[\type*{sem-obj}
-index  & s \\
-frames & <[\type*{eating-fr}
-	   label & l\\
-	   sit   & s\\
-	   ingestor & i\\
-	   ingestible & j]> ]
-}
-\ex \avm{
-[\phon < I > \\
-content|index & \1 [per & 1st \\
-		    num & sg ] \\
-context &  !$speaker(\1)$! 
-]
-}
-
 \ex 
-
+% \avm{
+% [\punk{mother|syn|val|comps}{< >} \\
+% head-dtr & \0	[\type*{word}
+%                 syn|val|comps & \tag{A} ] \\
+% dtrs & < \0 > \+ \tag{A} nelist ]
+% }
 \avm{
-[ head & \1\\
-  head-dtr & [ head & \1 ] ]
+[mother|syn|val|comps < > \\
+ head-dtr  \0 [\type*{word}
+               syn|val|comps & \tag{A} ] \\
+ dtrs  < \0 > \+ \tag{A} \type{nelist}~~~~~~~~~~~~~~~~~~~~ ]
 }
+\ex
+\avm{
+[mother|syn|val|comps < > \\
+ head-dtr  \0 [\type*{word}
+               syn|val|comps & \tag{A} ] \\
+ dtrs  < \0 > \+ \tag{A} \type{nelist} ]
+}
+
+% \ex \avm{
+% [\type*{sem-obj}
+% index  & s \\
+% frames & <[\type*{eating-fr}
+% 	   label & l\\
+% 	   sit   & s\\
+% 	   ingestor & i\\
+% 	   ingestible & j]> ]
+% }
+% \ex \avm{
+% [\phon < I > \\
+% content|index & \1 [per & 1st \\
+% 		    num & sg ] \\
+% context &  !$speaker(\1)$! 
+% ]
+% }
+
+% \ex 
+
+% \avm{
+% [ head & \1\\
+%   head-dtr & [ head & \1 ] ]
+% }
 
 
 \zl
 
-Desired encoding: (with \verb+\phon+ working)
-\eal
-\ex \avm{
-[phon < I > \\
-content|index  \1 [per & 1st \\
-		   num & sg ] \\
-context   !$speaker(\1)$! ]
-}
+% Desired encoding: (with \verb+\phon+ working)
+% \eal
+% \ex \avm{
+% [phon < I > \\
+% content|index  \1 [per & 1st \\
+% 		   num & sg ] \\
+% context   !$speaker(\1)$! ]
+% }
 
 
-\ex \avm{
-[\type*{sign}
-phonology list!(phon\_string)! \\
-synsem 	[local &	[category & category \\
-						content & content \\
-						qstore & set!(quantifier)! \\
-						pool & set!(quantifier)! ] ] \\
-retrieved  list!(quantifier)! ]
-}
-\zl
+% \ex \avm{
+% [\type*{sign}
+% phonology list!(phon\_string)! \\
+% synsem 	[local &	[category & category \\
+% 						content & content \\
+% 						qstore & set!(quantifier)! \\
+% 						pool & set!(quantifier)! ] ] \\
+% retrieved  list!(quantifier)! ]
+% }
+%\zl
 
-\item \#71 alignment and escape via !
+\item 
+%\#71 alignment and escape via !
 
+%The ! was used to escape the normal layout. I used it to get normal text brackets.
+
+The ! should work even when \verb+punk+ is used. Maybe this feature is not
+necessary when \verb+punk+ is not needed anylonger.
 \ea
 \avm{
 	[\type*{reg-bar-adj}
@@ -261,7 +451,9 @@ retrieved  list!(quantifier)! ]
 }
 \z
 
-\item \#78 distance too narrow between lines in avms (probably some setting)
+\item %\#78 
+The distance between two avms below each other should be 2pts. The concernes the two AVMs of type
+\type{fact} in the example below:
 
 \ea
 \avm{
@@ -282,29 +474,62 @@ retrieved  list!(quantifier)! ]
 }
 \z
 
-\item \#79: The alignment of tags is to the number not to the box
+\item 
+%\#79: 
+The box around numbers in tags is considered for the alignment. Not the content of the box.
 
 \ea
 \avm{\emph{head-filler-phrase} \impl\\
 [slash  & \1 \\
  hd-dtr & [head & verbal \\
- 	   slash & \{ \2 \} $\uplus$ \1 ] \\
- \punk{non-hd-dtrs}{ <[local &  \2 ]>} ]
+ 	   slash & \{ \2 \} $\uplus$ \1 ] ]
+% \punk{non-hd-dtrs}{ <[local &  \2 ]>} ]
 }
 \z
-I am not sure whether I want the box to be aligned or the number.
+(Siede remark by Stefan: I am not sure whether I want the box to be aligned or the number.)
 
 
-\item \#81: The text is too high in \verb+< >+.
+\item 
+%\#81: The text is too high in \verb+< >+.
 
-\ea
-\avm{
+The text in \verb+< >+ should be on the same baseline as the sourrounding text and the brackets
+should be centered. The expected layout is shown in (\mex{1}b). This is also related to point
+\ref{brackets-too-large}. In general brackets should be as small as possible.
+\eal
+\ex \avm{
 [subj  & < PRO >]
 }
-\z
+\ex
+\avm{
+[subj  & \sliste{ PRO }]
+}
+\zl
+This also applies to empty brackets.
+\eal
+\ex \avm{
+[subj  & < >]
+}
+\ex
+\avm{
+[subj  & \sliste{}]
+}
+\zl
+
+\eal
+\ex
+\avm{
+[pre & :	[qud=< > & : poset!(Question)!] ]
+}
+\ex
+\avm{
+[pre & :	[qud=\sliste{} & : poset!(Question)!] ]
+}
+\zl
 
 
-\item \#85: AVMs in type hierarchies are not at the top
+
+\item %\#85: 
+AVMs in type hierarchies should be aligned at the top. \type{noun} should be at the same height as \type{verb}.
 
 \begin{forest} 
 type hierarchy
@@ -327,7 +552,10 @@ type hierarchy
   ]
 \end{forest}
 
-\item \#92: commas and angle brackets with AVMs and line breakes, angle brackets too small
+\item 
+% \#92: 
+The angle brackets should consider space needed for commas if there are linebreaks. If possible the
+angle brackets should span the whole enclosd AVMs.
 \ea
 \avm{
 [\punk{synsem|loc|cont|index}{[num & pl \\
@@ -343,13 +571,14 @@ type hierarchy
 	]
 }
 \z
-The brackets seem to not see the comma. Apart from this they are too small (should span the whole AVMs)
+%The brackets seem to not see the comma. Apart from this they are too small (should span the whole AVMs)
 
 
-\item \#93 something is needed for aligning AVM at top \verb+\atop+ does not seem to work
+\item 
+%\#93 
+Something is needed for aligning AVM at top. \verb+\atop+ does not seem to work for all cases.
 
-
-I want both AVMs to appear at the top right below the heading. \verb+\attop+ does not work since it puts the following AVM on the next line.
+There has to be a way to make both AVMs in the following example to appear at the top right below the heading. \verb+\attop+ does not work since it puts the following AVM on the next line.
 \ea
 \label{entryfori}
 Simplified lexical signs for  \textit{I} and \textit{she}: \\*
@@ -371,7 +600,12 @@ Felix provided solution with minipage, but could there be an option for calling 
 so, could forest enable this by default?
 
 
-\item \#94: The I touches the bracket.
+\item 
+%\#94: 
+
+There should be a special italics correction for italics text if brackets are following.
+
+The \emph{I} in (\mex{1}) should not touch the bracket.
 
 \ea
 \avm{
@@ -383,10 +617,12 @@ head &	[\type*{noun}
 \z
 
 Felix: This is normal in \LaTeX. Stefan: Yes, but there is italics correction and it has to be
-applied here. Always.
+applied here. Always. Maybe this can be doen automatically.
 
 
-\item \#97: Move type up? Not for types including letters like \emph{t} or \emph{l}.
+\item 
+%\#97: 
+There should be a default behaviour in which type names are moved up a bit. This should not apply to types including letters like \emph{t} or \emph{l}.
 
 \ea
 % \avm[delimfactor=950, delimfall=5pt]{
@@ -413,7 +649,9 @@ Interestingly the delimfactor does not seem to make a difference for simple AVMs
 (\mex{0}), but it does affect the ones at the very beginning.
 
 
-\item \#99: space after \verb+\uplus+, \#106: space is different for \verb-\+- within the same avm
+\item 
+%\#99: 
+There should not be more space after operators like \verb+\uplus+.
 
 
 \ea
@@ -423,24 +661,31 @@ Interestingly the delimfactor does not seem to make a difference for simple AVMs
 }
 \z
 
-And this is \#106:
+%And this is \#106:
+The space after operators should not depend on where they appear in the AVM (here \verb-\+-):
 \ea
 \avm{
 [comps & \1 \+ <[loc & \4 [cat [head & verb $\lor$ prep \\
 			         comps & < > ] ] ] > \+ \2  ]}
 \z
-There was different space after the two $\oplus$. This is fixed. But the space before and after
-$\oplus$ is still different.
+%There was different space after the two $\oplus$. This is fixed. But the space before and after
+%$\oplus$ is still different.
 
+% This probably is due to the space added by brackets.
+
+
+The space before and after $\lor$ should not differ:
 \ea
 \avm{
 [ subcat & < > $\lor$ < \type{synsem} > ]}
 \z
-The space before and after $\lor$ differs.
 
 
-\item \#101: space is missing due to exclamation marks in avms
 
+\item 
+%\#101: space is missing due to exclamation marks in avms
+
+The use of exclamation marks should not remove spacing before the exclamation mark.
 \ea
 \avm{
 	[phon & < \rm{every, dog, barks} >\\
@@ -450,12 +695,14 @@ The space before and after $\lor$ differs.
 			pts & <\2, \tag{2a}, \tag{2b}, \3, \tag{3a}, \4, \tag{4a}>]]
 }
 \z
-The exclamation mark seems to eat the space. Felix: Hardcode space.
+%The exclamation mark seems to eat the space. Felix: Hardcode space.
 
 
 
 
-\item \#108: Punk causes extra newline
+\item 
+%\#108: 
+Punk should not cause extra newlines:
 
 \ea
 \avm{
@@ -463,7 +710,11 @@ The exclamation mark seems to eat the space. Felix: Hardcode space.
             \punk{realized}{$+$} ]> ] }
 \z 
 
-\item \#109: distance betweeen lines not eaqual when normal brackets are used
+\item 
+%\#109: 
+The distance betweeen lines sould be eaqual when normal brackets are used. The brackets should have
+the size of normal brackets in the respective font and hence the distance between the lines should
+be harmonic.
 
 \ea
 \avm{
@@ -488,7 +739,7 @@ between \synsem and \dtrs. This is how it should look like:
 I guess the problem is due to the fact that normal brackets are not used but bigger brackets.
 
 
-\item The space between \ibox{1} and NP is larger than the space between bracket and \ibox{1}.
+\item The space between \ibox{1} and NP should not be larger than the space between bracket and \ibox{1}.
 
 \ea
 \avm{
@@ -498,7 +749,9 @@ I guess the problem is due to the fact that normal brackets are not used but big
 }
 \z
 
-\item The brackets used by \verb+\list*+ are the normal text brackets if the content is a single
+This is probably related to the fact that the box is ignored for layout purposes.
+
+\item The brackets used by \verb+\list*+ should be the normal text brackets if the content is a single
   line.
 % #126
 
