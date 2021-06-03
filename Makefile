@@ -48,6 +48,48 @@ main.pdf: $(SOURCE)
 	xelatex -shell-escape main
 
 
+handbook.pdf: $(SOURCE)
+	xelatex -shell-escape handbook
+	biber handbook
+	xelatex -shell-escape handbook
+	sed -i.backup s/.*\\emph.*// handbook.adx #remove titles which biblatex puts into the name index
+# sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' handbook.sdx # ordering of references to footnotes
+# sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' handbook.adx
+# sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' handbook.ldx
+	sed -i.backup 's/\\MakeCapital //g' handbook.adx
+	python3 fixindex.py a handbook
+	mv handbookmod.adx handbook.adx
+	footnotes-index.pl handbook.ldx
+	footnotes-index.pl handbook.sdx
+	footnotes-index.pl handbook.adx 
+	makeindex -o handbook.and handbook.adx
+	makeindex -gs index.format -o handbook.lnd handbook.ldx
+	makeindex -gs index.format -o handbook.snd handbook.sdx 
+	xelatex -shell-escape handbook
+
+
+index-check: 
+	make bib
+	biber handbook
+	xelatex -shell-escape handbook
+	sed -i.backup s/.*\\emph.*// handbook.adx #remove titles which biblatex puts into the name index
+# sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' handbook.sdx # ordering of references to footnotes
+# sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' handbook.adx
+# sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' handbook.ldx
+	sed -i.backup 's/\\MakeCapital //g' handbook.adx
+	python3 fixindex.py a handbook
+	mv handbookmod.adx handbook.adx
+	footnotes-index.pl handbook.ldx
+	footnotes-index.pl handbook.sdx
+	footnotes-index.pl handbook.adx 
+	makeindex -o handbook.and handbook.adx
+	makeindex -gs index.format -o handbook.lnd handbook.ldx
+	makeindex -gs index.format -o handbook.snd handbook.sdx 
+	xelatex -shell-escape handbook
+
+
+
+
 languagecandidates:
 	egrep -oh "[a-z] [A-Z]['a-zA-Z-]+" chapters/*tex| grep -o  "[A-Z].*" |sort -u >languagelist.txt
 
