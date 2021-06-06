@@ -6,6 +6,7 @@
 
 % Heiko Oberdiek
 % http://tex.stackexchange.com/questions/136644/vertical-space-in-interaction-with-figure-center-environment
+% fixed by Saso 20.05.20 replace leavevmode by noindent
 \newcommand{\oneline}[1]{%
   \begingroup
     \sbox0{\ignorespaces#1\unskip}%
@@ -19,6 +20,26 @@
     \fi
   \endgroup
 }
+
+
+% Heiko Oberdiek
+% http://tex.stackexchange.com/questions/136644/vertical-space-in-interaction-with-figure-center-environment
+% This is for use with beamer. For some reason \linewidth does not work but \textwidth works.
+% I think this may be a bug in texlive 2020.
+\newcommand{\onelinetextwidthhack}[1]{%
+  \begingroup
+    \sbox0{\ignorespaces#1\unskip}%
+    \noindent
+    \ifdim\wd0>\textwidth
+      \hbox to\textwidth{%
+        \hss\resizebox{\textwidth}{!}{\copy0 }\hss
+      }%
+    \else
+      \copy0 %
+    \fi
+  \endgroup
+}
+
 
 \newcommand{\centerfit}[1]{%
   \begingroup

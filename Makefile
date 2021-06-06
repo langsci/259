@@ -294,7 +294,7 @@ prepubs-latex-cp: prepublish-pdfs
 	cp prepubs-chop-pdfs/15.pdf prepubs-pdfs/islands.pdf
 #	cp prepubs-chop-pdfs/16.pdf prepubs-pdfs/coordination.pdf
 #	cp prepubs-chop-pdfs/17.pdf prepubs-pdfs/idioms.pdf
-	cp prepubs-chop-pdfs/18.pdf prepubs-pdfs/negation.pdf
+#	cp prepubs-chop-pdfs/18.pdf prepubs-pdfs/negation.pdf
 #	cp prepubs-chop-pdfs/19.pdf prepubs-pdfs/ellipsis.pdf
 	cp prepubs-chop-pdfs/20.pdf prepubs-pdfs/binding.pdf
 	cp prepubs-chop-pdfs/21.pdf prepubs-pdfs/morphology.pdf
@@ -494,6 +494,7 @@ avm-install:
 
 stmue-install:
 	cp -p ${STYLE-PATH}makros.2020.sty                   styles/
+	cp -p ${STYLE-PATH}oneline.sty                       styles/
 	cp -p ${STYLE-PATH}abbrev.sty                        styles/
 	cp -p ${STYLE-PATH}eng-date.sty                      styles/
 	cp -p ${STYLE-PATH}biblatex-series-number-checks.sty styles/
