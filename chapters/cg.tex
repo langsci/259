@@ -35,8 +35,7 @@
  and then, by a  more focused comparison of specific linguistic analyses
  of some selected phenomena. The chapter ends by briefly
  touching on issues related to computational implementation and
- human sentence processing. \rep{Thoughtout}{Throughout}
- the discussion, I  attempt to 
+ human sentence processing. Throughout the discussion, I  attempt to 
  highlight both the similarities and differences between HPSG and CG
  research, in the hope of stimulating further research in the two
  research communities on their respective open questions, and so that the two
@@ -48,15 +47,6 @@
 \label{chap-cg}
 
 
-\itdobl{References to Sections should not be in the abstract. The abstract is something that has to
-  be a standalone text for databases and so on. References and crossrefs should be given in the
-  introduction. Material from the abstract may be repeated there.}
-
-
-\colorcodingexplanation
-
-
-\inlinetodostefan{add page numbers to references}
 \section{Introduction}
 
 The goal of this chapter is to provide a comparison between HPSG and
@@ -86,8 +76,6 @@ aspects of HPSG in greater detail), in order to obtain a fuller picture of the
 theoretical landscape in current (non-transformational) generative
 syntax research.
 
-\itdobl{Add overview here: ``The rest of the chapter is structured as follows:''}
-
 The rest of the chapter is structured as follows. I start by giving an
 overview of Combinatory Categorial Grammar and
 Type-Logical Categorial Grammar, two major variants of CG (Section~\ref{cgexposition}).
@@ -105,7 +93,7 @@ processing (Section~\ref{implementation}).
 CG is actually not a monolithic theory, but is a family of related
 approaches \emdashUS or, perhaps more accurately, it is much \emph{less of} a
 monolithic theory than either HPSG or Lexical Functional Grammar (LFG;
-\citealt{KB82a-u,BATW2015a}\added{; \crossrefchapteralt{lfg}}) is. For this reason, I will
+\citealt{KB82a-u,BATW2015a}; \crossrefchapteralt{lfg}) is. For this reason, I will
 start my discussion by sketching some important features of two major
 varieties of CG, Combinatory Categorial Grammar\is{Combinatory Categorial Grammar (CCG)} (CCG;
 \citealt{Steedman2000a-u,steedman2012}) and Type-Logical Categorial Grammar\is{Type-Logical
@@ -125,7 +113,7 @@ other.
 Before getting started, some comments are in order as to the notation
 and the mode of presentation adopted. Two choices are made for the
 notation. First, CCG and TLCG traditionally adopt different notations
-of the slash.\itdopt{slash is not introduced. Maybe OK.} I stick to the TLCG notation throughout this chapter for
+of the slash. I stick to the TLCG notation throughout this chapter for
 notational consistency. Second, I present all the fragments below in
 the so-called \term{labeled deduction} notation of (Prawitz-style)
 natural deduction. In particular, I follow \citet{oehrle1994} and
@@ -168,7 +156,7 @@ $\circ$ designates string concatenation):
 
 \eal
 \label{SE0}%
-\parbox[t]{5cm}{%
+%\parbox[t]{5cm}{%
 \ex\label{rseone} Forward Slash Elimination:\\[.5\baselineskip]
 \begin{prooftree}
 \NoSem
@@ -176,8 +164,8 @@ $\circ$ designates string concatenation):
 \hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ }}{\syncat{\textit{B}}}}
 \infer2[\ensuremath{/}E]{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ }}{\syncat{\textit{A}}}}
 \end{prooftree}
-}
-\parbox[t]{5cm}{
+%}
+%\parbox[t]{5cm}{
 \ex\label{lseone} Backward Slash Elimination:\\[.5\baselineskip]
 \begin{prooftree}
 \NoSem
@@ -185,7 +173,7 @@ $\circ$ designates string concatenation):
 \hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ }}{\syncat{\textit{B}\ensuremath{\backslash}{}\textit{A}}}}
 \infer2[\ensuremath{\backslash}E]{\LexEnt{\pt{\ptv{b} \ensuremath{\circ}\xspace \ptv{a}}}{\sem{ }}{\syncat{\textit{A}}}}
 \end{prooftree}
-}
+%}
 \zl
 
 \noindent
@@ -225,16 +213,17 @@ its  right (i.e.\  the direct object) and then another NP to its left
 \infer2[\ensuremath{/}E]{\LexEnt{\pt{loves \ensuremath{\circ}\xspace mary}}{\sem{ }}{\syncat{NP\ensuremath{\backslash}{}S}}}
 \infer2[\ensuremath{\backslash}E]{\LexEnt{\pt{john \ensuremath{\circ}\xspace loves \ensuremath{\circ}\xspace mary}}{\sem{ }}{\syncat{S}}}
 \end{prooftree}}
+\end{exe}
 \itdobl{mary and loves seem to be in the wrong order.\\
 Yusuke: This is intentional. But I now see that I forgot to add
-explanation. I've added the relevant clarification in the text.}
-\end{exe}
+explanation. I've added the relevant clarification in the text.\\
+Stefan: Ah, ok. But why is this done? And how? Is it functor last?}
 
 
 \noindent
 In the notation adopted here, the linear order of words is explicitly
 represented in the prosodic component of each derived sign.
-Thus,  just like the analysis trees in Linearization-based HPSG, the
+Thus,  just like the analysis trees in Linearization-based HPSG (see \crossrefchapteralt[Section~\ref{sec-domains}]{order} for an overview), the
 left-to-right order of elements in the proof tree does not
 necessarily correspond to the surface order of words. 
 The object NP \textit{Mary} is deliberately placed on the left of the
@@ -250,11 +239,11 @@ replaced by \syncat{NP\ensuremath{\backslash}{}S}.
 sm edges
 [S [NP [John] ] [VP [V [loves] ] [NP [Mary] ] ] ]
 \end{forest}
-\caption{PSG analysis of \changed{\emph{John loves Mary.}}}\label{fig-john-loves-mary}
+\caption{PSG analysis of \emph{John loves Mary.}}\label{fig-john-loves-mary}
 \end{figure}
 \noindent
 Things will start looking more interesting as one makes the fragment
-more complex (and also by adding the semantics\itdopt{remove ``the''?? Not sure. My English is bad.}), but before doing so,
+more complex (and also by adding the semantics), but before doing so,
 I first introduce
 some basic assumptions, first about syntactic categories (below) and then
 about semantics (next section).
@@ -340,19 +329,16 @@ left} to become an S. Likewise, (\ref{tr}) says that \textit{read} first
 combines with an NP \emph{to its right} and then another NP to its left to
 become an S.
 
-One point to keep in mind (though it may not seem to make much
-difference at this point) is that in CG, syntactic rules are
-thought of as logical rules and the derivations of sentences like
-(\ref{cg-tree1}) as \emph{proofs} of the well-formedness of
-particular strings as sentences.
-From this logical\itdopt{remove quotes?} point of view, the two slashes should really be
-thought of as directional variants of implication (that is, both
-\syncat{\textit{A}\ensuremath{/}\textit{B}} and \syncat{\textit{B}\ensuremath{\backslash}{}\textit{A}} essentially mean `\emph{if} there is a \textit{B},
-\emph{then} there is an \textit{A}'), and the two rules of Slash Elimination
-introduced in (\ref{SE0})
-should be thought of as directional variants of \term{modus ponens}
-($B \ensuremath{ \rightarrow } A, B  \ensuremath{\vdash\xspace } A$). This analogy between natural language
-syntax and logic is emphasized in particular in TLCG research.
+One point to keep in mind (though it may not seem to make much difference at this point) is that in
+CG, syntactic rules are thought of as logical rules and the derivations of sentences like
+(\ref{cg-tree1}) as \emph{proofs} of the well-formedness of particular strings as sentences.  From
+this logical point of view, the two slashes should really be thought of as
+directional variants of implication (that is, both \syncat{\textit{A}\ensuremath{/}\textit{B}} and
+\syncat{\textit{B}\ensuremath{\backslash}{}\textit{A}} essentially mean `\emph{if} there is a
+\textit{B}, \emph{then} there is an \textit{A}'), and the two rules of Slash Elimination introduced
+in (\ref{SE0}) should be thought of as directional variants of \term{modus ponens}
+($B \ensuremath{ \rightarrow } A, B \ensuremath{\vdash\xspace } A$). This analogy between natural
+language syntax and logic is emphasized in particular in TLCG research.
 
 
 \subsection{Syntax-semantics interface in CG \label{interface}}
@@ -446,7 +432,6 @@ and a sample derivation with semantic annotation is given in (\ref{tree02}).
 \infer2[\ensuremath{/}E]{\LexEnt{\pt{loves \ensuremath{\circ}\xspace mary}}{\sem{ \trns{love}(\trns{m}) }}{\syncat{NP\ensuremath{\backslash}{}S}}}
 \infer2[\ensuremath{\backslash}E]{\LexEnt{\pt{john \ensuremath{\circ}\xspace loves \ensuremath{\circ}\xspace mary}}{\sem{ \trns{love}(\trns{m})(\trns{j}) }}{\syncat{S}}}
 \end{prooftree}}
-\itdobl{mary and loves in wrong order?}
 \end{exe}
 
 \noindent
@@ -542,7 +527,9 @@ Function Composition rules can be understood as function composition
 in the usual sense (as in mathematics and functional programming),
 except, again, that the syntactic effect is explicitly specified.
 
-As noted by \citet{Steedman85a-u}\addpages, with Type Raising and Function
+As noted by \citet{Steedman85a-u},
+% whole paper
+with Type Raising and Function
 Composition, a string of words such as \textit{John loves}
 can be analyzed  as
 a constituent of type S\ensuremath{/}NP, that is, an expression that is looking for
@@ -575,7 +562,9 @@ and semantics (of type $e \rightarrow t$).
 
 Assuming generalized conjunction (with the standard definition for
 the generalized conjunction operator \ensuremath{ \sqcap\xspace } \emph{à la}
-\citet{partee-rooth1983a}\addpages and the polymorphic syntactic category
+\citet{partee-rooth1983a}
+% whole paper
+and the polymorphic syntactic category
 \syncat{(\textit{X}\ensuremath{\backslash}{}\textit{X})\ensuremath{/}\textit{X}} for \textit{and}), the analysis for a \term{right-node raising}
 (RNR) sentence such as (\ref{RNR-CCG}) is straightforward, as in (\ref{RNR-CCG-DV}).
 
@@ -711,12 +700,11 @@ Composition, as illustrated by the derivation for (\ref{ldd-EX}) in (\ref{ldd-CC
 \end{prooftree}}}
 \end{exe}
 \vspace{-\baselineskip}
-\itdobl{mary and read in wrong order?}
 \end{figure}
 % 
 Like (many versions of) HPSG, CCG does not assume any empty expression
 at the gap site. Instead, the information that the subexpressions
-(constituting \add{the} extraction pathway) such
+(constituting the extraction pathway) such
 as \textit{Mary read} and \textit{thought that Mary read} are missing an NP on the
 right edge is encoded in the syntactic category of the linguistic
 expression. \textit{Mary read} is assigned the type \syncat{S\ensuremath{/}NP}, since it is a
@@ -998,8 +986,7 @@ there is  an expression \p\ of type
 One consequence that immediately follows
 in this system is that Type Raising and
 Function Composition (as well as other theorems; see, for example, 
-\citealt[46--49]{jaeger05})\itdobl{Are the section and the pages referring to the
-  same region? If so, remove one of them.} are now derivable as theorems. As an
+\citealt[46--49]{jaeger05}) are now derivable as theorems. As an
 illustration, the proofs for (\ref{TR}a) and (\ref{FC}a) are shown in (\ref{TRproof})
 and (\ref{FCproof}), respectively.
 
@@ -1024,7 +1011,6 @@ and (\ref{FCproof}), respectively.
 \infer2[\ensuremath{/}E]{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b} \ensuremath{\circ}\xspace \ensuremath{\greekp}}}{\sem{ \sF(\sG(x)) }}{\syncat{\textit{A}}}}
 \infer1[\ensuremath{/}I\ensuremath{^1}]{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ \lambda x. \sF(\sG(x)) }}{\syncat{\textit{A}\ensuremath{/}\textit{C}}}}
 \end{prooftree}}
-\itdobl{Topmost two items reversed?}
 \end{exe}
 % % \end{multicols}
 
@@ -1165,8 +1151,7 @@ Technically, this is known as \term{proof normalization}
 
 Thus, the logic-based architecture of the Lambek calculus (and various versions of
 TLCG, which are all extensions of the Lambek calculus) enables us to say, in a
-technically precise way, how (\ref{NCC-arg-deriv}) and (\ref{redundant-DV})  \itdopt{Change order in
-  which examples are referenced?} are
+technically precise way, how (\ref{NCC-arg-deriv}) and (\ref{redundant-DV}) are
 the ``same'' (or, more precisely, equivalent), by building on
 independently established results in mathematical logic and computer
 science. This is one big advantage of taking seriously the view,
@@ -1444,7 +1429,8 @@ lambda terms on the top line conjoined by $\sqcup$), that will reduce
 horizonal length so that the final chunk of proof doesn't need to be
 shrunk as a whole as much as it is now. Another option would be to
 reduce font size for the first two chunks so that the font size
-difference is less distinct.}
+difference is less distinct.\\
+Stefan: The line break seems worth exploring.}
 \end{figure}
 %\noindent 
 The key point in this derivation is that, via hypothetical
@@ -1464,7 +1450,7 @@ discussion.
 \subsection{Broad architecture}
 
 One important property common to HPSG and CG is that they are both
-lexicalist\itdopt{Remove quotes? In general: there are a lot of quotes.} theories of syntax in the broader sense.\footnote{I say
+lexicalist theories of syntax in the broader sense.\footnote{I say
 ``broader sense'' here since not all variants of either HPSG or CG subscribe to the
 so-called Lexical Integrity Hypothesis (see 
 \crossrefchapteralt[Section~\ref{sec:lex}]{lexicon}), which says that syntax and 
@@ -1509,8 +1495,7 @@ summary of CG analyses of local dependencies
 (passivization, raising/control). \citet[Section~4.2]{Kubota2014a-u} contains
 a comparison of HPSG and CG analyses of complex predicates.
 The heavy reliance on lexicalist analyses of
-local dependencies 
-is perhaps the most important property that is shared \del{in common} in
+local dependencies is perhaps the most important property that is shared in
 HPSG and various versions of CG.
 
 But emphasizing this commonality too much may be a bit misleading,
@@ -1520,9 +1505,11 @@ The valence features in HPSG are primarily specifications, closely
 tied to the specific phrase structure rules, that dictate the ways in
 which hierarchical representations are built. To be sure, the lexical
 specifications of the valence information play a key role in the
-movement-free analyses of local dependencies\itdopt{non-local
-  dependencies?\\ Yusuke: 'local dependencies' is correct here, since
-  here I'm talking about analyses of passive, complex predicates etc.}
+movement-free analyses of local dependencies
+% \itdopt{non-local
+%   dependencies?\\ Yusuke: 'local dependencies' is correct here, since
+%   here I'm talking about analyses of passive, complex predicates etc.\\
+% Stefan: Ah, since this is a comparison to HPSG I got onto the wrong track.}
 along the lines noted
 above, but still, there is a rather tight connection between these
 valence specifications originating in the lexicon and the ways in
@@ -1555,7 +1542,9 @@ does, it remains true to a large extent that the role of the slash
 connective within the overall theory is different from that of the
 valence features in HPSG (for example, note the way in which 
 nonconstituents in RNR and ACC are analyzed),\itdopt{Why is it
-  different? \\ Yusuke: I've added clarification in parentheses.}
+  different? \\ Yusuke: I've added clarification in parentheses.\\Stefan: OK. But the slash is
+  always saying: I need X, isn't it? So it is like valence. It is true that analyses are different
+  sometimes, but i do not see a fundamental difference. Maybe I am missing things.}
 given that CCG and TLCG share many key 
 ideas in the analyses of actual empirical phenomena.}
 
@@ -1598,11 +1587,8 @@ ideas in the analyses of actual empirical phenomena.}
 %research is needed.
 
 Another notable difference between (especially a recent variant of)
-HPSG and CG is that CG currently lacks a detailed theory of \add{(phrasal)}
-``constructions'',
-\itdopt{Lexical items are constructions as well, as are lexical rules. The thing that is missing in
-  CG is phrasal constructions.} 
-that is, patterns and (sub)regularities that are
+HPSG and CG is that CG currently lacks a detailed theory of (phrasal)
+``constructions'', that is, patterns and (sub)regularities that are
 exhibited by linguistic expressions that cannot (at least according to
 the proponents of ``constructionist'' approaches) be lexicalized easily.
 As discussed in \crossrefchaptert{cxg} (see also
@@ -1768,7 +1754,7 @@ could be viewed as precursors of PFM.}
 The idea of separating surface word order and the underlying
 combinatorics, embodied in the so-called \term{linearization-based}
 version of HPSG (\citealt{Reape94a,Mueller95c,Kathol2000a};
-cf.\ \crossrefchapteralt[Section~\ref{sec-domains}]{order}),\itdopt{added \citew{Mueller95c}} has its origin 
+cf.\ \crossrefchapteralt[Section~\ref{sec-domains}]{order}), has its origin 
 in the work by the logician Haskell Curry \citeyearpar{curry61}, in which he
 proposed the distinction between \term{phenogrammar} (the component
 pertaining to surface word order) and \term{tectogrammar} (underlying
@@ -1795,7 +1781,7 @@ cross-serial dependencies; see also \citealt[Section~4]{Dowty97a-u} for an acces
 exposition of this analysis), \citet{kraak98} (\ili{French} clitic climbing),
 \citet{Whitman2009} (``right-node wrapping'' in \ili{English}) and
 \citet{kubota-diss,Kubota2014a-u} (complex predicates in \ili{Japanese}). Second,
-the Curry/Dowty idea of \add{the} pheno/tecto distinction has also been the core motivation for the
+the Curry/Dowty idea of the pheno/tecto distinction has also been the core motivation for the
 underlying architecture of
 a family of approaches called \term{Linear Categorial Grammar} (LCG;
 \citealt{oehrle1994,degroote01,muskens03,mihalicek-pollard10,pollard13}),
@@ -1900,10 +1886,10 @@ major aspects of long-distance dependencies, including island effects
 \citep[Section~4.2]{Steedman2000a-u} and parasitic gaps \citep{Steedman87a-u}.
 Earlier versions of CCG involved a somewhat ad-hoc stipulation on the
 use of crossed composition rules \citep{Steedman97a}. This was
-overcome in the more recent, multi"=modal\itdopt{remove quotes} variant of CCG
+overcome in the more recent, multi"=modal variant of CCG
 \citep{Baldridge2002a-u}, which controls the application of such
 non-order-preserving rules via a fine-grained system of
-lexicalized modality\itdopt{remove quotes}. The modality specifications in this new version of CCG
+lexicalized modality. The modality specifications in this new version of CCG
 enable one to relocate language-specific idiosyncrasies to the
 lexicon, in line with the general spirit of lexicalist theories of
 grammar.
@@ -2118,8 +2104,9 @@ deletion in the prosodic representation.
 In its simplest form, this analysis gets the scopal relation between
 the quantifier and coordination wrong in examples like (\ref{BeaversSag}) (a
 well-known problem for the conjunction reduction analysis from the
-70s; cf.\ \citealt{partee70}\addpages). 
-Beavers \& Sag address this issue by introducing a \rep{condition}{constraint} called
+70s; cf.\ \citealt{partee70}).
+% whole paper 
+Beavers \& Sag address this issue by introducing a constraint called
 \term{Optional Quantifier Merger}:
 
 \begin{exe}
@@ -2130,7 +2117,9 @@ Beavers \& Sag address this issue by introducing a \rep{condition}{constraint} c
   optionally be identified with the semantics of its non-elided
   counterpart.
 \end{exe}
-As noted by \citet{levine11}\addpages and \citet[Section~3.2.1]{kubota-levine-coord}, this condition
+As noted by \citet{levine11}
+% whole paper
+and \citet[Section~3.2.1]{kubota-levine-coord}, this condition
 does not follow from any general principle and is merely stipulated in
 \citeauthor{BS2004a}'s account.
 
@@ -2199,7 +2188,7 @@ interactions with scopal operators
 idiosyncrasies, the latter of which includes the summative agreement
 facts \citep{postalextraction,yatabe-tam2017} and extraposed relative
 clauses with split antecedents
-\citep{PerlmutterRoss70,Link84a-u,Kiss2005a,yatabe-tam2017}.\itdopt{Added Link and Kiss}
+\citep{PerlmutterRoss70,Link84a-u,Kiss2005a,yatabe-tam2017}.
 
 
 \subsubsection{Gapping and Stripping}
@@ -2207,7 +2196,7 @@ clauses with split antecedents
 
 Descriptively, Gapping is a type of ellipsis phenomenon that occurs in
 coordination and which deletes some material including the main
-verb:\footnote{There is some disagreement as to whether Gapping\itdopt{gapping? uniformly everywhere} is
+verb:\footnote{There is some disagreement as to whether Gapping is
 restricted to coordination. \citet{kubota-levine-gapping}, following
 authors such as \citet{johnson2009}, take Gapping to be restricted to
 coordination. \citet{parkea18gapping} and \citet{parkDiss} take a
@@ -2247,11 +2236,10 @@ involving downward-entailing quantifiers of the sort exemplified by (\ref{mccawl
   \end{xlist}
 \end{exe}
 The issue here is that (\ref{mrj1}), for example, has a reading in
-which the modal \textit{can't} scopes over \add{the} conjunction (`it's not
+which the modal \textit{can't} scopes over the conjunction (`it's not
 possible for Mrs.~J to live in NY and Mr.~J to live in LA at the same
 time'). This is puzzling, since such a reading wouldn't be predicted
-on the (initially plausible) assumption that Gapping sentences \rep{would
-be}{are} interpreted by simply supplying the meaning of the missing material
+on the (initially plausible) assumption that Gapping sentences are interpreted by simply supplying the meaning of the missing material
 in the right conjunct.
 
 \citet{kubota-levine-gapping} and 
@@ -2264,8 +2252,6 @@ of Kubota \& Levine's analysis involves taking Gapping as coordination of clause
 missing a verb in the middle, which can be transparently represented
 as a function from strings to strings of category {\syncat{S\vs
     ((NP\ensuremath{\backslash}{}S)\ensuremath{/}NP)}} (for (\ref{ex-leslie-bought-a-cd}), for example):
-\itdopt{Mention (\ref{ex-leslie-bought-a-cd})? Otherwise the reader needs some time to relate the
-  formula to the example.}
 
 \begin{exe}
  \ex
@@ -2309,17 +2295,15 @@ gapping via higher-order functions. \citet{morrillvalentin16} criticize this
 approach for a certain type of overgeneration problem regarding word
 order and propose an alternative analysis in Displacement Calculus.
 
-\citet{parkea18gapping} and \citet{parkDiss} propose an analysis of Gapping in HPSG that
-overcomes the limitations of previous (H)PSG analyses \del{of Gapping}
-(\citealt[Section~4.3]{sgww};  \citealt{chaves05,abeille-ea}), couched in Lexical Resources Semantics.
-In Park et al.'s analysis, the lexical entries of the clause-level conjunction
-words \textit{and} and \textit{or} are underspecified as to the relative scope
-between the propositional operator contributed by the modal auxiliary
-in the first conjunct and the Boolean conjunction or disjunction
-connective that is contributed by the conjunction word itself. Park et
-al.\ argue that this is sufficient for capturing the scope anomaly in the
-Oehrle/Siegel data such as (\ref{mrj1}) and (\ref{ex2b}). Extension to
-the determiner gapping case (\ref{mccawley}) is left for future work.
+\citet{parkea18gapping} and \citet{parkDiss} propose an analysis of Gapping in HPSG that overcomes
+the limitations of previous (H)PSG analyses (\citealt[Section~4.3]{sgww};
+\citealt{chaves05,abeille-ea}), couched in Lexical Resources Semantics.  In Park et al.'s analysis,
+the lexical entries of the clause-level conjunction words \textit{and} and \textit{or} are
+underspecified as to the relative scope between the propositional operator contributed by the modal
+auxiliary in the first conjunct and the Boolean conjunction or disjunction connective that is
+contributed by the conjunction word itself. Park et al.\ argue that this is sufficient for capturing
+the scope anomaly in the Oehrle/Siegel data such as (\ref{mrj1}) and (\ref{ex2b}). Extension to the
+determiner gapping case (\ref{mccawley}) is left for future work.
 
 Here again, instead of trying to settle the debate, I'd like to draw
 the reader's attention to the different perspectives on grammar that
@@ -2787,21 +2771,14 @@ supposed to rule out examples such as the following:
 \ex[*]{He\ensuremath{_i} talked to John's\ensuremath{_i} brother.}
 \zl
 
-The formulation of Principle C has always been a problem in lexicalist
-theories of syntax.\itdopt{I also thought so, but with Branco's theory, binding can be done
-  lexically. You just have to adopt his theory. It is described in the BT chapter.} While Principles A and
-B can be stated by just making reference to the local argument
-structure of a predicate in the lexicon, the global nature of
-Principle C seems to require looking at the
-whole configurational structure of the sentence
-in which the referring term\itdobl{It is not just proper nouns, is
-  it?} appears (but see \citet{Branco2002a} for an alternative view;
-see also \crossrefchaptert{binding}). In fact,
-\textcites{PS92a}[Chapter~6]{ps2} opt for this
-solution, and their definition of the Principle C
-has a somewhat exceptional status within the whole theory
-(which otherwise adheres to strict locality conditions)
-in directly referring to the configurational structure. 
+The formulation of Principle C has always been a problem in lexicalist theories of syntax. While
+Principles A and B can be stated by just making reference to the local argument structure of a
+predicate in the lexicon, the global nature of Principle C seems to require looking at the whole
+configurational structure of the sentence in which the referring term appears (but see
+\citet{Branco2002a} for an alternative view; see also \crossrefchaptert{binding}). In fact,
+\textcites{PS92a}[Chapter~6]{ps2} opt for this solution, and their definition of the Principle C has
+a somewhat exceptional status within the whole theory (which otherwise adheres to strict locality
+conditions) in directly referring to the configurational structure.
 
 Essentially the same problem arises in CG. \citeposs{Steedman97a} formulation
 of Principle C can be thought of as an analog of Pollard \&
