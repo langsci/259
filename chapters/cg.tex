@@ -29,14 +29,13 @@
  Categorial Grammar (CG). Since the CG research itself
  consists of two major types of approaches with overlapping but
  distinct goals and research strategies, I start by giving an overview
- of these two variants of CG (Section~\ref{cgexposition}). This is
+ of these two variants of CG. This is
  followed by a comparison of HPSG and CG at a broad level, in terms of
- the general architecture of the theory (Section~\ref{architecture}),
- and then, by a
- more focused comparison of specific linguistic analyses
- of some selected phenomena (Section~\ref{phenomena}). The chapter ends by briefly
+ the general architecture of the theory, 
+ and then, by a  more focused comparison of specific linguistic analyses
+ of some selected phenomena. The chapter ends by briefly
  touching on issues related to computational implementation and
- human sentence processing (Section~\ref{implementation}). \rep{Thoughtout}{Throughout}
+ human sentence processing. \rep{Thoughtout}{Throughout}
  the discussion, I  attempt to 
  highlight both the similarities and differences between HPSG and CG
  research, in the hope of stimulating further research in the two
@@ -89,6 +88,17 @@ syntax research.
 
 \itdobl{Add overview here: ``The rest of the chapter is structured as follows:''}
 
+The rest of the chapter is structured as follows. I start by giving an
+overview of Combinatory Categorial Grammar and
+Type-Logical Categorial Grammar, two major variants of CG (Section~\ref{cgexposition}).
+This is followed by a comparison of HPSG and CG at a broad level, in
+terms of the general architecture of the theory
+(Section~\ref{architecture}), and then, by a more focused comparison
+of specific linguistic analyses of some selected phenomena
+(Section~\ref{phenomena}). The chapter ends by briefly touching on
+issues related to computational implementation and human sentence
+processing (Section~\ref{implementation}).
+ 
 
 \section{Two varieties of CG \label{cgexposition}}
 
@@ -215,12 +225,23 @@ its  right (i.e.\  the direct object) and then another NP to its left
 \infer2[\ensuremath{/}E]{\LexEnt{\pt{loves \ensuremath{\circ}\xspace mary}}{\sem{ }}{\syncat{NP\ensuremath{\backslash}{}S}}}
 \infer2[\ensuremath{\backslash}E]{\LexEnt{\pt{john \ensuremath{\circ}\xspace loves \ensuremath{\circ}\xspace mary}}{\sem{ }}{\syncat{S}}}
 \end{prooftree}}
-\itdobl{mary and loves seem to be in the wrong order.}
+\itdobl{mary and loves seem to be in the wrong order.\\
+Yusuke: This is intentional. But I now see that I forgot to add
+explanation. I've added the relevant clarification in the text.}
 \end{exe}
 
 
 \noindent
-At this point, this is just like the familiar PSG analysis of the
+In the notation adopted here, the linear order of words is explicitly
+represented in the prosodic component of each derived sign.
+Thus,  just like the analysis trees in Linearization-based HPSG, the
+left-to-right order of elements in the proof tree does not
+necessarily correspond to the surface order of words. 
+The object NP \textit{Mary} is deliberately placed on the left of the
+transitive verb \textit{loves} in the proof tree in (\ref{cg-tree1})
+in order to  underscore this point.
+
+At this point, the analysis in (\ref{cg-tree1}) is just like the familiar PSG analysis of the
 form in Figure~\ref{fig-john-loves-mary}, except that the symbol VP is
 replaced by \syncat{NP\ensuremath{\backslash}{}S}.
 
@@ -324,7 +345,7 @@ difference at this point) is that in CG, syntactic rules are
 thought of as logical rules and the derivations of sentences like
 (\ref{cg-tree1}) as \emph{proofs} of the well-formedness of
 particular strings as sentences.
-From this ``logical''\itdopt{remove quotes?} point of view, the two slashes should really be
+From this logical\itdopt{remove quotes?} point of view, the two slashes should really be
 thought of as directional variants of implication (that is, both
 \syncat{\textit{A}\ensuremath{/}\textit{B}} and \syncat{\textit{B}\ensuremath{\backslash}{}\textit{A}} essentially mean `\emph{if} there is a \textit{B},
 \emph{then} there is an \textit{A}'), and the two rules of Slash Elimination
@@ -977,7 +998,7 @@ there is  an expression \p\ of type
 One consequence that immediately follows
 in this system is that Type Raising and
 Function Composition (as well as other theorems; see, for example, 
-\citealt[Section~2.2.5, 46--49]{jaeger05})\itdobl{Are the section and the pages referring to the
+\citealt[46--49]{jaeger05})\itdobl{Are the section and the pages referring to the
   same region? If so, remove one of them.} are now derivable as theorems. As an
 illustration, the proofs for (\ref{TR}a) and (\ref{FC}a) are shown in (\ref{TRproof})
 and (\ref{FCproof}), respectively.
@@ -1144,7 +1165,7 @@ Technically, this is known as \term{proof normalization}
 
 Thus, the logic-based architecture of the Lambek calculus (and various versions of
 TLCG, which are all extensions of the Lambek calculus) enables us to say, in a
-technically precise way, how (\ref{redundant-DV}) and (\ref{NCC-arg-deriv})\itdopt{Change order in
+technically precise way, how (\ref{NCC-arg-deriv}) and (\ref{redundant-DV})  \itdopt{Change order in
   which examples are referenced?} are
 the ``same'' (or, more precisely, equivalent), by building on
 independently established results in mathematical logic and computer
@@ -1416,7 +1437,14 @@ given in (\ref{RT-derivation}) on the next page.
 \z
 \vspace{-\baselineskip}
 \itdopt{This looks strange since the font size changes in the middle of the proof. Maybe there is no
-  other way.}
+  other way.\\
+Yusuke: I agree this does look strange. If it's okay to add newline in
+the middle of a semantic translation formula (such as between the two
+lambda terms on the top line conjoined by $\sqcup$), that will reduce
+horizonal length so that the final chunk of proof doesn't need to be
+shrunk as a whole as much as it is now. Another option would be to
+reduce font size for the first two chunks so that the font size
+difference is less distinct.}
 \end{figure}
 %\noindent 
 The key point in this derivation is that, via hypothetical
@@ -1436,7 +1464,7 @@ discussion.
 \subsection{Broad architecture}
 
 One important property common to HPSG and CG is that they are both
-``lexicalist''\itdopt{Remove quotes? In general: there are a lot of quotes.} theories of syntax in the broader sense.\footnote{I say
+lexicalist\itdopt{Remove quotes? In general: there are a lot of quotes.} theories of syntax in the broader sense.\footnote{I say
 ``broader sense'' here since not all variants of either HPSG or CG subscribe to the
 so-called Lexical Integrity Hypothesis (see 
 \crossrefchapteralt[Section~\ref{sec:lex}]{lexicon}), which says that syntax and 
@@ -1492,7 +1520,10 @@ The valence features in HPSG are primarily specifications, closely
 tied to the specific phrase structure rules, that dictate the ways in
 which hierarchical representations are built. To be sure, the lexical
 specifications of the valence information play a key role in the
-movement-free analyses of local dependencies\itdopt{non-local dependencies?} along the lines noted
+movement-free analyses of local dependencies\itdopt{non-local
+  dependencies?\\ Yusuke: 'local dependencies' is correct here, since
+  here I'm talking about analyses of passive, complex predicates etc.}
+along the lines noted
 above, but still, there is a rather tight connection between these
 valence specifications originating in the lexicon and the ways in
 which they are ``canceled'' in specific phrase structure rules.
@@ -1522,7 +1553,10 @@ setting up the syntax-semantics interface.\footnote{Although CCG does
 not embody the idea of ``derivation as proof'' as explicitly as TLCG
 does, it remains true to a large extent that the role of the slash
 connective within the overall theory is different from that of the
-valence features in HPSG,\itdopt{Why is it different?} given that CCG and TLCG share many key
+valence features in HPSG (for example, note the way in which 
+nonconstituents in RNR and ACC are analyzed),\itdopt{Why is it
+  different? \\ Yusuke: I've added clarification in parentheses.}
+given that CCG and TLCG share many key 
 ideas in the analyses of actual empirical phenomena.}
 
 %the two versions of CG share many key ideas
@@ -1866,10 +1900,10 @@ major aspects of long-distance dependencies, including island effects
 \citep[Section~4.2]{Steedman2000a-u} and parasitic gaps \citep{Steedman87a-u}.
 Earlier versions of CCG involved a somewhat ad-hoc stipulation on the
 use of crossed composition rules \citep{Steedman97a}. This was
-overcome in the more recent, ``multi"=modal''\itdopt{remove quotes} variant of CCG
+overcome in the more recent, multi"=modal\itdopt{remove quotes} variant of CCG
 \citep{Baldridge2002a-u}, which controls the application of such
 non-order-preserving rules via a fine-grained system of
-``lexicalized modality''\itdopt{remove quotes}. The modality specifications in this new version of CCG
+lexicalized modality\itdopt{remove quotes}. The modality specifications in this new version of CCG
 enable one to relocate language-specific idiosyncrasies to the
 lexicon, in line with the general spirit of lexicalist theories of
 grammar.
@@ -2144,7 +2178,12 @@ should aim to explain (as opposed to merely account for)
 linguistic generalizations. There is no easy answer to this
 question, and it is understandable that different theories put
 different degrees of emphasis on this goal (see also
-\crossrefchapteralt{minimalism}\itdobl{Which section?} for discussion on a related point).
+\crossrefchapteralt{minimalism}\itdobl{Which section?\\Yusuke: When I
+  looked at your chapter again, I now notice that it's much more 
+  ruthless on minimalism than I thought it was. So, it may be somewhat
+  misleading to quote it in this context. What do you think? I want to
+cite everything relevant, but I don't cite people in inappropriate ways.}
+for discussion on a related point).
 Whatever conclusion one draws from this recent HPSG/CG debate on
 the treatment of nonconstituent coordination, one point seems 
 relatively uncontroversial: coordination continues to constitute a challenging
