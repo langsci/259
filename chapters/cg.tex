@@ -46,9 +46,10 @@
 \maketitle
 \label{chap-cg}
 
-
+\vspace{-\baselineskip}
 \section{Introduction}
 
+\largerpage
 The goal of this chapter is to provide a comparison between HPSG and
 \isi{Categorial Grammar} (CG). The two theories share certain important
 insights, mostly due to the fact that they are among the so-called
@@ -154,27 +155,28 @@ I start with a simple fragment of CG called the \term{AB Grammar},
 consisting of just two syntactic rules in (\ref{SE0}) (here,
 $\circ$ designates string concatenation):
 
-\eal
+\ea
 \label{SE0}%
-%\parbox[t]{5cm}{%
-\ex\label{rseone} Forward Slash Elimination:\\[.5\baselineskip]
+\label{rseone}% was a, a now manually
+\label{lseone}% was b, b now manually
+\twomulticolexamples{Forward Slash Elimination:\\[.5\baselineskip]
 \begin{prooftree}
 \NoSem
 \hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ }}{\syncat{\textit{A}/\textit{B}}}}
 \hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ }}{\syncat{\textit{B}}}}
 \infer2[\ensuremath{/}E]{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ }}{\syncat{\textit{A}}}}
 \end{prooftree}
-%}
-%\parbox[t]{5cm}{
-\ex\label{lseone} Backward Slash Elimination:\\[.5\baselineskip]
+}{
+Backward Slash Elimination:\\[.5\baselineskip]
 \begin{prooftree}
 \NoSem
 \hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ }}{\syncat{\textit{B}}}}
 \hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ }}{\syncat{\textit{B}\ensuremath{\backslash}{}\textit{A}}}}
 \infer2[\ensuremath{\backslash}E]{\LexEnt{\pt{\ptv{b} \ensuremath{\circ}\xspace \ptv{a}}}{\sem{ }}{\syncat{\textit{A}}}}
 \end{prooftree}
-%}
-\zl
+}
+\z
+
 
 \noindent
 With the somewhat minimal lexicon in (\ref{lex01}), the sentence
@@ -396,26 +398,25 @@ Syntactic rules with semantics can then be written as in (\ref{SE-rev})
 (where the semantic effect of these rules is \term{function application})
 and a sample derivation with semantic annotation is given in (\ref{tree02}).
  
-\begin{exe}
- \ex\label{SE-rev} %\\[-15pt]
-     \begin{multicols}{2} 
-\begin{xlist}
- \ex\label{rsetwo} Forward Slash Elimination:\\[.33\baselineskip]
+\ea
+\label{SE-rev} %\\[-15pt]
+%\label{rsetwo}% a has to be added manually
+%\label{lsetwo}% b has to be added manually
+\twomulticolexamples{
+ Forward Slash Elimination:\\[.33\baselineskip]
 \begin{prooftree}
 \hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF }}{\syncat{\textit{A}\ensuremath{/}\textit{B}}}}
 \hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG }}{\syncat{\textit{B}}}}
 \infer2[\ensuremath{/}E]{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ \sF(\sG)}}{\syncat{\textit{A}}}}
 \end{prooftree}
- \ex\label{lsetwo} Backward Slash Elimination:\\[.5\baselineskip]
+}{Backward Slash Elimination:\\[.5\baselineskip]
 \begin{prooftree}
 \hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG }}{\syncat{\textit{B}}}}
 \hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF }}{\syncat{\textit{B}\ensuremath{\backslash}{}\textit{A}}}}
 \infer2[\ensuremath{\backslash}E]{\LexEnt{\pt{\ptv{b} \ensuremath{\circ}\xspace \ptv{a}}}{\sem{ \sF(\sG) }}{\syncat{\textit{A}}}}
 \end{prooftree}
-\end{xlist} 
-     \end{multicols}
-\end{exe}
-
+}
+\z
 
 \begin{exe}
  \ex\label{tree02}
@@ -462,13 +463,11 @@ variants of TLCG. For this reason, separating the two sets of rules
 helps clarify the similarities and differences between CCG and TLCG.
 
 The \term{Type Raising} and \term{Function Composition} rules are defined as in
-(\ref{FC}) and (\ref{TR}), respectively.\largerpage[2]
+(\ref{FC}) and (\ref{TR}), respectively.%\largerpage[2]
 
-
-\begin{exe}
-\ex\label{FC} \begin{multicols}{2}
-\begin{xlist}
-\ex
+\ea
+\label{FC}
+\twomulticolexamples{
 \scalebox{.94}{%
 \mbox{Forward Function Composition:}}\\[.5\baselineskip]
 \scalebox{.94}{%
@@ -477,41 +476,33 @@ The \term{Type Raising} and \term{Function Composition} rules are defined as in
 \hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG}}{\syncat{\textit{B}\ensuremath{/}\textit{C}}}}
 \infer2[FC]{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ \lambda x. \sF(\sG(x))}}{\syncat{\textit{A}\ensuremath{/}\textit{C}}}}
 \end{prooftree}}
-\columnbreak
-\ex
-\scalebox{.94}{%
+}{\scalebox{.94}{%
 \mbox{Backward Function Composition:}}\\[.5\baselineskip]
 \scalebox{.94}{%
 \begin{prooftree}
 \hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG}}{\syncat{\textit{C}\ensuremath{\backslash}{}\textit{B}}}}
 \hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF}}{\syncat{\textit{B}\ensuremath{\backslash}{}\textit{A}}}}
 \infer2[FC]{\LexEnt{\pt{\ptv{b} \ensuremath{\circ}\xspace \ptv{a}}}{\sem{ \lambda x. \sF(\sG(x))}}{\syncat{\textit{C}\ensuremath{\backslash}{}\textit{A}}}}
-\end{prooftree}}
-     \end{xlist}\end{multicols}
-\end{exe}
-% \end{multicols}
-% 
-\begin{exe}
-\ex\label{TR} \begin{multicols}{2}\begin{xlist}
-\ex
+\end{prooftree}}}
+\z
+
+\ea
+\label{TR}
+\twomulticolexamples{
 \scalebox{.94}{%
 \mbox{Forward Type Raising:}}\\[.5\baselineskip]
 \scalebox{.94}{
 \begin{prooftree}
 \hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF}}{\syncat{\textit{A}}}}
 \infer1[TR]{\LexEnt{\pt{\ptv{a} }}{\sem{ \lambda v. v(\sF) }}{\syncat{\textit{B}\ensuremath{/}(\textit{A}\ensuremath{\backslash}{}\textit{B})}}}
-\end{prooftree}}
-% \columnbreak
-\ex
+\end{prooftree}}}{
 \scalebox{.94}{\mbox{Backward Type Raising:}}\\[.5\baselineskip]
 \scalebox{.94}{
 \begin{prooftree}
 \hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF}}{\syncat{\textit{A}}}}
 \infer1[TR]{\LexEnt{\pt{\ptv{a} }}{\sem{ \lambda v. v(\sF) }}{\syncat{(\textit{B}\ensuremath{/\!}\textit{A})\ensuremath{\backslash}{}\textit{B}}}}
-\end{prooftree}}
-     \end{xlist}
-\end{multicols}
-\end{exe}
+\end{prooftree}}}
+\z
 
 \noindent
 The Type-Raising rules are essentially rules of ``type lifting''
@@ -664,6 +655,7 @@ CCG makes (restricted) use of additional rules. This point can be
 illustrated nicely with two issues that arise in connection with the
 analysis of long-distance dependencies.
 
+\largerpage
 The basic idea behind the CCG analysis of long-distance dependencies,
 due originally to \citet{AS82a}, is very simple and is similar in spirit to
 the HPSG analysis in terms of \slasch feature percolation (see
@@ -713,6 +705,7 @@ embedded verb, until the whole relative clause meets the relative
 pronoun, which itself is a higher-order function that takes a sentence
 missing an NP (of type \syncat{S\ensuremath{/}NP}) as an argument.
 
+\largerpage
 The successive passing of the \ensuremath{/}NP specification to larger structures
 is essentially analogous to the treatment of extraction via the \slasch
 feature in HPSG. However, unlike HPSG, which has a dedicated feature
@@ -777,7 +770,8 @@ straightforward, as in (\ref{nonP-DV}):
 \end{prooftree}}}
 \end{exe}
 
-
+%\largerpage[2]
+\noindent
 Unless appropriately constrained, the addition of the crossed
 composition rule leads to potential overgeneration, since
 non-extracted expressions cannot change word order so freely in
@@ -911,30 +905,32 @@ the first to recast the Lambek calculus in this labelled deduction
 format.}
 
 
-\begin{exe}
- \ex\label{SE} %\\[-15pt]
-     \begin{multicols}{2} 
-\begin{xlist}
- \ex\label{rsethree} \mbox{\isi{Forward Slash Elimination}}:\\[.5\baselineskip]
+\ea
+\label{SE} %\\[-15pt]
+%\label{rsethree}% a to be added manually
+%\label{lsethree}% b to be added manually
+\twomulticolexamples{
+\mbox{\isi{Forward Slash Elimination}}:\\[.5\baselineskip]
 \begin{prooftree}
 \hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF }}{\syncat{\textit{A}\ensuremath{/}\textit{B}}}}
 \hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG }}{\syncat{\textit{B}}}}
 \infer2[\ensuremath{/}E]{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ \sF(\sG)}}{\syncat{\textit{A}}}}
 \end{prooftree}
- \ex\label{lsethree} \mbox{\isi{Backward Slash Elimination}}:\\[.5\baselineskip]
+}{
+\mbox{\isi{Backward Slash Elimination}}:\\[.5\baselineskip]
 \begin{prooftree}
 \hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG }}{\syncat{\textit{B}}}}
 \hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF }}{\syncat{\textit{B}\ensuremath{\backslash}{}\textit{A}}}}
 \infer2[\ensuremath{\backslash}E]{\LexEnt{\pt{\ptv{b} \ensuremath{\circ}\xspace \ptv{a}}}{\sem{ \sF(\sG) }}{\syncat{\textit{A}}}}
 \end{prooftree}% 
-\end{xlist} 
-     \end{multicols}
-\end{exe}
-\begin{exe}
-\ex\label{si} %\\[-15pt]
-\begin{multicols}{2}
- \begin{xlist}
- \ex\label{rsi} \mbox{\isi{Forward Slash Introduction}}:\\[.5\baselineskip]
+}
+\z
+\ea
+\label{si} %\\[-15pt]
+\label{rsi}% a to be added manually
+%\label{lsi}% b to be added manually
+\twomulticolexamples{
+\mbox{\isi{Forward Slash Introduction}}:\\[.5\baselineskip]
 \begin{prooftree}
 \hypo{$\vdots$}
 \infer[no rule]1{$\vdots$}
@@ -945,7 +941,8 @@ format.}
 \infer3{\LexEnt{\pt{\ptv{b} \ensuremath{\circ}\xspace \p}}{\sem{ \sF}}{\syncat{\textit{B}}}}
 \infer1[/I$^n$]{\LexEnt{\pt{\ptv{b}}}{\sem{ \lambda x. \sF}}{\syncat{\textit{B}\ensuremath{/\!}\textit{A}}}}
 \end{prooftree}
- \ex\label{lsi} \mbox{\isi{Backward  Slash Introduction}}:\\[.5\baselineskip]
+}{%
+\mbox{\isi{Backward  Slash Introduction}}:\\[.5\baselineskip]
 \begin{prooftree}
 \hypo{$\vdots$}
 \infer[no rule]1{$\vdots$}
@@ -956,9 +953,8 @@ format.}
 \infer3{\LexEnt{\pt{\p \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ \sF}}{\syncat{\textit{B}}}}
 \infer1[\ensuremath{\backslash} I$^n$]{\LexEnt{\pt{\ptv{b}}}{\sem{ \lambda x. \sF}}{\syncat{\textit{A}\ensuremath{\backslash}{}\textit{B}}}}
 \end{prooftree}
-\end{xlist}
-\end{multicols}
-\end{exe}
+}
+\z
  
 \noindent The key idea behind the Slash Introduction rules in (\ref{si}) is that
 they allow one  to derive linguistic expressions by \emph{hypothetically}
@@ -985,7 +981,6 @@ Function Composition (as well as other theorems; see, for example,
 illustration, the proofs for (\ref{TR}a) and (\ref{FC}a) are shown in (\ref{TRproof})
 and (\ref{FCproof}), respectively.
 
-% % \begin{multicols}{2}
 \begin{exe}
  \ex\label{TRproof}
 \attop{\begin{prooftree}
@@ -996,6 +991,7 @@ and (\ref{FCproof}), respectively.
 \end{prooftree}}
 % \columnbreak
 \end{exe}
+%
 \begin{exe}
  \ex\label{FCproof}
 \attop{\begin{prooftree}
@@ -1007,7 +1003,6 @@ and (\ref{FCproof}), respectively.
 \infer1[\ensuremath{/}I\ensuremath{^1}]{\LexEnt{\pt{\ptv{a} \ensuremath{\circ}\xspace \ptv{b}}}{\sem{ \lambda x. \sF(\sG(x)) }}{\syncat{\textit{A}\ensuremath{/}\textit{C}}}}
 \end{prooftree}}
 \end{exe}
-% % \end{multicols}
 
 
 \noindent
@@ -1035,7 +1030,7 @@ concatenation and is associative in both directions
 (i.e.\  \pt{ (\ensuremath{\greekp_1} \ensuremath{\circ}\xspace \ensuremath{\greekp_2}) \ensuremath{\circ}\xspace \ensuremath{\greekp_3}} \ensuremath{ \equiv\xspace } \pt{ \ensuremath{\greekp_1} \ensuremath{\circ}\xspace (\ensuremath{\greekp_2} \ensuremath{\circ}\xspace \ensuremath{\greekp_3}) }). In other words, hierarchical
 structure is irrelevant for the prosodic representation. Thus,
 the applicability condition on the Forward Slash
-Introduction rule (\ref{rsi}) is simply that
+Introduction rule (\ref{rsi}a) is simply that
 the prosodic variable \pt{ \ensuremath{\greekp} }
 of the hypothesis appears as the rightmost element of the
 string prosody of the input expression (i.e.\
@@ -1177,29 +1172,31 @@ $\lambda$-binding in the prosodic component.
 Hybrid TLCG extends the Lambek calculus with the Elimination and Introduction rules for the
 \term{vertical slash}:
 
-\begin{multicols}{2}
-\begin{exe}
- \ex\label{scoping} \begin{xlist}
-      \ex\label{upI} \mbox{\isi{Vertical  Slash Introduction}}:\\[.33\baselineskip]
-\begin{prooftree}
-\hypo{$\vdots$}
-\infer[no rule]1{$\vdots$}
-\hypo{[\LexEnt{\pt{\p}}{\sem{ x}}{\syncat{\textit{A}}}]\ensuremath{^n}}
-\infer1{$\vdots$}
-\hypo{$\vdots$}
-\infer[no rule]1{$\vdots$}
-\infer3{\LexEnt{\pt{\ptv{b}}}{\sem{ \sF }}{\syncat{\textit{B}}}}
-\infer1[\vs I$^n$]{\LexEnt{\pt{\ensuremath{\lambda} \p.  \ptv{b}}}{\sem{ \lambda x. \sF }}{\syncat{\textit{B}\vs \textit{A}}}}
-\end{prooftree}
-\ex\label{upE} \mbox{\isi{Vertical  Slash Elimination}}:\\[.5\baselineskip]
+\ea
+\label{scoping}
+\label{upI} % a to be added manually
+%\label{upE} % b to be added manually
+\twomulticolexamples{
+\mbox{\isi{Vertical  Slash Introduction}}:\\[.33\baselineskip]
+  \begin{prooftree}
+  \hypo{$\vdots$}
+  \infer[no rule]1{$\vdots$}
+  \hypo{[\LexEnt{\pt{\p}}{\sem{ x}}{\syncat{\textit{A}}}]\ensuremath{^n}}
+  \infer1{$\vdots$}
+  \hypo{$\vdots$}
+  \infer[no rule]1{$\vdots$}
+  \infer3{\LexEnt{\pt{\ptv{b}}}{\sem{ \sF }}{\syncat{\textit{B}}}}
+  \infer1[\vs I$^n$]{\LexEnt{\pt{\ensuremath{\lambda} \p.  \ptv{b}}}{\sem{ \lambda x. \sF }}{\syncat{\textit{B}\vs \textit{A}}}}
+  \end{prooftree}
+}{
+ \mbox{\isi{Vertical  Slash Elimination}}:\\[.5\baselineskip]
 \begin{prooftree}
 \hypo{\LexEnt{\pt{\ptv{a}}}{\sem{ \sF }}{\syncat{\textit{A}\vs \textit{B}}}}
 \hypo{\LexEnt{\pt{\ptv{b}}}{\sem{ \sG }}{\syncat{\textit{B}}}}
 \infer2[\ensuremath{\vs}E]{\LexEnt{\pt{\ptv{a}(\ptv{b})}}{\sem{  \sF(\sG)}}{\syncat{\textit{A}}}}
 \end{prooftree}
-     \end{xlist}
-\end{exe}
-\end{multicols}
+}
+\z
 
 \noindent These rules make it possible to model what (roughly) corresponds to
 syntactic movement operations in
@@ -1242,7 +1239,7 @@ respectively), but its phonology is a
 function of type (\yusukest\hskip.4em\shortarrow\hskip.1em\yusukest)\hskip.4em\shortarrow
 \yusukest\xspace (where \yusukest\xspace is the type of string).
 By abstracting over the position in which the quantifier
-``lowers into'' in an S via the Vertical Slash Introduction rule (\ref{upI}),
+``lowers into'' in an S via the Vertical Slash Introduction rule (\ref{upI}a),
 an expression of
 type \syncat{S\vs NP} (phonologically
 \yusukest\hskip.4em\shortarrow\hskip.1em\yusukest\xspace)  is obtained (\maru{1}),
@@ -1606,8 +1603,9 @@ should be settled on the basis of (various types of) evidence.
 
 
 
-\subsection{Syntax-semantics interface }
+\subsection{Syntax--semantics interface }
 
+%\largerpage
 As should be clear from the exposition in Section~\ref{cgexposition},
 both CCG and TLCG (at 
 least in the simplest form) adopt a very rigid, one-to-one
@@ -1707,6 +1705,7 @@ as a driving principle.
 
 \subsection{Morpho-syntax and word order \label{sec:morphology}}
 
+%\largerpage
 While there is relatively less detailed work on morphology and the
 morpho-syntax interface in CG as compared to HPSG, there are several
 ideas originating in the CG literature that have either
@@ -2511,7 +2510,7 @@ specified as [$-$p].\footnote{Here, $/$\$ is an abbreviation of a
  \ex\label{le}
   \LexEnt{\pt{\ptv{k}}}{\sem{ P}}{\syncat{VP\ensuremath{/}\$}}
 \end{exe}
-\largerpage
+%\largerpage
 The effect of this restriction is to rule out pronouns from argument
 positions of verbs with ordinary semantic denotations. On this
 approach, the only way a lexically specified functional category can
