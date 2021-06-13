@@ -218,9 +218,8 @@ Although the HPSG formalism rules out the possibility of efficient algorithms
 that could cope with any possible feature-structure grammar,
 a particular theory (or a particular grammar) might well allow efficient algorithms.
 
-Keeping processing complexity manageable is handled differently
-in other computationally-friendly frameworks,
-such as \isi{Combinatory Categorial Grammar (CCG)},\footnote{%
+\largerpage 
+Keeping processing complexity manageable is handled differently in other computationally-friendly frameworks, such as \isi{Combinatory Categorial Grammar (CCG)},\footnote{%
 	For an introduction, see \citet{steedman2011ccg}.
 	For a comparison with HPSG, see \crossrefchaptert{cg}.
 }
@@ -241,20 +240,11 @@ As discussed above in Section~\ref{cl:theoretical},
 separating the formalism from the theory
 means that the formalism is stable, even as the theory develops.
 
-% EMB 2018-09-28 Say something here about particular analytical choices that constrain the processing complexity? (The bit about the fact that the lists that we read from tend to be limited in length.)
-% GE 2019-02-05 The length of the lists might be a red herring,
-% because apart from the items on the hook, the other elements don't affect grammaticality.
-% Potentially relevant for the size of $C$ below, but I worry this would be too much detail.
-% EMB 2018-09-28 Maybe also cite Flickinger 2000 (`On building a more efficient grammar using types') and Copestake et al work on improving generator efficiency.
-% GE 2019-02-05 Thanks, updated.
-
-It would be beyond the scope of this chapter
-to give a full review of parsing algorithms,
-but it is instructive to give an example.
-For grammars that have a \isi{context-free backbone}
-(every analysis can be expressed as a phrase-structure tree
-plus constraints between mother and daughter nodes),
-it is possible to adapt the standard \textit{parsing} algorithm \citep{kay:1973} for context-free grammars.\is{context-free grammar (CFG)}\is{parsing!chart parsing}
+It would be beyond the scope of this chapter to give a full review of parsing
+algorithms, but it is instructive to give an example.  For grammars that have a \isi{context-free
+  backbone} (every analysis can be expressed as a phrase-structure tree plus constraints between
+mother and daughter nodes), it is possible to adapt the standard \textit{parsing} algorithm
+\citep{kay:1973} for context-free grammars.\is{context-free grammar (CFG)}\is{parsing!chart parsing}
 % EMB 2019-02-21 We should have cite for chart-parsing. It looks like Kay 1973 is the originator of that idea, so putting that in for now.
 The basic idea is to parse ``bottom-up'',
 starting by finding analyses for each token in the input,
@@ -276,21 +266,7 @@ This is less complex than for an arbitrary grammar
 (which means that this class of grammars is \emph{not} \isi{Turing-complete}),
 but $C$ may nonetheless be very large.
 
-% EMB 2019-02-21 But can we bound the number of possible feature structures?
-% What kind of grammar designs do that? (My guess: `restricting' out the semantic features in testing unification + the limited list length...?)
-% GE 2019-02-25 John doesn't discuss it, but we can bound the number of structures
-% as a function of the input length (e.g. limited list length, as you say).
-% But we can actually go further, because what's important for the proof
-% is the number of structures with different syntactic behaviour
-% (e.g. we only care about the semantics when it affects the syntax,
-% which means we don't care about the whole list).
-% Are there are unbounded recursive feature structures, other than semantic lists?
-% If not, then assuming the semantic algebra, we get a large but finite $C$.
-% EMB 2019-02-25 Okay -- I took a crack at it. Does the following sound 
-% correct to you?
-% GE 2019-02-26 Looks good!
-
-
+\largerpage
 But is the number of possible feature structures bounded
 in implemented HPSG grammars?
 For \is{delphin consortium@\delphin\ Consortium}\delphin\ grammars (see Section~\ref{cl:delphin}),
@@ -376,6 +352,7 @@ to the point that examples like \rref{cl:ambig-telescope} are stock in trade:
 A well-constructed grammar should be expected to return multiple
 parses for each ambiguous sentence.
 
+\largerpage
 However, people are naturally very good at resolving \isi{ambiguity},
 which means most ambiguity is not apparent, even to linguists.
 It is only with the development of large-scale grammars that the sheer scale of ambiguity has become clear.
@@ -414,6 +391,7 @@ Thus, what is required is a \textit{ranking} of the parses,
 so that the application can only use the most highly-ranked parse,
 or the top~$k$ parses.
 
+\largerpage
 Parse ranking is not usually determined by the grammar itself, because
 of the difficulty of manually writing disambiguation
 rules.\footnote{In fact, in earlier work, this task was undertaken by
@@ -550,6 +528,7 @@ Finally, \delphin\ MRS Dependencies \citep[DM;][]{ivanova2012dm}\is{delphin MRS 
 express \isi{predicate-argument structure} purely in terms of the surface \isi{token}s,
 without introducing any abstract predicates.\is{predicate!abstract}
 
+\largerpage
 For example, the \isi{English Resource Grammar (ERG)}
 produces the MRS representation in~(\ref{cl:fig:mrs-feat})
 for the sentence \emph{The cherry tree blossomed}.
@@ -615,6 +594,7 @@ are scopal\is{scope} relationships, where \isi{quantifier}s may possibly interve
 }
 \end{exe}
 
+\noindent
 For readability, it can be easier to express an MRS
 in a more abstract mathematical form, as shown in~(\ref{cl:fig:mrs-abs}).
 This is equivalent to the feature structure in~(\ref{cl:fig:mrs-feat}).
@@ -742,6 +722,7 @@ the \delphin\ Consortium (Section~\ref{cl:delphin}) attempts to balance these tw
 \subsection{CoreGram}
 \label{cl:coregram}
 
+\largerpage
 \is{CoreGram|(}%
 \is{grammar engineering!multilingual|(}%
 The CoreGram\footnote{
@@ -1067,6 +1048,7 @@ to refine the core grammar. The libraries, in turn, are intended to cover the at
 variation for the phenomena they model.  Languages that are not covered by the analyses in the
 libraries provide evidence that the libraries need to be extended or refined.
 
+\largerpage
 Grammar Matrix grammar development is less tightly coordinated than that of \isi{CoreGram} (see
 Section~\ref{cl:coregram}): in the typical use case, grammar developers start from the Grammar
 Matrix, but with their own independent copy of the Matrix core grammar. This impedes somewhat the
@@ -1094,7 +1076,7 @@ the description of \isi{endangered language}s. Implemented grammars can be used 
 transcribed but unglossed text in order to find relevant examples more quickly, both of phenomena
 that have already been analyzed and of phenomena that are as yet not well-understood.\footnote{This
   methodology of using an implemented grammar as a sieve to sift the interesting examples out of
-  corpora is demonstrated for \ili{English} by \cite{Baldwin-et-al-05}.}  Furthermore,
+  corpora is demonstrated for \ili{English} by \citet{Baldwin-et-al-05}.}  Furthermore,
 \isi{treebank}s constructed from implemented grammars can be tremendously valuable additions to
 language documentation (see Section~\ref{cl:lang-doc:treebanks} below). However, the process of
 building an implemented grammar is time-consuming, even with the start provided by a multilingual
@@ -1406,7 +1388,7 @@ and scale across a variety of syntactic constructions.%
 \section{Linguistic insights}
 \label{cl:insight}
 
-In Section~\ref{cl:lang-doc} above, we described multiple ways in which computational methods can be used in the service of linguistic research, especially in testing linguistic hypotheses. Here, we highlight a few ways in which grammar engineering work in HPSG has turned up linguistic insights that had not previously been discovered through non-computational means.\footnote{For similar reflections from the point of view of LFG,\is{Lexical Functional Grammar (LFG)} see \cite{King:16}.}
+In Section~\ref{cl:lang-doc} above, we described multiple ways in which computational methods can be used in the service of linguistic research, especially in testing linguistic hypotheses. Here, we highlight a few ways in which grammar engineering work in HPSG has turned up linguistic insights that had not previously been discovered through non-computational means.\footnote{For similar reflections from the point of view of LFG,\is{Lexical Functional Grammar (LFG)} see \citew{King:16}.}
 
 \subsection{Ambiguity} %Guy
 \is{ambiguity|(}
@@ -1484,7 +1466,7 @@ specific and then being able to build on them. This has both benefits
 and drawbacks: on the one hand, it means that additional grammar
 engineering work can build directly on the results of previous
 work. It also means that any additional grammar engineering work is
-constrained by the work it is building on.  \cite{Fokkens:14} observes
+constrained by the work it is building on.  \citet{Fokkens:14} observes
 this phenomenon and notes that it introduces artifacts: the form an
 implemented grammar takes is partially the result of the order in
 which the grammar engineer considered phenomena to implement. This is
