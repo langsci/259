@@ -54,3 +54,30 @@
    \printtext[bibhyperref]{\printnames{labelname}}}
   {\multicitedelim}
   {\usebibmacro{postnote}}
+
+
+% This should be in langscibook.cls
+% Necessary for Tsujii, Jun’ichi
+\renewbibmacro*{citeindex}{%
+  \ifciteindex
+    {\iffieldequalstr{labelnamesource}{shortauthor} % If biblatex uses shortauthor as the label of a bibitem
+      {\ifnameundef{authauthor}                     % we check whether there is something in authauthor
+        {\indexnames{author}}                       % if not, we use author
+        {\indexnames{authauthor}}}                  % if yes, we use authauthor
+      {\iffieldequalstr{labelnamesource}{author}    % if biblatex uses author we similarly test for
+                                                    % authauthor and use this field
+        {\ifnameundef{authauthor}% if defined use authauthor
+          {\indexnames{author}}
+          {\indexnames{authauthor}}} % if defined use this field
+% same for editor
+        {\iffieldequalstr{labelnamesource}{shorteditor} % If biblatex uses shorteditor as the label of a bibitem
+          {\ifnameundef{autheditor}                     % we check whether there is something in autheditor
+            {\indexnames{editor}}                       % if not, we use editor
+            {\indexnames{autheditor}}}                  % if yes, we use autheditor
+          {\iffieldequalstr{labelnamesource}{editor}    % if biblatex uses editor we similarly test for
+                                                        % auteditor and use this field
+            {\ifnameundef{autheditor}% if defined use autheditor
+              {\indexnames{editor}}
+              {\indexnames{autheditor}}}} % if defined use this field
+          {\indexnames{labelname}}}}}               % as a fallback we index on whatever biblatex used.
+    {}}
