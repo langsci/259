@@ -1,0 +1,56 @@
+%% -*- coding:utf-8 -*-
+
+% St. Mü. 13.06.2021
+%
+% This is a file containing temporary fixes.
+%
+% They should be removed for further releases when the packages have been updated.
+%
+
+\makeatletter
+% fix for https://github.com/plk/biblatex/issues/1149
+% https://tex.stackexchange.com/q/600943/35864
+% remove this when biblatex is updated to v3.17
+\renewbibmacro*{related:default}[1]{%
+  \entrydata*{#1}{%
+    \usedriver
+      {\ifnameundef{savedauthor}
+         {\ifnameundef{savededitor}
+            {}
+            {\ifnamesequal{editor}{savededitor}
+               {\clearname{editor}}
+               {}}}
+         {\ifnamesequal{author}{savedauthor}
+            {\clearname{author}}
+            {}}%
+       \DeclareNameAlias{sortname}{default}%
+       % from authortitle and authoryear
+       \ifbibmacroundef{bbx:dashcheck}
+         {}
+         {\renewbibmacro*{bbx:dashcheck}[2]{##2}}%
+       % authoryear
+       \ifbibmacroundef{labeltitle}
+         {}
+         {\renewbibmacro*{labeltitle}{}}%
+       \ifbibmacroundef{date+extradate}
+         {}
+         {\renewbibmacro*{date+extradate}{}%
+          \renewbibmacro*{bbx:ifmergeddate}{\@secondoftwo}}%
+       \renewbibmacro*{pageref}{}%
+       \renewbibmacro*{related:init}{}}
+      {\thefield{entrytype}}}}
+\makeatother
+
+
+
+
+
+% This should go to the langsci citation file langsci-unified.cbx
+\DeclareCiteCommand{\citeauthor}
+  {\boolfalse{citetracker}%
+   \boolfalse{pagetracker}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \printtext[bibhyperref]{\printnames{labelname}}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
