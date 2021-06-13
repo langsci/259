@@ -1433,10 +1433,16 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
         {\ifnameundef{authauthor}% if defined use authauthor
           {\indexnames{author}}
           {\indexnames{authauthor}}} % if defined use this field
-        {\iffieldequalstr{labelnamesource}{shorteditor} % same for editor
-          {\ifnameundef{autheditor}
-            {\indexnames{editor}}
-            {\indexnames{autheditor}}}
+% same for editor
+        {\iffieldequalstr{labelnamesource}{shorteditor} % If biblatex uses shorteditor as the label of a bibitem
+          {\ifnameundef{autheditor}                     % we check whether there is something in autheditor
+            {\indexnames{editor}}                       % if not, we use editor
+            {\indexnames{autheditor}}}                  % if yes, we use autheditor
+          {\iffieldequalstr{labelnamesource}{editor}    % if biblatex uses editor we similarly test for
+                                                        % auteditor and use this field
+            {\ifnameundef{autheditor}% if defined use autheditor
+              {\indexnames{editor}}
+              {\indexnames{autheditor}}}} % if defined use this field
           {\indexnames{labelname}}}}}               % as a fallback we index on whatever biblatex used.
     {}}
 
