@@ -72,6 +72,8 @@ index-check:
 	make bib
 	biber handbook
 	xelatex -shell-escape handbook
+	biber handbook
+	xelatex -shell-escape handbook
 	sed -i.backup s/.*\\emph.*// handbook.adx #remove titles which biblatex puts into the name index
 # sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' handbook.sdx # ordering of references to footnotes
 # sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' handbook.adx
@@ -82,7 +84,7 @@ index-check:
 	footnotes-index.pl handbook.ldx
 	footnotes-index.pl handbook.sdx
 	footnotes-index.pl handbook.adx 
-	makeindex -o handbook.and handbook.adx
+	makeindex -gs index.format-plus -o handbook.and handbook.adx
 	makeindex -gs index.format -o handbook.lnd handbook.ldx
 	makeindex -gs index.format -o handbook.snd handbook.sdx 
 	xelatex -shell-escape handbook
@@ -280,7 +282,7 @@ prepubs-latex-cp: prepublish-pdfs
 #	cp prepubs-chop-pdfs/02.pdf prepubs-pdfs/evolution.pdf
 #	cp prepubs-chop-pdfs/03.pdf prepubs-pdfs/formal-background.pdf
 #	cp prepubs-chop-pdfs/04.pdf prepubs-pdfs/lexicon.pdf
-	cp prepubs-chop-pdfs/05.pdf prepubs-pdfs/understudied-languages.pdf
+#	cp prepubs-chop-pdfs/05.pdf prepubs-pdfs/understudied-languages.pdf
 #	cp prepubs-chop-pdfs/06.pdf prepubs-pdfs/agreement.pdf
 #	cp prepubs-chop-pdfs/07.pdf prepubs-pdfs/case.pdf
 	cp prepubs-chop-pdfs/08.pdf prepubs-pdfs/nominal-structures.pdf
@@ -289,9 +291,9 @@ prepubs-latex-cp: prepublish-pdfs
 ##	cp prepubs-chop-pdfs/11.pdf prepubs-pdfs/clitics.pdf
 	cp prepubs-chop-pdfs/11.pdf prepubs-pdfs/complex-predicates.pdf
 ##	cp prepubs-chop-pdfs/12.pdf prepubs-pdfs/control-raising.pdf
-	cp prepubs-chop-pdfs/13.pdf prepubs-pdfs/unbounded-dependencies.pdf
+#	cp prepubs-chop-pdfs/13.pdf prepubs-pdfs/unbounded-dependencies.pdf
 #	cp prepubs-chop-pdfs/14.pdf prepubs-pdfs/relative-clauses.pdf
-	cp prepubs-chop-pdfs/15.pdf prepubs-pdfs/islands.pdf
+#	cp prepubs-chop-pdfs/15.pdf prepubs-pdfs/islands.pdf
 #	cp prepubs-chop-pdfs/16.pdf prepubs-pdfs/coordination.pdf
 #	cp prepubs-chop-pdfs/17.pdf prepubs-pdfs/idioms.pdf
 #	cp prepubs-chop-pdfs/18.pdf prepubs-pdfs/negation.pdf
@@ -302,12 +304,12 @@ prepubs-latex-cp: prepublish-pdfs
 #	cp prepubs-chop-pdfs/23.pdf prepubs-pdfs/information-structure.pdf
 #	cp prepubs-chop-pdfs/24.pdf prepubs-pdfs/processing.pdf
 #	cp prepubs-chop-pdfs/25.pdf prepubs-pdfs/cl.pdf
-	cp prepubs-chop-pdfs/26.pdf prepubs-pdfs/dialogue.pdf
+#	cp prepubs-chop-pdfs/26.pdf prepubs-pdfs/dialogue.pdf
 #	cp prepubs-chop-pdfs/27.pdf prepubs-pdfs/sign-languages.pdf
 	cp prepubs-chop-pdfs/27.pdf prepubs-pdfs/gesture.pdf
 #	cp prepubs-chop-pdfs/28.pdf prepubs-pdfs/hpsg-minimalism.pdf
-	cp prepubs-chop-pdfs/29.pdf prepubs-pdfs/hpsg-categorial-grammar.pdf
-	cp prepubs-chop-pdfs/30.pdf prepubs-pdfs/hpsg-lfg.pdf
+#	cp prepubs-chop-pdfs/29.pdf prepubs-pdfs/hpsg-categorial-grammar.pdf
+#	cp prepubs-chop-pdfs/30.pdf prepubs-pdfs/hpsg-lfg.pdf
 #	cp prepubs-chop-pdfs/31.pdf prepubs-pdfs/hpsg-dependency-grammar.pdf
 #	cp prepubs-chop-pdfs/32.pdf prepubs-pdfs/hpsg-cxg.pdf
 
