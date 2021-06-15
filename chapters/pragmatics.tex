@@ -931,8 +931,8 @@ c-utt & :   addressing !{\upshape (}spkr, addr, utt-time{\upshape )}! \\
 facts & :  \setOf{Prop} \\
 visualsit & :  RecType \\
 pending & :  \listOf{LocProp} \\
-moves & :  \listOf{LocProp} \\
-qud & :  poset !{\upshape (}Question{\upshape )}! \\ ]
+moves   & :  \listOf{LocProp} \\
+qud     & :  \posetOf{Question} \\ ]
 }
 \z
 
@@ -1035,7 +1035,7 @@ For details, we have to refer the reader to \citet{Ginzburg:2012}; we believe th
 \item Free Speech:\par\medskip
 \scalebox{.93}{%
 \avm{
-[pre & :	[qud=\eliste & : poset!(Question)!] \\
+[pre & :	[qud=\eliste & : \posetOf{Question}] \\
 effects & : TurnUnderspec \ttrmerge\	[r : AbSemObj \\
 										R : IllocRel \\
 										LatestMove=R(spkr,addr,r) : IllocProp & ] ]
@@ -1045,7 +1045,7 @@ effects & : TurnUnderspec \ttrmerge\	[r : AbSemObj \\
 \item QSPEC:\par\medskip
 \scalebox{.93}{%
 \avm{
-[pre & :	[qud=<q,Q> & : poset!(Question)!] \\
+[pre & :	[qud=<q,Q> & : \posetOf{Question}] \\
 effects & : TurnUnderspec \ttrmerge\	[r : AbSemObj \\
 										R : IllocRel \\
 										LatestMove=R(spkr,addr,r) : IllocProp & \\
@@ -1056,7 +1056,7 @@ effects & : TurnUnderspec \ttrmerge\	[r : AbSemObj \\
 \avm{
 [pre & :	[q & : Question \\
 			LatestMove=Ask!(spkr,addr,q)! & : IllocProp] \\
-effects & :	[qud=<q,pre.qud> & : poset!(Question)!] ]
+effects & :	[qud=<q,pre.qud> & : \posetOf{Question}] ]
 }
 }
 \item Assert QUD-incrementation:\par\medskip
@@ -1064,7 +1064,7 @@ effects & :	[qud=<q,pre.qud> & : poset!(Question)!] ]
 \avm{
 [pre & :	[p & : Proposition \\
 			LatestMove=Assert!(spkr,addr,p)! & : IllocProp ] \\
-effects & :	[qud=<p?,pre.qud> & : poset!(Question)!] ]
+effects & :	[qud=<p?,pre.qud> & : \posetOf{Question}] ]
 }
 }
 \item Accept:\par\medskip
@@ -1073,7 +1073,7 @@ effects & :	[qud=<p?,pre.qud> & : poset!(Question)!] ]
 [pre & :	[spkr & : Ind \\
 			addr & : Ind \\
 			p & : Prop \\
-			LatestMove=Assert!(spkr,addr,p)! & : IllocProp \\ qud=<p?,subqud> & : poset!(Question)! ] \\
+			LatestMove=Assert!(spkr,addr,p)! & : IllocProp \\ qud=<p?,subqud> & : \posetOf{Question} ] \\
 effects & :	[spkr=pre.addr & : Ind \\
 			addr=pre.sprk & : Ind \\
 			LatestMove=Accept!(spkr,addr,p)! & : IllocProp] ]
@@ -1086,7 +1086,7 @@ effects & :	[spkr=pre.addr & : Ind \\
 [pre & :	[q & : Question \\
 			p & : Prop \\
 			LatestMove=Accept!(spkr,addr,p)! & : IllocProp \\
-			qud=<q,subqud> & : poset!(Question)! \\
+			qud=<q,subqud> & : \posetOf{Question} \\
 			qbg & : Qspecific!(p,q)! ] \\
 effects & :	[facts=pre.facts $\cup$ \{p\} & : Set!(Prop)! \\
 			qud=pre.qud $\setminus$ \{q\} ] ]
@@ -1096,7 +1096,7 @@ effects & :	[facts=pre.facts $\cup$ \{p\} & : Set!(Prop)! \\
 \scalebox{.93}{%
 \avm{
 [pre & :	[p & : Prop \\
-			LatestMove=Accept!(spkr,addr,p)! & : IllocProp \\ qud=<p?,subqud> & : poset!(Question)! ] \\
+			LatestMove=Accept!(spkr,addr,p)! & : IllocProp \\ qud=<p?,subqud> & : \posetOf{Question} ] \\
 effects & :	[facts=pre.facts $\cup$ \{p\} & : Set!(Prop)! \\
 			qud=pre.qud $\setminus$ \{p?\} ] ]
 }}
@@ -1353,7 +1353,7 @@ cat & :	[head=\type{interjection} & : syncat ] \\
 dgb-params & :	[spkr & : Ind \\ 
                addr & : Ind \\
                moves=< > & : list!(IllocProp)! \\ 
-               qud=\{ \} & : poset!(Question)! ] \\
+               qud=\{ \} & : \posetOf{Question} ] \\
 \punk{cont=Greet(spkr,addr)}{: \textsc{IllocProp}} ]
 }
 \z 
@@ -1373,12 +1373,13 @@ Thus, applying $p$? to an empty record $[]$ returns $p$, which is exactly what \
 The affirmative particle (used to answer a yes/no question) is a propositional lexeme which applies a polar question which is maximal in \textsc{qud} to an empty record \citep[cf.][\page 232]{Ginzburg:2012}:
 %
 \ea
+% todo avm
 \avm{
-[phon & : < \phonfont{yes} > \\
-cat & :	[head=\type{partcl} & : syncat] \\
-dgb-params & :	[qud=[max & : PolQuestion \\
-				rest & : set!(Question)! ] & : poset!(Question)! ] \\
-\punk{cont=dgb-params.qud.max( [ ] ): \emph{Prop}}{} ]%todo punk doesnt work with !!
+[phon \itshape : < \phonfont{yes} > \\
+cat   \itshape :	[head=\type{partcl} & : syncat] \\
+dgb-params \itshape :	[qud=[max & : PolQuestion \\
+				rest & : \setOf{Question} ] & : \posetOf{Question} ] \\
+cont=dgb-params.qud.max!( [ ] )! \itshape : \emph{Prop} ]
 }
 \z 
 %
