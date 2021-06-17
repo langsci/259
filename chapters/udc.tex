@@ -47,6 +47,11 @@
 \maketitle
 \label{chap-udc}
 
+% for udc.tex
+% set this locally
+\psset{nodesep=2pt} %,linewidth=0.8pt,arrowscale=2}
+\psset{linewidth=0.5pt}
+
 
 \section{Introduction}
 \label{sec:Intro} 
@@ -260,13 +265,13 @@ the schematic structure illustrated in Figure~\ref{fig:UDC:11}.
 \begin{forest}
 sm edges without translation
 	[{S[\slasch \{ \}]}
-		[{NP[\local \ibox{1}]}
+		[{NP[\local \rnode{1}{\ibox{1}}]}
 			[what]]
-		[{S[\slasch \{ \ibox{1} \}]}
+		[{S[\slasch \{ \rnode{2}{\ibox{1}} \}]}
 			[V[did]]
 			[NP[you]]
-			[{VP[\slasch \{ \ibox{1} \}]}
-				[{V[\slasch \{ \ibox{1} \}]}
+			[{VP[\slasch \{ \rnode{3}{\ibox{1}} \}]}
+				[{V[\slasch \{ \rnode{4}{\ibox{1}} \}]}
 					[put]]
 				[PP[on the table, roof]]]]]
 \end{forest}
@@ -337,14 +342,18 @@ mean that it has the following more elaborate analysis, as given in Figure~\ref{
 \begin{forest}
 sm edges without translation
 [{S[\slasch \{ \}]}
-  [{NP[\local \ibox{1}]} [what]]
-  [{S[\slasch \{ \ibox{1} \}]}
-    [{V[\slasch \{ \ibox{1} \}]} [did]]
+  [{NP[\local \rnode{1}{\ibox{1}}]} [what]]
+  [{S[\slasch \{ \rnode{2}{\ibox{1}} \}]}%, l sep+=\baselineskip
+    [{V[\slasch \{ \rnode{3}{\ibox{1}} \}]} [did]]
     [{NP[\slasch \{ \}]} [you]]
-    [{VP[\slasch \{ \ibox{1} \}]}
-      [{V[\slasch \{ \ibox{1} \}]} [put]]
+    [{VP[\slasch \{ \rnode{4}{\ibox{1}} \}]}
+      [{V[\slasch \{ \rnode{5}{\ibox{1}} \}]} [put]]
       [{PP[\slasch \{ \}]} [on the table, roof]]]]]
 \end{forest}
+%\nccurve[angleA=45,angleB=130]{<->}{1}{2}
+%\nccurve[angleA=270,angleB=70]{<->}{2}{3}
+%\nccurve[angleA=45,angleB=130]{<->}{3}{4}
+%\nccurve[angleA=270,angleB=80]{<->}{4}{5}
 \caption{\label{fig:UDC:14}Head-driven \textsc{slash} feature percolation}
 \end{figure}
 
@@ -398,7 +407,7 @@ structure in the \textsc{slash} set of the head. Standardly, however, a slightly
 more general constraint is assumed along the following lines:
 
 \eas
-\label{fig:UDC:17}
+\label{fig:UDC:17}%
 Head-filler phrase:\footnote{Some HPSG work employs a \textsc{to-bind} feature
   on the head of a phrase to identify information about gaps that
   should not be passed up to the mother. But much recent work uses
@@ -410,7 +419,7 @@ Head-filler phrase:\footnote{Some HPSG work employs a \textsc{to-bind} feature
 \avm{
 [slash & \3 \\
  hd-dtr & \1 [comps & < > \\
-              slash & \{ \2 \} $\cup$ \3 ] \\
+              slash & \{ \2 \} \cupAVM \3 ] \\
  dtrs & < [local & \2 ], \1 > ]
 }
 \zs
@@ -1073,7 +1082,7 @@ which we can formulate as follows, following \citet[199]{Ginzburg:Sag:01}:
 \textsc{slash} Amalgamation Principle:\\
    \textit{word} \impl ~$\slash$%
 \avm{
-[synsem & [nonloc & [slash & \1 $\cup$ \ldots{} $\cup$ \tag{n}]]\\
+[synsem & [nonloc & [slash & \1 \cupAVM \ldots{} \cupAVM \tag{n}]]\\
  arg-st & <[nonloc & [slash & \1], \ldots, [nonloc & [slash & \tag{n} ]] > ] ]
 }
 \z
@@ -1542,7 +1551,7 @@ Lexical representation of \textit{tough} adjectives (final):\\*
 [synsem & [local|cat & [head  & adj \\
 			subj  & < NP[index \tag{i}]> \\
                         comps & < VP[vform & inf\\
-                                     slash & \{ NP[index & \tag{i} ] \} $\cup$ \1 ] > ]\\
+                                     slash & \{ NP[index & \tag{i} ] \} \cupAVM \1 ] > ]\\
 	   nonlocal & [slash & \1 ] ] ]
 }
 \z  
@@ -1607,7 +1616,7 @@ Lexical representation of relative complementiser \textit{that}:\\*
 				mod N$'$[index & \tag{i} ] ] \\
                         subj & < > \\
 			comps & < S[vform & fin\\
-				    slash & \{ NP[index & \tag{i} ] \} $\cup$ \1 ] > ] \\
+				    slash & \{ NP[index & \tag{i} ] \} \cupAVM \1 ] > ] \\
 	   nonlocal & [slash & \1 ] ] ]
 }
 \z
@@ -2581,7 +2590,7 @@ adjunct extraposition.
 % \punk{nonloc|inher|extra}{\3} ]}
 % $\mapsto$ \\
 % \flushright \avm{[comps & \1 \+ \2 \\
-%              \punk{nonloc|inher|extra}{\3 $\cup$ \{ \4 \}} ]}
+%              \punk{nonloc|inher|extra}{\3 \cupAVM \{ \4 \}} ]}
 % \z
 % % \inlinetodoopt{Stefan: This LR would not work for relational nouns, since they select a complement
 % %   and the adjuncts modify an \nbar. Mention this?}
@@ -2593,7 +2602,7 @@ adjunct extraposition.
 % $\mapsto$ \\
 % \flushright\avm{
 % [loc|cont \3\\
-%  nonloc|inher|extra & \1 $\cup$ \{[cat & [head & [\type*{prep $\lor$ rel}
+%  nonloc|inher|extra & \1 \cupAVM \{[cat & [head & [\type*{prep $\lor$ rel}
 %                                                   mod|loc & \2 ] \\
 %                                    cont & \3 ] ] \} ]
 % }
@@ -2608,7 +2617,7 @@ Complement Extraposition Lexical Rule:\\
 \punk{nonloc|extra}{\3} ]}
 $\mapsto$ \\
 \flushright \avm{[comps & \1 \+ \2 \\
-             \punk{nonloc|extra}{\3 $\cup$ \{ \4 \}} ]}
+             \punk{nonloc|extra}{\3 \cupAVM \{ \4 \}} ]}
 \z
 % \inlinetodoopt{Stefan: This LR would not work for relational nouns, since they select a complement
 %   and the adjuncts modify an \nbar. Mention this?}
@@ -2620,7 +2629,7 @@ Adjunct Extraposition Lexical Rule:\\
 $\mapsto$ \\
 \flushright\avm{
 [loc|cont \3\\
- nonloc|extra & \1 $\cup$ \{[cat & [head & [\type*{prep $\lor$ rel}
+ nonloc|extra & \1 \cupAVM \{[cat & [head & [\type*{prep $\lor$ rel}
                                                   mod|loc & \2 ] \\
                                    cont & \3 ] ] \} ]
 }
@@ -2659,7 +2668,7 @@ dependencies, which are realised as extraposed daughters.\footnote{We
        \avm{
 	[synsem & [nonloc|extra & \tag{x} ] \\
          dtrs & [head-dtr & [synsem|nonloc|extra & \{\tag{1}, \ldots{}, \tag{n}\}
-         $\cup$ \tag{x}] \\
+         \cupAVM \tag{x}] \\
 	 non-hd-dtrs & < [synsem|loc & \tag{1}], \ldots{}, [synsem|loc & \tag{n}]> ] ]
 }
 \end{exe}
