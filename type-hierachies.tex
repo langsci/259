@@ -131,9 +131,9 @@ type hierarchy
 \begin{forest} type hierarchy
   [object,
     calign=midpoint, calign children={2}{3},
-    [\avmtmp{[\type*{substantive} prd & boolean]}
-      [\avmtmp{[\type*{verb} vform & vform\\prd & plus]}]
-      [\avmtmp{[\type*{noun} case & case]}]
+    [\avm{[\type*{substantive} prd & boolean]}
+      [\avm{[\type*{verb} vform & vform\\prd & plus]}]
+      [\avm{[\type*{noun} case & case]}]
     ]
     [case]
     [vform]
@@ -186,7 +186,7 @@ This is really easy now (in your, pre-published version of forest), just
 say ``calign=2'' in both ``noun'' and ``relational'' nodes.
 
 In the CTAN version, you can say ``calign with current'' on ``common-noun''
-and "verb". (This works in your version as well, of course.)
+and ``verb''. (This works in your version as well, of course.)
 
 What both of these approaches do, under the hood, is set (on the parent
 node) ``calign=child'' and ``calign primary child=2''. (``calign secondary
@@ -198,12 +198,12 @@ child'' not used by ``calign=child'' method.)
 % \begin{forest} type hierarchy
 %   [object,
 %     calign=midpoint, calign children={2}{3},
-%     [\avmtmptmp{[\type*{substantive} 
+%     [\avmtmp{[\type*{substantive} 
 %            prd & boolean]}
-%       [\avmtmptmp{[\type*{verb}
+%       [\avmtmp{[\type*{verb}
 %              vform & vform\\
 %              prd & plus]}]
-%       [\avmtmptmp{[\type*{noun} 
+%       [\avmtmp{[\type*{noun} 
 %              case & case]}]
 %     ]
 %     [case]
@@ -221,7 +221,7 @@ child'' not used by ``calign=child'' method.)
 
 \begin{forest}
 [{\footnotesize\textit{list}}
-  [{\avmtmp{[\type*{nelist} first & object\\
+  [{\avm{[\type*{nelist} first & object\\
                                                     rest & list]}}]
   [{\footnotesize\textit{elist}} ]]
 \end{forest}
@@ -230,7 +230,7 @@ child'' not used by ``calign=child'' method.)
 
 \begin{forest} type hierarchy
   [list
-    [\avmtmp{[\type*{nelist} first & object\\rest & list]}]
+    [\avm{[\type*{nelist} first & object\\rest & list]}]
     [elist]
   ]
 \end{forest}
@@ -466,7 +466,7 @@ of nodes ``noun'', ``relational'' and also ``subst''.
 \newpage
 	\begin{forest}
        [{\type{verb}} 
-      					[{\fbox{\attrib{vform}}}
+      					[{\fbox{\textsc{vform}}}
       						[{\type{fin}}, name=A1  
       						 [{\tc{gray}{\type{fin+intrans}}}, name=A,edge={gray,dashed}   ]    		
       							[, no edge ] ]
@@ -474,7 +474,7 @@ of nodes ``noun'', ``relational'' and also ``subst''.
       								edge={gray,dashed}  ]   		 
       							[, no edge ] ]
       						] 
-      					[{\fbox{\attrib{arg-st}}} 
+      					[{\fbox{\textsc{arg-st}}} 
       					    [{\type{intrans}}, name=C1 
       					 		[, no edge ]
       					 		[{\tc{gray}{\type{base+intrans}}}, name=C,edge={gray,dashed}  ] ]
@@ -496,7 +496,7 @@ of nodes ``noun'', ``relational'' and also ``subst''.
   %for level=2{tier=2},
   for level=3{l*=1.5,gray,edge={gray,dashed}},
   [verb 
-    [\attrib{vform},draw,
+    [\textsc{vform},draw,
       before computing xy={for relative level=2{s-=3em}},
       [fin, name=A1
         [fin+intrans, name=A, edge to=!r21]
@@ -505,7 +505,7 @@ of nodes ``noun'', ``relational'' and also ``subst''.
         [base+trans, name=B, edge to=!r22]
       ]
     ]
-    [\attrib{arg-st},draw,
+    [\textsc{arg-st},draw,
       before computing xy={for relative level=2{s+=3em}},
       [intrans, name=C1
         [base+intrans, name=C, edge to=!r12]
@@ -520,12 +520,12 @@ of nodes ``noun'', ``relational'' and also ``subst''.
 \bigskip
 
 \forestset{
-  attrib/.style={
-    % People usually say "delay={ content=\attrib{#1} }" but I don't like that.  First, out of principle,
+  textsc/.style={
+    % People usually say "delay={ content=\textsc{#1} }" but I don't like that.  First, out of principle,
     % as the form and content are not separated ;-) but sometimes there's also a practical reason.
     % Assume you want to detect empty nodes (we do this often to turn them into coordinates).  Well, if
-    % you say "content=\attrib{#1}", then the node is not empty anymore. So, I prefer "content format".
-    content format={\attrib{\forestoption{content}}},
+    % you say "content=\textsc{#1}", then the node is not empty anymore. So, I prefer "content format".
+    content format={\textsc{\forestoption{content}}},
     draw,
     outer ysep=0.5ex,  % outer sep (tikz) means how much a node is padded outside the border.
   },
@@ -536,7 +536,7 @@ of nodes ``noun'', ``relational'' and also ``subst''.
   % for level=2{tier=2},
   for level=3{l*=1.5,gray,edge={gray,dashed}},
   [verb 
-    [vform, attrib,
+    [vform, textsc,
       [fin, name=A1
         [fin+intrans, name=A, edge to=!r21,
           before drawing tree={
@@ -549,7 +549,7 @@ of nodes ``noun'', ``relational'' and also ``subst''.
         [base+trans, name=B, edge to=!r22]
       ]
     ]
-    [arg-st, attrib,
+    [arg-st, textsc,
       [intrans, name=C1
         [base+intrans, name=C, edge to=!r12]
       ]
@@ -588,7 +588,7 @@ Now above, we want to adjust the |x| coordinate of some nodes. Clearly, we have 
 Stefan: The lines should not touch the boxes as with the type in other trees.
 
 Sašo: Ah! Well, then use either the original |\fbox| idea, or if you need more flexibility (in the first
-  tree, there is actually too much space above the box for my taste), I made an |attrib| style where you
+  tree, there is actually too much space above the box for my taste), I made an |textsc| style where you
 can set the exact amount of spacing. Look at the third tree.
 
 I introduced the styles ``,partition'' and ``,instance'' for the boxed and the grey nodes. This is
@@ -1326,7 +1326,7 @@ Sašo: Hmm, what is the easiest (but precise!) way of doing this?  Got it, see t
 
 	\begin{forest}
        [{\type{lexeme}} 
-      					[{\fbox{\attrib{part-of-speech}}}
+      					[{\fbox{\textsc{part-of-speech}}}
       						[{\type{verb-lx}}, name=A1 
       							[, no edge ]
       							[, no edge ] ] 
@@ -1334,7 +1334,7 @@ Sašo: Hmm, what is the easiest (but precise!) way of doing this?  Got it, see t
       						 [{\type{noun-lx}}] 
       						 [{\ldots}]   		
       					] 
-      					[{\fbox{\attrib{arg-selection}}} 
+      					[{\fbox{\textsc{arg-selection}}} 
       					    [{\type{intr-lx}}
       					 		[{\type{subj-rsg-lx}}
       					 			[{\type{srv-lx}}, name=B1 ]
@@ -1694,14 +1694,14 @@ Sašo: Incorrect. The previous leaf is ``3pl.''
 \begin{forest}for tree={l=2cm}
 [\emph{realisation-rule}
 	[MORPHOTACTICS,draw, name=morph
-		[\avmtmp{
+		[\avm{
 			[
 			mud & \{\normalfont\textit{agr} \}\\
 			ms & \{ [\type*{pid}
 			cat & verb], ...\}\\
 			mph & < [pc & $-4$]> ]
 		}, name= 1, tier=word]
-		[\avmtmp{
+		[\avm{
 			[mud & \{\normalfont\textit{agr}\}\\
 			 ms & \{ [\type*{pid}
 			cat & [\type*{adj}
@@ -1711,7 +1711,7 @@ Sašo: Incorrect. The previous leaf is ``3pl.''
 	]
 	[EXPONENCE,draw
 		[QUAL,draw, name=qual
-			[\avmtmp{
+			[\avm{
 				[mud & \{ [\normalfont\textit{agr}\\cl & 7]\}\\
 				mph & < ... [ph & <\normalfont ca>\\
 				pc & $-1$ $\vee$ $-2$
@@ -1720,7 +1720,7 @@ Sašo: Incorrect. The previous leaf is ``3pl.''
 			[\dots]
 		]
 		[CONC,draw, name=conc
-			[\avmtmp{
+			[\avm{
 				[mud & \{ [\normalfont\textit{agr}\\cl & 7]\}\\
 				mph & < ... [ph & <\normalfont ci>\\
 				pc & $-1$ $\vee$ $-4$
@@ -1732,7 +1732,7 @@ Sašo: Incorrect. The previous leaf is ``3pl.''
 ]
 %% sorry this is an ugly workaround but even on stackexchange, no one could help me :/
 \node[below of=morph, node distance= 8cm](3){%
-	\avmtmp{
+	\avm{
 			[mud & \{\normalfont\textit{agr}\}\\
 			ms & \{ [\type*{pid}
 			cat & [\type*{adj}
@@ -1752,14 +1752,14 @@ Sašo: Incorrect. The previous leaf is ``3pl.''
 \begin{forest}for tree={l=2cm}
 [\emph{realisation-rule}
 	[MORPHOTACTICS,draw, name=morph
-		[\avmtmp{
+		[\avm{
 			[
 			mud & \{\normalfont\textit{agr} \}\\
 			ms & \{ [\type*{pid}
 			cat & verb], ...\}\\
 			mph & < [pc & $-4$]> ]
 		}, name= 1, tier=word]
-		[\avmtmp{
+		[\avm{
 			[mud & \{\normalfont\textit{agr}\}\\
 			 ms & \{ [\type*{pid}
 			cat & [\type*{adj}
@@ -1769,7 +1769,7 @@ Sašo: Incorrect. The previous leaf is ``3pl.''
 	]
 	[EXPONENCE,draw
 		[QUAL,draw, name=qual
-			[\avmtmp{
+			[\avm{
 				[mud & \{ [\normalfont\textit{agr}\\cl & 7]\}\\
 				mph & < ... [ph & <\normalfont ca>\\
 				pc & $-1$ $\vee$ $-2$
@@ -1778,7 +1778,7 @@ Sašo: Incorrect. The previous leaf is ``3pl.''
 			[\dots]
 		]
 		[CONC,draw, name=conc
-			[\avmtmp{
+			[\avm{
 				[mud & \{ [\normalfont\textit{agr}\\cl & 7]\}\\
 				mph & < ... [ph & <\normalfont ci>\\
 				pc & $-1$ $\vee$ $-4$
@@ -1791,7 +1791,7 @@ Sašo: Incorrect. The previous leaf is ``3pl.''
 %% sorry this is an ugly workaround but even on stackexchange, no one could help me :/
 %% saso: do you want to achieve the same as I did in \ref{trick-for-later}?
 \node[below of=morph, node distance= 8cm](3){%
-	\avmtmp{
+	\avm{
 			[mud & \{\normalfont\textit{agr}\}\\
 			ms & \{ [\type*{pid}
 			cat & [\type*{adj}
@@ -1841,23 +1841,23 @@ Sašo: Incorrect. The previous leaf is ``3pl.''
 \begin{forest}
 [\emph{realisation-rule}
 	[SHAPE,draw
-		[\avmtmp{
+		[\avm{
 			[ mph & \{[ph &  <\normalfont ni>]\}\\
 			mud & \{[per & 1\\ num & sg]\}
 			]
 		}, name=1
-			[\avmtmp{
+			[\avm{
 				[ mph & \{[ph &  <\normalfont ni>\\ pc & 2]\}\\
 				mud & \{ [\type*{subj} per & 1\\ num & sg] \}
 				]
 			}, name=a, no edge, tier=word, l=3cm]
 		]
-		[\avmtmp{
+		[\avm{
 			[ mph & \{[ph &  <\normalfont wa>]\}\\
 			mud & \{[per & 3\\ num & pl]\}
 			]
 		}, name=2
-			[\avmtmp{
+			[\avm{
 				[ mph & \{[ph &  <\normalfont wa>\\ pc & 5]\}\\
 				mud & \{ [\type*{obj} per & 3\\ num & pl] \}
 				]
@@ -1865,23 +1865,23 @@ Sašo: Incorrect. The previous leaf is ``3pl.''
 		]
 	]
 	[POSITION,draw
-		[\avmtmp{
+		[\avm{
 			[ mph & \{[pc & 2]\}\\
 			mud & \{subj\}
 			]
 		}, name=3
-			[\avmtmp{
+			[\avm{
 				[ mph & \{[ph &  <\normalfont wa>\\ pc & 2]\}\\
 				mud & \{ [\type*{subj} per & 3\\ num & pl] \}
 				]
 			}, name=c, no edge, tier=word, l=3cm]
 		]
-		[\avmtmp{
+		[\avm{
 			[ mph & \{[pc & 5]\}\\
 			mud & \{ obj \}
 			]
 		}, name=4
-			[\avmtmp{
+			[\avm{
 				[ mph & \{[ph &  <\normalfont ni>\\ pc & 5]\}\\
 				mud & \{[\type*{obj} per & 1\\ num & sg]\}
 				]
