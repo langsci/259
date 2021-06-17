@@ -496,7 +496,6 @@ avm-install:
 
 stmue-install:
 	cp -p ${STYLE-PATH}makros.2020.sty                   styles/
-	cp -p ${STYLE-PATH}oneline.sty                       styles/
 	cp -p ${STYLE-PATH}abbrev.sty                        styles/
 	cp -p ${STYLE-PATH}eng-date.sty                      styles/
 	cp -p ${STYLE-PATH}biblatex-series-number-checks.sty styles/
