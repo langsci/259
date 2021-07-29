@@ -64,14 +64,16 @@ lexicon embodying much of grammatical knowledge.
 This chapter has two principal goals.  One is to review the arguments for and against a lexicalist
 view of grammar within the generative tradition.  The other is to survey the HPSG implementation of
 lexicalism. In regard to the first goal, we begin with the reaction to \isi{Generative Semantics},
-and note developments that led to lexicalist theories of grammar such as Lexical\indexlfg Functional  Grammar (LFG) and then HPSG.  Central to these developments was the argument that lexical
-processes, rather than transformational ones, provided more perspicuous accounts of derivational
-morphological processes.  The same kinds of arguments then naturally extended to phenomena like
-passivization\is{passive}, which had previously been treated as syntactic.  Once on this path, lexical
-treatments of other prototypically syntactic phenomena — long distance extraction,
+and note developments that led to lexicalist theories of grammar such as Lexical\indexlfg Functional
+Grammar (LFG) and then HPSG.  Central to these developments was the argument that lexical processes,
+rather than transformational ones, provided more perspicuous accounts of derivational morphological
+processes.  The same kinds of arguments then naturally extended to phenomena like
+passivization\is{passive}, which had previously been treated as syntactic.  Once on this path,
+lexical treatments of other prototypically syntactic phenomena — long distance extraction,
 \word{wh}-movement, word order, and anaphoric binding — were advanced as well, with HPSG playing a
 leading role.
 
+\largerpage
 But this does not mean that opposition to lexicalism melted away.  Both Minimalism, and in
 particular Distributed Morphology \citep{Bruening2018, Marantz1997} and Construction Grammar
 \citep{Goldberg1995,Tomasello2003,vanTrijp2011} claim that lexicalist accounts fail in various ways.
@@ -104,6 +106,7 @@ mechanisms for modeling default inheritance have therefore been one focus within
 furnish an example of their use in modeling the properties of gerunds in \ili{English} and other
 languages.
 
+\largerpage
 Finally, we discuss lexical rules and their alternatives.  Along with the ``vertical'' relationships
 between classes of lexical entries modeled by types and their subtypes in the hierarchical lexicon,
 there is a need for ``horizontal'' relationships between lexical entries that are based on a single
@@ -111,12 +114,17 @@ root or stem, such as forms of inflectional paradigms.  Yet formalizing lexical 
 within HPSG has proven surprisingly difficult; specifying just what information is preserved and
 what is changed by a lexical rule is one prominent issue.  We conclude this chapter by describing
 alternatives to lexical rules.  One is to appropriately underspecify properties of lexical entries
-so that they cover all relevant variants of a single lexeme or word.\footnote{It is common since the the late 1990s to distinguish between lexemes and words in HPSG, with, for example, some lexical rules mapping lexemes to lexemes (typically, derivational morphology) and some lexical rules mapping lexemes to words (typically, inflection); see \citet[176--178]{BonamiandCrysmann2018} for general discussion and \citet{RunnerandAranovich2003} for arguments that argument structure and valence features are specific to words, not lexemes. We do not further discuss the distinction between lexemes and words in this chapter for space reasons.} %JPK 3-12-21 I added a footnote
+so that they cover all relevant variants of a single lexeme or word.\footnote{%
+It is common since the the late 1990s to distinguish between lexemes and words in HPSG, with, for
+example, some lexical rules mapping lexemes to lexemes (typically, derivational morphology) and some
+lexical rules mapping lexemes to words (typically, inflection); see
+\citet[176--178]{BonamiandCrysmann2018} for general discussion and \citet{RunnerandAranovich2003}
+for arguments that argument structure and valence features are specific to words, not lexemes. We do
+not further discuss the distinction between lexemes and words in this chapter for space reasons.}
 The second augments the type
 hierarchy via online type construction, extending the predefined lexical types specified in the
 hierarchy to include ``virtual types'' that combine the information from multiple predefined types.
 
-%JPK 10_Aug reworded as we talked about.
 
 
 \section{Lexicalism}
@@ -154,9 +162,14 @@ once lexical rules are assumed to be involved in the creation of new lexical ent
 % Pustejovsky, James. 1995. The Generative Lexicon, MIT Press, Cambridge, MA.
 % Pustejovsky, James, and Elisabetta Jezek. 2016. Integrating Generative Lexiconand Lexical Semantic Resources, Proceedings of LREC 2016, Portorož, Slovenia (http://lrec2016.lrec-conf.org/media/filer_public/2016/05/10/tutorialmaterial_pustejovsky.pdf).
 Another stream of research relying on a richly structured lexicon is Generative Lexicon theory (GL).
-\citet{Pustejovsky1991,Pustejovsky1995} and \citet{PustejovskyandJezek1996} present the elements of this approach to lexical representation, which focuses on semantic phenomena such as coercion and systematic polysemy.
-Within GL, lexical entries include, in addition to argument structure, an ``event structure'' and a ``qualia structure'', both of which play essential roles in GL accounts of semantic composition.
-For example, the natural interpretation of \word{enjoy the sandwich} as enjoying eating the sandwich arises from information in the event structures of \word{enjoy} and \word{sandwich} and the qualia structure of \word{sandwich}, which unify to yield this interpretation.
+\citet{Pustejovsky1991,Pustejovsky1995} and \citet{PustejovskyandJezek1996} present the elements of
+this approach to lexical representation, which focuses on semantic phenomena such as coercion and
+systematic polysemy. 
+Within GL, lexical entries include, in addition to argument structure, an ``event structure'' and a
+``qualia structure'', both of which play essential roles in GL accounts of semantic composition. 
+For example, the natural interpretation of \word{enjoy the sandwich} as enjoying eating the sandwich
+arises from information in the event structures of \word{enjoy} and \word{sandwich} and the qualia
+structure of \word{sandwich}, which unify to yield this interpretation. 
 % TD 14 Nov: end of GL stuff (a bit more comes later)
 
 Lexicalism, at least within HPSG, embodies two distinct ideas. First is the idea that parts of words
@@ -190,11 +203,31 @@ surface combinatorics: if expression A consists of the concatenation of B and C 
 all grammatical constraints that make reference to B and C are limited to A.  
 
 
-An evident concern regarding this view of the lexicon is the potential proliferation of lexical entries, replete with redundant information. Will it be necessary to specify all the information in these two variants for \word{expect} without regard for the large amount of duplication between them? Will the same duplication be needed for the verb  \word{hope}, which patterns similarly (but not quite identically)? How will somewhat similar verbs, such as \word{foresee} and \word{anticipate} which allow finite complements but not infinitive ones, be represented? We will describe HPSG's solutions to these questions below, in our discussion of the hierarchical lexicon. First, however, we turn to recent arguments against lexicalism, and then discuss in more detail just what kinds of information should be in HPSG lexical entries.
+An evident concern regarding this view of the lexicon is the potential proliferation of lexical
+entries, replete with redundant information. Will it be necessary to specify all the information in
+these two variants for \word{expect} without regard for the large amount of duplication between
+them? Will the same duplication be needed for the verb \word{hope}, which patterns similarly (but
+not quite identically)? How will somewhat similar verbs, such as \word{foresee} and
+\word{anticipate} which allow finite complements but not infinitive ones, be represented? We will
+describe HPSG's solutions to these questions below, in our discussion of the hierarchical
+lexicon. First, however, we turn to recent arguments against lexicalism, and then discuss in more
+detail just what kinds of information should be in HPSG lexical entries.
 
 \subsection{Recent challenges to lexicalism}
 
-As there have been several challenges to lexicalism (see \citealt{Bruening2018} and  \citealt{Haspelmath2011} among others for some recent challenges), we now explore lexicalism and Lexical Integrity\is{Lexical Integrity} in HPSG in more detail. We first note that lexicalism does not imply that word and phrase formation are necessarily different ``components'' as is often claimed (see \citealt{Marantz1997}, \citealt{Bruening2018}). Some lexicalist approaches \emph{do} assume that word formation and phrase building belong to two different components of a language's grammar (this is certainly true of \citealt{Jackendoff1975}), but they need not. Within HPSG, there are approaches that treat every sign-formation (be it word-internal or word-external) as resulting from typed mother-daughter configurations; this is the hypothesis pursued in \citealt{Koenig1999c}, and is also the approach frequently taken in implementations of large-scale grammars where lexical rules are modeled as unary-branching trees; see the \ili{English} Resource Grammar \citep{Copestake2002} and the grammars developed in the \isi{CoreGram} project \citep{Mueller2015}  (see \citealt[58]{MuellerLexicalism} for a similar point in his response to Bruening's paper). 
+As there have been several challenges to lexicalism (see \citealt{Bruening2018} and
+\citealt{Haspelmath2011} among others for some recent challenges), we now explore lexicalism and
+Lexical Integrity\is{Lexical Integrity} in HPSG in more detail. We first note that lexicalism does
+not imply that word and phrase formation are necessarily different ``components'' as is often
+claimed (see \citealt{Marantz1997}, \citealt{Bruening2018}). Some lexicalist approaches \emph{do}
+assume that word formation and phrase building belong to two different components of a language's
+grammar (this is certainly true of \citealt{Jackendoff1975}), but they need not. Within HPSG, there
+are approaches that treat every sign-formation (be it word-internal or word-external) as resulting
+from typed mother-daughter configurations; this is the hypothesis pursued in \citealt{Koenig1999c},
+and is also the approach frequently taken in implementations of large-scale grammars where lexical
+rules are modeled as unary-branching trees; see the \ili{English} Resource Grammar
+\citep{Copestake2002} and the grammars developed in the \isi{CoreGram} project \citep{Mueller2015}
+(see \citealt[58]{MuellerLexicalism} for a similar point in his response to Bruening's paper).
 
 %JPK 3-3 Changed a little the following
 Furthermore, recent approaches to inflectional morphology within HPSG model realizational rules through the very same tools the rest of a language's grammar uses (see \citealt{CrysmannandBonami2016} and \crossrefchapteralt{morphology}).  There are also analyses of the structure of phrases where the same analytical tools -- multidimensional hierarchy of types and inheritance -- developed to model lexical knowledge (see Section~\ref{sec:hier-lex}) are employed to model phrase-structural constructions (see \citeauthor{Sag1997}'s 1997 analysis of relative clauses, for example). So, both in terms of the formal devices and in terms of analytical tools used to model datasets, words and phrases can be treated the same way in HPSG (although they need not be). Somewhat ironically, and despite claims to the contrary, word formation in the syntactocentric approach Marantz or Bruening advocates \emph{does} make use of distinct formal machinery to model word formation, namely realizational rules and various readjustment rules, as well as fusion and fission rules, to model inflectional morphology (see \citealt{HalleandMarantz1993,Embick2015}).\is{Distributed Morphology}
@@ -347,7 +380,19 @@ Principle\is{principle!Head Feature}, see \crossrefchapteralt[\pageref{page-hfp}
 \zl
 
 
-We illustrate the second leading idea behind HPSG or \lfg's\indexlfg \isi{lexicalism} -- that there are different variants of lexical heads for different contexts in which heads occur -- with the \ili{French} examples in (\ref{va}). The verb \word{aller} `go' in (\ref{va-a}) combines with a PP headed by \word{à} that expresses its goal argument and a subject that expresses its theme argument. The same verb in (\ref{va-b}) combines with the so-called non-subject clitic\is{clitic} \word{y} that expresses its goal argument. We follow \citet{MillerandSag1997} and assume here that \ili{French} non-subject clitics are prefixes. Since the context of occurrence of the head of the sentence, \word{aller}, differs across these two sentences (\textsc{NP\_\_\_\_PP}[\word{loc}] and \attrib{NP} \word{y}\_\_\_\_ , respectively and informally), there will be two distinct entries for \word{aller} for both sentences, shown in (\ref{va-lx}) and (\ref{y-va-lx}) (we simplify the entries' \isi{feature geometry} for expository purposes). Information in the entry in (\ref{y-va-lx}) that differs from the information in the entry in (\ref{va-lx}) appears in red; \word{p-aff} indicates that a member of \textsc{arg-st} is realized as a pronominal affix.
+We illustrate the second leading idea behind HPSG or \lfg's\indexlfg \isi{lexicalism} -- that there
+are different variants of lexical heads for different contexts in which heads occur -- with the
+\ili{French} examples in (\ref{va}). The verb \word{aller} `go' in (\ref{va-a}) combines with a PP
+headed by \word{à} that expresses its goal argument and a subject that expresses its theme
+argument. The same verb in (\ref{va-b}) combines with the so-called non-subject clitic\is{clitic}
+\word{y} that expresses its goal argument. We follow \citet{MillerandSag1997} and assume here that
+\ili{French} non-subject clitics are prefixes. Since the context of occurrence of the head of the
+sentence, \word{aller}, differs across these two sentences (\textsc{NP\_\_\_\_PP}[\word{loc}] and
+\attrib{NP} \word{y}\_\_\_\_ , respectively and informally), there will be two distinct entries for
+\word{aller} for both sentences, shown in (\ref{va-lx}) and (\ref{y-va-lx}) (we simplify the
+entries' \isi{feature geometry} for expository purposes). Information in the entry in
+(\ref{y-va-lx}) that differs from the information in the entry in (\ref{va-lx}) appears in red;
+\word{p-aff} indicates that a member of \textsc{arg-st} is realized as a pronominal affix. 
 % TD 30 July: good strategy for viewing online; will there be color in the printed version (if there is to be a printed version)?
 % JPK 5 August: don't know but I assume most people will be viewing it on the screen (even if they download the pdf)
 
@@ -393,7 +438,7 @@ We illustrate the second leading idea behind HPSG or \lfg's\indexlfg \isi{lexica
 		tns & pres \\
 		agr & 3rdsing ] ] \\
 		subj & <\1> \\
-		comps & {\color{red}<>} \\
+		comps & {\color{red}<>} \smallskip\\
 		arg-st & <\1 NP$_{\3,3rdsg}$, {\color{red}PP[\rm{\type{p-aff, loc}}]$_{\4}$}> ] \\
 		cont & [\type*{go-rel}  
 		theme & \3 \\
@@ -405,8 +450,27 @@ We illustrate the second leading idea behind HPSG or \lfg's\indexlfg \isi{lexica
 
 \attrib{cat}egory information in both entries contains part of speech information (including
 morphologically relevant features of verb forms), \attrib{arg}ument-\attrib{st}ructure information
-and valence information under \subj and \comps. \attrib{morph} information includes both stem form information, inflected form information (\feat{i-form}) and, in case so-called clitics are present, the combination of the clitic and inflected form information. Both entries illustrate how informationally rich lexical entries are in HPSG. But, postulating informationally rich entries does not mean stipulating all of the information within every entry. In fact, only the stem form and the relation denoted by the semantic content of the verb \word{aller} need to be stipulated within either entry. All the other information can be inferred once it is known which classes of verbs these entries belong to. In other words, most of the information included in the entries in (\ref{va-lx}) and (\ref{y-va-lx}) is not specific to these individual entries, an issue we take up in Section~\ref{sec:hier-lex}.  As mentioned above, the informational difference between the two entries for \word{va} and \word{y va} is indicated in red in (\ref{y-va-lx}). The first difference between the two variants of \word{va} `goes' is in the list of complements: the entry for \word{y va} does not subcategorize for a locative PP, since the affix \word{y} satisfies the relevant argument structure requirement. This difference in the realization of syntactic arguments (via phrases and pronominal affixes) is recorded in the types of the PP members of \feat{arg-st}, \type{p-aff} in (\ref{y-va-lx}), but a PP headed by \word{\`a} in (\ref{va-lx}). Finally, the two entries differ in the \attrib{form} of the verb, which is the same as the inflected form of the verb in (\ref{va-lx}) (as indicated by the identically numbered \avmbox{5}), but not in (\ref{y-va-lx}), whose \attrib{form} includes the prefix \word{y}.  
+and valence information under \subj and \comps. \attrib{morph} information includes both stem form
+information, inflected form information (\feat{i-form}) and, in case so-called clitics are present,
+the combination of the clitic and inflected form information. Both entries illustrate how
+informationally rich lexical entries are in HPSG. But, postulating informationally rich entries does
+not mean stipulating all of the information within every entry. In fact, only the stem form and the
+relation denoted by the semantic content of the verb \word{aller} need to be stipulated within
+either entry. All the other information can be inferred once it is known which classes of verbs
+these entries belong to. In other words, most of the information included in the entries in
+(\ref{va-lx}) and (\ref{y-va-lx}) is not specific to these individual entries, an issue we take up
+in Section~\ref{sec:hier-lex}.  As mentioned above, the informational difference between the two
+entries for \word{va} and \word{y va} is indicated in red in (\ref{y-va-lx}). The first difference
+between the two variants of \word{va} `goes' is in the list of complements: the entry for \word{y
+  va} does not subcategorize for a locative PP, since the affix \word{y} satisfies the relevant
+argument structure requirement. This difference in the realization of syntactic arguments (via
+phrases and pronominal affixes) is recorded in the types of the PP members of \feat{arg-st},
+\type{p-aff} in (\ref{y-va-lx}), but a PP headed by \word{\`a} in (\ref{va-lx}). Finally, the two
+entries differ in the \attrib{form} of the verb, which is the same as the inflected form of the verb
+in (\ref{va-lx}) (as indicated by the identically numbered \avmbox{5}), but not in (\ref{y-va-lx}),
+whose \attrib{form} includes the prefix \word{y}.
 
+\largerpage
 One other question arises with regard to the information in lexical entries.
 Are there attributes or values that occur solely within lexical signs\is{lexical sign}, and not in phrasal ones? 
 If so, they would provide a diagnostic for distinguishing lexical signs from others.
@@ -462,6 +526,7 @@ The three argument structures in (\ref{a-st-bind}) illustrate permissible and un
 }
 \zl
 
+\largerpage
 Our purpose here is not to argue in favor of the specific approach to binding just outlined. Rather,
 we wish to illustrate that in a theory like HPSG where much of syntactic distribution is accounted
 for by properties of lexical entries, co-occurrence restrictions treated traditionally as
@@ -529,31 +594,53 @@ so that this difference is not necessarily qualitative, but concerns how much of
 \label{sec:hier-lex}
 
 
-We\is{hierarchical lexicon|(}\is{type hierarchy!lexical|(} have now seen that \isi{lexicalism} demands that lexical entries be information rich, in order to encode what might otherwise be represented as syntactic rules.
-To avoid massive and redundant stipulation throughout the lexicon, we need mechanisms to represent the regularities within it. Two main mechanisms have been used in HPSG to achieve this. The first mechanism is the organization of information shared by lexical entries or parts of entries into a hierarchy of types, in a way quite similar to semantic networks within knowledge representation systems (see, among others, \citealt{BrachmanandSchmolze1985}). This hierarchy of types (present in HPSG since the beginning: \citealt{PollardandSag1987} and the seminal work of  \citealt{Flickingeretal1985}, \citealt{Flickinger1987}) ensures that individual lexical entries only specify information that is unique to them. The second mechanism is lexical rules, which relate variants of entries, and more generally, members of a lexeme's morphological family (which consists of a root or stem as well as all stems derived from that root or stem) or members of a word's inflectional paradigm.     
+We\is{hierarchical lexicon|(}\is{type hierarchy!lexical|(} have now seen that \isi{lexicalism}
+demands that lexical entries be information rich, in order to encode what might otherwise be
+represented as syntactic rules.  To avoid massive and redundant stipulation throughout the lexicon,
+we need mechanisms to represent the regularities within it. Two main mechanisms have been used in
+HPSG to achieve this. The first mechanism is the organization of information shared by lexical
+entries or parts of entries into a hierarchy of types, in a way quite similar to semantic networks
+within knowledge representation systems (see, among others, \citealt{BrachmanandSchmolze1985}). This
+hierarchy of types (present in HPSG since the beginning: \citealt{PollardandSag1987} and the seminal
+work of \citealt{Flickingeretal1985}, \citealt{Flickinger1987}) ensures that individual lexical
+entries only specify information that is unique to them. The second mechanism is lexical rules,
+which relate variants of entries, and more generally, members of a lexeme's morphological family
+(which consists of a root or stem as well as all stems derived from that root or stem) or members of
+a word's inflectional paradigm.
 
 % TD, 14 Nov. 19: a bit more Generativ Lexicon stuff added, starting here
-HPSG is, of course, not the only linguistic framework to exploit inheritance, although HPSG researchers, perhaps more than others, have emphasized its central role in expressing lexical generalizations.
-Appeals to similar mechanisms feature prominently in Generative Lexicon (GL) accounts of lexical semantics, for example.
-Both the lexical typing structure and qualia structures within GL, in particular the formal quale, have values situated in type hierarchies \citep{PustejovskyandJezek1996} and
-GL accounts of coercion and metonymy rely crucially on multiple inheritance within qualia values.
+HPSG is, of course, not the only linguistic framework to exploit inheritance, although HPSG
+researchers, perhaps more than others, have emphasized its central role in expressing lexical
+generalizations. Appeals to similar mechanisms feature prominently in Generative Lexicon (GL)
+accounts of lexical semantics, for example.  Both the lexical typing structure and qualia structures
+within GL, in particular the formal quale, have values situated in type hierarchies
+\citep{PustejovskyandJezek1996} and GL accounts of coercion and metonymy rely crucially on multiple
+inheritance within qualia values.
 % TD, 14 Nov. 19: end of additional material
 %TD, 15 Nove. 19: Did some editing
 
-In this section, we discuss the hierarchical organization of the lexicon into cross-cutting classes of lexical entries at various levels of generality.
-We examine two distinct techniques for \isi{inheritance}, which are not mutually exclusive.
-One is to create subtypes directly, with pertinent additional constraints stated for each subtype.
-Different classes of words are thus reified as subtypes of \type{word} (or \type{lexical-sign}) in the hierarchy, and all lexical items that belong to that subtype inherit its constraints.
-Another technique, more prevalent in current HPSG work, uses implicational statements.
-If certain properties hold of a lexical item (for example, if its \attrib{aux} value is +), then others must hold as well (e.g., it subcategorizes for a VP complement, whose subject is token identical to the auxiliary verb's).
-These statements need not involve all of the information that's present in the entire \type{word}, so they need to refer only to substructures within \type{word} objects, like their \attrib{synsem} values.
+In this section, we discuss the hierarchical organization of the lexicon into cross-cutting classes
+of lexical entries at various levels of generality.  We examine two distinct techniques for
+\isi{inheritance}, which are not mutually exclusive.  One is to create subtypes directly, with
+pertinent additional constraints stated for each subtype.  Different classes of words are thus
+reified as subtypes of \type{word} (or \type{lexical-sign}) in the hierarchy, and all lexical items
+that belong to that subtype inherit its constraints.  Another technique, more prevalent in current
+HPSG work, uses implicational statements.  If certain properties hold of a lexical item (for
+example, if its \attrib{aux} value is +), then others must hold as well (e.g., it subcategorizes for
+a VP complement, whose subject is token identical to the auxiliary verb's).  These statements need
+not involve all of the information that's present in the entire \type{word}, so they need to refer
+only to substructures within \type{word} objects, like their \attrib{synsem} values.
 
 
 \subsection{Inheritance}
-\is{inheritance|(}
+
+\largerpage
+\is{inheritance|(} 
 All grammatical frameworks classify lexical entries to some extent, of course.
-Basic part of speech information is one obvious case.
-This high-level classification is present in HPSG, too, as part of the hierarchy of types of heads. That information is recorded in the value of the \attrib{head} feature. A simple hierarchy of types of heads is depicted in Figure~\ref{pos-hier}.
+Basic part of speech information is one obvious case.  This high-level classification is present in
+HPSG, too, as part of the hierarchy of types of heads. That information is recorded in the value of
+the \attrib{head} feature. A simple hierarchy of types of heads is depicted in
+Figure~\ref{pos-hier}.
 
 \begin{figure}
 \begin{forest}
@@ -679,20 +766,26 @@ The mapping from semantic roles to subjects and objects in these sentences can b
 \end{exe}
 
 \noindent
-The second and third statements are subcases of the first, so ideally we prefer to state the substance of the first statement just once, rather than repeat it.
-We could posit subtypes of \type{word}, along the lines of the approach mentioned above, such as \type{transitive-verb} and \type{caused-motion-verb}.
-But implicational statements provide an arguably simpler way to model the facts of linking.
-Since the constraints we wish to express concern both \feat{arg-st} and \attrib{cont}, our implications are stated on \type{local} objects, which are the minimal type of object containing these attributes.
-We presuppose here a hierarchy of semantic relation types as values of \attrib{cont}, including \type{cause-rel}, \type{motion-rel} and their subtype \type{caused-motion-rel}, each of which licenses attributes for the required participant roles.
+The second and third statements are subcases of the first, so ideally we prefer to state the
+substance of the first statement just once, rather than repeat it.  We could posit subtypes of
+\type{word}, along the lines of the approach mentioned above, such as \type{transitive-verb} and
+\type{caused-motion-verb}.  But implicational statements provide an arguably simpler way to model
+the facts of linking.  Since the constraints we wish to express concern both \feat{arg-st} and
+\attrib{cont}, our implications are stated on \type{local} objects, which are the minimal type of
+object containing these attributes.  We presuppose here a hierarchy of semantic relation types as
+values of \attrib{cont}, including \type{cause-rel}, \type{motion-rel} and their subtype
+\type{caused-motion-rel}, each of which licenses attributes for the required participant roles.
 
-First, we require that the causer, denoted in (\ref{cm-trans-verb-lc}) by the value of \attrib{act}, be linked to the subject (the first element of \feat{arg-st}):
+First, we require that the causer, denoted in (\ref{cm-trans-verb-lc}) by the value of \attrib{act},
+be linked to the subject (the first element of \feat{arg-st}):
 
 \ealnoraggedright
 \ex If a \type{synsem} object's \feat{cat|head} value is of type \type{verb}, and its \attrib{cont} value is of type \type{cause-rel}, then its value of \feat{cont|act} is token identical to the index of the first element of its \feat{arg-st} list.
 \ex\label{cm-trans-verb-lc}
 \avm{
 [\punk{cat|head}{verb} \\
- cont & cause-rel ] \impl
+ cont & cause-rel ]} \impl
+\avm{
 [arg-st & <NP$_{\1}$, \ldots> \\
  cont & [act & \1] 
  ]
@@ -702,15 +795,17 @@ First, we require that the causer, denoted in (\ref{cm-trans-verb-lc}) by the va
 % It should have two lines, the first with CAT|HEAD verb, and the second with CONT cause-rel; this will then exclude nominalizations
 %JPK 5 August: Done
 
-Then, we link the moving entity in a caused motion verb, denoted in (\ref{move-link}) by the value of \attrib{und}, to any NP on \feat{arg-st}:
+Then, we link the moving entity in a caused motion verb, denoted in (\ref{move-link}) by the value
+of \attrib{und}, to any NP on \feat{arg-st}:
 
 \ealnoraggedright
 \ex If a \type{synsem} object's \feat{cat|head} value is of type \type{verb}, and its \attrib{cont} value is of type \type{move-rel}, then its value of \feat{cont|und} is token identical to the index of some NP element of its \feat{arg-st} list.
 \ex \label{move-link}
 \avm{
 [\punk{cat|head}{verb} \\
- cont & move-rel ]
+ cont & move-rel ]}
 \impl
+\avm{
 [arg-st & <\ldots, NP$_{\1}$, \ldots> \\
 cont   & [und & \1] \\
  ]}
@@ -754,7 +849,9 @@ We could represent this identity using another constraint, solely within \attrib
 \ex
 \avm{
 [\punk{cat|head}{verb} \\
- cont & self-move-rel ] \impl 
+ cont & self-move-rel ]}
+\impl 
+\avm{
 [cont & [act & \1\\
          und & \1 ]] }
 \zl
@@ -1198,8 +1295,7 @@ The type \type{vger} is thus compatible with ``verb-like'' characteristics.
 But, as its \attrib{head} is also a subtype of \type{noun}, its \attrib{subj} list is empty and the first element on its \feat{arg-st} list is its \attrib{spr} value. In addition, gerunds allow direct complements (unlike ordinary nouns), but not subjects (unlike ordinary verbs).
 Malouf's hierarchy of types makes this prediction, in effect, because the \type{ext-spr} type requires that the ``external argument'' (the first on the \feat{arg-st} list) is realized as the value of \attrib{spr}.
 
-%JPK 3-3-21 edited a little the following para. following Tony's wording
-
+\largerpage
 While it would be possible to construct type hierarchies of lexical types, \attrib{head} types, and so on that would allow for ``anti-gerunds'' -- those that would act externally as nouns, allow subjects, but not permit direct complements -- this would require reorganizing these type hierarchies to a considerable extent.
 Given that many nouns besides gerunds -- nominalizations, for example -- are relational it could be difficult to model a hypothetical language that permits only the anti-gerunds rather than the normal ones.
 
@@ -1221,13 +1317,36 @@ In\is{lexical rule|(} this section we describe the role lexical rules play in HP
 \subsection{What is the nature of lexical rules in HPSG?}
 \label{lexicon-sec-nature-of-lexical-rules}
 
-While lexical rules or similar devices have been invoked within HPSG since its inception, formalizing their nature and behavior still  continues.
-The intent, however, has always been, as \citet{Lahm2016} stresses, to treat lexical rules (typically written $A \mapsto B$\is{$\mapsto$}) to mean that for every lexeme or word described by $A$ there is one described by $B$ that has as much in common with A as possible.
+\largerpage
+While lexical rules or similar devices have been invoked within HPSG since its inception,
+formalizing their nature and behavior still continues.  The intent, however, has always been, as
+\citet{Lahm2016} stresses, to treat lexical rules (typically written $A \mapsto B$\is{$\mapsto$}) to
+mean that for every lexeme or word described by $A$ there is one described by $B$ that has as much
+in common with A as possible.
 
-\citet{CopestakeandBriscoe1991}, \citet{BriscoeandCopestake1999}, \citet{Meurers2001}, and many others formalize the notion of lexical rule within HPSG by introducing a type, say \type{lex-rule}, with the attributes \attrib{in} and \attrib{out}, whose values are respectively the rule's input and output lexical descriptions. As \citet{BriscoeandCopestake1999} note, lexical rules of this form also bear a close relationship to default unification.
-The information in the input is intended to carry over to the output by default, except where the rule specifies otherwise and overrides this information. But, as \citet{Lahm2016} points out, a sound basis for the formal details of how lexical rules work is not easily formulated. Meurers' careful analysis of how to apply lexical rules to map a description $A$ into the description $B$ does not always work as intended, in that what we would expect to be licit inputs are not always actually such, and no output description results as a consequence. Fortunately,  it is not clear that this is a severe problem in practice, and Lahm notes that he has not found an example of practical import where Meurers' lexical rule formulation would encounter the problems he raises.
+\citet{CopestakeandBriscoe1991}, \citet{BriscoeandCopestake1999}, \citet{Meurers2001}, and many
+others formalize the notion of lexical rule within HPSG by introducing a type, say \type{lex-rule},
+with the attributes \attrib{in} and \attrib{out}, whose values are respectively the rule's input and
+output lexical descriptions. As \citet{BriscoeandCopestake1999} note, lexical rules of this form
+also bear a close relationship to default unification.  The information in the input is intended to
+carry over to the output by default, except where the rule specifies otherwise and overrides this
+information. But, as \citet{Lahm2016} points out, a sound basis for the formal details of how
+lexical rules work is not easily formulated. Meurers' careful analysis of how to apply lexical rules
+to map a description $A$ into the description $B$ does not always work as intended, in that what we
+would expect to be licit inputs are not always actually such, and no output description results as a
+consequence. Fortunately, it is not clear that this is a severe problem in practice, and Lahm notes
+that he has not found an example of practical import where Meurers' lexical rule formulation would
+encounter the problems he raises.
 
-In a slight variant of the representation of lexical rules proposed by Copestake \& Briscoe and \citeauthor{Meurers2001}, the \attrib{out} attribute can be dispensed with; the information in the lexical rule type that is not within the \attrib{in} value then constitutes the output of the rule. \citet[87]{AckermanandWebelhuth1998} employ this style of representation; their type \type{derived-lci} adds a \attrib{lexdtr} attribute (equivalent to \attrib{in}) that contains the input lexical entry's information. The difference between the two representations with only the attributes \attrib{synsem} and \attrib{phon} included for expository purposes is shown in (\ref{two-lex}).
+\largerpage
+In a slight variant of the representation of lexical rules proposed by Copestake \& Briscoe and
+\citeauthor{Meurers2001}, the \attrib{out} attribute can be dispensed with; the information in the
+lexical rule type that is not within the \attrib{in} value then constitutes the output of the
+rule. \citet[87]{AckermanandWebelhuth1998} employ this style of representation; their type
+\type{derived-lci} adds a \attrib{lexdtr} attribute (equivalent to \attrib{in}) that contains the
+input lexical entry's information. The difference between the two representations with only the
+attributes \attrib{synsem} and \attrib{phon} included for expository purposes is shown in
+(\ref{two-lex}).
 
 \begin{exe}
 \ex \label{two-lex}
@@ -1253,8 +1372,18 @@ out & [phon   & c\\
 
 
 
-In the variant in (\ref{two-lex-b}), lexical rules are treated as subtypes of a \type{derived-lexical-sign}\is{derived word} type, which can combine with other types in the lexical hierarchy, merely adding the derivational source via the \attrib{in} value. 
-Formulated in either fashion, lexical rules are essentially equivalent to unary syntactic rules, with the \attrib{in} attribute corresponding to the daughter and the \attrib{out} attribute to the mother (or the rest of the information in the rule, if the \attrib{out} attribute is done away with). This is the way lexical rules are implemented in the \ili{English} Resource Grammar (see \url{http://www.delph-in.net/erg/} for demos and details about this large-scale implemented grammar of \ili{English}) as well in the CoreGram Project and the Grammix grammar development environment  (see \citealt{MuellerGrammix} and \url{https://hpsg.hu-berlin.de/Software/Grammix/} for details on the Grammix software). See also \crossrefchapterw[Section~\ref{cl:resources}]{cl} for remarks on implementations.
+In the variant in (\ref{two-lex-b}), lexical rules are treated as subtypes of a
+\type{derived-lexical-sign}\is{derived word} type, which can combine with other types in the lexical
+hierarchy, merely adding the derivational source via the \attrib{in} value.  Formulated in either
+fashion, lexical rules are essentially equivalent to unary syntactic rules, with the \attrib{in}
+attribute corresponding to the daughter and the \attrib{out} attribute to the mother (or the rest of
+the information in the rule, if the \attrib{out} attribute is done away with). This is the way
+lexical rules are implemented in the \ili{English} Resource Grammar (see
+\url{http://www.delph-in.net/erg/} for demos and details about this large-scale implemented grammar
+of \ili{English}) as well in the CoreGram Project and the Grammix grammar development environment
+(see \citealt{MuellerGrammix} and \url{https://hpsg.hu-berlin.de/Software/Grammix/} for details on
+the Grammix software). See also \crossrefchapterw[Section~\ref{cl:resources}]{cl} for remarks on
+implementations.
 
 One clear advantage of this kind of representation, i.e., a representation in which the attribute
 \attrib{out} is dispensed with and lexical ``rules'' are simply subtypes of \type{derived-word} or
@@ -1265,11 +1394,11 @@ one includes in the lexical hierarchy unary-branching rules to model derivationa
 unified account of derivational processes that apply both productively to an open-ended set of
 lexemes as well as unproductively to another closed set of lexemes becomes possible.  Consider the
 approach to derivational morphology taken by \citet{Riehemann1998}.\is{affixation} Example
-(\ref{bar}) (Riehemann's (1)) illustrates \word{-bar} suffixation\is{morphology!derivational} in \ili{German},
-a process by which an adjective that includes a modal component can be derived from verb stems
-(similar to \ili{English} \word{-able} suffixation).  A lexical rule approach could posit a verb
-stem input and derive an adjective output.  As Riehemann stresses, though, there are many different
-subtypes of \word{-bar} suffixation, some productive, some unproductive, all sharing some
+(\ref{bar}) (Riehemann's (1)) illustrates \word{-bar} suffixation\is{morphology!derivational} in
+\ili{German}, a process by which an adjective that includes a modal component can be derived from
+verb stems (similar to \ili{English} \word{-able} suffixation).  A lexical rule approach could posit
+a verb stem input and derive an adjective output.  As Riehemann stresses, though, there are many
+different subtypes of \word{-bar} suffixation, some productive, some unproductive, all sharing some
 information.  This combination of productive and unproductive variants of a lexical process is
 exactly what the type hierarchy is meant to capture and what Riehemann's \word{Type-Based
   Derivational Morphology} capitalizes on.  The structure in (\ref{bar-der}) presents the relevant
@@ -1277,9 +1406,11 @@ information about Riehemann's type for regular \word{-bar} `-able' adjectives (s
 \citealt[68]{Riehemann1998} for more details).  Critically, \word{-bar} adjectives include a
 singleton-list base (the value of \feat{morph-b}) that records the information of the adjective's
 verbal base (corresponding to the would-be lexical rule's input).  Because of this extra layer, the
-local information in the base (the \type{local} object under \textsc{morph-b} \ldots{} \textsc{local}) and the \word{-bar} adjective
-(the \type{local} object under \textsc{synsem|local}) can differ without being in conflict.
+local information in the base (the \type{local} object under \textsc{morph-b} \ldots{}
+\textsc{local}) and the \word{-bar} adjective (the \type{local} object under \textsc{synsem|local})
+can differ without being in conflict.
 
+\largerpage
 \ea
 \label{bar}
 \gll Sie  bemerken die Veränderung. Die Veränderung ist bemerkbar. \\
@@ -1312,7 +1443,18 @@ Lexical rules have been put to many uses: derivational and inflectional morpholo
 conversion in interaction with complex predicate formation \citep{Mueller2010}, negation \citep{KimandSag2002,Mueller2010}, and diathesis alternations \citep{BC99a,Mueller2003e,MuellerLFGphrasal,Davis2001}. Moreover, proposals for lexical rules in HPSG have extended beyond what are traditionally or evidently viewed as lexical phenomena, to include treatments of affixal realization of arguments, extraction, unbounded dependencies, and adjuncts \parencites{Monachesi1993}[\page 378]{ps2}{NvB94a}{Keller95b}{MS97a-u}. In this section, we describe the use of lexical rules to model the realization of arguments as extracted dependents or affixes, rather than complements. We concentrate on two of these cases (affixal realization of arguments and complement extraction), which we will contrast with alternative analyses not involving lexical rules presented by the same authors (see the next section). They thus provide a good illustration of some of the analytical choices available to model relations between variant lexical entries based on a single stem. 
 
 
-We begin with the Complement Extraction Lexical Rule (hereafter, CELR)\is{extraction}\is{lexical rule!Complement Extraction}\is{unbounded dependency} proposed in \citew[\page 378]{PollardandSag1994}, shown in (\ref{celr}). The input to the rule is any lexeme that selects for a syntactic argument (\avmbox{3}) that the lexeme requires to be expressed as a complement (as indicated, this syntactic argument is also a member of the \attrib{comps} list). The output stipulates that this same syntactic argument is no longer a member of the \attrib{comps} list; however, the \attrib{slash} set now includes a new element, which is the local information of this syntactic argument \iboxb{1}. Informally stated, the input entry specifies that a syntactic argument must be realized as a complement, whereas the output entry specifies that the same syntactic argument must be realized by a non-local dependent (see \citealt[Chapter~4]{PollardandSag1994} for the distinction between \attrib{local} and \attrib{nonlocal} information).
+\largerpage
+We begin with the Complement Extraction Lexical Rule (hereafter, CELR)\is{extraction}\is{lexical
+  rule!Complement Extraction}\is{unbounded dependency} proposed in \citew[\page
+378]{PollardandSag1994}, shown in (\ref{celr}). The input to the rule is any lexeme that selects for
+a syntactic argument (\avmbox{3}) that the lexeme requires to be expressed as a complement (as
+indicated, this syntactic argument is also a member of the \attrib{comps} list). The output
+stipulates that this same syntactic argument is no longer a member of the \attrib{comps} list;
+however, the \attrib{slash} set now includes a new element, which is the local information of this
+syntactic argument \iboxb{1}. Informally stated, the input entry specifies that a syntactic argument
+must be realized as a complement, whereas the output entry specifies that the same syntactic
+argument must be realized by a non-local dependent (see \citealt[Chapter~4]{PollardandSag1994} for
+the distinction between \attrib{local} and \attrib{nonlocal} information).
 % TD, 1 Aug.: We should have a page number from P&S 1994 for this citation; however, I just looked in there and couldn't find any mention of this issue with respect to the CELR, though maybe I missed it.
 % JPK 5 Aug: Can't find it either so I reworded. 
 
@@ -1335,7 +1477,17 @@ Complement Extraction Lexical Rule (adapted from \citealt[\page 378]{PollardandS
 \z
 
 
-A similar use of lexical rules to model alternative realizations of arguments can be found in \citew{Monachesi1993},\is{clitic!in \ili{Romance} languages} who analyzes alternations between complements and pronominal object affixes (traditionally called object clitics) in \ili{Italian} in a way that parallels the \ili{French} examples in (\ref{va}). \shuffle\is{$\bigcirc$} in the rule, shown in (\ref{cl-lr}), a.k.a. the ``shuffle''\is{shuffle} operation, stands for the unordered concatenation of two lists, since any member of the input's \attrib{comps} list can be realized as a clitic and therefore not be included in the output's \attrib{comps} list (see \crossrefchaptert[\pageref{rel-shuffle}]{order} for a more formal explanation of \shuffle). In the output of the lexical rule in (\ref{cl-lr}), a subset of the list of complements in the input \iboxb{2} corresponds to a list of clitic \type{synsem}s, realized as prefixes through inflectional rules not shown here. 
+A similar use of lexical rules to model alternative realizations of arguments can be found in
+\citew{Monachesi1993},\is{clitic!in \ili{Romance} languages} who analyzes alternations between
+complements and pronominal object affixes (traditionally called object clitics) in \ili{Italian} in
+a way that parallels the \ili{French} examples in (\ref{va}). \shuffle\is{$\bigcirc$} in the rule,
+shown in (\ref{cl-lr}), a.k.a.\ the ``shuffle''\is{shuffle} operation, stands for the unordered
+concatenation of two lists, since any member of the input's \attrib{comps} list can be realized as a
+clitic and therefore not be included in the output's \attrib{comps} list (see
+\crossrefchaptert[\pageref{rel-shuffle}]{order} for a more formal explanation of \shuffle). In the
+output of the lexical rule in (\ref{cl-lr}), a subset of the list of complements in the input
+\iboxb{2} corresponds to a list of clitic \type{synsem}s, realized as prefixes through inflectional
+rules not shown here.
 %JPK 10 Aug: Define the shuffle operation
 
 \ea
@@ -1436,9 +1588,34 @@ In both of these analyses, related sets of lexical entries that could be thought
 This comes at a cost of additional types and constraints for extraction, and a loosening of requirements for the correspondence between the \feat{arg-st} list and the valence lists.
 However, these approaches, in dispensing with lexical rules, sidestep both the conceptual and representational issues that we noted earlier and attempts to restrict lexical rules to cases where they cannot be avoided, e.g., derivational morphology.
 
-\is{type underspecification|(}
-The second alternative to lexical rules based on underspecification was presented in \citew{KoenigandJurafsky1994} and \citew{Koenig1999c}. Typically in HPSG, all possible combinations of types are reified in the type hierarchy (in fact, they must be present, per the requirement that the hierarchy be sort-resolved: \citealt{Carpenter1992}, \citealt{PollardandSag1994}), or, equivalently, that each linguistic entity be assigned exactly one maximally specific type -- a.k.a. \word{species} (\citealt[78]{Richter2000}; \crossrefchapteralt[Section~\ref{sec-essentials}]{formal-background}).
-Thus, if one partitions verb lexemes into transitive and intransitive and, orthogonally, into, say, finite verbs and gerunds (limiting ourselves to two dimensions here for simplicity), the type hierarchy must also contain the combinations transitive+finite, transitive+gerund, intransitive+finite, and intransitive+gerund. Naturally, this kind of fully enumerated type system is unsatisfying. For one thing, there is no additional information that the combination subtype \type{transitive+finite} carries that is not present in its two supertypes \type{transitive} and \type{finite}, and similarly for the other combinations. In contrast to the ``ordinary'' types, posited to represent information shared by classes of lexemes, these combinations seem to have no other purpose than to satisfy a formal requirement on the mathematical structure of a type hierarchy (namely, that it forms a \isi{lattice} under meet and join).  Second, and related to the first point, this completely elaborated type hierarchy is redundant. Once you know that all verbs fall into two valence classes, transitive and intransitive, and simultaneously into two inflectional classes, finite and gerund, and that valence and inflection are two orthogonal dimensions of classification of verbs, you know all you need to know; the type of any verb can be completely predicted from these two orthogonal dimensions of classification and standard propositional calculus inferences.\footnote{One possible way of making formally explicit the idea behind on-line type construction within the model-theoretic approach to HPSG that is now standard \citep{King1989,Richter2000,chapters/formal-background} is to allow maximally specific sorts, or species, to be either sets of species or non-atomic sums of species,  just in cases where orthogonal dimensions of classification have been used since \citet{Flickinger1987}. For reasons of space, we do not pursue this line of inquiry in this chapter.}
+\is{type underspecification|(} The second alternative to lexical rules based on underspecification
+was presented in \citew{KoenigandJurafsky1994} and \citew{Koenig1999c}. Typically in HPSG, all
+possible combinations of types are reified in the type hierarchy (in fact, they must be present, per
+the requirement that the hierarchy be sort-resolved: \citealt{Carpenter1992},
+\citealt{PollardandSag1994}), or, equivalently, that each linguistic entity be assigned exactly one
+maximally specific type -- a.k.a.\ \word{species} (\citealt[78]{Richter2000};
+\crossrefchapteralt[Section~\ref{sec-essentials}]{formal-background}).  Thus, if one partitions verb
+lexemes into transitive and intransitive and, orthogonally, into, say, finite verbs and gerunds
+(limiting ourselves to two dimensions here for simplicity), the type hierarchy must also contain the
+combinations transitive+finite, transitive+gerund, intransitive+finite, and
+intransitive+gerund. Naturally, this kind of fully enumerated type system is unsatisfying. For one
+thing, there is no additional information that the combination subtype \type{transitive+finite}
+carries that is not present in its two supertypes \type{transitive} and \type{finite}, and similarly
+for the other combinations. In contrast to the ``ordinary'' types, posited to represent information
+shared by classes of lexemes, these combinations seem to have no other purpose than to satisfy a
+formal requirement on the mathematical structure of a type hierarchy (namely, that it forms a
+\isi{lattice} under meet and join).  Second, and related to the first point, this completely
+elaborated type hierarchy is redundant. Once you know that all verbs fall into two valence classes,
+transitive and intransitive, and simultaneously into two inflectional classes, finite and gerund,
+and that valence and inflection are two orthogonal dimensions of classification of verbs, you know
+all you need to know; the type of any verb can be completely predicted from these two orthogonal
+dimensions of classification and standard propositional calculus inferences.\footnote{One possible
+  way of making formally explicit the idea behind on-line type construction within the
+  model-theoretic approach to HPSG that is now standard
+  \citep{King1989,Richter2000,chapters/formal-background} is to allow maximally specific sorts, or
+  species, to be either sets of species or non-atomic sums of species, just in cases where
+  orthogonal dimensions of classification have been used since \citet{Flickinger1987}. For reasons
+  of space, we do not pursue this line of inquiry in this chapter.}
 
 %JPK 6 Aug: I have added some stuff at the end of the previous paragraph to address some of Stefan's comments.
 
@@ -1526,6 +1703,7 @@ Figure~\ref{fig-verb-hier2} is a simplified  hierarchy of verb lexemes we use fo
 
 For reasons of space we illustrate the usefulness of this dynamic approach to type creation, the \isi{Type Underspecified Hierarchical Lexicon (TUHL)}, with an example from \citet{Koenig1999c}:\ the cross-cutting classification of syntactic/semantic information and stem form in the entry for the \ili{French} verb \word{aller} (see \citealt{BonamiandBoye2001} for a much more thorough discussion of \ili{French} stem allomorphy along similar lines; Crysmann \& Bonami's much more developed approach to stem allomorphy would model the same phenomena differently and we use Koenig's simplified presentation for expository purposes only). The forms of \word{aller} are based on four different suppletive stems:\is{morphology!suppletion} \word{all-} (1\textsuperscript{st} and 2\textsuperscript{nd} person plural of the indicative and imperative present, infinitive, past participle, and imperfective past), \word{i-} (future and conditional), \word{v-} (1\textsuperscript{st}, 2\textsuperscript{nd}, or 3\textsuperscript{rd} person singular and 3\textsuperscript{rd} person plural of the indicative present), and \word{aill-} (subjunctive present). These four suppletive stems are shared by all entries (i.e., senses) of the lexeme \word{aller}: the one which means `to fit' as well as the one which means `to leave', as shown in (\ref{aller-lex}) (see \citealt[40--41]{Koenig1999c}). The cross-cutting generalizations over lexemes and stems are represented in Figure~\ref{all-hier}. Any \word{aller} stem combines one entry and one stem form. In a traditional HPSG type hierarchy, each combination of types (grayed out in Figure~\ref{all-hier}), would have to be stipulated. In a TUHL, these combinations can be dynamically created when an instance of \word{aller} needs to be produced or comprehended.
 
+\largerpage
 \eal
 \label{aller-lex}
 \ex\label{aller-lex-a}
