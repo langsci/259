@@ -54,35 +54,17 @@
 
 \label{chap-cl}
 
-% Comments from Gerald:
-
-%I assume that the contributors would agree with me that this handbook is probably the wrong place to go into great technical detail on mathematical or computational subjects, but there needs to be at least something there to serve as a starting point from which the reader could choose to jump into some of the papers cited.‎ A summary of the major trends and the high-level intuitions behind a lot of the technical terminology that readers will encounter in HPSG-related CL papers, for example, would both be most welcome.
-
 \section{Introduction}
 
-% First draft: Emily
-
-From the inception of HPSG in the 1980s,
-there has been a close integration between theoretical and computational work
-(for an overview, see \crossrefchapteralt{evolution}).
-%\citep{FIXME-CLobit-or-other}.
-% at HP Labs in the joint work of Ivan Sag, Geoff Pullum, Tom Wasow, Mark Gawron, Carl Pollard and Dan Flickinger
-% GE: I think this list of authors is too long for a first sentence.  Do we need to do more than refer to the other chapter?
-% EMB 2018-09-28 sounds good!
-In this chapter, we discuss computational work in HPSG,
-starting with the infrastructure that supports it (both theoretical and practical) in Section~\ref{cl:infrastructure}.
-Next we describe several existing large-scale projects which build HPSG or HPSG-inspired grammars
-(see Section~\ref{cl:resources})
-and the deployment of such grammars in applications including both those within linguistic research and otherwise
-(see Section~\ref{cl:deployment}).
-Finally, we turn to linguistic insights gleaned from broad-coverage grammar development
-(see Section~\ref{cl:insight}).
-
-% EMB 2018-07-26 That seems like a relatively weak intro, but putting it in as a place-holder for now. 
-
-% EMB 2018-07-26 Also, I wonder if ``lessons for linguistics'' might not come across as condescending...
-% GE 2018-07-31 Yes, maybe best to reword that somehow... ``Linguistic insights''?
-% EMB 2018-09-28 Thanks.
+%\largerpage
+From the inception of HPSG in the 1980s, there has been a close integration between theoretical and
+computational work (for an overview, see \crossrefchapteralt{evolution}).  In this chapter, we
+discuss computational work in HPSG, starting with the infrastructure that supports it (both
+theoretical and practical) in Section~\ref{cl:infrastructure}.  Next we describe several existing
+large-scale projects which build HPSG or HPSG-inspired grammars (see Section~\ref{cl:resources}) and
+the deployment of such grammars in applications including both those within linguistic research and
+otherwise (see Section~\ref{cl:deployment}).  Finally, we turn to linguistic insights gleaned from
+broad-coverage grammar development (see Section~\ref{cl:insight}).
 
 \section{Infrastructure}
 \label{cl:infrastructure}
@@ -499,6 +481,7 @@ containing far more information than is necessary for the task at hand.
 It is therefore often desirable to extract a concise \isi{semantic representation}.
 %TODO check the Semantics chapter once it's written
 
+%\largerpage[-1]
 In computational linguistics, a popular approach to semantics
 is to represent the meaning of a sentence as a \textit{\isi{dependency graph}},
 as this enables the use of graph-based algorithms.\footnote{%
@@ -529,7 +512,7 @@ Finally, \delphin\ MRS Dependencies \citep[DM;][]{ivanova2012dm}\is{delphin MRS 
 express \isi{predicate-argument structure} purely in terms of the surface \isi{token}s,
 without introducing any abstract predicates.\is{predicate!abstract}
 
-\largerpage
+%\largerpage
 For example, the \isi{English Resource Grammar (ERG)}
 produces the MRS representation in~(\ref{cl:fig:mrs-feat})
 for the sentence \emph{The cherry tree blossomed}.
@@ -723,7 +706,8 @@ the \delphin\ Consortium (Section~\ref{cl:delphin}) attempts to balance these tw
 \subsection{CoreGram}
 \label{cl:coregram}
 
-\largerpage
+%\largerpage
+\enlargethispage{3pt}
 \is{CoreGram|(}%
 \is{grammar engineering!multilingual|(}%
 The CoreGram\footnote{
@@ -1182,6 +1166,8 @@ Finally, there are also automatically annotated\is{annotation!automatic} treeban
 \label{cl:downstream}
 %Guy
 
+\largerpage
+%\enlargethispage{3pt}
 \is{application|(}%
 In this section, we discuss the use of HPSG grammars for practical tasks.  There is a large number
 of applications, and we focus on several important ones here.  In Section~\ref{cl:downstream:edu},
@@ -1220,6 +1206,7 @@ Another way to use an implemented grammar is to automatically produce teaching m
 \subsubsection{NLP tasks}
 \label{cl:downstream:nlp}
 
+\largerpage
 \is{Natural Language Processing (NLP)|(}%
 \is{statistical model|(}%
 \is{machine learning|(}%
@@ -1285,6 +1272,7 @@ prunes the set of propositions using a cognitively inspired model.  A summary is
 based on the pruned set of propositions.  Because no text is directly extracted from the input
 document, it is possible to generate a more concise summary.
 
+\largerpage[2]
 Finally, no discussion of NLP tasks would be complete without including \textit{\isi{machine translation}}.  A traditional grammar-based approach uses three grammars: a grammar for the \isi{source language}, a grammar for the \isi{target language}, and a \textit{\isi{transfer grammar}}, which converts semantic representations for the source language to semantic representations for the target language \citep{OVL2007a-u,bond2011deep}.  Translation proceeds in three steps: parse the source sentence, transfer the semantic representation, and generate a target sentence.  The transfer grammar is needed both to find appropriate lexical items and also to convert semantic representations when languages differ in how an idea might be expressed.  The difficulty in writing a transfer grammar that is robust enough to deal with arbitrary input text means that statistical systems might be preferred.  \citet{horvat2017translate} explores the use of statistical techniques, skipping over the transfer stage: a target-language sentence is generated directly from a semantic representation for the source language.  \citet{goodman2018translate} explores the use of statistical techniques within the paradigm of parsing, transferring, and generating.%
 %TODO expand?
 \is{application|)}
@@ -1324,6 +1312,7 @@ and DMRS\is{Dependency Minimal Recursion Semantics (DMRS)}
 which performs almost as well as a grammar-based parser,
 but has full \isi{coverage}, and can run 70 times faster.
 
+\largerpage
 In fact, in more recent work, the difference in performance has been effectively closed.
 \citet{chen2018parse} consider parsing to EDS and DMRS graphs,
 and actually achieve slightly higher accuracy with their system,
@@ -1389,7 +1378,12 @@ and scale across a variety of syntactic constructions.%
 \section{Linguistic insights}
 \label{cl:insight}
 
-In Section~\ref{cl:lang-doc} above, we described multiple ways in which computational methods can be used in the service of linguistic research, especially in testing linguistic hypotheses. Here, we highlight a few ways in which grammar engineering work in HPSG has turned up linguistic insights that had not previously been discovered through non-computational means.\footnote{For similar reflections from the point of view of LFG,\indexlfg see \citew{King:16}.}
+\largerpage
+In Section~\ref{cl:lang-doc} above, we described multiple ways in which computational methods can be
+used in the service of linguistic research, especially in testing linguistic hypotheses. Here, we
+highlight a few ways in which grammar engineering work in HPSG has turned up linguistic insights
+that had not previously been discovered through non-computational means.\footnote{For similar
+  reflections from the point of view of LFG,\indexlfg see \citew{King:16}.}
 
 \subsection{Ambiguity} %Guy
 \is{ambiguity|(}
@@ -1423,6 +1417,7 @@ Furthermore, by implementing large-scale grammars across a range of languages,
 it also becomes possible to investigate the extent to which
 a phenomenon could be considered ``core'' or ``peripheral'' across languages \citep{MuellerKernigkeit}.
 
+\largerpage
 \begin{sloppypar}
 In fact, when working with actual data and large-scale grammars,
 it quickly becomes apparent just how long the long-tail of ``peripheral'' phenomena is. Furthermore,
@@ -1446,18 +1441,6 @@ It is incumbent on you to speak plainly.
 \end{exe}%
 %
 \is{periphery|)}
-
-%\subsection{Scaling up (thematic roles)} % Emily
-
-% EMB 2019-02-06 I wonder what this was? Perhaps this is the idea of using
-% the bleached role names? Do you remember?
-% GE 2019-02-09 Discussion of analyses that become challenging at scale?
-% Ann discusses the bleached role names from this perspective in the DMRS paper
-% and also discusses the causative alternation
-% Could perhaps also discuss (lack of) decomposition of lexical semantics?
-% i.e. a predicate for each content word, rather than using semantic primitives
-% EMB 2019-02-21 That makes sense, but I don't have the energy for it right
-% now, so commenting this out for now.
 
 \subsection{Analysis-order effects}
 \is{analysis order!effect of|(}

@@ -42,7 +42,7 @@
   information structure. In particular, we will see several cases
   where (word order) principles that used to be stipulated in syntax
   can now be formulated as an interaction of syntax and discourse
-  properties.  }
+  properties.\vspace{-\baselineskip}  }
 
 
 \begin{document}
@@ -53,7 +53,7 @@
 
 \section{Introduction} 
 
-
+\largerpage
 The \textit{information structure} of a sentence captures how the meaning
 expressed by the sentence is integrated into the discourse.
 \textit{Information structure} thus encodes which part of an
@@ -106,6 +106,7 @@ has one designated (mostly referential) element functioning as the
 topic (or link), among them \citew{EV96a}, \citew{deKuthy2002a},
 \citew{Paggio2009a-u} and \citew{song2018}.
 
+\largerpage[2]
 With respect to information status (including primitives such as new and
 given mentioned above), the discourse status of referential elements is of
 interest, i.e., whether they can be linked to previously mentioned
@@ -140,6 +141,7 @@ into the grammar architecture.
 
 \section{Information structure in the architecture of signs}
 
+\largerpage[2]
 Several ways of representing information structure within the
 architecture of signs have been pursued as part of the HPSG framework:
 one of the earliest approaches, which is similar to the idea of
@@ -387,6 +389,9 @@ The structure of \textsc{info"=struc} in \citew[165]{deKuthy2002a}:\\
 }
     \label{fig:info-struc}
 \z
+
+\largerpage[-1]
+\noindent
 The information structure is encoded in the attribute
 \textsc{info"=struc} appropriate for signs whose appropriate
 attributes are \textsc{focus} and \textsc{topic}, with lists of
@@ -452,7 +457,7 @@ receives an accent or not, and whether it is a rising or falling
 accent, should it receive one.
 \ea
 Representing pitch accents and accent type hierarchy according to \citet[166]{deKuthy2002a}:\\
-
+\multicolsep=.25\baselineskip % Lokale Zuweisung, da in Umgebung 
 \begin{multicols}{2}
 \avm{
 	[\type*{sign}\\
@@ -464,16 +469,32 @@ Representing pitch accents and accent type hierarchy according to \citet[166]{de
 
 \begin{forest}
 type hierarchy
-        [accent
-            [unaccented]
-            [accented
-                  [rising-accent]
-                  [falling-accent]
-            ]
-        ]
+[accent
+  [unaccented]
+  [accented
+    [rising-accent]
+    [falling-accent] ] ]
 \end{forest}
-
 \end{multicols}\unskip
+% \begin{tabular}[t]{@{}l@{~~}l@{}}
+% \begin{minipage}[t]{6cm}
+% \avm{
+% 	[\type*{sign}\\
+% 	phon &	[phon-string & list \\
+% 	       accent & accent] ]
+% }
+% \end{minipage}
+% & \begin{forest}
+% type hierarchy
+%         [accent
+%             [unaccented]
+%             [accented
+%                   [rising-accent]
+%                   [falling-accent]
+%             ]
+%         ]
+% \end{forest}
+% \end{tabular}
     \label{fig:accent}
 \z
 
@@ -484,34 +505,32 @@ information structure representation of that word, depending on the
 type of accent the word receives.
 \ea
 Principle assigning information structure to words \citep[167]{deKuthy2002a}:
-    \begin{tabular}{ll}
-    \textit{word}\ \impl
-    &
+  %   \begin{tabular}{ll}
+  %   \textit{word}\ \impl
+  %   &
+  %       \avm{
+  %       	[phon|accent & falling-accent\\
+  %     	ss|loc|cont|lf & \1\\
+  %     	info-struc &	[focus & < \1 > \\
+  %                  		 topic & < >] ]
+  %   } $\lor$ \\ & \\
+  % &   \avm{
+  % 		[phon|accent & unaccented\\
+  %       	info-struc &	[focus & < > \\
+  %       					topic & < > ] ]
+  %         } $\lor$ \ldots
+  %   \end{tabular}
+\textit{word}\ \impl\\
 	\avm{
 		[phon|accent & falling-accent\\
       	ss|loc|cont|lf & \1\\
       	info-struc &	[focus & < \1 > \\
                    		 topic & < >] ]
-    } $\lor$ \\ & \\
-%   &$\vee$\; &
-%   \avm{
-%     [
-%      phon|accent & rising-accent\\
-%      ss|loc|cont|lf & @1\\
-%      info-struc &(  [focus & \elst\\
-%                    topic & \XlstI{@1}]\\
-%   $\vee$\; \\
-%                   [focus & \XlstI{@1}\\
-%                    topic & \elst])
-%      ]
-%   }\\[2em]
-%    & $\vee$\;  \\
-  &   \avm{
+    } $\lor$ \avm{
   		[phon|accent & unaccented\\
 		info-struc &	[focus & < > \\
 						topic & < > ] ]
 	  } $\lor$ \ldots
-    \end{tabular}
     \label{fig:words}
 \z
 
@@ -530,34 +549,36 @@ subtypes are shown in~\pref{ex:song-icons-lex}.
 \ea
 \label{ex:song-icons-lex}
 Lexical types specifying \textsc{icons} values \citep[137]{song2018}:
-\ea
+\begin{tabular}[t]{@{}l@{~}l@{\hspace{2cm}}l@{~}l@{}}
+a. &
 \avm{
   [\type*{no-icons-lex-item}\\
   mkg & [fc & na\\tp & na]\\
   icons & < \normalfont{!} \normalfont{!} >]
-}
-\ex
+} &
+b. &
 \avm{
   [\type*{basic-icons-lex-item}\\
   icons & < \normalfont{!} \normalfont{!} >]
-}
-\ex
+}\smallskip\\
+c. &
 \avm{
   [\type*{one-icons-lex-item}\\
   icons & < \normalfont{!} ![ ]! \normalfont{!} >]
-}
-\ex
+} &
+d. &
 \avm{
   [\type*{two-icons-lex-item}\\
   icons & < \normalfont{!} ![ ]! , ![ ]! \normalfont{!} >]
 }
+\end{tabular}
 \z
-\z
+\largerpage[1]
 Lexical entries for elements that cannot be marked with respect to
 information structure are of type \textit{no-icons-lex-items}, such as
 relative pronouns or expletives in
 \ili{English}. \citet[121]{song2018} introduces the morphosyntactic
-feature \textsc{mkg} as part of the \textsc{synsem|""local|""cat} value for the specification of information structural properties of lexical items with the two
+feature \textsc{mkg} as part of the \textsc{synsem|""local|""cat} value for the specification of information structural \pagebreak{}properties of lexical items with the two
 appropriate features, \textsc{fc} (FoCus-marked) and \textsc{tp}
 (ToPic-marked). The appropriate value of these two features
 is \textit{luk}, which is a supertype of \textit{bool} (boolean) and
@@ -576,6 +597,7 @@ verb's \textsc{icons} list. All other verbs are not required to have
 any elements on their \textsc{icons} list and can thus also be of type
 \textit{basic-icons-lex-item}.
 
+\largerpage[2]
 To capture further constraints on the information structure properties
 at the word level, such as accent patterns triggering focus or topic,
 lexical rules are formulated in \citew{song2018} that derive lexical entries with the
@@ -602,7 +624,8 @@ Feature structures are complete models of objects, thus there is no way
 in which a value can not be instantiated in a feature structure. Only descriptions
 of feature structures can be underspecified, but not the feature
 structures themselves. See also \crossrefchapterw{formal-background}.}
-\ea
+
+\eanoraggedright
 \label{ex:infostruc-instantiation} \textsc{info"=struc} \textit{instantiation principles for \ili{English}:}\\
 Either (i) if a \textsc{daughter}'s \textsc{info"=struc} is instantiated, then the mother inherits this instantiation (for narrow foci, links and tails),\\
 or (ii) if the most oblique \textsc{daughter}'s \textsc{focus} is instantiated, then the \textsc{focus} of the mother is the sign itself (wide focus).
@@ -610,7 +633,7 @@ or (ii) if the most oblique \textsc{daughter}'s \textsc{focus} is instantiated, 
 
 An example including a wide VP focus licensed by the principle in \pref{ex:infostruc-instantiation} with
 the relevant \textsc{info"=struc} values is shown in
-Figure~\ref{fig:info-packaging}.
+Figure~\ref{fig:info-packaging}.\pagebreak
 
 \begin{figure}
   \centering
@@ -671,6 +694,8 @@ formulated in~\pref{ex:infostruc-instantiation}.
 
 \subsubsection{Information structure as structured meanings \citep{deKuthy2002a}}
 \label{sec:struc-meaning}
+
+\largerpage[2]
 The so-called structured meaning approach to information structure
 \citep{Stechow81a-u,Jacobs83a,Krifka92a-u} provides a
 compositional semantic mechanism based on separate representations of
@@ -697,7 +722,6 @@ in~\pref{fig:focus-backgr}.
 \end{exe}
 \ea
  A sign representation including information structure (adapted from \citealp[163]{deKuthy2002a}):
-\begin{center}
     \avm{
       [ss|loc|cont|lf & !$\exists x [book' (x) \wedge read' (p,x)]$!\\
        info-struc & [focus & <!$\lambda y \exists x[book'(x) \wedge read'(y,x)]$!>\\
@@ -706,7 +730,6 @@ in~\pref{fig:focus-backgr}.
     }
 
     \label{fig:focus-backgr}
-  \end{center}\unskip
 \z
 The \textsc{info-struc} values of phrases are constrained by
 principles such as the one in~\pref{fig:focus-projection}. The
@@ -716,9 +739,11 @@ in~\pref{fig:focus-projection}. The third disjunct is added in
 \citew{dKM2003a}. Sentences where the focus or the topic does not
 project represent the most basic case: only those words bearing an
 accent are in the topic or in the focus of an utterance.
+\largerpage[2]
 \ea
 Principle 1: Extended focus projection principle\is{principle!Extended Focus Projection} \citep[105]{dKM2003a}:\\
-\begin{tabular}{rl}
+\scalebox{.9}{%
+\begin{tabular}{@{}r@{~}l}
   \emph{phrase} \impl &
     \avm{
       [info-str|focus & \1\ \+ \rel{collect-focus}(\2) \\
@@ -742,7 +767,7 @@ Principle 1: Extended focus projection principle\is{principle!Extended Focus Pro
                                       \punk{loc|cont|lf}{\4} ] \\
                               \punk{info-str|focus}{<\4>} ], \ldots>] 
 	} $\lor$ \ldots
-\end{tabular}
+\end{tabular}}
   \label{fig:focus-projection}
 \z
 In this case, the mother of a phrase just collects the focus values of
@@ -779,6 +804,7 @@ phrase itself, or any non-head daughter that meets the
 condition of being focused. Again, a similar principle needs to be provided for the
 \textsc{topic} value of nominal and prepositional phrases.
 
+%\largerpage[-1]
 For the verbal domain, the regularities are known to be influenced by
 a variety of factors, such as the word order and lexical properties of
 the verbal head \citep[cf., e.g., ][]{vSU86a}.  Since verbs
@@ -787,7 +813,8 @@ focus when they are accented, \citet{dKM2003a} introduce the boolean-valued feat
 \textsc{focus"=projection"=potential (fpp)} for objects of type
 \textit{synsem}. (\ref{ex:fpp-lieben}) shows the relevant part
 of the lexical entry of the verb \textit{lieben} `love' which allows
-projection from the object but not from the subject:
+projection from the object but not from the subject:\pagebreak
+
 \ea
 The focus projection potential of \textit{lieben} \citep[105]{dKM2003a}:\\
   \avm{
@@ -1379,6 +1406,7 @@ They thus introduce the following ID schema for \ili{Catalan}:
 \end{exe}
 \end{sloppy}
 
+\largerpage
 \noindent
 The principle requires that the information structure value of
 dislocated daughters of a finite sentence has to be
@@ -1420,6 +1448,8 @@ additional feature \textsc{clitic} is introduced as appropriate for
   \end{xlist}
 \end{exe}
 
+%\enlargethispage{7pt}
+\largerpage
 The Linkhood Constraint shown in~\pref{fig:clld-constraint}
 ensures that links (i.e., elements whose \textsc{info"=struc|link} value
 is instantiated) can only be fillers that are ``duplicated'' in the
@@ -1493,6 +1523,7 @@ The last restriction can be formalized as: the PP's or NP's
 meaningful expression on the \textsc{focus} list or the \textsc{topic}
 list of the \textsc{info"=struc} value of the utterance.
 
+\largerpage[2]
 As discussed in \citew{dKM2003a}, it has been observed that in
 \ili{German} it is possible for unergative and unaccusative verbs\is{verb!unaccusative} to
 realize a subject as part of a fronted non-finite verbal
@@ -1525,7 +1556,6 @@ must be in the focus of the utterance (i.e., the \textsc{focus} value
 of the fronted constituent must be identical to its semantic
 representation).  The formalization of this principle provided by \citep{dKM2003a} is shown in \pref{fig:webelhuths-generalization}.
 \ea
-\bigskip
 Webelhuth's generalization \citep[\page 106]{dKM2003a}:\\
 \begin{flushleft}
 \avm{
@@ -1632,6 +1662,7 @@ The lexical item of \textit{gewinnen} `to win':\\
   }
 \z
 
+\largerpage
 Under the assumption that in (\ref{ex:nonerg-subj-fronted})
 the noun \textit{Außenseiter} `outsider' carries a pitch accent, the
 information structure principle for words in~\pref{fig:words} on p.\,\pageref{fig:words}
@@ -1656,6 +1687,7 @@ entire sentence. Finally, note that the example satisfies Webelhuth's
 generalization, which requires a fronted verb phrase to be the
 focus of the utterance as formalized in the principle in~\pref{fig:webelhuths-generalization}.
 
+\largerpage
 \is{word order!V2|(}
 In the same spirit, \citet{BC2010a} show that sentences in which
 multiple elements have been fronted\is{multiple fronting} are directly linked to specific
@@ -1693,6 +1725,8 @@ objects, with the features \textsc{focus} and \textsc{topic} taking
 lists of \textit{elementary predications} as their values. In general,
 multiple fronting \textit{head-filler} phrases are restricted by the
 constraint in~\pref{fig:multiplefronting}.
+
+\largerpage
 \ea
 \label{fig:multiplefronting}
 Relating multiple fronting to focus \citep[75]{BC2010a}:\\
@@ -1705,7 +1739,7 @@ Relating multiple fronting to focus \citep[75]{BC2010a}:\\
     [is & pres $\vee$ a-top-com $\vee$ \ldots]
   }
 
-\bigskip
+\medskip
 \flushleft
 \avm{
       [\type*{head-filler-phrase}\\
@@ -1715,7 +1749,7 @@ Relating multiple fronting to focus \citep[75]{BC2010a}:\\
   \avm{
     [synsem|loc|cat|head|dt & <[loc|cont|rels \1]>\\
       hd-dtr|ss|is|focus & <\1>]
-  }
+  }\medskip
 \z
 The first constraint ensures that \textit{head-filler} phrases that
 are instances of multiple frontings are restricted to have an
@@ -1726,7 +1760,7 @@ are instances of multiple frontings are restricted to have an
   presentational focus or \textit{a-top-com} for
   assessed topic-comment.} The second constraint then ensures that in
 presentational multiple frontings, the designated topic must be located in the head
-daughter (i.e., the verbal head of the \textit{head-filler-phrase}) and
+daughter (i.e., the verbal head of the \pagebreak{}\textit{head-filler-phrase}) and
 must be focused. The feature \textsc{dt} (designated topic) lexically specifies which
 daughter, if any, is normally realized as the topic of a particular
 verb. This constraint thus encodes what \citet{BC2010a} call ``topic
