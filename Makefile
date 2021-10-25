@@ -316,7 +316,7 @@ prepubs-latex-cp: prepublish-pdfs
 #	cp prepubs-chop-pdfs/17.pdf prepubs-pdfs/idioms.pdf
 #	cp prepubs-chop-pdfs/18.pdf prepubs-pdfs/negation.pdf
 #	cp prepubs-chop-pdfs/19.pdf prepubs-pdfs/ellipsis.pdf
-	cp prepubs-chop-pdfs/20.pdf prepubs-pdfs/binding.pdf
+#	cp prepubs-chop-pdfs/20.pdf prepubs-pdfs/binding.pdf
 #	cp prepubs-chop-pdfs/21.pdf prepubs-pdfs/morphology.pdf
 #	cp prepubs-chop-pdfs/22.pdf prepubs-pdfs/semantics.pdf
 #	cp prepubs-chop-pdfs/23.pdf prepubs-pdfs/information-structure.pdf
