@@ -27,18 +27,19 @@ complete: index main.pdf
 index:  main.snd
 
 
-
+# the footer needs several biber runs ...
 main.pdf: $(SOURCE)
 	xelatex -shell-escape main
 	biber main
 	xelatex -shell-escape main
+	biber main
 	sed -i.backup s/.*\\emph.*// main.adx #remove titles which biblatex puts into the name index
 # sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.sdx # ordering of references to footnotes
 # sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.adx
 # sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.ldx
 	sed -i.backup 's/\\MakeCapital //g' main.adx
-# 	python3 fixindex.py
-# 	mv mainmod.adx $*.adx
+	python3 fixindex.py
+	mv mainmod.adx $*.adx
 	footnotes-index.pl main.ldx
 	footnotes-index.pl main.sdx
 	footnotes-index.pl main.adx 
