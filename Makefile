@@ -39,7 +39,7 @@ main.pdf: $(SOURCE)
 # sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.ldx
 	sed -i.backup 's/\\MakeCapital //g' main.adx
 	python3 fixindex.py
-	mv mainmod.adx $*.adx
+	mv mainmod.adx main.adx
 	footnotes-index.pl main.ldx
 	footnotes-index.pl main.sdx
 	footnotes-index.pl main.adx 
