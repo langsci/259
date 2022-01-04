@@ -283,7 +283,7 @@ head-initial:                                   & example:\\
   nh-dtrs & < [ phon \2 ] > ]
 }&%
 \avm{
-[ phon & \phonliste{ squirrel, from, America }\\
+[ phon & \phonliste{ squirrel, from, America }\smallskip\\
   head-dtr & [ phon \phonliste{ squirrel } ]\\
   nh-dtrs & < [ phon \phonliste{ from, America } ] > ]
 }\\
@@ -298,9 +298,9 @@ head-final:                            & example:\\
   nh-dtrs  & < [ phon \2 ] > ]
 }&%
 \avm{
-[ phon & \phonliste{ gray, squirrel }\\
+[ phon & \phonliste{ gray, squirrel }\smallskip\\
   head-dtr & [ phon \phonliste{ squirrel } ]\\
-  nh-dtrs  & < [ phon \phonliste{ Gray } ] > ]
+  nh-dtrs  & < [ phon \phonliste{ gray } ] > ]
 }\\
 \end{tabular}
 \zl
@@ -343,11 +343,11 @@ Head-Complement Schema\is{schema!Head-Complement}:\\
 \avm{
 [ \punk{synsem|loc|cat|comps}{<>}\\
   \punk{head-dtr}{[ synsem|loc|cat|comps \1 ]}\\
-  non-head-dtrs \upshape ! \rel{synsem2signs}(\1) ! ]
+  non-head-dtrs \upshape ! \rel{synsems2signs}(\1) ! ]
 }
 \z
 \largerpage
-\rel{synsem2signs} is a \isi{relational constraint} mapping a list of \type{synsem} objects as they are contained in
+\rel{synsems2signs}\isrel{synsems2signs} is a \isi{relational constraint} mapping a list of \type{synsem} objects as they are contained in
 the \compsl onto a list of objects of type \type{sign} as they are contained in \textsc{head-dtr}
 and \textsc{non-head-dtrs} (see \citealt[\page
   34]{GSag2000a-u} for a similar proposal).\footnote{
@@ -358,7 +358,20 @@ and \textsc{non-head-dtrs} (see \citealt[\page
   page~\pageref{hcs-binary} would not need the relational constraint either, since the \type{synsem} object in
   the \compsl can be shared with the \synsemv of the element in the list of non-head daughters directly.
 }
-How this schema can be used to analyze VPs like the one in (\mex{1}) is shown in Figure~\ref{fig-gave-Sandy-a-book}.
+% inserted in second edition:
+The effect of \rel{synsems2signs} can be sketched as in (\mex{1}):
+\ea
+\label{ex-schema-hc-flat-synsem-sign}
+\avm{
+[ synsem|loc|cat|comps <>\\
+  head-dtr [ synsem|loc|cat|comps < \1, \ldots, \tag{n} > ]\smallskip\\
+  non-head-dtrs < [ synsem \1 ], \ldots, [ synsem \tag{n} ] >  ]
+}
+\z
+If the \compsl is a list with n elements, \rel{synsems2signs} returns a list with n signs with
+\synsem values corresponding to the elements in the \compsl.
+
+How the schema in (\ref{schema-hc-flat}) can be used to analyze VPs like the one in (\mex{1}) is shown in Figure~\ref{fig-gave-Sandy-a-book}.
 \ea
 \label{ex-gave-sandy-a-book}
 Kim gave Sandy a book.
@@ -397,11 +410,11 @@ it possible to have the daughters in the order in which the elements are ordered
 (primary object, secondary object, and obliques) and then compute a \phonv in which the secondary
 object precedes the primary object. \ili{French} is a language with freer constituent order than
 \ili{English} and such flat structures with appropriate reorderings are suggested by \citet{AG2000a}. For
-\ili{English} the function \rel{order-constituents} would just return a concatenation of the \phonvs of the
+\ili{English} the function \rel{order-constituents}\isrel{order-constituents} would just return a concatenation of the \phonvs of the
 daughters, but for other languages it would be much more complicated. In fact this function and its
 interaction with linear precedence constraints was never worked out in detail.
 
-\largerpage[2]
+%\largerpage[2]
 Researchers working on \ili{English} and \ili{French} usually assume a flat structure \parencites[\page 39--40, 362]{ps2}[\page
   479]{Sag97a}[\page 34]{GSag2000a-u}{AG2000a} but assuming binary
 branching structures would be possible as well, as is clear from analyses in Categorial Grammar,
@@ -486,7 +499,7 @@ Head-Complement Schema\is{schema!Head-Complement} (binary branching):\\
   non-head-dtrs & < [ synsem \3 ] > ]
 }
 \z
-\largerpage
+%\largerpage
 The \compsl of the head daughter is split into three lists: a beginning \iboxb{1}, a list containing \ibox{3} and a rest
 \iboxb{2}. \ibox{3} is identified with the \synsemv of the non-head daughter. All other elements of
 the \compsl of the head daughter are concatenated and the result of this concatenation (\ibox{1}
@@ -557,7 +570,7 @@ any element of the list. For valence representation and the order of elements in
 \section{SVO vs.\ SOV}
 \label{sec-svo-sov}
 
-\largerpage[2]
+%\largerpage[2]
 The\is{word order!SVO|(}\is{word order!SOV|(} careful reader will have noticed that the \compsl of
 \emph{gave} in Figure~\ref{fig-gave-sandy-a-book-binary} contains the two objects, while its
 \ili{German} counterpart \emph{gab} has three elements in the \compsl. The rationale behind this
@@ -599,14 +612,14 @@ Specifier-Head Schema\is{schema!Specifier-Head}:\\
 \type{specifier-head-phrase} \impl\\*
 \avm{
 % AVM punk todo
-[ synsem|loc|cat|spr & \1\\
+[ synsem|loc|cat|spr \1\\
   \punk{head-dtr|synsem|loc|cat}{[ spr   & \1 \+ < \2 > \\
-                                   comps & <> ]}\\
-  \punk{non-head-dtrs}{ < [ synsem \2 ] >} ]
+                            comps & <> ]}\vspace{-10pt}\\% bug avm
+  non-head-dtrs < [ synsem \2 ] >& ]
 }
 \z
 
-\largerpage[2]
+%\largerpage[2]
 \noindent
 The last element of the \sprl is realized as the non-head daughter. The remaining list is passed up
 to the mother node. 
@@ -749,7 +762,7 @@ detail. Subsection~\ref{sec-aux-inversion-phrasal} deals with a constructional a
 \subsection{Head movement approaches}
 \label{sec-head-movement}
 
-\largerpage
+%\largerpage
 Building on work by \citet{Jacobson87} in the framework of Categorial Grammar\indexcg,
 \citet{Borsley89} showed that in addition to the analysis of auxiliary inversion in \ili{English} that was
 suggested in GPSG \citep[Section~4.3]{GKPS85a}, an analysis that is similar to the movement-based analysis in GB
@@ -789,7 +802,7 @@ sm edges
 \end{forest}
 \caption{\label{fig-did-kim-get-the-job-hm}Analysis of English auxiliary constructions as head"=movement following \citet{Borsley89}}
 \end{figure}
-\largerpage
+%\largerpage
 A special variant of the auxiliary is licensed by a unary rule. The unary rule has as a daughter the auxiliary as
 it appears in canonical SVO order as in (\mex{0}b). It licenses an auxiliary selecting a full clause
 in which the daughter auxiliary (with the \locv \ibox{2}) is missing. The fact
@@ -854,7 +867,7 @@ researchers working on \ili{German} (\citealp*[Section~4.7]{KW91a}; \citealp{Oli
 %% guess this should go in part 5.2.
 %% }
 
-\largerpage
+%\largerpage
 The alternative to head-movement-based approaches is a flat analysis with an alternative
 serialization of the verb. This was already discussed with respect to \ili{German}, but I want to discuss
 \ili{English} auxiliary constructions here, since they have figured prominently in linguistic
@@ -961,7 +974,7 @@ Verb second sentences can be \emph{w}"=questions (\mex{1}a), declarative sentenc
 \glt `Come now!'
 \zl
 
-\largerpage
+%\largerpage
 \noindent
 While one could try and capture this situation by assuming surface order-related clause types, such approaches are rarely
 used in HPSG (but see \citew{Kathol2001a} and \citew{Wetta2011a}, and see Section~\ref{sec-surface-order} on why such approaches
@@ -983,7 +996,7 @@ assume one lexical item with underspecified semantics. HPSG makes it possible to
 constraints referring to a structure in which an item occurs. Depending on the context, the semantics
 contributed by a specific item can be further specified. Figure~\ref{abb-konstruktion-implikation}
 shows the construction-based and lexical-rule"=based analyses in the abstract for comparison.
-\largerpage
+%\largerpage
 \begin{figure}
 \hfill
 \begin{subfigure}{.4\textwidth}
@@ -1222,7 +1235,7 @@ corresponds to their order.
 \begin{forest}
 sm edges
 [{V[\dom \phonliste{ dem Kind, ein Mann, das Buch, gibt }]}
-  [{NP[\type{dat}, \dom \phonliste{ der, Frau  }]~~~~~~}, no edge, name=np-dat,tier=dat-tier, [dem Kind;the child,roof] ]
+  [{NP[\type{dat}, \dom \phonliste{ dem, Kind  }]~~~~~~}, no edge, name=np-dat,tier=dat-tier, [dem Kind;the child,roof] ]
   [{NP[\type{nom}, \dom \phonliste{ ein, Mann }]} [ein Mann;a man, roof]]
   [{V[\dom \phonliste{ dem Kind, das Buch, gibt }]}, name=v
    [NP, phantom, tier=dat-tier ]
@@ -1596,7 +1609,7 @@ only purpose in the grammar of \ili{German} was to account for apparent multiple
 frontings. \citet{Mueller2005d,MuellerGS} drops the linearization approach and assumes head-movement
 instead. The empty head that is used for accounting for the verb position in \ili{German} can also be used
 to account for apparent multiple frontings. The analysis is sketched in (\mex{1}):
-\largerpage
+%\largerpage
 \eal
 \ex
 \label{ex-zum-zweiten-anal-zwei}%
