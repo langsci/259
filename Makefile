@@ -38,8 +38,10 @@ main.pdf: $(SOURCE)
 # sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.adx
 # sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.ldx
 	sed -i.backup 's/\\MakeCapital //g' main.adx
-	python3 fixindex.py
+	python3 fixindex.py lsa
 	mv mainmod.adx main.adx
+	mv mainmod.ldx main.ldx
+	mv mainmod.sdx main.sdx
 	footnotes-index.pl main.ldx
 	footnotes-index.pl main.sdx
 	footnotes-index.pl main.adx 
@@ -443,7 +445,7 @@ proofreading.pdf: main.pdf
 
 
 # extract all bibtex items and then remove irrelevant fields with --tool
-hpsg-handbook-bibliography.bib: $(Bibliographies) bib handbook.pdf
+hpsg-handbook-bibliography.bib: $(Bibliographies) bib handbook.pdf 
 	biber --output_format=bibtex --output-legacy-date handbook.bcf -O hpsg-handbook-bibliography_tmp.bib 
 	biber --tool --configfile=biber-tool.conf --output-field-replace=location:address,journaltitle:journal,date:year --output-legacy-dates hpsg-handbook-bibliography_tmp.bib -O hpsg-handbook-bibliography.bib
 
