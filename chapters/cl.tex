@@ -13,7 +13,7 @@
 
 
 
-\author{Emily M.\ Bender\affiliation{University of Washington}\lastand Guy Emerson\affiliation{University of Cambridge}}
+\author{Emily M.\ Bender\orcid{0000-0001-5384-6227}\affiliation{University of Washington} and Guy Emerson\orcid{0000-0002-3136-9682}\affiliation{University of Cambridge}}
 
 \title{Computational linguistics and grammar engineering}
 
@@ -209,7 +209,7 @@ mother and daughter nodes), it is possible to adapt the standard \textit{parsing
 % EMB 2019-02-21 We should have cite for chart-parsing. It looks like Kay 1973 is the originator of that idea, so putting that in for now.
 The basic idea is to parse ``bottom-up'',
 starting by finding analyses for each token in the input,
-and then finding analyses for increasingly longer sequences of tokens (called \textit{\isi{span}s}),
+and then finding analyses for increasingly longer sequences of tokens (called \textit{spans}\is{span}),
 until the parser reaches the entire sentence.
 
 For a context-free grammar,\is{context-free grammar (CFG)}
@@ -572,7 +572,7 @@ This is equivalent to the feature structure in~(\ref{cl:fig:mrs-feat}).
 		l_1\colon & \textit{\_the\_q}\left(x_1,h_1,h_2\right), h_1 \,\textsc{qeq}\, l_4 \\
 		l_2\colon & \textit{udef\_q}\left(x_2,h_3,h_4\right), h_3 \,\textsc{qeq}\, l_3 \\
 		l_3\colon & \textit{\_cherry\_n\_1}\left(x_2\right) \\
-		l_4\colon & \textit{\_tree\_n\_of}\left(x_1\right), \textit{compound}\left(e_2,x_1,x_2\right) \\
+		l_4\colon & \textit{\_tree\_n\_of}\left(x_1\right), \textit{ compound}\left(e_2,x_1,x_2\right) \\
 		\textsc{ltop}, l_5\colon & \textit{\_blossom\_v\_1}\left(e_1,x_1\right)
 	\end{align*}
 	\end{minipage}
@@ -602,12 +602,12 @@ or \textsc{neq}\is{NEQ} (the linked nodes don't share a label).
 	\ex\label{cl:fig:dmrs}
 	\small
 	\begin{tikzpicture}[node distance=7mm and 11mm, inner sep=1.5mm, thick, baseline=(ch.base)]
-		\node (ch) {\it \_cherry\_n\_1};
-		\node[right=of ch] (cm) {\it compound};
-		\node[right=of cm] (tr) {\it \_tree\_n\_of};
-		\node[right=of tr] (b) {\it \_blossom\_v\_1};
-		\node[above=of ch] (u) {\it udef\_q};
-		\node[above=of tr] (th) {\it \_the\_q};
+		\node (ch) {\itshape \_cherry\_n\_1};
+		\node[right=of ch] (cm) {\itshape compound};
+		\node[right=of cm] (tr) {\itshape \_tree\_n\_of};
+		\node[right=of tr] (b)  {\itshape \_blossom\_v\_1};
+		\node[above=of ch] (u)  {\itshape udef\_q};
+		\node[above=of tr] (th) {\itshape \_the\_q};
 		\draw[->] (cm) -- (ch) node[midway, above] {\textsc{arg2/neq}};
 		\draw[->] (cm) -- (tr) node[midway, above] {\textsc{arg1/eq}};
 		\draw[->] (b) -- (tr) node[midway, above] {\textsc{arg1/neq}};
@@ -630,10 +630,10 @@ equivalent to the \textsc{rstr/qeq}\isfeat{rstr}\is{QEQ} of DMRS.
 \begin{exe}
 	\ex\label{cl:fig:dm}
 	\begin{tikzpicture}[node distance=15mm, inner sep=1.5mm, thick, baseline=(ch.base)]
-		\node (th) {\it the\vphantom{y}};
-		\node[right=of th] (ch) {\it cherry};
-		\node[right=of ch] (tr) {\it tree\vphantom{y}};
-		\node[right=of tr] (b) {\it blossomed\vphantom{y}};
+		\node (th) {\itshape the\vphantom{y}};
+		\node[right=of th] (ch) {\itshape cherry};
+		\node[right=of ch] (tr) {\itshape tree\vphantom{y}};
+		\node[right=of tr] (b) {\itshape blossomed\vphantom{y}};
 		\draw[->] (ch) -- (tr) node[midway, above] {\textsc{compound}};
 		\draw[->] (b) -- (tr) node[midway, above] {\textsc{arg1}};
 		\draw[->] (th) to[out=90, in=90, looseness=.4] node[midway, above, inner sep=1mm] {\textsc{bv}} (tr);

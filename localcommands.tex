@@ -1,7 +1,20 @@
 %add all your local new commands to this file
 
-% The orchid-id is specified and then extracted by scripts for zenodo.
-\newcommand{\orcid}[1]{} 
+
+\SetupAffiliations{output in groups = false,
+                   orcid placement = after,
+                   separator between two = {\bigskip\\},
+                   separator between multiple = {\bigskip\\},
+                   separator between final two = {\bigskip\\}
+                   }
+
+% ORCIDs in langsci-affiliations 
+\definecolor{orcidlogocol}{cmyk}{0,0,0,1}
+\RenewDocumentCommand{\LinkToORCIDinAffiliations}{ +m }
+  {%
+    \,\orcidlink{#1}%
+  }
+
 
 % do not show the chapter number. It is redundant, since most references to figures are within the
 % same chapter.
@@ -1130,16 +1143,29 @@ a. & \parbox[t]{.4\textwidth}{#1} & b. & \parbox[t]{.4\textwidth}{#2}\\
 
 
 
-% This does a linebreak for \gll for long sentences leaving space for the language at the right
-% margin. The factor .0989 is needed since otherwise starred examples cause a linebreak.
-% St.Mü. 17.06.2021 08.02.2021
-\newcommand{\longexampleandlanguage}[2]{%
-\begin{tabularx}{.989\linewidth}[t]{@{}X@{}p{\widthof{(#2)}}@{}}%
-\begin{minipage}[t]{.989\linewidth}%
-#1%
-\end{minipage} & (\ili{#2})%
-\end{tabularx}}
+% % This does a linebreak for \gll for long sentences leaving space for the language at the right
+% % margin. The factor .0989 is needed since otherwise starred examples cause a linebreak.
+% % St.Mü. 17.06.2021 08.02.2021
+% \newcommand{\longexampleandlanguage}[2]{%
+% \begin{tabularx}{.989\linewidth}[t]{@{}X@{}p{\widthof{(#2)}}@{}}%
+% \begin{minipage}[t]{.989\linewidth}%
+% #1%
+% \end{minipage} & (\ili{#2})%
+% \end{tabularx}}
 
+% From stackexchange:
+% https://tex.stackexchange.com/questions/600695/limiting-space-used-by-gb4e-and-adding-language-information-to-the-right/649414#649414
+\newcommand{\longexampleandlanguage}[2]{
+%\begin{tabularx}{\linewidth}[t]{@{}X@{}p{\widthof{(#2)}}@{}}
+\begin{minipage}[t]{\linewidth-1em-\widthof{(#2)}}
+#1
+\end{minipage} 
+\hfill
+\begin{minipage}[t]{\widthof{(#2)}}
+ (\ili{#2})
+\end{minipage}
+%\end{tabularx}
+}
 
 
 \renewcommand{\indexccg}{\is{Categorial Grammar (CG)!Combinatorial \textasciitilde{} (CCG)}\xspace}
