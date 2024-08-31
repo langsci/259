@@ -1426,7 +1426,7 @@ can differ without being in conflict.
  phon    & \1 \+ \phonliste{ bar } \\
  morph-b & <[\type*{trans-verb}
             phon  & \1 \\
-            local & local ]> \\
+            \textsc{synsem|local} \type{local} ]> \\
             \punk{synsem|local}{local} ]					
 }
 \z
@@ -1528,7 +1528,24 @@ The alternatives to lexical rules described in the following section lack this n
 In this section we briefly examine two alternatives to lexical rules, each involving underspecification. The types of members of the \feat{arg-st} list might be underspecified so that a single lexical description can correspond to more than one subcategorization frame. Or the type of the entry itself may be underspecified, so that it subsumes multiple inflectional or derivational forms. In both cases, the intent is that sufficiently underspecified information covers multiple entries that would otherwise have to be specified and related by lexical rules. We begin with alternatives to the complement extraction and clitic lexical rules in (\ref{celr}) and (\ref{cl-lr}), proposed in \citew{Boumaetal2001} and \citew{MillerandSag1997}.%
 \isfeat{arg-st}\is{valence}
 
-In both cases, the idea is to distinguish between ``canonical'' and ``non"=canonical''\is{canonical synsem@canonical \type{synsem}} realizations of syntactic arguments, as shown in the hierarchy of \type{synsem} types in Figure~\ref{synsem}. ``Canonical'' means local realization as a complement or subject/""specifier, and ``non-canonical'' means realization as an affix or filler of an unbounded dependency. Linking constraints between semantic roles (values of argument positions)\is{linking} and syntactic arguments (members of \feat{arg-st}) do not specify whether the realization is canonical or not; thus they retain their original form. Only canonical members of \feat{arg-st} must be structure-shared with members of valence lists. The two constraints that determine the non-canonical realization of fillers are shown in (\ref{fillers}) and (\ref{wd-bouma}). (\ref{fillers}) specifies what it means to be a \type{gap-ss}, namely that the argument is extracted (its local information is ``slashed'') whereas (\ref{wd-bouma}) prohibits any \type{gap-ss} member from being a member of the \attrib{comps} list (see \citealt[23]{Boumaetal2001}). As these two constraints are compatible with either a canonical or extracted object, there is no need for the lexical rule in (\ref{celr}). (\attrib{deps} in (\ref{wd-bouma}) is an attribute \citeauthor{Boumaetal2001} introduce that includes not only syntactic arguments, the value of \feat{arg-st}, but also some syntactic adjuncts; $\ominus$ stands for list subtraction)
+In both cases, the idea is to distinguish between ``canonical'' and ``non"=canonical''\is{canonical
+  synsem@canonical \type{synsem}} realizations of syntactic arguments, as shown in the hierarchy of
+\type{synsem} types in Figure~\ref{synsem}. ``Canonical'' means local realization as a complement or
+subject/""specifier, and ``non-canonical'' means realization as an affix or filler of an unbounded
+dependency. Linking constraints between semantic roles (values of argument positions)\is{linking}
+and syntactic arguments (members of \feat{arg-st}) do not specify whether the realization is
+canonical or not; thus they retain their original form. Only canonical members of \feat{arg-st} must
+be structure-shared with members of valence lists. The two constraints that determine the
+non-canonical realization of fillers are shown in (\ref{fillers}). (\ref{gap}) specifies what it means to be a \type{gap-ss}, namely that the
+argument is extracted (its local information is ``slashed'') whereas (\ref{wd-bouma}) prohibits any
+\type{gap-ss} member from being a member of the \attrib{comps} list (see
+\citealt*[23]{Boumaetal2001}).\footnote{%
+The constraint in (\ref{wd-bouma}) says nothing about the length of the \subjl. In principle, the \deps list
+could be split in a way that all arguments appear on the \subjl.  Other constraints in the
+grammar may limit the length of the \subjl. For example, \citet[24]{Boumaetal2001} assume that lexical items for
+specific \ili{English} verbs have exactly one \type{synsem} object on their \subjl.
+} As these two constraints are compatible with either a canonical or
+extracted object, there is no need for the lexical rule in (\ref{celr}). The value of the attribute \attrib{deps}, introduced by \citeauthor{Boumaetal2001}, is a list consisting not only of the syntactic arguments in \feat{arg-st}, but also some syntactic adjuncts.  The symbol $\ominus$\is{$\ominus$} stands for list difference.
 % TD, 1 Aug: Is this from Bouma, et al.?  If so we should indicate that more clearly in this paragraph (and the following examples).
 %JPK 5 Aug I now make that clear and give the page number. Added stuff about DEPs
 
@@ -1544,28 +1561,29 @@ type hierarchy
 \caption{\label{synsem} Subtypes of \type{synsem}}
 \end{figure}
 
-\ea
+\eal
 \label{fillers}
-%\label{gap}
-% todo avm list(gap-ss) should not produce list(GAP-SS)
+% todo avm 
 % #23 too much space after \+ and \-
-		\type{gap-ss} \impl
+\ex
+\label{gap}
+\type{gap-ss} \impl
 		\avm{
 		[loc & \1 \\
 			slash & \{ \1 \} ]
 		}
-		\ex\label{wd-bouma}
-		\type{word} \impl
+\ex\label{wd-bouma}\is{principle!Argument Realization (ARP)}
+\type{word} \impl
 		\avm{
 			[subj  & \1 \\
 			 comps & \2 \- \listOf{gap-ss} \\
-			 deps  & < \1 > \+ \2
+			 deps  & \1 \+ \2
 			]
 		}
-\z
+\zl
 
 \noindent
-\citet{MillerandSag1997}\is{clitic!in \ili{Romance} languages} make a similar use of non-canonical relations between the \feat{arg-st} list and the valence lists, eschewing lexical rules to model \ili{French} pronominal object affixes (traditionally called clitics) and proposing instead the constraint on the type \type{cl-wd} (the type for verbs that include object affixes in (\ref{cl-wd}),\itddone{What is this a constraint on?} where a subset of \feat{arg-st} members, those that are realized as affixes (of type \type{aff}), are not also selected as complements. 
+\citet{MillerandSag1997}\is{clitic!in Romance languages} make a similar use of non-canonical relations between the \feat{arg-st} list and the valence lists, eschewing lexical rules to model \ili{French} pronominal object affixes (traditionally called clitics) and proposing instead the constraint on the type \type{cl-wd} (the type for verbs that include object affixes in (\ref{cl-wd}),\itddone{What is this a constraint on?} where a subset of \feat{arg-st} members, those that are realized as affixes (of type \type{aff}), are not also selected as complements. 
 
 
 \ea
@@ -1708,7 +1726,7 @@ Figure~\ref{fig-verb-hier2} is a simplified  hierarchy of verb lexemes we use fo
 
 For reasons of space we illustrate the usefulness of this dynamic approach to type creation, the \isi{Type Underspecified Hierarchical Lexicon (TUHL)}, with an example from \citet{Koenig1999c}:\ the cross-cutting classification of syntactic/semantic information and stem form in the entry for the \ili{French} verb \word{aller} (see \citealt{BonamiandBoye2001} for a much more thorough discussion of \ili{French} stem allomorphy along similar lines; Crysmann \& Bonami's much more developed approach to stem allomorphy would model the same phenomena differently and we use Koenig's simplified presentation for expository purposes only). The forms of \word{aller} are based on four different suppletive stems:\is{morphology!suppletion} \word{all-} (1\textsuperscript{st} and 2\textsuperscript{nd} person plural of the indicative and imperative present, infinitive, past participle, and imperfective past), \word{i-} (future and conditional), \word{v-} (1\textsuperscript{st}, 2\textsuperscript{nd}, or 3\textsuperscript{rd} person singular and 3\textsuperscript{rd} person plural of the indicative present), and \word{aill-} (subjunctive present). These four suppletive stems are shared by all entries (i.e., senses) of the lexeme \word{aller}: the one which means `to fit' as well as the one which means `to leave', as shown in (\ref{aller-lex}) (see \citealt[40--41]{Koenig1999c}). The cross-cutting generalizations over lexemes and stems are represented in Figure~\ref{all-hier}. Any \word{aller} stem combines one entry and one stem form. In a traditional HPSG type hierarchy, each combination of types (grayed out in Figure~\ref{all-hier}), would have to be stipulated. In a TUHL, these combinations can be dynamically created when an instance of \word{aller} needs to be produced or comprehended.
 
-\largerpage
+%\largerpage
 \eal
 \label{aller-lex}
 \ex\label{aller-lex-a}
