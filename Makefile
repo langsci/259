@@ -17,6 +17,9 @@ langscibook.cls langsci-unified.bbx langsci-forest-setup.sty
 # removed 147 non-referenced papers out of 1582
 
 
+# MacBook Pro 16" 2023 M2 Max 623.851u 71.119s 11:31.19 100.5%
+
+
 # specify your main target here:
 pdf:  main.bbl main.pdf  #by the time main.pdf, bib assures there is a newer aux file
 
@@ -30,8 +33,10 @@ index:  main.snd
 # the footer needs several biber runs ...
 main.pdf: $(SOURCE)
 	xelatex -shell-escape main
+	\cp -f main.pdf main-view.pdf 
 	biber main
 	xelatex -shell-escape main
+	\cp -f main.pdf main-view.pdf 
 	biber main
 	sed -i.backup s/.*\\emph.*// main.adx #remove titles which biblatex puts into the name index
 # sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.sdx # ordering of references to footnotes
@@ -49,6 +54,7 @@ main.pdf: $(SOURCE)
 	makeindex -gs index.format -o main.lnd main.ldx
 	makeindex -gs index.format -o main.snd main.sdx 
 	xelatex -shell-escape main
+	\cp -f main.pdf main-view.pdf 
 
 
 handbook.pdf: $(SOURCE)
@@ -463,6 +469,9 @@ references.pdf: references.tex hpsg-handbook-bibliography.bib
 
 references: references.pdf
 
+handbook.bcf: $(SOURCE)
+	xelatex handbook.tex
+
 todo-localbib.unique.txt: handbook.bcf
 	biber -V handbook | grep -i warn | grep localbib | sort -uf > todo-localbib.unique.txt
 
@@ -487,6 +496,11 @@ paperhive:
 	git checkout master 
 	echo "langsci.github.io/BOOKID"
 	firefox https://paperhive.org/documents/new
+
+
+checked.bib: localbibliography.bib
+	cat ../../Bibliographien/bib-abbr.bib localbibliography.bib > temp.bib
+	extract-checked-items temp.bib
 
 
 blurb: blurb.html blurb.tex biosketch.tex biosketch.html
