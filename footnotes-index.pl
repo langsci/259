@@ -1,4 +1,4 @@
-#!/usr/local/bin/perl
+#!/usr/bin/perl
 #
 # CC-BY Stefan Müller (HU Berlin)
 #
