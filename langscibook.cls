@@ -1546,6 +1546,7 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 	style=langsci-unified,
 	citestyle=langsci-unified,
 	datamodel=langsci,   % add authauthor and autheditor as possible fields to bibtex entries
+        sorting=nycot,       % defined in langsci-unified.bbx
 	%refsection=chapter,
 	maxbibnames=99,
 	uniquename=false,
@@ -1948,8 +1949,8 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
   \renewcommand{\newlineSpine}{}
   \renewcommand{\newlineTOC}{}  
   %% write bib entry to file
-  \immediate\write\tempfile{@incollection{#1,author={\authorToBib},title={{\expandonce{\titleTemp}}},booktitle={{\expandonce{\lsCollectionTitle}}},editor={\lsCollectionEditor},publisher={Language Science Press.},Address={Berlin},year={\lsYear},pages={\lsCollectionPaperFirstPage --\lsCollectionPaperLastPage},doi={\lsChapterDOI},keywords={withinvolume}}}
-  \immediate\write\tempfile{@incollection{#1footer,author={\authorToBib},title={{\expandonce{\titleTemp}}},booktitle={{\expandonce{\lsCollectionTitle}}},editor={\lsCollectionEditor},publisher={Language Science Press.},Address={Berlin},year={\lsYear},pages={\lsCollectionPaperFirstPage --\lsCollectionPaperLastPage},doi={\lsChapterDOI},options={dataonly=true}}}
+  \immediate\write\tempfile{@incollection{#1,author={\authorToBib},title={{\expandonce{\titleTemp}}},booktitle={{\expandonce{\lsCollectionTitle}}},editor={\lsCollectionEditor},publisher={Language Science Press},Address={Berlin},series = {\lsSeriesTitle},number = {\lsSeriesNumber},year={\lsYear},pages={\lsCollectionPaperFirstPage --\lsCollectionPaperLastPage},doi={\lsChapterDOI},keywords={withinvolume},checked={generated}}}
+  \immediate\write\tempfile{@incollection{#1footer,author={\authorToBib},title={{\expandonce{\titleTemp}}},booktitle={{\expandonce{\lsCollectionTitle}}},editor={\lsCollectionEditor},publisher={Language Science Press},Address={Berlin},series={\lsSeriesTitle},number={\lsSeriesNumber},year={\lsYear},pages={\lsCollectionPaperFirstPage --\lsCollectionPaperLastPage},doi={\lsChapterDOI},options={dataonly=true},checked={generated}}}
 }
 
 \newcommand{\titleToHead}{}
