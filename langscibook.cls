@@ -1553,7 +1553,7 @@ Storage and cataloguing done by \storageinstitution\\[3ex]
 	mincrossrefs=99,
 	maxcitenames=2,
 	isbn=false,
-	autolang=hyphen,
+	autolang=hyphen,  
 	\ifbool{resetcapitals}{language=english,}{}
 	backend=\lsBiblatexBackend,
 	indexing=cite
