@@ -1451,7 +1451,19 @@ a [[book about syntax] which impresses everyone]
 \zl
 
 \noindent
-In much HPSG work, adjuncts select the heads they combine with through a feature \textsc{mod(ifies)} whose value is a \type{synsem} object, while other signs are \mbox{[\textsc{mod} \type{none}]}. Thus, (\ref{ex:prop43a}) involves the schematic structure in Figure~\ref{fig:prop10}.
+In much HPSG work, adjuncts select the heads they combine with through a feature \textsc{mod(ifies)} whose value is a \type{synsem} object, while other signs are \mbox{[\textsc{mod} \type{none}]}. The type \type{hd-adj-ph} is subject to a constraint of the following form:
+\ea
+\type{hd-adj-ph} \impl \avm{ [hd-dtr & \1\\
+                              dtrs   & < \1 [ synsem \2 ], [head|mod \2] > ] }	
+\z
+
+\noindent
+This ensures that a head-adjunct phrase has two daughters, one of which is a head, and that the
+\synsem value of the head daughter is identical to the \modv of the non-head daughter. Following
+\citet[41]{GSag2000a-u} this assumes that \textsc{mod} is part of the value of \head. With this
+constraint, we have structures like that in Figure~\ref{fig:prop10} for (\ref{ex:prop43a}).
+
+
 %\inlinetodoopt{\type{head-adj-ph} is at sign level. \ibox{3} is at \synsem level. \ldots}
 \begin{figure}
 \begin{forest}
@@ -1513,7 +1525,22 @@ Various arguments have been advanced for this position, but it is controversial 
 %%%%%%%%%%%%%%%%%%%%
 \subsection{Specifiers and markers}\label{sec:prop6.2}
 
-As noted earlier, some HPSG work assumes a feature \textsc{spr (specifier)} which is realised by various categories. In some work, subjects are analysed as specifiers \citep*[100--103]{SWB2003a}, but in other approaches, they are realisations of a \textsc{subj(ect)} feature, as discussed in the last section. For some HPSG work, e.g.\ \citew[Section~9.4]{ps2} and \citew[Section~4.3]{SWB2003a}, determiners within NPs are an important example of specifiers. On this view, \emph{the pub} has the schematic structure in Figure~\ref{fig:prop11}.
+As noted earlier, some HPSG work assumes a feature \textsc{spr (specifier)} which is realised by
+various categories. In some work, subjects are analysed as specifiers \citep*[100--103]{SWB2003a},
+but in other approaches, they are realisations of a \textsc{subj(ect)} feature, as discussed in the
+last section. For some HPSG work, e.g.\ \citew[Section~9.4]{ps2} and \citew[Section~4.3]{SWB2003a},
+determiners within NPs are an important example of specifiers. The type \type{hd-spr-ph} is subject
+to a constraint of the following form: 
+\ea
+\type{head-spr-ph} \impl \avm{[ spr & \eliste\\
+                                hd-dtr & \1 [spr & < \2 > \\
+                                             comps & < > ]\\
+                                dtrs   & < [synsem \2], \1 > ]}              
+\z
+
+\noindent
+This ensures that a head-specifier phrase is [\spr \eliste] and has a head daughter which is [\comps
+\eliste] and a non-head daughter with the \type{synsem} properties that appear in the head’s \sprl. On this view, \emph{the pub} has the schematic structure in Figure~\ref{fig:prop11}.
 
 \begin{figure}
 \begin{forest}
