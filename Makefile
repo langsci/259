@@ -58,7 +58,7 @@ main.pdf: $(SOURCE)
 
 
 handbook.pdf: $(SOURCE)
-	xelatex -shell-escape handbook
+	xelatex handbook
 	biber handbook
 	xelatex -shell-escape handbook
 	sed -i.backup s/.*\\emph.*// handbook.adx #remove titles which biblatex puts into the name index
