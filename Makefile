@@ -34,11 +34,11 @@ index:  main.snd
 main.pdf: $(SOURCE)
 	xelatex -shell-escape main
 	\cp -f main.pdf main-view.pdf 
-	sed -i.backup 's/{\\itshape Second revised edition}//' collection_tmp.bib
+#	sed -i.backup 's/{\\itshape Second revised edition}//' collection_tmp.bib
 	biber main
 	xelatex -shell-escape main
 	\cp -f main.pdf main-view.pdf 
-	sed -i.backup 's/{\\itshape Second revised edition}//' collection_tmp.bib
+#	sed -i.backup 's/{\\itshape Second revised edition}//' collection_tmp.bib
 	biber main
 	sed -i.backup s/.*\\emph.*// main.adx #remove titles which biblatex puts into the name index
 # sed -i.backup 's/hyperindexformat{\\\(infn {[0-9]*\)}/\1/' main.sdx # ordering of references to footnotes
